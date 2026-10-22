@@ -1,0 +1,137 @@
+<div id="oscp-terminal-review">
+  <style>
+    #oscp-terminal-review .oscp-product { --oscp-bg:light-dark(#eff1ed,#151c1c); --oscp-panel:light-dark(#ffffff,#202929); --oscp-text:light-dark(#182b2b,#e4ece8); --oscp-sub:light-dark(#4d6360,#b2c5be); --oscp-line:light-dark(#bdcbc5,#43534e); --oscp-accent:light-dark(#174e44,#9bd3b4); --oscp-selected:light-dark(#d5e6dc,#344b40); --oscp-warning:light-dark(#805000,#f1cb84); --oscp-size:14px; color:var(--oscp-text); background:var(--oscp-bg); font:400 var(--oscp-size)/1.5 system-ui,sans-serif; min-height:700px; border:1px solid var(--oscp-line); box-sizing:border-box; }
+    #oscp-terminal-review .oscp-product * { box-sizing:border-box; }
+    #oscp-terminal-review .oscp-top { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; padding:18px 20px; background:var(--oscp-panel); border-bottom:1px solid var(--oscp-line); }
+    #oscp-terminal-review .oscp-brand { font:500 22px/1.2 ui-monospace,monospace; letter-spacing:2px; }
+    #oscp-terminal-review .oscp-sub { color:var(--oscp-sub); }
+    #oscp-terminal-review .oscp-meta { display:flex; flex-wrap:wrap; gap:8px 20px; padding:9px 20px; color:var(--oscp-sub); border-bottom:1px solid var(--oscp-line); font-family:ui-monospace,monospace; font-size:12px; }
+    #oscp-terminal-review .oscp-control { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+    #oscp-terminal-review button, #oscp-terminal-review select, #oscp-terminal-review input { color:var(--oscp-text); background:var(--oscp-panel); border:1px solid var(--oscp-line); border-radius:3px; padding:8px 11px; font:inherit; max-width:100%; }
+    #oscp-terminal-review button:disabled { opacity:.55; }
+    #oscp-terminal-review button[aria-current="page"] { background:var(--oscp-selected); border-color:var(--oscp-accent); }
+    #oscp-terminal-review .oscp-primary { background:var(--oscp-selected); color:var(--oscp-accent); border-color:var(--oscp-accent); }
+    #oscp-terminal-review .oscp-workspace { display:grid; grid-template-columns:177px minmax(0,1fr); min-height:548px; }
+    #oscp-terminal-review .oscp-nav { display:flex; flex-direction:column; align-items:stretch; gap:6px; padding:18px 12px; border-right:1px solid var(--oscp-line); }
+    #oscp-terminal-review .oscp-nav button { text-align:left; }
+    #oscp-terminal-review .oscp-nav small { padding:12px 6px; color:var(--oscp-sub); font-size:12px; }
+    #oscp-terminal-review .oscp-content { padding:22px; min-width:0; }
+    #oscp-terminal-review h2 { font:500 20px/1.3 system-ui,sans-serif; margin:0 0 8px; }
+    #oscp-terminal-review h3 { font:500 15px/1.4 system-ui,sans-serif; margin:0 0 10px; }
+    #oscp-terminal-review p { margin:8px 0 14px; }
+    #oscp-terminal-review .oscp-columns { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:18px; margin-top:20px; }
+    #oscp-terminal-review .oscp-box { background:var(--oscp-panel); padding:18px; border:1px solid var(--oscp-line); }
+    #oscp-terminal-review .oscp-kicker { color:var(--oscp-sub); font:400 12px/1.5 ui-monospace,monospace; letter-spacing:.7px; margin-bottom:8px; }
+    #oscp-terminal-review .oscp-warning { color:var(--oscp-warning); }
+    #oscp-terminal-review dl { margin:14px 0; }
+    #oscp-terminal-review dl div { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px; border-bottom:1px solid var(--oscp-line); padding:9px 0; }
+    #oscp-terminal-review dt { color:var(--oscp-sub); }
+    #oscp-terminal-review dd { margin:0; }
+    #oscp-terminal-review .oscp-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+    #oscp-terminal-review .oscp-receipt { padding:12px 0; color:var(--oscp-accent); min-height:46px; }
+    #oscp-terminal-review .oscp-document { background:var(--oscp-panel); padding:20px; border:1px solid var(--oscp-line); }
+    #oscp-terminal-review .oscp-document p { max-width:68ch; }
+    #oscp-terminal-review .oscp-footer { padding:10px 20px; border-top:1px solid var(--oscp-line); color:var(--oscp-sub); font-size:12px; }
+    #oscp-terminal-review .oscp-command-nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    #oscp-terminal-review .oscp-console { font-family:ui-monospace,monospace; }
+    #oscp-terminal-review .oscp-console h2, #oscp-terminal-review .oscp-console h3 { font-family:ui-monospace,monospace; }
+    #oscp-terminal-review .oscp-console .oscp-content { padding:20px; }
+    #oscp-terminal-review .oscp-console .oscp-columns { grid-template-columns:1fr; }
+    #oscp-terminal-review .oscp-console .oscp-box { border:0; border-left:3px solid var(--oscp-line); padding:12px 18px; }
+    #oscp-terminal-review .oscp-command-form { display:flex; gap:8px; align-items:center; margin-top:16px; }
+    #oscp-terminal-review .oscp-command-form input { flex:1; min-width:0; }
+    #oscp-terminal-review pre { white-space:pre-wrap; overflow-wrap:anywhere; font:400 13px/1.6 ui-monospace,monospace; margin:0 0 14px; }
+    @media(max-width:760px) { #oscp-terminal-review .oscp-columns { grid-template-columns:1fr; } #oscp-terminal-review .oscp-workspace { grid-template-columns:1fr; } #oscp-terminal-review .oscp-nav { flex-direction:row; flex-wrap:wrap; border-right:0; border-bottom:1px solid var(--oscp-line); } #oscp-terminal-review .oscp-nav small { flex-basis:100%; padding:4px; } #oscp-terminal-review .oscp-content { padding:16px; } }
+    @media(max-width:440px) { #oscp-terminal-review .oscp-top { padding:14px; } #oscp-terminal-review .oscp-control { width:100%; } #oscp-terminal-review .oscp-control select { width:100%; } #oscp-terminal-review .oscp-command-form { flex-wrap:wrap; } #oscp-terminal-review .oscp-command-form input { flex-basis:100%; } }
+  </style>
+  <div class="viz-carousel" aria-label="OSCP interface approaches">
+    <section data-variant="Operations workspace" aria-label="Operations workspace design">
+      <div class="oscp-product" data-layout="workspace" aria-label="OSCP operations workstation">
+        <header class="oscp-top"><div><div class="oscp-brand">OSCP</div><div class="oscp-sub">Foundation information &amp; operations</div></div><div class="oscp-control"><label>Session <select data-role aria-label="Workspace session role"><option value="director">Regional director</option><option value="security">Security officer</option><option value="cafeteria">Cafeteria employee</option></select></label><button type="button" class="cursor-interaction" data-action="link">Disconnect SCiPnet</button></div></header>
+        <div class="oscp-meta"><span>WT-04 / Site [REDACTED]</span><span data-link-status>SCiPnet connected</span><span>Day 1 · 09:12 · 1×</span></div>
+        <div class="oscp-workspace"><nav class="oscp-nav" aria-label="Workspace applications"><button type="button" class="cursor-interaction" data-view="operations">Operations</button><button type="button" class="cursor-interaction" data-view="records">Records</button><button type="button" class="cursor-interaction" data-view="mail">SCiPnet mail</button><button type="button" class="cursor-interaction" data-view="technical">Technical support</button><small>Local device<br>Resident AIC assigned</small></nav><main class="oscp-content" data-content></main></div>
+        <footer class="oscp-footer">Design preview · illustrative data · resident AIC confirmed; identity and authority profile pending</footer>
+      </div>
+    </section>
+    <section data-variant="Command and document" aria-label="Command and document design" hidden>
+      <div class="oscp-product oscp-console" data-layout="console" aria-label="OSCP command workstation">
+        <header class="oscp-top"><div><div class="oscp-brand">OSCP / SCiPnet</div><div class="oscp-sub">Authenticated document session</div></div><div class="oscp-control"><label>Session <select data-role aria-label="Console session role"><option value="director">Regional director</option><option value="security">Security officer</option><option value="cafeteria">Cafeteria employee</option></select></label><button type="button" class="cursor-interaction" data-action="link">Disconnect SCiPnet</button></div></header>
+        <div class="oscp-meta"><span>WT-04 / Site [REDACTED]</span><span data-link-status>SCiPnet connected</span><span>Day 1 · 09:12 · 1×</span></div>
+        <main class="oscp-content"><nav class="oscp-command-nav" aria-label="Command view applications"><button type="button" class="cursor-interaction" data-view="operations">status</button><button type="button" class="cursor-interaction" data-view="records">case R-017</button><button type="button" class="cursor-interaction" data-view="mail">mail</button><button type="button" class="cursor-interaction" data-view="technical">support</button></nav><div data-content></div><div class="oscp-command-form" role="group" aria-label="Local command entry"><label for="oscp-command-input">command &gt;</label><input id="oscp-command-input" autocomplete="off" spellcheck="false" placeholder="help" aria-label="OSCP preview command"><button type="button" class="cursor-interaction" data-action="command">Submit</button></div><div class="oscp-receipt" data-command-output aria-live="polite"></div></main>
+        <footer class="oscp-footer">Design preview · local command examples only · resident AIC; detailed authority pending</footer>
+      </div>
+    </section>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('oscp-terminal-review');
+      const validRoles = ['director','security','cafeteria'];
+      const validViews = ['operations','records','mail','technical'];
+      const state = {role:'director', connected:true, receipt:'', views:{workspace:'operations',console:'records'}};
+      function restore(saved) {
+        const value = saved?.privateContent?.terminalReview;
+        if (!value || typeof value !== 'object') return;
+        if (validRoles.includes(value.role)) state.role=value.role;
+        if (typeof value.connected==='boolean') state.connected=value.connected;
+        for (const layout of ['workspace','console']) if (validViews.includes(value.views?.[layout])) state.views[layout]=value.views[layout];
+      }
+      restore(window.openai?.widgetState);
+      function persist() {
+        if (!window.openai?.setWidgetState) return;
+        Promise.resolve(window.openai.setWidgetState({modelContent:{preview:'OSCP design',role:state.role,connected:state.connected,views:state.views},privateContent:{terminalReview:{role:state.role,connected:state.connected,views:state.views}}})).catch(()=>{});
+      }
+      const record = `<div class="oscp-document"><div class="oscp-kicker">SCiPnet / FIELD REPORT / R-017</div><h2>Unexplained impacts at a disused pump station</h2><p class="oscp-warning">Unverified · designation pending</p><dl><div><dt>Source</dt><dd>Regional contact relay</dd></div><div><dt>Received</dt><dd>Day 1 · 09:08</dd></div><div><dt>Claimed event</dt><dd>Previous night; time uncertain</dd></div><div><dt>Location</dt><dd>Ash Creek service area; approximate</dd></div></dl><h3>Reported observations</h3><p>A contact reports repeated impacts inside the closed building. No Foundation witness has inspected the location. The reported cause and risk remain unknown.</p><h3>Evidence</h3><p>EV-017-A · Contact's audio record · provenance unverified</p><div class="oscp-actions"><button type="button" class="cursor-interaction oscp-primary" data-action="assessment">Request assessment</button><button type="button" class="cursor-interaction" data-action="ack">Acknowledge receipt</button></div><div class="oscp-receipt" data-receipt aria-live="polite"></div></div>`;
+      function content(view) {
+        if (state.role==='cafeteria') return `<div class="oscp-kicker">PERSONAL SESSION / CAFETERIA</div><h2>Food service shift</h2><p>Workplace: cafeteria. Your shift and personal messages are available.</p><div class="oscp-box"><h3>Restricted operational workspace</h3><p>Containment case files and regional deployment require additional authorization.</p><p class="oscp-sub">Current duty: serving breakfast. General hauling preference does not change this assignment.</p></div>`;
+        if (view==='records') return record;
+        if (view==='mail') return `<div class="oscp-kicker">SCiPnet / COMMUNICATIONS</div><h2>Incoming correspondence</h2><div class="oscp-box"><h3>R-017 · Request for regional assessment</h3><p>Contact relay · received 09:08 · unverified observations</p><button type="button" class="cursor-interaction oscp-primary" data-view="records">Open report</button></div><div class="oscp-box" style="margin-top:16px"><h3>Local security · Observation coverage</h3><p>Procedure staffing is below target. One qualified observer is maintaining sight.</p><button type="button" class="cursor-interaction" data-view="operations">Review coverage</button></div>`;
+        if (view==='technical') return `<div class="oscp-kicker">TECHNICAL SUPPORT / AIAD LIAISON</div><h2>Service incident TS-004</h2><p>CAM-C04 feed intermittently loses synchronization. Local staff report stable power.</p><dl><div><dt>Assigned technical staff</dt><dd>Not yet assigned</dd></div><div><dt>AIC assignment</dt><dd>Resident conscript · identity pending</dd></div><div><dt>Host infrastructure</dt><dd>Local compute rack · power available</dd></div><div><dt>Decision provider</dt><dd>Deterministic duties · local-model interface reserved</dd></div><div><dt>Task authority</dt><dd>Detailed profile under review</dd></div><div><dt>Current effect</dt><dd>Remote observation requires revalidation</dd></div></dl><button type="button" class="cursor-interaction oscp-primary" data-action="technical">Request technical assessment</button><div class="oscp-receipt" data-receipt aria-live="polite"></div>`;
+        return `<div class="oscp-kicker">LOCAL OPERATIONS / SECURITY REPORT 09:12</div><h2>Containment coverage needs relief</h2><p class="oscp-sub">Latest information from the local security service.</p><div class="oscp-columns"><section class="oscp-box"><h3>SCP-650 · C-04</h3><dl><div><dt>Procedure staffing</dt><dd class="oscp-warning">2 / 3 posts staffed</dd></div><div><dt>Qualified current sight</dt><dd>1 observer</dd></div><div><dt>Last reported state</dt><dd>Observed; stable</dd></div></dl><p>One observer prevents relocation. Relief is still required for procedure compliance.</p><button type="button" class="cursor-interaction oscp-primary" data-action="relief">${state.role==='director'?'Assign relief':'Request supervisor relief'}</button><div class="oscp-receipt" data-receipt aria-live="polite"></div></section><section class="oscp-box"><div class="oscp-kicker">OUTSIDE REPORT / R-017</div><h3>Unexplained activity near Ash Creek</h3><p>Unverified contact report. No field team is assigned and no SCP designation is approved.</p><p class="oscp-sub">Received 09:08 · regional relay</p><button type="button" class="cursor-interaction" data-view="records">Review evidence</button></section></div>`;
+      }
+      function render() {
+        for (const product of root.querySelectorAll('[data-layout]')) {
+          const layout=product.dataset.layout;
+          product.querySelector('[data-role]').value=state.role;
+          product.querySelector('[data-link-status]').textContent=state.connected?'SCiPnet connected':'SCiPnet offline · cached 09:12';
+          product.querySelector('[data-action="link"]').textContent=state.connected?'Disconnect SCiPnet':'Reconnect SCiPnet';
+          product.querySelector('[data-content]').innerHTML=content(state.views[layout]);
+          for (const button of product.querySelectorAll('[data-view]')) {
+            if (button.dataset.view===state.views[layout]) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
+          }
+          for (const receipt of product.querySelectorAll('[data-receipt]')) receipt.textContent=state.receipt;
+        }
+      }
+      function act(action) {
+        if (action==='link') {state.connected=!state.connected;state.receipt=state.connected?'Connection restored. Pending requests require revalidation.':'Connection lost. Displayed records are cached.';}
+        else if (state.role==='cafeteria') state.receipt='This session is not authorized for operational orders.';
+        else if (!state.connected) state.receipt='Queued locally. Not delivered; authority and availability will be checked on reconnect.';
+        else if (action==='relief') state.receipt=state.role==='director'?'ORD-042 accepted. Awaiting staff acknowledgement; coverage has not changed.':'Relief request delivered to supervisor. Assignment is not yet authorized.';
+        else if (action==='assessment') state.receipt=state.role==='director'?'REQ-017 delivered to regional command. Awaiting assessment; no team deployed.':'Regional assessment requires director authorization.';
+        else if (action==='ack') state.receipt='Receipt acknowledged. Source claims remain unverified.';
+        else if (action==='technical') state.receipt='TS-004 assessment requested. No repair or AIC action has completed.';
+        render();persist();
+      }
+      root.addEventListener('click',event=>{
+        const button=event.target.closest('button');
+        if (!button || !root.contains(button)) return;
+        if (button.dataset.action==='command') runCommand();
+        else if (button.dataset.action) act(button.dataset.action);
+        else if (button.dataset.view) {const product=button.closest('[data-layout]');state.views[product.dataset.layout]=button.dataset.view;state.receipt='';render();persist();}
+      });
+      root.addEventListener('change',event=>{if(event.target.matches('[data-role]')) {state.role=event.target.value;state.receipt='';render();persist();}});
+      function runCommand() {
+        const input=root.querySelector('#oscp-command-input');const command=input.value.trim().toLowerCase();const output=root.querySelector('[data-command-output]');
+        if (command==='relief') {act('relief');output.textContent=state.receipt;}
+        else if (['status','case r-017','mail','support'].includes(command)) {state.views.console={'status':'operations','case r-017':'records','mail':'mail','support':'technical'}[command];state.receipt='';render();persist();output.textContent='View opened using current session permissions.';}
+        else output.textContent='Available preview commands: status, case R-017, mail, support, relief.';
+        input.value='';
+      }
+      root.querySelector('#oscp-command-input').addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();runCommand();}});
+      window.addEventListener('openai:set_globals',event=>{restore(event.detail?.globals?.widgetState);render();});
+      render();
+      const design={fontSize:14,brightness:1};
+      function applyDesign() {for(const product of root.querySelectorAll('.oscp-product')) {product.style.setProperty('--oscp-size',`${design.fontSize}px`);product.style.filter=`brightness(${design.brightness})`;}}
+      if(globalThis.Tweak) {const tweak=new Tweak({container:root,onChange:applyDesign});tweak.addSlider(design,'fontSize',{label:'Text size',min:13,max:17,step:1,unit:'px'});tweak.addSlider(design,'brightness',{label:'Display brightness',min:0.8,max:1.1,step:0.05});}
+    })();
+  </script>
+</div>

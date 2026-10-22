@@ -40,6 +40,8 @@ Field play uses top-down Diablo/RTS-style click commands. Click requests movemen
 
 The facility section view must derive rooms, doors, floors, equipment, and work progress from the same building representation used in A. Initial facility management can use a floor-plan overlay; the XCOM-like section presentation comes after this correspondence works.
 
+The terminal design uses OSCP as the device/session shell and SCiPnet as the intranet/service layer. Records, mail, containment alerts, outside reports and validated orders share the same world state. The starting facility has a resident AIC: digital personnel with physically hosted computation, duties, bounded knowledge and clearance. Deterministic behavior works initially; an optional local-model JSON provider can follow later. Technical staff and service incidents remain part of employment/physical operations. [The OSCP pass](11-oscp-terminal.md) and [lore register](13-lore-and-digital-operations.md) record references and open choices; ask before fixing ambiguous canon or authority.
+
 ## 4. Roles and progression
 
 The initial campaign starts as a newly appointed regional operations director responsible for one functioning site's staff, equipment, finances, research, security and containment. Foundation command supplies objectives and restrictions. The director can participate in fieldwork and expand the assigned network.

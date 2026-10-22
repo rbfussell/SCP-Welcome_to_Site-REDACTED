@@ -1,6 +1,6 @@
 # Scope, milestones, and acceptance
 
-Status: Baseline revision 0.5, October 22, 2026. Confirmed direction includes the initial regional-director start, later employee starts, equipment-based click controls, real time/pause/acceleration, configurable continuation, SCP-650 first and SCP-1499 second, plus the previously confirmed network/employment/storage/sprite systems. Numeric limits, procedure tuning, implementation contracts and gate groupings remain proposals. This is development scope, not an executed commercial or legal contract.
+Status: Baseline revision 0.6, October 22, 2026. Earlier confirmed gameplay remains, with lore-favored OSCP/SCiPnet communications and Git version control added. A resident deterministic AIC with an optional future local-model JSON boundary is confirmed. Detailed AIC authority, Technical Services portrayal and canon/timeline are under discussion. Godot .NET plus an independent C# kernel is recommended, not yet adopted/qualified. Numeric limits, tuning and gate groupings remain proposals.
 
 ## 1. Meaning of requirements
 
@@ -33,7 +33,7 @@ Proposed content ceiling:
 | Storage automation | Filters, priorities, same-item consolidation, reservations, hauling, blocked-access reporting and pallet rehandling | At most two simultaneous haulers drawn from existing staff; one box size; bounded authored staging layout |
 | Daily life | Work, rest, meals, alarm, flee/hide, basic dialogue | No romance, family simulation, or LLM |
 | Sprite presentation | Six category colors; generated named state/frame/facing placeholders; diagnostic overlays and data-driven art bindings | Propose four directions and three walk frames; generate all declared slice states; finished art style/resolution still to be selected |
-| Terminal | Team assignment, equipment reservation, orders, messages, report, supply order, storage-policy and distribution controls | One UI theme; no separate terminal operating system |
+| Terminal | OSCP device/session shell, SCiPnet-backed records/mail/alerts, staffing/logistics orders with receipts, one outside-report fixture and resident AIC/technical-support entry | In-game interface, not an emulated host OS; detailed AIC authority awaits decision; no full SCP-245/SCP-5810 scenario or required model inference |
 | Facility | Floor overlay, utilities sufficient for lights/doors, maintenance, room fit-out, storage-fixture placement/installation | One room conversion; repair, conversion and fixture-installation work types; no structural expansion |
 | Persistence | Save/load across all scenario states; reload or permanent-ending ruleset | One exact build/content set; migration/succession/anomalous restart exercised in M3 |
 | Mod workflow | Text form, package validator, sandbox fixture, scenario runner | No visual scripting editor, marketplace, or arbitrary native plugins |
@@ -53,6 +53,8 @@ Primary employment duties and optional action jobs are dispatched separately. M1
 Deliver a small headless kernel prototype and the minimum presentation harness needed to measure it. Demonstrate one shared entity model, command validation, deterministic event ordering, scripted bounded behavior, save restoration, and a generated room with door/occlusion queries. Prototype two connected domains, atomic inventory transfer, a nested box and shared shelf occupancy at two layout scales without finished worlds. Qualify generated sprite bindings, authoritative facing and visible missing-state fallback independently of finished art.
 
 Measure the proposed performance envelope on a named machine. Compare engine/runtime options using measured integration effort for 2D/2.5D spatial rendering, headless operation, scripting isolation, serialization, and tools. Decide the engine, scripting runtime, supported desktop OS, authoritative movement model, and reference hardware in short decision records.
+
+Godot 4 .NET plus a plain C# kernel is the recommended candidate for this evaluation; see [ADR-0004](adr/0004-godot-and-simulation-core.md). Also qualify an OSCP query/command adapter with role validation and idempotent receipts. Existing installed executables are not evidence that the required .NET editor/export integration or benchmarks pass.
 
 Exit: observation timing survives render-rate changes; a script quota violation cannot corrupt committed state; save/resume preserves RNG and timers; domain transfer cannot duplicate inventory. If one fails, revise or reduce the architecture before producing content. Engine selection is not a reason to defer the hard tests until after art production.
 
@@ -150,6 +152,15 @@ Exit: a release-specific acceptance matrix, content provenance, packaging, usabi
 | CTL-03 | M1 | Show directly visible, friendly-reported and live-surveillance information with source/time. An old report or overhead view neither tracks a hidden entity nor becomes qualifying observation or a clear physical shot. |
 | CTL-04 | M1 | Click non-hostile SCP-650 and equipment/containment targets. Default context actions do not invent an enemy attack routine; explicit equipment use commits ordinary costs/effects and preserves independent facing/attention rules. |
 | TIME-01 | M1 | Open inventory/terminal without pausing; then use permitted manual pause and acceleration. Timed work/equipment/actions freeze only on pause, queued intents revalidate on resume, configured incidents normalize speed or optionally pause after commitment, and a no-pause profile denies manual pause. |
+| TERM-01 | M1 | Enter OSCP through an accessible powered device, authenticate the actor and open reachable services. Changing identity/role or power revokes invalid access; the UI never grants universal director credentials or implicit pause. |
+| TERM-02 | M1 | Submit a staffing, hauling or repair request through graphical/command views. They share validation and show delivered/accepted/acknowledged/executing/completed states accurately. Retry/save/load cannot duplicate effects; accepted relief does not mean physical coverage is already restored. |
+| TERM-03 | M1 | Receive the synthetic outside-anomaly report with source, times, location uncertainty, attachments and claims. Read, acknowledge and refer/request assessment without inventing a playable town, hidden true location or deployed team. |
+| TERM-04 | M1 | Draft/revise a permitted dossier and attach an existing game-world record. Preserve authorship/revision/provenance; textual edits do not change physical containment and upload does not access the host computer. |
+| TERM-05 | M1 | Lose a SCiPnet route while the device stays powered. Mark cached data and local queued commands; reconnect and revalidate expiry/authority/capacity. Unpowered and air-gapped devices do not retain network functions by UI accident. |
+| TERM-06 | M1 | Focus a qualified live camera task, change apps/attention or lose its feed, and inspect SCP-650 observation. Only real module-approved attention counts; background screenshots, mail and remembered positions do not hold the anomaly stable. |
+| TERM-07 | M1 | Open an authorized test record/attachment and emit scoped inert exposure/check events. The proposed inoculation status does not neutralize all hazards; a misleading/anomalous view cannot run host commands or bypass actual permissions. |
+| TERM-08 | M1 | Start with a resident AIC actor and physically located computing infrastructure. Demonstrate deterministic monitoring/reporting and an authorized task; lose host power/connectivity or revoke authority and prevent invalid action. Reports use available evidence; a physical repair still requires actual staff/tools/work. Resolve the detailed authority profile before certifying specific behavior. |
+| TERM-09 | M1 | Exercise the proposed versioned JSON decision-provider boundary with a deterministic/mock provider: validate an allowed intent and reject invalid, stale, unauthorized and wrong-branch output. Timeout must not block simulation; accepted decisions survive save/load without duplicate execution. A real local model and regional AIC support remain later integrations. |
 | CONT-01 | M1 | Trigger avatar death under reload and permanent-ending profiles. Apply the selected policy, retain ordinary losses in the current save, and avoid an unconditional campaign reset or forced successor. |
 | CONT-02 | M3 | Continue after death as an eligible living successor. One controlled actor remains; original casualties/possessions persist; the successor retains their own rank, knowledge, location and gear. Missing candidates follow the configured fallback. |
 | CONT-03 | M3 | An authorized synthetic anomaly restarts a compatible whole-world day checkpoint once, with explicit retained memory/cost. All snapshot state and RNG restore into a new branch, abandoned async results are rejected, no gear/charge duplication occurs, and an unauthorized request fails without mutation. |
@@ -220,6 +231,8 @@ These remain visible ideas. They enter a milestone only through a specific scope
 | Failure/continuation | Confirmed: difficulty/scenario-driven reload, successor, anomalous restart or ending | Resolved direction; exact preset combinations remain open |
 | First/second anomaly | Confirmed: SCP-650 facility breach, followed by SCP-1499 in that facility | Resolved by user; detailed procedures/mappings proposed |
 | Engine and script runtime | Unselected; measure the core risks first | M0 exit |
+| Engine candidate | Recommended Godot .NET for presentation, independent C# simulation; adoption/version/export/runtime tests open | Owner adoption and M0 exit |
+| Digital operations lore | OSCP/SCiPnet and resident autonomous AIC confirmed; detailed authority, identity, exact technical department and canon/timeline questions pending | Before affected behavior is committed |
 | Platform and reference hardware | Desktop mouse/keyboard; OS and hardware unselected | M0 exit |
 | Presentation/art budget | Modern sprites, top-down/iso; generated diagnostics during development; finished style/resolution open | M1 production planning |
 | Team, budget, schedule | Unspecified; do not infer dates | Before a delivery commitment |

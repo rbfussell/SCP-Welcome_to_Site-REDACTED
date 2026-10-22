@@ -19,6 +19,9 @@ Use one simulation kernel with serializable domain data. Rendering, audio, UI, f
 | Character | Body, condition, persona, skills, knowledge, schedule, intent, equipment |
 | Perceived context | Observer, physical/perceptual relation, apparent domain, sensory/identity effects, versioned bindings and lifetime |
 | Evidence | Actor/organization, reported or perceived fact, source, context, timestamp and uncertainty |
+| Device/session | Physical terminal, power/network profile, actor credentials, reachable apps/services, focus and branch lifetime |
+| Digital record/message | Versioned dossier/evidence/case, sender/provenance, permissions, delivery chain, receipt and synchronization state |
+| Digital personnel | Resident AIC identity/assignment, physical host deployment, clearance, evidence/known systems, workload and allowed actions; detailed authority pending; optional decision-provider interface separate from actor state |
 | Target/cross-context binding | Apparent entity/position/action to authoritative target/effect relation, revision and capability scope |
 | Employment | Role/workplace/post, shift and breaks, qualifications, supervisor, duty continuation, relief/coverage and status |
 | Order/team agreement | Issuer and authority, objective, urgency, acknowledgements, role assignments, interruption/expiry and outcome |
@@ -36,6 +39,10 @@ Definitions are immutable content. Instances carry mutable state. A character, i
 Commands express intent. The kernel validates them, commits transactions, and emits events. Invalid commands produce a reason. A terminal button, NPC action, and player interaction all call this boundary.
 
 The input controller supplies an acting character and branch/context revision. Role/authority validation belongs to domain services, not a special always-authorized player path. Director and employee starts share actors and rules. Ctrl-click can express a force intent but cannot bypass those validators; equipment abilities retain their source item identity and access preconditions.
+
+OSCP is a client of the same boundary. SCiPnet messages/query projections carry provenance and synchronization state. Order acceptance, staff acknowledgement and completion are distinct events. Digital files exist in the simulated world rather than the host filesystem. An assigned AIC submits work within its own credentials and knowledge; its staffing/authority is a lore/scenario choice, not automatic operating-system omnipotence. See [OSCP](11-oscp-terminal.md).
+
+The proposed [Godot/C# architecture](adr/0004-godot-and-simulation-core.md) keeps this kernel independent from Godot scene nodes. Godot is the recommended presentation candidate pending qualification; neither its physics nor the terminal's display becomes the source of authoritative deterministic state.
 
 The network is a persistent organization graph over physical sites and routes. A strategic display projects this graph; it does not create a second economy. Site managers and Group of Interest planners issue the same validated orders used by the player, within their own authority and knowledge. Actor/controller ownership keeps direct player input attached to one avatar while orders flow to autonomous staff.
 

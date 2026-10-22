@@ -1,10 +1,10 @@
 # SCP: Welcome to Site-[REDACTED]
 
-Design baseline, revision 0.5 — October 22, 2026.
+Design baseline, revision 0.6 — October 22, 2026.
 
 A top-down SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace contains a design baseline and a diagnostic sprite sample generator, not an implemented game. Confirmed user choices are identified separately from proposed counts, timings, bounds and implementation contracts. No engine, delivery date, budget, or legal agreement has been selected.
+This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot .NET with an independent C# simulation core is the recommended engine candidate, pending adoption/M0 qualification. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
 
 ## Read in this order
 
@@ -22,6 +22,10 @@ This workspace contains a design baseline and a diagnostic sprite sample generat
 12. [First playable: SCP-650](docs/09-first-playable-scp-650.md): facility breach, observation, discrete poses and two recontainment approaches.
 13. [Perceived contexts and SCP-1499](docs/10-world-perception-and-scp-1499.md): second module, procedural population and physical/perceptual consequences.
 14. [Physical/perceived context decision](docs/adr/0003-physical-perceived-contexts.md): architecture options and bounded proofs.
+15. [OSCP and communications](docs/11-oscp-terminal.md): devices/sessions, SCiPnet, applications, outside reports, records and receipts.
+16. [Godot recommendation](docs/adr/0004-godot-and-simulation-core.md): Godot versus a custom engine and the independent-kernel boundary.
+17. [Development workflow](docs/12-development-workflow.md): Git source policy, ignored runtime/cache data and local commits.
+18. [Lore and digital operations](docs/13-lore-and-digital-operations.md): SCiPnet, AIC/AIAD, technical responsibility, sources and open questions.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
@@ -37,6 +41,9 @@ This workspace contains a design baseline and a diagnostic sprite sample generat
 - Real time, ruleset-controlled pause and acceleration; inventory/terminals do not inherently stop the world. Field commands use click/Ctrl-click with equipment functions and physical accessibility.
 - M1 is an SCP-650 breach inside the facility. Six approximate pose illustrations are discrete states. Both observed transport and controlled relocation are accepted approaches.
 - M2 adds SCP-1499 in the same facility and qualifies physical transfer plus a bounded perception/consequence profile. Death/continuation and checkpoint-based anomalous restart are configurable policy types.
+- OSCP/SCiPnet is the lore-favored device/network interface for management, records and communications, including outside-anomaly reports. The starting site has a resident AIC with physical computing infrastructure, bounded knowledge/authority and deterministic duties. Preserve a JSON provider interface for optional local-model integration and later regional AIC support. Exact authority remains under discussion; technical staff retain real operational duties.
+- Ask the user about unresolved behavior/lore ambiguities before settling them. Do not silently combine source-specific timelines or make proposed counts permanent.
+- Use Git for version control. The initial local commit preserves the earlier design and diagnostic fixtures.
 
 ## Working assumptions
 
