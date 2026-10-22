@@ -26,6 +26,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 16. [Godot selection and integration](docs/adr/0004-godot-and-simulation-core.md): the selected engine and proposed independent-kernel boundary.
 17. [Development workflow](docs/12-development-workflow.md): Git source policy, ignored runtime/cache data and local commits.
 18. [Lore and digital operations](docs/13-lore-and-digital-operations.md): SCiPnet, AIC/AIAD, technical responsibility, sources and open questions.
+19. [Fallout 2 placement research](docs/14-fallout-2-placement-research.md): separate movement/terrain grids, sprite anchors, visual offsets and implications for our movement-model decision.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 

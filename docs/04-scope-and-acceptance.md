@@ -232,6 +232,7 @@ These remain visible ideas. They enter a milestone only through a specific scope
 | First/second anomaly | Confirmed: SCP-650 facility breach, followed by SCP-1499 in that facility | Resolved by user; detailed procedures/mappings proposed |
 | Engine | Confirmed: Godot selected by user; exact release/configuration/export integration not qualified | Version/platform qualification at M0 exit |
 | Integration and script runtime | Recommended Godot .NET presentation and independent C# simulation; public script host still unselected | M0 exit |
+| Actor positioning | Square construction tiles confirmed; square-cell centers, separate hex navigation or smooth sub-cell positions under discussion; smooth positions recommended | User movement-model answer, then M0 qualification |
 | Digital operations lore | OSCP/SCiPnet and resident autonomous AIC confirmed; detailed authority, identity, exact technical department and canon/timeline questions pending | Before affected behavior is committed |
 | Platform and reference hardware | Desktop mouse/keyboard; OS and hardware unselected | M0 exit |
 | Presentation/art budget | Detailed Fallout 2-inspired art and fixed isometric/three-quarter field view confirmed; resolution, art-production method, exact angle and budget open | Art qualification and M1 production planning |
