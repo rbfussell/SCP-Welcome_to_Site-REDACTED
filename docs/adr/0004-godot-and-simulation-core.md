@@ -1,6 +1,6 @@
-# ADR-0004: Recommend Godot with an independent simulation core
+# ADR-0004: Godot engine selection and proposed independent simulation core
 
-**Status:** Proposed recommendation; not user acceptance or a completed benchmark
+**Status:** Godot selected by the user; .NET/C# integration details proposed pending M0 qualification
 
 **Date:** October 22, 2026
 
@@ -17,6 +17,8 @@ The game needs modern 2D sprites, layered inventories, a substantial OSCP interf
 | Full custom engine | Complete control over renderer, editor and runtime | Adds rendering, UI layout/input, asset tooling, audio, platform/export and debugging work before proving gameplay |
 
 ## Recommendation
+
+The user selected Godot on October 22, 2026, and confirmed a fixed isometric/three-quarter field view with square logical tiles and a Fallout 2-inspired detailed sprite aesthetic. This accepts the engine choice. It does not certify a runtime version, installed editor integration, exports, performance or a finished art pipeline. The .NET distribution and independent C# library below remain the recommended implementation configuration to qualify during M0.
 
 Use a qualified Godot 4 .NET release for presentation and a plain C# simulation library with no Godot dependency. Godot renders active sprites/tiles, equipment UI, OSCP and audio. The library owns entity IDs, time/event ordering, spatial/observation rules, employment/orders, physical inventories, procedures, knowledge, generation, saves and module hosting.
 
@@ -47,4 +49,4 @@ If the metered mod host cannot enforce required limits, revise its integration/r
 
 Read-only tools on this workspace reported Godot `4.6.3.stable.fedora.7d41c59c4`, .NET SDKs `8.0.128` and `10.0.110`, and Git. This does not qualify the installed Godot binary's C# integration, target-platform exports or performance. No game project, simulation library or editor distribution was installed/created by this decision record.
 
-Engine choice remains proposed pending owner adoption and M0 evidence. Related: [shared simulation](0001-shared-simulation.md), [module contract](../03-scp-module-contract.md), [OSCP design](../11-oscp-terminal.md).
+Godot is the selected engine. Version/platform/runtime qualification and implementation evidence remain M0 work; reopening the engine choice requires a recorded reason and owner discussion. Related: [shared simulation](0001-shared-simulation.md), [module contract](../03-scp-module-contract.md), [OSCP design](../11-oscp-terminal.md), [sprite/art contract](../06-sprites-and-placeholders.md).

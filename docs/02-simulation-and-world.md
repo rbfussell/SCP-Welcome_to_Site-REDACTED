@@ -42,7 +42,9 @@ The input controller supplies an acting character and branch/context revision. R
 
 OSCP is a client of the same boundary. SCiPnet messages/query projections carry provenance and synchronization state. Order acceptance, staff acknowledgement and completion are distinct events. Digital files exist in the simulated world rather than the host filesystem. An assigned AIC submits work within its own credentials and knowledge; its staffing/authority is a lore/scenario choice, not automatic operating-system omnipotence. See [OSCP](11-oscp-terminal.md).
 
-The proposed [Godot/C# architecture](adr/0004-godot-and-simulation-core.md) keeps this kernel independent from Godot scene nodes. Godot is the recommended presentation candidate pending qualification; neither its physics nor the terminal's display becomes the source of authoritative deterministic state.
+Godot is the selected engine. The proposed [Godot/C# integration](adr/0004-godot-and-simulation-core.md) keeps this kernel independent from Godot scene nodes; the exact runtime/configuration and implementation still need qualification. Neither engine physics nor the terminal's display becomes the source of authoritative deterministic state.
+
+The selected field view is fixed isometric/three-quarter over square logical tiles. World coordinates, footprints, height/floor and sensory geometry remain authoritative; projection, sprite bounds, draw order and screen picking are presentation concerns. A detailed sprite can extend beyond its logical tile without changing collision or observation. The [sprite contract](06-sprites-and-placeholders.md) defines the art/projection boundary.
 
 The network is a persistent organization graph over physical sites and routes. A strategic display projects this graph; it does not create a second economy. Site managers and Group of Interest planners issue the same validated orders used by the player, within their own authority and knowledge. Actor/controller ownership keeps direct player input attached to one avatar while orders flow to autonomous staff.
 

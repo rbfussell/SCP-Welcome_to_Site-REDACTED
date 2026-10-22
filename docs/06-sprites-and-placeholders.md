@@ -1,10 +1,18 @@
 # Sprite presentation and diagnostic placeholders
 
-Status: Proposed contract, revision 0.5. Modern sprite presentation, generated visibly labeled stand-ins, and distinct module-selected poses are confirmed direction. Colors, dimensions, direction count and initial animation counts below are proposals.
+Status: Revision 0.7. Godot, a fixed isometric/three-quarter field view, square logical tiles and detailed Fallout 2-inspired sprite artwork are confirmed direction. Generated visibly labeled stand-ins and distinct module-selected poses remain confirmed. Colors, dimensions, exact projection angle, direction count, production method and initial animation counts below are proposals.
 
 ## 1. Art and development pipeline
 
-Use modern, readable sprite artwork with sufficient resolution for the chosen camera and zoom. A deliberately retro/pixel-art treatment is not the intended art direction. Exact finished style and projection remain to be selected. Diagnostic blocks demonstrate state and integration, not the final character design.
+The user's visual reference is Fallout 2: detailed sprite characters, substantial environmental detail and a grounded, textured appearance. “Retro” here refers to that classic PC RPG sensibility. The target is not a low-color NES/RPG Maker-style treatment. Use enough color, shading and resolution to distinguish bodies, equipment and surface materials at the chosen gameplay zoom. Do not interpret the earlier “modern sprites” wording as rejecting the now-confirmed Fallout 2 reference.
+
+The field camera is fixed isometric/three-quarter. Square logical tiles underpin terrain, room construction and procedural placement; their screen projection and the visible sprite canvas are separate from simulation geometry. This choice does not adopt Fallout's game rules or grid model. Exact projection ratio/angle, world-unit scale, sprite dimensions, native display scale and zoom limits must be qualified together before producing the finished asset set.
+
+The desired appearance can be reached through painted sprites, model-to-sprite rendering or a controlled combination; the production method is not selected. A rendered-looking sprite aesthetic does not require a real-time 3D character renderer. Character silhouettes, material shading, perspective, light direction and scale need a shared art specification so modular rooms, procedural equipment and separately authored SCP assets look coherent. Avoid copying proprietary artwork; the games are visual references.
+
+Square asset cells do not require every image to fill its cell or every entity to occupy exactly one tile. Transparent padding, tall sprites and multi-tile objects need explicit anchors and bounds. Retain separate logical occupancy/collision, render bounds and interaction geometry. Walls, people, trees and furniture may visually overlap adjacent projected tiles without changing world ownership or physical reach.
+
+Diagnostic blocks demonstrate state and integration, not the final character design. Their six category colors are development information, not the finished scene's palette.
 
 Each visual definition declares illustration/animation states before finished art exists. Generate stand-ins for every declared state, facing and frame, so missing production art never hides a missing state binding. A finished animation replaces the corresponding visual asset binding without changing an entity definition, behavior script or gameplay timing.
 
@@ -29,11 +37,11 @@ Generate reusable category/state images. Render instance names and diagnostic te
 
 ## 3. Direction is authoritative information
 
-Facing comes from the simulation's authoritative orientation/attention record. North places the bar on the top edge, east on the right, south on the bottom, west on the left in the initial north-up top-down reference. The label states the direction explicitly.
+Facing comes from the simulation's authoritative orientation/attention record. The existing engine-independent north-up reference places north on the top edge, east on the right, south on the bottom and west on the left. It is a diagnostic sample, not the confirmed game's camera projection. In the fixed isometric view, project the world-facing vector into screen space before positioning the green marker; retain the explicit world-direction label. World north is not automatically screen up.
 
 Standing still retains facing. A pawn can walk backward or strafe while looking somewhere else; the bar must not silently follow velocity. Looking and sprite animation remain separate inputs. If attention/eye orientation differs from body facing, the diagnostic inspector exposes both and identifies which supplies the marker; the initial character convention uses the perception-facing orientation. Eligibility for SCP observation also depends on eyes, light, attention and obstruction; a facing bar alone does not prove eye contact.
 
-Propose four directions initially. A later eight-direction manifest uses corner markers for diagonal facings and explicit vectors. Isometric projection or camera rotation must project the marker from world facing into screen coordinates and keep the world-direction letter correct. Do not promise those variants until their presentation tests exist.
+Propose four world-facing directions for the first diagnostic integration. The finished direction count remains open; a later eight-direction manifest can use explicit vectors and appropriate markers. Fixed isometric projection must be tested from the first Godot harness. Camera rotation is not part of the confirmed field-view design. Turning the character, changing body facing and moving diagonally must not make the UI mislabel its observation direction.
 
 ## 4. Animation behavior
 
@@ -46,6 +54,14 @@ Animation is a view of the simulation. Changing sprite frame counts must not cha
 An illustration/pose is distinct from a temporal frame. SCP-650 initially has approximately six module-selected pose keys, each with its own placeholder; it must not cycle through those poses as a walk animation. A changed pose footprint is validated by the module's placement rules. A module such as SCP-1499 can supply its own environmental/entity sprite set while using the same diagnostic bindings.
 
 Clothing/gear can later use attachment/layer composition. Initial stand-ins show equipment as diagnostic information until layer art is available. Art variety must not multiply the NPC decision state machine.
+
+### Isometric composition and art qualification
+
+Render order derives from world position, ground anchors, height/floor and declared layers, rather than an entity's entire image rectangle. Tall or multi-tile assets may need authored split layers/occlusion masks; qualify the chosen approach in the presentation harness. Visual shadows and decorative pixels do not become authoritative collision or line-of-sight geometry.
+
+Picking and placement resolve screen input through the selected projection to real world targets/footprints. A wall cutaway or other visibility aid must respect the player's permitted information. A character passing behind furniture remains at its actual position; sprite overlap cannot invent observation or allow an attack through an obstruction.
+
+Before committing production scale, propose one small art qualification scene: a floor/wall corner, doorway, tall storage fixture, character and SCP-650 pose. Check relative size, walk-behind order, selection, facing, text readability and a swap between labeled stand-ins and a representative finished sprite. This is a bounded art/presentation check, not an extra playable map or a requirement to finish all art before M0. Keep production resolution, frame totals and equipment-layer budget open until that evidence exists.
 
 ## 5. Development controls and deliverables
 

@@ -1,12 +1,14 @@
 # Game design baseline
 
-Status: Baseline revision 0.5. Confirmed direction includes an initial regional-director start, later employee starts in the same simulation, equipment-based click controls, real time with pause/acceleration, configurable continuation, SCP-650 as the first facility incident and SCP-1499 as the second module. Earlier network, employment, storage and sprite choices remain. Implementation contracts and numeric limits remain proposed.
+Status: Baseline revision 0.7. Confirmed direction includes an initial regional-director start, later employee starts in the same simulation, equipment-based click controls, real time with pause/acceleration, configurable continuation, SCP-650 first and SCP-1499 second. Godot, square logical tiles, a fixed isometric/three-quarter field view and detailed Fallout 2-inspired sprites are selected. Earlier network, employment, storage and diagnostic choices remain. Implementation contracts and numeric limits remain proposed.
 
 ## 1. Player promise
 
 You are a person living inside a functioning Foundation network. You have a body, possessions, a job, relationships, and the authority of your current role. The initial director can direct sites, teams and logistics through people and communications. Later employee starts can investigate, work and interact within their own access and responsibilities. Everyone inhabits the same simulation; player control itself grants no management privilege. Others' work changes the world you later walk through.
 
-The reference is X4: Foundations translated into a top-down SCP world: personal participation sits inside an ongoing network simulation. Management expands across locations while the player remains a person who must travel, obtain information, delegate responsibility, and live with consequences. The target game includes interactions with autonomous Groups of Interest and the operation of multiple Foundation sites.
+The reference is X4: Foundations translated into an isometric SCP world: personal participation sits inside an ongoing network simulation. Management expands across locations while the player remains a person who must travel, obtain information, delegate responsibility, and live with consequences. The target game includes interactions with autonomous Groups of Interest and the operation of multiple Foundation sites.
+
+The confirmed visual reference is Fallout 2, with a fixed isometric/three-quarter sprite view over square logical tiles. Its detailed character/environment sensibility guides the art, while Fallout/Wasteland-style world-map travel is a later presentation reference. These references coexist with the real-time X4-like simulation and existing facility/procedural systems; they do not silently replace controls or add another milestone. The terminal remains OSCP; “THOSC” was corrected by the user.
 
 The defining tension is how to keep people and the site functioning while dealing with phenomena that invalidate ordinary assumptions. Better preparation, observation, training, supplies, and infrastructure create options. They never guarantee universal containment.
 
@@ -36,7 +38,7 @@ A normal shift includes work, meals, rest, resupply, conversation, and interrupt
 
 Opening inventory or a terminal does not inherently pause the world. Ruleset-permitted explicit pause freezes simulation everywhere; acceleration and optional interruption pauses apply to the same clock. A terminal view does not grant the avatar supernatural awareness, movement, or immunity. Site access, communications, authority, and physical location still constrain available actions.
 
-Field play uses top-down Diablo/RTS-style click commands. Click requests movement/contextual interaction; Ctrl-click designates an explicit target/position or forced action for an appropriate selected function. Abilities primarily come from actual equipment, with source position, access, readiness and resources shown. A backpack tool is not instantly usable just because it has a quick slot. [Player controls and time](08-player-controls-time-and-continuation.md) defines command validation and information limits.
+Field play uses isometric Diablo/RTS-style click commands. Click requests movement/contextual interaction; Ctrl-click designates an explicit target/position or forced action for an appropriate selected function. Abilities primarily come from actual equipment, with source position, access, readiness and resources shown. A backpack tool is not instantly usable just because it has a quick slot. [Player controls and time](08-player-controls-time-and-continuation.md) defines command validation and information limits.
 
 The facility section view must derive rooms, doors, floors, equipment, and work progress from the same building representation used in A. Initial facility management can use a floor-plan overlay; the XCOM-like section presentation comes after this correspondence works.
 
@@ -142,9 +144,9 @@ Observation mechanics use in-world eyes, attention, lighting, obstruction, and m
 
 ## 11. Sprite presentation during development
 
-Use modern, readable sprite art rather than a deliberately retro treatment. Generate diagnostic stand-ins for every declared illustration, state, direction and animation frame before art is available. World categories have distinct stand-in colors: landscape/map base, map objects, building tiles, objects, NPCs and player.
+Use detailed, textured Fallout 2-inspired sprite art in a fixed isometric/three-quarter view. The classic PC RPG reference is confirmed; low-color NES/RPG Maker-style art is not the intended target. Square tiles define construction/navigation, while sprite anchors, bounds and layers support taller and multi-tile artwork. Generate diagnostic stand-ins for every declared illustration, state, direction and animation frame before art is available. World categories have distinct stand-in colors: landscape/map base, map objects, building tiles, objects, NPCs and player.
 
-Character placeholders show the NPC's name, state/frame such as `walk:2/3`, and a green edge bar for facing: top for north, bottom for south, and the corresponding side for east/west in the initial north-up projection. Frame totals are declared data. The marker follows authoritative perception-facing rather than movement velocity, so stationary observation and backward movement remain understandable. Finished art replaces visual bindings without changing game rules; diagnostics remain inspectable.
+Character placeholders show the NPC's name, state/frame such as `walk:2/3`, and a green edge bar projected from world facing into screen space, with the world-direction label retained. The existing generator's north-up sample remains a diagnostic reference; the game uses the confirmed fixed isometric projection. Frame totals are declared data. The marker follows authoritative perception-facing rather than movement velocity, so stationary observation and backward movement remain understandable. Finished art replaces visual bindings without changing game rules; diagnostics remain inspectable.
 
 [Sprite presentation and placeholders](06-sprites-and-placeholders.md) defines the contract and links an engine-independent generated reference sheet. Palette, direction count and sample frame totals are proposed implementation choices.
 

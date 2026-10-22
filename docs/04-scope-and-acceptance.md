@@ -1,6 +1,6 @@
 # Scope, milestones, and acceptance
 
-Status: Baseline revision 0.6, October 22, 2026. Earlier confirmed gameplay remains, with lore-favored OSCP/SCiPnet communications and Git version control added. A resident deterministic AIC with an optional future local-model JSON boundary is confirmed. Detailed AIC authority, Technical Services portrayal and canon/timeline are under discussion. Godot .NET plus an independent C# kernel is recommended, not yet adopted/qualified. Numeric limits, tuning and gate groupings remain proposals.
+Status: Baseline revision 0.7, October 22, 2026. Godot is selected; the .NET/C# integration remains recommended pending M0 qualification. Square logical tiles, fixed isometric/three-quarter presentation and detailed Fallout 2-inspired sprite art are confirmed. Earlier gameplay and OSCP/SCiPnet remain, including a resident deterministic AIC with an optional future local-model JSON boundary. Detailed AIC authority, Technical Services portrayal and canon/timeline are under discussion. Numeric limits, tuning and gate groupings remain proposals.
 
 ## 1. Meaning of requirements
 
@@ -32,7 +32,7 @@ Proposed content ceiling:
 | Physical storage | One four-mount long-gun rack, one four-mount pistol rack, one cabinet with three box bays and shared loose-item space, one nine-column/three-high pallet, one parked vehicle cargo compartment | Authored discrete layouts; cabinet/vehicle → box/case → items; no general 3D packing or loaded-furniture moving |
 | Storage automation | Filters, priorities, same-item consolidation, reservations, hauling, blocked-access reporting and pallet rehandling | At most two simultaneous haulers drawn from existing staff; one box size; bounded authored staging layout |
 | Daily life | Work, rest, meals, alarm, flee/hide, basic dialogue | No romance, family simulation, or LLM |
-| Sprite presentation | Six category colors; generated named state/frame/facing placeholders; diagnostic overlays and data-driven art bindings | Propose four directions and three walk frames; generate all declared slice states; finished art style/resolution still to be selected |
+| Sprite presentation | Square logical tiles and fixed isometric/three-quarter view; six diagnostic category colors, generated state/frame/facing placeholders and data-driven art bindings | Detailed Fallout 2-inspired art target; M1 can use stand-ins; four directions/three walk frames proposed; production resolution, angle and pipeline open |
 | Terminal | OSCP device/session shell, SCiPnet-backed records/mail/alerts, staffing/logistics orders with receipts, one outside-report fixture and resident AIC/technical-support entry | In-game interface, not an emulated host OS; detailed AIC authority awaits decision; no full SCP-245/SCP-5810 scenario or required model inference |
 | Facility | Floor overlay, utilities sufficient for lights/doors, maintenance, room fit-out, storage-fixture placement/installation | One room conversion; repair, conversion and fixture-installation work types; no structural expansion |
 | Persistence | Save/load across all scenario states; reload or permanent-ending ruleset | One exact build/content set; migration/succession/anomalous restart exercised in M3 |
@@ -48,13 +48,13 @@ Primary employment duties and optional action jobs are dispatched separately. M1
 
 ## 3. Milestones and gates
 
-### M0 — feasibility and engine decision
+### M0 — feasibility and Godot qualification
 
 Deliver a small headless kernel prototype and the minimum presentation harness needed to measure it. Demonstrate one shared entity model, command validation, deterministic event ordering, scripted bounded behavior, save restoration, and a generated room with door/occlusion queries. Prototype two connected domains, atomic inventory transfer, a nested box and shared shelf occupancy at two layout scales without finished worlds. Qualify generated sprite bindings, authoritative facing and visible missing-state fallback independently of finished art.
 
-Measure the proposed performance envelope on a named machine. Compare engine/runtime options using measured integration effort for 2D/2.5D spatial rendering, headless operation, scripting isolation, serialization, and tools. Decide the engine, scripting runtime, supported desktop OS, authoritative movement model, and reference hardware in short decision records.
+Measure the proposed performance envelope on a named machine. Qualify the selected Godot engine for fixed isometric sprite rendering over square logical tiles, headless operation, scripting isolation, serialization and tools. Pin the engine/runtime configuration, scripting runtime, supported desktop OS, authoritative movement model and reference hardware in short decision records. Reopening the selected engine requires evidence and owner discussion.
 
-Godot 4 .NET plus a plain C# kernel is the recommended candidate for this evaluation; see [ADR-0004](adr/0004-godot-and-simulation-core.md). Also qualify an OSCP query/command adapter with role validation and idempotent receipts. Existing installed executables are not evidence that the required .NET editor/export integration or benchmarks pass.
+Godot 4 .NET plus a plain C# kernel is the recommended integration configuration to evaluate; see [ADR-0004](adr/0004-godot-and-simulation-core.md). Also qualify an OSCP query/command adapter with role validation and idempotent receipts. Existing installed executables are not evidence that the required .NET editor/export integration or benchmarks pass. Exact projection angle, native sprite scale and finished animation counts need coordinated art qualification; labeled stand-ins remain valid prototype assets.
 
 Exit: observation timing survives render-rate changes; a script quota violation cannot corrupt committed state; save/resume preserves RNG and timers; domain transfer cannot duplicate inventory. If one fails, revise or reduce the architecture before producing content. Engine selection is not a reason to defer the hard tests until after art production.
 
@@ -129,11 +129,11 @@ Exit: a release-specific acceptance matrix, content provenance, packaging, usabi
 | EMP-07 | M1 | Queue hauling and a field deployment while personnel hold primary posts. Logistics employees receive appropriate role work; other employees require release or authorized reassignment. The same person cannot provide local coverage and be deployed remotely. |
 | EMP-08 | M1 | Save during blocked duty, order interruption and pending handoff; resume offscreen then inspect locally. Shift clocks, duty continuation, orders, reservations and coverage agree with uninterrupted execution. |
 | SPR-01 | M0 | Given declared category/state/direction/frame metadata, generate all requested stand-ins with matching labels and frame counts. Validate keys and assets without requiring production artwork; runtime name overlays reuse assets across NPC instances. |
-| SPR-02 | M0 | Face north/east/south/west while stationary and during backward/sideways movement. The green bar and direction label follow authoritative perception-facing rather than velocity or render frame rate. |
+| SPR-02 | M0 | Face north/east/south/west while stationary and during backward/sideways movement in the fixed isometric view. Project the green marker from world facing and retain the correct world-direction label; neither velocity nor render frame rate determines observation direction. |
 | SPR-03 | M1 | In the world and sprite catalog, inspect category color, entity name, state and one-based frame/total for every declared slice animation/illustration. Walking phase advances with committed locomotion and freezes on pause; blocked movement does not show a successful stride. |
 | SPR-04 | M1 | Replace a diagnostic animation with production/test art and change frame count through metadata. Anchors and state bindings remain valid; identical recorded inputs produce identical gameplay-state projections and action timing, excluding the deliberately changed cosmetic metadata/hashes. |
 | SPR-05 | M0 | Remove a production frame and request an undeclared state. Use a labeled placeholder for the missing frame and a conspicuous missing-state diagnostic for the undeclared state, with no silent idle fallback or gameplay mutation. |
-| SPR-06 | M1 | Keep diagnostic overlays inspectable after art replacement. Verify anchor/attachment alignment, stable facing and readable labels at supported zoom. Debug state/name visibility follows development controls rather than leaking hidden information to the release player. |
+| SPR-06 | M1 | Keep diagnostic overlays inspectable after art replacement. Verify anchors/attachments, walk-behind layering, projected picking/footprints, stable facing and readable labels at supported zoom. Tall sprites do not change collision/LOS; visibility aids and debug labels do not leak hidden information to the release player. |
 | FAC-01 | M1 | Queue room conversion with insufficient materials, then supply it. Work waits, resources are consumed once, and the activated room is physically represented. |
 | FAC-02 | M1 | Cut power to a relevant light/door network. Local views, terminal status, maintenance response and observation rules reflect the same outage. |
 | MOD-01 | M0 | Validate duplicate IDs, invalid capabilities, undeclared entry points and cyclic dependencies. Reject before instance creation with actionable errors. |
@@ -223,18 +223,19 @@ These remain visible ideas. They enter a milestone only through a specific scope
 | Direct control | Confirmed: one embodied character, with autonomous staff under orders | Resolved by user clarification |
 | Strategic scope | Confirmed: Foundation network, containment, logistics and Groups of Interest | Resolved by user clarification |
 | Storage behavior | Confirmed: specialized/hierarchical layouts, physical access, console distribution, item filters, priority and consolidation | Resolved by user clarification; implementation bounds proposed |
-| Sprite direction | Confirmed: modern sprites, generated category/name/state/frame stand-ins and green facing indicators | Resolved by user clarification; palette/resolution/direction count proposed |
+| Sprite direction | Confirmed: detailed Fallout 2-inspired sprites, square logical tiles, fixed isometric/three-quarter camera; generated category/name/state/frame stand-ins and projected green facing indicators | Resolved direction; exact angle, dimensions, production pipeline and direction/frame counts open |
 | Employment behavior | Confirmed: primary shift roles above optional actions, role-specific duties and higher-rank orders with explicit overrides | Resolved by user clarification; staffing/doctrines proposed |
 | Main audience and tone | Systems-driven RPG/management with horror incidents | M1 scenario design |
 | Starting rank and authority | Confirmed: newly appointed regional operations director, one functioning site, command objectives/restrictions; later employee starts | Resolved by user; exact progression/policy details remain open |
 | Time and field control | Confirmed: real time/pause/acceleration; click/Ctrl-click and equipment-sourced functions | Resolved by user; bindings/tuning proposed |
 | Failure/continuation | Confirmed: difficulty/scenario-driven reload, successor, anomalous restart or ending | Resolved direction; exact preset combinations remain open |
 | First/second anomaly | Confirmed: SCP-650 facility breach, followed by SCP-1499 in that facility | Resolved by user; detailed procedures/mappings proposed |
-| Engine and script runtime | Unselected; measure the core risks first | M0 exit |
-| Engine candidate | Recommended Godot .NET for presentation, independent C# simulation; adoption/version/export/runtime tests open | Owner adoption and M0 exit |
+| Engine | Confirmed: Godot selected by user; exact release/configuration/export integration not qualified | Version/platform qualification at M0 exit |
+| Integration and script runtime | Recommended Godot .NET presentation and independent C# simulation; public script host still unselected | M0 exit |
 | Digital operations lore | OSCP/SCiPnet and resident autonomous AIC confirmed; detailed authority, identity, exact technical department and canon/timeline questions pending | Before affected behavior is committed |
 | Platform and reference hardware | Desktop mouse/keyboard; OS and hardware unselected | M0 exit |
-| Presentation/art budget | Modern sprites, top-down/iso; generated diagnostics during development; finished style/resolution open | M1 production planning |
+| Presentation/art budget | Detailed Fallout 2-inspired art and fixed isometric/three-quarter field view confirmed; resolution, art-production method, exact angle and budget open | Art qualification and M1 production planning |
+| World-map travel presentation | Fallout/Wasteland-inspired direction; routes, duration, encounters and detailed interaction unresolved | Later world/network design; no M1 expansion |
 | Team, budget, schedule | Unspecified; do not infer dates | Before a delivery commitment |
 | Distribution/license strategy | Unselected; preserve provenance from the start | Before distribution |
 

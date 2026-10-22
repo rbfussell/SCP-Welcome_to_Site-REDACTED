@@ -14,7 +14,7 @@ Direct control attaches to one character at a time. Orders influence autonomous 
 
 ## 2. Field commands and equipment abilities
 
-Use top-down sprite presentation with Diablo/RTS-style mouse interaction. Proposed command defaults:
+Use the confirmed fixed isometric/three-quarter sprite presentation with Diablo/RTS-style mouse interaction. Square logical tiles do not imply turn-based combat or change real-time action timing. Proposed command defaults:
 
 | Input/context | Intent |
 |---|---|
@@ -49,6 +49,8 @@ Paused UI may preview layouts and queue permitted commands. Movement, drawing eq
 Significant containment changes, injury, hostile contact, a requested acknowledgement or a critical staffing failure can emit interruption events. Apply configured speed/pause policy at the committed event boundary. Pausing does not undo an already resolved consequence. Acceleration must process observation and anomaly events at required fidelity; it cannot skip a brief loss of observation.
 
 The simulation continues in unattended locations using certified detail levels. Difficulty is a ruleset independent of the chosen character role; a cafeteria start does not imply different physics or automatic pause behavior.
+
+For later travel between world locations, the user references a Fallout/Wasteland-like world-map presentation. Treat this as an interface direction over actual travel and continuing world events, not an unpriced instant transfer. Exact route selection, travel duration, resource use, interruption/encounter rules and availability remain open design questions for the world/network stage. M1 remains inside the starting facility.
 
 ## 5. Failure policies
 

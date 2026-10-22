@@ -1,10 +1,10 @@
 # SCP: Welcome to Site-[REDACTED]
 
-Design baseline, revision 0.6 — October 22, 2026.
+Design baseline, revision 0.7 — October 22, 2026.
 
-A top-down SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
+An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot .NET with an independent C# simulation core is the recommended engine candidate, pending adoption/M0 qualification. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
+This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot is the selected engine; Godot .NET with an independent C# simulation core remains the recommended implementation configuration to qualify in M0. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
 
 ## Read in this order
 
@@ -23,7 +23,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 13. [Perceived contexts and SCP-1499](docs/10-world-perception-and-scp-1499.md): second module, procedural population and physical/perceptual consequences.
 14. [Physical/perceived context decision](docs/adr/0003-physical-perceived-contexts.md): architecture options and bounded proofs.
 15. [OSCP and communications](docs/11-oscp-terminal.md): devices/sessions, SCiPnet, applications, outside reports, records and receipts.
-16. [Godot recommendation](docs/adr/0004-godot-and-simulation-core.md): Godot versus a custom engine and the independent-kernel boundary.
+16. [Godot selection and integration](docs/adr/0004-godot-and-simulation-core.md): the selected engine and proposed independent-kernel boundary.
 17. [Development workflow](docs/12-development-workflow.md): Git source policy, ignored runtime/cache data and local commits.
 18. [Lore and digital operations](docs/13-lore-and-digital-operations.md): SCiPnet, AIC/AIAD, technical responsibility, sources and open questions.
 
@@ -34,10 +34,10 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 ## Confirmed direction
 
 - “X4” means X4: Foundations as the reference for personal participation alongside network management, translated into SCP settings and top-down play.
-- The player embodies one character. “First person” describes that character's participation in the world; the visual camera is top-down/isometric.
+- The player embodies one character. “First person” describes that character's participation in the world; the visual camera is fixed isometric/three-quarter.
 - Managing the Foundation network and dealing with Groups of Interest are core product pillars. A single site is the first implementation slice, not the whole game's intended scale.
 - Personal, personnel, vehicle, and facility storage share physical inventory rules. Console distribution is delegated work over those same containers, with filters, priorities, consolidation, and access constraints.
-- Visuals use modern sprites. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
+- Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed Fallout 2-inspired sprites and textured environments are the finished visual target. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
 - Real time, ruleset-controlled pause and acceleration; inventory/terminals do not inherently stop the world. Field commands use click/Ctrl-click with equipment functions and physical accessibility.
@@ -51,9 +51,10 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 ## Working assumptions
 
 - Single-player desktop and mouse/keyboard are the proposed platform/input envelope; exact bindings, hardware and supported OS remain open.
-- Top-down or isometric presentation is primary. A facility section view is a later projection of the same spatial model.
+- Fixed isometric/three-quarter presentation is primary. A facility section view is a later projection of the same spatial model. Exact projection angle, sprite scale, production pipeline and finished direction/frame counts remain open.
+- Fallout/Wasteland-style world-map travel is a presentation reference for the later network/world stage; travel timing, encounters and detailed interaction still need design. It does not change the real-time local control scheme or first facility-only milestone.
 - M0 proves feasibility; M1 qualifies SCP-650; M2 adds SCP-1499; M3 qualifies broader anomalies/continuation/world generation; M4 proves the bounded network; M5 scopes release. Counts and performance limits are proposed, and broader fixtures are not promised launch campaigns.
 - LLM support is an optional later decision provider. The world runs fully without it.
 - A bounded network prototype follows the local-play and anomaly-architecture gates, before a production release is scoped.
 
-The immediate development step is the M0 technical prototype in the scope document. Engine selection follows its measurable requirements.
+The immediate development step is the M0 technical prototype in the scope document, qualifying the selected Godot engine, simulation boundary and fixed isometric presentation.
