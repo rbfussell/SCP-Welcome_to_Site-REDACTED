@@ -1,0 +1,480 @@
+{
+  "schema_version": "diagnostic-reference/0.1",
+  "purpose": "Engine-independent precomposed samples, not a runtime asset API",
+  "animation_runtime_implemented": false,
+  "reference_projection": "top-down north-up",
+  "frame_numbering": "one-based",
+  "facing_color": "#61FF70",
+  "palette": {
+    "landscape": "#6B5D3E",
+    "map_object": "#61717C",
+    "building": "#9B7BA6",
+    "object": "#C88E41",
+    "npc": "#3D8FA3",
+    "player": "#C74D79"
+  },
+  "directions": [
+    "north",
+    "east",
+    "south",
+    "west"
+  ],
+  "pillow_version": "12.2.0",
+  "font_sha256": {
+    "OpenSans-Regular.ttf": "8ab4aa561e7db0eb3e1af8b0bed2a315e0a33fe2ed3070e645d1b89f8efc1d5c",
+    "OpenSans-Bold.ttf": "1a6bc6775358bfed0e4191b6f2c4d7d75d122f0c6e5a255f264ab455c67237b7"
+  },
+  "reference_sheet": "reference-sheet.png",
+  "entries": [
+    {
+      "key": "landscape/illustration/none/frame-01",
+      "file": "landscape-illustration-none-01.png",
+      "category": "landscape",
+      "sample_name": "Ground",
+      "state": "illustration",
+      "facing": null,
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "map_object/illustration/none/frame-01",
+      "file": "map_object-illustration-none-01.png",
+      "category": "map_object",
+      "sample_name": "Oak tree",
+      "state": "illustration",
+      "facing": null,
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "building/illustration/none/frame-01",
+      "file": "building-illustration-none-01.png",
+      "category": "building",
+      "sample_name": "Wall tile",
+      "state": "illustration",
+      "facing": null,
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "object/illustration/none/frame-01",
+      "file": "object-illustration-none-01.png",
+      "category": "object",
+      "sample_name": "Supply box",
+      "state": "illustration",
+      "facing": null,
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/idle/north/frame-01",
+      "file": "npc-idle-north-01.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "idle",
+      "facing": "north",
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "player/idle/south/frame-01",
+      "file": "player-idle-south-01.png",
+      "category": "player",
+      "sample_name": "Player",
+      "state": "idle",
+      "facing": "south",
+      "frame": 1,
+      "frame_count": 1,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/north/frame-01",
+      "file": "npc-walk-north-01.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "north",
+      "frame": 1,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/east/frame-01",
+      "file": "npc-walk-east-01.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "east",
+      "frame": 1,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/south/frame-01",
+      "file": "npc-walk-south-01.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "south",
+      "frame": 1,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/west/frame-01",
+      "file": "npc-walk-west-01.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "west",
+      "frame": 1,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/north/frame-02",
+      "file": "npc-walk-north-02.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "north",
+      "frame": 2,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/east/frame-02",
+      "file": "npc-walk-east-02.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "east",
+      "frame": 2,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/south/frame-02",
+      "file": "npc-walk-south-02.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "south",
+      "frame": 2,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/west/frame-02",
+      "file": "npc-walk-west-02.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "west",
+      "frame": 2,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/north/frame-03",
+      "file": "npc-walk-north-03.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "north",
+      "frame": 3,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/east/frame-03",
+      "file": "npc-walk-east-03.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "east",
+      "frame": 3,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/south/frame-03",
+      "file": "npc-walk-south-03.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "south",
+      "frame": 3,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    },
+    {
+      "key": "npc/walk/west/frame-03",
+      "file": "npc-walk-west-03.png",
+      "category": "npc",
+      "sample_name": "Mara Chen",
+      "state": "walk",
+      "facing": "west",
+      "frame": 3,
+      "frame_count": 3,
+      "canvas_px": [
+        192,
+        192
+      ],
+      "anchor_px": [
+        96,
+        180
+      ],
+      "draw_bounds_px": [
+        12,
+        12,
+        180,
+        180
+      ],
+      "precomposed_debug_labels": true
+    }
+  ]
+}

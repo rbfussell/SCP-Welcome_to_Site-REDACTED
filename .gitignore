@@ -1,0 +1,27 @@
+# Editor/import caches and local tooling state
+**/.godot/
+**/.mono/
+**/bin/
+**/obj/
+**/__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# Local account/tool configuration is not project source
+/.agents/
+/.codex/
+/.aws/
+.env
+.env.*
+!.env.example
+
+# Runtime data and generated build/inspection outputs
+/saves/
+/logs/
+/user-data/
+/builds/
+/dist/
+/work/preview/
+
+# Keep generated diagnostic reference assets: they are reviewed design fixtures.
