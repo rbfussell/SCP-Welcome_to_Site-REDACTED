@@ -16,6 +16,8 @@ Status: Revision 0.6 design pass. The user requires lore-favored terminology and
 
 These references are SCP Wiki works under their linked attribution/license notices. Preserve individual article credits when adapting content. Existing character art is not imported by this pass.
 
+The user has supplied a [local JSON reference archive](../source_material/README.md). Its indexes and targeted content shards support offline lookups, including SCP-650 and the AIAD hub. The archive guide records the inspected revision, actual key/path format and candidate technical-support tales. Archive presence does not establish a single canon or grant all source information to in-world actors. The exact Technical Services hub/title remains unresolved; the inspected “Technical Orientation” tale calls its department “Tech Support.”
+
 ## Proposed division of responsibility
 
 **OSCP** is the workstation/device platform and user interface. It supplies sessions, windows/commands, local files and access to installed services. It is not presumed to be an all-knowing sentient operating system.

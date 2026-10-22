@@ -8,6 +8,8 @@ The article specifies a lockable, lit room, continuous observation by at least t
 
 The article describes personnel/observers and explicitly allows emergency security-camera observation. It does not mention AICs, test AI-only observation or explicitly restrict all possible observers to humans. This game's baseline therefore selects human observers as a conservative adaptation; that is not proof that artificial observation is canonically ineffective. A scenario choosing AI or any-eligible observation must identify that alternate profile explicitly.
 
+The user confirms interpreting personnel here as humans: the three-person procedure and sustained concentration are meaningful staffing constraints, whereas indefinite AI-only observation would change that design. Preserve human staffing/attention in the baseline rather than treating the resident AIC as a substitute. The same source text was checked in the [local JSON archive](../source_material/README.md).
+
 Initial scope confines its effects to the starting facility's declared domains/floors. This is a module/scenario bound, not an engine-wide rule that SCPs cannot escape into towns. The later world architecture supports other declared scopes.
 
 ## 2. Opening state and incident

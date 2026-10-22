@@ -24,4 +24,7 @@ Thumbs.db
 /dist/
 /work/preview/
 
+# Bulk reference dataset has its own Git history; track our lookup guide only.
+/source_material/scp-api/
+
 # Keep generated diagnostic reference assets: they are reviewed design fixtures.

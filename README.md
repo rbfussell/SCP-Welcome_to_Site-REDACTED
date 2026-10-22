@@ -29,6 +29,8 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
+[Local SCP archive guide](source_material/README.md) describes the user-supplied JSON reference checkout, targeted article lookup and separation from the game's Git history and actor knowledge.
+
 ## Confirmed direction
 
 - “X4” means X4: Foundations as the reference for personal participation alongside network management, translated into SCP settings and top-down play.

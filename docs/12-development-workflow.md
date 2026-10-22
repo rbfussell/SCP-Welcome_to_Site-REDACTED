@@ -6,6 +6,7 @@ Git was initialized locally on `main` on October 22, 2026. The first commit capt
 
 - Commit design, engine/kernel source, content definitions, schema versions, tests, source assets, Godot scenes/resources and intentional reference fixtures.
 - Exclude imported/editor caches, compiled outputs, personal tool/account configuration, credentials, local saves and logs through [.gitignore](../.gitignore).
+- Keep the bulk `source_material/scp-api/` reference checkout in its own history, excluded from the parent game repository. Track the [lookup guide](../source_material/README.md), source revision references and authored adaptation decisions instead of duplicating the archive.
 - Keep reviewed diagnostic PNGs and their manifest alongside the generator. Changes should be explainable from generator inputs/environment; regenerate intentionally rather than committing cache churn.
 - Pin the adopted engine/SDK/import versions after M0 selection. Do not replace the engine/runtime silently during a content change.
 - Use small commits with a concrete behavior or design decision. Check the diff and relevant requirements before committing. Do not rewrite accepted decision history; supersede an accepted ADR when changing direction.
