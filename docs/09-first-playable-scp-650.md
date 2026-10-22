@@ -1,10 +1,12 @@
 # First playable: SCP-650 containment breach
 
-Status: Revision 0.5. A facility-only SCP-650 incident, direct and delegated responses, persistent consequences and approximately six discrete pose sprites are confirmed direction. The user accepts both observed transport and controlled relocation as valid recontainment approaches. Specific fixture counts, tuning and procedure details remain proposals. This replaces the earlier generic off-site observation-hazard mission.
+Status: Revision 0.6. A facility-only SCP-650 incident, direct and delegated responses, persistent consequences and approximately six discrete pose sprites are confirmed direction. The user accepts both observed transport and controlled relocation as valid recontainment approaches, and module/scenario selection of observer eligibility. The baseline uses human observation; AI-only observation is not established by the source. Specific fixture counts, tuning and procedure details remain proposals. This replaces the earlier generic off-site observation-hazard mission.
 
 ## 1. Source and adaptation boundary
 
 The article specifies a lockable, lit room, continuous observation by at least three personnel, emergency remote observation with unbroken concentration, silent relocation and no demonstrated active hostility. It also describes varied postures and relocation across a site. These facts guide the adaptation; the algorithms below are proposed game rules. Source: [SCP-650 by Dr Talson](https://scp-wiki.wikidot.com/scp-650), CC BY-SA 3.0.
+
+The article describes personnel/observers and explicitly allows emergency security-camera observation. It does not mention AICs, test AI-only observation or explicitly restrict all possible observers to humans. This game's baseline therefore selects human observers as a conservative adaptation; that is not proof that artificial observation is canonically ineffective. A scenario choosing AI or any-eligible observation must identify that alternate profile explicitly.
 
 Initial scope confines its effects to the starting facility's declared domains/floors. This is a module/scenario bound, not an engine-wide rule that SCPs cannot escape into towns. The later world architecture supports other declared scopes.
 
@@ -20,7 +22,7 @@ The player can respond through direct participation, delegated security/maintena
 
 ## 3. Module-owned state and visuals
 
-Track instance ID, current physical location, pose key, observation policy, eligible observer set, last observation change, relocation/cooldown state, encounter ID, per-witness reaction history, containment procedure state and module RNG stream.
+Track instance ID, current physical location, pose key, observation policy/profile ID and version, scenario override, eligible observer set, last observation change, relocation/cooldown state, encounter ID, per-witness reaction history, containment procedure state and module RNG stream.
 
 Declare approximately six initial pose keys. Possible stand-ins include the default raised pose, two threatening poses, crouched, seated and reclining variants; exact art/pose selection remains an authoring decision. Poses are discrete states, each initially a one-frame illustration. Do not run them as six successive walk frames. The module chooses a pose only through a valid state transition, not every render frame.
 
@@ -28,7 +30,9 @@ Use the object-category placeholder with instance name, pose key, frame/total an
 
 ## 4. Observation and relocation
 
-The shared sensory service supplies eligible direct observers and remote observers according to SCP-650's policy. Proposed remote qualification requires a live powered camera, clear camera sight, working feed and a focused qualified operator. An unattended camera, recorded clip, old report, friendly map marker or overhead player view is not sufficient. Remote observation is an emergency procedure, not an automatic substitute for staffing.
+The shared sensory service supplies eligible direct observers and remote observers according to SCP-650's selected policy. The baseline profile is **human observers**. Proposed remote qualification requires a live powered camera, clear camera sight, working feed and a focused qualified human operator. An unattended camera, recorded clip, old report, friendly map marker or overhead player view is not sufficient. Remote observation is an emergency procedure, not an automatic substitute for staffing.
+
+A resident AIC can watch available feeds, detect/report coverage problems and request authorized responses. Under this baseline, AIC-only monitoring does not suppress relocation or fill a human observation post. A live feed attended by both AIC and an eligible human qualifies because of the human. Losing that last human's attention removes coverage even if AIC monitoring continues. Alternate AI-only or any-eligible scenario profiles use the same sensory service and must remain visibly distinct from this default.
 
 Observation that suppresses self-relocation is separate from procedure compliance. One eligible observer can currently stop relocation while the three-person safety procedure is understaffed. The terminal must show both facts. Failing the staffing procedure is not permission to relocate while valid sight still exists.
 
@@ -72,6 +76,8 @@ If recontainment fails, the statue remains at its actual location and continues 
 ## 7. Required evidence
 
 Prove normal staffing, last-observer loss, another observer preserving stability, valid and invalid camera observation, relocation into a character's previously unseen area, no valid destination, distinct non-cycling poses, witness-specific reactions and silent relocation.
+
+Compare AIC-only monitoring with a human attending the same live feed. Only the human qualifies under the baseline; the AIC's valid reports still update knowledge. Exercise explicit alternate profiles in isolated authoring fixtures and preserve the selected profile across save/load, without changing the campaign default silently.
 
 Run observed transport personally and through delegated staff, and qualify the controlled-relocation alternative with a reproducible fixture. Exercise failure, player prevention of the breach, blocked equipment, loss of relief/communications, pause/acceleration and saving before/after relocation. Disable the mission wrapper and verify the module continues to behave; swap ordinary lighting/vision conditions and verify behavior follows shared rules.
 

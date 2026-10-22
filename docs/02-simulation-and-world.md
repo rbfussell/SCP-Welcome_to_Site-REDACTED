@@ -114,6 +114,8 @@ A domain is not automatically both an actor's physical world and its perceived e
 
 Sensor queries identify observer, target, sense/media and the context policy. Distinguish direct sight, a focused live camera feed, a report and remembered location. Shared awareness can update knowledge without increasing an anomaly's eligible observer set. Camera qualification includes power, sight, feed availability and declared operator attention; each SCP decides which media count.
 
+Observer-kind eligibility is independently module/scenario-configurable: human, AI or any eligible observing actor, with authored predicates for further distinctions. The same camera can provide evidence to an AIC without making that AIC a qualifying observer for an anomaly. Persist the effective profile/version and explicit scenario override; evaluate changes at sensory event boundaries. SCP-650's baseline requires humans, including a focused human using a qualified live feed. See [observer profiles](03-scp-module-contract.md#observer-eligibility-profiles).
+
 SCP-650 uses this service for relocation and coverage. SCP-1499 can change physical location or perception so those observer predicates become false without pair-specific callbacks. [The context contract](10-world-perception-and-scp-1499.md) and [ADR-0003](adr/0003-physical-perceived-contexts.md) define the second demonstration and its bounds.
 
 ## 5. Procedural hierarchy

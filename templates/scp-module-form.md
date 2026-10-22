@@ -24,6 +24,9 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Spawn/location restrictions: `<rules>`
 - Invariants: `<conditions that must always hold>`
 - Observer/sense/media policy: `<eyes, attention, light, occlusion, cameras, etc.>`
+- Observer-kind profile/default and version: `<human, AI, any eligible observer, or explicit authored predicate; unknown-kind handling>`
+- Scenario observer-profile selection/overrides: `<compatible variants, source/adaptation notes, save identity and validation>`
+- Eligibility versus information: `<who can detect/report the anomaly without counting as a suppressing observer>`
 - Event subscriptions and timer resolution: `<events and deadlines>`
 - Persistent state schema/version and seeded randomness: `<data>`
 - Creation/restore/disposal and migration: `<behavior>`

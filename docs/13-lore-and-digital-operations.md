@@ -50,7 +50,9 @@ Responses contain typed proposed intents and optional attributed dialogue. Valid
 
 Provider work is asynchronous and must not halt simulation time while inference runs. Timeout, failure, invalid output and stale replies fall back to deterministic duties or explicit escalation. Cancel obsolete requests on branch changes; record committed decisions so save/load or replay does not depend on generating the same model response again. Deadlines, call budgets and model context limits are proposed tuning to qualify later. M1 proves the provider boundary with a deterministic/mock provider, not a real model dependency.
 
-Backups, migration, concurrent instances and identity replication need an explicit policy before implementation; copying an `.aic` game-world file must not silently create unlimited staff. AIC camera observation is another unresolved per-SCP question: capability to process video alone must not silently make the AIC qualify as a human observer for SCP-650.
+Backups, migration, concurrent instances and identity replication need an explicit policy before implementation; copying an `.aic` game-world file must not silently create unlimited staff.
+
+Observer eligibility is resolved as a module/scenario choice: human, AI or any eligible observing actor, with medium/attention requirements evaluated separately. An AIC processing video may gain evidence and report it without suppressing an observation-dependent anomaly. SCP-650's baseline uses human observers, including qualified emergency live-camera observation. Its article does not address AICs or test AI-only observation; human-only is the chosen conservative game adaptation, not an explicit universal prohibition in the fiction. See [SCP-650](09-first-playable-scp-650.md) and [profile contract](03-scp-module-contract.md#observer-eligibility-profiles).
 
 ## Pending questions and decision process
 
@@ -59,7 +61,8 @@ Questions already presented to the user:
 1. **Resolved:** resident AIC at the starting site, with later regional support and an optional local-model JSON interface as described above.
 2. Advisory, standing-order technical work with escalation, or broad authorized autonomy?
 3. Which Technical Services hub/page and which canon/timeline should anchor the portrayal?
+4. **Resolved:** module/scenario-configurable observer eligibility; SCP-650 defaults to humans and human-attended live feeds. AIC monitoring/reporting alone does not freeze it under that profile.
 
-Additional decisions before implementing affected behavior: original conscript versus a specific established character; whether the chosen SCP permits digital observers; backup/instance policy; exact authority of records governance and technical staff. Keep these as questions, not hidden defaults.
+Additional decisions before implementing affected behavior: original conscript versus a specific established character; source/adaptation evidence for other SCPs' observer profiles; backup/instance policy; exact authority of records governance and technical staff. Keep these as questions, not hidden defaults.
 
 When ambiguity affects behavior, identify the conflict and source, ask the user, and record their decision and adaptation notes. While awaiting an answer, progress on independent platform/UI/engine work and label alternatives as proposals. Do not promote proposed limits, schedules or a source-specific timeline into universal lore.

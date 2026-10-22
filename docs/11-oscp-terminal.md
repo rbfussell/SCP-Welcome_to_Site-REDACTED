@@ -57,7 +57,7 @@ Keep worker acknowledgement and communications delay meaningful. Retries cannot 
 
 Using OSCP is an ordinary timed/attention activity. Inventory and terminal screens do not pause automatically. Typing or opening a dossier can change the avatar's attention according to the interaction definition. A live surveillance task qualifies as observation only while the module's device/feed/operator predicate holds; a background tab does not count indefinitely. An assigned autonomous operator can maintain a feed independently of the player browsing another app.
 
-For SCP-650 show distinct rows for safety-procedure staffing and current qualifying observers. Understaffing can be an alert while one observer still suppresses relocation. A remembered sighting or external report cannot substitute for live observation.
+For SCP-650 show distinct rows for safety-procedure staffing and current qualifying observers. Understaffing can be an alert while one observer still suppresses relocation. A remembered sighting or external report cannot substitute for live observation. Display the effective module/scenario observer profile; the baseline requires humans, including a qualified human attending a live feed. AIC monitoring can report conditions without counting toward that profile. Neither merely leaving a feed open nor switching decision providers changes eligibility.
 
 ## 5. Off-facility anomaly reports
 

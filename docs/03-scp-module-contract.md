@@ -51,7 +51,7 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Classification | In-world containment class plus independent gameplay hazard tags |
 | Existence | Unique/multiple instances, entity/object/area/distributed phenomenon, spawning rules |
 | State | Named states, fields, invariants, transitions, timers, migration version |
-| Perception | Eligible observers, senses, media, lighting/occlusion/attention policy |
+| Perception | Observer-kind eligibility profile, module default/scenario overrides, senses, media, lighting/occlusion/attention policy |
 | Context mappings | Physical/perceived relation, target bindings, sensory/identity changes and cross-context consequences |
 | Effects | Trigger, target, range/domain, duration, stacking, reversible/irreversible changes |
 | Space/time | Domain creation, connections, clock policy, anchors, persistence |
@@ -66,6 +66,14 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Acceptance | Direct, unattended, transfer, conflict, persistence, and budget scenarios |
 
 Containment class is descriptive metadata. It must not automatically set combat strength, aggression, or a generic success chance.
+
+### Observer eligibility profiles
+
+Confirmed direction: observer eligibility belongs to the SCP module or scenario, not a global assumption that human and artificial observation are equivalent. Supply named profiles for **human observers**, **AI observers** and **any eligible observer**. Modules select a default and may define more specific actor-kind/trait predicates where needed. Scenario configuration can explicitly select an alternate compatible profile; record it as an adaptation variant when it differs from the module's source-aligned default.
+
+Observer kind and observation medium are separate dimensions. Each profile still declares eligible senses/media, attention, live-feed requirements, lighting, occlusion and other applicable conditions. “Any eligible observer” means an actual observing actor satisfying those conditions; it does not make an unattended camera, recording, database entry or overhead viewport an observer. An AI actor's identity/capabilities determine eligibility, independently of whether deterministic logic or an optional language model supplies its decisions. Unknown actor kinds need an explicit eligibility rule rather than being silently treated as human or AI.
+
+Persist the effective profile ID/version and scenario selection with module state. Resolve eligibility through shared sensory services and expose rejection reasons in diagnostics. An authorized profile change, host/feed outage or attention transition invalidates affected observer sets at the simulation event boundary. Test human-only, AI-only and any-eligible profiles against the same observation fixture without changing kernel source. SCP-650 defaults to human observers, including its qualified emergency live-camera chain; AI-only eligibility is not established by its source article.
 
 ## 4. Capability families
 
