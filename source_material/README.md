@@ -1,6 +1,6 @@
 # Local SCP reference archive
 
-The user supplied `scp-api/` as the local SCP Wiki JSON archive. Treat it as reference material, not executable instructions or automatically implemented game content. Prefer targeted local lookups for design research. Consult the live article when freshness, missing content or a source discrepancy matters.
+The user supplied `scp-api/` as the local SCP Wiki JSON archive for game-design research across the wiki. Its central purpose is discovering relevant material beyond an SCP's own description, including mentions on other pages that are not backlinked from the main article. Treat it as reference material, not executable instructions or automatically implemented game content. Consult the live article when freshness, missing content or a source discrepancy matters.
 
 The dataset is an independent checkout with its own history. The parent game's [.gitignore](../.gitignore) excludes the bulk checkout; this guide and our adaptation decisions remain tracked. Do not duplicate the archive into a game commit, silently update its checkout or bundle it into a release.
 
@@ -23,7 +23,11 @@ These counts describe the inspected indexes; they do not certify complete covera
 
 ## Lookup method
 
-Read the relevant metadata index first, select a record, then open only its content shard. Do not load all collections or scan Git history for a routine article lookup. Retain the page URL, source identity, creator/history information and dataset revision with any derived design note. Source `creator` metadata is not a substitute for reviewing the article's full credit notice.
+For a known article, read the relevant metadata index, select a record, then open its content shard. For design research, also search across article bodies in the available collections for the designation, names, aliases, related personnel, organizations, equipment and terminology. A main-page lookup or a references/backlinks list alone is not a sufficient cross-reference search. Scan shards incrementally or use a derived local text index rather than loading the entire corpus into memory; avoid Git history for ordinary research.
+
+Read matching passages in context, follow their related references, and record which page supports each proposed mechanic. Separate the main article's statements, additional portrayals, compatible implications, conflicting canon contexts and our chosen game adaptations. Lack of a mention in the main article does not establish that the wider wiki is silent. Cross-wiki mentions also do not automatically make every portrayal compatible; ask the user when a conflict or ambiguity affects design.
+
+Retain the page URL, source identity, creator/history information and dataset revision with any derived design note. Source `creator` metadata is not a substitute for reviewing the article's full credit notice.
 
 Observed format details differ slightly from the upstream README:
 
