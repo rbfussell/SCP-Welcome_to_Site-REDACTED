@@ -8,6 +8,8 @@ The article describes disappearance, an unusual environment and return, while it
 
 Provide explicit physical and perceptual mechanics without claiming a final ontology. The test environment is an adaptation selected for engineering coverage; the module can later refine its mapping and narrative without forcing a new engine for every interpretation.
 
+The user supplied [creature, black-tower and mask style references](../assets/references/scp-1499-style/README.md). Their detail/material treatment guides the visual direction. Production facings, scale, architectural layers and world/inventory/worn variants remain to be specified; the images do not establish collision, traversal or sensory rules by themselves.
+
 ## 2. Distinct records
 
 | Record | Meaning |

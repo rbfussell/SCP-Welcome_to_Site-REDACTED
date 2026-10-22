@@ -1,10 +1,14 @@
 # Sprite presentation and diagnostic placeholders
 
-Status: Revision 0.7. Godot, a fixed isometric/three-quarter field view, square logical tiles and detailed Fallout 2-inspired sprite artwork are confirmed direction. Generated visibly labeled stand-ins and distinct module-selected poses remain confirmed. Colors, dimensions, exact projection angle, direction count, production method and initial animation counts below are proposals.
+Status: Revision 0.7. Godot, a fixed isometric/three-quarter field view, square logical tiles and detailed, visibly pixelated Fallout 2-inspired sprite artwork are confirmed direction. The user's creature/tower/mask examples anchor the style. Generated visibly labeled stand-ins and distinct module-selected poses remain confirmed. Colors, dimensions, exact projection angle, direction count, production method and initial animation counts below are proposals.
 
 ## 1. Art and development pipeline
 
 The user's visual reference is Fallout 2: detailed sprite characters, substantial environmental detail and a grounded, textured appearance. “Retro” here refers to that classic PC RPG sensibility. The target is not a low-color NES/RPG Maker-style treatment. Use enough color, shading and resolution to distinguish bodies, equipment and surface materials at the chosen gameplay zoom. Do not interpret the earlier “modern sprites” wording as rejecting the now-confirmed Fallout 2 reference.
+
+The user subsequently supplied [three concrete SCP-1499 style examples](../assets/references/scp-1499-style/README.md): a creature, black towers and a GP-5 mask. They show detailed pixel-sprite rendering, stepped shading, textured materials, dimensional forms and restrained accents. The user explicitly confirmed that the detailed, visibly pixelated treatment should remain at normal gameplay zoom. Earlier wording must not exclude pixel art categorically. Preserve authored pixel structure through the chosen production/filtering/zoom pipeline rather than automatically smoothing it away. The reference originals and alpha channels are preserved, with hashes/dimensions in their manifest.
+
+Actor sprites, architecture and inventory illustrations share an art language while using purpose-specific perspective, scale and asset bindings. A tall creature needs consistent ground anchoring and directional poses; architecture may require multiple draw/occlusion pieces; an inventory mask illustration can be much larger than its world representation. The supplied image sizes do not set our production tile size or global palette. Choose native scale, filtering and zoom from a composed scene, not one isolated attachment.
 
 The field camera is fixed isometric/three-quarter. Square logical tiles underpin terrain, room construction and procedural placement; their screen projection and the visible sprite canvas are separate from simulation geometry. This choice does not adopt Fallout's game rules or grid model. Exact projection ratio/angle, world-unit scale, sprite dimensions, native display scale and zoom limits must be qualified together before producing the finished asset set.
 

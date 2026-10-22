@@ -30,6 +30,8 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
+[User-supplied art references](assets/references/scp-1499-style/README.md) preserve the SCP-1499 creature, tower and mask examples that clarify the desired detailed, textured pixel-sprite appearance.
+
 [Local SCP archive guide](source_material/README.md) describes the user-supplied JSON reference checkout, targeted article lookup and separation from the game's Git history and actor knowledge.
 
 ## Confirmed direction
@@ -38,7 +40,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 - The player embodies one character. “First person” describes that character's participation in the world; the visual camera is fixed isometric/three-quarter.
 - Managing the Foundation network and dealing with Groups of Interest are core product pillars. A single site is the first implementation slice, not the whole game's intended scale.
 - Personal, personnel, vehicle, and facility storage share physical inventory rules. Console distribution is delegated work over those same containers, with filters, priorities, consolidation, and access constraints.
-- Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed Fallout 2-inspired sprites and textured environments are the finished visual target. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
+- Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed, visibly pixelated Fallout 2-inspired sprites and textured environments are the finished visual target, clarified by the user's SCP-1499 references. Retain authored pixel texture at normal gameplay zoom. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
 - Real time, ruleset-controlled pause and acceleration; inventory/terminals do not inherently stop the world. Field commands use click/Ctrl-click with equipment functions and physical accessibility.

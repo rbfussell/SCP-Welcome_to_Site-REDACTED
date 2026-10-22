@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "received_date": "2026-10-22",
+  "status": "user-supplied art references; production bindings and scale undecided",
+  "images": [
+    {
+      "file": "scp-1499-1-creature.png",
+      "original_attachment_name": "1-SCP-1499-1-creature-full-alpha.png",
+      "provided_by": "user",
+      "usage": "style_reference",
+      "reference_role": "creature material, silhouette and detail reference",
+      "width": 474,
+      "height": 1556,
+      "mode": "RGBA",
+      "has_transparent_pixels": true,
+      "sha256": "8e9e7b282104bdebf08fcad391be590ebcdd9dc2bc83cd205daa052d96928959"
+    },
+    {
+      "file": "scp-1499-black-tower.png",
+      "original_attachment_name": "2-SCP-1499-black-tower-full-alpha.png",
+      "provided_by": "user",
+      "usage": "style_reference",
+      "reference_role": "isometric architecture and depth reference",
+      "width": 1172,
+      "height": 1528,
+      "mode": "RGBA",
+      "has_transparent_pixels": true,
+      "sha256": "248beccea08742493d421b4b33922b15972ab9ee031a0834e44da1e689532f0f"
+    },
+    {
+      "file": "scp-1499-gp5-mask.png",
+      "original_attachment_name": "3-SCP-1499-GP-5-gas-mask-full-alpha.png",
+      "provided_by": "user",
+      "usage": "style_reference",
+      "reference_role": "inventory and equipment illustration reference",
+      "width": 857,
+      "height": 1212,
+      "mode": "RGBA",
+      "has_transparent_pixels": true,
+      "sha256": "fd560013041a80f9019ea1522c5718a2c109e51215b27943ff0f3233c3e5ff6c"
+    }
+  ],
+  "confirmed_style": "Detailed, visibly pixelated sprites; retain authored pixel texture at normal gameplay zoom."
+}
