@@ -1,0 +1,83 @@
+"""Build/run the Godot .NET spatial prototype without renaming the source workspace."""
+import argparse
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def run(command, cwd, env, log=None):
+    if log:
+        result = subprocess.run(command, cwd=cwd, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        log.write_text(result.stdout)
+        if result.returncode:
+            print(result.stdout)
+        result.check_returncode()
+        return result.stdout
+    subprocess.run(command, cwd=cwd, env=env, check=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='Run the engine-independent spatial checks, then exit.')
+    parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
+    parser.add_argument('--godot', help='Godot .NET executable (defaults to godot-dotnet).')
+    args = parser.parse_args()
+    if args.check and args.smoke:
+        parser.error('Choose --check or --smoke.')
+    if not shutil.which('dotnet'):
+        raise SystemExit('Install the .NET SDK selected in global.json first.')
+    godot = args.godot or shutil.which('godot-dotnet')
+    if not args.check and not godot:
+        raise SystemExit('Use --godot /path/to/Godot_4.7.1_mono, or put godot-dotnet on PATH.')
+
+    inspection = ROOT / 'work/preview/spatial-scene'
+    inspection.mkdir(parents=True, exist_ok=True)
+    env = os.environ.copy()
+    # Isolate tool caches without moving the user's HOME or changing global configuration.
+    env.setdefault('NUGET_PACKAGES', str(Path.home() / '.nuget/packages'))
+    env['DOTNET_CLI_HOME'] = str(inspection / 'dotnet')
+    env['DOTNET_SKIP_FIRST_TIME_EXPERIENCE'] = '1'
+    env['DOTNET_CLI_TELEMETRY_OPTOUT'] = '1'
+    env['XDG_CONFIG_HOME'] = str(inspection / 'config')
+    env['XDG_CACHE_HOME'] = str(inspection / 'cache')
+    env['XDG_DATA_HOME'] = str(ROOT / 'user-data')
+
+    # Linux .NET app-host/search paths and MSBuild globs fail on this workspace's
+    # colon/brackets. A symlink is insufficient: the host resolves its real path.
+    # Only the small prototype is copied, never the wiki archive or Git history.
+    with tempfile.TemporaryDirectory(prefix='scp-spatial-') as directory:
+        stage = Path(directory)
+        for name in ('game', 'src', 'tests'):
+            shutil.copytree(ROOT / name, stage / name, ignore=shutil.ignore_patterns('.godot', 'bin', 'obj', '*.uid', '*.import'))
+        shutil.copy2(ROOT / 'global.json', stage / 'global.json')
+        common = ['-p:NuGetAudit=false', '--verbosity', 'minimal']
+        if args.check:
+            project = stage / 'tests/SpatialChecks/SpatialChecks.csproj'
+            run(['dotnet', 'build', str(project), '--ignore-failed-sources', *common], stage, env)
+            run(['dotnet', str(stage / 'tests/SpatialChecks/bin/Debug/net8.0/SpatialChecks.dll'), str(stage / 'game/Content/spatial-facility.json')], stage, env)
+            return
+        version = subprocess.check_output([godot, '--version'], env=env, text=True).strip()
+        if not version.startswith('4.7.1.') or '.mono.' not in version:
+            raise SystemExit(f'This prototype is qualified for Godot .NET 4.7.1; found {version}.')
+        run(['dotnet', 'build', str(stage / 'game/SiteScene.csproj'), '--ignore-failed-sources', *common], stage, env)
+        print('Importing prototype assets...', flush=True)
+        log = run([godot, '--headless', '--editor', '--path', str(stage / 'game'), '--import', '--quit'], stage, env, inspection / 'last-import.log')
+        if 'ERROR:' in log:
+            raise SystemExit('Godot reported import errors; see work/preview/spatial-scene/last-import.log.')
+        command = [godot, '--path', str(stage / 'game')]
+        if args.smoke:
+            output = args.smoke.resolve()
+            output.parent.mkdir(parents=True, exist_ok=True)
+            command += ['--audio-driver', 'Dummy', '--', '--scene-smoke', str(output)]
+            if shutil.which('xvfb-run'):
+                command = ['xvfb-run', '-a', '-s', '-screen 0 1440x900x24', *command]
+        print('Starting spatial scene. Changes should be edited in the source workspace.', flush=True)
+        run(command, stage, env)
+
+
+if __name__ == '__main__':
+    main()

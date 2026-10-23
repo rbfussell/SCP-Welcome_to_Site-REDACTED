@@ -4,7 +4,15 @@ Design baseline, revision 0.8 — October 22, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot .NET presentation with an independent C# simulation core is the selected implementation direction after reviewing Falltergeist; exact versions, integration and performance still need M0 qualification. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
+This workspace now contains a runnable Godot spatial prototype alongside the design baseline, diagnostic sprite generators and terminal design preview. It is not yet a complete game or completed M0 milestone. Godot .NET presentation uses an independent C# simulation core; this first proof is pinned to Godot .NET 4.7.1 and .NET SDK 8.0.128, with broader integration/performance still to qualify. Confirmed choices remain separate from proposed contracts and limits. No delivery date, budget or legal agreement has been selected. Work is tracked in local Git.
+
+Run the first scene from this directory:
+
+```bash
+python3 tools/run_spatial_scene.py
+```
+
+The launcher handles this workspace's path characters through a temporary build copy. See [the spatial prototype guide](docs/15-spatial-prototype.md) for dependencies, controls, verification, the Fallout mapping comparison and implementation limits.
 
 ## Read in this order
 
@@ -29,6 +37,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 19. [Fallout 2 placement research](docs/14-fallout-2-placement-research.md): separate movement/terrain grids, sprite anchors, visual offsets and implications for our movement-model decision.
 20. [Falltergeist comparison and retained Godot architecture](docs/adr/0005-retain-godot-after-falltergeist-review.md): the delegated engine decision, inspected code and first prototype boundary.
 21. [Continuing world and local tactical turns](docs/adr/0006-real-time-exploration-and-tactical-turns.md): exploration/combat time split, local waiting, continuing other areas and deferred multiplayer timeout option.
+22. [Runnable spatial prototype](docs/15-spatial-prototype.md): first Godot scene, reference projection, collision overlays, movement, doors and bounded timing/save checks.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
@@ -65,4 +74,4 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 - LLM support is an optional later decision provider. The world runs fully without it.
 - A bounded network prototype follows the local-play and anomaly-architecture gates, before a production release is scoped.
 
-The immediate development step is the M0 technical prototype in the scope document, qualifying the selected Godot engine, simulation boundary and fixed isometric presentation.
+The first spatial subset of M0 is runnable. Continue qualifying the remaining M0 simulation, module-host and domain-transfer boundaries before treating the first facility scenario as implemented.

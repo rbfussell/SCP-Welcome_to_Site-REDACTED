@@ -1,0 +1,448 @@
+{
+  "version": 1,
+  "width": 10,
+  "height": 8,
+  "walls": [
+    {
+      "id": "wall-0-0-u",
+      "x": 0,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-1-0-u",
+      "x": 1,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-2-0-u",
+      "x": 2,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-3-0-u",
+      "x": 3,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-4-0-u",
+      "x": 4,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-5-0-u",
+      "x": 5,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-6-0-u",
+      "x": 6,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-7-0-u",
+      "x": 7,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-8-0-u",
+      "x": 8,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-9-0-u",
+      "x": 9,
+      "y": 0,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-0-3-u",
+      "x": 0,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-1-3-u",
+      "x": 1,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-2-3-u",
+      "x": 2,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-3-3-u",
+      "x": 3,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "door-4-3-u",
+      "x": 4,
+      "y": 3,
+      "axis": "u",
+      "door": true
+    },
+    {
+      "id": "wall-5-3-u",
+      "x": 5,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-6-3-u",
+      "x": 6,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-7-3-u",
+      "x": 7,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-8-3-u",
+      "x": 8,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-9-3-u",
+      "x": 9,
+      "y": 3,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-0-5-u",
+      "x": 0,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-1-5-u",
+      "x": 1,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-2-5-u",
+      "x": 2,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-3-5-u",
+      "x": 3,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-4-5-u",
+      "x": 4,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-5-5-u",
+      "x": 5,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-6-5-u",
+      "x": 6,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "door-7-5-u",
+      "x": 7,
+      "y": 5,
+      "axis": "u",
+      "door": true
+    },
+    {
+      "id": "wall-8-5-u",
+      "x": 8,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-9-5-u",
+      "x": 9,
+      "y": 5,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-0-8-u",
+      "x": 0,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-1-8-u",
+      "x": 1,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-2-8-u",
+      "x": 2,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-3-8-u",
+      "x": 3,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "door-4-8-u",
+      "x": 4,
+      "y": 8,
+      "axis": "u",
+      "door": true
+    },
+    {
+      "id": "wall-5-8-u",
+      "x": 5,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-6-8-u",
+      "x": 6,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-7-8-u",
+      "x": 7,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-8-8-u",
+      "x": 8,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-9-8-u",
+      "x": 9,
+      "y": 8,
+      "axis": "u",
+      "door": false
+    },
+    {
+      "id": "wall-0-0-v",
+      "x": 0,
+      "y": 0,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-1-v",
+      "x": 0,
+      "y": 1,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-2-v",
+      "x": 0,
+      "y": 2,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-3-v",
+      "x": 0,
+      "y": 3,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-4-v",
+      "x": 0,
+      "y": 4,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-5-v",
+      "x": 0,
+      "y": 5,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-6-v",
+      "x": 0,
+      "y": 6,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-0-7-v",
+      "x": 0,
+      "y": 7,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-0-v",
+      "x": 10,
+      "y": 0,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-1-v",
+      "x": 10,
+      "y": 1,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-2-v",
+      "x": 10,
+      "y": 2,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-3-v",
+      "x": 10,
+      "y": 3,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-4-v",
+      "x": 10,
+      "y": 4,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-5-v",
+      "x": 10,
+      "y": 5,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-6-v",
+      "x": 10,
+      "y": 6,
+      "axis": "v",
+      "door": false
+    },
+    {
+      "id": "wall-10-7-v",
+      "x": 10,
+      "y": 7,
+      "axis": "v",
+      "door": false
+    }
+  ],
+  "props": [
+    {
+      "id": "cabinet-a",
+      "kind": "cabinet",
+      "q": 5,
+      "r": 9,
+      "label": "EQUIPMENT"
+    },
+    {
+      "id": "crate-a",
+      "kind": "crate",
+      "q": 14,
+      "r": 6,
+      "label": "SUPPLY BOX"
+    },
+    {
+      "id": "pose-fixture",
+      "kind": "pose",
+      "q": 16,
+      "r": -5,
+      "label": "650 / POSE 1"
+    }
+  ],
+  "actors": [
+    {
+      "id": "avatar",
+      "name": "DIRECTOR",
+      "kind": "player",
+      "q": 5,
+      "r": 6,
+      "facing": 1
+    },
+    {
+      "id": "observer",
+      "name": "CHEN",
+      "kind": "npc",
+      "q": 5,
+      "r": 0,
+      "facing": 1
+    },
+    {
+      "id": "tech",
+      "name": "ORTIZ",
+      "kind": "npc",
+      "q": 8,
+      "r": 8,
+      "facing": 4
+    }
+  ]
+}

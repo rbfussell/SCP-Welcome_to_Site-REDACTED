@@ -25,4 +25,6 @@ Use a feature branch for nontrivial implementation once work begins. This initia
 
 Documentation checks validate local links, code fences, unique requirement IDs and references. They do not certify gameplay. Prototype gates require the actual runtime evidence in [scope and acceptance](04-scope-and-acceptance.md).
 
+The [spatial prototype guide](15-spatial-prototype.md) records the first runnable Godot/.NET versions, the temporary-copy launcher required by this Linux workspace path, controls and actual spatial/visual checks. This implementation starts on `prototype/m0-spatial-scene`; the larger M0 gate is still open.
+
 The [terminal design review](reviews/terminal-design-checks.md) records this pass's browser/documentation evidence and its implementation limits. Temporary preview wrappers and screenshots are ignored inspection output.
