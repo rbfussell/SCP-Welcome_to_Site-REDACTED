@@ -8,6 +8,7 @@ internal sealed class SimulationWorld
     public AnomalySystem Anomalies { get; }
     public SimulationTrace Trace { get; } = new();
     public PlayerAwareness Awareness { get; } = new();
+    public OperationState Operations { get; }
     public long WorldMs { get; set; }
     public long LocalMs { get; set; }
     public bool LocalHold { get; set; }
@@ -17,7 +18,7 @@ internal sealed class SimulationWorld
     public bool LocalActive => !LocalHold && !ManualPause;
     public ActorState Player => Actors.Single(a => a.Kind == "player");
 
-    public SimulationWorld(string mapJson)
+    public SimulationWorld(string mapJson, string? operationJson = null)
     {
         Map = FacilityMap.Load(mapJson);
         Actors = Map.Definition.Actors.Select(a => new ActorState
@@ -28,6 +29,8 @@ internal sealed class SimulationWorld
         Anomalies = new AnomalySystem(Map.Definition.Anomalies ?? []);
         Anomalies.RegisterBlockers(Map);
         if (Actors.Any(a => !Map.Walkable(a.Cell))) throw new ArgumentException("Anomaly overlaps an actor spawn.");
+        Operations = new(operationJson);
+        OperationLifecycle.Initialize(this);
     }
     public void Log(string system, string subject, string eventName, string detail) => Trace.Add(WorldMs, LocalMs, system, subject, eventName, detail);
 }

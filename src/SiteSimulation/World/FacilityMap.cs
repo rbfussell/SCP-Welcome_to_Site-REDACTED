@@ -40,20 +40,20 @@ public sealed class FacilityMap
     public static FacilityMap Load(string json) => new(JsonSerializer.Deserialize<MapDefinition>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
         ?? throw new ArgumentException("Empty map definition."));
     public bool Inside(Point2 p) => p.X > 0 && p.Y > 0 && p.X < Definition.Width && p.Y < Definition.Height;
-    public bool Walkable(Hex h) => Inside(h.World)
-        && !DynamicBlockers.Contains(h)
+    public bool Walkable(Hex h, IReadOnlySet<Hex>? ignoredBlockers = null) => Inside(h.World)
+        && (!DynamicBlockers.Contains(h) || ignoredBlockers?.Contains(h) == true)
         && !Definition.Props.Any(p => p.Cell == h)
         && !SolidWalls.Any(w => Geometry.DistanceToSegment(h.World, w.Start, w.End) < 0.18);
 
-    public bool CanTraverse(Hex a, Hex b) => a.Distance(b) == 1 && Walkable(a) && Walkable(b)
+    public bool CanTraverse(Hex a, Hex b, IReadOnlySet<Hex>? ignoredBlockers = null) => a.Distance(b) == 1 && Walkable(a, ignoredBlockers) && Walkable(b, ignoredBlockers)
         && !SolidWalls.Any(w => Geometry.Intersects(a.World, b.World, w.Start, w.End));
 
     public bool ClearSight(Point2 a, Point2 b) => !SolidWalls.Any(w => Geometry.Intersects(a, b, w.Start, w.End))
         && !Definition.Props.Any(p => p.Kind == "cabinet" && Geometry.DistanceToSegment(p.Cell.World, a, b) < 0.17);
 
-    public IReadOnlyList<Hex> FindPath(Hex start, Hex end, IReadOnlySet<Hex>? occupied = null)
+    public IReadOnlyList<Hex> FindPath(Hex start, Hex end, IReadOnlySet<Hex>? occupied = null, IReadOnlySet<Hex>? ignoredBlockers = null)
     {
-        if (!Walkable(end) || occupied?.Contains(end) == true) return [];
+        if (!Walkable(end, ignoredBlockers) || occupied?.Contains(end) == true) return [];
         var queue = new Queue<Hex>();
         var previous = new Dictionary<Hex, Hex> { [start] = start };
         queue.Enqueue(start);
@@ -69,7 +69,7 @@ public sealed class FacilityMap
             for (var facing = 0; facing < 6; facing++)
             {
                 var next = current.Neighbor(facing);
-                if (previous.ContainsKey(next) || !CanTraverse(current, next) || occupied?.Contains(next) == true) continue;
+                if (previous.ContainsKey(next) || !CanTraverse(current, next, ignoredBlockers) || occupied?.Contains(next) == true) continue;
                 previous[next] = current;
                 queue.Enqueue(next);
             }

@@ -20,6 +20,7 @@ public partial class SpatialHud : Control
     private Label _clock = null!, _mode = null!, _status = null!, _coordinates = null!, _timers = null!;
     private Label _anomaly = null!, _observers = null!, _rule = null!, _witnesses = null!;
     private RichTextLabel _trace = null!;
+    public OperationsPanel Operations { get; private set; } = null!;
     private readonly Dictionary<Key, CheckButton> _toggles = [];
     private static readonly Color Text = new("e4e3d2"), Muted = new("97a7a0"), Green = new("a0d1af");
 
@@ -87,6 +88,7 @@ public partial class SpatialHud : Control
         _fieldPanel.AddThemeConstantOverride("separation", 16);
         Line(_fieldPanel, "OBSERVATION SHIFT", 18, Text);
         _fieldMode = Line(_fieldPanel, "", 12, Green);
+        Operations = new OperationsPanel(); _fieldPanel.AddChild(Operations); Operations.Initialize(sim);
         _stopDirect = Toggle(_fieldPanel, "Stop on my anomaly sightings", sim.Awareness.StopOnDirectSight, value => sim.Awareness.StopOnDirectSight = value);
         _stopReports = Toggle(_fieldPanel, "Stop on communicated sightings", sim.Awareness.StopOnReports, value => sim.Awareness.StopOnReports = value);
         Line(_fieldPanel, "Keep it in sight.\n\nThe facility plan is known. People and SCP-650 are shown only when your character can see them. Looking away matters.", 14, Muted);
@@ -151,6 +153,7 @@ public partial class SpatialHud : Control
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
         _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : "REAL TIME · local active";
         _fieldMode.Text = _mode.Text;
+        Operations.Refresh();
         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";

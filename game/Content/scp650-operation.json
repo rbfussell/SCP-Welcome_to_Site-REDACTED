@@ -1,0 +1,16 @@
+{
+  "subjectId": "scp-650",
+  "home": { "q": 10, "r": -2 },
+  "accessDoors": ["door-4-3-u"],
+  "posts": [{ "q": 8, "r": 4 }, { "q": 12, "r": 2 }],
+  "terminal": { "q": 10, "r": 3 },
+  "trolley": { "q": 8, "r": -1 },
+  "starts": [
+    { "actorId": "avatar", "cell": { "q": 10, "r": 0 }, "facing": 5 },
+    { "actorId": "observer", "cell": { "q": 5, "r": 0 }, "facing": 1 },
+    { "actorId": "tech", "cell": { "q": 12, "r": -2 }, "facing": 4 }
+  ],
+  "radioActors": ["observer", "tech"],
+  "commanderId": "avatar",
+  "stabilizeMs": 3000
+}

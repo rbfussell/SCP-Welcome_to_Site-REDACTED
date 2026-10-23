@@ -55,6 +55,7 @@ internal sealed class AnomalyWorldAccess(SimulationWorld world, AnomalyBody body
         world.Map.DynamicBlockers.Remove(origin);
         body.Cell = destination; body.Pose = pose; body.Revision++;
         world.Map.DynamicBlockers.Add(destination);
+        ObservedTransportSystem.DetachRelocated(world, body.Id);
         world.Log("anomaly-host", body.Id, "relocated", $"{origin.Q},{origin.R} -> {destination.Q},{destination.R}; pose {pose + 1}; silent");
         return true;
     }

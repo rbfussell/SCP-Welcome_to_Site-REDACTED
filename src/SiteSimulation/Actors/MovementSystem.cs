@@ -57,7 +57,7 @@ internal static class MovementSystem
             world.Anomalies.Evaluate(world, "movement:" + actor.Id);
         }
         var patrol = world.Actors.Single(a => a.Id == "tech");
-        if (!patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
+        if (!PersonnelOrderSystem.Owns(world.Operations, patrol.Id) && !patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
             CommitRoute(patrol, PlanRoute(world, patrol, Patrol[world.PatrolIndex++ % Patrol.Length]), false);
     }
 }

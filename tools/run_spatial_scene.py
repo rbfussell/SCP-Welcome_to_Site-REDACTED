@@ -24,10 +24,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Run the engine-independent spatial checks, then exit.')
     parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
+    parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
     parser.add_argument('--godot', help='Godot .NET executable (defaults to godot-dotnet).')
     args = parser.parse_args()
-    if args.check and args.smoke:
-        parser.error('Choose --check or --smoke.')
+    operation_smoke = args.operation_smoke
+    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke)) > 1:
+        parser.error('Choose --check, --smoke, or --operation-smoke.')
+    args.smoke = args.smoke or args.operation_smoke
     if not shutil.which('dotnet'):
         raise SystemExit('Install the .NET SDK selected in global.json first.')
     godot = args.godot or shutil.which('godot-dotnet')
@@ -73,6 +76,8 @@ def main():
             output = args.smoke.resolve()
             output.parent.mkdir(parents=True, exist_ok=True)
             command += ['--audio-driver', 'Dummy', '--', '--scene-smoke', str(output)]
+            if operation_smoke:
+                command += ['--operation-smoke']
             if shutil.which('xvfb-run'):
                 command = ['xvfb-run', '-a', '-s', '-screen 0 1440x900x24', *command]
         print('Starting spatial scene. Changes should be edited in the source workspace.', flush=True)

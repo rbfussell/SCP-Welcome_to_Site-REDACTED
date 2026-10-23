@@ -19,7 +19,7 @@ public sealed class PlayerAwareness
     {
         if (string.IsNullOrWhiteSpace(evidence.SubjectId) || evidence.Encounter < 0 || evidence.LocalMs < 0
             || string.IsNullOrWhiteSpace(evidence.ObserverId) || !double.IsFinite(evidence.Position.X) || !double.IsFinite(evidence.Position.Y)
-            || evidence.Source is not ("direct" or "voice" or "sound")
+            || evidence.Source is not ("direct" or "voice" or "radio" or "sound")
             || evidence.Classification is not ("anomaly" or "hostile" or "unknown")
             || !double.IsFinite(evidence.UncertaintyRadius) || evidence.UncertaintyRadius < 0)
             throw new ArgumentException("Invalid perceived contact evidence.");
@@ -28,7 +28,7 @@ public sealed class PlayerAwareness
             return false;
         if (previous is null || evidence.LocalMs != previous.LocalMs || previous.Source != "direct" || evidence.Source == "direct")
             _evidence[evidence.SubjectId] = evidence;
-        var enabled = evidence.Classification == "anomaly" && (evidence.Source == "direct" ? StopOnDirectSight : evidence.Source == "voice" && StopOnReports);
+        var enabled = evidence.Classification == "anomaly" && (evidence.Source == "direct" ? StopOnDirectSight : evidence.Source is "voice" or "radio" && StopOnReports);
         var fresh = !_noticed.TryGetValue(evidence.SubjectId, out var encounter) || evidence.Encounter != encounter;
         // A fresh known encounter is acknowledged even while stationary. Continuing sight is not another interruption.
         if (enabled) _noticed[evidence.SubjectId] = evidence.Encounter;
@@ -46,7 +46,7 @@ public sealed class PlayerAwareness
         if (snapshot.Evidence is null || snapshot.Noticed is null
             || snapshot.Evidence.Any(e => e is null || !ValidSubject(e) || e.LocalMs < 0 || e.LocalMs > localMs
                 || !double.IsFinite(e.Position.X) || !double.IsFinite(e.Position.Y)
-                || e.Source is not ("direct" or "voice" or "sound") || !actors.Contains(e.ObserverId)
+                || e.Source is not ("direct" or "voice" or "radio" or "sound") || !actors.Contains(e.ObserverId)
                 || e.Classification is not ("anomaly" or "hostile" or "unknown")
                 || !double.IsFinite(e.UncertaintyRadius) || e.UncertaintyRadius < 0)
             || snapshot.Noticed.Any(n => n is null || !subjects.TryGetValue(n.SubjectId, out var current) || n.Encounter < 0 || n.Encounter > current)

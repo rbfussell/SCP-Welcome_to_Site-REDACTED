@@ -11,6 +11,8 @@ internal sealed class Scp650Module : IAnomalyModule
     private Scp650State _state;
     public string InstanceId { get; }
     public string ModuleId => "scp:650";
+    // Explicit game adaptation: being watched prohibits self-relocation, not external transport.
+    public bool AllowsObservedTransport => true;
     public Scp650Module(AnomalyDefinition definition)
     {
         if (!ObservationService.ValidProfile(definition.ObserverProfile) || definition.Seed == 0)

@@ -6,6 +6,7 @@ public sealed class AnomalySystem
     private readonly List<AnomalyBody> _bodies = [];
     private readonly List<IAnomalyModule> _modules = [];
     public IReadOnlyList<AnomalyBody> Bodies => _bodies.AsReadOnly();
+    internal bool AllowsObservedTransport(string id) => _modules.Single(m => m.InstanceId == id).AllowsObservedTransport;
     public AnomalySystem(IEnumerable<AnomalyDefinition> definitions)
     {
         foreach (var definition in definitions.OrderBy(d => d.Id, StringComparer.Ordinal))

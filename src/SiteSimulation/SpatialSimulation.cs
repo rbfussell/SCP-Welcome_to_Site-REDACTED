@@ -7,6 +7,7 @@ public sealed class SpatialSimulation
     public const int StepDurationMs = 300;
     private readonly string _mapJson;
     private readonly string _mapIdentity;
+    private readonly string? _operationJson;
     private SimulationWorld _world;
     public FacilityMap Map => _world.Map;
     public List<ActorState> Actors => _world.Actors;
@@ -14,6 +15,8 @@ public sealed class SpatialSimulation
     public AnomalySystem Anomalies => _world.Anomalies;
     public SimulationTrace Trace => _world.Trace;
     public PlayerAwareness Awareness => _world.Awareness;
+    public OperationState Operations => _world.Operations;
+    public bool CanUseTerminal => FacilityCommunications.TerminalReachable(_world);
     public long WorldMs => _world.WorldMs;
     public long LocalMs => _world.LocalMs;
     public bool LocalHold { get => _world.LocalHold; set { if (_world.LocalHold == value) return; _world.LocalHold = value; _world.Log("time", "local-zone", value ? "held" : "resumed", "World calendar continues; local progress retained."); } }
@@ -23,13 +26,16 @@ public sealed class SpatialSimulation
     public int LocalCountdownMs => 10000 - (int)(LocalMs % 10000);
     public string LastMessage { get; private set; } = "SCP-650 is watched by Chen. O distracts Chen; K blinks; F8 changes lighting.";
 
-    public SpatialSimulation(string json)
+    public SpatialSimulation(string json, string? operationJson = null)
     {
         _mapJson = json;
-        _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(json)));
-        _world = new(json);
+        _operationJson = operationJson;
+        _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(
+            operationJson is null ? json : json + "\nOPERATION\n" + operationJson)));
+        _world = new(json, operationJson);
         _world.Anomalies.Evaluate(_world, "initialize");
         EvaluatePlayerAwareness();
+        if (Operations.Definition is not null) LastMessage = "Observation shift active · local voice orders or approach OSCP terminal.";
     }
     private bool Ready(string action)
     {
@@ -47,17 +53,40 @@ public sealed class SpatialSimulation
     private void EvaluatePlayerAwareness()
     {
         if (!_world.LocalActive) return;
+        FacilityCommunications.SenseAndReport(_world);
         foreach (var body in Anomalies.Bodies)
         {
             // Bounded prototype communication: an audible, unobstructed nearby human report.
-            // A remote observer is not a link. Radios/SCiPnet need their later qualified transport.
+            // The optional operation adds received radio records; general SCiPnet transport remains later work.
             foreach (var reporter in Actors.Where(a => a != Player && a.ObserverKind == "human"))
                 if (Point2.Distance(reporter.Position, Player.Position) <= 4 && Map.ClearSight(reporter.Position, Player.Position)
                     && ObservationService.Inspect(Map, reporter, body.Cell.World, LocalMs).Detected)
                     ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, "voice", reporter.Id));
             if (VisibleToPlayer(body.Cell.World))
                 ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, "direct", Player.Id));
+            if (CanUseTerminal)
+            foreach (var report in Operations.ReceivedReports.Where(r => r.SubjectId == body.Id && r.Position is not null && r.Source == "radio"))
+            {
+                var reporter = Actors.Single(a => a.Name == report.Author);
+                ReceivePerceivedContact(new(body.Id, report.Encounter, report.Position!.Value, report.LocalMs, "radio", reporter.Id));
+            }
         }
+    }
+    public bool IssueOrder(string actorId, PersonnelTask task, Hex destination, bool throughTerminal = false)
+    {
+        var accepted = PersonnelOrderSystem.Issue(_world, Player.Id, actorId, task, destination,
+            throughTerminal ? "terminal" : "voice", out var reason);
+        LastMessage = accepted ? "Order submitted · awaiting delivery and acknowledgement." : reason;
+        return accepted;
+    }
+    public void ApproachTerminal()
+    {
+        if (Operations.Definition is not { } d || CanUseTerminal) return;
+        var approach = Enumerable.Range(0, 6).Select(d.Terminal.Neighbor)
+            .Select(c => (Cell: c, Path: PreviewPath(c))).Where(p => p.Path.Count > 0)
+            .OrderBy(p => p.Path.Count).FirstOrDefault();
+        if (approach.Path is null) { LastMessage = "No route to OSCP terminal · open access or clear the path."; return; }
+        RequestMove(approach.Cell);
     }
     private void ReceivePerceivedContact(PerceivedContact evidence)
     {
@@ -149,15 +178,20 @@ public sealed class SpatialSimulation
         // Due perception transitions (including blink end) precede physical movement.
         Anomalies.Evaluate(_world, "local-timer");
         EvaluatePlayerAwareness();
+        PersonnelOrderSystem.Advance(_world);
+        // Orders change facing before movement; the module sees that real observation transition.
+        Anomalies.Evaluate(_world, "orders");
         MovementSystem.Advance(_world);
+        ObservedTransportSystem.Advance(_world);
         Anomalies.Evaluate(_world, "local-step-complete");
         EvaluatePlayerAwareness();
+        OperationLifecycle.Advance(_world);
     }
     public string Save() => PrototypeSaveCodec.Capture(_world, _mapIdentity);
     public void Restore(string json)
     {
         // Decode/validate a detached candidate; failure cannot partially change live state.
-        _world = PrototypeSaveCodec.Restore(json, _mapJson, _mapIdentity);
+        _world = PrototypeSaveCodec.Restore(json, _mapJson, _mapIdentity, _operationJson);
         LastMessage = "Restored movement, observers, module RNG/poses, local timers and trace.";
     }
 }

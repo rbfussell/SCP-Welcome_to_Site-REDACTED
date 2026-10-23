@@ -176,6 +176,29 @@ public partial class WorldView : Node2D
             var p = Screen(prop.Cell.World);
             drawables.Add((p.Y, prop.Id, () => Sprite(prop.Kind, p)));
         }
+        if (Simulation.Operations.Definition is { } operation)
+        {
+            var terminal = Screen(operation.Terminal.World);
+            drawables.Add((terminal.Y, "-oscp", () =>
+            {
+                Sprite("cabinet", terminal);
+                Tag(terminal + new Vector2(0, -45), "OSCP", new Color("a0d1af"), 10);
+            }));
+            var cart = Simulation.Operations.Trolley;
+            if (!FieldView || Simulation.VisibleToPlayer(cart.Position))
+            {
+                var p = Screen(cart.Position);
+                drawables.Add((p.Y, "-trolley", () =>
+                {
+                    DrawColoredPolygon(Corners(Hex.FromWorld(cart.Position)), new Color("557f82"));
+                    DrawLine(p + new Vector2(-14, -7), p + new Vector2(-14, -22), new Color("bac3bc"), 3);
+                    DrawCircle(p + new Vector2(-11, 6), 3, new Color("d6d2ba"));
+                    DrawCircle(p + new Vector2(11, 6), 3, new Color("d6d2ba"));
+                    if (!FieldView) Tag(p + new Vector2(0, 18), "OPEN TROLLEY", new Color("a0d1af"), 8);
+                }));
+            }
+            Outline(Corners(operation.Home), new Color("a0d1af", 0.4f), 1.2f);
+        }
         foreach (var body in Simulation.Anomalies.Bodies)
         {
             if (!FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)) continue;

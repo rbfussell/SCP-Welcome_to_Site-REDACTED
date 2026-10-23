@@ -4,7 +4,7 @@ Design baseline, revision 0.10 — October 23, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace now contains a runnable Godot spatial/observation prototype with a native SCP-650 module alongside the design baseline, diagnostic sprite generators and terminal design preview. It is not yet a complete game or completed M0 milestone. Godot .NET presentation uses an independent C# simulation core; this proof is pinned to Godot .NET 4.7.1 and .NET SDK 8.0.128, with broader integration/performance still to qualify. Confirmed choices remain separate from proposed contracts and limits. No delivery date, budget or legal agreement has been selected. Work is tracked in local Git.
+This workspace now contains a runnable Godot spatial/observation and personnel-recovery prototype with a native SCP-650 module alongside the design baseline, diagnostic sprite generators and terminal design preview. It is not yet a complete game or completed M0 milestone. Godot .NET presentation uses an independent C# simulation core; this proof is pinned to Godot .NET 4.7.1 and .NET SDK 8.0.128, with broader integration/performance still to qualify. Confirmed choices remain separate from proposed contracts and limits. No delivery date, budget or legal agreement has been selected. Work is tracked in local Git.
 
 Run the first scene from this directory:
 
@@ -40,7 +40,8 @@ The launcher handles this workspace's path characters through a temporary build 
 22. [Runnable spatial prototype](docs/15-spatial-prototype.md): first Godot scene, reference projection, collision overlays, movement, doors and bounded timing/save checks.
 23. [Item composition and crafting](docs/16-item-composition-and-crafting.md): future physical parts/materials, installed versus contained state, assembly/disassembly, derived properties and batches.
 24. [Facility infrastructure](docs/17-facility-infrastructure.md): physical power, heating/cooling, controls, maintenance and environmental containment, with an SCP-019 source check and staged proofs.
-25. [Awareness and encounter entry](docs/18-awareness-and-encounter-entry.md): shared sighting/report movement stops, last-known contact cues and automatic hostile tactical-entry requirements.
+25. [Awareness and encounter entry](docs/18-awareness-and-encounter-entry.md): shared sighting/report movement stops, last-known contact cues and qualified tactical-entry requirements.
+26. [Personnel orders and recovery](docs/19-personnel-orders-and-recovery-prototype.md): the runnable voice/OSCP coordination, physical trolley recovery and operation save proof.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic statue art, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 
@@ -49,6 +50,8 @@ The launcher handles this workspace's path characters through a temporary build 
 [User-supplied art references](assets/references/scp-1499-style/README.md) preserve the SCP-1499 creature, tower and mask examples that clarify the desired detailed, textured pixel-sprite appearance.
 
 [Local SCP archive guide](source_material/README.md) describes the user-supplied JSON reference checkout, targeted article lookup and separation from the game's Git history and actor knowledge.
+
+The normal scene starts three actual observers on duty. **E** opens nearby access; field controls issue voice orders. Approach the marked terminal and press **T** for the bounded OSCP command/document panel. The recovery guide above explains physical trolley work and receiving conditions.
 
 ## Confirmed direction
 
@@ -82,4 +85,4 @@ The launcher handles this workspace's path characters through a temporary build 
 - LLM support is an optional later decision provider. The world runs fully without it.
 - A bounded network prototype follows the local-play and anomaly-architecture gates, before a production release is scoped.
 
-The first spatial subset of M0 is runnable. Continue qualifying the remaining M0 simulation, module-host and domain-transfer boundaries before treating the first facility scenario as implemented.
+The spatial subset of M0 and a bounded SCP-650 coordination/recovery proof are runnable. Continue qualifying the remaining M0 simulation, module-host and domain-transfer boundaries before treating the first facility scenario as implemented.

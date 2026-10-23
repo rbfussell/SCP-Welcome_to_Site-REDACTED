@@ -9,6 +9,7 @@ public sealed class AnomalyBody
     public int PoseCount { get; }
     public int MaxRelocationHexes { get; }
     public Hex Cell { get; internal set; }
+    public Point2 Position => Cell.World;
     public int Pose { get; internal set; }
     public long Revision { get; internal set; }
     public AnomalyBody(string id, string moduleId, Hex cell, int poseCount, int maxRelocationHexes, string observerProfile)
@@ -41,6 +42,7 @@ internal interface IAnomalyModule
 {
     string InstanceId { get; }
     string ModuleId { get; }
+    bool AllowsObservedTransport { get; }
     void Evaluate(IAnomalyWorld world, string cause);
     AnomalyDiagnostics Inspect(IAnomalyWorld world);
     bool TrySetFlag(string flag, string actorId, string actorKind, bool enabled, out string reason);

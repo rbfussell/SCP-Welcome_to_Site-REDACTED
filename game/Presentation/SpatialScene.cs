@@ -22,10 +22,15 @@ public partial class SpatialScene : Node2D
     private string? _smokeSave;
     private string? _notice;
     private double _noticeSeconds;
+    private bool _operationSmoke;
 
     public override void _Ready()
     {
-        _simulation = new(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"));
+        var args = OS.GetCmdlineUserArgs();
+        _operationSmoke = args.Contains("--operation-smoke");
+        var legacySmoke = args.Contains("--scene-smoke") && !_operationSmoke;
+        _simulation = new(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"),
+            legacySmoke ? null : Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
         var layer = new CanvasLayer(); AddChild(layer);
         _world = new WorldView { Simulation = _simulation };
         _hud = new SpatialHud(); layer.AddChild(_hud); _hud.Initialize(_simulation, _world);
@@ -35,7 +40,6 @@ public partial class SpatialScene : Node2D
         _hud.SaveRequested = Save; _hud.RestoreRequested = Restore;
         _hud.ResetCameraRequested = ResetCamera;
         _hud.ExportTraceRequested = ExportTrace;
-        var args = OS.GetCmdlineUserArgs();
         for (var i = 0; i < args.Length; i++) if (args[i] == "--scene-smoke" && i + 1 < args.Length) _capturePath = args[++i];
         RefreshCamera();
     }
@@ -60,13 +64,13 @@ public partial class SpatialScene : Node2D
         Hex? hover = _hud.Field.GetGlobalRect().HasPoint(GetGlobalMousePosition()) ? Hex.FromWorld(ground) : null;
         _world.Hover = hover;
         if (_previousHover != hover || _simulation.LocalMs % 200 == 0)
-        { _world.Preview = hover is { } cell ? _simulation.PreviewPath(cell) : []; _previousHover = hover; }
+        { _world.Preview = !_hud.Operations.ChoosingPost && hover is { } cell ? _simulation.PreviewPath(cell) : []; _previousHover = hover; }
         _noticeSeconds = Math.Max(0, _noticeSeconds - delta);
         var audioState = $"{(_audio.Muted ? "MUTED" : "AUDIO ON")} · {(_encounter.ReducedEffects ? "REDUCED EFFECTS" : "SUBTLE EFFECTS")}";
         _hud.Refresh(_simulation, _world, hover, ground, _zoom,
             _noticeSeconds > 0 ? _notice : _world.FieldView ? audioState + " · " + _simulation.LastMessage : null);
         _world.QueueRedraw();
-        if (_capturePath is not null) SmokeStep();
+        if (_capturePath is not null) { if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }
     }
     private void UpdateEncounter()
     {
@@ -81,7 +85,7 @@ public partial class SpatialScene : Node2D
                 && Point2.Distance(e.Position, _simulation.Player.Position) > Math.Max(0.05, e.UncertaintyRadius))
             .OrderByDescending(e => e.LocalMs).Take(4)
             .Select(e => new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
-                $"{(e.Source == "sound" ? "sound ~" : e.Source == "voice" ? "reported" : "last seen")} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s",
+                $"{(e.Source == "sound" ? "sound ~" : e.Source is "voice" or "radio" ? "reported" : "last seen")} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s",
                 e.Classification == "hostile")).ToArray();
         _encounter.QueueRedraw();
     }
@@ -100,6 +104,8 @@ public partial class SpatialScene : Node2D
                 var after = _world.GetGlobalTransformWithCanvas().AffineInverse() * mouse.Position;
                 _pan += (after - local) * _zoom;
             }
+            else if (_hud.Operations.ChoosingPost && mouse.ButtonIndex == MouseButton.Left) _hud.Operations.PlacePost(Hex.FromWorld(target));
+            else if (_hud.Operations.ChoosingPost && mouse.ButtonIndex == MouseButton.Right) _hud.Operations.CancelPost();
             else if (mouse.ButtonIndex == MouseButton.Right || mouse.ButtonIndex == MouseButton.Left && mouse.CtrlPressed) _simulation.Face(target);
             else if (mouse.ButtonIndex == MouseButton.Left) _simulation.RequestMove(Hex.FromWorld(target), mouse.ShiftPressed);
         }
@@ -111,6 +117,7 @@ public partial class SpatialScene : Node2D
             case Key.M: _audio.Muted = !_audio.Muted; break;
             case Key.R: _encounter.ReducedEffects = !_encounter.ReducedEffects; break;
             case Key.J: SpatialHud.ToggleComplacency(_simulation); break;
+            case Key.T: _hud.Operations.ToggleTerminal(); break;
             case Key.C: _world.CollisionOverlay = !_world.CollisionOverlay; break;
             case Key.G: _world.HexGrid = !_world.HexGrid; break;
             case Key.B: _world.FloorGrid = !_world.FloorGrid; break;
