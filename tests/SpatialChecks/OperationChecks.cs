@@ -91,7 +91,7 @@ internal static class OperationChecks
                 if (step.Stage == "push")
                 {
                     Check(!recovery.Map.Walkable(step.Next), "pending trolley push reserves its next physical hex");
-                    Check(!recovery.RequestMove(step.Next), "player pathfinding cannot steal a reserved trolley destination");
+                    Check(recovery.PreviewPath(step.Next).Count > 0, "a trolley reservation must not silently reject a movement click; physical execution still enforces the reservation");
                     var corrupt = JsonNode.Parse(recovery.Save())!;
                     corrupt["Operations"]!["Trolley"]!["Step"]!["Next"]!["Q"] = 999;
                     var safe = continuation.Save();

@@ -160,7 +160,7 @@ public partial class SpatialHud : Control
         _status.Text = notice ?? sim.LastMessage;
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);
         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);
-        _coordinates.Text = hover is { } cell ? $"HEX {cell.Q},{cell.R}   FLOOR {Math.Floor(ground.X)},{Math.Floor(ground.Y)}   {(sim.Map.Walkable(cell) ? "FREE" : "BLOCKED")}   ZOOM {zoom:0.00}×" : "FLOOR / HEX / SPRITE anchors remain separate";
+        _coordinates.Text = hover is { } cell ? $"HEX {cell.Q},{cell.R}   FLOOR {Math.Floor(ground.X)},{Math.Floor(ground.Y)}   {(world.FieldView ? sim.KnownNavigationBlocked(cell) ? "KNOWN BLOCK" : "NO KNOWN BLOCK" : sim.Map.Walkable(cell) ? "FREE" : "BLOCKED")}   ZOOM {zoom:0.00}×" : "FLOOR / HEX / SPRITE anchors remain separate";
         _timers.Text = $"Test timer: {sim.LocalCountdownMs / 1000.0:0.00}s\nWorld: {sim.WorldMs / 1000.0:0.0}s  Local: {sim.LocalMs / 1000.0:0.0}s\nOff-site updates: {sim.OffsiteUpdates}";
         var status = sim.InspectAnomalies().First();
         var body = sim.Anomalies.Bodies.First();

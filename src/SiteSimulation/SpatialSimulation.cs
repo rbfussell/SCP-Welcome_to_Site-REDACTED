@@ -97,7 +97,8 @@ public sealed class SpatialSimulation
         LastMessage = $"Movement stopped: anomaly {(evidence.Source == "direct" ? "sighted" : "reported")} · click to move again.";
         _world.Log("movement", Player.Id, "awareness-stop", $"{evidence.SubjectId}; {evidence.Source}; path cleared, fractional position retained; world continues.");
     }
-    public IReadOnlyList<Hex> PreviewPath(Hex destination) => MovementSystem.PlanRoute(_world, Player, destination);
+    public IReadOnlyList<Hex> PreviewPath(Hex destination) => PlayerNavigation.PlanRoute(_world, destination);
+    public bool KnownNavigationBlocked(Hex cell) => PlayerNavigation.KnownBlocked(_world, cell);
     public AnomalyDiagnostics[] InspectAnomalies() => Anomalies.Inspect(_world);
     public bool VisibleToPlayer(Point2 target) => ObservationService.Inspect(Map, Player, target, LocalMs).Detected;
     /// <summary>Native authoring/debug control. Not an in-world permission bypass for a public mod API.</summary>
@@ -115,8 +116,8 @@ public sealed class SpatialSimulation
         if (!Ready("Movement")) return false;
         if (Player.Moving) { LastMessage = "Finish this route first (Esc cancels at the next hex)."; return false; }
         var path = PreviewPath(destination);
-        if (path.Count == 0) { LastMessage = "No clear route: wall, closed door, occupied hex or anomaly body."; return false; }
-        MovementSystem.CommitRoute(Player, path, keepFacing);
+        if (path.Count == 0) { LastMessage = "No closer reachable position on the known facility plan."; return false; }
+        MovementSystem.CommitRoute(Player, path, keepFacing, destination);
         Changed("movement", Player.Id, "route-committed", $"Route committed: {path.Count} hexes; {(keepFacing ? "maintain attention" : "face movement")}.");
         return true;
     }
@@ -124,6 +125,7 @@ public sealed class SpatialSimulation
     {
         if (!Ready("Cancellation")) return;
         Player.Route = Player.Route.Take(Player.SegmentMs > 0 ? 1 : 0).ToList();
+        Player.MoveGoal = null; Player.BumpedCells.Clear();
         Changed("movement", Player.Id, "route-cancelled", "Route cancelled at next safe hex boundary.");
     }
     public void Face(Point2 target)
@@ -181,7 +183,7 @@ public sealed class SpatialSimulation
         PersonnelOrderSystem.Advance(_world);
         // Orders change facing before movement; the module sees that real observation transition.
         Anomalies.Evaluate(_world, "orders");
-        MovementSystem.Advance(_world);
+        if (MovementSystem.Advance(_world)) LastMessage = "Movement stopped: the way ahead is blocked.";
         ObservedTransportSystem.Advance(_world);
         Anomalies.Evaluate(_world, "local-step-complete");
         EvaluatePlayerAwareness();

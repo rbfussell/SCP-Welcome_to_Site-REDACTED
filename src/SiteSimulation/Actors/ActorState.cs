@@ -20,6 +20,8 @@ public sealed class ActorState
     public bool KeepFacing { get; set; }
     public long WalkMs { get; set; }
     public StoppedStep? StoppedStep { get; set; }
+    public Hex? MoveGoal { get; set; }
+    public List<Hex> BumpedCells { get; set; } = [];
     [System.Text.Json.Serialization.JsonIgnore]
     public Point2 Position => StoppedStep is { } stopped
         ? Cell.World + (stopped.Next.World - Cell.World) * (stopped.ProgressMs / (double)SpatialSimulation.StepDurationMs)

@@ -51,21 +51,19 @@ public sealed class FacilityMap
     public bool ClearSight(Point2 a, Point2 b) => !SolidWalls.Any(w => Geometry.Intersects(a, b, w.Start, w.End))
         && !Definition.Props.Any(p => p.Kind == "cabinet" && Geometry.DistanceToSegment(p.Cell.World, a, b) < 0.17);
 
-    public IReadOnlyList<Hex> FindPath(Hex start, Hex end, IReadOnlySet<Hex>? occupied = null, IReadOnlySet<Hex>? ignoredBlockers = null)
+    public IReadOnlyList<Hex> FindPath(Hex start, Hex end, IReadOnlySet<Hex>? occupied = null,
+        IReadOnlySet<Hex>? ignoredBlockers = null, bool approachBlockedGoal = false)
     {
-        if (!Walkable(end, ignoredBlockers) || occupied?.Contains(end) == true) return [];
+        if (!Inside(end.World) || !approachBlockedGoal && (!Walkable(end, ignoredBlockers) || occupied?.Contains(end) == true)) return [];
         var queue = new Queue<Hex>();
         var previous = new Dictionary<Hex, Hex> { [start] = start };
+        var closest = start;
         queue.Enqueue(start);
         while (queue.TryDequeue(out var current))
         {
+            if (current.Distance(end) < closest.Distance(end)) closest = current;
             if (current == end)
-            {
-                var path = new List<Hex>();
-                while (current != start) { path.Add(current); current = previous[current]; }
-                path.Reverse();
-                return path;
-            }
+                return Reconstruct(current);
             for (var facing = 0; facing < 6; facing++)
             {
                 var next = current.Neighbor(facing);
@@ -74,6 +72,14 @@ public sealed class FacilityMap
                 queue.Enqueue(next);
             }
         }
-        return [];
+        return approachBlockedGoal ? Reconstruct(closest) : [];
+
+        IReadOnlyList<Hex> Reconstruct(Hex current)
+        {
+            var path = new List<Hex>();
+            while (current != start) { path.Add(current); current = previous[current]; }
+            path.Reverse();
+            return path;
+        }
     }
 }

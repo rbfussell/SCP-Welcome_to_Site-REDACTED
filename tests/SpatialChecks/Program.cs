@@ -129,5 +129,6 @@ passed += Scp650Checks.Run(json);
 passed += ComplacencyChecks.Run(json);
 passed += FieldPresentationChecks.Run(json);
 passed += AwarenessChecks.Run(json);
+passed += PathfindingChecks.Run(json);
 passed += OperationChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

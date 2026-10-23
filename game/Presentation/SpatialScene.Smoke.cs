@@ -68,8 +68,14 @@ public partial class SpatialScene
                     if (!_simulation.Awareness.StopOnDirectSight || !_simulation.Awareness.StopOnReports)
                         throw new InvalidOperationException("Both shared sighting settings must default on.");
                     _simulation.Awareness.StopOnReports = false;
-                    var walking = _simulation.Map.Cells.Select(c => _simulation.PreviewPath(c)).First(p => p.Count >= 2);
+                    // A preview may intentionally include unseen occupants. This fixture injects an already
+                    // started step, so qualify the physical clearance normal movement checks before starting.
+                    var walking = _simulation.Map.Cells.Select(c => _simulation.PreviewPath(c)).First(p => p.Count >= 2
+                        && _simulation.Map.CanTraverse(_simulation.Player.Cell, p[0])
+                        && !_simulation.Actors.Where(a => a != _simulation.Player).Any(a => a.Cell == p[0]
+                            || a.Moving && a.Route[0] == p[0] || a.StoppedStep?.Next == p[0]));
                     _simulation.Player.Route = walking.ToList(); _simulation.Player.SegmentMs = 100; _simulation.Player.KeepFacing = true;
+                    _simulation.Player.MoveGoal = walking[^1]; _simulation.Player.BumpedCells.Clear();
                     _simulation.Face(_simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World));
                     _feedback.Reset(_simulation); _audio.Reset();
                     if (FieldPresentation.ShowAnomaly(_simulation, statue, false))

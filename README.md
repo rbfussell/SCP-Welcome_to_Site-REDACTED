@@ -51,7 +51,7 @@ The launcher handles this workspace's path characters through a temporary build 
 
 [Local SCP archive guide](source_material/README.md) describes the user-supplied JSON reference checkout, targeted article lookup and separation from the game's Git history and actor knowledge.
 
-The normal scene starts three actual observers on duty. **E** opens nearby access; field controls issue voice orders. Approach the marked terminal and press **T** for the bounded OSCP command/document panel. The recovery guide above explains physical trolley work and receiving conditions.
+Click-to-move approaches blocked destinations, routes around obstacles when possible and checks actual collision on each step; unseen occupants do not reject clicks in advance. The normal scene starts three actual observers on duty. **E** opens nearby access; field controls issue voice orders. Approach the marked terminal and press **T** for the bounded OSCP command/document panel. The recovery guide above explains physical trolley work and receiving conditions.
 
 ## Confirmed direction
 

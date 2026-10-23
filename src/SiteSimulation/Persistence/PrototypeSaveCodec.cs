@@ -24,7 +24,7 @@ internal static class PrototypeSaveCodec
         var candidate = new SimulationWorld(mapJson, operationJson);
         if (!s.Actors.Select(a => a.Id).Order().SequenceEqual(candidate.Actors.Select(a => a.Id).Order())
             || s.OpenDoors.Any(id => !candidate.Map.Definition.Walls.Any(w => w.Id == id && w.Door))
-            || s.Actors.Any(a => a.Route is null || a.WalkMs < 0 || a.SegmentMs < 0 || a.SegmentMs >= SpatialSimulation.StepDurationMs
+            || s.Actors.Any(a => a.Route is null || a.BumpedCells is null || a.WalkMs < 0 || a.SegmentMs < 0 || a.SegmentMs >= SpatialSimulation.StepDurationMs
                 || a.SegmentMs % SpatialSimulation.TickMs != 0 || a.Facing is < 0 or > 5
                 || a.EyesClosedUntilMs < 0 || a.EyesClosedUntilMs > s.LocalMs + 150
                 || a.StartledUntilMs < 0 || a.StartledUntilMs > s.LocalMs + 400
@@ -38,6 +38,10 @@ internal static class PrototypeSaveCodec
         OperationSaveCodec.Restore(candidate, s.Operations);
         foreach (var actor in candidate.Actors)
         {
+            if (actor.MoveGoal is { } goal && (actor != candidate.Player || !actor.Moving || !candidate.Map.Inside(goal.World))
+                || actor.BumpedCells.Count > candidate.Map.Cells.Length || actor.BumpedCells.Distinct().Count() != actor.BumpedCells.Count
+                || actor.BumpedCells.Any(c => !candidate.Map.Inside(c.World)) || actor.BumpedCells.Count > 0 && actor.MoveGoal is null)
+                throw new ArgumentException("Invalid navigation intent or encountered obstructions.");
             if (!candidate.Map.Walkable(actor.Cell) || actor.Route.Count == 0 && actor.SegmentMs != 0)
                 throw new ArgumentException("Save overlaps an actor or loses movement continuation.");
             if (actor.SegmentMs > 0 && !candidate.Map.CanTraverse(actor.Cell, actor.Route[0]))
