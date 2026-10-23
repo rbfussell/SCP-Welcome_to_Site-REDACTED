@@ -86,3 +86,15 @@ Compare AIC-only monitoring with a human attending the same live feed. Only the 
 Run observed transport personally and through delegated staff, and qualify the controlled-relocation alternative with a reproducible fixture. Exercise failure, player prevention of the breach, blocked equipment, loss of relief/communications, pause/acceleration and saving before/after relocation. Disable the mission wrapper and verify the module continues to behave; swap ordinary lighting/vision conditions and verify behavior follows shared rules.
 
 Requirements SC650-01 through SC650-07 are in [scope and acceptance](04-scope-and-acceptance.md). The next module demonstration is [SCP-1499 and physical/perceived contexts](10-world-perception-and-scp-1499.md).
+
+## 8. Current native observation proof
+
+The [spatial prototype](15-spatial-prototype.md) now runs a native C# SCP-650 module with an independently located physical body, six discrete featureless diagnostic poses, human/AI/any profile selection, direct observation, silent host-validated relocation and per-witness discovery. The [code map](../src/SiteSimulation/README.md) separates perception facts, module policy, spatial commitment, trace and persistence. No mission wrapper forces relocation.
+
+Chen begins watching the statue. One eligible human stops self-relocation even though the three-person staffing threshold is unmet. The inspector lists every actor's eligibility and detection reason. Prototype controls change Chen's attention, avatar blinking and local lighting through validated commands. Door occlusion and independent facing feed the same service. The renderer/inspector does not count as an observer.
+
+Current tuning uses candidate cells one to three hexes behind/near human personnel, a 500 ms local retry when no destination exists and a 2000 ms local cooldown after relocation. These are prototype adaptation values. Six poses share one declared hex footprint. The initial pose is raised; unfamiliar targets receive one of two threatening poses, while previously affected targets can receive other authored variants. A first human discovery briefly holds that witness's movement for 400 local ms; it adds a causal event and no attack or relocation sound. Events within one command boundary are evaluated immediately, with observation reevaluated after each moving actor's progress. Swept/sub-tick event qualification remains broader M0 work.
+
+Schema-2 saves preserve body/pose, effective content profile, module RNG, pending local deadline, encounter/witness state and the bounded trace. Restore validates a detached candidate before changing live state. Local hold stops the entire module and all local progress while world time continues; releasing it does not consume accumulated world time as a module catch-up.
+
+Human-attended cameras, AIC infrastructure, real shifts/relief, full fear/doctrine, carrier transport, receiving-room procedures and mission acceptance remain unimplemented. The direct AI/any profile fixtures prove eligibility separation without claiming a resident AIC or surveillance network exists. This is not full M1/SC650 certification.

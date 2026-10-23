@@ -410,13 +410,6 @@
       "q": 14,
       "r": 6,
       "label": "SUPPLY BOX"
-    },
-    {
-      "id": "pose-fixture",
-      "kind": "pose",
-      "q": 16,
-      "r": -5,
-      "label": "650 / POSE 1"
     }
   ],
   "actors": [
@@ -443,6 +436,16 @@
       "q": 8,
       "r": 8,
       "facing": 4
+    }
+  ],
+  "anomalies": [
+    {
+      "id": "scp-650",
+      "module": "scp:650",
+      "q": 10,
+      "r": -2,
+      "observerProfile": "human",
+      "seed": 650
     }
   ]
 }

@@ -1,6 +1,6 @@
 # First Godot spatial scene
 
-Status: Runnable M0 subset, October 22, 2026. This is a spatial/presentation proof, not a complete facility, combat system, SCP module or completed M0 gate.
+Status: Runnable M0 spatial/observation subset, October 22, 2026. A native SCP-650 observation/relocation module now runs in the scene. Complete facility operations, containment procedures, script hosting, combat and the full M0 gate remain open.
 
 ## Run and verify
 
@@ -26,6 +26,7 @@ Tested: Godot `4.7.1.stable.mono.official.a13da4feb`, .NET SDK `8.0.128`, runtim
 | Right click / Ctrl-click | Set facing/attention independently; temporary diagnostic binding, not final targeting controls |
 | Shift-click floor | Move while maintaining facing |
 | E | Open/close a nearby door; occupied/crossing doors cannot close |
+| O / K / F8 | Change Chen's attention / blink the avatar / toggle prototype lighting |
 | C / G / B | Toggle white collision boundaries / full hex grid / square construction grid |
 | L / H | Toggle directional sight overlay / near-wall cutaway |
 | F6 | Hold all local progress while world/off-site counters continue |
@@ -35,7 +36,7 @@ Tested: Godot `4.7.1.stable.mono.official.a13da4feb`, .NET SDK `8.0.128`, runtim
 | Middle drag / wheel / Home | Pan / zoom / reset camera |
 | Esc | Cancel remaining movement at a safe hex boundary |
 
-This is a labeled full-map debug view, not player information hiding. The green sight overlay differs from render visibility. The off-site area is a coarse counter, not a second finished facility. F6 is an execution-hold fixture, not AP combat. Door use is an immediate validated prototype interaction; timed equipment/actions remain future work. SCP-650 is a static labeled pose fixture without anomalous behavior here.
+This is a labeled full-map debug view, not player information hiding. The green sight overlay differs from render visibility. The off-site area is a coarse counter, not a second finished facility. F6 is an execution-hold fixture, not AP combat. Door use is an immediate validated prototype interaction; timed equipment/actions remain future work. Chen starts observing SCP-650; O releases that attention so the module can relocate. Turn the avatar toward a discovered statue to establish direct observation. The **View**, **SCP-650** and **Trace** tabs separate presentation controls, rule explanations and causal events. Trace export writes readable JSON under the prototype's user-data directory.
 
 ## Fallout 2 mapping comparison
 
@@ -57,12 +58,12 @@ Explicit wall-segment collision is our extension. This is not a bit-exact recrea
 
 ## Implementation and evidence
 
-The [plain C# core](../src/SiteSimulation/SpatialSimulation.cs) owns 50 ms steps, committed movement, independent facing, occupancy reservations, door validation, a bounded NPC patrol, local/world progress and a countdown fixture. The [map](../game/Content/spatial-facility.json) defines two rooms/corridor, three doors, cabinet, crate, actors and pose stand-in. [Godot input/UI](../game/Presentation/SpatialScene.cs) and [rendering](../game/Presentation/WorldView.cs) consume this state without controlling movement through animation callbacks.
+The [plain C# core](../src/SiteSimulation/SpatialSimulation.cs) owns 50 ms steps, committed movement, independent facing, occupancy reservations, door validation, a bounded NPC patrol, local/world progress and a countdown fixture. The [map](../game/Content/spatial-facility.json) defines two rooms/corridor, three doors, cabinet, crate, actors and a native SCP-650 instance. [Godot input/UI](../game/Presentation/SpatialScene.cs) and [rendering](../game/Presentation/WorldView.cs) consume this state without controlling movement through animation callbacks.
 
-The [asset generator](../tools/generate_spatial_assets.py) makes deterministic original raster stand-ins and frame/anchor metadata. `--walk-frames N` changes presentation without changing movement duration. This is diagnostic artwork, not final production art. Saves preserve content identity, actor routes/segment progress, facing, patrol continuation, doors and separate clocks/holds. Invalid incompatible state is rejected before commitment; migrations and branch restart are not implemented.
+The [asset generator](../tools/generate_spatial_assets.py) makes deterministic original raster stand-ins and frame/anchor metadata, including six discrete SCP-650 poses. `--walk-frames N` changes presentation without changing movement duration. This is diagnostic artwork, not final production art. Schema-2 saves preserve content identity, actor routes/segment progress, facing/attention/blinking/reactions, patrol continuation, doors/lighting, separate clocks/holds, anomaly bodies, module RNG/deadlines and trace. Invalid incompatible state is rejected before commitment; migrations and branch restart are not implemented. Earlier schema-1 prototype saves are rejected with an explanation and remain untouched unless the user explicitly overwrites them with a new save.
 
-Engine-independent checks cover source-derived projection vectors, positive/negative hex picking and polygon interiors, door path/sight changes, permitted-step wall crossings, mid-segment persistence/replay, held local timers with continuing world counters, global manual pause, attention-preserving movement and invalid-save rejection. Godot smoke input checks the exact clicked destination, F6 hold, continuing world and state restoration before capturing the viewport.
+Engine-independent checks cover source-derived projection vectors, positive/negative hex picking and polygon interiors, door path/sight changes, permitted-step wall crossings, mid-segment persistence/replay, held local timers with continuing world counters, global manual pause, attention-preserving movement and invalid-save rejection. Dedicated [SCP-650 checks](../tests/SpatialChecks/Scp650Checks.cs) cover direct observer profiles, commit-time validation, destination occupancy/visibility, cross-door relocation, no-candidate retry, unchanged observed poses, one reaction per witness/encounter and module save/hold behavior. Godot smoke input checks the exact clicked destination, O attention loss and relocation, F6 hold, continuing world and module restoration before capturing the viewport.
 
 Visual inspection confirmed the skewed perspective, direction/state labels, collision overlay, cutaway and visible controls. A click-coordinate mismatch was caught and fixed by transforming the input event's own viewport position. Mesa software rendering was used; this is not a performance qualification.
 
-Remaining work includes generalized multi-floor/split-sprite occlusion, production art scale, critical events under detail changes, script isolation/quotas, domain transfers, AP/initiative and incoming cross-zone arbitration. Complete SCP behavior, employment/logistics/OSCP integration and player visibility filtering are not implemented. This proof does not certify the full rows in [scope and acceptance](04-scope-and-acceptance.md).
+Remaining work includes generalized multi-floor/split-sprite occlusion, production art scale, critical events under detail changes, script isolation/quotas, domain transfers, AP/initiative and incoming cross-zone arbitration. Full SCP containment/transport procedures, human-attended surveillance, employment/logistics/OSCP integration and player visibility filtering are not implemented. The [code map](../src/SiteSimulation/README.md) documents the actual system boundaries, and [item composition](16-item-composition-and-crafting.md) records future inventory/crafting architecture. This proof does not certify the full rows in [scope and acceptance](04-scope-and-acceptance.md).

@@ -103,7 +103,9 @@ Check(doorSim.Player.Cell == end, "Player did not cross doorway.");
 var unchanged = sim.Save();
 try
 {
-    sim.Restore(unchanged.Replace("\"Version\":1", "\"Version\":99"));
+    var wrongVersion = System.Text.Json.Nodes.JsonNode.Parse(unchanged)!;
+    wrongVersion["Version"] = 99;
+    sim.Restore(wrongVersion.ToJsonString());
     throw new Exception("Invalid save accepted.");
 }
 catch (ArgumentException) { Check(sim.Save() == unchanged, "Invalid save partially mutated state."); }
@@ -123,4 +125,5 @@ invalid = System.Text.Json.Nodes.JsonNode.Parse(unchanged)!;
 invalid["Actors"]![0] = null;
 try { sim.Restore(invalid.ToJsonString()); throw new Exception("Null actor accepted."); }
 catch (ArgumentException) { Check(sim.Save() == unchanged, "Invalid actor array partially committed."); }
+passed += Scp650Checks.Run(json);
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

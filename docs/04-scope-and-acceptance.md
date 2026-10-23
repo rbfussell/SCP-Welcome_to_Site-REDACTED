@@ -223,6 +223,8 @@ Local LLM dialogue/planning; complete employee-role campaigns beyond the bounded
 
 These remain visible ideas. They enter a milestone only through a specific scope decision.
 
+The user's [component/material crafting direction](16-item-composition-and-crafting.md) is recorded for the shared inventory architecture: physical small contents, material portions, installed composition, assembly/disassembly, schematics/batches, derived effects, remnants and condition. Implementation fixtures/content are to be scoped separately; this clarification does not silently add a crafting system to M1.
+
 ## 8. Decisions still needed
 
 | Decision | Working assumption | Needed by |

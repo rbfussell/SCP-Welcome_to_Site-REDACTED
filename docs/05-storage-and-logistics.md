@@ -6,6 +6,8 @@ Status: Proposed implementation contract, revision 0.3. Hierarchical storage, sp
 
 The same inventory model applies to the player's clothing and bags, NPC equipment, vehicle cargo, loose boxes, racks, cabinets, and facility stores. Local interaction exposes their physical arrangements. A console exposes stock summaries, filters, priorities, and work orders for personnel to carry out.
 
+The user further confirms component/material composition: small nested contents have real dimensions, divisible materials retain amount/properties, and an assembly's installed parts are distinct from accessible container contents. [Item composition and crafting](16-item-composition-and-crafting.md) records future assembly/disassembly, derived capabilities, repeatable batches, remnants and wear through this same model. It does not add a crafting implementation or increase M1's content ceiling.
+
 The supplied screenshot is a visual reference for shaped items and distinct packing regions. It is not a request to reproduce its artwork or other interface features. Inventory windows should identify the physical container, show its usable regions and access limits, and make an item's location understandable when walking through the facility.
 
 Building storage increases real capacity: construct a suitable fixture, place it with working clearances, and commission it. Hauling staff then use it. A console storage category alone does not create capacity.

@@ -1,6 +1,6 @@
 # SCP module contract
 
-Status: Proposed API design, revision 0.5. SCP-650 is the first functioning module target and SCP-1499 the second. Names below describe intended semantics. No game script runtime, callable API, authoring application, or compatibility guarantee exists yet. The diagnostic asset generator is an engine-independent sample.
+Status: Proposed public API design, revision 0.6. A native C# SCP-650 observation/relocation proof now runs through an instance-bound host seam; SCP-1499 remains the second module target. Names below describe intended public semantics. The compiled proof is not a metered script runtime, published mod API, authoring application or compatibility guarantee. See [the implementation code map](../src/SiteSimulation/README.md) and [prototype guide](15-spatial-prototype.md).
 
 ## 1. Extensibility promise
 

@@ -1,194 +1,124 @@
-using System.Text.Json;
-
 namespace SiteSimulation;
 
-public sealed class ActorState
-{
-    public string Id { get; set; } = "";
-    public string Name { get; set; } = "";
-    public string Kind { get; set; } = "";
-    public Hex Cell { get; set; }
-    public List<Hex> Route { get; set; } = [];
-    public int SegmentMs { get; set; }
-    public int Facing { get; set; }
-    public bool KeepFacing { get; set; }
-    public long WalkMs { get; set; }
-    public Point2 Position => Route.Count == 0 ? Cell.World : Cell.World + (Route[0].World - Cell.World) * (SegmentMs / (double)SpatialSimulation.StepDurationMs);
-    public bool Moving => Route.Count > 0;
-}
-
-public sealed record SpatialSnapshot(int Version, string MapIdentity, long WorldMs, long LocalMs, bool LocalHold, bool ManualPause,
-    int Speed, string[] OpenDoors, ActorState[] Actors, int PatrolIndex);
-
-/// <summary>Fixed-step prototype. No Godot dependency, wall clock or animation callbacks.</summary>
+/// <summary>Small orchestration facade. Rules live in named movement/perception/anomaly/save systems.</summary>
 public sealed class SpatialSimulation
 {
     public const int TickMs = 50;
     public const int StepDurationMs = 300;
-    public FacilityMap Map { get; }
-    public List<ActorState> Actors { get; private set; }
-    public ActorState Player => Actors.Single(a => a.Kind == "player");
-    public long WorldMs { get; private set; }
-    public long LocalMs { get; private set; }
-    public bool LocalHold { get; set; }
-    public bool ManualPause { get; set; }
-    public int Speed { get; set; } = 1;
+    private readonly string _mapJson;
+    private readonly string _mapIdentity;
+    private SimulationWorld _world;
+    public FacilityMap Map => _world.Map;
+    public List<ActorState> Actors => _world.Actors;
+    public ActorState Player => _world.Player;
+    public AnomalySystem Anomalies => _world.Anomalies;
+    public SimulationTrace Trace => _world.Trace;
+    public long WorldMs => _world.WorldMs;
+    public long LocalMs => _world.LocalMs;
+    public bool LocalHold { get => _world.LocalHold; set { if (_world.LocalHold == value) return; _world.LocalHold = value; _world.Log("time", "local-zone", value ? "held" : "resumed", "World calendar continues; local progress retained."); } }
+    public bool ManualPause { get => _world.ManualPause; set { if (_world.ManualPause == value) return; _world.ManualPause = value; _world.Log("time", "world", value ? "manual-pause" : "manual-resume", "Explicit single-player manual clock control."); } }
+    public int Speed { get => _world.Speed; set => _world.Speed = value; }
     public int OffsiteUpdates => (int)(WorldMs / 1000);
     public int LocalCountdownMs => 10000 - (int)(LocalMs % 10000);
-    public string LastMessage { get; private set; } = "Click the corridor floor to move. White = blocked geometry.";
-    private readonly string _mapIdentity;
-    private int _patrolIndex;
-    private static readonly Hex[] Patrol = [new(5, 11), new(13, 7), new(13, 5), new(5, 9)];
+    public string LastMessage { get; private set; } = "SCP-650 is watched by Chen. O distracts Chen; K blinks; F8 changes lighting.";
 
     public SpatialSimulation(string json)
     {
+        _mapJson = json;
         _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(json)));
-        Map = FacilityMap.Load(json);
-        Actors = Map.Definition.Actors.Select(a => new ActorState { Id = a.Id, Name = a.Name, Kind = a.Kind, Cell = new(a.Q, a.R), Facing = a.Facing }).ToList();
+        _world = new(json);
+        _world.Anomalies.Evaluate(_world, "initialize");
     }
-
-    private HashSet<Hex> Occupied(ActorState except) => Actors.Where(a => a != except).SelectMany(a => a.Moving ? new[] { a.Cell, a.Route[0] } : new[] { a.Cell }).ToHashSet();
+    private bool Ready(string action)
+    {
+        if (_world.LocalActive) return true;
+        LastMessage = action + " is held with local simulation.";
+        return false;
+    }
+    private void Changed(string system, string subject, string action, string detail)
+    {
+        _world.Log(system, subject, action, detail);
+        _world.Anomalies.Evaluate(_world, action + ":" + subject);
+        LastMessage = detail;
+    }
+    public IReadOnlyList<Hex> PreviewPath(Hex destination) => Map.FindPath(Player.Cell, destination, MovementSystem.Occupied(_world, Player));
+    public AnomalyDiagnostics[] InspectAnomalies() => Anomalies.Inspect(_world);
+    public bool VisibleToPlayer(Point2 target) => ObservationService.Inspect(Map, Player, target, LocalMs).Detected;
 
     public bool RequestMove(Hex destination, bool keepFacing = false)
     {
-        if (ManualPause || LocalHold) { LastMessage = "Local activity is held. Resume before moving."; return false; }
+        if (!Ready("Movement")) return false;
         if (Player.Moving) { LastMessage = "Finish this route first (Esc cancels at the next hex)."; return false; }
-        var path = Map.FindPath(Player.Cell, destination, Occupied(Player));
-        if (path.Count == 0) { LastMessage = "No clear route. Walls, closed doors and occupied hexes block movement."; return false; }
-        Player.Route = path.ToList();
-        Player.KeepFacing = keepFacing;
-        LastMessage = $"Route committed: {path.Count} hexes. {(keepFacing ? "Maintaining attention." : "Facing follows movement.")}";
+        var path = PreviewPath(destination);
+        if (path.Count == 0) { LastMessage = "No clear route: wall, closed door, occupied hex or anomaly body."; return false; }
+        Player.Route = path.ToList(); Player.KeepFacing = keepFacing;
+        Changed("movement", Player.Id, "route-committed", $"Route committed: {path.Count} hexes; {(keepFacing ? "maintain attention" : "face movement")}.");
         return true;
     }
-
     public void CancelMove()
     {
-        if (ManualPause || LocalHold) { LastMessage = "Cannot change a held local action."; return; }
+        if (!Ready("Cancellation")) return;
         Player.Route = Player.Route.Take(Player.SegmentMs > 0 ? 1 : 0).ToList();
-        LastMessage = "Route cancelled at the next safe hex boundary.";
+        Changed("movement", Player.Id, "route-cancelled", "Route cancelled at next safe hex boundary.");
     }
-
     public void Face(Point2 target)
     {
-        if (ManualPause || LocalHold) { LastMessage = "Attention is held with the rest of the local simulation."; return; }
-        var delta = target - Player.Position;
-        if (delta.Length < 0.001) return;
-        // Compare in unprojected hex coordinates, independent of camera or sprite.
-        var dq = delta.X * 2;
-        var dr = delta.Y * 2 - delta.X;
-        var x = Math.Sqrt(3) * (dq + dr / 2);
-        var y = 1.5 * dr;
-        var best = double.NegativeInfinity;
-        for (var f = 0; f < 6; f++)
-        {
-            var d = Hex.Directions[f];
-            var dx = Math.Sqrt(3) * (d.Q + d.R / 2.0);
-            var dy = 1.5 * d.R;
-            var dot = x * dx + y * dy;
-            if (dot > best) { best = dot; Player.Facing = f; }
-        }
+        if (!Ready("Attention change")) return;
+        Player.Facing = ObservationService.FacingToward(Player.Position, target, Player.Facing);
         Player.KeepFacing = true;
-        LastMessage = "Attention changed independently of movement.";
+        Changed("perception", Player.Id, "facing-changed", "Attention changed independently of movement.");
     }
-
+    public void ToggleObserverAttention()
+    {
+        if (!Ready("Observer fixture")) return;
+        var observer = Actors.Single(a => a.Id == "observer"); observer.Attending = !observer.Attending;
+        Changed("perception", observer.Id, "attention-changed", $"Chen {(observer.Attending ? "attending" : "distracted")}; prototype debug control.");
+    }
+    public void BlinkPlayer()
+    {
+        if (!Ready("Blink")) return;
+        Player.EyesClosedUntilMs = LocalMs + 150;
+        Changed("perception", Player.Id, "blink-started", "Avatar eyes closed for 150 local milliseconds.");
+    }
+    public void ToggleLighting()
+    {
+        if (!Ready("Lighting fixture")) return;
+        Map.LightsOn = !Map.LightsOn;
+        Changed("world", "facility", "lighting-changed", $"Prototype lighting {(Map.LightsOn ? "on" : "off")}.");
+    }
     public bool ToggleNearestDoor()
     {
-        if (ManualPause || LocalHold) { LastMessage = "Door use is held with local actions."; return false; }
+        if (!Ready("Door use")) return false;
         var door = Map.Definition.Walls.Where(w => w.Door).OrderBy(w => Point2.Distance(Player.Position, w.Center)).First();
         if (Point2.Distance(Player.Position, door.Center) > 1.35) { LastMessage = "Approach a doorway, then press E."; return false; }
         if (Map.OpenDoors.Contains(door.Id))
         {
             if (Actors.Any(a => Geometry.DistanceToSegment(a.Position, door.Start, door.End) < 0.25
-                || a.Moving && Geometry.Intersects(a.Position, a.Route[0].World, door.Start, door.End)))
-            { LastMessage = "Door obstructed by an actor or a committed crossing."; return false; }
+                || a.Moving && Geometry.Intersects(a.Position, a.Route[0].World, door.Start, door.End))
+                || Anomalies.Bodies.Any(b => Geometry.DistanceToSegment(b.Cell.World, door.Start, door.End) < 0.18))
+            { LastMessage = "Door obstructed by an actor, anomaly or committed crossing."; return false; }
             Map.OpenDoors.Remove(door.Id);
         }
         else Map.OpenDoors.Add(door.Id);
-        LastMessage = $"{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? "open" : "closed")}. Collision and sight updated together.";
+        Changed("world", door.Id, "door-changed", $"{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? "open" : "closed")}; path and sight updated.");
         return true;
     }
-
-    public bool VisibleToPlayer(Point2 target)
-    {
-        var p = Player.Position;
-        var d = target - p;
-        if (d.Length < 0.05) return true;
-        var direction = Player.Cell.Neighbor(Player.Facing).World - Player.Cell.World;
-        // Directional cone in the ground plane; no sprite/pixel test.
-        var dot = (d.X * direction.X + d.Y * direction.Y) / (d.Length * direction.Length);
-        return d.Length < 5 && dot >= 0.45 && Map.ClearSight(p, target);
-    }
-
     public void Tick()
     {
         if (ManualPause) return;
-        WorldMs += TickMs;
+        _world.WorldMs += TickMs;
         if (LocalHold) return;
-        LocalMs += TickMs;
-        foreach (var actor in Actors)
-        {
-            if (!actor.Moving) continue;
-            if (!Map.CanTraverse(actor.Cell, actor.Route[0]) || Occupied(actor).Contains(actor.Route[0]))
-            {
-                actor.Route.Clear(); actor.SegmentMs = 0;
-                if (actor == Player) LastMessage = "Route stopped: geometry or occupancy changed.";
-                continue;
-            }
-            if (!actor.KeepFacing) actor.Facing = Array.FindIndex(Hex.Directions, d => d.Q == actor.Route[0].Q - actor.Cell.Q && d.R == actor.Route[0].R - actor.Cell.R);
-            actor.SegmentMs += TickMs;
-            actor.WalkMs += TickMs;
-            if (actor.SegmentMs < StepDurationMs) continue;
-            actor.Cell = actor.Route[0];
-            actor.Route.RemoveAt(0);
-            actor.SegmentMs = 0;
-        }
-        var patrol = Actors.Single(a => a.Id == "tech");
-        if (!patrol.Moving && LocalMs % 1000 == 0)
-        {
-            var target = Patrol[_patrolIndex++ % Patrol.Length];
-            patrol.Route = Map.FindPath(patrol.Cell, target, Occupied(patrol)).ToList();
-        }
+        _world.LocalMs += TickMs;
+        // Due perception transitions (including blink end) precede physical movement.
+        Anomalies.Evaluate(_world, "local-timer");
+        MovementSystem.Advance(_world);
+        Anomalies.Evaluate(_world, "local-step-complete");
     }
-
-    public string Save() => JsonSerializer.Serialize(new SpatialSnapshot(1, _mapIdentity, WorldMs, LocalMs, LocalHold, ManualPause,
-        Speed, Map.OpenDoors.Order().ToArray(), Actors.ToArray(), _patrolIndex));
-
+    public string Save() => PrototypeSaveCodec.Capture(_world, _mapIdentity);
     public void Restore(string json)
     {
-        var snapshot = JsonSerializer.Deserialize<SpatialSnapshot>(json) ?? throw new ArgumentException("Empty save.");
-        if (snapshot.Version != 1 || snapshot.MapIdentity != _mapIdentity || snapshot.WorldMs < 0 || snapshot.LocalMs < 0
-            || snapshot.WorldMs % TickMs != 0 || snapshot.LocalMs % TickMs != 0 || snapshot.PatrolIndex < 0
-            || snapshot.Actors is null || snapshot.OpenDoors is null || snapshot.Actors.Any(a => a is null)
-            || snapshot.LocalMs > snapshot.WorldMs || snapshot.Speed is not (1 or 2 or 4)
-            || !snapshot.Actors.Select(a => a.Id).Order().SequenceEqual(Actors.Select(a => a.Id).Order())
-            || snapshot.OpenDoors.Any(id => !Map.Definition.Walls.Any(w => w.Id == id && w.Door))
-            || snapshot.Actors.Any(a => a is null || a.Route is null || a.WalkMs < 0 || a.SegmentMs < 0 || a.SegmentMs >= StepDurationMs
-                || a.SegmentMs % TickMs != 0 || a.Facing is < 0 or > 5
-                || !Map.Definition.Actors.Any(d => d.Id == a.Id && d.Kind == a.Kind && d.Name == a.Name)))
-            throw new ArgumentException("Incompatible or invalid prototype save.");
-        var candidate = new FacilityMap(Map.Definition);
-        candidate.OpenDoors.UnionWith(snapshot.OpenDoors);
-        foreach (var actor in snapshot.Actors)
-        {
-            if (!candidate.Walkable(actor.Cell) || actor.Route.Count == 0 && actor.SegmentMs != 0)
-                throw new ArgumentException("Save contains invalid actor occupancy/progress.");
-            if (actor.SegmentMs > 0 && !candidate.CanTraverse(actor.Cell, actor.Route[0]))
-                throw new ArgumentException("Saved in-progress movement crosses blocked geometry.");
-            var previous = actor.Cell;
-            foreach (var next in actor.Route)
-            {
-                if (previous.Distance(next) != 1 || !candidate.Inside(next.World)) throw new ArgumentException("Saved route has an invalid step.");
-                previous = next;
-            }
-        }
-        if (snapshot.Actors.Select(a => a.Cell).Distinct().Count() != snapshot.Actors.Length)
-            throw new ArgumentException("Save overlaps physical actors.");
-        Map.OpenDoors.Clear();
-        Map.OpenDoors.UnionWith(snapshot.OpenDoors);
-        Actors = snapshot.Actors.ToList();
-        WorldMs = snapshot.WorldMs; LocalMs = snapshot.LocalMs;
-        LocalHold = snapshot.LocalHold; ManualPause = snapshot.ManualPause; Speed = snapshot.Speed;
-        _patrolIndex = snapshot.PatrolIndex;
-        LastMessage = "Saved progress restored, including mid-step position and held timers.";
+        // Decode/validate a detached candidate; failure cannot partially change live state.
+        _world = PrototypeSaveCodec.Restore(json, _mapJson, _mapIdentity);
+        LastMessage = "Restored movement, observers, module RNG/poses, local timers and trace.";
     }
 }

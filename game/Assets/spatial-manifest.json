@@ -1,6 +1,16 @@
 {
   "version": 1,
   "source": "tools/generate_spatial_assets.py; original diagnostic artwork",
+  "anomaly_sprites": {
+    "scp:650": [
+      "scp650-pose-0",
+      "scp650-pose-1",
+      "scp650-pose-2",
+      "scp650-pose-3",
+      "scp650-pose-4",
+      "scp650-pose-5"
+    ]
+  },
   "animation": {
     "idle_frames": 1,
     "walk_frames": 3,
@@ -733,15 +743,70 @@
         78
       ]
     },
-    "pose": {
-      "file": "pose.png",
+    "scp650-pose-0": {
+      "file": "scp650-pose-0.png",
       "anchor": [
-        22,
-        75
+        32,
+        78
       ],
       "size": [
-        44,
+        64,
+        84
+      ]
+    },
+    "scp650-pose-1": {
+      "file": "scp650-pose-1.png",
+      "anchor": [
+        32,
         78
+      ],
+      "size": [
+        64,
+        84
+      ]
+    },
+    "scp650-pose-2": {
+      "file": "scp650-pose-2.png",
+      "anchor": [
+        32,
+        78
+      ],
+      "size": [
+        64,
+        84
+      ]
+    },
+    "scp650-pose-3": {
+      "file": "scp650-pose-3.png",
+      "anchor": [
+        32,
+        78
+      ],
+      "size": [
+        64,
+        84
+      ]
+    },
+    "scp650-pose-4": {
+      "file": "scp650-pose-4.png",
+      "anchor": [
+        32,
+        78
+      ],
+      "size": [
+        64,
+        84
+      ]
+    },
+    "scp650-pose-5": {
+      "file": "scp650-pose-5.png",
+      "anchor": [
+        32,
+        78
+      ],
+      "size": [
+        64,
+        84
       ]
     }
   }

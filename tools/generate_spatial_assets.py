@@ -82,7 +82,7 @@ def main():
                     marker = [(21, 3, 31, 5), (29, 19, 31, 30), (23, 58, 32, 60), (1, 58, 10, 60), (1, 19, 3, 30), (3, 3, 12, 5)][facing]
                     d.rectangle(marker, fill=(97, 255, 112, 255))
                     emit(f'{kind}-{state}-{facing}-{frame}', image, [17, 58], records)
-    for kind in ['crate', 'cabinet', 'pose']:
+    for kind in ['crate', 'cabinet']:
         image = Image.new('RGBA', (44, 78))
         d = ImageDraw.Draw(image)
         if kind == 'crate':
@@ -97,12 +97,31 @@ def main():
             for y in [35, 51, 67]:
                 d.line([(20, y), (36, y-4)], fill=(39, 52, 49, 255))
                 d.rectangle((25, y-9, 29, y-7), fill=(161, 157, 123, 255))
-        else:
-            d.rectangle((13, 10, 29, 75), fill=(61, 64, 66, 255), outline=(151, 135, 163, 255), width=2)
-            d.rectangle((6, 26, 36, 34), fill=(108, 91, 122, 255))
-            d.rectangle((17, 15, 25, 21), fill=(190, 177, 194, 255))
         emit(kind, image, [22, 75], records)
-    (OUT / 'spatial-manifest.json').write_text(json.dumps({'version': 1, 'source': 'tools/generate_spatial_assets.py; original diagnostic artwork', 'animation': {'idle_frames': 1, 'walk_frames': args.walk_frames, 'walk_cycle_ms': 300}, 'sprites': records}, indent=2)+'\n')
+    poses = []
+    for pose in range(6):
+        image = Image.new('RGBA', (64, 84))
+        d = ImageDraw.Draw(image)
+        # Discrete featureless, handless statue poses, never animation frames.
+        heads = [(32, 19), (32, 19), (32, 21), (32, 43), (30, 43), (20, 58)]
+        hx, hy = heads[pose]
+        d.ellipse((hx-6, hy-8, hx+6, hy+6), fill=(36, 36, 40, 255), outline=(133, 113, 147, 255))
+        limbs = [
+            [(32, 31, 32, 58), (32, 34, 16, 5), (32, 34, 49, 5), (32, 57, 23, 77), (32, 57, 41, 77)],
+            [(32, 31, 32, 58), (32, 34, 8, 25), (32, 34, 57, 25), (32, 57, 22, 77), (32, 57, 42, 77)],
+            [(32, 33, 32, 58), (32, 35, 53, 45), (32, 35, 9, 45), (32, 57, 24, 77), (32, 57, 42, 77)],
+            [(32, 52, 36, 65), (32, 54, 12, 62), (32, 54, 53, 60), (36, 65, 18, 77), (36, 65, 49, 77)],
+            [(30, 52, 30, 65), (30, 55, 12, 49), (30, 55, 48, 49), (30, 65, 14, 77), (30, 65, 50, 77)],
+            [(27, 61, 44, 67), (28, 63, 12, 72), (30, 64, 47, 53), (43, 67, 56, 76), (42, 67, 32, 77)],
+        ][pose]
+        for x1,y1,x2,y2 in limbs:
+            d.line((x1,y1,x2,y2),fill=(132,113,145,255),width=8)
+            d.line((x1,y1,x2,y2),fill=(32,33,36,255),width=6)
+            d.ellipse((x2-3,y2-3,x2+3,y2+3),fill=(32,33,36,255))
+        key = f'scp650-pose-{pose}'
+        emit(key, image, [32, 78], records)
+        poses.append(key)
+    (OUT / 'spatial-manifest.json').write_text(json.dumps({'version': 1, 'source': 'tools/generate_spatial_assets.py; original diagnostic artwork', 'anomaly_sprites': {'scp:650': poses}, 'animation': {'idle_frames': 1, 'walk_frames': args.walk_frames, 'walk_cycle_ms': 300}, 'sprites': records}, indent=2)+'\n')
     print(f'Generated {len(records)} original spatial stand-ins.')
 
 if __name__ == '__main__':

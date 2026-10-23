@@ -6,6 +6,7 @@ public readonly record struct Point2(double X, double Y)
     public static Point2 operator +(Point2 a, Point2 b) => new(a.X + b.X, a.Y + b.Y);
     public static Point2 operator -(Point2 a, Point2 b) => new(a.X - b.X, a.Y - b.Y);
     public static Point2 operator *(Point2 a, double t) => new(a.X * t, a.Y * t);
+    [System.Text.Json.Serialization.JsonIgnore]
     public double Length => Math.Sqrt(X * X + Y * Y);
     public static double Distance(Point2 a, Point2 b) => (a - b).Length;
 }
@@ -14,6 +15,7 @@ public readonly record struct Point2(double X, double Y)
 public readonly record struct Hex(int Q, int R)
 {
     public static readonly Hex[] Directions = [new(1, -1), new(1, 0), new(0, 1), new(-1, 1), new(-1, 0), new(0, -1)];
+    [System.Text.Json.Serialization.JsonIgnore]
     public Point2 World => new(Q / 2.0, R / 2.0 + Q / 4.0);
     public Hex Neighbor(int facing) => new(Q + Directions[facing].Q, R + Directions[facing].R);
     public int Distance(Hex other) => (Math.Abs(Q - other.Q) + Math.Abs(R - other.R) + Math.Abs(Q + R - other.Q - other.R)) / 2;
