@@ -24,6 +24,7 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Spawn/location restrictions: `<rules>`
 - Invariants: `<conditions that must always hold>`
 - Observer/sense/media policy: `<eyes, attention, light, occlusion, cameras, etc.>`
+- Acquired anomaly recognition, contact classification and encounter token: `<observable cues, known versus concealed identity; ordinary movement must not create new interruption episodes>`
 - Observer-kind profile/default and version: `<human, AI, any eligible observer, or explicit authored predicate; unknown-kind handling>`
 - Scenario observer-profile selection/overrides: `<compatible variants, source/adaptation notes, save identity and validation>`
 - Eligibility versus information: `<who can detect/report the anomaly without counting as a suppressing observer>`

@@ -128,4 +128,5 @@ catch (ArgumentException) { Check(sim.Save() == unchanged, "Invalid actor array 
 passed += Scp650Checks.Run(json);
 passed += ComplacencyChecks.Run(json);
 passed += FieldPresentationChecks.Run(json);
+passed += AwarenessChecks.Run(json);
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

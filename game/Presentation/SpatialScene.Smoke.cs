@@ -8,6 +8,8 @@ namespace SitePresentation;
 public partial class SpatialScene
 {
     private int _smokeShadingBuilds;
+    private Point2 _smokeStopPoint;
+    private long _smokeStopLocalMs;
     private static void SmokeKey(Key key)
     {
         Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = true });
@@ -62,11 +64,17 @@ public partial class SpatialScene
                     var neighbor = Enumerable.Range(0, 6).Select(statue.Cell.Neighbor).Where(c => _simulation.Map.Walkable(c)
                         && !_simulation.Actors.Any(a => a.Cell == c) && _simulation.Map.ClearSight(c.World, statue.Cell.World))
                         .OrderByDescending(c => _simulation.Actors.Where(a => a.Id != _simulation.Player.Id).Min(a => a.Cell.Distance(c))).First();
-                    _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0; _simulation.Player.Cell = neighbor;
+                    _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0; _simulation.Player.StoppedStep = null; _simulation.Player.Cell = neighbor;
+                    if (!_simulation.Awareness.StopOnDirectSight || !_simulation.Awareness.StopOnReports)
+                        throw new InvalidOperationException("Both shared sighting settings must default on.");
+                    _simulation.Awareness.StopOnReports = false;
+                    var walking = _simulation.Map.Cells.Select(c => _simulation.PreviewPath(c)).First(p => p.Count >= 2);
+                    _simulation.Player.Route = walking.ToList(); _simulation.Player.SegmentMs = 100; _simulation.Player.KeepFacing = true;
                     _simulation.Face(_simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World));
                     _feedback.Reset(_simulation); _audio.Reset();
                     if (FieldPresentation.ShowAnomaly(_simulation, statue, false))
                         throw new InvalidOperationException("Field view exposed a statue behind the avatar.");
+                    _smokeStopPoint = _simulation.Player.Position; _smokeStopLocalMs = _simulation.LocalMs;
                     var sightTarget = _world.GetGlobalTransform() * WorldView.Screen(statue.Cell.World);
                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = true });
                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = false });
@@ -75,6 +83,10 @@ public partial class SpatialScene
                     if (!_world.FieldView || _feedback.Discoveries != 1 || _audio.PlayedDiscoveries != 1
                         || !FieldPresentation.ShowAnomaly(_simulation, _simulation.Anomalies.Bodies.Single(), false))
                         throw new InvalidOperationException("Actual avatar discovery did not reveal the statue with one presentation cue.");
+                    if (_simulation.Player.Moving || _simulation.Player.Route.Count != 0 || _simulation.Player.Position != _smokeStopPoint
+                        || _simulation.Player.StoppedStep is null || _simulation.ManualPause || _simulation.LocalHold || _simulation.LocalMs <= _smokeStopLocalMs)
+                        throw new InvalidOperationException("Anomaly sensing must stop exactly in place, clear the path and keep the simulation running.");
+                    _simulation.Awareness.StopOnReports = true;
                     _smokeSave = _simulation.Save();
                     SmokeKey(Key.J);
                     SmokeKey(Key.F2); SmokeKey(Key.F2); SmokeKey(Key.M); SmokeKey(Key.R);
@@ -103,6 +115,7 @@ public partial class SpatialScene
                     // A wider room makes cross-tile sight shading inspectable without moving the anomaly.
                     _simulation.ManualPause = true;
                     _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0;
+                    _simulation.Player.StoppedStep = null;
                     _simulation.Player.Cell = new(10, 8); _simulation.Player.Facing = 1;
                     _feedback.Reset(_simulation); _world.FieldView = true; ResetCamera(); RefreshCamera();
                     _encounter.Caption = ""; _encounter.Visible = true;
@@ -111,7 +124,7 @@ public partial class SpatialScene
                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                     var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-sight.png");
                     if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException("Sight screenshot failed.");
-                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, actual RMB discovery, one cue, J module flag, F2 diagnostics, mute/reduced effects, field/diagnostic/sight screenshots.");
+                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, RMB discovery and exact shared movement stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, field/diagnostic/sight screenshots.");
                     GetTree().Quit();
                     return;
             }

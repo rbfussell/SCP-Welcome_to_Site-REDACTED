@@ -13,6 +13,7 @@ internal sealed class AnomalyWorldAccess(SimulationWorld world, AnomalyBody body
     {
         if (cell == body.Cell || !world.Map.Walkable(cell)) return false;
         return !world.Actors.Any(a => a.Cell == cell || a.Moving && a.Route[0] == cell
+            || a.StoppedStep is { } stopped && stopped.Next == cell
             || Point2.Distance(a.Position, cell.World) < 0.26
             || a.Moving && Geometry.DistanceToSegment(cell.World, a.Position, a.Route[0].World) < 0.18);
     }

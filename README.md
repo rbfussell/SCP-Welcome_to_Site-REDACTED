@@ -1,6 +1,6 @@
 # SCP: Welcome to Site-[REDACTED]
 
-Design baseline, revision 0.9 — October 22, 2026.
+Design baseline, revision 0.10 — October 23, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
@@ -40,6 +40,7 @@ The launcher handles this workspace's path characters through a temporary build 
 22. [Runnable spatial prototype](docs/15-spatial-prototype.md): first Godot scene, reference projection, collision overlays, movement, doors and bounded timing/save checks.
 23. [Item composition and crafting](docs/16-item-composition-and-crafting.md): future physical parts/materials, installed versus contained state, assembly/disassembly, derived properties and batches.
 24. [Facility infrastructure](docs/17-facility-infrastructure.md): physical power, heating/cooling, controls, maintenance and environmental containment, with an SCP-019 source check and staged proofs.
+25. [Awareness and encounter entry](docs/18-awareness-and-encounter-entry.md): shared sighting/report movement stops, last-known contact cues and automatic hostile tactical-entry requirements.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic statue art, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 
@@ -60,6 +61,7 @@ The launcher handles this workspace's path characters through a temporary build 
 - Actor movement uses a hex grid with smooth transitions during exploration and committed tactical moves, with independent facing; construction/floor tiles remain square. Use Falltergeist/Fallout implementations as technical references; the game uses Godot and its own authoritative simulation rather than a Falltergeist fork.
 - Fallout 2/Falltergeist is the confirmed blueprint for the on-screen aesthetic, movement, controls, animation and exploration/combat time split. Implement it in Godot alongside the persistent management simulation; exact cursor/button mappings and tactical tuning remain to be specified.
 - Physical facility infrastructure is required: electrical supply/distribution, heating/cooling and later qualified utility services create actual operating conditions and containment risks. Sensors, controls, backup capacity and physical maintenance matter. The proposed first power/thermal proof is in M1; current F8 lighting is only a debug switch. Utility-routing UX remains under discussion.
+- Newly sensed anomalies can stop the avatar exactly in place and clear click-to-move travel without pausing the world. Independent self/report settings default on; communicated sightings require actual delivery. This is shared awareness behavior. Hostile engagements must automatically enter local tactical combat; ranges use world hexes and contact arrows use acquired evidence, not hidden transforms. Full AP combat and remote communications remain future work.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
 - Real-time exploration/operations with ruleset-controlled explicit pause and acceleration; turn-based tactical combat. All local simulation waits while choosing, including movement/actions, work, bleeding, blinks and SCP timers. The world calendar, granular wider simulation and other areas continue. Inventory/terminals do not inherently pause the world. Field commands retain equipment functions, click/Ctrl-click and physical access.

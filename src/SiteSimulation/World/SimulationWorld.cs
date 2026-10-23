@@ -7,6 +7,7 @@ internal sealed class SimulationWorld
     public List<ActorState> Actors { get; set; }
     public AnomalySystem Anomalies { get; }
     public SimulationTrace Trace { get; } = new();
+    public PlayerAwareness Awareness { get; } = new();
     public long WorldMs { get; set; }
     public long LocalMs { get; set; }
     public bool LocalHold { get; set; }

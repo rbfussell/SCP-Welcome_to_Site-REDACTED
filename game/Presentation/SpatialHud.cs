@@ -13,6 +13,8 @@ public partial class SpatialHud : Control
     public Action ExportTraceRequested { get; set; } = () => { };
     private TabContainer _tabs = null!;
     private VBoxContainer _fieldPanel = null!;
+    private ScrollContainer _fieldScroll = null!;
+    private CheckButton _stopDirect = null!, _stopReports = null!;
     private Label _viewHint = null!, _fieldMode = null!;
     private Control _footer = null!;
     private Label _clock = null!, _mode = null!, _status = null!, _coordinates = null!, _timers = null!;
@@ -79,10 +81,14 @@ public partial class SpatialHud : Control
         _trace = new RichTextLabel { FitContent = true, ScrollActive = false, CustomMinimumSize = new(265, 100), BbcodeEnabled = false };
         _trace.AddThemeFontSizeOverride("normal_font_size", 11); trace.AddChild(_trace);
         _tabs.CurrentTab = 1;
-        _fieldPanel = new VBoxContainer(); AddChild(_fieldPanel);
+        _fieldScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; AddChild(_fieldScroll);
+        _fieldPanel = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, CustomMinimumSize = new(280, 0) };
+        _fieldScroll.AddChild(_fieldPanel);
         _fieldPanel.AddThemeConstantOverride("separation", 16);
         Line(_fieldPanel, "OBSERVATION SHIFT", 18, Text);
         _fieldMode = Line(_fieldPanel, "", 12, Green);
+        _stopDirect = Toggle(_fieldPanel, "Stop on my anomaly sightings", sim.Awareness.StopOnDirectSight, value => sim.Awareness.StopOnDirectSight = value);
+        _stopReports = Toggle(_fieldPanel, "Stop on communicated sightings", sim.Awareness.StopOnReports, value => sim.Awareness.StopOnReports = value);
         Line(_fieldPanel, "Keep it in sight.\n\nThe facility plan is known. People and SCP-650 are shown only when your character can see them. Looking away matters.", 14, Muted);
         Line(_fieldPanel, "PROTOTYPE ENCOUNTER\n\nO  — interrupt Chen's watch\nRMB / Ctrl-click  — turn\nK  — blink\nE  — use nearest door\nShift-click  — move, keep facing", 13, Text);
         Button(_fieldPanel, "Interrupt / restore Chen's watch   O", sim.ToggleObserverAttention);
@@ -136,7 +142,7 @@ public partial class SpatialHud : Control
         var size = GetViewportRect().Size;
         Field.Size = new(Math.Max(500, size.X - 372), Math.Max(350, size.Y - 235));
         _tabs.Position = new(size.X - 338, 103); _tabs.Size = new(318, size.Y - 126);
-        _fieldPanel.Position = new(size.X - 324, 137); _fieldPanel.Size = new(288, size.Y - 160);
+        _fieldScroll.Position = new(size.X - 324, 137); _fieldScroll.Size = new(304, size.Y - 160);
         _footer.Position = new(0, size.Y - 88); _clock.Position = new(size.X - 440, 27);
     }
     public void Refresh(SpatialSimulation sim, WorldView world, Hex? hover, Point2 ground, float zoom, string? notice)
@@ -145,7 +151,8 @@ public partial class SpatialHud : Control
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
         _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : "REAL TIME · local active";
         _fieldMode.Text = _mode.Text;
-        _tabs.Visible = !world.FieldView; _fieldPanel.Visible = world.FieldView;
+        _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
+        _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";
         _status.Text = notice ?? sim.LastMessage;
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);

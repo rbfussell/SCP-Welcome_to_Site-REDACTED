@@ -53,8 +53,8 @@ public partial class SpatialScene : Node2D
         _accumulator += delta * _simulation.Speed;
         while (_accumulator >= SpatialSimulation.TickMs / 1000.0)
         { _simulation.Tick(); _accumulator -= SpatialSimulation.TickMs / 1000.0; }
-        UpdateEncounter();
         RefreshCamera();
+        UpdateEncounter();
         var local = _world.GetLocalMousePosition();
         var ground = ReferenceProjection.Unproject(new(local.X, local.Y));
         Hex? hover = _hud.Field.GetGlobalRect().HasPoint(GetGlobalMousePosition()) ? Hex.FromWorld(ground) : null;
@@ -75,6 +75,14 @@ public partial class SpatialScene : Node2D
         _encounter.Visible = _world.FieldView;
         _encounter.Pulse = _feedback.Pulse(_simulation.LocalMs);
         _encounter.Caption = _feedback.Caption(_simulation.LocalMs);
+        _encounter.PlayerPoint = _world.GetTransform() * WorldView.Screen(_simulation.Player.Position);
+        _encounter.Bearings = _simulation.Awareness.Evidence
+            .Where(e => _simulation.LocalMs - e.LocalMs <= 15000 && !_simulation.VisibleToPlayer(e.Position)
+                && Point2.Distance(e.Position, _simulation.Player.Position) > Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e => e.LocalMs).Take(4)
+            .Select(e => new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
+                $"{(e.Source == "sound" ? "sound ~" : e.Source == "voice" ? "reported" : "last seen")} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s",
+                e.Classification == "hostile")).ToArray();
         _encounter.QueueRedraw();
     }
     public override void _UnhandledInput(InputEvent e)

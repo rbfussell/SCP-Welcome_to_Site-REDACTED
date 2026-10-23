@@ -2,12 +2,16 @@ using Godot;
 
 namespace SitePresentation;
 
+public sealed record ContactBearing(Vector2 Direction, string Label, bool Hostile);
+
 /// <summary>Subtle field vignette and caption. No shake, flashes, or world-state effects.</summary>
 public partial class EncounterOverlay : Control
 {
     public double Pulse { get; set; }
     public bool ReducedEffects { get; set; }
     public string Caption { get; set; } = "";
+    public Vector2 PlayerPoint { get; set; }
+    public IReadOnlyList<ContactBearing> Bearings { get; set; } = [];
     public override void _Ready() => MouseFilter = MouseFilterEnum.Ignore;
     public override void _Draw()
     {
@@ -20,6 +24,17 @@ public partial class EncounterOverlay : Control
         }
         if (!ReducedEffects && Pulse > 0)
             DrawRect(new Rect2(3, 3, Size.X - 6, Size.Y - 6), new Color(0.65f, 0.51f, 0.38f, (float)Pulse * 0.32f), false, 3);
+        foreach (var bearing in Bearings)
+        {
+            var direction = bearing.Direction.Normalized();
+            var tip = PlayerPoint + direction * 65;
+            if (!new Rect2(12, 12, Size.X - 24, Size.Y - 24).HasPoint(tip)) continue;
+            var side = new Vector2(-direction.Y, direction.X);
+            var color = bearing.Hostile ? new Color("df927b") : new Color("c3ac7b");
+            DrawColoredPolygon([tip, tip - direction * 11 + side * 5, tip - direction * 11 - side * 5], color);
+            var labelPoint = tip + side * 10 + new Vector2(0, -8);
+            DrawString(ThemeDB.FallbackFont, labelPoint, bearing.Label, HorizontalAlignment.Left, -1, 11, color);
+        }
         if (Caption.Length == 0) return;
         var font = ThemeDB.FallbackFont;
         var width = font.GetStringSize(Caption, HorizontalAlignment.Left, -1, 19).X;
