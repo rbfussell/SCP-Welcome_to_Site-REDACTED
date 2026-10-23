@@ -1,6 +1,6 @@
 # SCP: Welcome to Site-[REDACTED]
 
-Design baseline, revision 0.7 — October 22, 2026.
+Design baseline, revision 0.8 — October 22, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
@@ -28,6 +28,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 18. [Lore and digital operations](docs/13-lore-and-digital-operations.md): SCiPnet, AIC/AIAD, technical responsibility, sources and open questions.
 19. [Fallout 2 placement research](docs/14-fallout-2-placement-research.md): separate movement/terrain grids, sprite anchors, visual offsets and implications for our movement-model decision.
 20. [Falltergeist comparison and retained Godot architecture](docs/adr/0005-retain-godot-after-falltergeist-review.md): the delegated engine decision, inspected code and first prototype boundary.
+21. [Continuing world and local tactical turns](docs/adr/0006-real-time-exploration-and-tactical-turns.md): exploration/combat time split, local waiting, continuing other areas and deferred multiplayer timeout option.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
@@ -42,11 +43,11 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 - Managing the Foundation network and dealing with Groups of Interest are core product pillars. A single site is the first implementation slice, not the whole game's intended scale.
 - Personal, personnel, vehicle, and facility storage share physical inventory rules. Console distribution is delegated work over those same containers, with filters, priorities, consolidation, and access constraints.
 - Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed, visibly pixelated Fallout 2-inspired sprites and textured environments are the finished visual target, clarified by the user's SCP-1499 references. Retain authored pixel texture at normal gameplay zoom. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
-- Actor movement uses a hex grid with smooth real-time transitions and independent facing; construction/floor tiles remain square. Use Falltergeist/Fallout implementations as technical references; the game uses Godot and its own authoritative simulation rather than a Falltergeist fork.
-- Fallout 2/Falltergeist is the confirmed blueprint for the on-screen aesthetic, movement and control feel: sprite placement, walking/running, turning and contextual point-and-click feedback. Implement it in Godot while retaining the game's real-time simulation and management systems; exact cursor/button mappings remain to be specified.
+- Actor movement uses a hex grid with smooth transitions during exploration and committed tactical moves, with independent facing; construction/floor tiles remain square. Use Falltergeist/Fallout implementations as technical references; the game uses Godot and its own authoritative simulation rather than a Falltergeist fork.
+- Fallout 2/Falltergeist is the confirmed blueprint for the on-screen aesthetic, movement, controls, animation and exploration/combat time split. Implement it in Godot alongside the persistent management simulation; exact cursor/button mappings and tactical tuning remain to be specified.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
-- Real time, ruleset-controlled pause and acceleration; inventory/terminals do not inherently stop the world. Field commands use click/Ctrl-click with equipment functions and physical accessibility.
+- Real-time exploration/operations with ruleset-controlled explicit pause and acceleration; turn-based tactical combat. All local simulation waits while choosing, including movement/actions, work, bleeding, blinks and SCP timers. The world calendar, granular wider simulation and other areas continue. Inventory/terminals do not inherently pause the world. Field commands retain equipment functions, click/Ctrl-click and physical access.
 - M1 is an SCP-650 breach inside the facility. Six approximate pose illustrations are discrete states. Both observed transport and controlled relocation are accepted approaches.
 - Observer eligibility is module/scenario-configurable: human, AI or any eligible observer, with senses/media/attention evaluated separately. SCP-650's baseline uses humans, including qualified human-attended live feeds; AIC-only monitoring reports information without suppressing relocation. The article does not establish AI-only eligibility.
 - M2 adds SCP-1499 in the same facility and qualifies physical transfer plus a bounded perception/consequence profile. Death/continuation and checkpoint-based anomalous restart are configurable policy types.
@@ -58,7 +59,8 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 
 - Single-player desktop and mouse/keyboard are the proposed platform/input envelope; exact bindings, hardware and supported OS remain open.
 - Fixed isometric/three-quarter presentation is primary. A facility section view is a later projection of the same spatial model. Exact projection angle, sprite scale, production pipeline and finished direction/frame counts remain open.
-- Fallout/Wasteland-style world-map travel is a presentation reference for the later network/world stage; travel timing, encounters and detailed interaction still need design. It does not change the real-time local control scheme or first facility-only milestone.
+- Fallout/Wasteland-style world-map travel is a presentation reference for the later network/world stage; travel timing, encounters and detailed interaction still need design. It does not expand the first facility-only milestone.
+- Multiplayer remains later; retain compatibility with independently running zones and a possible configurable turn timeout, with 30 seconds proposed as an example rather than a fixed initial rule.
 - M0 proves feasibility; M1 qualifies SCP-650; M2 adds SCP-1499; M3 qualifies broader anomalies/continuation/world generation; M4 proves the bounded network; M5 scopes release. Counts and performance limits are proposed, and broader fixtures are not promised launch campaigns.
 - LLM support is an optional later decision provider. The world runs fully without it.
 - A bounded network prototype follows the local-play and anomaly-architecture gates, before a production release is scoped.

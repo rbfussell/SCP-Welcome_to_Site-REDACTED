@@ -1,6 +1,6 @@
 # Player role, field controls, time, and continuation
 
-Status: Revision 0.5, October 22, 2026. The starting director role, later employee starts, click-based equipment controls, real time with pause/acceleration, and configurable continuation are confirmed direction. Specific input defaults and milestone limits below are proposed.
+Status: Revision 0.8, October 22, 2026. Confirmed: director/later employee starts, Fallout-like controls/animation, hex navigation, real-time exploration/operations and turn-based tactical combat. All local simulation waits for turn input, including movement, hazards and timers; the world calendar, granular world simulation and other areas continue. This replaces the earlier real-time-combat assumption and global-wait proposal. Bindings, AP/time mapping, boundary behavior and milestone limits remain proposed.
 
 ## 1. One character, scenario-defined authority
 
@@ -14,9 +14,9 @@ Direct control attaches to one character at a time. Orders influence autonomous 
 
 ## 2. Field commands and equipment abilities
 
-Use the confirmed fixed isometric/three-quarter sprite presentation with Fallout-like point-and-click movement and interaction feel. The user identifies Fallout 2/Falltergeist as the visual/control blueprint to implement in Godot. Preserve the already confirmed real-time action timing, equipment-based functions and Ctrl-click intent; square construction tiles and hex navigation do not introduce turn-based combat.
+Use the confirmed fixed isometric/three-quarter sprite presentation with Fallout-like point-and-click movement, interaction and animation feel. The user identifies Fallout 2/Falltergeist as the blueprint to implement in Godot, including real-time exploration and turn-based tactical combat. Equipment-based functions, Ctrl-click intent, physical access and character authority apply in both modes.
 
-Actor destinations and routes use a separate hex navigation grid with smooth real-time transitions, as clarified by the user. Construction/floor cells remain square. The input adapter resolves clicks to valid reachable hex destinations while the simulation owns movement progress and independent facing. Grid scale/registration and near-target interaction placement are M0 qualification choices.
+Actor destinations and routes use a separate hex navigation grid with smooth transitions in exploration and during committed tactical moves. Construction/floor cells remain square. The input adapter resolves clicks to valid reachable hex destinations while the simulation owns movement progress and independent facing. Grid scale/registration and near-target interaction placement are M0 qualification choices.
 
 Prototype click-to-move, walk/run presentation, visible turning, contextual interaction and hover/target feedback as one coherent Fallout-like interaction layer. Exact mouse bindings, cursor-mode cycling versus contextual selection, run modifier and interaction-menu behavior remain explicit design decisions before their affected controls are fixed. Research the reference behavior, show a concrete prototype and ask about unresolved choices. Replacing the movement animation must not change travel or interaction timing.
 
@@ -48,15 +48,31 @@ Commands referring to shared or distorted information resolve through the actor'
 
 ## 4. Time controls
 
-Clarification pending: the user's latest “same time solution” request may mean Fallout-like animation timing, Fallout's exploration/combat time split, or a correction to “tile solution.” A question has been sent. The previously confirmed real-time/pause/acceleration baseline below remains provisionally recorded; do not infer a combat-clock change or fix the affected implementation until the intended meaning is answered.
+The user resolved “same time solution” as the Fallout-like exploration/combat split plus animation feel, then confirmed complete local tactical waiting while the wider world and other areas continue. [ADR-0006](adr/0006-real-time-exploration-and-tactical-turns.md) records the final zone policy and remaining implementation/balance choices.
 
-All gameplay uses simulation time. Opening inventory or a terminal does not implicitly pause it. A ruleset controls whether manual pause is permitted, acceleration limits, and event-driven return to normal speed or optional auto-pause. Default development/M1 play permits manual pause.
+One authoritative kernel maintains the world calendar and declared local execution/progress states. Outside combat, ordinary life, work and interaction run in real time. Opening inventory or a terminal does not implicitly pause this mode. A ruleset controls explicit manual pause, acceleration and event-driven normal speed/optional auto-pause. Default development/M1 play permits manual pause.
 
-Paused UI may preview layouts and queue permitted commands. Movement, drawing equipment, transfers, work, treatment and module timers do not complete until simulation runs. On resume, validate commands against current authoritative state. The developer inspector can have separate explicit editing tools; these are not campaign actions.
+In tactical combat, actors take sequential turns with action-point budgets, visible costs and explicit end-turn control. Input waiting holds movement/action progression for everybody in the engaged local area, including noncombat local pawns. The world calendar continues; the wider world updates at its normal granular/event cadence, and other areas continue their own simulation. There is no automatic global pause caused by one area's player decision.
+
+The timing profile must specify AP grants/costs, initiative, local action/turn progress, timer clock bases and waiting/end-turn behavior. The original game's numerical values are reference points rather than unreviewed constants. The continuing world scheduler already accounts for elapsed decision/execution time; do not add that time a second time at round end or combat exit. Do not bulk-replay all missed local actions when releasing a hold. Exact budgets, costs, durations, local-zone membership and grid/time registration remain to be qualified.
+
+All local simulation waits, as explicitly confirmed: bleeding, blink cycles, local SCP countdowns, work and other conditions stop along with local movement/actions. Store their remaining durations/progress. On release, resume from those values; the continuing world calendar does not make them immediately expire or trigger a bulk catch-up. Declare timer ownership and clock bases. World-scoped events continue, with genuinely external local effects handled at a qualified encounter boundary rather than slipping through as local timers.
+
+Local input waiting is distinct from explicit manual pause. Inspecting a UI or previewing a grid placement cannot transfer items, retrieve equipment, turn an observer or complete a held local order for free. Committed changes use the same validators and their declared action/AP/progress semantics. Other zones' valid actions continue normally. Acceleration cannot skip required player input or critical observation events; animation frames/cosmetic playback cannot grant extra AP or secretly advance held movement.
+
+The player controls the avatar's turn; friendly personnel and opponents remain autonomous under their duties, orders and permitted actions. Encounter entry, participants, zone hold membership and exit must be explicit and cannot refill AP, reset a hazard or duplicate a committed action. External physical interactions require a qualified boundary/interrupt or encounter-merge policy; actors in another area cannot attack held characters through an undefined timing gap. Preserve critical incoming transitions until they can be resolved safely. SCP-650's nonaggressive startle is not automatically combat. Detailed trigger, initiative and boundary rules remain a required prototype pass.
+
+Persist the world calendar, per-zone modes/hold flags, encounter/participants, active turn, AP state, timing-profile/clock-basis versions, action IDs, local progress and queued cross-zone events. Restore held/running areas independently without duplicate elapsed time, AP or damage. Replay includes recorded command timestamps and external world events: different thinking durations can produce different background-world outcomes. Rendering/frame-count changes must not alter resolution for the same recorded timeline.
+
+Multiplayer remains later. Preserve the architectural ability for an unrelated second player's area to continue. The proposed configurable decision timeout (for example 30 seconds) is a later option; timeout duration/action and disconnect handling are not fixed or implemented by this decision.
+
+On region departure, the user proposes a contextual summary such as securing the area, packing gear or writing reports to explain elapsed world time. Record encounter entry/exit timestamps and local progress; do not add the already elapsed interval to the world calendar again or rewind other areas to match. The example of 1.2 hours is illustrative. Text alone does not perform recovery, treatment, inventory transfers or report submission. Additional timed departure work versus a summary-only transition is awaiting clarification; the current proposal is summary-only with separately validated real work when requested. [ADR-0006](adr/0006-real-time-exploration-and-tactical-turns.md) records the distinction and persistence requirements.
+
+During explicit manual pause, UI may preview layouts and queue permitted commands. Movement, drawing equipment, transfers, work, treatment and module timers do not complete until the participating simulation resumes. A local tactical hold applies that gate only to its area; other areas remain active. On resume, validate commands against current authoritative state. The developer inspector can have separate explicit editing tools; these are not campaign actions.
 
 Significant containment changes, injury, hostile contact, a requested acknowledgement or a critical staffing failure can emit interruption events. Apply configured speed/pause policy at the committed event boundary. Pausing does not undo an already resolved consequence. Acceleration must process observation and anomaly events at required fidelity; it cannot skip a brief loss of observation.
 
-The simulation continues in unattended locations using certified detail levels. Difficulty is a ruleset independent of the chosen character role; a cafeteria start does not imply different physics or automatic pause behavior.
+Unattended locations use certified detail levels and continue according to their own area/world execution policy. A local combat hold does not stop another site's employment or the wider event planner. Difficulty remains independent of character role; a cafeteria start does not imply different physics or a global pause.
 
 For later travel between world locations, the user references a Fallout/Wasteland-like world-map presentation. Treat this as an interface direction over actual travel and continuing world events, not an unpriced instant transfer. Exact route selection, travel duration, resource use, interruption/encounter rules and availability remain open design questions for the world/network stage. M1 remains inside the starting facility.
 
@@ -85,4 +101,4 @@ An authored retention policy may carry over selected memory or a limited restart
 
 This supports a deliberate “restart the day” mechanic without promising arbitrary temporal paradoxes, local partial rewinds or compatibility with every future mod. M3 proves one synthetic checkpoint-based anomaly and one successor handover before a specific production SCP or difficulty preset uses them.
 
-Related requirements: CTL-01 through CTL-04, TIME-01, ROLE-01 through ROLE-02 and CONT-01 through CONT-03 in [scope and acceptance](04-scope-and-acceptance.md).
+Related requirements: CTL-01 through CTL-04, TIME-01 through TIME-02, TAC-01 through TAC-03, ROLE-01 through ROLE-02 and CONT-01 through CONT-03 in [scope and acceptance](04-scope-and-acceptance.md).

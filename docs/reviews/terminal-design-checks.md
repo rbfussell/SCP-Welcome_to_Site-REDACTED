@@ -4,7 +4,7 @@ Scope: revision 0.6 documentation and the interactive OSCP design preview. No ga
 
 ## Documentation evidence
 
-Checked Markdown local links, balanced code fences, unique acceptance IDs and requirement references. The scope matrix has 85 unique requirements, including TERM-01 through TERM-09. Canon references and original game adaptations are separated in the OSCP/lore documents. Resident AIC presence, deterministic initial duties and future optional local-model JSON integration follow the user's confirmed answer; detailed authority/canon questions remain pending.
+Checked Markdown local links, balanced code fences, unique acceptance IDs and requirement references. At this review, the scope matrix had 85 unique requirements, including TERM-01 through TERM-09; later design passes may extend it. Canon references and original game adaptations are separated in the OSCP/lore documents. Resident AIC presence, deterministic initial duties and future optional local-model JSON integration follow the user's confirmed answer; detailed authority/canon questions remain pending.
 
 ## Interactive preview evidence
 

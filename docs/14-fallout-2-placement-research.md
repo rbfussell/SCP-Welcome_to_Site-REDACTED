@@ -38,4 +38,6 @@ Actor hex/path identity, movement-segment progress, floor and footprint belong t
 
 Do not reproduce animation-driven location updates merely to imitate the reference. Our existing contract makes semantic movement/action progress authoritative and sprite frames a representation of it. Animation replacement must not change speed or the instant an SCP loses observation.
 
+Smooth movement applies both during real-time exploration and when a tactical action resolves. The adopted time split holds all local simulation during turn selection while the world calendar and other areas continue; [ADR-0006](adr/0006-real-time-exploration-and-tactical-turns.md) records that game-specific departure from a global wait.
+
 The next bounded presentation proof should compare projected floor/wall geometry, a tall sprite's anchor, walk-behind order, click-to-world conversion and the facing diagnostic. Projection and actor-movement choices must remain explicit; the research does not silently supersede [the art contract](06-sprites-and-placeholders.md) or [simulation contract](02-simulation-and-world.md).

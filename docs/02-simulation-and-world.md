@@ -31,6 +31,7 @@ Use one simulation kernel with serializable domain data. Rendering, audio, UI, f
 | Storage policy | Effective native/user filters, source of inheritance, priority, targets, consolidation/rehandling/pinning permissions |
 | Haul job | Intent, item/quantity, source/destination, reserved footprint, assigned carrier, access/staging steps, execution state |
 | Operation | Objective, participants, reservations, orders, procedure state, report |
+| Tactical encounter/zone execution | Zone hold/mode and membership, turn cursor, participant/AP state, local progress, clock-basis profile and queued cross-zone events |
 | Anomaly instance | Module ID/version, state-machine state, persistent fields, rule handles |
 | Event | ID, time, phase, cause, scope, payload version, stable ordering key |
 
@@ -77,6 +78,10 @@ Ordering uses simulation time, phase, declared handler order, and stable IDs. Ra
 The replay guarantee is scoped to the same simulation build, content hashes, settings, seed, initial state, and recorded external inputs. Cross-platform bit-identical physics is not a baseline promise. Save restoration must still preserve authoritative values across supported platforms.
 
 When permitted by the difficulty/scenario ruleset, pause stops all domain clocks. UI can preview or queue permitted actions, but timed equipment use, work and movement do not complete. Opening a terminal/inventory does not implicitly pause. Acceleration processes more work or skips certified safe intervals without skipping critical events. Interruptions return to normal speed or optionally pause at a committed boundary according to the ruleset; fidelity limits can independently cap acceleration.
+
+The confirmed time split uses real-time exploration and turn-based tactical combat. Tactical input waiting holds all simulation in the engaged zone, including movement/actions, work, bleeding, blink cycles and local SCP timers; this is not the explicit global manual-pause operation above. The world calendar, granular macro/event planner and other zones continue normally. Keep world-calendar time separate from zone progress and local remaining durations, so release neither double-counts time, immediately expires held local hazards nor bulk-replays missed local walking/work. Declare timer ownership/clock bases; genuinely external effects enter through qualified boundaries.
+
+Each zone/encounter owns execution state, turn/AP validation and pending local progress through the shared kernel. Resolve external physical effects through a qualified boundary/interrupt or encounter-merge policy; preserve causal order and critical transitions. A paused area's actors cannot be attacked freely by an outside actor through an undefined scheduling gap. Save world time, zone holds/progress, timer bases and queued boundary events together. Deterministic replay uses recorded timestamps and external events; different player decision durations may change the continuing background world. [ADR-0006](adr/0006-real-time-exploration-and-tactical-turns.md) defines the accepted direction and pending details.
 
 Time is monotonic within a branch. Domain-local clock mappings do not rewrite history. A later host-managed checkpoint capability can restore a compatible whole-world snapshot into a new branch with explicit retention/cost policy; stale requests/results from the abandoned branch are rejected. Unrestricted local rewinds and temporal paradoxes are not part of this contract. See [time and continuation](08-player-controls-time-and-continuation.md).
 

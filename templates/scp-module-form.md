@@ -28,6 +28,8 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Scenario observer-profile selection/overrides: `<compatible variants, source/adaptation notes, save identity and validation>`
 - Eligibility versus information: `<who can detect/report the anomaly without counting as a suppressing observer>`
 - Event subscriptions and timer resolution: `<events and deadlines>`
+- Timer ownership/clock bases: `<world calendar versus local progress; remaining-duration persistence during complete local tactical waiting>`
+- Cross-zone effects during a local hold: `<declared boundary/interrupt/merge policy; queued transitions and revalidation; no silent bypass or bulk catch-up>`
 - Persistent state schema/version and seeded randomness: `<data>`
 - Creation/restore/disposal and migration: `<behavior>`
 

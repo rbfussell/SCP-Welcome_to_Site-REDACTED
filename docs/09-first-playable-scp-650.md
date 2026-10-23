@@ -12,6 +12,8 @@ The user confirms interpreting personnel here as humans: the three-person proced
 
 Initial scope confines its effects to the starting facility's declared domains/floors. This is a module/scenario bound, not an engine-wide rule that SCPs cannot escape into towns. The later world architecture supports other declared scopes.
 
+The anomaly's discovery/startling behavior does not itself start a hostile combat encounter. If its area enters tactical input waiting through an actual engagement, all local simulation holds, including observation/attention progression and module countdowns. Resume preserved progress through normal event boundaries; do not reset the anomaly or catch up missed local relocations. External feed/power/observer transitions follow the qualified incoming-event policy. [The time contract](08-player-controls-time-and-continuation.md) applies without creating a special SCP-650 combat exemption.
+
 ## 2. Opening state and incident
 
 Start as the newly appointed regional operations director in one functioning site. Staff are on real shifts, supplies are physically stored, cafeteria and maintenance duties run, and SCP-650 is already contained with valid coverage. The player can inspect the room, staff assignments, live information, equipment and terminal controls before the incident.

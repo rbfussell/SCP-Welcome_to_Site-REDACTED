@@ -54,7 +54,7 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Perception | Observer-kind eligibility profile, module default/scenario overrides, senses, media, lighting/occlusion/attention policy |
 | Context mappings | Physical/perceived relation, target bindings, sensory/identity changes and cross-context consequences |
 | Effects | Trigger, target, range/domain, duration, stacking, reversible/irreversible changes |
-| Space/time | Domain creation, connections, clock policy, anchors, persistence |
+| Space/time | Domain creation, connections, world-calendar versus local-progress timer bases, zone-wait behavior, anchors, persistence |
 | Interaction | Allowed actions, costs, guards, results, rejection reasons |
 | Staff procedures | Discover, investigate, contain/mitigate, transport if possible, maintain, abort |
 | Organization interactions | Who can learn about, own, use, trade, transport or target the anomaly; knowledge and access prerequisites |
@@ -103,6 +103,8 @@ Grants can authorize ordinary-world changes outside the module's generated envir
 Use a restricted, embeddable script runtime with metering and serializable state. Lua or WebAssembly are candidates to evaluate during M0; no language is selected here. Ordinary native DLL plugins are outside the public gameplay-mod contract.
 
 The host provides deterministic RNG streams, simulation time, read-only state views, capability handles, transaction builders, and scheduling. It does not expose the filesystem, network, process creation, wall clock, arbitrary engine objects, reflection, or unseeded randomness. Runtime selection must demonstrate these restrictions; naming a language is insufficient.
+
+Tactical input waiting holds all engaged-area simulation, including local anomaly timers, while the world calendar and other areas continue. Modules declare timer ownership, clock bases and cross-zone scopes. Preserve remaining local countdowns/progress through the hold; do not expire them merely because the calendar advanced. World-scoped effects continue, with local application gated by the host's qualified boundary policy. Preserve critical queued observation/effect transitions. An anomaly is not forced into an ordinary actor turn merely because combat UI is active. See [the time decision](adr/0006-real-time-exploration-and-tactical-turns.md).
 
 Lifecycle callbacks: validate definition, create instance, handle subscribed event, respond to interaction, advance procedure, save state, restore state, migrate state, and dispose instance. Restoration reattaches persisted registrations idempotently; it does not replay creation rewards or re-roll initialized state.
 

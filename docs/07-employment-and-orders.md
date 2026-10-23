@@ -53,6 +53,8 @@ This is a policy boundary, not a rule that every frightened guard always flees. 
 
 Long actions define safe interruption points and emergency interruption outcomes. An urgent order can stop preparation immediately where safe; interrupting a medical action, loaded-container carry or guarded transfer must retain its actual partial state. Cancelling a duty does not complete it or restore carried items automatically.
 
+Employment uses the area's execution state. Tactical input waiting holds all local work, including noncombat personnel, while other areas and the world calendar continue. Preserve duty/reservation and remaining progress; releasing a hold cannot replay missed labor or treat an unperformed relief as completed. Calendar-based shift changes and external orders entering the held area need the qualified boundary policy, rather than silently moving a held employee. See [time controls](08-player-controls-time-and-continuation.md).
+
 ## 5. Security teamwork and acknowledgement
 
 Team commands can allocate leader, observer, mover, escort, cover and relief roles. Agreement means participants acknowledge their role and reserve required resources/posts before a coordinated action begins. A guard reports ready, unable, delayed or refusing with a reason. Issuing a team order does not imply unanimous compliance.

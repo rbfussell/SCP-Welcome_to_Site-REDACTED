@@ -33,7 +33,7 @@ The same shell adapts to installed functions. Offline, isolated, expired-session
 
 Propose a restrained workstation interface: sharp readable text, compact navigation, document-oriented panels, status strip and command/search field. It may evoke old institutional systems without pixel fonts, compulsory scanlines, flicker or tiny unreadable type. Brightness, font size and reduced visual effects are accessibility settings, not a new survival minigame.
 
-The strip shows OSCP, device/site, session identity and role, connection scope, last synchronization and simulation time/speed. Clearance is descriptive; the service authorization still enforces it. A minimal login/boot transition can establish identity without delaying every routine interaction.
+The strip shows OSCP, device/site, session identity and role, connection scope, last synchronization and world time/speed. When relevant, show the local tactical hold, active turn and AP separately, so a held area is not mistaken for a stopped world calendar. Clearance is descriptive; the service authorization still enforces it. A minimal login/boot transition can establish identity without delaying every routine interaction.
 
 | Application | Main content | World-backed actions |
 |---|---|---|
@@ -52,6 +52,8 @@ These are application domains, not eight mandatory independent desktop programs.
 ## 4. Orders, receipts and attention
 
 A button or supported command submits an intent with actor/session, target IDs, expected revisions, branch, parameters and idempotency key. Receipt states distinguish draft, queued locally, delivered to service, accepted/rejected, acknowledged by personnel, executing, completed, blocked, cancelled and expired. Do not mark staff coverage restored at “accepted.” Staff must travel, qualify and perform the handoff.
+
+Opening OSCP does not pause real-time exploration. During tactical input waiting, all local simulation remains held: inspecting a record or drafting an intent cannot grant free equipment work, attention changes or completed local orders. Remote running areas and SCiPnet services can continue according to their own execution policy; effects entering a held area follow the declared boundary policy. AIC actions use the same gates. See [time controls](08-player-controls-time-and-continuation.md).
 
 Keep worker acknowledgement and communications delay meaningful. Retries cannot duplicate supply purchases, staff assignments or repairs. If a terminal closes, accepted world orders persist. If a link fails, queued drafts remain visibly pending; resynchronization revalidates authority, capacity and expiry before delivery. A command requiring fresh state cannot execute against an old cached view silently.
 
