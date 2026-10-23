@@ -57,6 +57,7 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Environmental containment | Required supported quantities/services, affected spaces, units, ranges/boundaries, rates/exposure, equipment/utility dependencies, sensor knowledge and fail/recovery rules |
 | Space/time | Domain creation, connections, world-calendar versus local-progress timer bases, zone-wait behavior, anchors, persistence |
 | Interaction | Allowed actions, costs, guards, results, rejection reasons |
+| Engagement/reaction | Tactical-entry eligibility, evidence requirements, movement/effect timing, interruption points and zero-response outcomes; no universal warning or guaranteed player turn |
 | Staff procedures | Discover, investigate, contain/mitigate, transport if possible, maintain, abort |
 | Organization interactions | Who can learn about, own, use, trade, transport or target the anomaly; knowledge and access prerequisites |
 | Fidelity | Minimum simulation tier, safe aggregation conditions, coarse-resolver tests |
@@ -108,6 +109,8 @@ Use a restricted, embeddable script runtime with metering and serializable state
 The host provides deterministic RNG streams, simulation time, read-only state views, capability handles, transaction builders, and scheduling. It does not expose the filesystem, network, process creation, wall clock, arbitrary engine objects, reflection, or unseeded randomness. Runtime selection must demonstrate these restrictions; naming a language is insufficient.
 
 Tactical input waiting holds all engaged-area simulation, including local anomaly timers, while the world calendar and other areas continue. Modules declare timer ownership, clock bases and cross-zone scopes. Preserve remaining local countdowns/progress through the hold; do not expire them merely because the calendar advanced. World-scoped effects continue, with local application gated by the host's qualified boundary policy. Preserve critical queued observation/effect transitions. An anomaly is not forced into an ordinary actor turn merely because combat UI is active. See [the time decision](adr/0006-real-time-exploration-and-tactical-turns.md).
+
+Before a tactical input hold exists, an unperceived anomaly can complete validated lethal movement/effects without warning or a guaranteed response turn. Acquired evidence, due effects and interruption points determine whether a response window exists; proximity or hidden attack intent alone cannot create one. Mode entry cannot reset an attack deadline, manufacture observer knowledge or move a due lethal outcome behind player input. During permitted tactical action resolution, module constraints still apply at their authored event boundaries. Post-death scene revelation is presentation-only and cannot supply evidence to living actors. See [awareness and encounter entry](18-awareness-and-encounter-entry.md).
 
 Lifecycle callbacks: validate definition, create instance, handle subscribed event, respond to interaction, advance procedure, save state, restore state, migrate state, and dispose instance. Restoration reattaches persisted registrations idempotently; it does not replay creation rewards or re-roll initialized state.
 
@@ -193,6 +196,8 @@ Prove an observer set derived from actual actors: eligible eyes open, attention/
 These are the SCP-173 fixture's media rules, not a global camera prohibition. SCP-650 has its own emergency live-feed qualification policy over the same service.
 
 Acceptance fixtures: one observer blinks while another watches; all observers blink; a door blocks the last observer; an observer loses consciousness; a guard resumes sight mid-action; the terminal opens while the avatar watches; a remote team's shift changes during accelerated time. Resolve the constraint at the actual event boundary and validate the whole movement path. No moving through walls or killing during an interval when movement is forbidden.
+
+Also prove an unseen approach that reaches and kills the avatar without a combat warning/input hold, and an approach interrupted by actual eligible sight before impact. Exact speed/attack duration belongs to the authored fixture. Neither the overhead camera nor tactical entry creates an observer or guarantees a surviving turn. Persist pending movement/effect timing so save/load cannot manufacture that turn. Reveal the scene only after committed death under the shared aftermath policy; this is not pre-death actor evidence.
 
 ### SCP-914: atomic transformation
 

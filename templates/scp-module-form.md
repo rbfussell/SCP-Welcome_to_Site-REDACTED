@@ -25,6 +25,7 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Invariants: `<conditions that must always hold>`
 - Observer/sense/media policy: `<eyes, attention, light, occlusion, cameras, etc.>`
 - Acquired anomaly recognition, contact classification and encounter token: `<observable cues, known versus concealed identity; ordinary movement must not create new interruption episodes>`
+- Tactical-entry eligibility and reaction window: `<required acquired evidence, action/effect timing, interruption points, zero-response/lethal outcomes; no hidden-approach warning or guaranteed player turn>`
 - Observer-kind profile/default and version: `<human, AI, any eligible observer, or explicit authored predicate; unknown-kind handling>`
 - Scenario observer-profile selection/overrides: `<compatible variants, source/adaptation notes, save identity and validation>`
 - Eligibility versus information: `<who can detect/report the anomaly without counting as a suppressing observer>`
@@ -93,6 +94,7 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 ## Presentation and recovery
 
 - Required field cues and terminal information: `<what the actor can know>`
+- Post-death scene reveal: `<actual scene shown only after committed death; presentation audience and continuation transition; no retroactive evidence or living-actor knowledge grants>`
 - Visual state keys, illustrations, facing set, frame totals, anchors and semantic progress bindings: `<metadata>`
 - Generated category/name/state/frame/facing placeholders and production-art substitution: `<bindings>`
 - Readable equivalent for essential audio/color cues: `<UI behavior>`
@@ -115,5 +117,6 @@ For every scenario, specify starting state, seed/inputs, action/event times, exp
 9. Location/perception changes affecting another module through shared services, if applicable.
 10. Distinct pose keys versus animation frames, and branch/context restoration without stale actions, if applicable.
 11. If environmentally dependent: supply loss, capacity shortfall, upper/lower threshold and sudden changes, sensor/control failure, treatment/recovery, held local time and save/load just before a threshold. Direct and unattended outcomes preserve the same hazard semantics.
+12. If hostile/lethal: unseen approach with no warning/input hold, actual detection before versus at/after impact, interrupted versus completed lethal action, and save/load around that boundary. Tactical entry preserves deadlines and does not grant a response turn. Post-death scene reveal follows committed death and grants no knowledge to living actors.
 
 Certification status: `<unimplemented / prototype / verified against host version and fixture set>`.
