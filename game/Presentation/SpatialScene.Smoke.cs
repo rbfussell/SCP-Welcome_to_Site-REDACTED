@@ -7,6 +7,7 @@ namespace SitePresentation;
 // Automated presentation checks are kept out of normal input and world rules.
 public partial class SpatialScene
 {
+    private int _smokeShadingBuilds;
     private static void SmokeKey(Key key)
     {
         Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = true });
@@ -39,8 +40,11 @@ public partial class SpatialScene
                 case 3:
                     if (!_simulation.LocalHold) throw new InvalidOperationException("F6 did not hold local simulation.");
                     _smokeSave = _simulation.Save();
+                    _smokeShadingBuilds = _world.GroundShadingBuilds;
                     break;
                 case 4:
+                    if (_world.GroundShadingBuilds != _smokeShadingBuilds)
+                        throw new InvalidOperationException("Unchanged held sight rebuilt its ground meshes.");
                     var restored = new SpatialSimulation(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"));
                     restored.Restore(_smokeSave!);
                     if (restored.InspectAnomalies().Single().Relocations != _simulation.InspectAnomalies().Single().Relocations
@@ -96,7 +100,18 @@ public partial class SpatialScene
                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                     var diagnosticPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-diagnostics.png");
                     if (GetViewport().GetTexture().GetImage().SavePng(diagnosticPath) != Error.Ok) throw new IOException("Diagnostic screenshot failed.");
-                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save, actual RMB discovery, one cue, J module flag, F2 diagnostics, mute/reduced effects, field/diagnostic screenshots.");
+                    // A wider room makes cross-tile sight shading inspectable without moving the anomaly.
+                    _simulation.ManualPause = true;
+                    _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0;
+                    _simulation.Player.Cell = new(10, 8); _simulation.Player.Facing = 1;
+                    _feedback.Reset(_simulation); _world.FieldView = true; ResetCamera(); RefreshCamera();
+                    _encounter.Caption = ""; _encounter.Visible = true;
+                    _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, "VISION SHADING · PRESENTATION FIXTURE");
+                    _world.QueueRedraw();
+                    await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                    var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-sight.png");
+                    if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException("Sight screenshot failed.");
+                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, actual RMB discovery, one cue, J module flag, F2 diagnostics, mute/reduced effects, field/diagnostic/sight screenshots.");
                     GetTree().Quit();
                     return;
             }

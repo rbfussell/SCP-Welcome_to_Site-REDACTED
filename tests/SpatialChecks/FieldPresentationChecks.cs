@@ -9,6 +9,20 @@ internal static class FieldPresentationChecks
         void Check(bool condition, string detail)
         { if (!condition) throw new Exception("Field presentation: " + detail); passed++; }
         var sim = new SpatialSimulation(json);
+        var shadingState = sim.Save();
+        var left = FieldPresentation.SightShade(sim, new(3 - 0.00001, 4.4));
+        var right = FieldPresentation.SightShade(sim, new(3 + 0.00001, 4.4));
+        Check(left > 0 && Math.Abs(left - right) < 0.001, "cosmetic shading cannot jump at a floor-tile boundary");
+        var direction = sim.Player.Cell.Neighbor(sim.Player.Facing).World - sim.Player.Cell.World;
+        direction *= 1 / direction.Length;
+        var edge = direction * 0.5 + new Point2(-direction.Y, direction.X) * Math.Sqrt(0.75);
+        var edgePoint = sim.Player.Position + edge * 0.5;
+        var edgeShade = FieldPresentation.SightShade(sim, edgePoint);
+        Check(sim.VisibleToPlayer(edgePoint) && edgeShade is > 0 and < 1,
+            "a cosmetic cone fade must not remove exact observation near its edge");
+        Check(FieldPresentation.SightShade(sim, sim.Player.Position - direction * 0.5) == 0,
+            "cosmetic shading must not brighten a point behind the viewer");
+        Check(sim.Save() == shadingState, "sampling floor appearance cannot mutate observation, RNG or world state");
         var statue = sim.Anomalies.Bodies.Single();
         var feedback = new DiscoveryFeedback(); feedback.Reset(sim);
         Check(!FieldPresentation.ShowAnomaly(sim, statue, false), "closed room hides statue despite another human observing it");

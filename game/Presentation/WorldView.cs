@@ -21,6 +21,8 @@ public partial class WorldView : Node2D
     private readonly List<Rect2> _debugLabels = [];
     private readonly Dictionary<string, string[]> _anomalySprites = [];
     private readonly Dictionary<string, string[]> _anomalyArt = [];
+    private GroundView _ground = null!;
+    internal int GroundShadingBuilds => _ground.ShadingBuilds;
     private int _walkFrames = 3;
     private int _walkCycleMs = 300;
     private int Frame(ActorState actor) => actor.Moving ? (int)(actor.WalkMs % _walkCycleMs * _walkFrames / _walkCycleMs) : 0;
@@ -61,14 +63,23 @@ public partial class WorldView : Node2D
             };
             _sprites[entry.Name] = (texture, new(anchor[0].GetSingle(), anchor[1].GetSingle()), entry.Value.GetProperty("scale").GetSingle());
         }
+        _ground = new GroundView
+        {
+            Simulation = Simulation,
+            Textures = _sprites.Where(s => s.Key.StartsWith("floor-", StringComparison.Ordinal)
+                || s.Key.StartsWith("land-", StringComparison.Ordinal)).ToDictionary(s => s.Key, s => s.Value.Texture)
+        };
+        AddChild(_ground);
     }
+
+    public override void _Process(double delta) => _ground.Refresh(FieldView);
 
     private void Sprite(string key, Vector2 feet, Color? tint = null)
     {
         var sprite = _sprites[key];
         var ground = ReferenceProjection.Unproject(new(feet.X, feet.Y));
         var light = FieldView
-            ? Simulation.VisibleToPlayer(ground) ? new Color(0.92f, 1.0f, 0.96f) : new Color(0.28f, 0.32f, 0.34f)
+            ? new Color(0.28f, 0.32f, 0.34f).Lerp(new Color(0.92f, 1, 0.96f), FieldPresentation.SightShade(Simulation, ground))
             : Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);
         DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * light);
     }
@@ -107,9 +118,6 @@ public partial class WorldView : Node2D
         for (var x = -2; x < map.Definition.Width + 2; x++)
         {
             var indoor = x >= 0 && y >= 0 && x < map.Definition.Width && y < map.Definition.Height;
-            var variant = Math.Abs((x * 17 + y * 31) % 6);
-            var tint = indoor && y is >= 3 and < 5 ? new Color(1.09f, 1.03f, 0.86f) : Colors.White;
-            Sprite($"{(indoor ? "floor" : "land")}-{variant}", Screen(new(x, y)), tint);
             if (indoor && FloorGrid && !FieldView)
                 Outline([Screen(new(x, y)), Screen(new(x + 1, y)), Screen(new(x + 1, y + 1)), Screen(new(x, y + 1))], new Color(Amber, 0.75f));
         }

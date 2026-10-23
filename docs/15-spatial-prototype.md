@@ -44,6 +44,8 @@ The default field view follows the avatar at a closer scale and shows people/SCP
 
 ## Encounter presentation
 
+[GroundView](../game/Presentation/GroundView.cs) renders the existing floor textures through subdivided meshes. Shared world-space shading samples and interpolation soften the cosmetic cone across tile boundaries, avoiding whole-tile brightness changes from sprite anchors. Cone/range fade uses the shared sight constants, but only exact perception decides entity visibility and anomalous observation. Shading rebuilds only when relevant avatar, eye, lighting, door or view-mode state changes; rendering an unchanged held scene reuses it. This is presentation shading, not a flashlight, new sensor, or electrical/HVAC system.
+
 [FieldPresentation](../game/Presentation/FieldPresentation.cs) filters dynamic bodies and consumes only fresh avatar `startled` events. It never draws RNG, mutates the world, counts a viewport as observation or cues a hidden relocation/remote witness. Restore resets the consumer baseline so historical events do not replay. Local-clock caption/border progress waits during a local hold.
 
 [EncounterAudio](../game/Presentation/EncounterAudio.cs) generates quiet room ambience and a short low discovery accent as presentation-only audio, with mute support and no NPC hearing event. [EncounterOverlay](../game/Presentation/EncounterOverlay.cs) provides a readable discovery caption and subtle border, without flashing or camera shake. R disables the border; sound/captions remain independently useful. Preferences currently last for the running scene, not across launches. The atlas is fixed-view first-pass art, not a finished six-direction character set or qualified furniture-pose attachment system.

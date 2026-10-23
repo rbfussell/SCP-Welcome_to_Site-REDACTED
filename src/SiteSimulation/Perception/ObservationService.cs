@@ -10,6 +10,8 @@ public sealed record ObservationReport(string Profile, ObserverFact[] Observers)
 /// <summary>Shared direct perception. Information detection and anomaly eligibility are separate.</summary>
 public static class ObservationService
 {
+    public const double VisionRange = 5;
+    public const double FacingDotThreshold = 0.45;
     public static bool ValidProfile(string profile) => profile is "human" or "ai" or "any";
 
     public static ObserverFact Inspect(FacilityMap map, ActorState actor, Point2 target, long localMs, string profile = "any")
@@ -22,8 +24,8 @@ public static class ObservationService
         var reason = !actor.Attending ? "not-attending"
             : localMs < actor.EyesClosedUntilMs ? "eyes-closed"
             : !map.LightsOn ? "unlit"
-            : delta.Length >= 5 ? "out-of-range"
-            : dot < 0.45 ? "outside-facing"
+            : delta.Length >= VisionRange ? "out-of-range"
+            : dot < FacingDotThreshold ? "outside-facing"
             : !map.ClearSight(actor.Position, target) ? "occluded" : "visible";
         return new(actor.Id, actor.ObserverKind, reason == "visible", eligible,
             reason == "visible" && !eligible ? "visible; ineligible-kind" : reason);
