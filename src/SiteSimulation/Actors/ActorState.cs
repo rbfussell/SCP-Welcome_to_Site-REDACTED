@@ -21,4 +21,3 @@ public sealed class ActorState
     [System.Text.Json.Serialization.JsonIgnore]
     public bool Moving => Route.Count > 0;
 }
-

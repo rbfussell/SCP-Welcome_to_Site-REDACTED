@@ -66,4 +66,6 @@ Engine-independent checks cover source-derived projection vectors, positive/nega
 
 Visual inspection confirmed the skewed perspective, direction/state labels, collision overlay, cutaway and visible controls. A click-coordinate mismatch was caught and fixed by transforming the input event's own viewport position. Mesa software rendering was used; this is not a performance qualification.
 
+The [SCP-650 verification record](reviews/scp650-prototype-checks.md) records the current module/input checks, observed results and their limits.
+
 Remaining work includes generalized multi-floor/split-sprite occlusion, production art scale, critical events under detail changes, script isolation/quotas, domain transfers, AP/initiative and incoming cross-zone arbitration. Full SCP containment/transport procedures, human-attended surveillance, employment/logistics/OSCP integration and player visibility filtering are not implemented. The [code map](../src/SiteSimulation/README.md) documents the actual system boundaries, and [item composition](16-item-composition-and-crafting.md) records future inventory/crafting architecture. This proof does not certify the full rows in [scope and acceptance](04-scope-and-acceptance.md).
