@@ -59,6 +59,8 @@ Local storage uses the same physical-item hierarchy. Different layout scales map
 
 Console distribution creates persisted haul work; pickup and placement commit separately. A worker interrupted after pickup keeps or validly sets down the item. Destination selection filters hard constraints first, then considers storage priority, matching existing contents, packing, haul cost and stable tie-breaks. [The storage contract](05-storage-and-logistics.md) defines ordering, rehandling, inheritance and the bounded initial fixture set.
 
+Utility networks and room environments are authoritative simulation state. Sources, routes, devices, capacity, stored energy, thermal state and controller modes persist independently of their overlays. Actual conditions, sensor measurements and actor knowledge are distinct. Environmental threshold crossings enter the same ordered dependency queue as lights, observation and anomaly effects. [The infrastructure contract](17-facility-infrastructure.md) defines bounded thermal integration, maintenance and the unqualified cross-zone utility boundary; a rendering toggle does not implement these services.
+
 ## 2. Time, event order, and determinism
 
 Propose a 20 Hz authoritative baseline for ordinary local simulation; M0 must measure whether this is sufficient. Rendering interpolates independently. Critical actions use ordered sub-events at declared times within a tick, or subdivide the interval; an entire blind interval cannot disappear between samples.

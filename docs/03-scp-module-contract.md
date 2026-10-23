@@ -54,6 +54,7 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Perception | Observer-kind eligibility profile, module default/scenario overrides, senses, media, lighting/occlusion/attention policy |
 | Context mappings | Physical/perceived relation, target bindings, sensory/identity changes and cross-context consequences |
 | Effects | Trigger, target, range/domain, duration, stacking, reversible/irreversible changes |
+| Environmental containment | Required supported quantities/services, affected spaces, units, ranges/boundaries, rates/exposure, equipment/utility dependencies, sensor knowledge and fail/recovery rules |
 | Space/time | Domain creation, connections, world-calendar versus local-progress timer bases, zone-wait behavior, anchors, persistence |
 | Interaction | Allowed actions, costs, guards, results, rejection reasons |
 | Staff procedures | Discover, investigate, contain/mitigate, transport if possible, maintain, abort |
@@ -66,6 +67,8 @@ The authoring form in [the template](../templates/scp-module-form.md) is the hum
 | Acceptance | Direct, unattended, transfer, conflict, persistence, and budget scenarios |
 
 Containment class is descriptive metadata. It must not automatically set combat strength, aggression, or a generic success chance.
+
+Environmental containment uses [shared infrastructure](17-facility-infrastructure.md), not SCP-specific room-temperature booleans. Modules declare required quantities and supported host capabilities; unsupported pressure/humidity/etc. must fail validation rather than default to safety. Distinguish procedure compliance, actual hazard conditions and measured/reported evidence. Declare local clock ownership, threshold/rate/exposure semantics, permitted heat/device effects and unattended fidelity. Room fit-out or a working cooler alone never grants automatic containment.
 
 ### Observer eligibility profiles
 
@@ -86,7 +89,7 @@ Capabilities are versioned host services with queries and validated commands. A 
 | Senses/observation | Observer eligibility, direct/live-feed sight, attention, occlusion, blink events | SCP-650 |
 | Spatial domains | Create instance, generate chunk, connect/disconnect, transfer | Domain fixtures |
 | Perceived contexts | Per-observer environment/identity, target mappings, mapped physical effects | SCP-1499 profiles |
-| Environment | Lighting, sound propagation, temperature modifiers, utilities | Room hazard |
+| Environment | Scoped physical conditions, heat sources/sinks, threshold events and validated utility effects; actual state separate from measurements | M1 power/thermal fixtures; M3 bounded environmental hazard |
 | Transformations | Reserve inputs, choose a recipe, replace atomically, retain provenance | Refinement fixture |
 | Scoped rules | Movement, damage, interaction, perception, death policy | Conflict fixture |
 | Knowledge/communication | Actor evidence, messages, dossier discoveries, media exposure | Investigation fixture |

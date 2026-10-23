@@ -1,6 +1,6 @@
 # SCP: Welcome to Site-[REDACTED]
 
-Design baseline, revision 0.8 — October 22, 2026.
+Design baseline, revision 0.9 — October 22, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
@@ -39,6 +39,7 @@ The launcher handles this workspace's path characters through a temporary build 
 21. [Continuing world and local tactical turns](docs/adr/0006-real-time-exploration-and-tactical-turns.md): exploration/combat time split, local waiting, continuing other areas and deferred multiplayer timeout option.
 22. [Runnable spatial prototype](docs/15-spatial-prototype.md): first Godot scene, reference projection, collision overlays, movement, doors and bounded timing/save checks.
 23. [Item composition and crafting](docs/16-item-composition-and-crafting.md): future physical parts/materials, installed versus contained state, assembly/disassembly, derived properties and batches.
+24. [Facility infrastructure](docs/17-facility-infrastructure.md): physical power, heating/cooling, controls, maintenance and environmental containment, with an SCP-019 source check and staged proofs.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The prototype's **SCP-650** inspector shows observation reasons; **Trace** shows causal events. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 
@@ -58,6 +59,7 @@ The launcher handles this workspace's path characters through a temporary build 
 - Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed, visibly pixelated Fallout 2-inspired sprites and textured environments are the finished visual target, clarified by the user's SCP-1499 references. Retain authored pixel texture at normal gameplay zoom. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
 - Actor movement uses a hex grid with smooth transitions during exploration and committed tactical moves, with independent facing; construction/floor tiles remain square. Use Falltergeist/Fallout implementations as technical references; the game uses Godot and its own authoritative simulation rather than a Falltergeist fork.
 - Fallout 2/Falltergeist is the confirmed blueprint for the on-screen aesthetic, movement, controls, animation and exploration/combat time split. Implement it in Godot alongside the persistent management simulation; exact cursor/button mappings and tactical tuning remain to be specified.
+- Physical facility infrastructure is required: electrical supply/distribution, heating/cooling and later qualified utility services create actual operating conditions and containment risks. Sensors, controls, backup capacity and physical maintenance matter. The proposed first power/thermal proof is in M1; current F8 lighting is only a debug switch. Utility-routing UX remains under discussion.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
 - Real-time exploration/operations with ruleset-controlled explicit pause and acceleration; turn-based tactical combat. All local simulation waits while choosing, including movement/actions, work, bleeding, blinks and SCP timers. The world calendar, granular wider simulation and other areas continue. Inventory/terminals do not inherently pause the world. Field commands retain equipment functions, click/Ctrl-click and physical access.

@@ -68,4 +68,6 @@ Visual inspection confirmed the skewed perspective, direction/state labels, coll
 
 The [SCP-650 verification record](reviews/scp650-prototype-checks.md) records the current module/input checks, observed results and their limits.
 
+F8 currently changes a shared lighting boolean. Electrical circuits, backup supplies, room temperature, HVAC and qualified utility maintenance are not implemented. Their staged contract is [facility infrastructure](17-facility-infrastructure.md).
+
 Remaining work includes generalized multi-floor/split-sprite occlusion, production art scale, critical events under detail changes, script isolation/quotas, domain transfers, AP/initiative and incoming cross-zone arbitration. Full SCP containment/transport procedures, human-attended surveillance, employment/logistics/OSCP integration and player visibility filtering are not implemented. The [code map](../src/SiteSimulation/README.md) documents the actual system boundaries, and [item composition](16-item-composition-and-crafting.md) records future inventory/crafting architecture. This proof does not certify the full rows in [scope and acceptance](04-scope-and-acceptance.md).

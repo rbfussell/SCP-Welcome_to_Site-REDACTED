@@ -41,11 +41,13 @@ The strip shows OSCP, device/site, session identity and role, connection scope, 
 | Containment and surveillance | Procedure compliance, actual qualified observation, feed state, reported locations | Assign coverage/relief, watch feed, request stabilization/receiving |
 | Personnel | Employment, shifts, posts, location evidence, qualification, readiness | Schedule duty/relief, issue authorized orders, request replacements |
 | Logistics | Located stock, filters, accessible/reserved quantities and delivery records | Haul, consolidate, issue equipment and order supplies |
-| Facilities | Room/utility state, alarms, work progress | Validated repair, conversion and fixture-installation work |
+| Facilities | Known circuits, load/backup state, measured versus target room conditions, stale sensors, alarms and work progress | Authorized device controls/isolation and setpoint changes; validated repair, conversion and fixture-installation work |
 | Records | Dossiers, procedures, research notes, evidence, revisions and case links | Read, draft, attach evidence, submit and authorize appropriate revisions |
 | Communications | Messages, outside reports, command directives and delivery status | Acknowledge, reply within the simulated network, refer/escalate and request information |
 | Research/personal storage | Authorized experiments and personal/digital files | Select available records/equipment, prepare permitted tests and capture results |
 | AIAD/AIC and technical support | Assigned digital personnel, service incidents, technical requests and escalation receipts | Request an authorized conscript task or dispatch actual technical staff; show missing/offline support honestly |
+
+Facilities reads [the shared infrastructure services](17-facility-infrastructure.md). A target temperature is not a measured temperature, an accepted repair is not restored service, and a stale reading cannot establish safe containment. AIC access uses the same reachable sensors, controls and permissions.
 
 These are application domains, not eight mandatory independent desktop programs. M1 can group them into a small navigation set: Operations, Personnel, Stores, Records, Communications and Systems. Research expansion follows SCP-1499. The graphical workspace and command view call identical services; typing a command grants no extra power.
 

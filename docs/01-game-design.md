@@ -92,6 +92,8 @@ Manage a bounded set of resources: operating funds, staff hours, electrical capa
 
 Rooms declare required functions, access, capacity, utilities, maintenance needs, staffing, and hazards. Restrooms, barracks, stores, laboratories, medical rooms, workshops, and containment rooms are templates with variants. A containment room's label alone does not provide containment: installed systems, staffing, operational procedure, and the SCP's actual conditions determine effectiveness.
 
+Electrical supply, distribution, heating and cooling are physical facility systems. Limited capacity, thermal inertia, insulation/openings, sensor/control faults, backup supplies and maintenance affect actual room conditions. An SCP module reacts to those conditions; the room label or a generic containment rating cannot stand in for them. SCP-019 illustrates why stable cooling, observation and treatment must operate together. [The infrastructure contract](17-facility-infrastructure.md) separates the required direction, proposed staged proofs and unsupported environmental quantities.
+
 Construction proceeds through blueprint, validation, reservation, delivery, work, inspection, and activation. Blocked exits, absent utility connections, interrupted supplies, or dangerous working conditions can prevent completion. Demolition must account for occupants, stored items, networks, and escape routes.
 
 The first playable economy uses scheduled suppliers and fixed catalog prices. The network milestone adds transfers, receiving capacity, delegated site budgets, and interruptions involving a Group of Interest. Deep regional production chains, simulated markets, and factories remain separate expansions.

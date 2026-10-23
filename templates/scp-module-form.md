@@ -43,6 +43,19 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Explicit overrides and compatible/conflicting modules: `<relationships>`
 - Unknown item/actor/cross-effect fallback: `<reject, ordinary behavior, or authored result>`
 
+## Environment and utility dependencies
+
+- Required environmental quantities/services and affected spaces: `<host capability/version; explicit not-applicable fields>`
+- Units, safe/unsafe ranges and inclusive/exclusive boundaries: `<actual conditions, separate from procedure compliance>`
+- Rate-of-change sensitivity, exposure duration and event resolution: `<rules, local clock and threshold crossing semantics>`
+- Physical equipment, supply/capacity, backup and isolation requirements: `<power, thermal output, ventilation, etc.>`
+- Normal operation, treatment and recovery/stabilization modes: `<which conditions apply in each mode>`
+- Sensors, control links and actor evidence: `<measurement, stale/missing readings, authority, alarm and response behavior>`
+- Permitted environmental/device effects and accounting: `<scoped heat sources/sinks, faults, overrides, conflict provenance>`
+- Unattended resolver, cross-zone boundary and unsupported-quantity handling: `<certified approximation or explicit rejection>`
+- Environmental save state and supply depletion: `<source stores, local timers, pending thresholds and work>`
+- Source facts versus numerical game tuning/uncertain hypotheses: `<reviewed distinctions>`
+
 ## Spatial and inventory behavior
 
 - Domains, entry/exit predicates, topology, generator version: `<details or not applicable>`
@@ -99,5 +112,6 @@ For every scenario, specify starting state, seed/inputs, action/event times, exp
 8. Budget exhaustion and script fault with no partial transaction.
 9. Location/perception changes affecting another module through shared services, if applicable.
 10. Distinct pose keys versus animation frames, and branch/context restoration without stale actions, if applicable.
+11. If environmentally dependent: supply loss, capacity shortfall, upper/lower threshold and sudden changes, sensor/control failure, treatment/recovery, held local time and save/load just before a threshold. Direct and unattended outcomes preserve the same hazard semantics.
 
 Certification status: `<unimplemented / prototype / verified against host version and fixture set>`.
