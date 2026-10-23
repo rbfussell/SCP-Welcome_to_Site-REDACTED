@@ -4,7 +4,7 @@ Design baseline, revision 0.7 — October 22, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot is the selected engine; Godot .NET with an independent C# simulation core remains the recommended implementation configuration to qualify in M0. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
+This workspace contains a design baseline, diagnostic sprite generator and terminal design preview, not an implemented game. Confirmed choices are separate from proposed contracts and numeric limits. Godot .NET presentation with an independent C# simulation core is the selected implementation direction after reviewing Falltergeist; exact versions, integration and performance still need M0 qualification. No delivery date, budget or legal agreement has been selected. Local Git version control is initialized on `main`.
 
 ## Read in this order
 
@@ -27,6 +27,7 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 17. [Development workflow](docs/12-development-workflow.md): Git source policy, ignored runtime/cache data and local commits.
 18. [Lore and digital operations](docs/13-lore-and-digital-operations.md): SCiPnet, AIC/AIAD, technical responsibility, sources and open questions.
 19. [Fallout 2 placement research](docs/14-fallout-2-placement-research.md): separate movement/terrain grids, sprite anchors, visual offsets and implications for our movement-model decision.
+20. [Falltergeist comparison and retained Godot architecture](docs/adr/0005-retain-godot-after-falltergeist-review.md): the delegated engine decision, inspected code and first prototype boundary.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
 
@@ -41,6 +42,8 @@ This workspace contains a design baseline, diagnostic sprite generator and termi
 - Managing the Foundation network and dealing with Groups of Interest are core product pillars. A single site is the first implementation slice, not the whole game's intended scale.
 - Personal, personnel, vehicle, and facility storage share physical inventory rules. Console distribution is delegated work over those same containers, with filters, priorities, consolidation, and access constraints.
 - Godot is the game engine. Square logical tiles support a fixed isometric/three-quarter view. Detailed, visibly pixelated Fallout 2-inspired sprites and textured environments are the finished visual target, clarified by the user's SCP-1499 references. Retain authored pixel texture at normal gameplay zoom. Generated development stand-ins identify category, name, state/frame and facing with a green direction marker; finished artwork uses the same visual bindings.
+- Actor movement uses a hex grid with smooth real-time transitions and independent facing; construction/floor tiles remain square. Use Falltergeist/Fallout implementations as technical references; the game uses Godot and its own authoritative simulation rather than a Falltergeist fork.
+- Fallout 2/Falltergeist is the confirmed blueprint for the on-screen aesthetic, movement and control feel: sprite placement, walking/running, turning and contextual point-and-click feedback. Implement it in Godot while retaining the game's real-time simulation and management systems; exact cursor/button mappings remain to be specified.
 - Primary employment is handled separately from optional action jobs. Shift duties take precedence over discretionary work; authorized orders and explicit emergency/condition overrides remain meaningful.
 - Start as a newly appointed regional operations director with one functioning site, Foundation-command objectives and restrictions. Later scenarios can start in ordinary employment; management authority is not inherent in player control.
 - Real time, ruleset-controlled pause and acceleration; inventory/terminals do not inherently stop the world. Field commands use click/Ctrl-click with equipment functions and physical accessibility.

@@ -1,6 +1,6 @@
 # Scope, milestones, and acceptance
 
-Status: Baseline revision 0.7, October 22, 2026. Godot is selected; the .NET/C# integration remains recommended pending M0 qualification. Square logical tiles, fixed isometric/three-quarter presentation and detailed Fallout 2-inspired sprite art are confirmed. Earlier gameplay and OSCP/SCiPnet remain, including a resident deterministic AIC with an optional future local-model JSON boundary. Detailed AIC authority, Technical Services portrayal and canon/timeline are under discussion. Numeric limits, tuning and gate groupings remain proposals.
+Status: Baseline revision 0.7, October 22, 2026. Godot .NET plus an independent C# simulation is selected after reviewing Falltergeist; versions/integration/performance still need M0 qualification. Square construction tiles, hex actor movement with smooth transitions, fixed isometric/three-quarter presentation and detailed pixel sprites are confirmed. Earlier gameplay and OSCP/SCiPnet remain, including a resident deterministic AIC with an optional future local-model JSON boundary. Detailed AIC authority, Technical Services portrayal and canon/timeline are under discussion. Numeric limits, tuning and gate groupings remain proposals.
 
 ## 1. Meaning of requirements
 
@@ -54,7 +54,7 @@ Deliver a small headless kernel prototype and the minimum presentation harness n
 
 Measure the proposed performance envelope on a named machine. Qualify the selected Godot engine for fixed isometric sprite rendering over square logical tiles, headless operation, scripting isolation, serialization and tools. Pin the engine/runtime configuration, scripting runtime, supported desktop OS, authoritative movement model and reference hardware in short decision records. Reopening the selected engine requires evidence and owner discussion.
 
-Godot 4 .NET plus a plain C# kernel is the recommended integration configuration to evaluate; see [ADR-0004](adr/0004-godot-and-simulation-core.md). Also qualify an OSCP query/command adapter with role validation and idempotent receipts. Existing installed executables are not evidence that the required .NET editor/export integration or benchmarks pass. Exact projection angle, native sprite scale and finished animation counts need coordinated art qualification; labeled stand-ins remain valid prototype assets.
+Godot 4 .NET plus a plain C# kernel is the selected integration direction; see [ADR-0005](adr/0005-retain-godot-after-falltergeist-review.md) for the Falltergeist comparison. Also qualify an OSCP query/command adapter with role validation and idempotent receipts. Existing installed executables are not evidence that the required .NET editor/export integration or benchmarks pass. Demonstrate square-construction/hex-navigation registration and save/resume during a smooth movement segment. Exact projection angle, native sprite scale and finished animation counts need coordinated art qualification; labeled stand-ins remain valid prototype assets.
 
 Exit: observation timing survives render-rate changes; a script quota violation cannot corrupt committed state; save/resume preserves RNG and timers; domain transfer cannot duplicate inventory. If one fails, revise or reduce the architecture before producing content. Engine selection is not a reason to defer the hard tests until after art production.
 
@@ -227,12 +227,13 @@ These remain visible ideas. They enter a milestone only through a specific scope
 | Employment behavior | Confirmed: primary shift roles above optional actions, role-specific duties and higher-rank orders with explicit overrides | Resolved by user clarification; staffing/doctrines proposed |
 | Main audience and tone | Systems-driven RPG/management with horror incidents | M1 scenario design |
 | Starting rank and authority | Confirmed: newly appointed regional operations director, one functioning site, command objectives/restrictions; later employee starts | Resolved by user; exact progression/policy details remain open |
-| Time and field control | Confirmed: real time/pause/acceleration; click/Ctrl-click and equipment-sourced functions | Resolved by user; bindings/tuning proposed |
+| Time and field control | Prior baseline: real time/pause/acceleration; click/Ctrl-click and equipment-sourced functions; Fallout-like presentation/control feel confirmed | Latest “same time solution” wording awaits clarification before any clock-policy change; bindings/tuning open |
 | Failure/continuation | Confirmed: difficulty/scenario-driven reload, successor, anomalous restart or ending | Resolved direction; exact preset combinations remain open |
 | First/second anomaly | Confirmed: SCP-650 facility breach, followed by SCP-1499 in that facility | Resolved by user; detailed procedures/mappings proposed |
 | Engine | Confirmed: Godot selected by user; exact release/configuration/export integration not qualified | Version/platform qualification at M0 exit |
-| Integration and script runtime | Recommended Godot .NET presentation and independent C# simulation; public script host still unselected | M0 exit |
-| Actor positioning | Square construction tiles confirmed; square-cell centers, separate hex navigation or smooth sub-cell positions under discussion; smooth positions recommended | User movement-model answer, then M0 qualification |
+| Integration and script runtime | Selected Godot .NET presentation and independent C# simulation; public script host still unselected | Version/runtime qualification at M0 exit |
+| Actor positioning | Confirmed: hex-based actor movement with smooth simulation-time transitions, separate square construction grid and independent facing | Grid scale/registration, progress/occupancy semantics and implementation qualification at M0 |
+| Visual/control blueprint | Confirmed: Fallout 2/Falltergeist-style representation, walk/run motion, turning and point-and-click feel implemented in Godot | Compare the first prototype; resolve exact cursor/button mapping before fixing affected controls |
 | Digital operations lore | OSCP/SCiPnet and resident autonomous AIC confirmed; detailed authority, identity, exact technical department and canon/timeline questions pending | Before affected behavior is committed |
 | Platform and reference hardware | Desktop mouse/keyboard; OS and hardware unselected | M0 exit |
 | Presentation/art budget | Detailed visibly pixelated art, user-supplied references and fixed isometric/three-quarter field view confirmed; resolution, production/filtering method, exact angle and budget open | Art qualification and M1 production planning |

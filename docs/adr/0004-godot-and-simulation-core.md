@@ -4,6 +4,8 @@
 
 **Date:** October 22, 2026
 
+**Follow-up:** [ADR-0005](0005-retain-godot-after-falltergeist-review.md) reviews the user's Falltergeist alternative, retains Godot and selects the .NET/C# implementation direction under delegated engineering authority. Version/runtime qualification remains M0 work. The original recommendation below is retained as decision history.
+
 ## Context and drivers
 
 The game needs modern 2D sprites, layered inventories, a substantial OSCP interface, input/audio, developer tooling and desktop packaging. Its distinctive engineering is persistent simulation, employment, procedural domains, observation, physical logistics and capability-based SCP mods. Those domain rules must behave offscreen and independently of rendering.

@@ -1,6 +1,6 @@
 # Fallout 2: grids, placement and sprite projection
 
-Research date: October 22, 2026. This investigates the user's visual reference. It does not change the confirmed square construction tiles or adopt a character-movement model without an explicit decision.
+Research date: October 22, 2026. This investigates the user's visual reference. Subsequent decision: the user clarified hex actor movement with smooth transitions; the delegated Falltergeist comparison retained Godot with our own simulation. Historical findings below do not require reproducing the reference engine's animation-driven movement authority.
 
 ## Evidence and limits
 
@@ -30,11 +30,11 @@ The [art records](https://github.com/alexbatalov/fallout2-ce/blob/main/src/art.h
 
 ## Application to this game
 
-Preserve the useful separation between construction, actor location and sprite presentation. Square room/building tiles remain confirmed. Detailed sprites and a Fallout-like view do not require adopting hex movement or six art directions.
+Preserve the useful separation between construction, actor location and sprite presentation. Square room/building tiles remain confirmed. The user now accepts hex actor navigation alongside them; the finished sprite-facing count remains a separate art decision.
 
-The recommended candidate for this real-time simulation is square construction cells plus smooth actor positions within those cells, with independent facing. This is a proposal awaiting the user's movement-model answer. Alternatives are square-cell-center movement or square construction with separate hex navigation. None has been implemented or benchmarked.
+The user clarified that apparent smoothness over a hex grid is appropriate. Use a separate hex actor/navigation grid with smooth real-time movement between path locations, while retaining square construction/floor tiles and independent facing. The earlier recommendation of freely positioned actors within construction cells was not retained. [ADR-0005](adr/0005-retain-godot-after-falltergeist-review.md) records the retained Godot route after inspecting Falltergeist. This design has not been implemented or benchmarked.
 
-If smooth positioning is selected, actor world position, floor and footprint belong to the simulation. A presentation adapter projects that position and applies sprite anchors/cosmetic offsets. Any display interpolation must agree with committed movement and observation boundaries. Numeric precision, coordinate quantization, path representation and collision remain M0 choices; smooth movement does not require making engine physics authoritative.
+Actor hex/path identity, movement-segment progress, floor and footprint belong to the simulation. Derive current world position from that progress for collision and observation; a presentation adapter projects it and applies sprite anchors/cosmetic offsets. Any display interpolation must agree with committed movement and observation boundaries. Grid registration, numeric precision, path representation, occupancy handoffs and collision remain M0 choices; smooth movement does not require making engine physics authoritative.
 
 Do not reproduce animation-driven location updates merely to imitate the reference. Our existing contract makes semantic movement/action progress authoritative and sprite frames a representation of it. Animation replacement must not change speed or the instant an SCP loses observation.
 

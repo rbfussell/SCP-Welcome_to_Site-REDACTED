@@ -10,6 +10,8 @@ The reference is X4: Foundations translated into an isometric SCP world: persona
 
 The confirmed visual reference is Fallout 2, with a fixed isometric/three-quarter sprite view over square logical tiles. Its detailed character/environment sensibility guides the art, while Fallout/Wasteland-style world-map travel is a later presentation reference. These references coexist with the real-time X4-like simulation and existing facility/procedural systems; they do not silently replace controls or add another milestone. The terminal remains OSCP; “THOSC” was corrected by the user.
 
+The user further confirms Fallout 2/Falltergeist as the blueprint for on-screen representation, movement and control feel, implemented in Godot. Actor navigation uses a separate hex grid with smooth transitions; floor/construction layout remains square. Sprite anchors, walk/run motion, turning and contextual point-and-click feedback must form a consistent presentation, while the shared simulation owns actual events and timing.
+
 The defining tension is how to keep people and the site functioning while dealing with phenomena that invalidate ordinary assumptions. Better preparation, observation, training, supplies, and infrastructure create options. They never guarantee universal containment.
 
 The player should be able to say: “I sent that team; this is the equipment they used; this is the room we built; this is why the incident happened.” Reports must preserve that causal connection.
@@ -38,7 +40,7 @@ A normal shift includes work, meals, rest, resupply, conversation, and interrupt
 
 Opening inventory or a terminal does not inherently pause the world. Ruleset-permitted explicit pause freezes simulation everywhere; acceleration and optional interruption pauses apply to the same clock. A terminal view does not grant the avatar supernatural awareness, movement, or immunity. Site access, communications, authority, and physical location still constrain available actions.
 
-Field play uses isometric Diablo/RTS-style click commands. Click requests movement/contextual interaction; Ctrl-click designates an explicit target/position or forced action for an appropriate selected function. Abilities primarily come from actual equipment, with source position, access, readiness and resources shown. A backpack tool is not instantly usable just because it has a quick slot. [Player controls and time](08-player-controls-time-and-continuation.md) defines command validation and information limits.
+Field play uses isometric Fallout-like point-and-click commands with the previously confirmed real-time/equipment-based intents. Click requests movement/contextual interaction; Ctrl-click designates an explicit target/position or forced action for an appropriate selected function. Abilities primarily come from actual equipment, with source position, access, readiness and resources shown. A backpack tool is not instantly usable just because it has a quick slot. [Player controls and time](08-player-controls-time-and-continuation.md) defines command validation, unresolved exact bindings and information limits.
 
 The facility section view must derive rooms, doors, floors, equipment, and work progress from the same building representation used in A. Initial facility management can use a floor-plan overlay; the XCOM-like section presentation comes after this correspondence works.
 

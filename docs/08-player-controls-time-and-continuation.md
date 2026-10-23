@@ -14,7 +14,13 @@ Direct control attaches to one character at a time. Orders influence autonomous 
 
 ## 2. Field commands and equipment abilities
 
-Use the confirmed fixed isometric/three-quarter sprite presentation with Diablo/RTS-style mouse interaction. Square logical tiles do not imply turn-based combat or change real-time action timing. Proposed command defaults:
+Use the confirmed fixed isometric/three-quarter sprite presentation with Fallout-like point-and-click movement and interaction feel. The user identifies Fallout 2/Falltergeist as the visual/control blueprint to implement in Godot. Preserve the already confirmed real-time action timing, equipment-based functions and Ctrl-click intent; square construction tiles and hex navigation do not introduce turn-based combat.
+
+Actor destinations and routes use a separate hex navigation grid with smooth real-time transitions, as clarified by the user. Construction/floor cells remain square. The input adapter resolves clicks to valid reachable hex destinations while the simulation owns movement progress and independent facing. Grid scale/registration and near-target interaction placement are M0 qualification choices.
+
+Prototype click-to-move, walk/run presentation, visible turning, contextual interaction and hover/target feedback as one coherent Fallout-like interaction layer. Exact mouse bindings, cursor-mode cycling versus contextual selection, run modifier and interaction-menu behavior remain explicit design decisions before their affected controls are fixed. Research the reference behavior, show a concrete prototype and ask about unresolved choices. Replacing the movement animation must not change travel or interaction timing.
+
+Proposed command defaults:
 
 | Input/context | Intent |
 |---|---|
@@ -41,6 +47,8 @@ Direct observation, remote live observation, recorded footage, remembered locati
 Commands referring to shared or distorted information resolve through the actor's targeting context. If the target moves or information is stale, use the action's declared last-known-position/reacquisition/failure policy. Knowledge of a target does not grant a weapon a clear physical shot. UI feedback must not reveal hidden true identities or positions to explain a failed action.
 
 ## 4. Time controls
+
+Clarification pending: the user's latest “same time solution” request may mean Fallout-like animation timing, Fallout's exploration/combat time split, or a correction to “tile solution.” A question has been sent. The previously confirmed real-time/pause/acceleration baseline below remains provisionally recorded; do not infer a combat-clock change or fix the affected implementation until the intended meaning is answered.
 
 All gameplay uses simulation time. Opening inventory or a terminal does not implicitly pause it. A ruleset controls whether manual pause is permitted, acceleration limits, and event-driven return to normal speed or optional auto-pause. Default development/M1 play permits manual pause.
 
