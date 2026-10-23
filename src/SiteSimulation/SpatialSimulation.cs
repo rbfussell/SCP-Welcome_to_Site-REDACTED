@@ -44,6 +44,15 @@ public sealed class SpatialSimulation
     public IReadOnlyList<Hex> PreviewPath(Hex destination) => Map.FindPath(Player.Cell, destination, MovementSystem.Occupied(_world, Player));
     public AnomalyDiagnostics[] InspectAnomalies() => Anomalies.Inspect(_world);
     public bool VisibleToPlayer(Point2 target) => ObservationService.Inspect(Map, Player, target, LocalMs).Detected;
+    /// <summary>Native authoring/debug control. Not an in-world permission bypass for a public mod API.</summary>
+    public bool SetModuleFlag(string instanceId, string flag, string actorId, bool enabled)
+    {
+        if (!Ready("Module flag")) return false;
+        if (!Anomalies.TrySetFlag(_world, instanceId, flag, actorId, enabled, out var reason))
+        { LastMessage = "Module flag rejected: " + reason; return false; }
+        Changed("module-control", instanceId, "flag-changed", $"{flag}[{actorId}] = {enabled}; authoring/debug control.");
+        return true;
+    }
 
     public bool RequestMove(Hex destination, bool keepFacing = false)
     {

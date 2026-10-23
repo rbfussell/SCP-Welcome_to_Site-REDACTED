@@ -126,4 +126,6 @@ invalid["Actors"]![0] = null;
 try { sim.Restore(invalid.ToJsonString()); throw new Exception("Null actor accepted."); }
 catch (ArgumentException) { Check(sim.Save() == unchanged, "Invalid actor array partially committed."); }
 passed += Scp650Checks.Run(json);
+passed += ComplacencyChecks.Run(json);
+passed += FieldPresentationChecks.Run(json);
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

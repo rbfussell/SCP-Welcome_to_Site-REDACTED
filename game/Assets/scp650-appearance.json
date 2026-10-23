@@ -1,0 +1,99 @@
+{
+  "source": "AI-generated original SCP-650 interpretation; see scp650-art.md",
+  "anomaly_sprites": {
+    "scp:650": [
+      "scp650-art-0",
+      "scp650-art-1",
+      "scp650-art-2",
+      "scp650-art-3",
+      "scp650-art-4",
+      "scp650-art-5"
+    ]
+  },
+  "sprites": {
+    "scp650-art-0": {
+      "file": "scp650-atlas.png",
+      "region": [
+        0,
+        0,
+        512,
+        540
+      ],
+      "anchor": [
+        278,
+        526
+      ],
+      "scale": 0.16
+    },
+    "scp650-art-1": {
+      "file": "scp650-atlas.png",
+      "region": [
+        512,
+        0,
+        512,
+        540
+      ],
+      "anchor": [
+        265,
+        512
+      ],
+      "scale": 0.16
+    },
+    "scp650-art-2": {
+      "file": "scp650-atlas.png",
+      "region": [
+        1024,
+        0,
+        512,
+        540
+      ],
+      "anchor": [
+        260,
+        530
+      ],
+      "scale": 0.16
+    },
+    "scp650-art-3": {
+      "file": "scp650-atlas.png",
+      "region": [
+        0,
+        540,
+        512,
+        484
+      ],
+      "anchor": [
+        280,
+        452
+      ],
+      "scale": 0.16
+    },
+    "scp650-art-4": {
+      "file": "scp650-atlas.png",
+      "region": [
+        512,
+        540,
+        512,
+        484
+      ],
+      "anchor": [
+        273,
+        452
+      ],
+      "scale": 0.16
+    },
+    "scp650-art-5": {
+      "file": "scp650-atlas.png",
+      "region": [
+        1024,
+        540,
+        512,
+        484
+      ],
+      "anchor": [
+        258,
+        452
+      ],
+      "scale": 0.16
+    }
+  }
+}

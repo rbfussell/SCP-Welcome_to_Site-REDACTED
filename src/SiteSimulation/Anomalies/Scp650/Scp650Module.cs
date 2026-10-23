@@ -5,7 +5,6 @@ namespace SiteSimulation;
 /// <summary>SCP-650 rules only: no renderer, pathfinding, mission trigger or attack AI.</summary>
 internal sealed class Scp650Module : IAnomalyModule
 {
-    private static readonly RelocationQuery Placement = new(1, 3, true, "human");
     private const int RetryMs = 500;
     private const int CooldownMs = 2000;
     private readonly string _profile;
@@ -44,9 +43,13 @@ internal sealed class Scp650Module : IAnomalyModule
         }
         if (report.Observed) { _state.LastReason = "observed; self-relocation suppressed"; return; }
         if (world.LocalMs < _state.NextEvaluationMs) return;
-        var candidates = world.Candidates(_profile, Placement);
-        _state.LastCandidateCount = candidates.Count;
-        if (candidates.Count == 0)
+        // Complacency is explicitly authored for each person. Discovery alone never enables it.
+        // Threat poses appear close behind; relaxed poses use a wider, non-rear-only area.
+        var candidates = report.Observers.Where(o => o.Kind == "human")
+            .SelectMany(o => world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy(c => c.Cell.Q).ThenBy(c => c.Cell.R).ThenBy(c => c.NearActorId, StringComparer.Ordinal).ToArray();
+        _state.LastCandidateCount = candidates.Length;
+        if (candidates.Length == 0)
         {
             _state.LastReason = "no valid unobserved destination";
             _state.NextEvaluationMs = world.LocalMs + RetryMs;
@@ -54,11 +57,14 @@ internal sealed class Scp650Module : IAnomalyModule
             return;
         }
         var beforeRandom = _state.RandomState;
-        var choice = candidates[(int)(NextRandom() % (uint)candidates.Count)];
-        // Unfamiliar personnel receive a threatening pose; familiarity permits variants.
-        var familiar = _state.LastWitnessEncounter.ContainsKey(choice.NearActorId);
-        var pose = 1 + (int)(NextRandom() % (familiar ? 5u : 2u));
-        if (!world.TryRelocate(world.Body.Revision, choice.Cell, pose, _profile, Placement, out var reason))
+        // Choose a person, then a position: more available cells do not bias the target toward that person.
+        var targets = candidates.Select(c => c.NearActorId).Distinct().Order(StringComparer.Ordinal).ToArray();
+        var target = targets[(int)(NextRandom() % (uint)targets.Length)];
+        var positions = candidates.Where(c => c.NearActorId == target).ToArray();
+        var choice = positions[(int)(NextRandom() % (uint)positions.Length)];
+        var complacent = _state.ComplacentActorIds.Contains(choice.NearActorId);
+        var pose = complacent ? 3 + (int)(NextRandom() % 3u) : 1 + (int)(NextRandom() % 2u);
+        if (!world.TryRelocate(world.Body.Revision, choice.Cell, pose, _profile, Placement(choice.NearActorId), out var reason))
         {
             _state.RandomState = beforeRandom;
             _state.LastReason = "commit rejected: " + reason;
@@ -69,25 +75,39 @@ internal sealed class Scp650Module : IAnomalyModule
         _state.Relocations++;
         _state.LastReason = $"unobserved; relocated near {choice.NearActorId}";
         _state.NextEvaluationMs = world.LocalMs + CooldownMs;
-        world.Trace("relocation-selected", $"{candidates.Count} valid candidates; {(familiar ? "familiar" : "unfamiliar")} witness; encounter {_state.Relocations}; next evaluation {_state.NextEvaluationMs}ms");
+        world.Trace("relocation-selected", $"{candidates.Length} valid candidates; {(complacent ? "relaxed" : "threat")} profile near {target}; {choice.DistanceHexes} hexes; encounter {_state.Relocations}; next evaluation {_state.NextEvaluationMs}ms");
+    }
+    private RelocationQuery Placement(string actorId) => _state.ComplacentActorIds.Contains(actorId)
+        ? new(2, 3, false, "human", actorId, RequireClearLine: true)
+        : new(1, 1, true, "human", actorId, RequireClearLine: true);
+
+    public bool TrySetFlag(string flag, string actorId, string actorKind, bool enabled, out string reason)
+    {
+        reason = flag != "complacency" ? "unknown-module-flag" : actorKind != "human" ? "requires-human-target" : "accepted";
+        if (reason != "accepted") return false;
+        if (enabled) _state.ComplacentActorIds.Add(actorId); else _state.ComplacentActorIds.Remove(actorId);
+        return true;
     }
     public AnomalyDiagnostics Inspect(IAnomalyWorld world)
     {
         var report = world.Observation(_profile);
         return new(InstanceId, report.Observed ? "OBSERVED / frozen" : _state.LastReason, world.Body.Pose,
             _state.Relocations, _state.LastCandidateCount, _state.NextEvaluationMs, report,
-            _state.LastWitnessEncounter.Where(p => p.Value == _state.Relocations).Select(p => p.Key).Order().ToArray());
+            _state.LastWitnessEncounter.Where(p => p.Value == _state.Relocations).Select(p => p.Key).Order().ToArray(),
+            _state.ComplacentActorIds.Order(StringComparer.Ordinal).Select(id => new ModuleFlag("complacency", id, true)).ToArray());
     }
-    public ModuleSnapshot Capture() => new(InstanceId, ModuleId, 1, JsonSerializer.Serialize(_state));
-    public void Restore(ModuleSnapshot snapshot, long localMs, IReadOnlySet<string> actorIds)
+    public ModuleSnapshot Capture() => new(InstanceId, ModuleId, 2, JsonSerializer.Serialize(_state));
+    public void Restore(ModuleSnapshot snapshot, long localMs, IReadOnlyDictionary<string, string> actorKinds)
     {
+        if (snapshot.Version != 2) throw new ArgumentException("SCP-650 save requires module schema 2 (explicit complacency); earlier prototype saves are not migrated.");
         var state = JsonSerializer.Deserialize<Scp650State>(snapshot.Json) ?? throw new ArgumentException("Empty SCP state.");
-        if (snapshot.InstanceId != InstanceId || snapshot.ModuleId != ModuleId || snapshot.Version != 1 || state.RandomState == 0
+        if (snapshot.InstanceId != InstanceId || snapshot.ModuleId != ModuleId || snapshot.Version != 2 || state.RandomState == 0
             || state.Relocations < 0 || state.LastCandidateCount < 0 || state.LastCandidateCount > 16384
             || state.NextEvaluationMs < 0 || state.NextEvaluationMs > localMs + CooldownMs
-            || state.LastObserverIds is null || state.LastWitnessEncounter is null || state.LastReason is null
-            || state.LastObserverIds.Any(id => !actorIds.Contains(id))
-            || state.LastWitnessEncounter.Any(p => !actorIds.Contains(p.Key) || p.Value < 1 || p.Value > state.Relocations))
+            || state.LastObserverIds is null || state.LastWitnessEncounter is null || state.LastReason is null || state.ComplacentActorIds is null
+            || state.ComplacentActorIds.Any(id => !actorKinds.TryGetValue(id, out var kind) || kind != "human")
+            || state.LastObserverIds.Any(id => !actorKinds.ContainsKey(id))
+            || state.LastWitnessEncounter.Any(p => !actorKinds.ContainsKey(p.Key) || p.Value < 1 || p.Value > state.Relocations))
             throw new ArgumentException("Invalid SCP-650 continuation state.");
         _state = state;
     }

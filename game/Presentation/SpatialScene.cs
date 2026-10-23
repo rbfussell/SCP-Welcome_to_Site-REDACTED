@@ -10,8 +10,11 @@ public partial class SpatialScene : Node2D
     private SpatialSimulation _simulation = null!;
     private WorldView _world = null!;
     private SpatialHud _hud = null!;
+    private EncounterAudio _audio = null!;
+    private EncounterOverlay _encounter = null!;
+    private readonly DiscoveryFeedback _feedback = new();
     private double _accumulator;
-    private float _zoom = 1.25f;
+    private float _zoom = 1.75f;
     private Vector2 _pan;
     private Hex? _previousHover;
     private string? _capturePath;
@@ -26,8 +29,11 @@ public partial class SpatialScene : Node2D
         var layer = new CanvasLayer(); AddChild(layer);
         _world = new WorldView { Simulation = _simulation };
         _hud = new SpatialHud(); layer.AddChild(_hud); _hud.Initialize(_simulation, _world);
+        _audio = new EncounterAudio(); AddChild(_audio);
+        _encounter = new EncounterOverlay(); _hud.Field.AddChild(_encounter);
+        _feedback.Reset(_simulation);
         _hud.SaveRequested = Save; _hud.RestoreRequested = Restore;
-        _hud.ResetCameraRequested = () => { _pan = Vector2.Zero; _zoom = 1.25f; };
+        _hud.ResetCameraRequested = ResetCamera;
         _hud.ExportTraceRequested = ExportTrace;
         var args = OS.GetCmdlineUserArgs();
         for (var i = 0; i < args.Length; i++) if (args[i] == "--scene-smoke" && i + 1 < args.Length) _capturePath = args[++i];
@@ -37,13 +43,17 @@ public partial class SpatialScene : Node2D
     {
         _hud.Layout();
         _world.Scale = Vector2.One * _zoom;
-        _world.Position = _hud.Field.Size / 2 - new Vector2(368, 30) * _zoom + _pan;
+        var focus = _world.FieldView ? WorldView.Screen(_simulation.Player.Position) : new Vector2(368, 30);
+        _world.Position = _hud.Field.Size / 2 - focus * _zoom + _pan;
+        _encounter.Size = _hud.Field.Size;
     }
+    private void ResetCamera() { _pan = Vector2.Zero; _zoom = _world.FieldView ? 1.75f : 1.25f; }
     public override void _Process(double delta)
     {
         _accumulator += delta * _simulation.Speed;
         while (_accumulator >= SpatialSimulation.TickMs / 1000.0)
         { _simulation.Tick(); _accumulator -= SpatialSimulation.TickMs / 1000.0; }
+        UpdateEncounter();
         RefreshCamera();
         var local = _world.GetLocalMousePosition();
         var ground = ReferenceProjection.Unproject(new(local.X, local.Y));
@@ -52,9 +62,20 @@ public partial class SpatialScene : Node2D
         if (_previousHover != hover || _simulation.LocalMs % 200 == 0)
         { _world.Preview = hover is { } cell ? _simulation.PreviewPath(cell) : []; _previousHover = hover; }
         _noticeSeconds = Math.Max(0, _noticeSeconds - delta);
-        _hud.Refresh(_simulation, _world, hover, ground, _zoom, _noticeSeconds > 0 ? _notice : null);
+        var audioState = $"{(_audio.Muted ? "MUTED" : "AUDIO ON")} · {(_encounter.ReducedEffects ? "REDUCED EFFECTS" : "SUBTLE EFFECTS")}";
+        _hud.Refresh(_simulation, _world, hover, ground, _zoom,
+            _noticeSeconds > 0 ? _notice : _world.FieldView ? audioState + " · " + _simulation.LastMessage : null);
         _world.QueueRedraw();
         if (_capturePath is not null) SmokeStep();
+    }
+    private void UpdateEncounter()
+    {
+        var discovered = _feedback.Update(_simulation, _world.FieldView);
+        _audio.Update(_world.FieldView, _simulation.ManualPause || _simulation.LocalHold, discovered);
+        _encounter.Visible = _world.FieldView;
+        _encounter.Pulse = _feedback.Pulse(_simulation.LocalMs);
+        _encounter.Caption = _feedback.Caption(_simulation.LocalMs);
+        _encounter.QueueRedraw();
     }
     public override void _UnhandledInput(InputEvent e)
     {
@@ -77,6 +98,11 @@ public partial class SpatialScene : Node2D
         if (e is not InputEventKey { Pressed: true, Echo: false } key) return;
         switch (key.Keycode)
         {
+            case Key.F2: _world.FieldView = !_world.FieldView; ResetCamera(); break;
+            case Key.F4: _world.DiagnosticSprites = !_world.DiagnosticSprites; break;
+            case Key.M: _audio.Muted = !_audio.Muted; break;
+            case Key.R: _encounter.ReducedEffects = !_encounter.ReducedEffects; break;
+            case Key.J: SpatialHud.ToggleComplacency(_simulation); break;
             case Key.C: _world.CollisionOverlay = !_world.CollisionOverlay; break;
             case Key.G: _world.HexGrid = !_world.HexGrid; break;
             case Key.B: _world.FloorGrid = !_world.FloorGrid; break;
@@ -94,7 +120,7 @@ public partial class SpatialScene : Node2D
             case Key.F5: Save(); break;
             case Key.F9: Restore(); break;
             case Key.Escape: _simulation.CancelMove(); break;
-            case Key.Home: _pan = Vector2.Zero; _zoom = 1.25f; break;
+            case Key.Home: ResetCamera(); break;
         }
     }
     private void WriteUserFile(string filename, string json)
@@ -115,6 +141,7 @@ public partial class SpatialScene : Node2D
         try
         {
             _simulation.Restore(System.IO.File.ReadAllText(ProjectSettings.GlobalizePath("user://spatial-state.json")));
+            _feedback.Reset(_simulation); _audio.Reset();
             _accumulator = 0; _previousHover = null; _notice = null;
         }
         catch (Exception ex) when (ex is IOException or ArgumentException or System.Text.Json.JsonException)

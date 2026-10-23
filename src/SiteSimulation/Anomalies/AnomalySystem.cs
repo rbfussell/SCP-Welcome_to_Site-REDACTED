@@ -36,6 +36,13 @@ public sealed class AnomalySystem
     }
     internal AnomalyDiagnostics[] Inspect(SimulationWorld world) => _modules.Select(module =>
         module.Inspect(new AnomalyWorldAccess(world, _bodies.Single(b => b.Id == module.InstanceId)))).ToArray();
+    internal bool TrySetFlag(SimulationWorld world, string instanceId, string flag, string actorId, bool enabled, out string reason)
+    {
+        var module = _modules.SingleOrDefault(m => m.InstanceId == instanceId);
+        var actor = world.Actors.SingleOrDefault(a => a.Id == actorId);
+        reason = !world.LocalActive ? "local-held" : module is null ? "unknown-instance" : actor is null ? "unknown-actor" : "accepted";
+        return reason == "accepted" && module!.TrySetFlag(flag, actorId, actor!.ObserverKind, enabled, out reason);
+    }
     internal AnomalyBodySnapshot[] CaptureBodies() => _bodies.Select(b => new AnomalyBodySnapshot(b.Id, b.ModuleId, b.Cell, b.Pose, b.Revision)).ToArray();
     internal ModuleSnapshot[] CaptureModules() => _modules.Select(m => m.Capture()).ToArray();
     internal void Restore(AnomalyBodySnapshot[] bodies, ModuleSnapshot[] modules, SimulationWorld world)
@@ -53,7 +60,8 @@ public sealed class AnomalySystem
             body.Cell = snapshot.Cell; body.Pose = snapshot.Pose; body.Revision = snapshot.Revision;
         }
         RegisterBlockers(world.Map);
-        foreach (var module in _modules) module.Restore(modules.Single(m => m.InstanceId == module.InstanceId), world.LocalMs, world.Actors.Select(a => a.Id).ToHashSet());
+        foreach (var module in _modules) module.Restore(modules.Single(m => m.InstanceId == module.InstanceId), world.LocalMs,
+            world.Actors.ToDictionary(a => a.Id, a => a.ObserverKind));
         foreach (var module in _modules)
         {
             var body = _bodies.Single(b => b.Id == module.InstanceId);

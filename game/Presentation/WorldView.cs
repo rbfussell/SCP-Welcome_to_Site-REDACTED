@@ -13,11 +13,14 @@ public partial class WorldView : Node2D
     public bool FloorGrid { get; set; }
     public bool SightOverlay { get; set; } = true;
     public bool Cutaway { get; set; } = true;
+    public bool FieldView { get; set; } = true;
+    public bool DiagnosticSprites { get; set; }
     public Hex? Hover { get; set; }
     public IReadOnlyList<Hex> Preview { get; set; } = [];
-    private readonly Dictionary<string, (Texture2D Texture, Vector2 Anchor)> _sprites = [];
+    private readonly Dictionary<string, (Texture2D Texture, Vector2 Anchor, float Scale)> _sprites = [];
     private readonly List<Rect2> _debugLabels = [];
     private readonly Dictionary<string, string[]> _anomalySprites = [];
+    private readonly Dictionary<string, string[]> _anomalyArt = [];
     private int _walkFrames = 3;
     private int _walkCycleMs = 300;
     private int Frame(ActorState actor) => actor.Moving ? (int)(actor.WalkMs % _walkCycleMs * _walkFrames / _walkCycleMs) : 0;
@@ -42,14 +45,32 @@ public partial class WorldView : Node2D
         foreach (var entry in manifest.RootElement.GetProperty("sprites").EnumerateObject())
         {
             var anchor = entry.Value.GetProperty("anchor");
-            _sprites[entry.Name] = (GD.Load<Texture2D>("res://Assets/" + entry.Value.GetProperty("file").GetString()), new(anchor[0].GetSingle(), anchor[1].GetSingle()));
+            _sprites[entry.Name] = (GD.Load<Texture2D>("res://Assets/" + entry.Value.GetProperty("file").GetString()), new(anchor[0].GetSingle(), anchor[1].GetSingle()), 1);
+        }
+        using var art = JsonDocument.Parse(Godot.FileAccess.GetFileAsString("res://Assets/scp650-appearance.json"));
+        foreach (var binding in art.RootElement.GetProperty("anomaly_sprites").EnumerateObject())
+            _anomalyArt[binding.Name] = binding.Value.EnumerateArray().Select(x => x.GetString()!).ToArray();
+        foreach (var entry in art.RootElement.GetProperty("sprites").EnumerateObject())
+        {
+            var anchor = entry.Value.GetProperty("anchor");
+            var r = entry.Value.GetProperty("region");
+            var texture = new AtlasTexture
+            {
+                Atlas = GD.Load<Texture2D>("res://Assets/" + entry.Value.GetProperty("file").GetString()),
+                Region = new(r[0].GetSingle(), r[1].GetSingle(), r[2].GetSingle(), r[3].GetSingle()), FilterClip = true
+            };
+            _sprites[entry.Name] = (texture, new(anchor[0].GetSingle(), anchor[1].GetSingle()), entry.Value.GetProperty("scale").GetSingle());
         }
     }
 
     private void Sprite(string key, Vector2 feet, Color? tint = null)
     {
         var sprite = _sprites[key];
-        DrawTexture(sprite.Texture, (feet - sprite.Anchor).Round(), (tint ?? Colors.White) * (Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f)));
+        var ground = ReferenceProjection.Unproject(new(feet.X, feet.Y));
+        var light = FieldView
+            ? Simulation.VisibleToPlayer(ground) ? new Color(0.92f, 1.0f, 0.96f) : new Color(0.28f, 0.32f, 0.34f)
+            : Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);
+        DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * light);
     }
 
     private static Vector2[] Corners(Hex h)
@@ -89,7 +110,7 @@ public partial class WorldView : Node2D
             var variant = Math.Abs((x * 17 + y * 31) % 6);
             var tint = indoor && y is >= 3 and < 5 ? new Color(1.09f, 1.03f, 0.86f) : Colors.White;
             Sprite($"{(indoor ? "floor" : "land")}-{variant}", Screen(new(x, y)), tint);
-            if (indoor && FloorGrid)
+            if (indoor && FloorGrid && !FieldView)
                 Outline([Screen(new(x, y)), Screen(new(x + 1, y)), Screen(new(x + 1, y + 1)), Screen(new(x, y + 1))], new Color(Amber, 0.75f));
         }
 
@@ -101,9 +122,9 @@ public partial class WorldView : Node2D
         foreach (var h in map.Cells)
         {
             var corners = Corners(h);
-            if (SightOverlay && Simulation.VisibleToPlayer(h.World) && map.Walkable(h))
+            if (!FieldView && SightOverlay && Simulation.VisibleToPlayer(h.World) && map.Walkable(h))
                 DrawColoredPolygon(corners, new Color(Mint, 0.09f));
-            if (HexGrid) Outline(corners, new Color(White, 0.13f));
+            if (HexGrid && !FieldView) Outline(corners, new Color(White, 0.13f));
         }
         DrawString(ThemeDB.FallbackFont, Screen(new(0.9, 1.2)), "OBSERVATION / LAB", HorizontalAlignment.Left, -1, 11, new Color(White, 0.46f));
         DrawString(ThemeDB.FallbackFont, Screen(new(0.8, 3.7)), "SERVICE CORRIDOR", HorizontalAlignment.Left, -1, 9, new Color(White, 0.45f));
@@ -149,11 +170,14 @@ public partial class WorldView : Node2D
         }
         foreach (var body in Simulation.Anomalies.Bodies)
         {
+            if (!FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)) continue;
             var p = Screen(body.Cell.World);
-            drawables.Add((p.Y, body.Id, () => Sprite(_anomalySprites[body.ModuleId][body.Pose], p)));
+            var keys = DiagnosticSprites ? _anomalySprites : _anomalyArt;
+            drawables.Add((p.Y, body.Id, () => Sprite(keys[body.ModuleId][body.Pose], p)));
         }
         foreach (var actor in Simulation.Actors)
         {
+            if (!FieldPresentation.ShowActor(Simulation, actor, !FieldView)) continue;
             var p = Screen(actor.Position);
             drawables.Add((p.Y, actor.Id, () =>
             {
@@ -161,13 +185,14 @@ public partial class WorldView : Node2D
                 var frame = Frame(actor);
                 Sprite($"{actor.Kind}-{state}-{actor.Facing}-{frame}", p);
                 var direction = Screen(actor.Cell.Neighbor(actor.Facing).World) - Screen(actor.Cell.World);
-                DrawLine(p, p + direction.Normalized() * 15, new Color("61ff70"), 2);
+                if (!FieldView || actor == Simulation.Player)
+                    DrawLine(p, p + direction.Normalized() * 15, new Color("61ff70"), 2);
             }));
         }
         foreach (var item in drawables.OrderBy(d => d.Depth).ThenBy(d => d.Id, StringComparer.Ordinal)) item.Draw();
 
         // White lines deliberately sit above the artwork: these are debug geometry, not an art mask.
-        if (CollisionOverlay)
+        if (CollisionOverlay && !FieldView)
         {
             foreach (var h in map.Cells.Where(h => !map.Walkable(h)))
             {
@@ -177,7 +202,7 @@ public partial class WorldView : Node2D
             }
             foreach (var wall in map.SolidWalls) DrawLine(Screen(wall.Start), Screen(wall.End), White, 1.3f, false);
         }
-        foreach (var status in Simulation.InspectAnomalies())
+        foreach (var status in Simulation.InspectAnomalies().Where(_ => !FieldView))
         {
             var body = Simulation.Anomalies.Bodies.Single(b => b.Id == status.Id);
             var p = Screen(body.Cell.World);
@@ -190,16 +215,23 @@ public partial class WorldView : Node2D
         if (Hover is { } hover)
         {
             var good = map.Walkable(hover) && !Simulation.Actors.Any(a => a.Cell == hover);
-            Outline(Corners(hover), good ? Mint : new Color("e6a180"), 1.7f);
+            Outline(Corners(hover), FieldView || good ? Mint : new Color("e6a180"), 1.7f);
         }
         foreach (var actor in Simulation.Actors)
         {
+            if (!FieldPresentation.ShowActor(Simulation, actor, !FieldView)) continue;
             var p = Screen(actor.Position);
+            if (FieldView)
+            {
+                if (actor == Simulation.Player || Hover == actor.Cell)
+                    Tag(p + new Vector2(0, 24), actor == Simulation.Player ? "YOU" : actor.Name, White, 8);
+                continue;
+            }
             var state = !actor.Attending ? "DISTRACTED" : Simulation.LocalMs < actor.EyesClosedUntilMs ? "BLINK" : Simulation.LocalMs < actor.StartledUntilMs ? "STARTLED" : actor.Moving ? $"walk:{Frame(actor) + 1}/{_walkFrames}" : "idle:1/1";
             Tag(p + new Vector2(0, -65), $"{actor.Name}  {FacingNames[actor.Facing]}", actor.Kind == "player" ? new Color("efb4cb") : new Color("a5d8e2"));
             Tag(p + new Vector2(0, 16), state, White, 8);
         }
-        foreach (var prop in map.Definition.Props)
+        foreach (var prop in map.Definition.Props.Where(_ => !FieldView))
             Tag(Screen(prop.Cell.World) + new Vector2(0, prop.Kind == "crate" ? -23 : -76), prop.Label, Amber, 8);
     }
 }

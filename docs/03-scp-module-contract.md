@@ -166,7 +166,7 @@ The source facts below come from the linked Foundation articles. The proposed me
 
 ### SCP-650: first playable facility module
 
-Qualify shared observation, silent relocation, discrete poses, staff reactions and real recontainment procedures in M1. Procedural staffing compliance and current eligible sight are separate predicates. Both observed external transport and controlled relocation are accepted game approaches; their details remain authored procedures. The module reacts to ordinary sensory/location events rather than mission-owned teleport calls. See [the complete first-playable specification](09-first-playable-scp-650.md), including its article source and adaptation notes.
+Qualify shared observation, silent relocation, discrete poses, staff reactions and real recontainment procedures in M1. Procedural staffing compliance and current eligible sight are separate predicates. Both observed external transport and controlled relocation are accepted game approaches; their details remain authored procedures. The module reacts to ordinary sensory/location events rather than mission-owned teleport calls. Explicit per-person complacency selects its threat/relaxed placement and pose profiles; witness history is separate and the future automatic metric is undecided. The native host supplies generic flag dispatch and spatial validation rather than interpreting that SCP-specific flag. See [the complete first-playable specification](09-first-playable-scp-650.md), including its article source and adaptation notes.
 
 ### SCP-3008: expandable retail domain
 

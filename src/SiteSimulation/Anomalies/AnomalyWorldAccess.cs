@@ -21,19 +21,22 @@ internal sealed class AnomalyWorldAccess(SimulationWorld world, AnomalyBody body
     {
         if (profile != body.ObserverProfile || query.MinHexes < 1 || query.MaxHexes > body.MaxRelocationHexes || query.MaxHexes < query.MinHexes
             || query.NearObserverKind is not ("human" or "ai")) return [];
-        var candidates = new Dictionary<Hex, string>();
-        foreach (var actor in world.Actors.Where(a => a.ObserverKind == query.NearObserverKind).OrderBy(a => a.Id, StringComparer.Ordinal))
+        var candidates = new List<RelocationCandidate>();
+        foreach (var actor in world.Actors.Where(a => a.ObserverKind == query.NearObserverKind
+            && (query.NearActorId is null || a.Id == query.NearActorId)).OrderBy(a => a.Id, StringComparer.Ordinal))
         foreach (var cell in world.Map.Cells)
         {
             var distance = actor.Cell.Distance(cell);
             if (distance < query.MinHexes || distance > query.MaxHexes || !Free(cell)) continue;
+            if (query.RequireClearLine && !world.Map.ClearSight(actor.Position, cell.World)) continue;
             var behind = cell.World - actor.Position;
             var direction = actor.Cell.Neighbor(actor.Facing).World - actor.Cell.World;
             if (query.BehindOnly && behind.X * direction.X + behind.Y * direction.Y >= -0.01) continue;
             if (ObservationService.Evaluate(world.Map, world.Actors, cell.World, LocalMs, profile).Observed) continue;
-            candidates.TryAdd(cell, actor.Id);
+            candidates.Add(new(cell, actor.Id, distance));
         }
-        return candidates.OrderBy(p => p.Key.Q).ThenBy(p => p.Key.R).Select(p => new RelocationCandidate(p.Key, p.Value)).ToArray();
+        return candidates.OrderBy(p => p.Cell.Q).ThenBy(p => p.Cell.R)
+            .ThenBy(p => p.NearActorId, StringComparer.Ordinal).ToArray();
     }
 
     public bool TryRelocate(long expectedRevision, Hex destination, int pose, string profile, RelocationQuery query, out string reason)

@@ -16,10 +16,15 @@ public sealed class AnomalyBody
 }
 public sealed record AnomalyBodySnapshot(string Id, string ModuleId, Hex Cell, int Pose, long Revision);
 public sealed record ModuleSnapshot(string InstanceId, string ModuleId, int Version, string Json);
+public sealed record ModuleFlag(string Name, string ActorId, bool Enabled);
 public sealed record AnomalyDiagnostics(string Id, string Rule, int Pose, int Relocations, int Candidates,
-    long NextEvaluationMs, ObservationReport Observation, string[] RecentWitnesses);
-internal sealed record RelocationQuery(int MinHexes, int MaxHexes, bool BehindOnly, string NearObserverKind);
-public sealed record RelocationCandidate(Hex Cell, string NearActorId);
+    long NextEvaluationMs, ObservationReport Observation, string[] RecentWitnesses, ModuleFlag[] Flags)
+{
+    public string[] FlaggedActors(string name) => Flags.Where(f => f.Name == name && f.Enabled).Select(f => f.ActorId).ToArray();
+}
+internal sealed record RelocationQuery(int MinHexes, int MaxHexes, bool BehindOnly, string NearObserverKind,
+    string? NearActorId = null, bool RequireClearLine = false);
+public sealed record RelocationCandidate(Hex Cell, string NearActorId, int DistanceHexes);
 
 /// <summary>Bounded capabilities for this native prototype, not a public script sandbox.</summary>
 internal interface IAnomalyWorld
@@ -38,6 +43,7 @@ internal interface IAnomalyModule
     string ModuleId { get; }
     void Evaluate(IAnomalyWorld world, string cause);
     AnomalyDiagnostics Inspect(IAnomalyWorld world);
+    bool TrySetFlag(string flag, string actorId, string actorKind, bool enabled, out string reason);
     ModuleSnapshot Capture();
-    void Restore(ModuleSnapshot snapshot, long localMs, IReadOnlySet<string> actorIds);
+    void Restore(ModuleSnapshot snapshot, long localMs, IReadOnlyDictionary<string, string> actorKinds);
 }

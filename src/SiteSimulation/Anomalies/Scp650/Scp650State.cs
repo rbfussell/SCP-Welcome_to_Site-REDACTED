@@ -10,4 +10,5 @@ internal sealed class Scp650State
     public string[] LastObserverIds { get; set; } = [];
     public string LastReason { get; set; } = "ready";
     public Dictionary<string, int> LastWitnessEncounter { get; set; } = [];
+    public HashSet<string> ComplacentActorIds { get; set; } = [];
 }

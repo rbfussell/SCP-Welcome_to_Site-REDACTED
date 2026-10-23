@@ -12,6 +12,8 @@ public partial class SpatialHud : Control
     public Action ResetCameraRequested { get; set; } = () => { };
     public Action ExportTraceRequested { get; set; } = () => { };
     private TabContainer _tabs = null!;
+    private VBoxContainer _fieldPanel = null!;
+    private Label _viewHint = null!, _fieldMode = null!;
     private Control _footer = null!;
     private Label _clock = null!, _mode = null!, _status = null!, _coordinates = null!, _timers = null!;
     private Label _anomaly = null!, _observers = null!, _rule = null!, _witnesses = null!;
@@ -34,7 +36,9 @@ public partial class SpatialHud : Control
         At(this, "FOUNDATION  /  SITE [REDACTED]", new(28, 21), 25, Text);
         At(this, "OBSERVATION LAB     /     SCP-650 NATIVE MODULE     /     M0 PROTOTYPE", new(30, 61), 12, Green);
         _clock = At(this, "", new(930, 27), 17, Text);
-        At(this, "DEBUG VIEW · full map visibility · inspector does not count as an observer", new(30, 101), 11, Muted);
+        var viewSwitch = new Button { Text = "FIELD / DIAGNOSTICS  F2", Position = new(30, 94), FocusMode = FocusModeEnum.None };
+        viewSwitch.Pressed += () => { world.FieldView = !world.FieldView; ResetCameraRequested(); }; AddChild(viewSwitch);
+        _viewHint = At(this, "", new(260, 101), 11, Muted);
         Field = new Control { Position = new(20, 124), ClipContents = true, MouseFilter = MouseFilterEnum.Ignore };
         AddChild(Field); Field.AddChild(world);
         _tabs = new TabContainer(); AddChild(_tabs);
@@ -66,6 +70,7 @@ public partial class SpatialHud : Control
         Button(anomaly, "Chen attention on / off     O", sim.ToggleObserverAttention);
         Button(anomaly, "Blink avatar     K", sim.BlinkPlayer);
         Button(anomaly, "Lighting on / off     F8", sim.ToggleLighting);
+        Button(anomaly, "Avatar complacency on / off     J", () => ToggleComplacency(sim));
         Button(anomaly, "Local hold / release     F6", () => sim.LocalHold = !sim.LocalHold);
         Line(anomaly, "These are debug fixture controls.\n\nOne eligible human freezes self-relocation. Three-person staffing is a separate requirement.\n\nTurn toward a newly found statue to hold it. It has no attack routine.", 11, Muted);
         var trace = Tab("Trace");
@@ -74,11 +79,26 @@ public partial class SpatialHud : Control
         _trace = new RichTextLabel { FitContent = true, ScrollActive = false, CustomMinimumSize = new(265, 100), BbcodeEnabled = false };
         _trace.AddThemeFontSizeOverride("normal_font_size", 11); trace.AddChild(_trace);
         _tabs.CurrentTab = 1;
+        _fieldPanel = new VBoxContainer(); AddChild(_fieldPanel);
+        _fieldPanel.AddThemeConstantOverride("separation", 16);
+        Line(_fieldPanel, "OBSERVATION SHIFT", 18, Text);
+        _fieldMode = Line(_fieldPanel, "", 12, Green);
+        Line(_fieldPanel, "Keep it in sight.\n\nThe facility plan is known. People and SCP-650 are shown only when your character can see them. Looking away matters.", 14, Muted);
+        Line(_fieldPanel, "PROTOTYPE ENCOUNTER\n\nO  — interrupt Chen's watch\nRMB / Ctrl-click  — turn\nK  — blink\nE  — use nearest door\nShift-click  — move, keep facing", 13, Text);
+        Button(_fieldPanel, "Interrupt / restore Chen's watch   O", sim.ToggleObserverAttention);
+        Button(_fieldPanel, "Global pause   Space", () => sim.ManualPause = !sim.ManualPause);
+        Line(_fieldPanel, "F2   Diagnostics and module state\nF4   Art / diagnostic statue\nM    Mute audio\nR     Reduce effects\nF5 / F9   Save / restore\nHome   Reset camera", 12, Muted);
+        Line(_fieldPanel, "Encounter audio is presentation only.\nNo flashing or camera shake.\n\nComplacency is a per-person module flag, switched with J for testing. Its future metric is undecided.", 11, Muted);
         _footer = new Control { MouseFilter = MouseFilterEnum.Ignore }; AddChild(_footer);
         _status = At(_footer, "", new(28, 0), 13, Text);
         _coordinates = At(_footer, "", new(28, 25), 11, Green);
-        At(_footer, "Click move · Ctrl-click / RMB face · Shift-click keep facing · O observer · K blink · F8 lights · F6 hold", new(28, 47), 12, Muted);
+        At(_footer, "Click move · RMB face · Shift-click keep facing · O observer · K blink · F2 diagnostics · M mute · R reduced effects", new(28, 47), 12, Muted);
         Layout();
+    }
+    public static void ToggleComplacency(SpatialSimulation sim)
+    {
+        var status = sim.InspectAnomalies().First();
+        sim.SetModuleFlag(status.Id, "complacency", sim.Player.Id, !status.FlaggedActors("complacency").Contains(sim.Player.Id));
     }
     private VBoxContainer Tab(string title)
     {
@@ -116,6 +136,7 @@ public partial class SpatialHud : Control
         var size = GetViewportRect().Size;
         Field.Size = new(Math.Max(500, size.X - 372), Math.Max(350, size.Y - 235));
         _tabs.Position = new(size.X - 338, 103); _tabs.Size = new(318, size.Y - 126);
+        _fieldPanel.Position = new(size.X - 324, 137); _fieldPanel.Size = new(288, size.Y - 160);
         _footer.Position = new(0, size.Y - 88); _clock.Position = new(size.X - 440, 27);
     }
     public void Refresh(SpatialSimulation sim, WorldView world, Hex? hover, Point2 ground, float zoom, string? notice)
@@ -123,6 +144,9 @@ public partial class SpatialHud : Control
         var time = TimeSpan.FromHours(8) + TimeSpan.FromMilliseconds(sim.WorldMs);
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
         _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : "REAL TIME · local active";
+        _fieldMode.Text = _mode.Text;
+        _tabs.Visible = !world.FieldView; _fieldPanel.Visible = world.FieldView;
+        _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";
         _status.Text = notice ?? sim.LastMessage;
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);
         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);
@@ -131,7 +155,7 @@ public partial class SpatialHud : Control
         var status = sim.InspectAnomalies().First();
         var body = sim.Anomalies.Bodies.First();
         _anomaly.Text = $"{status.Id} · pose {status.Pose + 1}/{body.PoseCount}\nHEX {body.Cell.Q},{body.Cell.R}";
-        _rule.Text = $"{(sim.LocalHold || sim.ManualPause ? "LOCAL PROGRESS HELD\n" : "")}{status.Rule}\nEligible: {status.Observation.EligibleIds.Length} ({status.Observation.Profile})\nStaffing count: {status.Observation.EligibleIds.Length} / 3\nRelocations: {status.Relocations}\nLast candidate count: {status.Candidates}\nNext evaluation in {Math.Max(0, status.NextEvaluationMs - sim.LocalMs) / 1000.0:0.00}s local";
+        _rule.Text = $"{(sim.LocalHold || sim.ManualPause ? "LOCAL PROGRESS HELD\n" : "")}{status.Rule}\nEligible: {status.Observation.EligibleIds.Length} ({status.Observation.Profile})\nStaffing count: {status.Observation.EligibleIds.Length} / 3\nRelocations: {status.Relocations}\nLast candidate count: {status.Candidates}\nNext evaluation in {Math.Max(0, status.NextEvaluationMs - sim.LocalMs) / 1000.0:0.00}s local\nComplacency: {(status.FlaggedActors("complacency").Length == 0 ? "none" : string.Join(", ", status.FlaggedActors("complacency")))}\nMetric: manual authoring flag only";
         _observers.Text = string.Join("\n\n", status.Observation.Observers.Select(o => $"{o.ActorId} / {o.Kind}\n{o.Reason}{(o.Detected && o.Eligible ? " · HOLDS" : "")}"));
         _witnesses.Text = $"Lighting: {(sim.Map.LightsOn ? "on" : "off")}\nDiscovered this encounter:\n{(status.RecentWitnesses.Length == 0 ? "none" : string.Join(", ", status.RecentWitnesses))}";
         _trace.Text = string.Join("\n\n", sim.Trace.Entries.Reverse().Select(e => $"#{e.Sequence}  L{e.LocalMs / 1000.0:0.00}s W{e.WorldMs / 1000.0:0.00}s\n{e.System} / {e.Subject}\n{e.Event}: {e.Detail}"));

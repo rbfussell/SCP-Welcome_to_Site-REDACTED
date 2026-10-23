@@ -30,6 +30,7 @@ Copy this form for each module. Replace all placeholders. A completed form descr
 - Event subscriptions and timer resolution: `<events and deadlines>`
 - Timer ownership/clock bases: `<world calendar versus local progress; remaining-duration persistence during complete local tactical waiting>`
 - Cross-zone effects during a local hold: `<declared boundary/interrupt/merge policy; queued transitions and revalidation; no silent bypass or bulk catch-up>`
+- Named scenario/debug flags, target scope/defaults, validated setters and future-metric boundaries: `<explicit policy; do not infer a metric from a placeholder flag>`
 - Persistent state schema/version and seeded randomness: `<data>`
 - Creation/restore/disposal and migration: `<behavior>`
 
