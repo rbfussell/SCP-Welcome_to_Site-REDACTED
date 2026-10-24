@@ -17,6 +17,8 @@ This is the engine-independent C# prototype. Godot input, drawing and diagnostic
 | [Diagnostics/](Diagnostics) | Bounded causal trace with world/local time, cause, subject and reason | Advancing simulation when inspected |
 | [Persistence/](Persistence) | Versioned snapshot and detached validation before replacing live state | Replaying creation rewards or rerolling modules |
 
+The confirmed production presentation is a Fallout 2-style bottom HUD with a Pip-Boy-like OSCP interface. Current engineering panels are replaceable adapters: they read acquired feedback/query state and submit validated commands through `SpatialSimulation`. Keep screen arrangement and interaction bindings in Godot presentation; the simulation owns authority, knowledge, AP, equipment rules and consequences. See the [presentation target](../../docs/20-event-log-and-tactical-training.md#confirmed-presentation-target).
+
 Typical path:
 
 ```text

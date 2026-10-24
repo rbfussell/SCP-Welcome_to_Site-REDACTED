@@ -31,6 +31,8 @@ The same shell adapts to installed functions. Offline, isolated, expired-session
 
 ## 3. Shell and applications
 
+October 24 presentation clarification: OSCP should open as a Pip-Boy-like interface alongside a Fallout 2-style bottom gameplay HUD. The engineering/debug panels remain suitable for development. The command/document approach and underlying OSCP services carry forward into that presentation. Device form factor, exact layout and access binding remain open; service availability continues to depend on the acting character, actual device/session, power and connectivity. The shell binds to the same validated command/query endpoints as the prototype panels.
+
 Propose a restrained workstation interface: sharp readable text, compact navigation, document-oriented panels, status strip and command/search field. It may evoke old institutional systems without pixel fonts, compulsory scanlines, flicker or tiny unreadable type. Brightness, font size and reduced visual effects are accessibility settings, not a new survival minigame.
 
 The strip shows OSCP, device/site, session identity and role, connection scope, last synchronization and world time/speed. When relevant, show the local tactical hold, active turn and AP separately, so a held area is not mistaken for a stopped world calendar. Clearance is descriptive; the service authorization still enforces it. A minimal login/boot transition can establish identity without delaying every routine interaction.

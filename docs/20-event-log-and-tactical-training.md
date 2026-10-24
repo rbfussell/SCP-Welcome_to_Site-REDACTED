@@ -2,6 +2,12 @@
 
 Status: Runnable bounded proof, October 24, 2026. The user confirms Fallout-style feedback/history alongside the field view and authorizes the first tactical combat work. A full combat, injury or conversation system is not implied by this fixture. Existing [time rules](adr/0006-real-time-exploration-and-tactical-turns.md) and [awareness rules](18-awareness-and-encounter-entry.md) continue to apply.
 
+## Confirmed presentation target
+
+The user confirms on October 24 that the finished field interface should place the event log and related play controls in a Fallout 2-style bottom HUD, with OSCP opened as a Pip-Boy-like interface. The current engineering panels can remain during development. Final layout, input bindings and device form factor will be designed later.
+
+Keep that replacement within presentation adapters: the HUD reads acquired journal entries and combat/query state, and submits validated simulation commands. OSCP uses the same service endpoints and device/session access rules from [the terminal contract](11-oscp-terminal.md). UI arrangement, scroll position and open panels belong to presentation; message history, action costs, knowledge, authority and world effects belong to the simulation. Future panels must preserve these boundaries so the debug layout can be rewired without rewriting gameplay rules.
+
 ## Player-facing log
 
 The lower field panel keeps the newest 100 logical entries and displays five at a time. Wheel-scroll within the panel or use its scrollbar to read history. New messages preserve a history position; scrolling to the bottom resumes live following. Long entries use ellipsis and expose their complete text on hover. Entries carry world timestamps, category labels and distinct colors: observation, orders, combat, equipment, conversation, status and warning. Labels keep meaning independent of color. The future conversation view should publish its completed exchanges to this same journal; no conversation runtime or transcript producer exists yet.
