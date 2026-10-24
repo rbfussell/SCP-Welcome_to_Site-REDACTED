@@ -8,6 +8,8 @@ internal sealed class SimulationWorld
     public AnomalySystem Anomalies { get; }
     public SimulationTrace Trace { get; } = new();
     public PlayerAwareness Awareness { get; } = new();
+    public PlayerEventLog Events { get; } = new();
+    public CombatState Combat { get; } = new();
     public OperationState Operations { get; }
     public long WorldMs { get; set; }
     public long LocalMs { get; set; }
@@ -15,7 +17,7 @@ internal sealed class SimulationWorld
     public bool ManualPause { get; set; }
     public int Speed { get; set; } = 1;
     public int PatrolIndex { get; set; }
-    public bool LocalActive => !LocalHold && !ManualPause;
+    public bool LocalActive => !LocalHold && !ManualPause && (!Combat.Active || Combat.Pending is not null);
     public ActorState Player => Actors.Single(a => a.Kind == "player");
 
     public SimulationWorld(string mapJson, string? operationJson = null)

@@ -22,12 +22,13 @@ public partial class SpatialScene : Node2D
     private string? _smokeSave;
     private string? _notice;
     private double _noticeSeconds;
-    private bool _operationSmoke;
+    private bool _operationSmoke, _combatSmoke;
 
     public override void _Ready()
     {
         var args = OS.GetCmdlineUserArgs();
         _operationSmoke = args.Contains("--operation-smoke");
+        _combatSmoke = args.Contains("--combat-smoke");
         var legacySmoke = args.Contains("--scene-smoke") && !_operationSmoke;
         _simulation = new(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"),
             legacySmoke ? null : Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
@@ -70,12 +71,12 @@ public partial class SpatialScene : Node2D
         _hud.Refresh(_simulation, _world, hover, ground, _zoom,
             _noticeSeconds > 0 ? _notice : _world.FieldView ? audioState + " · " + _simulation.LastMessage : null);
         _world.QueueRedraw();
-        if (_capturePath is not null) { if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }
+        if (_capturePath is not null) { if (_combatSmoke) CombatSmokeStep(); else if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }
     }
     private void UpdateEncounter()
     {
         var discovered = _feedback.Update(_simulation, _world.FieldView);
-        _audio.Update(_world.FieldView, _simulation.ManualPause || _simulation.LocalHold, discovered);
+        _audio.Update(_world.FieldView, _simulation.LocalProgressHeld, discovered);
         _encounter.Visible = _world.FieldView;
         _encounter.Pulse = _feedback.Pulse(_simulation.LocalMs);
         _encounter.Caption = _feedback.Caption(_simulation.LocalMs);
@@ -86,7 +87,13 @@ public partial class SpatialScene : Node2D
             .OrderByDescending(e => e.LocalMs).Take(4)
             .Select(e => new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
                 $"{(e.Source == "sound" ? "sound ~" : e.Source is "voice" or "radio" ? "reported" : "last seen")} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s",
-                e.Classification == "hostile")).ToArray();
+                e.Classification == "hostile"))
+            .Concat(_simulation.Combat.Active ? _simulation.Combat.AcquiredContacts
+                .Where(c => c.ObserverId == _simulation.Player.Id && !_simulation.VisibleToPlayer(c.Position)
+                    && _simulation.LocalMs - c.LocalMs <= 15000 && Point2.Distance(c.Position, _simulation.Player.Position) > 0.05)
+                .Select(c => new ContactBearing(WorldView.Screen(c.Position) - WorldView.Screen(_simulation.Player.Position),
+                    $"training last seen {(_simulation.LocalMs - c.LocalMs) / 1000.0:0.0}s", true)) : [])
+            .Take(4).ToArray();
         _encounter.QueueRedraw();
     }
     public override void _UnhandledInput(InputEvent e)
@@ -107,11 +114,19 @@ public partial class SpatialScene : Node2D
             else if (_hud.Operations.ChoosingPost && mouse.ButtonIndex == MouseButton.Left) _hud.Operations.PlacePost(Hex.FromWorld(target));
             else if (_hud.Operations.ChoosingPost && mouse.ButtonIndex == MouseButton.Right) _hud.Operations.CancelPost();
             else if (mouse.ButtonIndex == MouseButton.Right || mouse.ButtonIndex == MouseButton.Left && mouse.CtrlPressed) _simulation.Face(target);
-            else if (mouse.ButtonIndex == MouseButton.Left) _simulation.RequestMove(Hex.FromWorld(target), mouse.ShiftPressed);
+            else if (mouse.ButtonIndex == MouseButton.Left)
+            {
+                var victim = _simulation.Combat.Active && !mouse.ShiftPressed ? _world.PickTrainingOpponent(local) : null;
+                if (victim is not null) _simulation.FireTraining(victim.Id);
+                else _simulation.RequestMove(Hex.FromWorld(target), mouse.ShiftPressed);
+            }
         }
         if (e is not InputEventKey { Pressed: true, Echo: false } key) return;
         switch (key.Keycode)
         {
+            case Key.Enter: _simulation.EndTurn(); break;
+            case Key.V: _simulation.UseTrainingEquipment(CombatActionKind.ReadyWeapon); break;
+            case Key.Y: _simulation.UseTrainingEquipment(CombatActionKind.Reload); break;
             case Key.F2: _world.FieldView = !_world.FieldView; ResetCamera(); break;
             case Key.F4: _world.DiagnosticSprites = !_world.DiagnosticSprites; break;
             case Key.M: _audio.Muted = !_audio.Muted; break;

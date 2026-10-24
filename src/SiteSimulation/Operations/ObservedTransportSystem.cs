@@ -16,6 +16,12 @@ internal static class ObservedTransportSystem
             world.Map.DynamicBlockers.Remove(step.Next);
         world.Operations.Trolley = cart with { Step = null };
     }
+    public static void Interrupt(SimulationWorld world)
+    {
+        if (world.Operations.Definition is null) return;
+        ClearWork(world);
+        world.Operations.Trolley = world.Operations.Trolley with { HandlerId = null };
+    }
     public static void DetachRelocated(SimulationWorld world, string subjectId)
     {
         if (world.Operations.Definition is null || world.Operations.Trolley.SubjectId != subjectId) return;

@@ -72,6 +72,26 @@ public partial class WorldView : Node2D
         AddChild(_ground);
     }
 
+    /// <summary>Pick only visible opposing sprites; transparent padding cannot intercept a ground click.</summary>
+    public ActorState? PickTrainingOpponent(Vector2 local)
+    {
+        foreach (var actor in Simulation.Actors.Where(a => a != Simulation.Player && Simulation.Combat.For(a.Id) is { Side: "opposition", Points: > 0 }
+            && Simulation.VisibleToPlayer(a.Position)).OrderByDescending(a => Screen(a.Position).Y))
+        {
+            var state = actor.Moving ? "walk" : "idle";
+            var sprite = _sprites[$"{actor.Kind}-{state}-{actor.Facing}-{(actor.Moving ? Frame(actor) : 0)}"];
+            var pixel = local - (Screen(actor.Position) - sprite.Anchor * sprite.Scale).Round();
+            var size = sprite.Texture.GetSize() * sprite.Scale;
+            if (pixel.X >= 0 && pixel.Y >= 0 && pixel.X < size.X && pixel.Y < size.Y)
+            {
+                using var image = sprite.Texture.GetImage();
+                if (image.GetPixel((int)(pixel.X / sprite.Scale), (int)(pixel.Y / sprite.Scale)).A > 0.05f) return actor;
+            }
+            if (Point2.Distance(actor.Position, ReferenceProjection.Unproject(new(local.X, local.Y))) < 0.3) return actor;
+        }
+        return null;
+    }
+
     public override void _Process(double delta) => _ground.Refresh(FieldView);
 
     private void Sprite(string key, Vector2 feet, Color? tint = null)

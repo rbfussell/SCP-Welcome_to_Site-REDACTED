@@ -25,12 +25,14 @@ def main():
     parser.add_argument('--check', action='store_true', help='Run the engine-independent spatial checks, then exit.')
     parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
     parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
+    parser.add_argument('--combat-smoke', type=Path, metavar='PNG', help='Run tactical input, clocks, save and journal render checks.')
     parser.add_argument('--godot', help='Godot .NET executable (defaults to godot-dotnet).')
     args = parser.parse_args()
     operation_smoke = args.operation_smoke
-    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke)) > 1:
-        parser.error('Choose --check, --smoke, or --operation-smoke.')
-    args.smoke = args.smoke or args.operation_smoke
+    combat_smoke = args.combat_smoke
+    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke)) > 1:
+        parser.error('Choose one check or smoke mode.')
+    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke
     if not shutil.which('dotnet'):
         raise SystemExit('Install the .NET SDK selected in global.json first.')
     godot = args.godot or shutil.which('godot-dotnet')
@@ -76,6 +78,8 @@ def main():
             output = args.smoke.resolve()
             output.parent.mkdir(parents=True, exist_ok=True)
             command += ['--audio-driver', 'Dummy', '--', '--scene-smoke', str(output)]
+            if combat_smoke:
+                command += ['--combat-smoke']
             if operation_smoke:
                 command += ['--operation-smoke']
             if shutil.which('xvfb-run'):

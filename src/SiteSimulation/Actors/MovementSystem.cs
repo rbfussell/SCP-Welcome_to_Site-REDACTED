@@ -42,12 +42,12 @@ internal static class MovementSystem
         actor.MoveGoal = moveGoal; actor.BumpedCells = bumped?.ToList() ?? [];
     }
 
-    public static bool Advance(SimulationWorld world)
+    public static bool Advance(SimulationWorld world, string? onlyActor = null)
     {
         var playerBlocked = false;
         foreach (var actor in world.Actors)
         {
-            if (!actor.Moving || world.LocalMs < actor.StartledUntilMs) continue;
+            if (onlyActor is not null && actor.Id != onlyActor || !actor.Moving || world.LocalMs < actor.StartledUntilMs) continue;
             if (!world.Map.CanTraverse(actor.Cell, actor.Route[0]) || Occupied(world, actor).Contains(actor.Route[0]))
             {
                 var goal = actor.MoveGoal;
@@ -94,7 +94,7 @@ internal static class MovementSystem
             }
         }
         var patrol = world.Actors.Single(a => a.Id == "tech");
-        if (!PersonnelOrderSystem.Owns(world.Operations, patrol.Id) && !patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
+        if (onlyActor is null && !PersonnelOrderSystem.Owns(world.Operations, patrol.Id) && !patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
             CommitRoute(patrol, PlanRoute(world, patrol, Patrol[world.PatrolIndex++ % Patrol.Length]), false);
         return playerBlocked;
     }

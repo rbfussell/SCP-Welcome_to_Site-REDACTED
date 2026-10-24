@@ -16,6 +16,32 @@ public sealed class SpatialSimulation
     public SimulationTrace Trace => _world.Trace;
     public PlayerAwareness Awareness => _world.Awareness;
     public OperationState Operations => _world.Operations;
+    public PlayerEventLog Events => _world.Events;
+    public CombatState Combat => _world.Combat;
+    public bool LocalProgressHeld => !_world.LocalActive;
+    public bool ArmTraining(string opponentId = "tech")
+    {
+        var result = TacticalCombatSystem.Arm(_world, opponentId, out var reason);
+        LastMessage = reason;
+        if (result) { TacticalCombatSystem.Detect(_world); TrainingOpponentSystem.Observe(_world); }
+        return result;
+    }
+    public bool EndTraining()
+    {
+        var result = TacticalCombatSystem.FinishDrill(_world, out var reason); LastMessage = reason; return result;
+    }
+    public bool EndTurn()
+    {
+        var result = TacticalCombatSystem.EndTurn(_world, Player.Id, out var reason); LastMessage = reason; return result;
+    }
+    public bool UseTrainingEquipment(CombatActionKind kind)
+    {
+        var result = TacticalCombatSystem.Equipment(_world, Player.Id, kind, out var reason); LastMessage = reason; return result;
+    }
+    public bool FireTraining(string targetId)
+    {
+        var result = TacticalCombatSystem.Fire(_world, Player.Id, targetId, out var reason); LastMessage = reason; return result;
+    }
     public bool CanUseTerminal => FacilityCommunications.TerminalReachable(_world);
     public long WorldMs => _world.WorldMs;
     public long LocalMs => _world.LocalMs;
@@ -39,8 +65,8 @@ public sealed class SpatialSimulation
     }
     private bool Ready(string action)
     {
-        if (_world.LocalActive) return true;
-        LastMessage = action + " is held with local simulation.";
+        if (_world.LocalActive && !Combat.Active) return true;
+        LastMessage = action + (Combat.Active ? " requires a paid tactical action on your turn." : " is held with local simulation.");
         return false;
     }
     private void Changed(string system, string subject, string action, string detail)
@@ -71,12 +97,16 @@ public sealed class SpatialSimulation
                 ReceivePerceivedContact(new(body.Id, report.Encounter, report.Position!.Value, report.LocalMs, "radio", reporter.Id));
             }
         }
+        PlayerFeedback.Sense(_world);
     }
     public bool IssueOrder(string actorId, PersonnelTask task, Hex destination, bool throughTerminal = false)
     {
+        if (!Ready("Order")) return false;
         var accepted = PersonnelOrderSystem.Issue(_world, Player.Id, actorId, task, destination,
             throughTerminal ? "terminal" : "voice", out var reason);
         LastMessage = accepted ? "Order submitted · awaiting delivery and acknowledgement." : reason;
+        if (accepted) PlayerFeedback.Add(_world, MessageKind.Orders,
+            $"Order to {Actors.Single(a => a.Id == actorId).Name}: {task} · awaiting acknowledgement.");
         return accepted;
     }
     public void ApproachTerminal()
@@ -113,6 +143,11 @@ public sealed class SpatialSimulation
 
     public bool RequestMove(Hex destination, bool keepFacing = false)
     {
+        if (Combat.Active)
+        {
+            var accepted = TacticalCombatSystem.Move(_world, Player.Id, destination, keepFacing, out var reason);
+            LastMessage = reason; return accepted;
+        }
         if (!Ready("Movement")) return false;
         if (Player.Moving) { LastMessage = "Finish this route first (Esc cancels at the next hex)."; return false; }
         var path = PreviewPath(destination);
@@ -130,6 +165,12 @@ public sealed class SpatialSimulation
     }
     public void Face(Point2 target)
     {
+        if (Combat.Active)
+        {
+            var accepted = TacticalCombatSystem.Face(_world, Player.Id, target, out var reason); LastMessage = reason;
+            if (accepted) EvaluatePlayerAwareness();
+            return;
+        }
         if (!Ready("Attention change")) return;
         Player.Facing = ObservationService.FacingToward(Player.Position, target, Player.Facing);
         Player.KeepFacing = true;
@@ -155,20 +196,15 @@ public sealed class SpatialSimulation
     }
     public bool ToggleNearestDoor()
     {
-        if (!Ready("Door use")) return false;
-        var door = Map.Definition.Walls.Where(w => w.Door).OrderBy(w => Point2.Distance(Player.Position, w.Center)).First();
-        if (Point2.Distance(Player.Position, door.Center) > 1.35) { LastMessage = "Approach a doorway, then press E."; return false; }
-        if (Map.OpenDoors.Contains(door.Id))
+        if (Combat.Active)
         {
-            if (Actors.Any(a => Geometry.DistanceToSegment(a.Position, door.Start, door.End) < 0.25
-                || a.StoppedStep is { } stopped && Geometry.Intersects(a.Cell.World, stopped.Next.World, door.Start, door.End)
-                || a.Moving && Geometry.Intersects(a.Position, a.Route[0].World, door.Start, door.End))
-                || Anomalies.Bodies.Any(b => Geometry.DistanceToSegment(b.Cell.World, door.Start, door.End) < 0.18))
-            { LastMessage = "Door obstructed by an actor, anomaly or committed crossing."; return false; }
-            Map.OpenDoors.Remove(door.Id);
+            var result = TacticalCombatSystem.Door(_world, Player.Id, out var detail); LastMessage = detail; return result;
         }
-        else Map.OpenDoors.Add(door.Id);
-        Changed("world", door.Id, "door-changed", $"{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? "open" : "closed")}; path and sight updated.");
+        if (!Ready("Door use")) return false;
+        if (!DoorInteraction.Validate(_world, Player, null, out var door, out var reason)) { LastMessage = reason; return false; }
+        DoorInteraction.Toggle(_world, door!);
+        Changed("world", door!.Id, "door-used", $"{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? "open" : "closed")}; path and sight updated.");
+        PlayerFeedback.Equipment(_world, Player, "operate the door.");
         return true;
     }
     public void Tick()
@@ -176,24 +212,50 @@ public sealed class SpatialSimulation
         if (ManualPause) return;
         _world.WorldMs += TickMs;
         if (LocalHold) return;
+        if (Combat.Active && Combat.Pending is null)
+        {
+            TrainingOpponentSystem.Observe(_world);
+            TrainingOpponentSystem.Choose(_world);
+        }
+        if (!_world.LocalActive) return;
         _world.LocalMs += TickMs;
-        // Due perception transitions (including blink end) precede physical movement.
+        // Due anomaly effects precede detection/entry: an unseen lethal event is never held just for proximity.
         Anomalies.Evaluate(_world, "local-timer");
         EvaluatePlayerAwareness();
+        if (Combat.Active)
+        {
+            var actor = Actors.Single(a => a.Id == Combat.CurrentActorId);
+            var before = actor.Cell;
+            if (Combat.Pending?.Kind == CombatActionKind.Move && MovementSystem.Advance(_world, actor.Id))
+                PlayerFeedback.Add(_world, MessageKind.Warning, "Movement stopped: the way ahead is blocked.");
+            Anomalies.Evaluate(_world, "tactical-step");
+            EvaluatePlayerAwareness();
+            TrainingOpponentSystem.Observe(_world);
+            OperationLifecycle.Advance(_world);
+            PlayerFeedback.Sense(_world);
+            TacticalCombatSystem.ResolveTick(_world, before, EvaluatePlayerAwareness);
+            return;
+        }
         PersonnelOrderSystem.Advance(_world);
-        // Orders change facing before movement; the module sees that real observation transition.
         Anomalies.Evaluate(_world, "orders");
-        if (MovementSystem.Advance(_world)) LastMessage = "Movement stopped: the way ahead is blocked.";
+        if (MovementSystem.Advance(_world))
+        {
+            LastMessage = "Movement stopped: the way ahead is blocked.";
+            PlayerFeedback.Add(_world, MessageKind.Warning, LastMessage);
+        }
         ObservedTransportSystem.Advance(_world);
         Anomalies.Evaluate(_world, "local-step-complete");
         EvaluatePlayerAwareness();
         OperationLifecycle.Advance(_world);
+        PlayerFeedback.Sense(_world);
+        TacticalCombatSystem.Detect(_world);
+        if (Combat.Active) TrainingOpponentSystem.Observe(_world);
     }
     public string Save() => PrototypeSaveCodec.Capture(_world, _mapIdentity);
     public void Restore(string json)
     {
         // Decode/validate a detached candidate; failure cannot partially change live state.
         _world = PrototypeSaveCodec.Restore(json, _mapJson, _mapIdentity, _operationJson);
-        LastMessage = "Restored movement, observers, module RNG/poses, local timers and trace.";
+        LastMessage = "Restored world, local turns, event log and module state without replaying actions.";
     }
 }

@@ -281,3 +281,7 @@ The user's [component/material crafting direction](16-item-composition-and-craft
 | Distribution/license strategy | Unselected; preserve provenance from the start | Before distribution |
 
 The current baseline is complete enough to review the architecture and quote/prototype M0. It is not complete enough to promise a production release date or a fixed price for the entire vision.
+
+## October 24 bounded journal and tactical evidence
+
+[The event-log/training prototype](20-event-log-and-tactical-training.md) adds a player-facing 100-entry/five-row categorized journal, acquired delivery/observation/combat feedback, seeded local turns/AP, timed training equipment/actions and saved continuations. This supplies partial TAC-01–TAC-03/AWR-03 evidence. Ordinary campaign combat, inventory-backed equipment, injury/death/aftermath, general hostile engagement/disengagement and cross-zone qualification remain open; the three-person drill is not full milestone acceptance. Conversation transcript presentation is a future producer, with a journal category reserved now. The previous revision remains the design baseline; numeric training values are explicit fixture tuning.

@@ -11,6 +11,8 @@ public partial class SpatialHud : Control
     public Action RestoreRequested { get; set; } = () => { };
     public Action ResetCameraRequested { get; set; } = () => { };
     public Action ExportTraceRequested { get; set; } = () => { };
+    private PlayerLogPanel _journal = null!;
+    private CombatPanel _combat = null!;
     private TabContainer _tabs = null!;
     private VBoxContainer _fieldPanel = null!;
     private ScrollContainer _fieldScroll = null!;
@@ -88,6 +90,7 @@ public partial class SpatialHud : Control
         _fieldPanel.AddThemeConstantOverride("separation", 16);
         Line(_fieldPanel, "OBSERVATION SHIFT", 18, Text);
         _fieldMode = Line(_fieldPanel, "", 12, Green);
+        _combat = new CombatPanel(); _fieldPanel.AddChild(_combat); _combat.Initialize(sim);
         Operations = new OperationsPanel(); _fieldPanel.AddChild(Operations); Operations.Initialize(sim);
         _stopDirect = Toggle(_fieldPanel, "Stop on my anomaly sightings", sim.Awareness.StopOnDirectSight, value => sim.Awareness.StopOnDirectSight = value);
         _stopReports = Toggle(_fieldPanel, "Stop on communicated sightings", sim.Awareness.StopOnReports, value => sim.Awareness.StopOnReports = value);
@@ -97,6 +100,7 @@ public partial class SpatialHud : Control
         Button(_fieldPanel, "Global pause   Space", () => sim.ManualPause = !sim.ManualPause);
         Line(_fieldPanel, "F2   Diagnostics and module state\nF4   Art / diagnostic statue\nM    Mute audio\nR     Reduce effects\nF5 / F9   Save / restore\nHome   Reset camera", 12, Muted);
         Line(_fieldPanel, "Encounter audio is presentation only.\nNo flashing or camera shake.\n\nComplacency is a per-person module flag, switched with J for testing. Its future metric is undecided.", 11, Muted);
+        _journal = new PlayerLogPanel(); AddChild(_journal); _journal.Initialize();
         _footer = new Control { MouseFilter = MouseFilterEnum.Ignore }; AddChild(_footer);
         _status = At(_footer, "", new(28, 0), 13, Text);
         _coordinates = At(_footer, "", new(28, 25), 11, Green);
@@ -142,25 +146,26 @@ public partial class SpatialHud : Control
     public void Layout()
     {
         var size = GetViewportRect().Size;
-        Field.Size = new(Math.Max(500, size.X - 372), Math.Max(350, size.Y - 235));
+        Field.Size = new(Math.Max(500, size.X - 372), Math.Max(250, size.Y - 375));
         _tabs.Position = new(size.X - 338, 103); _tabs.Size = new(318, size.Y - 126);
         _fieldScroll.Position = new(size.X - 324, 137); _fieldScroll.Size = new(304, size.Y - 160);
+        _journal.Position = new(28, Field.Position.Y + Field.Size.Y + 10); _journal.Size = new(Field.Size.X - 16, 128);
         _footer.Position = new(0, size.Y - 88); _clock.Position = new(size.X - 440, 27);
     }
     public void Refresh(SpatialSimulation sim, WorldView world, Hex? hover, Point2 ground, float zoom, string? notice)
     {
         var time = TimeSpan.FromHours(8) + TimeSpan.FromMilliseconds(sim.WorldMs);
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
-        _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : "REAL TIME · local active";
+        _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : sim.Combat.Active ? sim.Combat.Pending is null ? "LOCAL TURN HELD · calendar continues" : "TACTICAL ACTION · local resolving" : "REAL TIME · local active";
         _fieldMode.Text = _mode.Text;
-        Operations.Refresh();
+        Operations.Refresh(); _combat.Refresh(); _journal.Refresh(sim.Events);
         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";
         _status.Text = notice ?? sim.LastMessage;
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);
         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);
-        _coordinates.Text = hover is { } cell ? $"HEX {cell.Q},{cell.R}   FLOOR {Math.Floor(ground.X)},{Math.Floor(ground.Y)}   {(world.FieldView ? sim.KnownNavigationBlocked(cell) ? "KNOWN BLOCK" : "NO KNOWN BLOCK" : sim.Map.Walkable(cell) ? "FREE" : "BLOCKED")}   ZOOM {zoom:0.00}×" : "FLOOR / HEX / SPRITE anchors remain separate";
+        _coordinates.Text = hover is { } cell ? $"HEX {cell.Q},{cell.R}   FLOOR {Math.Floor(ground.X)},{Math.Floor(ground.Y)}   {(world.FieldView ? sim.KnownNavigationBlocked(cell) ? "KNOWN BLOCK" : "NO KNOWN BLOCK" : sim.Map.Walkable(cell) ? "FREE" : "BLOCKED")}   ZOOM {zoom:0.00}×{(sim.Combat.Active ? $"   ROUTE {world.Preview.Count} AP" : "")}" : "FLOOR / HEX / SPRITE anchors remain separate";
         _timers.Text = $"Test timer: {sim.LocalCountdownMs / 1000.0:0.00}s\nWorld: {sim.WorldMs / 1000.0:0.0}s  Local: {sim.LocalMs / 1000.0:0.0}s\nOff-site updates: {sim.OffsiteUpdates}";
         var status = sim.InspectAnomalies().First();
         var body = sim.Anomalies.Bodies.First();

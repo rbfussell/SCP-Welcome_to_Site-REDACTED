@@ -52,7 +52,7 @@ internal static class PersonnelOrderSystem
         if (state.Definition is not { } d) return;
         foreach (var pending in state.Orders.Where(o => o.Status == OrderStatus.Pending).ToArray())
         {
-            if (!FacilityCommunications.Link(world, pending)) continue;
+            if (!FacilityCommunications.Link(world, pending)) { PlayerFeedback.NoAcknowledgement(world, pending); continue; }
             foreach (var previous in state.Orders.Where(o => o.ActorId == pending.ActorId && o.Id < pending.Id
                 && o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())
                 Set(world, previous.Id, OrderStatus.Cancelled, "Relieved by an acknowledged replacement order");
