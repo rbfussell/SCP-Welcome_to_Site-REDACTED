@@ -23,6 +23,7 @@ Effective access is the intersection of character authority, device capability, 
 | Device profile | Proposed use | Constraints |
 |---|---|---|
 | Fixed network workstation | Site management, records, communications and installed control services | Requires physical access, power, authentication and reachable network |
+| Mobile phone / compact field client (optional proposal) | Limited field access; candidate functions include messages, alerts, selected reports and authorized basic requests | Exact capabilities remain open; carried device, battery, credentials and connectivity apply |
 | Laptop/portable terminal | Field reports, local files and permitted remote services | Must be physically accessible; battery, link, installed tools and credentials matter |
 | Security console | Authorized surveillance, doors, alarms and staffing | Restricted scope; watching a feed is an explicit attention task |
 | Air-gapped research terminal | Isolated software/records and specialist tasks | No network control or automatic external report delivery while isolated |
@@ -31,7 +32,11 @@ The same shell adapts to installed functions. Offline, isolated, expired-session
 
 ## 3. Shell and applications
 
-October 24 presentation clarification: OSCP should open as a Pip-Boy-like interface alongside a Fallout 2-style bottom gameplay HUD. The engineering/debug panels remain suitable for development. The command/document approach and underlying OSCP services carry forward into that presentation. Device form factor, exact layout and access binding remain open; service availability continues to depend on the acting character, actual device/session, power and connectivity. The shell binds to the same validated command/query endpoints as the prototype panels.
+October 24 presentation clarification: the Pip-Boy comparison describes opening a dedicated interface, not wearing an arm-mounted device. Full OSCP terminals are a substantial strategic gameplay workspace alongside the Fallout 2-style bottom field HUD. They support facility construction/build planning, mission preparation, SCP investigation and recovery planning, intelligence assessment, equipment/material allocation, logistics and wider regional/network operations. The command/document approach carries forward as part of this interactive management workspace. Exact layout and access bindings remain open.
+
+These workflows act on the shared world: intelligence supports an investigation, personnel and equipment are assigned to a plan, and submitted orders lead to actual work and received reports. Building plans create construction/logistics work through the relevant simulation services. The terminal exposes the broader management/4X layer within character authority and available information. These are staged long-term capabilities; the current OSCP proof remains the bounded command/document panel, and this clarification adds no implementation milestone.
+
+The user also proposes optional mobile-phone-style field access with limited capabilities. Its exact subset remains to be designed; it is a separate device profile rather than an assumption that the complete workstation is always available. Both clients bind to the same validated command/query services. Acting character, actual device/session, power and connectivity govern available functions. Engineering/debug panels remain suitable until production UI work begins.
 
 Propose a restrained workstation interface: sharp readable text, compact navigation, document-oriented panels, status strip and command/search field. It may evoke old institutional systems without pixel fonts, compulsory scanlines, flicker or tiny unreadable type. Brightness, font size and reduced visual effects are accessibility settings, not a new survival minigame.
 
