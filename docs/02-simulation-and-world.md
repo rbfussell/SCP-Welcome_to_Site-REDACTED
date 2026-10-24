@@ -4,7 +4,7 @@ Status: Proposed implementation contract, revision 0.5. Confirmed gameplay direc
 
 ## 1. State and authority
 
-Use one simulation kernel with serializable domain data. Rendering, audio, UI, file access, and optional LLM adapters sit outside it. Start as a modular application in one process; “backend” does not require a hosted server.
+Use one simulation kernel with serializable domain data. Rendering, audio, UI, file access, and optional LLM adapters sit outside it. Start as a modular application in one process; “backend” does not require a hosted server. OSCP, the world map, local character play and facility management should each have independent launch/test entry points over declared shared services. Combined play attaches them to one authoritative session and scheduler. [ADR-0007](adr/0007-independent-gameplay-modes.md) records this confirmed direction, proposed runtime context/lifecycle and staged qualification; four independent simulation copies are not implied.
 
 | Record | Minimum authoritative state |
 |---|---|

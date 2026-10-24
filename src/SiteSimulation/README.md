@@ -19,6 +19,8 @@ This is the engine-independent C# prototype. Godot input, drawing and diagnostic
 
 The confirmed production presentation is a Fallout 2-style bottom HUD plus a dedicated full OSCP terminal workspace for strategic management. The Pip-Boy comparison concerns interface access, not arm-mounted hardware. Optional limited mobile-phone access remains a proposed device profile. Current engineering panels are replaceable adapters: they read acquired feedback/query state and submit validated commands through `SpatialSimulation`. Keep screen arrangement and interaction bindings in Godot presentation; the simulation owns authority, knowledge, AP, equipment rules and consequences. See the [presentation target](../../docs/20-event-log-and-tactical-training.md#confirmed-presentation-target).
 
+Future OSCP, world-map, local-play and facility-management entry scenes each receive their declared simulation services from an application bootstrap. They must run meaningful standalone scenarios without sibling renderers and attach to one session/scheduler in combined play. Commands, queries, IDs and saved world state stay shared; scene-to-scene widget calls do not implement domain work. [ADR-0007](../../docs/adr/0007-independent-gameplay-modes.md) records the accepted direction and proposed contracts. The current single spatial scene with attached panels is not yet that mode-isolation implementation.
+
 Typical path:
 
 ```text

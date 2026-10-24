@@ -45,6 +45,8 @@ The launcher handles this workspace's path characters through a temporary build 
 
 27. [Event log and tactical training](docs/20-event-log-and-tactical-training.md): bounded color-coded journal, turn/AP controls, autonomous training opponents and saved action continuations.
 
+28. [Independent gameplay modes](docs/adr/0007-independent-gameplay-modes.md): standalone OSCP, world-map, local-play and facility-management entry points using shared simulation services, with staged integration and lifecycle qualification.
+
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic statue art, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 
 [Generated sprite reference sheet](assets/development/diagnostic-sprites/reference-sheet.png) and [reference generator](tools/generate_diagnostic_sprites.py) demonstrate the placeholder convention independently of an engine.
