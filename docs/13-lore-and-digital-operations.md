@@ -12,6 +12,9 @@ Status: Revision 0.6 design pass. The user requires lore-favored terminology and
 | [AI Classification Guide](https://scp-wiki.wikidot.com/ai-classification-guide) | Different AI capabilities/classifications | Do not assume every automated tool is a sentient AIC |
 | [Site-87 Orientation: FAQ](https://scp-wiki.wikidot.com/site-87-faq) | A site portrayal explicitly lacking an assigned AIC | Universal resident-AIC coverage is not established by these sources |
 | [Dr. Cimmerian Hits Reply All](https://scp-wiki.wikidot.com/cimmerian-sends-650-pms) | SCiPnet mail and RAISA involvement | Use the communication concepts, not the tale's exceptional mail volume as a normal operating target |
+| [SCP-5098](https://scp-wiki.wikidot.com/scp-5098) | Foundation-issued smartphone associated with SCiPNET access | No universal handset/security specification is established |
+| [SCP-5457](https://scp-wiki.wikidot.com/scp-5457) | Mission agent reads SCiPNET messages on a phone | Field communications precedent, not full OSCP workstation functionality |
+| [That's the Spirit!](https://scp-wiki.wikidot.com/that-s-the-spirit) | Phone mission report with coordinate/recording/file attachments | Gulf-canon prank narrative; interface precedent does not make report contents reliable |
 | [Foundation Facilities: Site-15](https://scp-wiki.wikidot.com/secure-facilities-locations) | IT/AIAD, electronic containment and databases/communications | Does not make all proposed Technical Services responsibilities universally canonical |
 
 These references are SCP Wiki works under their linked attribution/license notices. Preserve individual article credits when adapting content. Existing character art is not imported by this pass.
@@ -70,3 +73,7 @@ Additional decisions before implementing affected behavior: original conscript v
 When ambiguity affects behavior, identify the conflict and source, ask the user, and record their decision and adaptation notes. While awaiting an answer, progress on independent platform/UI/engine work and label alternatives as proposals. Do not promote proposed limits, schedules or a source-specific timeline into universal lore.
 
 Use the local archive for cross-wiki design research: search article bodies beyond the subject's own page and its outgoing/backlinked references. Relevant details may appear in other SCP descriptions, tales, incident logs, hubs or organizational material. Distinguish “not specified by this article” from “not found in the wider corpus,” record supporting passages and their canon context, and ask before resolving incompatible portrayals into a game rule. See the [archive research workflow](../source_material/README.md#lookup-method).
+
+## October 24 workstation/phone clarification
+
+The full OSCP interface is accessed at fixed facility workstations and visually framed by a faux CRT monitor body. A secure Foundation phone provides limited current-location maps, mission information and communications. The device split and security/capability profile are the game adaptation; mission/team commands are included, and future functions use an extensible application catalog; exact navigation and pause-screen timing remain open. [The device source check](reviews/oscp-device-source-checks.md) records local cross-wiki research, live verification, creators and the distinction between SCP-5810 screen styling and the user-selected CRT casing.

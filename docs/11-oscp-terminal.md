@@ -1,6 +1,6 @@
 # OSCP terminal and Foundation communications
 
-Status: Design pass, revision 0.6, October 22, 2026. An OSCP-inspired terminal for facility/network management and outside-anomaly reports is confirmed direction. App names, layouts, command vocabulary and milestone bounds below are proposals. The references inform the interface; they do not add two more complete SCP implementations to M1.
+Status: Design pass, revision 0.7, October 24, 2026. An OSCP-inspired terminal for facility/network management and outside-anomaly reports is confirmed direction. App names, layouts, command vocabulary and milestone bounds below are proposals. The references inform the interface; they do not add two more complete SCP implementations to M1.
 
 ## 1. What the references establish
 
@@ -22,9 +22,9 @@ Effective access is the intersection of character authority, device capability, 
 
 | Device profile | Proposed use | Constraints |
 |---|---|---|
-| Fixed network workstation | Site management, records, communications and installed control services | Requires physical access, power, authentication and reachable network |
-| Mobile phone / compact field client (optional proposal) | Limited field access; candidate functions include messages, alerts, selected reports and authorized basic requests | Exact capabilities remain open; carried device, battery, credentials and connectivity apply |
-| Laptop/portable terminal | Field reports, local files and permitted remote services | Must be physically accessible; battery, link, installed tools and credentials matter |
+| Full fixed OSCP workstation | CRT-framed strategic management, construction, mission planning, intelligence, equipment/materials and network operations | Full interface accessed at an actual fixed facility workstation; character authority, device capability, power and network still apply |
+| Secure Foundation phone / limited OSCP field client | Current-location maps, current mission information, communications and authorized mission/team commands | Requires carried accessible device, battery, credentials and an available route for live services; future applications remain extensible |
+| Laptop/other portable computer (future profile, not an approved full-terminal substitute) | Any additional role remains to be designed | Cannot bypass the confirmed fixed-location full OSCP access rule; capability exceptions require an explicit design decision |
 | Security console | Authorized surveillance, doors, alarms and staffing | Restricted scope; watching a feed is an explicit attention task |
 | Air-gapped research terminal | Isolated software/records and specialist tasks | No network control or automatic external report delivery while isolated |
 
@@ -36,7 +36,15 @@ October 24 presentation clarification: the Pip-Boy comparison describes opening 
 
 These workflows act on the shared world: intelligence supports an investigation, personnel and equipment are assigned to a plan, and submitted orders lead to actual work and received reports. Building plans create construction/logistics work through the relevant simulation services. The terminal exposes the broader management/4X layer within character authority and available information. These are staged long-term capabilities; the current OSCP proof remains the bounded command/document panel, and this clarification adds no implementation milestone.
 
-The user also proposes optional mobile-phone-style field access with limited capabilities. Its exact subset remains to be designed; it is a separate device profile rather than an assumption that the complete workstation is always available. Both clients bind to the same validated command/query services. Acting character, actual device/session, power and connectivity govern available functions. Engineering/debug panels remain suitable until production UI work begins.
+The user now specifies two OSCP device/presentation profiles: the complete fixed facility workstation and a less capable secure phone. The phone focuses on mapping within the current location, current mission information and communications, using actual acquired records and permitted network services. The user confirms mission/team commands as well, including backup requests and direction of assigned teams, subject to actual authority and delivery. Full construction and network management stay with fixed workstations. Both profiles bind to the same validated command/query services, with actor authority and device capabilities checked independently. Engineering/debug panels remain suitable until production UI work begins.
+
+### CRT framing and source styling
+
+The full workstation view includes the visible monitor housing/bezel framing a recessed active screen. The monitor is part of the interface composition, rather than a CRT filter applied to an otherwise borderless application. Proposed visual treatment can include glass depth, mild curvature/glow, wear and a power indicator, while keeping text readable and visual effects adjustable. Exact cabinet artwork and effects remain to be designed.
+
+SCP-5810 supplies the aged-terminal interaction reference and a muted-red/dark-red OSCP boot-panel treatment. The physical CRT surround is the user's adaptation; its page does not establish a universal monitor specification or palette for every application. [The device source check](reviews/oscp-device-source-checks.md) records the article CSS reference values, phone/network precedents, credits and adaptation boundaries.
+
+The phone has its own compact handset presentation and focused navigation. It shares underlying records and services with the workstation, while its available functions remain limited by the field-device profile. The proposed OSCP mode bootstrap should support either profile against a declared standalone device/scenario context; in combined play the character must use the corresponding real device. Subviewport/panel sizing, input coordinate mapping and terminal art belong to presentation, while access validation, knowledge, accepted orders and timers stay in the simulation.
 
 Propose a restrained workstation interface: sharp readable text, compact navigation, document-oriented panels, status strip and command/search field. It may evoke old institutional systems without pixel fonts, compulsory scanlines, flicker or tiny unreadable type. Brightness, font size and reduced visual effects are accessibility settings, not a new survival minigame.
 
@@ -57,6 +65,20 @@ The strip shows OSCP, device/site, session identity and role, connection scope, 
 Facilities reads [the shared infrastructure services](17-facility-infrastructure.md). A target temperature is not a measured temperature, an accepted repair is not restored service, and a stale reading cannot establish safe containment. AIC access uses the same reachable sensors, controls and permissions.
 
 These are application domains, not eight mandatory independent desktop programs. M1 can group them into a small navigation set: Operations, Personnel, Stores, Records, Communications and Systems. Research expansion follows SCP-1499. The graphical workspace and command view call identical services; typing a command grants no extra power.
+
+### Application registration and device profiles
+
+The user confirms extensible applications for both full workstations and phones. Register applications through a shared catalog rather than embedding a permanent list of buttons in each scene. Proposed registration fields include a stable namespaced app ID/version, display label, optional icon, menu/command aliases, view entry point, applicable device profiles, required simulation services and requested capability/permission checks. Schema, implementation language and third-party extension loading remain to be qualified.
+
+Icons, a command/menu terminal and mixed navigation are alternative presentations of the same registered actions; the final shell navigation is undecided. Application availability depends on installed functions, the device's granted capabilities, reachable services and the acting character's authority. A registered icon or a typed command cannot grant clearance or bypass fixed-workstation requirements. New field applications can expand the approved phone profile without redesigning the shell; current full construction/network-management functions remain workstation features.
+
+Applications submit typed intents and read acquired projections through existing services. They may request host navigation to another gameplay mode by IDs/context, without requiring its scene to be loaded. UI code does not own personnel, map truth, inventory or mission execution. Registration is not authorization to execute arbitrary host programs or unvalidated mod scripts; future scripted extensions still require the existing module-host validation/capability boundary. Installed apps and authoritative app/domain state are distinct from disposable panel layout and scroll state.
+
+### Phone/inventory character menu
+
+The phone opens through a character-menu-style screen. The planned expanded layout places inventory on the right and the phone in a companion pane; exact phone placement, proportions, navigation and input bindings remain open. Phone-only development can precede inventory integration. Both panes use the same acting character/session and actual carried items/device, so inventory transfers, equipment access and communications retain their simulation costs and checks.
+
+The comparison to a pause screen leaves automatic clock pausing as an explicit clarification question. Until resolved, the established no-automatic-pause menu rule remains the baseline; this layout description alone changes no clock behavior. Manual pause and local tactical holds retain their existing rules.
 
 ## 4. Orders, receipts and attention
 
@@ -106,4 +128,4 @@ Show resident AIC assignment as confirmed; its personal identity and detailed au
 
 M0 proves one terminal query/command bridge with duplicate-request handling and role validation. M1 qualifies operations/coverage, personnel, logistics, structured records/evidence, one outside report chain and offline/isolation behavior. Other applications can share projections or remain unavailable until their actual systems exist.
 
-The OSCP visual name/reference is confirmed direction; exact chrome and whether the default screen is a graphical workspace or command/document view remain design choices. TERM-01 through TERM-09 in [scope and acceptance](04-scope-and-acceptance.md) define the proposed gate.
+The full CRT-framed fixed workstation and limited secure-phone presentation are confirmed direction. Exact cabinet art, workstation/phone navigation and pause-screen time semantics remain open; the engineering panel is still the only runnable OSCP presentation. TERM-01 through TERM-09 in [scope and acceptance](04-scope-and-acceptance.md) define the proposed gate.
