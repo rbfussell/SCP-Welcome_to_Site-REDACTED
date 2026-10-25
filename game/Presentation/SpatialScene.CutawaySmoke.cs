@@ -18,7 +18,7 @@ public partial class SpatialScene
             .OrderBy(c => c.Distance(new(10, 10))).First(c => _simulation.Map.SolidWalls.Any(w =>
             {
                 var feet = WorldView.Screen(c.World); var start = WorldView.Screen(w.Start); var end = WorldView.Screen(w.End);
-                return WorldView.Screen(w.Center).Y >= feet.Y && Geometry2D.IsPointInPolygon(feet - new Vector2(0, 30),
+                return !w.Door && WorldView.Screen(w.Center).Y >= feet.Y && Geometry2D.IsPointInPolygon(feet - new Vector2(0, 30),
                     [start, end, end - new Vector2(0, 68), start - new Vector2(0, 68)]);
             }));
         player.Cell = cell; player.Facing = 1;
