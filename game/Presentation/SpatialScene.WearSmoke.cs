@@ -29,6 +29,51 @@ public partial class SpatialScene
         if (panel.InspectedContainers.Contains("gum-packet") || sim.InventoryAccess("avatar-trousers", "left").Allowed
             || sim.InventoryContents("person:avatar", "torso").Count != 0)
             throw new InvalidOperationException("Fastened coat failed to hide its inner shirt/pocket paths and descendant views.");
+        held = sim.Save();
+        // Use the native option popup and keyboard selection, rather than calling its selection callback directly.
+        async Task LayerMenu()
+        {
+            var position = panel.LayerView.GetGlobalRect().GetCenter();
+            Input.WarpMouse(position); await InventoryFrames();
+            InventoryMouse(new InputEventMouseMotion { Position = position, GlobalPosition = position });
+            InventoryMouse(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true });
+            InventoryMouse(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false });
+            Input.FlushBufferedEvents(); await InventoryFrames();
+            if (!panel.LayerView.GetPopup().Visible) throw new InvalidOperationException("Native layer popup did not open.");
+        }
+        void LayerKey(Key key)
+        {
+            InventoryMouse(new InputEventKey { Keycode = key, Pressed = true });
+            InventoryMouse(new InputEventKey { Keycode = key, Pressed = false });
+            Input.FlushBufferedEvents();
+        }
+        async Task ChooseLayer(int index)
+        {
+            await LayerMenu();
+            for (var i = 0; i < panel.LayerView.ItemCount + 1 && panel.LayerView.GetPopup().GetFocusedItem() != index; i++)
+            { LayerKey(Key.Down); await InventoryFrames(1); }
+            if (panel.LayerView.GetPopup().GetFocusedItem() != index) throw new InvalidOperationException("Could not focus the requested native layer menu item.");
+            LayerKey(Key.Enter); await InventoryFrames();
+        }
+        await ChooseLayer(3);
+        if (panel.ViewedLayer != 1 || !panel.FindGrid("person:avatar", "torso").DisplayedItems.Any(i => i.Id == "avatar-shirt"))
+            throw new InvalidOperationException($"Native layer selector did not reveal the covered shirt on layer 1 (selected {panel.LayerView.Selected}).");
+        panel.Inspect("gum-packet");
+        if (panel.InspectedContainers.Contains("gum-packet") || sim.Save() != held)
+            throw new InvalidOperationException("Layer inspection uncovered physical storage or mutated the save.");
+        var shirt = panel.FindGrid("person:avatar", "torso");
+        ((ScrollContainer)shirt.GetParent().GetParent()).EnsureControlVisible(shirt); await InventoryFrames();
+        InventoryClick(shirt.GlobalPosition + new Vector2(30, 80));
+        if (panel.SelectedItem != "avatar-shirt" || shirt._GetDragData(new Vector2(30, 80)).VariantType != Variant.Type.Nil)
+            throw new InvalidOperationException("A known covered shirt could not be inspected or incorrectly became draggable.");
+        InventoryClick(panel.TakeInHand.GetGlobalRect().GetCenter());
+        if (sim.Save() != held) throw new InvalidOperationException("Layer-view selection bypassed physical dressing rules.");
+        await InventoryCapture("-layer-inspection");
+        // Return to the normal exposed view before continuing the existing dressing/packing fixture.
+        await ChooseLayer(0);
+        if (panel.ShowCoveredLayers) throw new InvalidOperationException("Native layer selector did not return to exposed equipment.");
+        ((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible(coat); await InventoryFrames();
+        InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();
         await InventoryCapture("-coat-fastened");
         sim.ManualPause = false; Click(panel.GarmentToggle); await Finish();
         if (!sim.InventoryAccess("avatar-trousers", "left").Allowed || sim.InventoryContents("person:avatar", "torso").Count != 1)

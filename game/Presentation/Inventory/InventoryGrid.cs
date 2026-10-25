@@ -13,6 +13,10 @@ public partial class InventoryGrid : Control
     public string ParentId { get; set; } = "";
     public string RegionId { get; set; } = "";
     public float CellPixels { get; set; } = 29;
+    public bool IsPaperdoll { get; set; }
+    internal IReadOnlyList<InventoryItem> DisplayedItems => IsPaperdoll
+        ? Panel.Simulation.InventoryPaperdollContents(RegionId, Panel.ShowCoveredLayers, Panel.ViewedLayer)
+        : Panel.Simulation.InventoryContents(ParentId, RegionId);
     private readonly Color _grid = new("33443d");
     private StorageRegion Region => Panel.Simulation.Inventory.Region(ParentId, RegionId);
     private Vector2 Origin => new(1, 44);
@@ -50,17 +54,18 @@ public partial class InventoryGrid : Control
             DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), state.Content!.Roots.Any(r => r.Id == ParentId) ? "Out of reach" : "Closed / unavailable", fontSize: 12, modulate: new("c99c76"));
             TooltipText = access.Reason;
         }
-        foreach (var item in sim.InventoryContents(ParentId, RegionId))
+        foreach (var item in DisplayedItems)
         {
             var (w, h) = InventoryPlacement.Footprint(state.Definition(item.Id), region, item.Placement.Rotated);
             var bounds = new Rect2(Origin + new Vector2(item.Placement.X, item.Placement.Y) * CellPixels, new Vector2(w, h) * CellPixels);
             InventoryArt.Draw(this, item.DefinitionId, bounds.Grow(-3), item.Placement.Rotated,
-                Panel.DragItemId == item.Id ? 0.3f : 1);
+                Panel.DragItemId == item.Id ? 0.3f : InventoryWear.Visible(state, item) ? 1 : 0.55f);
             if (Panel.SelectedItem == item.Id) DrawRect(bounds.Grow(-1), new("c8b77a"), false, 1);
             if (state.Definition(item.Id).Wear?.OpenExposes is { Length: > 0 })
                 DrawString(ThemeDB.FallbackFont, bounds.Position + new Vector2(3, bounds.Size.Y - 4), item.GarmentOpen ? "OPEN" : "FASTENED", fontSize: 11, modulate: new("d8dfcf"));
         }
-        if (region.MountSlot is not null && state.Children(ParentId, RegionId).Any(i => !InventoryWear.Visible(state, i)))
+        if (region.MountSlot is not null && state.Children(ParentId, RegionId).Any(i => !InventoryWear.Visible(state, i)
+            && (Panel.ViewedLayer is null || state.Definition(i.Id).Wear?.Layer == Panel.ViewedLayer)))
             DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), "Covered", fontSize: 12, modulate: new("c99c76"));
         if (preview is not null)
         {
@@ -72,7 +77,7 @@ public partial class InventoryGrid : Control
     private InventoryItem? Pick(Vector2 position)
     {
         var (x, y) = Cell(position);
-        return Panel.Simulation.InventoryContents(ParentId, RegionId).FirstOrDefault(i =>
+        return DisplayedItems.FirstOrDefault(i =>
         {
             var (w, h) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(i.Id), Region, i.Placement.Rotated);
             return x >= i.Placement.X && x < i.Placement.X + w && y >= i.Placement.Y && y < i.Placement.Y + h;
@@ -98,6 +103,8 @@ public partial class InventoryGrid : Control
     public override Variant _GetDragData(Vector2 atPosition)
     {
         if (Pick(atPosition) is not { } item) return default;
+        var access = Panel.Simulation.InventoryMoveAccess(item.Id);
+        if (!access.Allowed) { TooltipText = access.Reason; return default; }
         if (OS.GetCmdlineUserArgs().Contains("--inventory-smoke")) GD.Print("INVENTORY_DRAG_START: " + item.Id);
         Panel.Select(item.Id);
         Panel.BeginDrag(item.Id);

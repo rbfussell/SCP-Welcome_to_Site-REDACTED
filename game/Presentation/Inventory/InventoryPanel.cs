@@ -17,6 +17,10 @@ public partial class InventoryPanel : Control
     private InventoryBrowser _browser = null!;
     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
     private ScrollContainer _wornScroll = null!;
+    private OptionButton _layerView = null!;
+    internal bool ShowCoveredLayers => _layerView.Selected != 0;
+    internal int? ViewedLayer => _layerView.Selected >= 2 ? _layerView.Selected - 2 : null;
+    internal OptionButton LayerView => _layerView;
     private long _lastReceiptId = -1;
     public void Initialize(SpatialSimulation simulation)
     {
@@ -38,6 +42,11 @@ public partial class InventoryPanel : Control
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
         Label(worn, "PAPERDOLL / WORN & HELD", 16);
+        _layerView = new OptionButton { FocusMode = FocusModeEnum.None }; worn.AddChild(_layerView);
+        _layerView.AddItem("Layers: exposed equipment"); _layerView.AddItem("Layers: all worn equipment");
+        for (var layer = 0; layer <= 9; layer++) _layerView.AddItem($"Layer {layer} · inspect");
+        _layerView.ItemSelected += _ => { CancelDragPreview(); Redraw(this); };
+        _layerView.TooltipText = "Inspect known worn layers. Covered equipment stays inaccessible until physically exposed.";
         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
             CustomMinimumSize = new(234, 280), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
@@ -76,7 +85,8 @@ public partial class InventoryPanel : Control
     }
     internal InventoryGrid AddGrid(Node parent, string parentId, string region, float pixels)
     {
-        var grid = new InventoryGrid { Panel = this, ParentId = parentId, RegionId = region, CellPixels = pixels };
+        var grid = new InventoryGrid { Panel = this, ParentId = parentId, RegionId = region, CellPixels = pixels,
+            IsPaperdoll = Simulation.Inventory.Content!.Roots.Any(r => r.Id == parentId && r.ActorId == Simulation.Player.Id) };
         grid.BindSize(); parent.AddChild(grid); return grid;
     }
     internal static Label Label(Node parent, string text, int size)
@@ -93,6 +103,7 @@ public partial class InventoryPanel : Control
         if (!Simulation.Inventory.Enabled) return false;
         Visible = true; _lastReceiptId = -1; _browser.Clear();
         _wornScroll.ScrollVertical = 0;
+        _layerView.Select(0);
         SelectedItem = null; Rotated = false;
         _detail.Text = "Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.";
         Refresh(); return true;

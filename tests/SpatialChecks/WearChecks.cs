@@ -25,6 +25,14 @@ internal static class WearChecks
         Check(sim.InventoryContents("person:avatar", "socks").Count == 0 && !sim.InventoryInspectAccess("avatar-socks").Allowed,
             "shoes conceal the socks underneath");
         var unchanged = sim.Save();
+        Check(sim.InventoryPaperdollContents("socks", true, 0).Single().Id == "avatar-socks"
+            && sim.InventoryPaperdollContents("socks").Count == 0 && sim.InventoryPaperdollContents("socks", true, 1).Count == 0,
+            "layer inspection reveals only known equipment on the chosen layer without changing ordinary visibility");
+        Check(sim.InventoryPaperdollContents("pieces", true).Count == 0 && sim.InventoryPaperdollContents("main", true).Count == 0
+            && sim.InventoryPaperdollContents("socks", true, 10).Count == 0,
+            "paperdoll projection cannot expose nested storage or invent layers");
+        Check(!sim.InventoryMoveAccess("avatar-socks").Allowed && sim.InventoryMoveAccess("avatar-shoes").Allowed && sim.Save() == unchanged,
+            "inspecting a layer cannot grant manipulation or mutate state");
         Check(!sim.HandleInventory(Move("avatar-socks", "person:avatar", "hand")) && sim.Save() == unchanged,
             "covered socks cannot be removed through shoes");
         Act(sim, Move("avatar-shoes", "person:avatar", "hand"));
@@ -39,6 +47,8 @@ internal static class WearChecks
         Check(sim.Save() == clone.Save() && !Item(sim, "avatar-coat").GarmentOpen, "restored fastening commits once under the ordinary scheduler");
         Check(!sim.InventoryAccess("avatar-trousers", "left").Allowed && sim.InventoryContents("avatar-trousers", "left").Count == 0,
             "a fastened coat blocks and hides covered trouser pockets");
+        Check(sim.InventoryPaperdollContents("torso", true, 1).Single().Id == "avatar-shirt" && !sim.InventoryMoveAccess("avatar-shirt").Allowed,
+            "a covered shirt can be identified in layer view while removal remains blocked");
         Check(sim.InventoryContents("person:avatar", "legs").Count == 1 && sim.InventoryContents("person:avatar", "torso").Count == 0,
             "partial visible legs do not reveal a fully covered shirt");
         Check(!sim.OscpAccess(OscpDevice.Phone).Available && sim.InventoryAccess("avatar-backpack", "side").Allowed,

@@ -14,6 +14,23 @@ public sealed partial class SpatialSimulation
         .Where(r => InventoryAccessService.Root(_world, Player.Id, r).Allowed).ToArray() ?? [];
     public IReadOnlyList<InventoryItem> InventoryContents(string parentId, string regionId)
         => InventoryAccess(parentId, regionId).Allowed ? Inventory.Children(parentId, regionId).Where(i => InventoryWear.Visible(Inventory, i)).ToArray() : [];
+    /// <summary>Own known equipment only. Revealing a layer is inspection, never access to its storage.</summary>
+    public IReadOnlyList<InventoryItem> InventoryPaperdollContents(string regionId, bool showCovered = false, int? layer = null)
+    {
+        var root = Inventory.Content?.Roots.SingleOrDefault(r => r.ActorId == Player.Id);
+        var mount = root?.Regions.SingleOrDefault(r => r.Id == regionId)?.MountSlot;
+        if (root is null || mount is null || layer is < 0 or > 9 || layer is not null && mount == "hand") return [];
+        return Inventory.Children(root.Id, regionId).Where(i => (layer is null || Inventory.Definition(i.Id).Wear?.Layer == layer)
+            && (showCovered || InventoryWear.Visible(Inventory, i))).ToArray();
+    }
+    public InventoryAccess InventoryMoveAccess(string id)
+    {
+        if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");
+        var access = InventoryAccess(item.Placement.ParentId, item.Placement.RegionId);
+        if (!access.Allowed) return access;
+        try { InventoryWear.ValidateAction(Inventory, item, item.Placement); return access; }
+        catch (ArgumentException ex) { return new(false, ex.Message); }
+    }
     public InventoryAccess InventoryInspectAccess(string id)
     {
         if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");

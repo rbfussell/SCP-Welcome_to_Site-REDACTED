@@ -4,6 +4,8 @@ Status: Revision 0.7. Godot, a fixed isometric/three-quarter field view, square 
 
 ## 1. Art and development pipeline
 
+[Wearable appearance](26-wearable-appearance-pipeline.md) records the proposed shared body/garment source pipeline for matching paperdoll and in-world outfits, including procedural templates, sprite baking, custom wearable overrides and bounded compositing. The current baked actor artwork does not yet derive from equipped inventory.
+
 The user's visual reference is Fallout 2: detailed sprite characters, substantial environmental detail and a grounded, textured appearance. “Retro” here refers to that classic PC RPG sensibility. The target is not a low-color NES/RPG Maker-style treatment. Use enough color, shading and resolution to distinguish bodies, equipment and surface materials at the chosen gameplay zoom. Do not interpret the earlier “modern sprites” wording as rejecting the now-confirmed Fallout 2 reference.
 
 The user explicitly clarified that Fallout 2/Falltergeist is the blueprint for visual application, movement, controls, animation and real-time exploration/turn-based combat inside Godot. Target grounded sprite placement, walk/run presentation, turning, click-to-move, contextual interaction and cursor/target feedback. Judge the first prototype against those visible behaviors. Equipment-driven actions, Ctrl-click intent and one-character authority remain; exact cursor/button mappings need an explicit control decision. Local tactical movement/action waiting does not stop the wider world or other zones.
