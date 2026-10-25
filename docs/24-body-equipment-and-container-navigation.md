@@ -25,7 +25,7 @@ Suggested anatomical coverage is head, face, upper torso, arms, hands, lower tor
 | Shirt and jacket | Upper torso and relevant arms | Different compatible layers; neither supplies arbitrary extra body capacity |
 | Chemical suit | All regions covered by that particular design | Outer protective layer, for example 3 or 4; integrated hood/gloves/boots must be declared rather than assumed |
 | Belt-mounted holster or first-aid pack | A compatible mount on the worn belt | Child of the belt; mount limits and combined mass apply |
-| Backpack | Front or back body mount if permitted | One instance in one location, supported bulk/load and compatible underlying equipment |
+| Backpack | Front or back body mount if permitted | Outermost at its mounting location; nothing may cover it while worn. Supported bulk/load and compatible underlying equipment still apply |
 
 Layer numbers describe ordering on overlapping anatomy, not universal compatibility. Profiles also need explicit conflicts, allowed mounts, required support and clearances. A higher number alone must not allow a helmet on a foot, a second pack in the same location or an incompatible harness over a sealed suit. Two backpacks can be supported through distinct front/back mounts when the actor's load and the equipment's bulk/fit rules permit it. View rotation reveals those actual mounts without duplicating any items.
 
@@ -33,17 +33,20 @@ Attachments use the same hierarchy as storage with specialized mount acceptance.
 
 ## Dressing and access
 
-Equipping or removing a garment must validate all its coverage claims atomically. Rejected changes leave the worn graph untouched. If fitting a chemical suit requires removing a backpack, the dependency must be explicit: remove the pack to a valid destination, fit the suit, then refit a compatible pack. These are timed/AP-bearing actions; no automatic, instantaneous undress/redress cycle is implied. A future assisted dressing command can plan those ordinary actions while explaining blocked steps and missing staging space.
+Equipping or removing a garment must validate all its coverage claims atomically. Rejected changes leave the worn graph untouched. The user confirms that a worn backpack is outermost at its mounting location and cannot be covered by another worn item. Fitting a chemical suit therefore requires this explicit sequence: remove the pack to a valid destination, fit the suit, then refit the pack over it. A suit cannot simply be placed over the worn pack. Front and back packs obey this rule independently; a full-body suit must clear every conflicting pack location before dressing. Ordinary fit, compatibility and load limits still apply after the suit is worn.
 
-Two clarifications are pending the user's answers:
+These are timed/AP-bearing actions; no automatic, instantaneous undress/redress cycle is implied. A future assisted dressing command can plan those ordinary actions while explaining blocked steps and missing staging space.
 
-- Whether covering garments can block access to inner pockets until opened or removed. Recommended design: author this per garment and its current fastened/sealed state, since an open coat and a sealed suit behave differently.
-- Whether “nothing can go on that” means a backpack is the outermost item at its own front/back location, or the suit disallows outer equipment except explicitly permitted items. Both can be expressed by the same compatibility rules, but should not be silently treated as the same rule.
+Confirmed access rule: physically covered equipment and pockets are inaccessible. The player must expose them before inspecting or manipulating their contents. Supported garments can be opened while remaining worn: opening a jacket reveals the relevant clothing beneath it on the paperdoll and enables access to the newly exposed pockets or mounts. Closing it covers those locations again. If a garment cannot expose the required location by opening, it must be removed or otherwise changed through a supported action.
 
-These choices do not block container navigation. They must be settled before implementing the general dressing/access validator. Content field names, layer counts, attachment counts and body-region lists are not frozen schemas by this document.
+The paperdoll and access validator must read the same physical coverage/fastening state. Access depends on which region is exposed, rather than granting access to every inner layer because some part of a garment is open. Merely closing a UI view, changing the displayed layer or recalling an item's location does not uncover equipment. Previously open views of newly covered storage must be hidden or dismissed, just as views through a newly closed container are now invalidated.
+
+Opening a worn jacket is a physical clothing action with handling time and combat AP, distinct from opening its pocket or displaying its inspection view. Its definition supplies which regions become exposed in each supported state. Physical covering refers to equipment coverage, not whether the current camera angle or a UI panel happens to draw the object.
+
+Both access/outermost clarifications are now user-confirmed. Outermost applies at the pack's mounting location, rather than forbidding compatible equipment elsewhere on the body. Content field names, layer counts, attachment counts and body-region lists are not frozen schemas by this document.
 
 ## Implementation boundary
 
 The current body has the earlier single-item mount slots and issued trousers, coat and back-mounted backpack. The UI replaces automatic pocket/pack columns with explicit inspection and parent/child navigation. It does not yet implement coverage layers, garment overlays on a rendered body, a flip control, front mounting, belt attachment definitions or dressing dependencies. Existing physical capacities, mass, equipment readiness, manipulation scheduling and save identity are unchanged.
 
-The future equipment slice should verify conflicting same-layer coverage, compatible socks/shoes, atomic multi-region suit fitting, blocked dressing dependencies, front/back distinction, recursive attachment load, inner-access policy and save/restore. It should also verify that both paperdoll and world sprites read the same equipped graph. Adding this design does not expand the current milestone's required content.
+The future equipment slice should verify conflicting same-layer coverage, compatible socks/shoes, atomic multi-region suit fitting, front/back distinction, recursive attachment load and save/restore. Dressing checks must reject covering a worn pack without moving items, allow the paid remove-pack → fit-suit → refit-pack sequence when compatible, and account for each conflicting front/back pack. Access checks must cover a closed jacket blocking inner pockets, opening it exposing only the appropriate locations, closing it invalidating those views, a sealed suit blocking covered equipment and timed/AP-bearing fastening changes. It should also verify that both paperdoll and world sprites read the same equipped graph. Adding this design does not expand the current milestone's required content.

@@ -76,6 +76,8 @@ A buried box remains in stock but its contents are not directly retrievable. An 
 
 Access to contents can differ from access to the container itself. A closed box may be carryable while its contents are not inspectable; a cabinet may allow a small item to be removed without enough clearance to extract a large case. Container definitions explicitly declare these distinctions.
 
+For worn storage, physically covering clothing blocks access to the equipment/pockets beneath it. A supported opening action, such as unfastening a jacket, reveals the relevant underlying clothing on the paperdoll and permits access at the exposed locations. Opening a garment, opening its pocket and displaying its inventory view are distinct operations. This confirmed rule is specified in [body equipment and container navigation](24-body-equipment-and-container-navigation.md); the current prototype has not yet implemented general garment coverage or fastening states.
+
 Knowing that stock exists is also separate from access. Sealed, unknown, or stale-manifest contents remain unknown or estimated according to actor knowledge. Console availability categories distinguish known on-hand, immediately accessible, reserved, in transit, blocked, and unknown stock. Location, accessibility, and allocation are separate facets: an on-site reserved item may also be accessible. Label those counts and do not add overlapping facets into a stock total. Unknown quantities never become exact inventory merely because a summary is requested.
 
 ## 5. Storage policy
