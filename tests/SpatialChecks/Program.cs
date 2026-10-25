@@ -129,6 +129,7 @@ passed += Scp650Checks.Run(json);
 passed += ComplacencyChecks.Run(json);
 passed += FieldPresentationChecks.Run(json);
 passed += AwarenessChecks.Run(json);
+passed += LookChecks.Run(json);
 passed += PathfindingChecks.Run(json);
 passed += OperationChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += EventLogChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));

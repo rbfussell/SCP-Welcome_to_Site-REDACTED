@@ -95,7 +95,7 @@ public partial class SpatialHud : Control
         _stopDirect = Toggle(_fieldPanel, "Stop on my anomaly sightings", sim.Awareness.StopOnDirectSight, value => sim.Awareness.StopOnDirectSight = value);
         _stopReports = Toggle(_fieldPanel, "Stop on communicated sightings", sim.Awareness.StopOnReports, value => sim.Awareness.StopOnReports = value);
         Line(_fieldPanel, "Keep it in sight.\n\nThe facility plan is known. People and SCP-650 are shown only when your character can see them. Looking away matters.", 14, Muted);
-        Line(_fieldPanel, "PROTOTYPE ENCOUNTER\n\nO  — interrupt Chen's watch\nRMB / Ctrl-click  — turn\nK  — blink\nE  — use nearest door\nShift-click  — move, keep facing", 13, Text);
+        Line(_fieldPanel, "PROTOTYPE ENCOUNTER\n\nO  — interrupt Chen's watch\nRMB / Ctrl-click  — stop and look\nK  — blink\nE  — use nearest door\nShift-click  — move, keep facing", 13, Text);
         Button(_fieldPanel, "Interrupt / restore Chen's watch   O", sim.ToggleObserverAttention);
         Button(_fieldPanel, "Global pause   Space", () => sim.ManualPause = !sim.ManualPause);
         Line(_fieldPanel, "F2   Diagnostics and module state\nF4   Art / diagnostic sprites\nM    Mute audio\nR     Reduce effects\nF5 / F9   Save / restore\nHome   Reset camera", 12, Muted);
@@ -104,7 +104,7 @@ public partial class SpatialHud : Control
         _footer = new Control { MouseFilter = MouseFilterEnum.Ignore }; AddChild(_footer);
         _status = At(_footer, "", new(28, 0), 13, Text);
         _coordinates = At(_footer, "", new(28, 25), 11, Green);
-        At(_footer, "Click move · RMB face · Shift-click keep facing · O observer · K blink · F2 diagnostics · M mute · R reduced effects", new(28, 47), 12, Muted);
+        At(_footer, "Click move · RMB stop/look · Shift-click keep facing · O observer · K blink · F2 diagnostics · M mute · R reduced effects", new(28, 47), 12, Muted);
         Layout();
     }
     public static void ToggleComplacency(SpatialSimulation sim)

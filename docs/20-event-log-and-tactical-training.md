@@ -32,6 +32,8 @@ All three existing characters receive training roles: the chosen opponent is on 
 | Use nearest door | E | 2 AP | 300 ms |
 | End turn | Enter or panel | Forfeit remaining AP | 300 ms local wait |
 
+Outside combat, RMB / Ctrl-click stops the current route at the exact interpolated position and then turns toward the target. Shift-click remains deliberate movement with maintained facing. During combat, an already committed paid action must finish before another facing action is accepted.
+
 Each turn grants 10 AP. Accepted actions reserve their cost exactly once; invalid, unaffordable, overlapping or out-of-turn commands change no authoritative action state. Facing and equipment shortcuts cannot bypass costs. A blocked paid route stops with generic feedback and refunds untravelled steps. A partially traversed hex consumes one step. Startle can delay physical movement; an action cannot end with unpaid movement still running. Equipment actions and attacks resolve at explicit checkpoints, independent of animation frames.
 
 During player selection, all local simulation waits: personnel, movement, blinks, startle, anomaly deadlines and containment work. The calendar/offsite coarse counter continues. Only the active actor's purchased movement advances during an action; anomalies and observation still evaluate at action boundaries/ticks. Passing a turn includes a short local wait so local recovery timers cannot become permanently stuck. Explicit Space pause still stops both clocks; F6 is an additional diagnostic local hold.

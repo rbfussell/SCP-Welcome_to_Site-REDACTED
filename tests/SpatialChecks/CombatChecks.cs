@@ -85,6 +85,9 @@ internal static class CombatChecks
         var moveAp = movement.Combat.For(movement.Player.Id)!.Ap;
         Check(moveAp == 9, "one hex costs one AP");
         movement.Tick(); movement.Tick(); var fractional = movement.Player.Position;
+        var pendingMove = movement.Save();
+        movement.Face(new Hex(8, 3).World);
+        Check(movement.Save() == pendingMove, "look during an already paid tactical move cannot cancel or turn for free");
         var movementClone = new SpatialSimulation(map); movementClone.Restore(movement.Save());
         Check(movementClone.Player.Position == fractional, "tactical save retains interpolation progress");
         for (var i = 0; i < 4; i++) { movement.Tick(); movementClone.Tick(); }

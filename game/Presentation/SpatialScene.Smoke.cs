@@ -60,6 +60,8 @@ public partial class SpatialScene
                     // Place the avatar for a reproducible look-away/discovery input fixture.
                     // This is test setup only; the module still owns the statue's actual destination.
                     SmokeKey(Key.F6);
+                    Input.FlushBufferedEvents();
+                    if (_simulation.LocalHold) throw new InvalidOperationException("Fixture must release local hold before authoring movement.");
                     var statue = _simulation.Anomalies.Bodies.Single();
                     var neighbor = Enumerable.Range(0, 6).Select(statue.Cell.Neighbor).Where(c => _simulation.Map.Walkable(c)
                         && !_simulation.Actors.Any(a => a.Cell == c) && _simulation.Map.ClearSight(c.World, statue.Cell.World))
@@ -74,13 +76,28 @@ public partial class SpatialScene
                         && _simulation.Map.CanTraverse(_simulation.Player.Cell, p[0])
                         && !_simulation.Actors.Where(a => a != _simulation.Player).Any(a => a.Cell == p[0]
                             || a.Moving && a.Route[0] == p[0] || a.StoppedStep?.Next == p[0]));
+                    _simulation.Face(_simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World));
                     _simulation.Player.Route = walking.ToList(); _simulation.Player.SegmentMs = 100; _simulation.Player.KeepFacing = true;
                     _simulation.Player.MoveGoal = walking[^1]; _simulation.Player.BumpedCells.Clear();
-                    _simulation.Face(_simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World));
                     _feedback.Reset(_simulation); _audio.Reset();
                     if (FieldPresentation.ShowAnomaly(_simulation, statue, false))
                         throw new InvalidOperationException("Field view exposed a statue behind the avatar.");
                     _smokeStopPoint = _simulation.Player.Position; _smokeStopLocalMs = _simulation.LocalMs;
+                    var walkingSave = _simulation.Save();
+                    _simulation.Awareness.StopOnDirectSight = false;
+                    RefreshCamera();
+                    var ordinaryLookTarget = _world.GetGlobalTransform() * WorldView.Screen(
+                        _simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World) * 0.25);
+                    if (!_hud.Field.GetGlobalRect().HasPoint(ordinaryLookTarget))
+                        throw new InvalidOperationException("Ordinary look fixture must click inside the field.");
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = ordinaryLookTarget, ButtonIndex = MouseButton.Right, Pressed = true });
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = ordinaryLookTarget, ButtonIndex = MouseButton.Right, Pressed = false });
+                    Input.FlushBufferedEvents();
+                    if (_simulation.Player.Moving || _simulation.Player.Position != _smokeStopPoint
+                        || _simulation.Player.MoveGoal is not null || _simulation.Player.StoppedStep?.ProgressMs != 100)
+                        throw new InvalidOperationException("Ordinary RMB look must stop exactly even with both anomaly-stop settings disabled.");
+                    _simulation.Restore(walkingSave);
+                    _feedback.Reset(_simulation); _audio.Reset();
                     var sightTarget = _world.GetGlobalTransform() * WorldView.Screen(statue.Cell.World);
                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = true });
                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = false });
@@ -88,10 +105,10 @@ public partial class SpatialScene
                 case 6:
                     if (!_world.FieldView || _feedback.Discoveries != 1 || _audio.PlayedDiscoveries != 1
                         || !FieldPresentation.ShowAnomaly(_simulation, _simulation.Anomalies.Bodies.Single(), false))
-                        throw new InvalidOperationException("Actual avatar discovery did not reveal the statue with one presentation cue.");
+                        throw new InvalidOperationException($"Actual avatar discovery did not reveal the statue with one presentation cue: discoveries={_feedback.Discoveries}, audio={_audio.PlayedDiscoveries}, visible={FieldPresentation.ShowAnomaly(_simulation, _simulation.Anomalies.Bodies.Single(), false)}, moving={_simulation.Player.Moving}, facing={_simulation.Player.Facing}, message={_simulation.LastMessage}.");
                     if (_simulation.Player.Moving || _simulation.Player.Route.Count != 0 || _simulation.Player.Position != _smokeStopPoint
                         || _simulation.Player.StoppedStep is null || _simulation.ManualPause || _simulation.LocalHold || _simulation.LocalMs <= _smokeStopLocalMs)
-                        throw new InvalidOperationException("Anomaly sensing must stop exactly in place, clear the path and keep the simulation running.");
+                        throw new InvalidOperationException("RMB look must stop exactly in place, clear the path and keep the simulation running.");
                     _simulation.Awareness.StopOnReports = true;
                     _smokeSave = _simulation.Save();
                     SmokeKey(Key.J);
@@ -146,7 +163,7 @@ public partial class SpatialScene
                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                     var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-sight.png");
                     if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException("Sight screenshot failed.");
-                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, RMB discovery and exact shared movement stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, F4 reversible full-art swap with unchanged held state, field/diagnostic/placeholder/sight screenshots.");
+                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, ordinary RMB look stop with anomaly interruption disabled, RMB discovery and exact look stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, F4 reversible full-art swap with unchanged held state, field/diagnostic/placeholder/sight screenshots.");
                     GetTree().Quit();
                     return;
             }

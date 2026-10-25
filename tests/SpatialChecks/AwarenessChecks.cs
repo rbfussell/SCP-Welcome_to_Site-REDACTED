@@ -30,6 +30,13 @@ internal static class AwarenessChecks
         var heardClone = new SpatialSimulation(json); heardClone.Restore(heard.Save());
         Check(heardClone.Save() == heard.Save(), "an uncertain sound contact must persist without inventing an authoritative source entity");
 
+        void DiscoverWhileWalking(SpatialSimulation sim)
+        {
+            // Sensor fixture: change attention without issuing the player's stop-and-look command.
+            sim.Player.Facing = ObservationService.FacingToward(sim.Player.Position, sim.Anomalies.Bodies.Single().Cell.World, sim.Player.Facing);
+            sim.Player.KeepFacing = true;
+            sim.Tick();
+        }
         SpatialSimulation Setup(int ticks, bool trigger = true)
         {
             var sim = new SpatialSimulation(json);
@@ -39,12 +46,13 @@ internal static class AwarenessChecks
             Check(sim.RequestMove(new(14, -2), true), "fixture needs an ordinary multi-step route away from the anomaly");
             for (var i = 0; i < ticks; i++) sim.Tick();
             Check(sim.Player.Moving && sim.Player.SegmentMs == ticks * SpatialSimulation.TickMs, "walking setup must reach its expected fractional progress");
-            if (trigger) sim.Face(sim.Anomalies.Bodies.Single().Cell.World);
+            if (trigger) DiscoverWhileWalking(sim);
             return sim;
         }
         var sim = Setup(2, false);
-        var position = sim.Player.Position; var local = sim.LocalMs; var world = sim.WorldMs;
-        sim.Face(sim.Anomalies.Bodies.Single().Cell.World);
+        var position = sim.Player.Position;
+        DiscoverWhileWalking(sim);
+        var local = sim.LocalMs; var world = sim.WorldMs;
         Check(!sim.Player.Moving && sim.Player.Route.Count == 0 && sim.Player.SegmentMs == 0, "sighting must clear path and active destination immediately");
         Check(sim.Player.Position == position && sim.Player.StoppedStep?.ProgressMs == 100, "stop must retain exact fractional position without snapping or finishing a step");
         Check(!sim.ManualPause && !sim.LocalHold, "a movement interruption cannot pause the game or local area");

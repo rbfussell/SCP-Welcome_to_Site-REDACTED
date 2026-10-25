@@ -172,9 +172,14 @@ public sealed class SpatialSimulation
             return;
         }
         if (!Ready("Attention change")) return;
+        // A look command ends travel immediately; Shift-click is the explicit keep-facing move.
+        var wasMoving = Player.Moving;
+        MovementSystem.StopInPlace(Player);
         Player.Facing = ObservationService.FacingToward(Player.Position, target, Player.Facing);
         Player.KeepFacing = true;
-        Changed("perception", Player.Id, "facing-changed", "Attention changed independently of movement.");
+        if (wasMoving)
+            _world.Log("movement", Player.Id, "look-stop", "Look command cleared the route; fractional position retained.");
+        Changed("perception", Player.Id, "facing-changed", wasMoving ? "Movement stopped · looking toward target." : "Looking toward target.");
     }
     public void ToggleObserverAttention()
     {

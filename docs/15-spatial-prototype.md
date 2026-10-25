@@ -23,7 +23,7 @@ Tested: Godot `4.7.1.stable.mono.official.a13da4feb`, .NET SDK `8.0.128`, runtim
 | Input | Prototype behavior |
 |---|---|
 | Left click floor | Commit a reachable hex route; finish/cancel before replacing a moving route |
-| Right click / Ctrl-click | Set facing/attention independently; temporary diagnostic binding, not final targeting controls |
+| Right click / Ctrl-click | Stop current travel exactly in place, then face the target; Shift-click explicitly moves while keeping facing |
 | Shift-click floor | Move while maintaining facing |
 | E | Open/close a nearby door; occupied/crossing doors cannot close |
 | O / K / F8 | Change Chen's attention / blink the avatar / toggle prototype lighting |
