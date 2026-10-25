@@ -104,3 +104,7 @@ An authored retention policy may carry over selected memory or a limited restart
 This supports a deliberate “restart the day” mechanic without promising arbitrary temporal paradoxes, local partial rewinds or compatibility with every future mod. M3 proves one synthetic checkpoint-based anomaly and one successor handover before a specific production SCP or difficulty preset uses them.
 
 Related requirements: CTL-01 through CTL-04, TIME-01 through TIME-02, TAC-01 through TAC-03, ROLE-01 through ROLE-02 and CONT-01 through CONT-03 in [scope and acceptance](04-scope-and-acceptance.md).
+
+## Personal inventory interaction follow-on
+
+The user confirms that opening personal inventory keeps realtime simulation running. Inspecting/selecting/preview rotation is free; actual retrieval, placement, clothing and device handling take local time and use different AP costs in combat according to their physical source/destination compartments. A trouser pocket, backpack side pocket and main section can differ. Object sprites rotate within physically relevant grids; card-like reference artwork is not the appearance target. The [native inventory slice](23-personal-inventory-prototype.md) implements these bounded rules; the field phone retains its separately approved automatic pause.

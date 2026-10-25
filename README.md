@@ -98,3 +98,5 @@ The spatial subset of M0 and a bounded SCP-650 coordination/recovery proof are r
 [The OSCP runtime guide](docs/21-oscp-runtime-prototype.md) covers the CRT workstation (**T** at the terminal), field phone (**P**, automatic single-player pause and orders submitted on close), native applications, received records and shared commands. Launch independently with `python3 tools/run_spatial_scene.py --mode oscp` or `--mode phone`.
 
 The [employment prototype](docs/22-employment-prototype.md) adds Chen/Ortiz appointments, short local test shifts, physical relief, bounded overtime and report-based OSCP staffing. Use **Return to scheduled duty** or `order tech duty` to release direct orders. These fixtures do not complete the full profession/needs/calendar systems.
+
+The [personal inventory prototype](docs/23-personal-inventory-prototype.md) opens with **I**. It uses rendered object sprites, rotating physical packing, worn storage and nested containers. The world continues while inspecting; moving equipment takes time and source-dependent AP in combat. Actual handset/radio access now depends on the same item graph.

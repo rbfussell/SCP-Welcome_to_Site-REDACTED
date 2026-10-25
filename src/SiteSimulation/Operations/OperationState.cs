@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace SiteSimulation;
 
 public sealed record OperationDefinition(string SubjectId, Hex Home, string[] AccessDoors, Hex[] Posts,
-    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000, bool FieldPhoneIssued = true, bool RegionalIntakeEnabled = false, EmploymentDefinition? Employment = null);
+    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000, bool FieldPhoneIssued = true, bool RegionalIntakeEnabled = false, EmploymentDefinition? Employment = null, string? InventoryProfile = null);
 public sealed record ActorStart(string ActorId, Hex Cell, int Facing);
 public enum PersonnelTask { Observe, Follow, Post, Transport, ResumeDuty }
 public enum OrderStatus { Pending, Active, Blocked, Complete, Cancelled }

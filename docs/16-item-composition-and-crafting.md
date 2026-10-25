@@ -1,6 +1,6 @@
 # Item composition, materials and crafting
 
-Status: Confirmed architectural direction with proposed contracts, October 22, 2026. Recorded alongside the SCP-650 implementation; no inventory/crafting runtime or extra M1 content is implemented by this document. The user's examples explain desired flexibility, not mandatory recipes or claims about SCP canon.
+Status: Confirmed architectural direction with proposed contracts, October 22, 2026. Recorded alongside the SCP-650 implementation; this document does not implement crafting or add M1 content. A later [personal inventory slice](23-personal-inventory-prototype.md) now implements real envelopes, nested membership, mass, access and timed handling; divisible materials/composition/crafting below remain future contracts. The user's examples explain desired flexibility, not mandatory recipes or claims about SCP canon.
 
 ## One inventory model, several views
 

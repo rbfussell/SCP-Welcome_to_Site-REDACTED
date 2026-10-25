@@ -45,6 +45,7 @@ internal static class CombatSaveCodec
                 CombatActionKind.Reload => action.Cost == CombatState.ReloadCost && action.TotalMs == 900
                     && s.Participants[s.Cursor].Ammo < 6 && s.Participants[s.Cursor].ReserveAmmo > 0,
                 CombatActionKind.Door => action.Cost == 2 && action.TotalMs == 300 && world.Map.Definition.Walls.Any(w => w.Id == action.TargetId && w.Door),
+                CombatActionKind.Inventory => action.ActorId == world.Player.Id && action.Cost > 0,
                 CombatActionKind.Wait => action.TotalMs == 300 && s.Participants[s.Cursor].Ap == 0,
                 _ => false
             };

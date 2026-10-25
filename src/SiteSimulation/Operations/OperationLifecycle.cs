@@ -58,12 +58,12 @@ internal static class OperationLifecycle
             // Seeing the empty receiving footprint is evidence of absence, not of the subject's hidden location.
             witness = world.Actors.FirstOrDefault(a => ObservationService.Inspect(world.Map, a, d.Home.World, world.LocalMs).Detected);
             if (witness is not null && !atHome && (FacilityCommunications.Voice(world, witness, world.Player)
-                || (state.TerminalPowered || OscpService.PhoneAvailable(world)) && FacilityCommunications.Radio(state, witness.Id)))
+                || (state.TerminalPowered || OscpService.PhoneAvailable(world)) && FacilityCommunications.Radio(world, witness.Id)))
                 state.Report(world, witness.Name, "Receiving footprint empty · subject location unconfirmed",
                     source: FacilityCommunications.Voice(world, witness, world.Player) ? "voice" : "radio");
             return;
         }
-        if (FacilityCommunications.Voice(world, witness, world.Player) || (state.TerminalPowered || OscpService.PhoneAvailable(world)) && FacilityCommunications.Radio(state, witness.Id))
+        if (FacilityCommunications.Voice(world, witness, world.Player) || (state.TerminalPowered || OscpService.PhoneAvailable(world)) && FacilityCommunications.Radio(world, witness.Id))
             state.Report(world, witness.Name, $"Containment assessment: {status}", body.Position,
                 source: FacilityCommunications.Voice(world, witness, world.Player) ? "voice" : "radio");
     }

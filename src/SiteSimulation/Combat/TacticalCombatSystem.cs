@@ -25,6 +25,7 @@ internal static class TacticalCombatSystem
         if (!state.Roster.Any(c => c.Side == "opposition" && world.Player.Cell.Distance(Actor(world, c.ActorId).Cell) <= CombatState.EngagementHexes
             && PlayerFeedback.Sees(world, Actor(world, c.ActorId)))) return;
         // The facade evaluates due anomaly effects before reaching this scheduler. Entry is not a proximity shield.
+        InventoryActions.Cancel(world, "Combat began; reissue handling as a paid action");
         foreach (var actor in world.Actors) MovementSystem.StopInPlace(actor);
         ObservedTransportSystem.Interrupt(world);
         state.Active = true; state.Round = 1;
@@ -59,6 +60,8 @@ internal static class TacticalCombatSystem
         reason = $"{kind} · {cost} AP";
         return true;
     }
+    public static bool HandleInventory(SimulationWorld world, int cost, int duration, out string reason)
+        => Commit(world, world.Player.Id, CombatActionKind.Inventory, cost, duration, out reason);
     public static bool Move(SimulationWorld world, string actorId, Hex destination, bool keepFacing, out string reason)
     {
         if (!CanAct(world, actorId, out reason)) return false;

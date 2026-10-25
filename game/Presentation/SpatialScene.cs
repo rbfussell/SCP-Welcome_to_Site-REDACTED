@@ -22,14 +22,15 @@ public partial class SpatialScene : Node2D
     private string? _smokeSave;
     private string? _notice;
     private double _noticeSeconds;
-    private bool _operationSmoke, _combatSmoke;
+    private bool _operationSmoke, _combatSmoke, _inventorySmoke, _inventorySmokeRunning, _inventorySmokeQuit;
 
     public override void _Ready()
     {
         var args = OS.GetCmdlineUserArgs();
         _operationSmoke = args.Contains("--operation-smoke");
+        _inventorySmoke = args.Contains("--inventory-smoke");
         _combatSmoke = args.Contains("--combat-smoke");
-        var legacySmoke = args.Contains("--scene-smoke") && !_operationSmoke;
+        var legacySmoke = args.Contains("--scene-smoke") && !_operationSmoke && !_inventorySmoke;
         _simulation = new(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"),
             legacySmoke ? null : Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
         _runtime = new(_simulation);
@@ -56,6 +57,8 @@ public partial class SpatialScene : Node2D
     private void ResetCamera() { _pan = Vector2.Zero; _zoom = _world.FieldView ? 1.75f : 1.25f; }
     public override void _Process(double delta)
     {
+        if (_inventorySmokeQuit)
+        { GC.Collect(); GC.WaitForPendingFinalizers(); GetTree().Quit(); return; }
         _runtime.Advance(delta);
         RefreshCamera();
         UpdateEncounter();
@@ -70,7 +73,7 @@ public partial class SpatialScene : Node2D
         _hud.Refresh(_simulation, _world, hover, ground, _zoom,
             _noticeSeconds > 0 ? _notice : _world.FieldView ? audioState + " · " + _simulation.LastMessage : null);
         _world.QueueRedraw();
-        if (_capturePath is not null) { if (_combatSmoke) CombatSmokeStep(); else if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }
+        if (_capturePath is not null) { if (_inventorySmoke) { if (!_inventorySmokeRunning && ++_smokeFrame == 12) { _inventorySmokeRunning = true; RunInventorySmoke(); } } else if (_combatSmoke) CombatSmokeStep(); else if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }
     }
     private void UpdateEncounter()
     {
@@ -97,11 +100,14 @@ public partial class SpatialScene : Node2D
     }
     public override void _Input(InputEvent e)
     {
+        if (_hud.Inventory.IsOpen && e is InputEventKey { Pressed: true, Keycode: Key.Escape })
+        { _hud.Inventory.Close(); GetViewport().SetInputAsHandled(); return; }
         if (_hud.Workspace.IsOpen && e is InputEventKey { Pressed: true, Keycode: Key.Escape })
         { _hud.Workspace.Close(); GetViewport().SetInputAsHandled(); }
     }
     public override void _UnhandledInput(InputEvent e)
     {
+        if (_hud.Inventory.IsOpen) { _hud.Inventory.HandleInput(e); return; }
         if (_hud.Workspace.IsOpen) { _hud.Workspace.HandleInput(e); return; }
         if (e is InputEventMouseMotion motion && _hud.Field.GetGlobalRect().HasPoint(motion.Position)
             && Input.IsMouseButtonPressed(MouseButton.Middle)) _pan += motion.Relative;
@@ -129,6 +135,7 @@ public partial class SpatialScene : Node2D
         if (e is not InputEventKey { Pressed: true, Echo: false } key) return;
         switch (key.Keycode)
         {
+            case Key.I: _hud.Workspace.Close(); _hud.Inventory.Toggle(); break;
             case Key.Enter: _simulation.EndTurn(); break;
             case Key.V: _simulation.UseTrainingEquipment(CombatActionKind.ReadyWeapon); break;
             case Key.Y: _simulation.UseTrainingEquipment(CombatActionKind.Reload); break;

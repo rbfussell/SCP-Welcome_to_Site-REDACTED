@@ -7,7 +7,8 @@ public sealed record OscpAccess(bool Available, bool Connected, bool CanCommand,
 internal static class OscpService
 {
     public static bool PhoneAvailable(SimulationWorld world) => world.Operations.Definition is not null
-        && world.Operations.Phone is { Issued: true, Powered: true, Accessible: true } phone && phone.ActorId == world.Player.Id;
+        && world.Operations.Phone is { Issued: true, Powered: true, Accessible: true } phone && phone.ActorId == world.Player.Id
+        && (!world.Inventory.Enabled || InventoryAccessService.Capability(world, world.Player.Id, "field-phone"));
     public static bool WorkstationAvailable(SimulationWorld world) => world.Operations.Definition is { } d
         && world.Operations.TerminalPowered && Point2.Distance(world.Player.Position, d.Terminal.World) <= 1.35
         && world.Map.ClearSight(world.Player.Position, d.Terminal.World);

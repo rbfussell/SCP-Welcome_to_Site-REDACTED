@@ -1,6 +1,6 @@
 namespace SiteSimulation;
 
-public enum CombatActionKind { Move, Face, ReadyWeapon, Fire, Reload, Door, Wait }
+public enum CombatActionKind { Move, Face, ReadyWeapon, Fire, Reload, Door, Wait, Inventory }
 public sealed record Combatant(string ActorId, string Side, int Initiative, int Ap = 0, int Points = 6,
     bool WeaponReady = false, int Ammo = 6, int ReserveAmmo = 12);
 public sealed record CombatContact(string ObserverId, string TargetId, Point2 Position, long LocalMs);

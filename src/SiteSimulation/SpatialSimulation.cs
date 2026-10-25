@@ -1,7 +1,7 @@
 namespace SiteSimulation;
 
 /// <summary>Small orchestration facade. Rules live in named movement/perception/anomaly/save systems.</summary>
-public sealed class SpatialSimulation
+public sealed partial class SpatialSimulation
 {
     public const int TickMs = 50;
     public const int StepDurationMs = 300;
@@ -44,6 +44,12 @@ public sealed class SpatialSimulation
     {
         var result = TacticalCombatSystem.Fire(_world, Player.Id, targetId, out var reason); LastMessage = reason; return result;
     }
+    public bool TryUseOscpDevice(OscpDevice device)
+    {
+        var access = OscpAccess(device);
+        if (!access.Available) LastMessage = access.Status;
+        return access.Available;
+    }
     public OscpAccess OscpAccess(OscpDevice device) => OscpService.Access(_world, device);
     public IReadOnlyList<OperationReport> OscpRecords => OscpService.Records(_world);
     public bool IssueOscpOrder(OscpDevice device, string actorId, PersonnelTask task, Hex destination)
@@ -68,15 +74,18 @@ public sealed class SpatialSimulation
     {
         _mapJson = json;
         _operationJson = operationJson;
-        _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(
-            operationJson is null ? json : json + "\nOPERATION\n" + operationJson)));
         _world = new(json, operationJson);
+        _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(
+            (operationJson is null ? json : json + "\nOPERATION\n" + operationJson)
+            + (_world.Inventory.Enabled ? "\nINVENTORY\n" + _world.Inventory.ContentJson : ""))));
         _world.Anomalies.Evaluate(_world, "initialize");
         EvaluatePlayerAwareness();
         if (Operations.Definition is not null) LastMessage = "Observation shift active · local voice orders or approach OSCP terminal.";
     }
     private bool Ready(string action)
     {
+        if (Inventory.Pending is not null && action is not ("Movement" or "Attention change"))
+        { LastMessage = "Finish or cancel the inventory action first."; return false; }
         if (_world.LocalActive && !Combat.Active) return true;
         LastMessage = action + (Combat.Active ? " requires a paid tactical action on your turn." : " is held with local simulation.");
         return false;
@@ -167,6 +176,7 @@ public sealed class SpatialSimulation
         if (Player.Moving) { LastMessage = "Finish this route first (Esc cancels at the next hex)."; return false; }
         var path = PreviewPath(destination);
         if (path.Count == 0) { LastMessage = "No closer reachable position on the known facility plan."; return false; }
+        InventoryActions.Cancel(_world, "Movement requested");
         MovementSystem.CommitRoute(Player, path, keepFacing, destination);
         Changed("movement", Player.Id, "route-committed", $"Route committed: {path.Count} hexes; {(keepFacing ? "maintain attention" : "face movement")}.");
         return true;
@@ -188,6 +198,7 @@ public sealed class SpatialSimulation
         }
         if (!Ready("Attention change")) return;
         // A look command ends travel immediately; Shift-click is the explicit keep-facing move.
+        InventoryActions.Cancel(_world, "Attention changed");
         var wasMoving = Player.Moving;
         MovementSystem.StopInPlace(Player);
         Player.Facing = ObservationService.FacingToward(Player.Position, target, Player.Facing);
@@ -243,6 +254,7 @@ public sealed class SpatialSimulation
         // Due anomaly effects precede detection/entry: an unseen lethal event is never held just for proximity.
         Anomalies.Evaluate(_world, "local-timer");
         EvaluatePlayerAwareness();
+        InventoryActions.Advance(_world);
         if (Combat.Active)
         {
             var actor = Actors.Single(a => a.Id == Combat.CurrentActorId);

@@ -1,6 +1,8 @@
 # Physical storage and delegated logistics
 
-Status: Proposed implementation contract, revision 0.3. Hierarchical storage, specialized layouts, physical accessibility, console sorting, and consolidation preferences are user-confirmed direction. Numeric implementation limits below are proposals. This document extends [the game design](01-game-design.md), [simulation](02-simulation-and-world.md), and [acceptance plan](04-scope-and-acceptance.md).
+Status: Proposed implementation contract, revision 0.4. Hierarchical storage, specialized layouts, physical accessibility, console sorting, and consolidation preferences are user-confirmed direction. Numeric implementation limits below are proposals. This document extends [the game design](01-game-design.md), [simulation](02-simulation-and-world.md), and [acceptance plan](04-scope-and-acceptance.md).
+
+The October 25 [personal inventory prototype](23-personal-inventory-prototype.md) implements worn/held mounts, separate pockets, backpack sections, nested cases/packets, physical packing, timed handling and nearby crate transfers. Specialized racks, mixed shelves, pallets and delegated logistics remain proposed.
 
 ## 1. Player experience
 
@@ -137,3 +139,5 @@ Save parent relationships, region placements, per-column stack order, policies, 
 The revised M1 proposal includes the four wearable containers, one four-mount long-gun rack, one four-mount pistol rack, one cabinet with three box bays and a shared loose-item shelf, one 27-box pallet, and one parked vehicle cargo compartment. At most two staff execute hauling simultaneously, drawn from the existing site population. Generic boxes reuse one definition and may contain different compatible stock.
 
 This proves shaped slots, mixed-scale occupancy, a two-level facility container hierarchy, buried-box access, priority/consolidation, and equivalent manual/console results. Powered vehicle movement, general 3D packing, loaded-furniture moving, and an optimized warehouse scheduler remain excluded from M1. Acceptance requirements STO-01 through STO-10 are in the scope document.
+
+The user confirms realtime personal inventory with actual handling time and compartment-specific AP in fights. References guide grid/location relevance and rotation; the visual target is rendered object sprites, without item cards.

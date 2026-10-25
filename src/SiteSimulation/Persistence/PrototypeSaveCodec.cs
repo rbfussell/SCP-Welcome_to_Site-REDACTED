@@ -5,23 +5,23 @@ namespace SiteSimulation;
 internal sealed record SpatialSnapshot(int Version, string MapIdentity, long WorldMs, long LocalMs, bool LocalHold, bool ManualPause,
     int Speed, string[] OpenDoors, ActorState[] Actors, int PatrolIndex, bool LightsOn,
     AnomalyBodySnapshot[] Bodies, ModuleSnapshot[] Modules, TraceSnapshot Trace, AwarenessSnapshot? Awareness = null, OperationSnapshot? Operations = null,
-    EventLogSnapshot? Events = null, CombatSnapshot? Combat = null, EmploymentSnapshot? Employment = null);
+    EventLogSnapshot? Events = null, CombatSnapshot? Combat = null, EmploymentSnapshot? Employment = null, InventorySnapshot? Inventory = null);
 
 /// <summary>Explicit schema and detached restore transaction. Earlier prototype saves are rejected.</summary>
 internal static class PrototypeSaveCodec
 {
-    public static string Capture(SimulationWorld world, string identity) => JsonSerializer.Serialize(new SpatialSnapshot(6, identity,
+    public static string Capture(SimulationWorld world, string identity) => JsonSerializer.Serialize(new SpatialSnapshot(7, identity,
         world.WorldMs, world.LocalMs, world.LocalHold, world.ManualPause, world.Speed, world.Map.OpenDoors.Order().ToArray(),
-        world.Actors.ToArray(), world.PatrolIndex, world.Map.LightsOn, world.Anomalies.CaptureBodies(), world.Anomalies.CaptureModules(), world.Trace.Capture(), world.Awareness.Capture(), world.Operations.Definition is null ? null : world.Operations.Capture(), world.Events.Capture(), world.Combat.Capture(), world.Employment.Definition is null ? null : world.Employment.Capture()));
+        world.Actors.ToArray(), world.PatrolIndex, world.Map.LightsOn, world.Anomalies.CaptureBodies(), world.Anomalies.CaptureModules(), world.Trace.Capture(), world.Awareness.Capture(), world.Operations.Definition is null ? null : world.Operations.Capture(), world.Events.Capture(), world.Combat.Capture(), world.Employment.Definition is null ? null : world.Employment.Capture(), world.Inventory.Enabled ? world.Inventory.Capture() : null));
 
     public static SimulationWorld Restore(string json, string mapJson, string identity, string? operationJson = null)
     {
         var s = JsonSerializer.Deserialize<SpatialSnapshot>(json) ?? throw new ArgumentException("Empty prototype save.");
-        if (s.Version is not (2 or 3 or 4 or 5 or 6) || s.Version >= 3 && s.Awareness is null || s.Version >= 5 && (s.Events is null || s.Combat is null)
+        if (s.Version is not (2 or 3 or 4 or 5 or 6 or 7) || s.Version >= 3 && s.Awareness is null || s.Version >= 5 && (s.Events is null || s.Combat is null)
             || operationJson is not null && s.Version < 4 || s.MapIdentity != identity || s.WorldMs < 0 || s.LocalMs < 0 || s.LocalMs > s.WorldMs
             || s.WorldMs % SpatialSimulation.TickMs != 0 || s.LocalMs % SpatialSimulation.TickMs != 0
             || s.Speed is not (1 or 2 or 4) || s.PatrolIndex < 0 || s.Actors is null || s.OpenDoors is null || s.Actors.Any(a => a is null))
-            throw new ArgumentException("Incompatible or invalid prototype save (requires schema 2/3/4/5/6 and matching content).");
+            throw new ArgumentException("Incompatible or invalid prototype save (requires schema 2/3/4/5/6/7 and matching content).");
         var candidate = new SimulationWorld(mapJson, operationJson);
         if (!s.Actors.Select(a => a.Id).Order().SequenceEqual(candidate.Actors.Select(a => a.Id).Order())
             || s.OpenDoors.Any(id => !candidate.Map.Definition.Walls.Any(w => w.Id == id && w.Door))
@@ -76,6 +76,7 @@ internal static class PrototypeSaveCodec
             CombatSaveCodec.Restore(candidate, s.Combat!);
         }
         else foreach (var report in candidate.Operations.ReceivedReports) candidate.Events.Once("report:" + report.Id);
+        InventorySaveCodec.Restore(candidate, s.Inventory);
         return candidate;
     }
 }

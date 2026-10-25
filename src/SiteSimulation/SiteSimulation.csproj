@@ -5,4 +5,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Inventory/Content/field-kit.json" />
+  </ItemGroup>
 </Project>

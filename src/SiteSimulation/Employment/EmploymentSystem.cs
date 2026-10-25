@@ -145,7 +145,7 @@ internal static class EmploymentSystem
             var previous = world.Employment.Reports.SingleOrDefault(r => r.ActorId == duty.ActorId);
             if (previous is not null && previous.Phase == duty.Phase && previous.Reason == duty.Reason) continue;
             var voice = FacilityCommunications.Voice(world, actor, world.Player);
-            if (!voice && !(OscpService.ReceivesRadio(world) && FacilityCommunications.Radio(world.Operations, actor.Id))) continue;
+            if (!voice && !(OscpService.ReceivesRadio(world) && FacilityCommunications.Radio(world, actor.Id))) continue;
             world.Employment.Reports.RemoveAll(r => r.ActorId == actor.Id);
             world.Employment.Reports.Add(new(actor.Id, duty.Phase, duty.Reason, world.LocalMs));
             world.Operations.Report(world, actor.Name, $"Employment: {duty.Phase} · {duty.Reason}", source: voice ? "voice" : "radio");

@@ -109,5 +109,6 @@
         "maxOvertimeMs": 20000
       }
     ]
-  }
+  },
+  "inventoryProfile": "field-kit-v1"
 }

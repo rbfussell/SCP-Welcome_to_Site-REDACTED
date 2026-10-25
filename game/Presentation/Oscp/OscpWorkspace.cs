@@ -112,7 +112,7 @@ public partial class OscpWorkspace : Control
     public bool Open(OscpDevice device)
     {
         var access = _sim.OscpAccess(device);
-        if (!access.Available) return false;
+        if (!access.Available) { _sim.TryUseOscpDevice(device); return false; }
         if (IsOpen && Device == OscpDevice.Phone && device != OscpDevice.Phone) CompletePhoneSession(true);
         Device = device; _frame.Device = device;
         if (device == OscpDevice.Phone && !_sim.ManualPause)

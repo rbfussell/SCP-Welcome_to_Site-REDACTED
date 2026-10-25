@@ -5,8 +5,9 @@ internal static class FacilityCommunications
 {
     public static bool Voice(SimulationWorld world, ActorState a, ActorState b) => Point2.Distance(a.Position, b.Position) <= 4
         && world.Map.ClearSight(a.Position, b.Position);
-    public static bool Radio(OperationState state, string actorId) => state.NetworkOnline
-        && state.Radios.Any(r => r.ActorId == actorId && r.Powered);
+    public static bool Radio(SimulationWorld world, string actorId) => world.Operations.NetworkOnline
+        && world.Operations.Radios.Any(r => r.ActorId == actorId && r.Powered)
+        && (!world.Inventory.Enabled || InventoryAccessService.Capability(world, actorId, "site-radio"));
     public static bool TerminalReachable(SimulationWorld world) => OscpService.WorkstationAvailable(world) && world.Operations.NetworkOnline;
     public static bool Link(SimulationWorld world, PersonnelOrder order)
     {
@@ -14,7 +15,7 @@ internal static class FacilityCommunications
         var recipient = world.Actors.Single(a => a.Id == order.ActorId);
         return order.Channel == "voice" ? Voice(world, issuer, recipient)
             : (order.Channel == "phone" ? OscpService.PhoneAvailable(world) && world.Operations.NetworkOnline : TerminalReachable(world))
-                && Radio(world.Operations, recipient.Id);
+                && Radio(world, recipient.Id);
     }
     public static void SenseAndReport(SimulationWorld world)
     {
@@ -31,7 +32,7 @@ internal static class FacilityCommunications
             if (sent is not null && sent.Encounter == subject.Revision && sent.Position is { } prior
                 && Point2.Distance(prior, subject.Position) < 0.5) continue;
             if (actor == world.Player) continue; // Direct player perception has its own acquired-evidence ledger.
-            if (!Voice(world, actor, world.Player) && !((state.TerminalPowered || OscpService.PhoneAvailable(world)) && Radio(state, actor.Id))) continue;
+            if (!Voice(world, actor, world.Player) && !((state.TerminalPowered || OscpService.PhoneAvailable(world)) && Radio(world, actor.Id))) continue;
             state.Report(world, actor.Name, $"SCP sighting at {subject.Position.X:0.0}, {subject.Position.Y:0.0} · encounter {subject.Revision}",
                 subject.Position, subject.Id, subject.Revision, Voice(world, actor, world.Player) ? "voice" : "radio");
 

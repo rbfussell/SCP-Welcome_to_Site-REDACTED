@@ -1,0 +1,227 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "transparentBackground": true,
+  "promptTemplate": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: {subject}. Exactly one object, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
+  "assets": [
+    {
+      "id": "phone",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-d8d9b3cf-e1d9-4c5a-a95f-663cfdfa3576.png",
+      "subject": "a single rugged black secure mobile phone, front face, muted green glass screen, physical side buttons",
+      "file": "phone.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        227,
+        72,
+        570,
+        1378
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "radio",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-7d957691-27af-480e-98d1-c4902eeb5fef.png",
+      "subject": "a single black handheld security radio with short antenna, small green display, belt clip, tactile buttons",
+      "file": "radio.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        224,
+        29,
+        566,
+        1471
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "backpack",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-560cdc0d-7aa7-4673-8676-c95bc1cc470f.png",
+      "subject": "a single olive canvas field backpack, viewed from front with a main zip compartment and a distinct side pocket",
+      "file": "backpack.png",
+      "size": [
+        1270,
+        1239
+      ],
+      "region": [
+        145,
+        83,
+        935,
+        1093
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "trousers",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-a3e4ef23-0dc2-4f4a-95b6-473909118ce1.png",
+      "subject": "a single pair of charcoal utility trousers, laid flat, front view with two functional cargo pockets",
+      "file": "trousers.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        159,
+        72,
+        726,
+        1395
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "coat",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-7347f036-cda0-4843-bf20-d093b61c8957.png",
+      "subject": "a single dark grey field coat, laid flat front view, chest pocket, collar and simple zip fastening",
+      "file": "coat.png",
+      "size": [
+        1230,
+        1278
+      ],
+      "region": [
+        80,
+        60,
+        1074,
+        1153
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "torch",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-1b612ab9-a7cc-47cf-aaa9-3db7b7cd9756.png",
+      "subject": "a single metal handheld flashlight, vertical upright orientation, gunmetal and olive finish, clear round lens at top",
+      "file": "torch.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        315,
+        100,
+        395,
+        1325
+      ],
+      "alphaExtrema": [
+        0,
+        253
+      ]
+    },
+    {
+      "id": "dressing",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-b85e105d-4dcc-49fc-974d-2256ae2f7006.png",
+      "subject": "a single sealed white medical dressing packet, small muted red medical cross, crimped edges",
+      "file": "dressing.png",
+      "size": [
+        1225,
+        1284
+      ],
+      "region": [
+        294,
+        133,
+        648,
+        1025
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "case",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-40e3df40-a5fc-4f67-bd28-4334998146e5.png",
+      "subject": "a single small olive rigid utility case, lid closed, small latch and subtle reinforced edges, front/top three-quarter angle",
+      "file": "case.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "region": [
+        310,
+        175,
+        934,
+        680
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "gum-pack",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-a90ad915-1f00-4c8b-b814-666c3651461a.png",
+      "subject": "a single small folded paper chewing-gum packet, pale cream paper and subdued green band, closed, no writing",
+      "file": "gum-pack.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "region": [
+        643,
+        137,
+        265,
+        760
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "gum",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-7377c851-f0a4-4678-b66f-b6c0a166651b.png",
+      "subject": "a single small rectangular off-white piece of chewing gum with rounded corners, clean solid material",
+      "file": "gum.png",
+      "size": [
+        1230,
+        1278
+      ],
+      "region": [
+        464,
+        337,
+        305,
+        691
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "weight",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-48bd0ffc-018e-4f1c-9a7e-0775734cc318.png",
+      "subject": "a single inert steel training weight, squat solid cylindrical slug, dark worn metal, no controls or markings",
+      "file": "weight.png",
+      "size": [
+        1312,
+        1199
+      ],
+      "region": [
+        335,
+        252,
+        640,
+        719
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    }
+  ]
+}

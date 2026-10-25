@@ -60,3 +60,5 @@ python3 tools/run_spatial_scene.py --operation-smoke work/preview/spatial-scene/
 Core checks qualify profile aliases, access/authority, real phone delivery, interrupted links, offline acquisition/cache, local holds, bounded cache eviction, older matching saves, detached rejection and once-only regional delivery on world time. Godot checks additionally exercise standalone lifecycle, physical workstation access, actual UI input, clocks, device switching and rendered CRT/phone/map views. This implementation does not complete M0/M1 acceptance or qualify performance on large simulated sites.
 
 The Personnel app now includes employment roles, short test shifts, last delivered duty reports and reported staffing warnings. `order tech duty` releases direct orders and resumes scheduled work. Full professions remain future work.
+
+The [inventory follow-on](23-personal-inventory-prototype.md) now supplies actual phone/radio items and shared physical access gates. Outer schema 7 supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.
