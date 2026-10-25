@@ -22,7 +22,7 @@ internal static class OperationSaveCodec
         var ids = saved.Orders.Select(o => o?.Id ?? 0).Concat(saved.Reports.Select(r => r?.Id ?? 0)).ToArray();
         if (ids.Any(id => id <= 0 || id >= saved.NextId) || ids.Distinct().Count() != ids.Length
             || saved.Orders.Any(o => o is null || o.Issuer != d.CommanderId || !actorIds.Contains(o.ActorId) || o.ActorId == o.Issuer
-                || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status) || o.Channel is not ("voice" or "terminal")
+                || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status) || o.Channel is not ("voice" or "terminal" or "phone")
                 || o.IssuedMs < 0 || o.IssuedMs > world.LocalMs || o.Detail is null || o.Detail.Length > 250
                 || !world.Map.Inside(o.Destination.World) || o.TargetPoint is { } target && !world.Map.Inside(target))
             || saved.Orders.Where(o => o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy(o => o.ActorId).Any(g => g.Count() > 1)
@@ -30,12 +30,17 @@ internal static class OperationSaveCodec
                 || c.LocalMs < 0 || c.LocalMs > world.LocalMs || c.Encounter < 0 || c.Encounter > world.Anomalies.Bodies.Single(b => b.Id == d.SubjectId).Revision)
             || saved.Contacts.Select(c => c.ActorId).Distinct().Count() != saved.Contacts.Length
             || saved.Reports.Any(r => r is null || r.LocalMs < 0 || r.LocalMs > world.LocalMs || r.Author is null || r.Text is null
-                || r.Author.Length > 100 || r.Text.Length > 500 || r.Source is not ("system" or "voice" or "radio")
+                || r.Author.Length > 100 || r.Text.Length > 500 || r.Source is not ("system" or "voice" or "radio" or "scipnet")
                 || r.SubjectId is not null && (r.SubjectId != d.SubjectId || r.Position is null || !world.Actors.Any(a => a.Name == r.Author)
                     || r.Encounter < 0 || r.Encounter > world.Anomalies.Bodies.Single(b => b.Id == d.SubjectId).Revision)
                 || r.Position is { } point && !world.Map.Inside(point))
             || !saved.Radios.Select(r => r.ActorId).Order().SequenceEqual(d.RadioActors.Order()))
             throw new ArgumentException("Invalid operation orders, evidence or radios.");
+        if (saved.RegionalIntakeSent && !d.RegionalIntakeEnabled) throw new ArgumentException("Unexpected regional intake state.");
+        if (saved.Phone is { } phone && phone.ActorId != d.CommanderId
+            || saved.AcquiredReports is { } acquired && (acquired.Distinct().Count() != acquired.Length
+                || acquired.Any(id => !saved.Reports.Any(r => r.Id == id))))
+            throw new ArgumentException("Invalid field device or acquired record ledger.");
         var cart = saved.Trolley;
         var cell = Hex.FromWorld(cart.Position);
         var body = world.Anomalies.Bodies.Single(b => b.Id == d.SubjectId);
@@ -62,6 +67,11 @@ internal static class OperationSaveCodec
                 throw new ArgumentException("Invalid in-progress trolley work.");
             if (step.Stage == "push") world.Map.DynamicBlockers.Add(step.Next);
         }
+        // Older matching saves did not issue a handset or retain a separate OSCP cache.
+        state.RegionalIntakeSent = saved.RegionalIntakeSent;
+        state.Phone = saved.Phone ?? new(d.CommanderId, Issued: false);
+        state.AcquiredReports.Clear();
+        state.AcquiredReports.UnionWith(saved.AcquiredReports ?? saved.Reports.Where(r => r.Source is not ("radio" or "scipnet")).Select(r => r.Id).ToArray());
         state.Orders.Clear(); state.Orders.AddRange(saved.Orders);
         state.Contacts.Clear(); state.Contacts.AddRange(saved.Contacts);
         state.Reports.Clear(); state.Reports.AddRange(saved.Reports);

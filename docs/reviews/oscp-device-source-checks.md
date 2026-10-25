@@ -29,4 +29,7 @@ The second profile is a carried secure Foundation phone for local-area mapping, 
 
 Both profiles use shared records, acquired knowledge, validated services and normal device/session/time rules. Standalone OSCP launch uses an explicit test session/device context; combined play requires the real accessible device. Neither profile adds automatic pause or makes unobserved personnel and anomalies visible on a map. See [the terminal contract](../11-oscp-terminal.md) and [independent-mode decision](../adr/0007-independent-gameplay-modes.md).
 
-The phone/inventory screen is planned as a shared character menu, with inventory on the right and a phone companion pane. Exact arrangement is deferred. Whether opening it automatically pauses is an explicit outstanding clarification; the existing menu/time baseline remains in effect pending that answer. These layout/application decisions do not claim source-defined OSCP phone features.
+The phone/inventory screen is planned as a shared character menu, with inventory on the right and a phone companion pane. Exact arrangement is deferred. The user confirmed on October 25 that opening it automatically pauses single-player; the fixed workstation remains real-time. These layout/application decisions do not claim source-defined OSCP phone features.
+
+
+October 25 runtime follow-up: a bounded [CRT/phone shell](../21-oscp-runtime-prototype.md) now implements these device profiles and native app registration. The underlying source/adaptation distinctions above still apply.

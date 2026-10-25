@@ -6,19 +6,20 @@ internal static class PersonnelOrderSystem
     public static bool Owns(OperationState state, string actorId) => state.Orders.Any(o => o.ActorId == actorId
         && o.Status is OrderStatus.Pending or OrderStatus.Active or OrderStatus.Blocked);
     public static bool Issue(SimulationWorld world, string issuerId, string actorId, PersonnelTask task, Hex destination,
-        string channel, out string reason)
+        string channel, out string reason, bool allowPausedIntent = false)
     {
         var state = world.Operations;
         var actor = world.Actors.SingleOrDefault(a => a.Id == actorId);
-        reason = !world.LocalActive ? "Local simulation is held."
+        reason = !world.LocalActive && !(allowPausedIntent && world.ManualPause && !world.LocalHold && !world.Combat.Active) ? "Local simulation is held."
             : state.Definition is null ? "No operation configured."
             : state.Definition.CommanderId != issuerId ? "Issuer lacks site operations authority."
             : actor is null || actor.Id == issuerId || actor.ObserverKind != "human" ? "Recipient is not an assigned human employee."
-            : !Enum.IsDefined(task) || channel is not ("voice" or "terminal") ? "Unsupported task/channel."
+            : !Enum.IsDefined(task) || channel is not ("voice" or "terminal" or "phone") ? "Unsupported task/channel."
             : task == PersonnelTask.Transport && state.Orders.Any(o => o.ActorId != actorId && o.Task == PersonnelTask.Transport
                 && o.Status is OrderStatus.Pending or OrderStatus.Active or OrderStatus.Blocked) ? "Trolley already assigned to another handler."
             : !world.Map.Walkable(destination) ? "Destination is blocked."
             : channel == "terminal" && !FacilityCommunications.TerminalReachable(world) ? "Approach the powered, connected OSCP terminal."
+            : channel == "phone" && (!OscpService.PhoneAvailable(world) || !state.NetworkOnline) ? "A powered, accessible handset and site link are required."
             : "accepted";
         if (reason != "accepted") return false;
         // A bounded history cannot evict an active order.

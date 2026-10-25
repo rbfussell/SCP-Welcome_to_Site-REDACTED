@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "applications": [
+    {"id":"foundation:operations", "label":"Operations", "symbol":"01", "view":"operations", "profiles":["workstation","phone"], "aliases":["status","operations"]},
+    {"id":"foundation:personnel", "label":"Personnel", "symbol":"02", "view":"personnel", "profiles":["workstation","phone"], "aliases":["personnel","team"]},
+    {"id":"foundation:records", "label":"Records", "symbol":"03", "view":"records", "profiles":["workstation","phone"], "aliases":["records","case"]},
+    {"id":"foundation:communications", "label":"Communications", "symbol":"04", "view":"communications", "profiles":["workstation","phone"], "aliases":["mail","messages"]},
+    {"id":"foundation:local-map", "label":"Local plan", "symbol":"05", "view":"map", "profiles":["workstation","phone"], "aliases":["map","plan"]},
+    {"id":"foundation:systems", "label":"Workstation", "symbol":"06", "view":"systems", "profiles":["workstation"], "aliases":["systems"]}
+  ]
+}

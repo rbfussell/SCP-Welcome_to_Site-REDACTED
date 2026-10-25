@@ -22,7 +22,7 @@ internal static class PlayerFeedback
         }
         foreach (var report in world.Operations.Reports)
         {
-            if (report.Source == "radio" && !FacilityCommunications.TerminalReachable(world)) continue;
+            if ((report.Source is "radio" or "scipnet") && !OscpService.ReceivesRadio(world)) continue;
             if (!world.Events.Once("report:" + report.Id)) continue;
             Add(world, report.SubjectId is null ? MessageKind.Orders : MessageKind.Observation, $"{report.Author}: {report.Text}");
         }

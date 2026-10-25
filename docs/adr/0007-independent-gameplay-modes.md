@@ -8,7 +8,7 @@
 
 The user wants OSCP, the world map, local character gameplay and facility management to load independently into the engine, each usable like a separate game, while ultimately working together. Their screens, assets, controls and development fixtures differ. Their personnel, stock, buildings, intelligence, missions and consequences belong to the same persistent world.
 
-The existing Godot presentation/plain C# simulation split supports this direction, but the current prototype launches one spatial scene with attached panels. It does not yet implement four standalone mode entry points.
+The Godot presentation/plain C# simulation split supports this direction. The October 25 prototype now has a standalone OSCP entry scene and the existing local-play entry, with the same attachable workstation/phone shell and fixed-tick adapter. World-map and facility-management entry modes remain unimplemented.
 
 ## Options
 

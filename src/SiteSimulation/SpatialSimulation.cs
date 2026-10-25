@@ -42,6 +42,16 @@ public sealed class SpatialSimulation
     {
         var result = TacticalCombatSystem.Fire(_world, Player.Id, targetId, out var reason); LastMessage = reason; return result;
     }
+    public OscpAccess OscpAccess(OscpDevice device) => OscpService.Access(_world, device);
+    public IReadOnlyList<OperationReport> OscpRecords => OscpService.Records(_world);
+    public bool IssueOscpOrder(OscpDevice device, string actorId, PersonnelTask task, Hex destination)
+    {
+        var access = OscpAccess(device);
+        if (!access.Available || !access.Connected) { LastMessage = access.Status; return false; }
+        return IssueOrderOnChannel(actorId, task, destination, device == OscpDevice.Phone ? "phone" : "terminal");
+    }
+    public bool SubmitPreparedPhoneOrder(string actorId, PersonnelTask task, Hex destination)
+        => IssueOrderOnChannel(actorId, task, destination, "phone", allowPausedIntent: true);
     public bool CanUseTerminal => FacilityCommunications.TerminalReachable(_world);
     public long WorldMs => _world.WorldMs;
     public long LocalMs => _world.LocalMs;
@@ -80,6 +90,7 @@ public sealed class SpatialSimulation
     {
         if (!_world.LocalActive) return;
         FacilityCommunications.SenseAndReport(_world);
+        OscpService.Acquire(_world);
         foreach (var body in Anomalies.Bodies)
         {
             // Bounded prototype communication: an audible, unobstructed nearby human report.
@@ -90,7 +101,7 @@ public sealed class SpatialSimulation
                     ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, "voice", reporter.Id));
             if (VisibleToPlayer(body.Cell.World))
                 ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, "direct", Player.Id));
-            if (CanUseTerminal)
+            if (OscpService.ReceivesRadio(_world))
             foreach (var report in Operations.ReceivedReports.Where(r => r.SubjectId == body.Id && r.Position is not null && r.Source == "radio"))
             {
                 var reporter = Actors.Single(a => a.Name == report.Author);
@@ -100,10 +111,12 @@ public sealed class SpatialSimulation
         PlayerFeedback.Sense(_world);
     }
     public bool IssueOrder(string actorId, PersonnelTask task, Hex destination, bool throughTerminal = false)
+        => IssueOrderOnChannel(actorId, task, destination, throughTerminal ? "terminal" : "voice");
+    private bool IssueOrderOnChannel(string actorId, PersonnelTask task, Hex destination, string channel, bool allowPausedIntent = false)
     {
-        if (!Ready("Order")) return false;
+        if (!(allowPausedIntent && ManualPause && !LocalHold && !Combat.Active) && !Ready("Order")) return false;
         var accepted = PersonnelOrderSystem.Issue(_world, Player.Id, actorId, task, destination,
-            throughTerminal ? "terminal" : "voice", out var reason);
+            channel, out var reason, allowPausedIntent);
         LastMessage = accepted ? "Order submitted · awaiting delivery and acknowledgement." : reason;
         if (accepted) PlayerFeedback.Add(_world, MessageKind.Orders,
             $"Order to {Actors.Single(a => a.Id == actorId).Name}: {task} · awaiting acknowledgement.");
@@ -216,6 +229,7 @@ public sealed class SpatialSimulation
     {
         if (ManualPause) return;
         _world.WorldMs += TickMs;
+        RegionalIntakeSystem.Advance(_world);
         if (LocalHold) return;
         if (Combat.Active && Combat.Pending is null)
         {

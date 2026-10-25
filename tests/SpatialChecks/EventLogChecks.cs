@@ -37,6 +37,7 @@ internal static class EventLogChecks
         PlayerFeedback.Equipment(world, opponent, "uses a special fixture.");
         Check(world.Events.Entries[^1].Kind == MessageKind.Equipment, "visible relevant equipment action has its own category");
         world.Player.Cell = new(5, 8);
+        world.Operations.Phone = world.Operations.Phone! with { Powered = false };
         world.Operations.Report(world, opponent.Name, "REMOTE SECRET REPORT", source: "radio");
         PlayerFeedback.Sense(world);
         Check(!world.Events.Entries.Any(e => e.Text.Contains("REMOTE SECRET")), "unaccessed terminal report is not player knowledge");

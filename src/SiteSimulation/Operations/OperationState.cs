@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace SiteSimulation;
 
 public sealed record OperationDefinition(string SubjectId, Hex Home, string[] AccessDoors, Hex[] Posts,
-    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000);
+    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000, bool FieldPhoneIssued = true, bool RegionalIntakeEnabled = false);
 public sealed record ActorStart(string ActorId, Hex Cell, int Facing);
 public enum PersonnelTask { Observe, Follow, Post, Transport }
 public enum OrderStatus { Pending, Active, Blocked, Complete, Cancelled }
@@ -17,7 +17,7 @@ public sealed record TrolleyStep(Hex Next, Hex HandlerNext, int ProgressMs, stri
 public sealed record TrolleyState(Point2 Position, string? SubjectId = null, string? HandlerId = null, TrolleyStep? Step = null);
 public sealed record OperationSnapshot(long NextId, PersonnelOrder[] Orders, StaffContact[] Contacts, OperationReport[] Reports,
     RadioState[] Radios, bool TerminalPowered, bool NetworkOnline, TrolleyState Trolley, int StableMs, bool HadBreach,
-    bool Completed, string PhysicalStatus);
+    bool Completed, string PhysicalStatus, FieldPhoneState? Phone = null, long[]? AcquiredReports = null, bool RegionalIntakeSent = false);
 
 /// <summary>Serializable operation facts; orders, transport and terminal projections have separate services.</summary>
 public sealed class OperationState
@@ -28,6 +28,9 @@ public sealed class OperationState
     internal List<OperationReport> Reports { get; } = [];
     public IReadOnlyList<PersonnelOrder> OrderHistory => Orders.AsReadOnly();
     public IReadOnlyList<OperationReport> ReceivedReports => Reports.AsReadOnly();
+    internal bool RegionalIntakeSent { get; set; }
+    public FieldPhoneState? Phone { get; set; }
+    internal HashSet<long> AcquiredReports { get; } = [];
     public List<RadioState> Radios { get; } = [];
     public bool TerminalPowered { get; set; } = true;
     public bool NetworkOnline { get; set; } = true;
@@ -42,6 +45,7 @@ public sealed class OperationState
         if (json is null) return;
         Definition = JsonSerializer.Deserialize<OperationDefinition>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
             ?? throw new ArgumentException("Empty operation definition.");
+        Phone = new(Definition.CommanderId, Definition.FieldPhoneIssued);
         Trolley = new(Definition.Trolley.World);
         Radios.AddRange(Definition.RadioActors.Select(id => new RadioState(id)));
     }
@@ -49,9 +53,9 @@ public sealed class OperationState
         string? subjectId = null, long encounter = 0, string source = "system")
     {
         Reports.Add(new(NextId++, world.LocalMs, author, text, position, subjectId, encounter, source));
-        if (Reports.Count > 40) Reports.RemoveAt(0);
+        if (Reports.Count > 40) { AcquiredReports.Remove(Reports[0].Id); Reports.RemoveAt(0); }
         world.Log("communications", author, "delivered", text);
     }
     internal OperationSnapshot Capture() => new(NextId, Orders.ToArray(), Contacts.ToArray(), Reports.ToArray(), Radios.ToArray(),
-        TerminalPowered, NetworkOnline, Trolley, StableMs, HadBreach, Completed, PhysicalStatus);
+        TerminalPowered, NetworkOnline, Trolley, StableMs, HadBreach, Completed, PhysicalStatus, Phone, AcquiredReports.Order().ToArray(), RegionalIntakeSent);
 }

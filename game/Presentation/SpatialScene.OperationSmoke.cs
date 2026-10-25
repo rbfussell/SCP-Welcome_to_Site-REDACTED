@@ -55,6 +55,25 @@ public partial class SpatialScene
                         if (image.SavePng(_capturePath!) != Error.Ok) throw new IOException("OSCP screenshot failed.");
                     GD.Print("OPERATION_SMOKE_PASS: initial coverage, E door, physical terminal approach, T access, personnel order acknowledgement and operation save round-trip.");
                     // A separate input fixture keeps Chen watching, with an unseen ordinary occupant in the corridor.
+                    _hud.Workspace.Close();
+                    _simulation.Restore(_operationInitialSave!);
+                    SmokeKey(Key.P); Input.FlushBufferedEvents();
+                    if (!_hud.Workspace.IsOpen || _hud.Workspace.Device != OscpDevice.Phone || !_simulation.ManualPause)
+                        throw new InvalidOperationException("P must open the issued handset and automatically pause local single-player.");
+                    var phoneBaseline = _simulation.Save();
+                    SmokeKey(Key.O); Input.FlushBufferedEvents();
+                    var covered = _hud.Field.GetGlobalRect().Position + new Vector2(8, 8);
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = true });
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = false });
+                    Input.FlushBufferedEvents();
+                    if (_simulation.Save() != phoneBaseline) throw new InvalidOperationException("Modal phone input leaked into field actions.");
+                    var ordersBeforeDraft = _simulation.Operations.OrderHistory.Count;
+                    _hud.Workspace.Execute("order tech follow");
+                    if (_simulation.Operations.OrderHistory.Count != ordersBeforeDraft || _hud.Workspace.PhoneDraftCount != 1)
+                        throw new InvalidOperationException("Phone draft became a world order before closing.");
+                    SmokeKey(Key.Escape); Input.FlushBufferedEvents();
+                    if (_hud.Workspace.IsOpen || _simulation.ManualPause || _simulation.Operations.OrderHistory.Last().Channel != "phone")
+                        throw new InvalidOperationException("Closing the phone must resume its own pause and submit the prepared intent.");
                     _simulation.Restore(_operationInitialSave!);
                     _simulation.Player.Cell = new(5, 6); _simulation.Player.Facing = 4;
                     var hidden = _simulation.Actors.Single(a => a.Id == "tech");

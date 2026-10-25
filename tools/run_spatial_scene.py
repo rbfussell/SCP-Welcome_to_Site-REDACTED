@@ -26,13 +26,20 @@ def main():
     parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
     parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
     parser.add_argument('--combat-smoke', type=Path, metavar='PNG', help='Run tactical input, clocks, save and journal render checks.')
+    parser.add_argument('--mode', choices=('local', 'oscp', 'phone'), default='local', help='Launch local play or standalone OSCP with a workstation/phone profile.')
+    parser.add_argument('--oscp-smoke', type=Path, metavar='PNG', help='Run standalone CRT/phone command, lifecycle and render checks.')
     parser.add_argument('--godot', help='Godot .NET executable (defaults to godot-dotnet).')
     args = parser.parse_args()
+    oscp_smoke = args.oscp_smoke
+    if oscp_smoke:
+        args.mode = "oscp"
+    if args.mode != 'local' and any((args.smoke, args.operation_smoke, args.combat_smoke)):
+        parser.error('Use --oscp-smoke for standalone device checks, or --mode local for spatial checks.')
     operation_smoke = args.operation_smoke
     combat_smoke = args.combat_smoke
-    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke)) > 1:
+    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke, args.oscp_smoke)) > 1:
         parser.error('Choose one check or smoke mode.')
-    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke
+    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke or args.oscp_smoke
     if not shutil.which('dotnet'):
         raise SystemExit('Install the .NET SDK selected in global.json first.')
     godot = args.godot or shutil.which('godot-dotnet')
@@ -74,17 +81,21 @@ def main():
         if 'ERROR:' in log:
             raise SystemExit('Godot reported import errors; see work/preview/spatial-scene/last-import.log.')
         command = [godot, '--path', str(stage / 'game')]
+        if args.mode != 'local':
+            command += ['res://Scenes/OscpScene.tscn']
         if args.smoke:
             output = args.smoke.resolve()
             output.parent.mkdir(parents=True, exist_ok=True)
-            command += ['--audio-driver', 'Dummy', '--', '--scene-smoke', str(output)]
+            command += ['--audio-driver', 'Dummy', '--', '--oscp-smoke' if oscp_smoke else '--scene-smoke', str(output)]
             if combat_smoke:
                 command += ['--combat-smoke']
             if operation_smoke:
                 command += ['--operation-smoke']
             if shutil.which('xvfb-run'):
                 command = ['xvfb-run', '-a', '-s', '-screen 0 1440x900x24', *command]
-        print('Starting spatial scene. Changes should be edited in the source workspace.', flush=True)
+        if args.mode == 'phone':
+            command += (['--'] if '--' not in command else []) + ['--field-phone']
+        print('Starting selected scene. Changes should be edited in the source workspace.', flush=True)
         run(command, stage, env)
 
 

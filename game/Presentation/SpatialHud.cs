@@ -22,6 +22,7 @@ public partial class SpatialHud : Control
     private Label _clock = null!, _mode = null!, _status = null!, _coordinates = null!, _timers = null!;
     private Label _anomaly = null!, _observers = null!, _rule = null!, _witnesses = null!;
     private RichTextLabel _trace = null!;
+    public OscpWorkspace Workspace { get; private set; } = null!;
     public OperationsPanel Operations { get; private set; } = null!;
     private readonly Dictionary<Key, CheckButton> _toggles = [];
     private static readonly Color Text = new("e4e3d2"), Muted = new("97a7a0"), Green = new("a0d1af");
@@ -105,6 +106,8 @@ public partial class SpatialHud : Control
         _status = At(_footer, "", new(28, 0), 13, Text);
         _coordinates = At(_footer, "", new(28, 25), 11, Green);
         At(_footer, "Click move · RMB stop/look · Shift-click keep facing · O observer · K blink · F2 diagnostics · M mute · R reduced effects", new(28, 47), 12, Muted);
+        Workspace = new OscpWorkspace(); AddChild(Workspace); Workspace.Initialize(sim);
+        Operations.Workspace = Workspace;
         Layout();
     }
     public static void ToggleComplacency(SpatialSimulation sim)
@@ -158,7 +161,7 @@ public partial class SpatialHud : Control
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
         _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : sim.Combat.Active ? sim.Combat.Pending is null ? "LOCAL TURN HELD · calendar continues" : "TACTICAL ACTION · local resolving" : "REAL TIME · local active";
         _fieldMode.Text = _mode.Text;
-        Operations.Refresh(); _combat.Refresh(); _journal.Refresh(sim.Events);
+        Workspace.Refresh(); Operations.Refresh(); _combat.Refresh(); _journal.Refresh(sim.Events);
         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";

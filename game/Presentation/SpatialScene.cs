@@ -13,7 +13,7 @@ public partial class SpatialScene : Node2D
     private EncounterAudio _audio = null!;
     private EncounterOverlay _encounter = null!;
     private readonly DiscoveryFeedback _feedback = new();
-    private double _accumulator;
+    private SimulationRuntime _runtime = null!;
     private float _zoom = 1.75f;
     private Vector2 _pan;
     private Hex? _previousHover;
@@ -32,6 +32,7 @@ public partial class SpatialScene : Node2D
         var legacySmoke = args.Contains("--scene-smoke") && !_operationSmoke;
         _simulation = new(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"),
             legacySmoke ? null : Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
+        _runtime = new(_simulation);
         var layer = new CanvasLayer(); AddChild(layer);
         _world = new WorldView { Simulation = _simulation };
         _hud = new SpatialHud(); layer.AddChild(_hud); _hud.Initialize(_simulation, _world);
@@ -55,9 +56,7 @@ public partial class SpatialScene : Node2D
     private void ResetCamera() { _pan = Vector2.Zero; _zoom = _world.FieldView ? 1.75f : 1.25f; }
     public override void _Process(double delta)
     {
-        _accumulator += delta * _simulation.Speed;
-        while (_accumulator >= SpatialSimulation.TickMs / 1000.0)
-        { _simulation.Tick(); _accumulator -= SpatialSimulation.TickMs / 1000.0; }
+        _runtime.Advance(delta);
         RefreshCamera();
         UpdateEncounter();
         var local = _world.GetLocalMousePosition();
@@ -96,8 +95,14 @@ public partial class SpatialScene : Node2D
             .Take(4).ToArray();
         _encounter.QueueRedraw();
     }
+    public override void _Input(InputEvent e)
+    {
+        if (_hud.Workspace.IsOpen && e is InputEventKey { Pressed: true, Keycode: Key.Escape })
+        { _hud.Workspace.Close(); GetViewport().SetInputAsHandled(); }
+    }
     public override void _UnhandledInput(InputEvent e)
     {
+        if (_hud.Workspace.IsOpen) { _hud.Workspace.HandleInput(e); return; }
         if (e is InputEventMouseMotion motion && _hud.Field.GetGlobalRect().HasPoint(motion.Position)
             && Input.IsMouseButtonPressed(MouseButton.Middle)) _pan += motion.Relative;
         if (e is InputEventMouseButton { Pressed: true } mouse && _hud.Field.GetGlobalRect().HasPoint(mouse.Position))
@@ -133,6 +138,7 @@ public partial class SpatialScene : Node2D
             case Key.R: _encounter.ReducedEffects = !_encounter.ReducedEffects; break;
             case Key.J: SpatialHud.ToggleComplacency(_simulation); break;
             case Key.T: _hud.Operations.ToggleTerminal(); break;
+            case Key.P: _hud.Workspace.Toggle(OscpDevice.Phone); break;
             case Key.C: _world.CollisionOverlay = !_world.CollisionOverlay; break;
             case Key.G: _world.HexGrid = !_world.HexGrid; break;
             case Key.B: _world.FloorGrid = !_world.FloorGrid; break;
@@ -172,7 +178,7 @@ public partial class SpatialScene : Node2D
         {
             _simulation.Restore(System.IO.File.ReadAllText(ProjectSettings.GlobalizePath("user://spatial-state.json")));
             _feedback.Reset(_simulation); _audio.Reset();
-            _accumulator = 0; _previousHover = null; _notice = null;
+            _runtime.ResetAccumulator(); _previousHover = null; _notice = null;
         }
         catch (Exception ex) when (ex is IOException or ArgumentException or System.Text.Json.JsonException)
         { _notice = "Restore rejected: " + ex.Message; _noticeSeconds = 5; GD.PushWarning(_notice); }
