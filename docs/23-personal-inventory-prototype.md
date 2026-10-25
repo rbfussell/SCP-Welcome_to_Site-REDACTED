@@ -8,7 +8,7 @@ Press **I** in local gameplay to open personal equipment. **I**, **Esc** or Clos
 
 The view shows worn/held objects, separate trouser pockets, coat pocket, backpack main and side compartments, and an inspectable nested container. Items use generated transparent object sprites with restrained grids. The Pacific Drive examples guide packing, rotation and compartment semantics, not card artwork or copied interface styling.
 
-- Drag an object onto a compartment cell, or select it and click an empty cell.
+- Drag an object onto a compartment cell, or select it and click an empty cell. During a drag, the cursor's cell anchors the footprint's top-left; the object snaps to the exact size, position and rotation it will occupy. Destination cells and the outline are green for a valid physical fit and red for a blocked fit. Invalid releases leave the item at its source. Moving off the grid clears the highlight; closing the view cancels an uncommitted drag.
 - **R** or Rotate changes the placement preview. Dropping/placing starts actual handling; preview rotation is free, actual repacking is not.
 - Double-click/right-click a container, or select it and choose Inspect, to see its compartments and breadcrumb. The utility case and six-piece gum packet demonstrate nested and differently scaled storage.
 - Open/Close changes a compartment through a timed action. A closed bag can still be carried; its live contents are hidden and cannot be retrieved through the lid. The backpack side pocket is independent of the main zipper.
@@ -16,6 +16,8 @@ The view shows worn/held objects, separate trouser pockets, coat pocket, backpac
 - Nearby supply crate opens the same existing `crate-a` fixture when within reach and with clear access. Its stock uses the same item graph and transfers. There is no remote grabbing, actor-to-actor editing or map-wide stock browser.
 
 The first fixture has 11 definitions and 25 instances: trousers, coat, backpack, handset, radio, flashlight, dressing, utility case, gum wrapper, six independent gum pieces and an inert training weight. Chen and Ortiz use the same inventory/equipment semantics. The supplied equipment fills only legs, outerwear, back and hand mount types; the other named garment mounts have no issued content yet.
+
+Confirmed later presentation direction: right-clicking a jacket, backpack or other container will display that object's compartments in the inventory panel. All pockets and bags should not be displayed at once; the player must deliberately look inside the chosen storage. The current always-visible pocket/pack columns remain an engineering layout for now. Choosing a compartment view is separate from opening a physical lid, reaching its contents and paying handling time/AP; those validated access rules still apply.
 
 ## Time and action points
 

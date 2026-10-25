@@ -23,7 +23,14 @@ public partial class SpatialScene
         GetViewport().PushInput(motion); GetViewport().PushInput(press); GetViewport().PushInput(release);
     }
     private static void InventoryMouse(InputEvent e) { using (e) Input.ParseInputEvent(e); }
-    private async Task InventoryDrag(Vector2 source, Vector2 destination)
+    private async Task InventoryDragHover(Vector2 destination)
+    {
+        var previous = GetViewport().GetMousePosition();
+        Input.WarpMouse(destination);
+        InventoryMouse(new InputEventMouseMotion { Position = destination, GlobalPosition = destination, Relative = destination - previous, ButtonMask = MouseButtonMask.Left });
+        Input.FlushBufferedEvents(); await InventoryFrames();
+    }
+    private async Task InventoryDrag(Vector2 source, Vector2 destination, Func<Task>? preview = null)
     {
         Input.WarpMouse(source); await InventoryFrames();
         InventoryMouse(new InputEventMouseMotion { Position = source, GlobalPosition = source });
@@ -31,9 +38,9 @@ public partial class SpatialScene
         Input.WarpMouse(source + new Vector2(16, 0));
         InventoryMouse(new InputEventMouseMotion { Position = source + new Vector2(16, 0), GlobalPosition = source + new Vector2(16, 0), Relative = new(16, 0), ButtonMask = MouseButtonMask.Left });
         Input.FlushBufferedEvents(); await InventoryFrames();
-        Input.WarpMouse(destination);
-        InventoryMouse(new InputEventMouseMotion { Position = destination, GlobalPosition = destination, Relative = destination - source - new Vector2(16, 0), ButtonMask = MouseButtonMask.Left });
-        Input.FlushBufferedEvents(); await InventoryFrames();
+        await InventoryDragHover(destination);
+        if (preview is not null) await preview();
+        destination = GetViewport().GetMousePosition();
         InventoryMouse(new InputEventMouseButton { Position = destination, GlobalPosition = destination, ButtonIndex = MouseButton.Left, Pressed = false });
         Input.FlushBufferedEvents(); await InventoryFrames();
     }
@@ -77,11 +84,63 @@ public partial class SpatialScene
             if (sim.Inventory.Pending is not null || torch.Placement.ParentId != "avatar-trousers" || !torch.Placement.Rotated)
                 throw new InvalidOperationException("Realtime rotated handling did not complete through the common item service.");
             InventoryKey(Key.I); await InventoryFrames();
-            await InventoryDrag(pocket.GlobalPosition + new Vector2(15, 59), side.GlobalPosition + new Vector2(15, 59));
+            sim.ManualPause = true;
+            var beforePreview = sim.Save();
+            var drop = side.GlobalPosition + new Vector2(15, 59);
+            await InventoryDrag(pocket.GlobalPosition + new Vector2(55, 67), drop, async () =>
+            {
+                var panel = _hud.Inventory;
+                void Preview(InventoryGrid grid, Rect2 expected, bool allowed)
+                {
+                    if (panel.DropPreview is not { } p || p.Grid != grid || p.Bounds != expected || p.Quote.Allowed != allowed)
+                        throw new InvalidOperationException("Native drag sprite/highlight did not match the expected physical drop cells.");
+                }
+                Preview(side, new(1, 44, 60, 30), true);
+                // Grabbing the far side of an object and moving within one cell must not offset its landing sprite.
+                await InventoryDragHover(side.GlobalPosition + new Vector2(29, 73));
+                Preview(side, new(1, 44, 60, 30), true);
+                await InventoryCapture("-drag-valid");
+                await InventoryDragHover(pocket.GlobalPosition + new Vector2(15, 90));
+                Preview(pocket, new(1, 74, 60, 30), false); // Occupied by the flashlight.
+                await InventoryCapture("-drag-blocked");
+                InventoryKey(Key.R);
+                await InventoryDragHover(side.GlobalPosition + new Vector2(15, 209));
+                Preview(side, new(1, 194, 30, 60), false); // Rotated footprint extends below the pocket.
+                await InventoryCapture("-drag-edge");
+                InventoryKey(Key.R);
+                var main = panel.FindGrid("avatar-backpack", "main");
+                await InventoryDragHover(main.GlobalPosition + new Vector2(76, 144));
+                Preview(main, new(59, 131, 58, 29), true); // Different rendered cell size.
+                panel.Inspect("gum-packet"); await InventoryFrames();
+                var fine = panel.FindGrid("gum-packet", "pieces");
+                await InventoryDragHover(fine.GlobalPosition + new Vector2(15, 59));
+                Preview(fine, new(1, 44, 440, 220), false); // Fine physical scale and a forbidden self-container.
+                await InventoryDragHover(side.GlobalPosition + new Vector2(15, 20));
+                if (panel.DropPreview is not null) throw new InvalidOperationException("A compartment heading retained a drop highlight.");
+                await InventoryDragHover(drop);
+                Preview(side, new(1, 44, 60, 30), true);
+                if (sim.Save() != beforePreview) throw new InvalidOperationException("Dragging or rotating a preview mutated the simulation.");
+                sim.ManualPause = false;
+            });
             if (sim.Inventory.Pending?.Request.ItemId != "gum-packet") throw new InvalidOperationException("Native object drag/drop did not begin handling.");
+            if (sim.Inventory.Pending.Request.Destination != new ItemPlacement("avatar-backpack", "side", 0, 0)
+                || _hud.Inventory.DropPreview is not null || _hud.Inventory.DragItemId is not null)
+                throw new InvalidOperationException("Released placement differed from its preview or left a stale ghost.");
             for (var i = 0; i < 240 && sim.Inventory.Pending is not null; i++) await InventoryFrames(1);
             if (sim.Inventory.DiagnosticItems.Single(i => i.Id == "gum-packet").Placement.ParentId != "avatar-backpack")
                 throw new InvalidOperationException("Native drag/drop did not retain the item in its new physical parent.");
+            // An invalid release and cancelling the modal view both leave the physical item untouched.
+            await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(15, 90));
+            if (sim.Inventory.Pending is not null || _hud.Inventory.DropPreview is not null)
+                throw new InvalidOperationException("An invalid release started handling or retained its preview.");
+            await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(15, 59), async () =>
+            {
+                InventoryKey(Key.Escape); await InventoryFrames();
+                if (GetViewport().GuiIsDragging() || _hud.Inventory.DropPreview is not null)
+                    throw new InvalidOperationException("Closing the inventory did not cancel its drag.");
+            });
+            if (sim.Inventory.Pending is not null) throw new InvalidOperationException("Closing during a drag committed a transfer.");
+            InventoryKey(Key.I); await InventoryFrames();
             InventoryClick(side.GlobalPosition + new Vector2(15, 59));
             InventoryClick(pocket.GlobalPosition + new Vector2(15, 59));
             for (var i = 0; i < 240 && sim.Inventory.Pending is not null; i++) await InventoryFrames(1);
@@ -114,7 +173,7 @@ public partial class SpatialScene
             if (sim.Inventory.Pending is not null || sim.Inventory.DiagnosticItems.Single(i => i.Id == "flashlight").Placement.ParentId != "person:avatar")
                 throw new InvalidOperationException("Paid inventory action failed to resolve.");
             sim.ManualPause = true; await InventoryCapture("-combat");
-            GD.Print("INVENTORY_SMOKE_PASS: actual I/Escape, realtime inspection, input isolation, native drag/drop and click/rotate/place, timed handling continuing after view close, nested object sprites, read-only rendering, save/restore and paid combat handling.");
+            GD.Print("INVENTORY_SMOKE_PASS: actual I/Escape, realtime inspection, input isolation, exact native drag sprite/footprint/commit, occupied and edge rejection, rotation and different grid scales, cancellation and preview cleanup, click/rotate/place, timed handling continuing after view close, nested object sprites, read-only rendering, save/restore and paid combat handling.");
             _hud.Inventory.Close(); await InventoryFrames(3);
             _inventorySmokeQuit = true; // Leave the async capture/input continuation before native teardown.
         }

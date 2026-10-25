@@ -10,6 +10,8 @@ public partial class InventoryPanel : Control
     public string? SelectedItem { get; private set; }
     public bool Rotated { get; private set; }
     public bool IsOpen => Visible;
+    internal string? DragItemId { get; private set; }
+    internal InventoryDropPreview? DropPreview { get; private set; }
     private PanelContainer _window = null!;
     private Label _clock = null!, _receipt = null!, _detail = null!, _progress = null!, _breadcrumb = null!;
     private VBoxContainer _nested = null!;
@@ -103,7 +105,26 @@ public partial class InventoryPanel : Control
         foreach (var child in parent.GetChildren())
         { if (child is InventoryGrid grid) yield return grid; foreach (var nested in Grids(child)) yield return nested; }
     }
-    public void Close() { Visible = false; GetViewport().GuiReleaseFocus(); }
+    public void Close()
+    {
+        if (DragItemId is not null) GetViewport().GuiCancelDrag();
+        DragItemId = null; DropPreview = null;
+        Visible = false; GetViewport().GuiReleaseFocus();
+    }
+    internal void BeginDrag(string id) { DragItemId = id; DropPreview = null; }
+    internal void PreviewDrop(InventoryGrid grid, Vector2 position)
+    {
+        DropPreview = DragItemId is { } id ? grid.PreviewAt(id, position) : null;
+        if (DropPreview is { } preview) ShowQuote(preview.Quote);
+    }
+    public override void _Process(double delta) => RefreshDragPreview();
+    private void RefreshDragPreview()
+    {
+        if (!Visible || !GetViewport().GuiIsDragging()) { DragItemId = null; DropPreview = null; return; }
+        if (GetViewport().GuiGetHoveredControl() is InventoryGrid grid && grid.Panel == this)
+            PreviewDrop(grid, grid.GetLocalMousePosition());
+        else DropPreview = null;
+    }
     public void Toggle() { if (Visible) Close(); else Open(); }
     public void Select(string id)
     {
@@ -118,7 +139,7 @@ public partial class InventoryPanel : Control
             + InventoryHierarchy.Breadcrumb(state, id) + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
             + (definition.Capability is not null && !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? " · unavailable until accessible and powered" : "");
     }
-    public void Rotate() { if (SelectedItem is null) return; Rotated = !Rotated; _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
+    public void Rotate() { if (SelectedItem is null) return; Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
     public void Inspect(string id)
     {
         var state = Simulation.Inventory;
