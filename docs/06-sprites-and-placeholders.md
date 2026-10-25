@@ -88,3 +88,9 @@ python3 tools/generate_diagnostic_sprites.py
 ```
 
 M0 qualifies the presentation binding and facing contract; M1 qualifies its use in the running world. See SPR-01 through SPR-06 in [scope and acceptance](04-scope-and-acceptance.md).
+
+## October 24 generated facility stand-ins
+
+[The facility set](../game/Assets/facility-standins/README.md) adds eight preserved imagegen sources and 80 registered bindings covering every current test actor/surface/prop alongside the existing SCP-650 atlas. Three distinct six-facing character sheets provide idle plus three walking frames. Generated material surfaces map to the current projection rather than changing geometry; props and actor frames use explicit ground anchors. F4 now toggles the whole scene between authored and diagnostic art, while F2 retains facing/state information. This supersedes the default-block-art status above for the running prototype; diagnostic blocks remain available and support future unbound actors.
+
+A validated presentation catalog resolves ordered layers by actor/rig/state/facing/frame. The current human artwork is baked, not separable body/head/clothes. The catalog/renderer can accommodate future aligned layers, but compatible anatomy/fit families, attachment points, procedural skin/head variation and actual inventory-driven outfit selection still need art/runtime qualification. Scene timing, collision, observation and SCP behavior are unchanged. [Exact generation prompts](../game/Assets/facility-standins/prompts.json), [provenance](../game/Assets/facility-standins/provenance.json) and the alpha-reading registration tool are preserved; registration never edits source PNG pixels.

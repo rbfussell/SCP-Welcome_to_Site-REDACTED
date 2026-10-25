@@ -9,12 +9,14 @@ public partial class GroundView : Node2D
     private const int Subdivisions = 8;
     public SpatialSimulation Simulation { get; set; } = null!;
     public IReadOnlyDictionary<string, Texture2D> Textures { get; set; } = null!;
+    public IReadOnlyDictionary<string, Texture2D> AuthoredTextures { get; set; } = new Dictionary<string, Texture2D>();
+    private bool _authored = true;
     private readonly List<Batch> _batches = [];
     private SightStamp? _stamp;
     public int ShadingBuilds { get; private set; }
     private sealed record SightStamp(Point2 Position, Hex Cell, int Facing, bool Attending, bool EyesOpen,
-        bool LightsOn, bool FieldView, string Doors);
-    private sealed record Batch(ArrayMesh Mesh, Texture2D Texture, Vector2[] Vertices, Vector2[] UVs,
+        bool LightsOn, bool FieldView, bool Authored, string Doors);
+    private sealed record Batch(ArrayMesh Mesh, string Key, Texture2D Texture, Vector2[] Vertices, Vector2[] UVs, Vector2[] PlanarUVs,
         int[] Indices, Point2[] Ground, Color[] Tints);
 
     public override void _Ready()
@@ -30,6 +32,7 @@ public partial class GroundView : Node2D
         foreach (var group in tiles.GroupBy(t => t.key))
         {
             var vertices = new List<Vector2>(); var uvs = new List<Vector2>(); var indices = new List<int>();
+            var planar = new List<Vector2>();
             var ground = new List<Point2>(); var tints = new List<Color>();
             var size = Textures[group.Key].GetSize();
             foreach (var tile in group)
@@ -43,6 +46,7 @@ public partial class GroundView : Node2D
                     var point = new Point2(tile.x + offset.X, tile.y + offset.Y);
                     var uv = WorldView.Screen(offset) + new Vector2(0, 12);
                     vertices.Add(WorldView.Screen(point)); uvs.Add(uv / size);
+                    planar.Add(new((float)offset.X, (float)offset.Y));
                     ground.Add(point); tints.Add(tint);
                 }
                 for (var v = 0; v < Subdivisions; v++)
@@ -53,16 +57,17 @@ public partial class GroundView : Node2D
                     indices.AddRange([a, b, c, b, d, c]);
                 }
             }
-            _batches.Add(new(new ArrayMesh(), Textures[group.Key], vertices.ToArray(), uvs.ToArray(),
+            _batches.Add(new(new ArrayMesh(), group.Key, Textures[group.Key], vertices.ToArray(), uvs.ToArray(), planar.ToArray(),
                 indices.ToArray(), ground.ToArray(), tints.ToArray()));
         }
     }
 
-    public void Refresh(bool fieldView)
+    public void Refresh(bool fieldView, bool authored = true)
     {
+        _authored = authored;
         var player = Simulation.Player;
         var stamp = new SightStamp(player.Position, player.Cell, player.Facing, player.Attending,
-            Simulation.LocalMs >= player.EyesClosedUntilMs, Simulation.Map.LightsOn, fieldView,
+            Simulation.LocalMs >= player.EyesClosedUntilMs, Simulation.Map.LightsOn, fieldView, authored,
             string.Join(',', Simulation.Map.OpenDoors.Order(StringComparer.Ordinal)));
         if (stamp == _stamp) return;
         _stamp = stamp;
@@ -84,7 +89,7 @@ public partial class GroundView : Node2D
             }
             using var arrays = new Godot.Collections.Array(); arrays.Resize((int)Mesh.ArrayType.Max);
             arrays[(int)Mesh.ArrayType.Vertex] = batch.Vertices;
-            arrays[(int)Mesh.ArrayType.TexUV] = batch.UVs;
+            arrays[(int)Mesh.ArrayType.TexUV] = authored && AuthoredTextures.ContainsKey(batch.Key) ? batch.PlanarUVs : batch.UVs;
             arrays[(int)Mesh.ArrayType.Color] = colors;
             arrays[(int)Mesh.ArrayType.Index] = batch.Indices;
             batch.Mesh.ClearSurfaces(); batch.Mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
@@ -95,7 +100,7 @@ public partial class GroundView : Node2D
 
     public override void _Draw()
     {
-        foreach (var batch in _batches) DrawMesh(batch.Mesh, batch.Texture);
+        foreach (var batch in _batches) DrawMesh(batch.Mesh, _authored && AuthoredTextures.TryGetValue(batch.Key, out var art) ? art : batch.Texture);
     }
 
     public override void _ExitTree()

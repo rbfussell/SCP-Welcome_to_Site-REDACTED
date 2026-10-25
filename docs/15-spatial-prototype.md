@@ -101,3 +101,7 @@ Optional actor fields `MoveGoal` and `BumpedCells` are saved/validated within ou
 ## October 24 journal and tactical training
 
 The current scene adds the [player journal and tactical training proof](20-event-log-and-tactical-training.md). Outer schema 5 supersedes the schema-4 references above while retaining compatible migration; SCP-650 module schema stays 2. The lower panel keeps 100 acquired messages with five visible rows. The training guide records AP/input, independent local/world scheduling and the explicit limits of temporary sidearms and nonlethal points. This does not complete M0/M1 acceptance.
+
+## October 24 default facility art
+
+Default scenes now render [the generated facility stand-in set](../game/Assets/facility-standins/README.md): Chen, Ortiz and the director have separate six-facing idle/walk sheets, surfaces map onto the existing projected geometry, and crate/cabinet/CRT/trolley have registered sprites. F4 restores diagnostic art for the whole scene. Character appearance/ordered-layer selection lives in the Godot presentation catalog, with no simulation or save-schema change. These are baked development outfits, with aligned body/head/clothing composition and additional action animations still to qualify.

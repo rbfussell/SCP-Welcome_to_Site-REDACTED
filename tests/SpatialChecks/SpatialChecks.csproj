@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/SiteSimulation/SiteSimulation.csproj" />
+    <Compile Include="../../game/Presentation/SpriteArtCatalog.cs" Link="SpriteArtCatalog.cs" />
     <Compile Include="../../game/Presentation/ReferenceProjection.cs" Link="ReferenceProjection.cs" />
     <Compile Include="../../game/Presentation/FieldPresentation.cs" Link="FieldPresentation.cs" />
   </ItemGroup>

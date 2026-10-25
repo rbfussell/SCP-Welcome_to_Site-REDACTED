@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-24",
+  "tool": "built-in imagegen",
+  "assets": {
+    "chen": {
+      "file": "chen.png",
+      "original_file": "exec-304617eb-d91c-4fbb-b6fb-4a722e82d210.png",
+      "sha256": "0c1da902402b6901cf3a7c3a609d941899d2f82b74dc184be3d03d251e026ebb",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "ortiz": {
+      "file": "ortiz.png",
+      "original_file": "exec-0a2df07e-63a1-47f4-9195-6d090ca874ea.png",
+      "sha256": "bcccb2ef232231cb84057e031d58dea337ecd0d95cea09f90a66c502e744d8e6",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "player": {
+      "file": "player.png",
+      "original_file": "exec-2f70f0af-8801-418f-bd31-c14dc7a26bef.png",
+      "sha256": "875fb26217cb44a1287b64a65183b540766d5d46b7d4bef6cbcab2f7dad43d0b",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    "floor": {
+      "file": "floor.png",
+      "original_file": "exec-bc5aced0-2982-4ffb-b0f1-80e8df8bcb02.png",
+      "sha256": "c0592226116a0887322784a5866d4a47f03cf33d55ae0a218d0c31d2c0ce638c",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "wall": {
+      "file": "wall.png",
+      "original_file": "exec-b862be90-9b61-4d2f-972a-310f1482fd8d.png",
+      "sha256": "76bd624909e40a3047ce851a1e29e56aa3334fb59c80ec2d54e5c4fdfb6df9ef",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "door": {
+      "file": "door.png",
+      "original_file": "exec-148fc69d-6ebe-4c1f-8c7c-aa9bf2b9c858.png",
+      "sha256": "0a28a85c7fb8a0d93801faa11de00a19b038303ce6a5a904b61fec4d4c6ed5e5",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "land": {
+      "file": "land.png",
+      "original_file": "exec-481f50af-3c9f-4eef-9c35-5b8c26b49332.png",
+      "sha256": "2574f609da0a0cfa79dab18c6950902eea969c277bddf073fe382c4613ceb106",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGB"
+    },
+    "props": {
+      "file": "props.png",
+      "original_file": "exec-7aa52272-a5f7-41e3-9ea5-e2e84d602b39.png",
+      "sha256": "ad7eb22951c5f8f913fee439d9b6c8ee6907907e9068fcc303f2e5c86cdef82a",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    }
+  }
+}

@@ -22,6 +22,9 @@ public partial class WorldView : Node2D
     private readonly Dictionary<string, string[]> _anomalySprites = [];
     private readonly Dictionary<string, string[]> _anomalyArt = [];
     private GroundView _ground = null!;
+    private SpriteArtCatalog _facilityArt = null!;
+    private readonly Dictionary<string, Texture2D> _surfaceArt = [];
+    private const float WallHeight = 68;
     internal int GroundShadingBuilds => _ground.ShadingBuilds;
     private int _walkFrames = 3;
     private int _walkCycleMs = 300;
@@ -63,9 +66,27 @@ public partial class WorldView : Node2D
             };
             _sprites[entry.Name] = (texture, new(anchor[0].GetSingle(), anchor[1].GetSingle()), entry.Value.GetProperty("scale").GetSingle());
         }
+        _facilityArt = new SpriteArtCatalog(Godot.FileAccess.GetFileAsString("res://Assets/facility-standins/manifest.json"));
+        var sourceImages = new Dictionary<string, Texture2D>();
+        foreach (var (key, sprite) in _facilityArt.Manifest.Sprites)
+        {
+            if (!sourceImages.TryGetValue(sprite.File, out var source))
+            {
+                source = GD.Load<Texture2D>("res://Assets/" + sprite.File);
+                var expected = _facilityArt.Manifest.Images[sprite.File];
+                if (source.GetWidth() != expected[0] || source.GetHeight() != expected[1]) throw new InvalidOperationException("Art image size changed: " + sprite.File);
+                sourceImages.Add(sprite.File, source);
+            }
+            var r = sprite.Region;
+            var texture = new AtlasTexture { Atlas = source, Region = new(r[0], r[1], r[2], r[3]), FilterClip = true };
+            _sprites.Add(key, (texture, new((float)sprite.Anchor[0], (float)sprite.Anchor[1]), (float)sprite.Scale));
+        }
+        foreach (var (surface, key) in _facilityArt.Manifest.Surfaces) _surfaceArt.Add(surface, _sprites[key].Texture);
         _ground = new GroundView
         {
             Simulation = Simulation,
+            AuthoredTextures = Enumerable.Range(0, 6).SelectMany(i => new[] { "floor", "land" }.Select(kind => (Key: $"{kind}-{i}", Texture: _surfaceArt[kind])))
+                .ToDictionary(e => e.Key, e => e.Texture),
             Textures = _sprites.Where(s => s.Key.StartsWith("floor-", StringComparison.Ordinal)
                 || s.Key.StartsWith("land-", StringComparison.Ordinal)).ToDictionary(s => s.Key, s => s.Value.Texture)
         };
@@ -78,30 +99,68 @@ public partial class WorldView : Node2D
         foreach (var actor in Simulation.Actors.Where(a => a != Simulation.Player && Simulation.Combat.For(a.Id) is { Side: "opposition", Points: > 0 }
             && Simulation.VisibleToPlayer(a.Position)).OrderByDescending(a => Screen(a.Position).Y))
         {
-            var state = actor.Moving ? "walk" : "idle";
-            var sprite = _sprites[$"{actor.Kind}-{state}-{actor.Facing}-{(actor.Moving ? Frame(actor) : 0)}"];
-            var pixel = local - (Screen(actor.Position) - sprite.Anchor * sprite.Scale).Round();
-            var size = sprite.Texture.GetSize() * sprite.Scale;
-            if (pixel.X >= 0 && pixel.Y >= 0 && pixel.X < size.X && pixel.Y < size.Y)
+            foreach (var key in ActorLayers(actor).Reverse())
             {
-                using var image = sprite.Texture.GetImage();
-                if (image.GetPixel((int)(pixel.X / sprite.Scale), (int)(pixel.Y / sprite.Scale)).A > 0.05f) return actor;
+                var sprite = _sprites[key];
+                var pixel = local - (Screen(actor.Position) - sprite.Anchor * sprite.Scale).Round();
+                var size = sprite.Texture.GetSize() * sprite.Scale;
+                if (pixel.X >= 0 && pixel.Y >= 0 && pixel.X < size.X && pixel.Y < size.Y)
+                {
+                    using var image = sprite.Texture.GetImage();
+                    if (image.GetPixel((int)(pixel.X / sprite.Scale), (int)(pixel.Y / sprite.Scale)).A > 0.05f) return actor;
+                }
             }
             if (Point2.Distance(actor.Position, ReferenceProjection.Unproject(new(local.X, local.Y))) < 0.3) return actor;
         }
         return null;
     }
 
-    public override void _Process(double delta) => _ground.Refresh(FieldView);
+    private string[] ActorLayers(ActorState actor)
+    {
+        var state = actor.Moving ? "walk" : "idle";
+        if (!DiagnosticSprites)
+        {
+            var art = _facilityArt.Layers(actor.Id, state, actor.Facing, actor.Moving ? actor.WalkMs % _walkCycleMs / (double)_walkCycleMs : 0);
+            if (art.Length > 0) return art;
+        }
+        return [$"{actor.Kind}-{state}-{actor.Facing}-{Frame(actor)}"];
+    }
+    private string ObjectKey(string kind) => !DiagnosticSprites && _facilityArt.Manifest.Objects.TryGetValue(kind, out var key) ? key : kind;
+    public override void _Process(double delta) => _ground.Refresh(FieldView, !DiagnosticSprites);
 
+    private Color LightAt(Vector2 feet)
+    {
+        var ground = ReferenceProjection.Unproject(new(feet.X, feet.Y));
+        return FieldView
+            ? new Color(0.28f, 0.32f, 0.34f).Lerp(new Color(0.92f, 1, 0.96f), FieldPresentation.SightShade(Simulation, ground))
+            : Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);
+    }
     private void Sprite(string key, Vector2 feet, Color? tint = null)
     {
         var sprite = _sprites[key];
-        var ground = ReferenceProjection.Unproject(new(feet.X, feet.Y));
-        var light = FieldView
-            ? new Color(0.28f, 0.32f, 0.34f).Lerp(new Color(0.92f, 1, 0.96f), FieldPresentation.SightShade(Simulation, ground))
-            : Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);
-        DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * light);
+        DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * LightAt(feet));
+    }
+    private bool ShouldCutAway(WallDefinition wall, IReadOnlyList<Vector2> knownPoints)
+    {
+        if (!Cutaway) return false;
+        if (wall.Y >= 5 || wall.X == Simulation.Map.Definition.Width) return true;
+        var start = Screen(wall.Start); var end = Screen(wall.End);
+        var bounds = new Rect2(Math.Min(start.X, end.X) - 12, Math.Min(start.Y, end.Y) - WallHeight,
+            Math.Abs(end.X - start.X) + 24, Math.Abs(end.Y - start.Y) + WallHeight);
+        var depth = Screen(wall.Center).Y;
+        return knownPoints.Any(point => point.Y <= depth && bounds.HasPoint(point + new Vector2(0, -8)));
+    }
+    private void WallFace(WallDefinition wall, float alpha)
+    {
+        var start = Screen(wall.Start); var end = Screen(wall.End);
+        var top = new Vector2(0, -WallHeight);
+        var light = LightAt(Screen(wall.Center)) * (wall.Axis == "u" ? Colors.White : new Color(0.79f, 0.84f, 0.88f));
+        light.A *= alpha;
+        DrawPolygon([start, end, end + top, start + top], [light, light, light, light],
+            [new(0, 1), new(1, 1), new(1, 0), new(0, 0)], _surfaceArt[wall.Door ? "door" : "wall"]);
+        var thickness = new Vector2(-3, -2);
+        DrawColoredPolygon([start + top, end + top, end + top + thickness, start + top + thickness], new Color("a5a99f") * light);
+        DrawLine(start, end, new Color("252b2b") * light, 2);
     }
 
     private static Vector2[] Corners(Hex h)
@@ -133,6 +192,9 @@ public partial class WorldView : Node2D
     {
         if (Simulation is null) return;
         _debugLabels.Clear();
+        var cutawayTargets = Cutaway ? Simulation.Actors.Where(a => FieldPresentation.ShowActor(Simulation, a, !FieldView)).Select(a => a.Position)
+            .Concat(Simulation.Anomalies.Bodies.Where(body => FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)).Select(body => body.Position))
+            .Select(Screen).ToArray() : [];
         var map = Simulation.Map;
         for (var y = -2; y < map.Definition.Height + 2; y++)
         for (var x = -2; x < map.Definition.Width + 2; x++)
@@ -182,26 +244,28 @@ public partial class WorldView : Node2D
                 var open = wall.Door && map.OpenDoors.Contains(wall.Id);
                 if (open)
                 {
-                    DrawLine(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, 54), new Color("b4aaa0"), 3);
-                    DrawLine(Screen(wall.End), Screen(wall.End) - new Vector2(0, 54), new Color("b4aaa0"), 3);
-                    DrawLine(Screen(wall.Start) - new Vector2(0, 54), Screen(wall.End) - new Vector2(0, 54), new Color("888681"), 4);
+                    var height = DiagnosticSprites ? 54 : WallHeight;
+                    DrawLine(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, height), new Color("b4aaa0"), 3);
+                    DrawLine(Screen(wall.End), Screen(wall.End) - new Vector2(0, height), new Color("b4aaa0"), 3);
+                    DrawLine(Screen(wall.Start) - new Vector2(0, height), Screen(wall.End) - new Vector2(0, height), new Color("888681"), 4);
                     return;
                 }
-                var nearWall = wall.Y >= 5 || wall.X == map.Definition.Width;
-                Sprite($"{(wall.Door ? "door" : "wall")}-{wall.Axis}", Screen(wall.Start), new Color(1, 1, 1, Cutaway && nearWall ? 0.25f : 1));
+                var alpha = ShouldCutAway(wall, cutawayTargets) ? 0.25f : 1;
+                if (!DiagnosticSprites) WallFace(wall, alpha);
+                else Sprite($"{(wall.Door ? "door" : "wall")}-{wall.Axis}", Screen(wall.Start), new Color(1, 1, 1, alpha));
             }));
         }
         foreach (var prop in map.Definition.Props)
         {
             var p = Screen(prop.Cell.World);
-            drawables.Add((p.Y, prop.Id, () => Sprite(prop.Kind, p)));
+            drawables.Add((p.Y, prop.Id, () => Sprite(ObjectKey(prop.Kind), p)));
         }
         if (Simulation.Operations.Definition is { } operation)
         {
             var terminal = Screen(operation.Terminal.World);
             drawables.Add((terminal.Y, "-oscp", () =>
             {
-                Sprite("cabinet", terminal);
+                Sprite(DiagnosticSprites ? "cabinet" : ObjectKey("terminal"), terminal);
                 Tag(terminal + new Vector2(0, -45), "OSCP", new Color("a0d1af"), 10);
             }));
             var cart = Simulation.Operations.Trolley;
@@ -210,10 +274,14 @@ public partial class WorldView : Node2D
                 var p = Screen(cart.Position);
                 drawables.Add((p.Y, "-trolley", () =>
                 {
-                    DrawColoredPolygon(Corners(Hex.FromWorld(cart.Position)), new Color("557f82"));
-                    DrawLine(p + new Vector2(-14, -7), p + new Vector2(-14, -22), new Color("bac3bc"), 3);
-                    DrawCircle(p + new Vector2(-11, 6), 3, new Color("d6d2ba"));
-                    DrawCircle(p + new Vector2(11, 6), 3, new Color("d6d2ba"));
+                    if (!DiagnosticSprites) Sprite(ObjectKey("trolley"), p);
+                    else
+                    {
+                        DrawColoredPolygon(Corners(Hex.FromWorld(cart.Position)), new Color("557f82"));
+                        DrawLine(p + new Vector2(-14, -7), p + new Vector2(-14, -22), new Color("bac3bc"), 3);
+                        DrawCircle(p + new Vector2(-11, 6), 3, new Color("d6d2ba"));
+                        DrawCircle(p + new Vector2(11, 6), 3, new Color("d6d2ba"));
+                    }
                     if (!FieldView) Tag(p + new Vector2(0, 18), "OPEN TROLLEY", new Color("a0d1af"), 8);
                 }));
             }
@@ -224,7 +292,10 @@ public partial class WorldView : Node2D
             if (!FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)) continue;
             var p = Screen(body.Cell.World);
             var keys = DiagnosticSprites ? _anomalySprites : _anomalyArt;
-            drawables.Add((p.Y, body.Id, () => Sprite(keys[body.ModuleId][body.Pose], p)));
+            var support = !DiagnosticSprites && Simulation.Operations.Trolley.SubjectId == body.Id
+                && _facilityArt.Manifest.Mounts?.TryGetValue("trolley-support", out var mount) == true
+                ? new Vector2((float)mount[0], (float)mount[1]) : Vector2.Zero;
+            drawables.Add((p.Y, body.Id, () => Sprite(keys[body.ModuleId][body.Pose], p + support)));
         }
         foreach (var actor in Simulation.Actors)
         {
@@ -232,9 +303,7 @@ public partial class WorldView : Node2D
             var p = Screen(actor.Position);
             drawables.Add((p.Y, actor.Id, () =>
             {
-                var state = actor.Moving ? "walk" : "idle";
-                var frame = Frame(actor);
-                Sprite($"{actor.Kind}-{state}-{actor.Facing}-{frame}", p);
+                foreach (var key in ActorLayers(actor)) Sprite(key, p);
                 var direction = Screen(actor.Cell.Neighbor(actor.Facing).World) - Screen(actor.Cell.World);
                 if (!FieldView || actor == Simulation.Player)
                     DrawLine(p, p + direction.Normalized() * 15, new Color("61ff70"), 2);

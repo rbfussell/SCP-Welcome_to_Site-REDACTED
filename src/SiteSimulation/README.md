@@ -44,3 +44,5 @@ Run [the spatial checks](../../tests/SpatialChecks/Program.cs) and [SCP-650 chec
 The [recovery prototype guide](../../docs/19-personnel-orders-and-recovery-prototype.md) describes the command → delivered order → real work → received report flow and the explicit limits of radio/device and physical transport fixtures.
 
 The [event log and tactical training guide](../../docs/20-event-log-and-tactical-training.md) explains evidence-gated player messages, local AP resolution, controls, provisional tuning and pending-action persistence. The unrestricted debug trace never supplies journal entries.
+
+The [generated facility sprite set](../../game/Assets/facility-standins/README.md) is selected by the presentation-only `SpriteArtCatalog` in `game/Presentation`. Its actor/rig/state/facing/frame/ordered-layer bindings, atlas regions and anchors are independent of this simulation. Baked outfit art can later be replaced by compatible layered assets without changing NPC rules or timing.

@@ -112,6 +112,22 @@ public partial class SpatialScene
                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                     var error = GetViewport().GetTexture().GetImage().SavePng(_capturePath!);
                     if (error != Error.Ok) throw new IOException("Screenshot failed: " + error);
+                    _simulation.ManualPause = true;
+                    var artBaseline = _simulation.Save();
+                    var artShadingBuilds = _world.GroundShadingBuilds;
+                    SmokeKey(Key.F4);
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                    if (!_world.DiagnosticSprites || _simulation.Save() != artBaseline || _world.GroundShadingBuilds <= artShadingBuilds)
+                        throw new InvalidOperationException("F4 must switch all art/ground bindings without advancing the held world.");
+                    var placeholdersPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-placeholders.png");
+                    if (GetViewport().GetTexture().GetImage().SavePng(placeholdersPath) != Error.Ok) throw new IOException("Placeholder screenshot failed.");
+                    SmokeKey(Key.F4);
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    if (_world.DiagnosticSprites || _simulation.Save() != artBaseline)
+                        throw new InvalidOperationException("F4 return to authored art changed simulation state.");
                     _world.FieldView = false; ResetCamera(); RefreshCamera();
                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, "DIAGNOSTIC CAPTURE");
                     _encounter.Visible = false; _world.QueueRedraw();
@@ -130,7 +146,7 @@ public partial class SpatialScene
                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                     var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-sight.png");
                     if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException("Sight screenshot failed.");
-                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, RMB discovery and exact shared movement stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, field/diagnostic/sight screenshots.");
+                    GD.Print("SCENE_SMOKE_PASS: click/move, observation/release, held world/save and shading cache, RMB discovery and exact shared movement stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, F4 reversible full-art swap with unchanged held state, field/diagnostic/placeholder/sight screenshots.");
                     GetTree().Quit();
                     return;
             }

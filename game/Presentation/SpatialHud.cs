@@ -98,7 +98,7 @@ public partial class SpatialHud : Control
         Line(_fieldPanel, "PROTOTYPE ENCOUNTER\n\nO  — interrupt Chen's watch\nRMB / Ctrl-click  — turn\nK  — blink\nE  — use nearest door\nShift-click  — move, keep facing", 13, Text);
         Button(_fieldPanel, "Interrupt / restore Chen's watch   O", sim.ToggleObserverAttention);
         Button(_fieldPanel, "Global pause   Space", () => sim.ManualPause = !sim.ManualPause);
-        Line(_fieldPanel, "F2   Diagnostics and module state\nF4   Art / diagnostic statue\nM    Mute audio\nR     Reduce effects\nF5 / F9   Save / restore\nHome   Reset camera", 12, Muted);
+        Line(_fieldPanel, "F2   Diagnostics and module state\nF4   Art / diagnostic sprites\nM    Mute audio\nR     Reduce effects\nF5 / F9   Save / restore\nHome   Reset camera", 12, Muted);
         Line(_fieldPanel, "Encounter audio is presentation only.\nNo flashing or camera shake.\n\nComplacency is a per-person module flag, switched with J for testing. Its future metric is undecided.", 11, Muted);
         _journal = new PlayerLogPanel(); AddChild(_journal); _journal.Initialize();
         _footer = new Control { MouseFilter = MouseFilterEnum.Ignore }; AddChild(_footer);

@@ -1,0 +1,1381 @@
+{
+  "version": 1,
+  "images": {
+    "facility-standins/chen.png": [
+      1536,
+      1024
+    ],
+    "facility-standins/ortiz.png": [
+      1536,
+      1024
+    ],
+    "facility-standins/player.png": [
+      1536,
+      1024
+    ],
+    "facility-standins/floor.png": [
+      1254,
+      1254
+    ],
+    "facility-standins/wall.png": [
+      1254,
+      1254
+    ],
+    "facility-standins/door.png": [
+      1254,
+      1254
+    ],
+    "facility-standins/land.png": [
+      1254,
+      1254
+    ],
+    "facility-standins/props.png": [
+      1254,
+      1254
+    ]
+  },
+  "sprites": {
+    "facility-chen-idle-0-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        0,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        153.5,
+        256
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-idle-1-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        256,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        129.5,
+        256
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-idle-2-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        512,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        127.5,
+        258
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-idle-3-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        768,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        128.0,
+        259
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-idle-4-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1024,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        128.0,
+        256
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-idle-5-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1280,
+        0,
+        256,
+        263
+      ],
+      "anchor": [
+        102.5,
+        256
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-0-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        0,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        144.5,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-1-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        256,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        145.0,
+        238
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-2-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        512,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        129.5,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-3-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        768,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        122.0,
+        245
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-4-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1024,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        112.0,
+        238
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-5-0": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1280,
+        263,
+        256,
+        249
+      ],
+      "anchor": [
+        111.5,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-0-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        0,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        137.0,
+        244
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-1-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        256,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        143.5,
+        234
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-2-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        512,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        130.5,
+        244
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-3-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        768,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        120.5,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-4-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1024,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        114.0,
+        234
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-5-1": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1280,
+        512,
+        256,
+        249
+      ],
+      "anchor": [
+        119.0,
+        243
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-0-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        0,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        142.5,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-1-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        256,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        138.5,
+        233
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-2-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        512,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        140.5,
+        247
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-3-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        768,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        118.0,
+        247
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-4-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1024,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        119.0,
+        235
+      ],
+      "scale": 0.242171
+    },
+    "facility-chen-walk-5-2": {
+      "file": "facility-standins/chen.png",
+      "region": [
+        1280,
+        761,
+        256,
+        263
+      ],
+      "anchor": [
+        113.0,
+        242
+      ],
+      "scale": 0.242171
+    },
+    "facility-ortiz-idle-0-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        0,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        146.5,
+        240
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-idle-1-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        256,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        140.0,
+        242
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-idle-2-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        512,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        131.0,
+        245
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-idle-3-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        768,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        127.0,
+        245
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-idle-4-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1024,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        124.0,
+        243
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-idle-5-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1280,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        108.5,
+        240
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-0-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        0,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        131.0,
+        239
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-1-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        256,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        140.5,
+        230
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-2-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        512,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        145.5,
+        240
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-3-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        768,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        113.0,
+        239
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-4-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1024,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        117.0,
+        231
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-5-0": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1280,
+        257,
+        256,
+        253
+      ],
+      "anchor": [
+        125.5,
+        239
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-0-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        0,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        129.0,
+        241
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-1-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        256,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        142.5,
+        233
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-2-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        512,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        151.0,
+        240
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-3-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        768,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        108.5,
+        240
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-4-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1024,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        126.0,
+        237
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-5-1": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1280,
+        510,
+        256,
+        253
+      ],
+      "anchor": [
+        119.5,
+        239
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-0-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        0,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        121.0,
+        236
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-1-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        256,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        128.0,
+        233
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-2-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        512,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        148.0,
+        237
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-3-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        768,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        118.5,
+        235
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-4-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1024,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        124.5,
+        233
+      ],
+      "scale": 0.258929
+    },
+    "facility-ortiz-walk-5-2": {
+      "file": "facility-standins/ortiz.png",
+      "region": [
+        1280,
+        763,
+        256,
+        261
+      ],
+      "anchor": [
+        138.5,
+        233
+      ],
+      "scale": 0.258929
+    },
+    "facility-player-idle-0-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        0,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        153.0,
+        245
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-idle-1-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        256,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        137.0,
+        246
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-idle-2-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        512,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        127.5,
+        246
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-idle-3-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        768,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        126.5,
+        245
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-idle-4-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1024,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        116.0,
+        244
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-idle-5-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1280,
+        0,
+        256,
+        257
+      ],
+      "anchor": [
+        103.5,
+        244
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-0-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        0,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        125.5,
+        238
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-1-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        256,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        142.0,
+        238
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-2-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        512,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        129.0,
+        240
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-3-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        768,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        122.5,
+        240
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-4-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1024,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        113.0,
+        238
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-5-0": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1280,
+        257,
+        256,
+        254
+      ],
+      "anchor": [
+        131.0,
+        238
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-0-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        0,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        126.5,
+        239
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-1-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        256,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        145.0,
+        239
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-2-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        512,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        133.0,
+        241
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-3-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        768,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        117.0,
+        241
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-4-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1024,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        109.5,
+        239
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-5-1": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1280,
+        511,
+        256,
+        253
+      ],
+      "anchor": [
+        130.5,
+        240
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-0-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        0,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        137.0,
+        239
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-1-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        256,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        138.0,
+        232
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-2-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        512,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        132.0,
+        241
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-3-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        768,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        122.0,
+        241
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-4-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1024,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        115.5,
+        232
+      ],
+      "scale": 0.25054
+    },
+    "facility-player-walk-5-2": {
+      "file": "facility-standins/player.png",
+      "region": [
+        1280,
+        764,
+        256,
+        260
+      ],
+      "anchor": [
+        119.0,
+        239
+      ],
+      "scale": 0.25054
+    },
+    "facility-floor": {
+      "file": "facility-standins/floor.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "scale": 1
+    },
+    "facility-wall": {
+      "file": "facility-standins/wall.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "scale": 1
+    },
+    "facility-door": {
+      "file": "facility-standins/door.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "scale": 1
+    },
+    "facility-land": {
+      "file": "facility-standins/land.png",
+      "region": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "scale": 1
+    },
+    "facility-crate": {
+      "file": "facility-standins/props.png",
+      "region": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "anchor": [
+        313.5,
+        460.453
+      ],
+      "scale": 0.086762
+    },
+    "facility-cabinet": {
+      "file": "facility-standins/props.png",
+      "region": [
+        627,
+        0,
+        627,
+        627
+      ],
+      "anchor": [
+        308.602,
+        573.117
+      ],
+      "scale": 0.112281
+    },
+    "facility-terminal": {
+      "file": "facility-standins/props.png",
+      "region": [
+        0,
+        627,
+        627,
+        627
+      ],
+      "anchor": [
+        313.5,
+        445.758
+      ],
+      "scale": 0.102073
+    },
+    "facility-trolley": {
+      "file": "facility-standins/props.png",
+      "region": [
+        627,
+        627,
+        627,
+        627
+      ],
+      "anchor": [
+        289.008,
+        440.859
+      ],
+      "scale": 0.086762
+    }
+  },
+  "rigs": {
+    "human-isometric-six-v1": {
+      "directions": [
+        "NE",
+        "E",
+        "SE",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "frames": {
+        "idle": 1,
+        "walk": 3
+      }
+    }
+  },
+  "actors": {
+    "observer": {
+      "rig": "human-isometric-six-v1",
+      "layers": [
+        {
+          "id": "baked-outfit",
+          "states": {
+            "idle": [
+              [
+                "facility-chen-idle-0-0"
+              ],
+              [
+                "facility-chen-idle-1-0"
+              ],
+              [
+                "facility-chen-idle-2-0"
+              ],
+              [
+                "facility-chen-idle-3-0"
+              ],
+              [
+                "facility-chen-idle-4-0"
+              ],
+              [
+                "facility-chen-idle-5-0"
+              ]
+            ],
+            "walk": [
+              [
+                "facility-chen-walk-0-0",
+                "facility-chen-walk-0-1",
+                "facility-chen-walk-0-2"
+              ],
+              [
+                "facility-chen-walk-1-0",
+                "facility-chen-walk-1-1",
+                "facility-chen-walk-1-2"
+              ],
+              [
+                "facility-chen-walk-2-0",
+                "facility-chen-walk-2-1",
+                "facility-chen-walk-2-2"
+              ],
+              [
+                "facility-chen-walk-3-0",
+                "facility-chen-walk-3-1",
+                "facility-chen-walk-3-2"
+              ],
+              [
+                "facility-chen-walk-4-0",
+                "facility-chen-walk-4-1",
+                "facility-chen-walk-4-2"
+              ],
+              [
+                "facility-chen-walk-5-0",
+                "facility-chen-walk-5-1",
+                "facility-chen-walk-5-2"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "tech": {
+      "rig": "human-isometric-six-v1",
+      "layers": [
+        {
+          "id": "baked-outfit",
+          "states": {
+            "idle": [
+              [
+                "facility-ortiz-idle-0-0"
+              ],
+              [
+                "facility-ortiz-idle-1-0"
+              ],
+              [
+                "facility-ortiz-idle-2-0"
+              ],
+              [
+                "facility-ortiz-idle-3-0"
+              ],
+              [
+                "facility-ortiz-idle-4-0"
+              ],
+              [
+                "facility-ortiz-idle-5-0"
+              ]
+            ],
+            "walk": [
+              [
+                "facility-ortiz-walk-0-0",
+                "facility-ortiz-walk-0-1",
+                "facility-ortiz-walk-0-2"
+              ],
+              [
+                "facility-ortiz-walk-1-0",
+                "facility-ortiz-walk-1-1",
+                "facility-ortiz-walk-1-2"
+              ],
+              [
+                "facility-ortiz-walk-2-0",
+                "facility-ortiz-walk-2-1",
+                "facility-ortiz-walk-2-2"
+              ],
+              [
+                "facility-ortiz-walk-3-0",
+                "facility-ortiz-walk-3-1",
+                "facility-ortiz-walk-3-2"
+              ],
+              [
+                "facility-ortiz-walk-4-0",
+                "facility-ortiz-walk-4-1",
+                "facility-ortiz-walk-4-2"
+              ],
+              [
+                "facility-ortiz-walk-5-0",
+                "facility-ortiz-walk-5-1",
+                "facility-ortiz-walk-5-2"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    "avatar": {
+      "rig": "human-isometric-six-v1",
+      "layers": [
+        {
+          "id": "baked-outfit",
+          "states": {
+            "idle": [
+              [
+                "facility-player-idle-0-0"
+              ],
+              [
+                "facility-player-idle-1-0"
+              ],
+              [
+                "facility-player-idle-2-0"
+              ],
+              [
+                "facility-player-idle-3-0"
+              ],
+              [
+                "facility-player-idle-4-0"
+              ],
+              [
+                "facility-player-idle-5-0"
+              ]
+            ],
+            "walk": [
+              [
+                "facility-player-walk-0-0",
+                "facility-player-walk-0-1",
+                "facility-player-walk-0-2"
+              ],
+              [
+                "facility-player-walk-1-0",
+                "facility-player-walk-1-1",
+                "facility-player-walk-1-2"
+              ],
+              [
+                "facility-player-walk-2-0",
+                "facility-player-walk-2-1",
+                "facility-player-walk-2-2"
+              ],
+              [
+                "facility-player-walk-3-0",
+                "facility-player-walk-3-1",
+                "facility-player-walk-3-2"
+              ],
+              [
+                "facility-player-walk-4-0",
+                "facility-player-walk-4-1",
+                "facility-player-walk-4-2"
+              ],
+              [
+                "facility-player-walk-5-0",
+                "facility-player-walk-5-1",
+                "facility-player-walk-5-2"
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "objects": {
+    "crate": "facility-crate",
+    "cabinet": "facility-cabinet",
+    "terminal": "facility-terminal",
+    "trolley": "facility-trolley"
+  },
+  "surfaces": {
+    "floor": "facility-floor",
+    "wall": "facility-wall",
+    "door": "facility-door",
+    "land": "facility-land"
+  },
+  "mounts": {
+    "trolley-support": [
+      0,
+      -5
+    ]
+  }
+}
