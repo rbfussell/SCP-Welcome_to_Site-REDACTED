@@ -4,7 +4,7 @@ Status: Proposed implementation contract, revision 0.4. Hierarchical storage, sp
 
 The October 25 [personal inventory prototype](23-personal-inventory-prototype.md) implements worn/held mounts, separate pockets, backpack sections, nested cases/packets, physical packing, timed handling and nearby crate transfers. Specialized racks, mixed shelves, pallets and delegated logistics remain proposed.
 
-The confirmed [body equipment and container navigation](24-body-equipment-and-container-navigation.md) direction keeps a permanent paperdoll and reveals storage through deliberate inspection. It also specifies anatomical coverage, compatible clothing layers, equipment attachments and possible front/back packs as future equipment work. Inspection navigation is implemented; generalized layered wearing is not.
+The confirmed [body equipment and container navigation](24-body-equipment-and-container-navigation.md) direction keeps a permanent paperdoll and reveals storage through deliberate inspection. Inspection navigation and a bounded authored coverage/layer/fastening/front-and-back-pack slice are implemented. Broader attachment and clothing content remains future work.
 
 ## 1. Player experience
 
@@ -76,7 +76,7 @@ A buried box remains in stock but its contents are not directly retrievable. An 
 
 Access to contents can differ from access to the container itself. A closed box may be carryable while its contents are not inspectable; a cabinet may allow a small item to be removed without enough clearance to extract a large case. Container definitions explicitly declare these distinctions.
 
-For worn storage, physically covering clothing blocks access to the equipment/pockets beneath it. A supported opening action, such as unfastening a jacket, reveals the relevant underlying clothing on the paperdoll and permits access at the exposed locations. Opening a garment, opening its pocket and displaying its inventory view are distinct operations. This confirmed rule is specified in [body equipment and container navigation](24-body-equipment-and-container-navigation.md); the current prototype has not yet implemented general garment coverage or fastening states.
+For worn storage, physically covering clothing blocks access to the equipment/pockets beneath it. A supported opening action, such as unfastening a jacket, reveals the relevant underlying clothing on the paperdoll and permits access at the exposed locations. Opening a garment, opening its pocket and displaying its inventory view are distinct operations. This confirmed rule is specified in [body equipment and container navigation](24-body-equipment-and-container-navigation.md); the current prototype implements it for authored clothing profiles, without a general garment-art or protection simulation.
 
 Knowing that stock exists is also separate from access. Sealed, unknown, or stale-manifest contents remain unknown or estimated according to actor knowledge. Console availability categories distinguish known on-hand, immediately accessible, reserved, in transit, blocked, and unknown stock. Location, accessibility, and allocation are separate facets: an on-site reserved item may also be accessible. Label those counts and do not add overlapping facets into a stock total. Unknown quantities never become exact inventory merely because a summary is requested.
 

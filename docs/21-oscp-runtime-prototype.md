@@ -61,4 +61,4 @@ Core checks qualify profile aliases, access/authority, real phone delivery, inte
 
 The Personnel app now includes employment roles, short test shifts, last delivered duty reports and reported staffing warnings. `order tech duty` releases direct orders and resumes scheduled work. Full professions remain future work.
 
-The [inventory follow-on](23-personal-inventory-prototype.md) now supplies actual phone/radio items and shared physical access gates. Outer schema 7 supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.
+The [inventory follow-on](23-personal-inventory-prototype.md) now supplies actual phone/radio items and shared physical access gates. Outer schema 8 (including garment state) supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.

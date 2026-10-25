@@ -57,7 +57,11 @@ public partial class InventoryGrid : Control
             InventoryArt.Draw(this, item.DefinitionId, bounds.Grow(-3), item.Placement.Rotated,
                 Panel.DragItemId == item.Id ? 0.3f : 1);
             if (Panel.SelectedItem == item.Id) DrawRect(bounds.Grow(-1), new("c8b77a"), false, 1);
+            if (state.Definition(item.Id).Wear?.OpenExposes is { Length: > 0 })
+                DrawString(ThemeDB.FallbackFont, bounds.Position + new Vector2(3, bounds.Size.Y - 4), item.GarmentOpen ? "OPEN" : "FASTENED", fontSize: 11, modulate: new("d8dfcf"));
         }
+        if (region.MountSlot is not null && state.Children(ParentId, RegionId).Any(i => !InventoryWear.Visible(state, i)))
+            DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), "Covered", fontSize: 12, modulate: new("c99c76"));
         if (preview is not null)
         {
             InventoryArt.Draw(this, state.Definition(preview.ItemId).Id, preview.Bounds.Grow(-3), preview.Request.Destination!.Rotated, 0.85f);

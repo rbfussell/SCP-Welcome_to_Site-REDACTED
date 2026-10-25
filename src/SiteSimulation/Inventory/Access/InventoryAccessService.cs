@@ -22,6 +22,8 @@ internal static class InventoryAccessService
         for (var depth = 0; depth <= InventoryHierarchy.MaxDepth; depth++)
         {
             var region = state.Region(id, regionId);
+            var coverage = InventoryWear.Compartment(state, id, region);
+            if (!coverage.Allowed) return coverage;
             if (!state.IsOpen(id, regionId)) return new(false, region.Name + " is closed");
             if (equipment && !region.EquipmentReady) return new(false, region.Name + " is packed storage; move equipment to an accessible pocket or hand");
             var root = state.Content!.Roots.SingleOrDefault(r => r.Id == id);

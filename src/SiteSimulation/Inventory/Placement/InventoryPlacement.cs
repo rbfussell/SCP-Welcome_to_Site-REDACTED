@@ -15,7 +15,7 @@ public static class InventoryPlacement
             var definition = state.Definition(item.Id);
             var p = item.Placement;
             var region = state.Region(p.ParentId, p.RegionId);
-            if (region.MountSlot is { } mount && mount != "hand" && mount != definition.WearSlot)
+            if (region.MountSlot is { } mount && mount != "hand" && !InventoryWear.Accepts(definition, mount))
                 throw new ArgumentException(region.Name + " accepts only matching wearable equipment");
             if (region.AcceptTags is { Length: > 0 } tags && !definition.Tags.Any(tags.Contains))
                 throw new ArgumentException(region.Name + " rejects this item category");
@@ -36,5 +36,6 @@ public static class InventoryPlacement
         }
         foreach (var root in state.Content!.Roots)
             if (InventoryHierarchy.CarriedMass(state, root.Id) > root.MaxMassGrams) throw new ArgumentException(root.Name + " exceeds its total load limit");
+        InventoryWear.ValidateGraph(state);
     }
 }

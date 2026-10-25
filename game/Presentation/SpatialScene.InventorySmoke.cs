@@ -64,6 +64,7 @@ public partial class SpatialScene
             _hud.Inventory.Inspect("medical-case");
             if (_hud.Inventory.InspectedContainers.Count != 0) throw new InvalidOperationException("A packed case bypassed inspection of its parent.");
             await InventoryCapture("-paperdoll");
+            await RunWearSmoke();
             var local = sim.LocalMs; await InventoryFrames(30);
             if (sim.LocalMs <= local) throw new InvalidOperationException("Inventory inspection stopped the realtime world.");
             sim.ManualPause = true;

@@ -28,8 +28,8 @@ public partial class InventoryBrowser : HBoxContainer
         string? parentView = null;
         if (item is not null)
         {
-            if (!Panel.Simulation.InventoryAccess(item.Placement.ParentId, item.Placement.RegionId).Allowed)
-            { reason = "Container is not physically accessible."; return false; }
+            var access = Panel.Simulation.InventoryInspectAccess(id);
+            if (!access.Allowed) { reason = access.Reason; return false; }
             var parentRoot = state.Content.Roots.SingleOrDefault(r => r.Id == item.Placement.ParentId);
             if (parentRoot?.ActorId != Panel.Simulation.Player.Id)
             {
@@ -91,7 +91,7 @@ public partial class InventoryBrowser : HBoxContainer
             var item = state.DiagnosticItems.SingleOrDefault(i => i.Id == view.ContainerId);
             // Do not leave a case visible after it is packed elsewhere, its ancestor closes, or a fixture goes out of reach.
             if (item is not null && (item.Placement != view.PlacementAtInspection
-                || !Panel.Simulation.InventoryAccess(item.Placement.ParentId, item.Placement.RegionId).Allowed)
+                || !Panel.Simulation.InventoryInspectAccess(item.Id).Allowed)
                 || item is null && !state.Content!.Roots.Single(r => r.Id == view.ContainerId).Regions.Any(r => Panel.Simulation.InventoryAccess(view.ContainerId, r.Id).Allowed))
             { CloseView(view.ContainerId); continue; }
             view.Refresh();

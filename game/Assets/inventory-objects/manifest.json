@@ -222,6 +222,90 @@
         0,
         255
       ]
+    },
+    {
+      "id": "shirt",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-9d323ac4-165a-4e95-9f9e-137fdc679a11.png",
+      "subject": "a single muted grey long-sleeved cotton work shirt, sleeves down, front view, empty unworn garment",
+      "prompt": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: a single muted grey long-sleeved cotton work shirt, sleeves down, front view, empty unworn garment. Exactly one inventory item, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
+      "file": "shirt.png",
+      "size": [
+        1312,
+        1199
+      ],
+      "region": [
+        114,
+        60,
+        1085,
+        1087
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "socks",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-71fc0cac-5f7e-4565-a4ec-27b17e32c46d.png",
+      "subject": "one pair of thick dark grey wool socks arranged side by side as one inventory item",
+      "prompt": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: one pair of thick dark grey wool socks arranged side by side as one inventory item. Exactly one inventory item, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
+      "file": "socks.png",
+      "size": [
+        1205,
+        1306
+      ],
+      "region": [
+        170,
+        91,
+        912,
+        1127
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "boots",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-85972a1f-e06c-4a82-8697-5506cbe56ce2.png",
+      "subject": "one pair of brown leather work shoes, short ankle boots, arranged side by side as one inventory item",
+      "prompt": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: one pair of brown leather work shoes, short ankle boots, arranged side by side as one inventory item. Exactly one inventory item, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
+      "file": "boots.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "region": [
+        304,
+        103,
+        948,
+        823
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
+    },
+    {
+      "id": "chem-suit",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-bbee481f-91a0-4b93-be6b-47bdd60c1f02.png",
+      "subject": "a single olive protective chemical coverall suit with attached hood, closed front zipper, clear face aperture, gloves and boots, empty unworn garment, full body front view",
+      "prompt": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: a single olive protective chemical coverall suit with attached hood, closed front zipper, clear face aperture, gloves and boots, empty unworn garment, full body front view. Exactly one inventory item, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
+      "file": "chem-suit.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        206,
+        32,
+        615,
+        1468
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
     }
   ]
 }

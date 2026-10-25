@@ -24,7 +24,10 @@
           "maxMassGrams": 1200,
           "equipmentReady": true,
           "accessMs": 250,
-          "accessAp": 1
+          "accessAp": 1,
+          "accessBody": [
+            "hips-front"
+          ]
         },
         {
           "id": "right",
@@ -36,9 +39,25 @@
           "maxMassGrams": 1200,
           "equipmentReady": true,
           "accessMs": 250,
-          "accessAp": 1
+          "accessAp": 1,
+          "accessBody": [
+            "hips-front"
+          ]
         }
-      ]
+      ],
+      "wear": {
+        "layer": 1,
+        "mounts": [
+          {
+            "slot": "legs",
+            "coverage": [
+              "hips-front",
+              "hips-back",
+              "legs"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "coat",
@@ -85,9 +104,33 @@
             16,
             17,
             18
+          ],
+          "accessBody": [
+            "torso-front"
           ]
         }
-      ]
+      ],
+      "wear": {
+        "layer": 2,
+        "mounts": [
+          {
+            "slot": "outerwear",
+            "coverage": [
+              "torso-front",
+              "torso-back",
+              "arms",
+              "hips-front",
+              "hips-back"
+            ]
+          }
+        ],
+        "openExposes": [
+          "torso-front",
+          "hips-front"
+        ],
+        "fastenMs": 700,
+        "fastenAp": 2
+      }
     },
     {
       "id": "backpack",
@@ -112,7 +155,11 @@
           "heightMm": 140,
           "maxMassGrams": 8000,
           "accessMs": 1000,
-          "accessAp": 3
+          "accessAp": 3,
+          "accessBody": [
+            "torso-back",
+            "torso-front"
+          ]
         },
         {
           "id": "side",
@@ -124,9 +171,31 @@
           "maxMassGrams": 1200,
           "equipmentReady": true,
           "accessMs": 500,
-          "accessAp": 2
+          "accessAp": 2,
+          "accessBody": [
+            "torso-back",
+            "torso-front"
+          ]
         }
-      ]
+      ],
+      "wear": {
+        "layer": 5,
+        "mounts": [
+          {
+            "slot": "back",
+            "coverage": [
+              "torso-back"
+            ]
+          },
+          {
+            "slot": "front",
+            "coverage": [
+              "torso-front"
+            ]
+          }
+        ],
+        "outermost": true
+      }
     },
     {
       "id": "phone",
@@ -247,6 +316,117 @@
       "tags": [
         "weight"
       ]
+    },
+    {
+      "id": "shirt",
+      "name": "Work shirt",
+      "widthMm": 150,
+      "lengthMm": 200,
+      "thicknessMm": 25,
+      "massGrams": 300,
+      "tags": [
+        "shirt"
+      ],
+      "wearSlot": "torso",
+      "handleMs": 1500,
+      "handleAp": 3,
+      "wear": {
+        "layer": 1,
+        "mounts": [
+          {
+            "slot": "torso",
+            "coverage": [
+              "torso-front",
+              "torso-back",
+              "arms"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "socks",
+      "name": "Wool socks",
+      "widthMm": 50,
+      "lengthMm": 75,
+      "thicknessMm": 20,
+      "massGrams": 100,
+      "tags": [
+        "socks"
+      ],
+      "wearSlot": "socks",
+      "handleMs": 1500,
+      "handleAp": 3,
+      "wear": {
+        "layer": 0,
+        "mounts": [
+          {
+            "slot": "socks",
+            "coverage": [
+              "feet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "boots",
+      "name": "Work shoes",
+      "widthMm": 160,
+      "lengthMm": 250,
+      "thicknessMm": 100,
+      "massGrams": 900,
+      "tags": [
+        "boots"
+      ],
+      "wearSlot": "footwear",
+      "handleMs": 1500,
+      "handleAp": 3,
+      "wear": {
+        "layer": 1,
+        "mounts": [
+          {
+            "slot": "footwear",
+            "coverage": [
+              "feet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chem-suit",
+      "name": "Chemical coverall",
+      "widthMm": 150,
+      "lengthMm": 200,
+      "thicknessMm": 100,
+      "massGrams": 1800,
+      "tags": [
+        "chem-suit"
+      ],
+      "wearSlot": "suit",
+      "handleMs": 3000,
+      "handleAp": 5,
+      "wear": {
+        "layer": 4,
+        "mounts": [
+          {
+            "slot": "suit",
+            "coverage": [
+              "head",
+              "face",
+              "torso-front",
+              "torso-back",
+              "arms",
+              "hands",
+              "hips-front",
+              "hips-back",
+              "legs",
+              "feet"
+            ]
+          }
+        ]
+      }
     }
   ],
   "roots": [
@@ -381,6 +561,32 @@
           "heightMm": 500,
           "maxMassGrams": 20000,
           "mountSlot": "hand",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
+        },
+        {
+          "id": "front",
+          "name": "Front pack",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "front",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
+        },
+        {
+          "id": "suit",
+          "name": "Full-body suit",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "suit",
           "equipmentReady": true,
           "accessMs": 0,
           "accessAp": 0
@@ -522,6 +728,32 @@
           "equipmentReady": true,
           "accessMs": 0,
           "accessAp": 0
+        },
+        {
+          "id": "front",
+          "name": "Front pack",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "front",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
+        },
+        {
+          "id": "suit",
+          "name": "Full-body suit",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "suit",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
         }
       ],
       "maxMassGrams": 20000
@@ -660,6 +892,32 @@
           "equipmentReady": true,
           "accessMs": 0,
           "accessAp": 0
+        },
+        {
+          "id": "front",
+          "name": "Front pack",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "front",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
+        },
+        {
+          "id": "suit",
+          "name": "Full-body suit",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 500,
+          "heightMm": 500,
+          "maxMassGrams": 20000,
+          "mountSlot": "suit",
+          "equipmentReady": true,
+          "accessMs": 0,
+          "accessAp": 0
         }
       ],
       "maxMassGrams": 20000
@@ -672,8 +930,8 @@
         {
           "id": "store",
           "name": "Crate interior",
-          "columns": 12,
-          "rows": 8,
+          "columns": 24,
+          "rows": 20,
           "cellMm": 25,
           "heightMm": 250,
           "maxMassGrams": 25000,
@@ -705,7 +963,8 @@
         "x": 0,
         "y": 0,
         "rotated": false
-      }
+      },
+      "garmentOpen": true
     },
     {
       "id": "avatar-backpack",
@@ -749,7 +1008,8 @@
         "x": 0,
         "y": 0,
         "rotated": false
-      }
+      },
+      "garmentOpen": true
     },
     {
       "id": "observer-backpack",
@@ -793,7 +1053,8 @@
         "x": 0,
         "y": 0,
         "rotated": false
-      }
+      },
+      "garmentOpen": true
     },
     {
       "id": "tech-backpack",
@@ -959,6 +1220,72 @@
         "y": 0,
         "rotated": false
       }
+    },
+    {
+      "id": "avatar-shirt",
+      "definitionId": "shirt",
+      "placement": {
+        "parentId": "person:avatar",
+        "regionId": "torso",
+        "x": 0,
+        "y": 0,
+        "rotated": false
+      }
+    },
+    {
+      "id": "avatar-socks",
+      "definitionId": "socks",
+      "placement": {
+        "parentId": "person:avatar",
+        "regionId": "socks",
+        "x": 0,
+        "y": 0,
+        "rotated": false
+      }
+    },
+    {
+      "id": "avatar-shoes",
+      "definitionId": "boots",
+      "placement": {
+        "parentId": "person:avatar",
+        "regionId": "footwear",
+        "x": 0,
+        "y": 0,
+        "rotated": false
+      }
+    },
+    {
+      "id": "chemical-suit",
+      "definitionId": "chem-suit",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 6,
+        "y": 0,
+        "rotated": false
+      }
+    },
+    {
+      "id": "spare-backpack",
+      "definitionId": "backpack",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 13,
+        "y": 0,
+        "rotated": false
+      }
+    },
+    {
+      "id": "spare-socks",
+      "definitionId": "socks",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 0,
+        "y": 5,
+        "rotated": false
+      }
     }
   ],
   "regions": [
@@ -1045,6 +1372,16 @@
     {
       "itemId": "gum-packet",
       "regionId": "pieces",
+      "open": true
+    },
+    {
+      "itemId": "spare-backpack",
+      "regionId": "main",
+      "open": true
+    },
+    {
+      "itemId": "spare-backpack",
+      "regionId": "side",
       "open": true
     }
   ]

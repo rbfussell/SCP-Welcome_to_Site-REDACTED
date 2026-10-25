@@ -15,6 +15,8 @@ public partial class InventoryPanel : Control
     private PanelContainer _window = null!;
     private Label _clock = null!, _receipt = null!, _detail = null!, _progress = null!;
     private InventoryBrowser _browser = null!;
+    private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
+    private ScrollContainer _wornScroll = null!;
     private long _lastReceiptId = -1;
     public void Initialize(SpatialSimulation simulation)
     {
@@ -36,9 +38,17 @@ public partial class InventoryPanel : Control
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
         Label(worn, "PAPERDOLL / WORN & HELD", 16);
-        var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); worn.AddChild(mounts);
-        foreach (var slot in new[] { "outerwear", "back", "legs", "hand" }) AddGrid(mounts, "person:avatar", slot, 90);
-        Label(worn, "Other mounts: underwear, socks,\nfootwear, torso, belt, face.\nNo items issued there in this slice.", 12);
+        _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
+            CustomMinimumSize = new(234, 280), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
+        var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
+        foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front" }) AddGrid(mounts, "person:avatar", slot, 90);
+        _garmentToggle = new Button { Text = "Open / fasten selected garment", FocusMode = FocusModeEnum.None }; worn.AddChild(_garmentToggle);
+        _garmentToggle.Pressed += ToggleGarment;
+        _takeInHand = Button(worn, "Take selected in hand", () => MoveSelectedTo("hand"));
+        _wearDefault = Button(worn, "Wear selected (default mount)", () =>
+        {
+            if (SelectedItem is { } id && Simulation.Inventory.Definition(id).WearSlot is { } slot) MoveSelectedTo(slot);
+        });
         Button(worn, "Rotate selected object  R", Rotate);
         Button(worn, "Inspect selected container", () => { if (SelectedItem is { } id) Inspect(id); });
         Button(worn, "Switch selected power", () =>
@@ -73,14 +83,16 @@ public partial class InventoryPanel : Control
     {
         var label = new Label { Text = text, MouseFilter = MouseFilterEnum.Ignore }; label.AddThemeFontSizeOverride("font_size", size); parent.AddChild(label); return label;
     }
-    internal static void Button(Node parent, string text, Action action)
+    internal static Button Button(Node parent, string text, Action action)
     {
         var button = new Button { Text = text, FocusMode = FocusModeEnum.None }; button.Pressed += action; parent.AddChild(button);
+        return button;
     }
     public bool Open()
     {
         if (!Simulation.Inventory.Enabled) return false;
         Visible = true; _lastReceiptId = -1; _browser.Clear();
+        _wornScroll.ScrollVertical = 0;
         SelectedItem = null; Rotated = false;
         _detail.Text = "Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.";
         Refresh(); return true;
@@ -122,11 +134,25 @@ public partial class InventoryPanel : Control
         Rotated = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement.Rotated;
         _detail.Text = Describe(id);
     }
+    internal Button GarmentToggle => _garmentToggle;
+    internal Button TakeInHand => _takeInHand;
+    internal Button WearDefault => _wearDefault;
+    private void ToggleGarment()
+    {
+        if (SelectedItem is not { } id) return;
+        var item = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id);
+        Simulation.HandleInventory(new(item.GarmentOpen ? InventoryActionKind.CloseGarment : InventoryActionKind.OpenGarment, id)); ShowReceipt();
+    }
+    private void MoveSelectedTo(string slot)
+    {
+        if (SelectedItem is { } id) { Simulation.HandleInventory(new(InventoryActionKind.Move, id, new("person:avatar", slot))); ShowReceipt(); }
+    }
     public string Describe(string id)
     {
         var state = Simulation.Inventory; var item = state.DiagnosticItems.Single(i => i.Id == id); var definition = state.Definition(id);
         return $"{definition.Name} · {definition.WidthMm} × {definition.LengthMm} × {definition.ThicknessMm} mm · {InventoryHierarchy.Mass(state, id)} g including contents\n"
-            + InventoryHierarchy.Breadcrumb(state, id) + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
+            + InventoryHierarchy.Breadcrumb(state, id) + (definition.Wear is { } wear ? $" · layer {wear.Layer}" + (wear.OpenExposes is null ? "" : item.GarmentOpen ? " · garment open" : " · garment fastened") : "")
+            + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
             + (definition.Capability is not null && !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? " · unavailable until accessible and powered" : "");
     }
     public void Rotate() { if (SelectedItem is null) return; Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
@@ -146,6 +172,9 @@ public partial class InventoryPanel : Control
         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);
         _clock.Text = Simulation.ManualPause ? "MANUAL PAUSE" : Simulation.Combat.Active ? $"TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP" : $"REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s";
         _browser.Refresh();
+        _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: > 0 };
+        _garmentToggle.Text = !_garmentToggle.Disabled && Simulation.Inventory.DiagnosticItems.Single(i => i.Id == SelectedItem).GarmentOpen
+            ? "Fasten selected garment" : "Open selected garment";
         _progress.Text = Simulation.Inventory.Pending is { } work ? $"HANDLING · {(work.TotalMs - work.RemainingMs) / 1000.0:0.00} / {work.TotalMs / 1000.0:0.00}s · {work.Request.Kind}"
             : $"Carried mass: {InventoryHierarchy.CarriedMass(Simulation.Inventory, "person:avatar") / 1000.0:0.00} kg · no handling in progress";
         var receipt = Simulation.Events.Entries.LastOrDefault(e => e.Text.StartsWith("Inventory: ", StringComparison.Ordinal));

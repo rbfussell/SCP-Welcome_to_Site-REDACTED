@@ -8,6 +8,7 @@ internal static class InventorySaveCodec
         if (!state.Items.Keys.Order().SequenceEqual(content.Items.Select(i => i.Id).Order())
             || state.Items.Values.Any(i => i.Placement is null || i.Condition is < 0 or > 100
                 || !content.Items.Any(original => original.Id == i.Id && original.DefinitionId == i.DefinitionId)
+                || i.GarmentOpen && state.Definition(i.Id).Wear?.OpenExposes is not { Length: > 0 }
                 || !state.Items.ContainsKey(i.Placement.ParentId) && !content.Roots.Any(r => r.Id == i.Placement.ParentId))
             || state.Regions.Any(r => r is null || !state.Items.ContainsKey(r.ItemId)
                 || state.Definition(r.ItemId).Regions?.Any(region => region.Id == r.RegionId) != true)

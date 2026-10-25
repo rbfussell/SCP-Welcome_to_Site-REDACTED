@@ -7,16 +7,23 @@ internal static class InventoryContentValidation
         var state = world.Inventory;
         if (state.Content is not { } c) return;
         static bool Id(string? id) => !string.IsNullOrWhiteSpace(id) && id.Length <= 100;
+        static bool Body(string[]? regions) => regions is { Length: > 0 and <= 10 } && regions.Distinct().Count() == regions.Length
+            && regions.All(InventoryWear.BodyRegions.Contains);
+        static bool WearValid(WearProfile w) => w.Layer is >= 0 and <= 9 && w.Mounts is { Length: > 0 and <= 10 }
+            && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage)) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
+            && (w.OpenExposes is null || Body(w.OpenExposes) && w.OpenExposes.All(r => w.Mounts.Any(m => m.Coverage.Contains(r))))
+            && w.FastenMs is >= 50 and <= 5000 && w.FastenMs % SpatialSimulation.TickMs == 0 && w.FastenAp is >= 1 and <= 5;
         static bool RegionValid(StorageRegion r) => r is not null && Id(r.Id) && Id(r.Name) && r.Columns is > 0 and <= 32
             && r.Rows is > 0 and <= 32 && r.CellMm is > 0 and <= 1000 && r.HeightMm is > 0 and <= 1000 && r.MaxMassGrams is > 0 and <= 100000
             && r.AccessMs is >= 0 and <= 5000 && r.AccessMs % SpatialSimulation.TickMs == 0 && r.AccessAp is >= 0 and <= 5
             && (r.Mask is null || r.Mask.Distinct().Count() == r.Mask.Length && r.Mask.All(i => i >= 0 && i < r.Columns * r.Rows))
-            && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1);
+            && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1) && (r.AccessBody is null || Body(r.AccessBody));
         if (c.Definitions is null || c.Roots is null || c.Items is null || c.Regions is null
             || c.Definitions.Any(d => d is null || !Id(d.Id) || !Id(d.Name) || d.Tags is null
                 || d.WidthMm is <= 0 or > 1000 || d.LengthMm is <= 0 or > 1000 || d.ThicknessMm is <= 0 or > 1000
                 || d.MassGrams is < 0 or > 100000 || d.HandleMs is < 50 or > 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
-                || d.HandleAp is < 1 or > 5 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
+                || d.HandleAp is < 1 or > 5 || d.Wear is not null && !WearValid(d.Wear)
+                || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
             || c.Definitions.Select(d => d.Id).Distinct().Count() != c.Definitions.Length
             || c.Roots.Any(r => r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region => !RegionValid(region))
                 || r.Regions.Select(region => region.Id).Distinct().Count() != r.Regions.Length || r.MaxMassGrams is <= 0 or > 100000

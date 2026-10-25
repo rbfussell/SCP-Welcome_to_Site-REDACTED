@@ -72,4 +72,4 @@ python3 tools/run_spatial_scene.py --operation-smoke work/preview/spatial-scene/
 
 Full hiring, optional-job preferences, six professions, daily calendars/breaks/needs, employment editing, autonomous door operation, vacancies, general reservations, full authority and injury/panic systems are not implemented by this slice. See the broader [employment contract](07-employment-and-orders.md).
 
-The [inventory follow-on](23-personal-inventory-prototype.md) now supplies actual phone/radio items and shared physical access gates. Outer schema 7 supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.
+The [inventory follow-on](23-personal-inventory-prototype.md) now supplies actual phone/radio items and shared physical access gates. Outer schema 8 (including garment state) supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.

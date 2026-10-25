@@ -1,15 +1,18 @@
 namespace SiteSimulation;
 
 public sealed record ItemDefinition(string Id, string Name, int WidthMm, int LengthMm, int ThicknessMm, int MassGrams,
-    string[] Tags, string? WearSlot = null, string? Capability = null, int HandleMs = 300, int HandleAp = 1, StorageRegion[]? Regions = null);
+    string[] Tags, string? WearSlot = null, string? Capability = null, int HandleMs = 300, int HandleAp = 1, StorageRegion[]? Regions = null, WearProfile? Wear = null);
+public sealed record WearMount(string Slot, string[] Coverage);
+public sealed record WearProfile(int Layer, WearMount[] Mounts, bool Outermost = false,
+    string[]? OpenExposes = null, int FastenMs = 700, int FastenAp = 2);
 public sealed record StorageRegion(string Id, string Name, int Columns, int Rows, int CellMm, int HeightMm, int MaxMassGrams,
-    string? MountSlot = null, string[]? AcceptTags = null, int[]? Mask = null, bool EquipmentReady = false, int AccessMs = 300, int AccessAp = 1);
+    string? MountSlot = null, string[]? AcceptTags = null, int[]? Mask = null, bool EquipmentReady = false, int AccessMs = 300, int AccessAp = 1, string[]? AccessBody = null);
 public sealed record InventoryRoot(string Id, string Name, StorageRegion[] Regions, string? ActorId = null, string? PropId = null, int MaxMassGrams = 20000);
 public sealed record ItemPlacement(string ParentId, string RegionId, int X = 0, int Y = 0, bool Rotated = false);
-public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement Placement, bool Powered = true, int Condition = 100);
+public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement Placement, bool Powered = true, int Condition = 100, bool GarmentOpen = false);
 public sealed record RegionState(string ItemId, string RegionId, bool Open = true);
 public sealed record InventoryContent(ItemDefinition[] Definitions, InventoryRoot[] Roots, InventoryItem[] Items, RegionState[] Regions);
-public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff }
+public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff, OpenGarment, CloseGarment }
 public sealed record InventoryRequest(InventoryActionKind Kind, string ItemId, ItemPlacement? Destination = null, string? RegionId = null);
 public sealed record InventoryWork(string ActorId, InventoryRequest Request, Point2 Position, int TotalMs, int RemainingMs,
     long Revision, int CostAp, bool Tactical, string? AbortReason = null);

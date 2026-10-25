@@ -20,8 +20,10 @@ internal static class InventoryActions
                 case InventoryActionKind.Move:
                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException("Choose a physical destination");
                     if (destination == item.Placement) throw new ArgumentException("Item is already there");
+                    InventoryWear.ValidateAction(state, item, item.Placement);
                     var target = InventoryAccessService.Placement(world, actorId, destination);
                     if (!target.Allowed) throw new ArgumentException(target.Reason);
+                    InventoryWear.ValidateAction(state, item, destination);
                     duration += InventoryAccessService.HandlingMs(state, destination);
                     ap += AccessAp(state, destination);
                     var candidate = new InventoryState(state);
@@ -35,6 +37,15 @@ internal static class InventoryActions
                     if (state.IsOpen(item.Id, region.Id) == (request.Kind == InventoryActionKind.Open)) throw new ArgumentException("Compartment is already in that state");
                     duration = Math.Max(150, region.AccessMs + InventoryAccessService.HandlingMs(state, item.Placement));
                     ap = Math.Max(1, region.AccessAp + AccessAp(state, item.Placement));
+                    break;
+                case InventoryActionKind.OpenGarment:
+                case InventoryActionKind.CloseGarment:
+                    if (definition.Wear is not { OpenExposes.Length: > 0 } wear || request.RegionId is not null || request.Destination is not null)
+                        throw new ArgumentException("This garment has no supported opening");
+                    if (item.GarmentOpen == (request.Kind == InventoryActionKind.OpenGarment)) throw new ArgumentException("Garment is already in that state");
+                    InventoryWear.ValidateAction(state, item, item.Placement, wear.OpenExposes);
+                    duration = wear.FastenMs + InventoryAccessService.HandlingMs(state, item.Placement);
+                    ap = wear.FastenAp + AccessAp(state, item.Placement);
                     break;
                 case InventoryActionKind.PowerOn:
                 case InventoryActionKind.PowerOff:
@@ -103,6 +114,8 @@ internal static class InventoryActions
                 state.Regions[index] = state.Regions[index] with { Open = request.Kind == InventoryActionKind.Open }; break;
             case InventoryActionKind.PowerOn:
             case InventoryActionKind.PowerOff: state.Items[item.Id] = item with { Powered = request.Kind == InventoryActionKind.PowerOn }; break;
+            case InventoryActionKind.OpenGarment:
+            case InventoryActionKind.CloseGarment: state.Items[item.Id] = item with { GarmentOpen = request.Kind == InventoryActionKind.OpenGarment }; break;
         }
         state.Revision++;
         world.Log("inventory", item.Id, request.Kind.ToString(), "Timed handling committed; one physical item graph.");

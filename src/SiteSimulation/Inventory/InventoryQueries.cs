@@ -13,7 +13,13 @@ public sealed partial class SpatialSimulation
     public IReadOnlyList<InventoryRoot> InventoryRoots => Inventory.Content?.Roots
         .Where(r => InventoryAccessService.Root(_world, Player.Id, r).Allowed).ToArray() ?? [];
     public IReadOnlyList<InventoryItem> InventoryContents(string parentId, string regionId)
-        => InventoryAccess(parentId, regionId).Allowed ? Inventory.Children(parentId, regionId) : [];
+        => InventoryAccess(parentId, regionId).Allowed ? Inventory.Children(parentId, regionId).Where(i => InventoryWear.Visible(Inventory, i)).ToArray() : [];
+    public InventoryAccess InventoryInspectAccess(string id)
+    {
+        if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");
+        var access = InventoryAccess(item.Placement.ParentId, item.Placement.RegionId);
+        return !access.Allowed ? access : InventoryWear.Visible(Inventory, item) ? access : new(false, "Equipment is covered; expose it first");
+    }
     public bool HasAccessibleEquipment(string actorId, string capability) => InventoryAccessService.Capability(_world, actorId, capability);
     public InventoryActionQuote QuoteInventory(InventoryRequest request)
     {

@@ -35,7 +35,7 @@ internal static class InventoryChecks
         }
         var sim = Sim();
         Check(sim.Inventory.Content!.Definitions.All(d => registered.Contains(d.Id)), "all native item definitions have actual object sprites");
-        Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 25, "explicit native profile loads unique physical items");
+        Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 31, "explicit native profile loads unique physical items");
         Check(sim.InventoryRoots.Count == 1 && sim.InventoryRoots[0].ActorId == sim.Player.Id, "UI roots exclude remote fixtures and other personnel");
         Check(sim.InventoryContents("gum-packet", "pieces").Count == 6, "fine-scale packet contains six individual pieces");
         Check(InventoryHierarchy.Mass(sim.Inventory, "gum-packet") == 15, "recursive packet mass counts the wrapper and each piece once");
