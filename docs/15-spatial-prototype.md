@@ -32,7 +32,7 @@ Tested: Godot `4.7.1.stable.mono.official.a13da4feb`, .NET SDK `8.0.128`, runtim
 | J | Toggle the avatar's module-owned complacency flag; future automatic metric remains undecided |
 | M / R | Mute presentation audio / reduce discovery border effect; caption remains available |
 | C / G / B | Toggle white collision boundaries / full hex grid / square construction grid in diagnostics |
-| L / H | Toggle directional sight overlay / near-wall cutaway |
+| L / H | Toggle directional sight overlay / feathered player wall cutaway |
 | F6 | Hold all local progress while world/off-site counters continue |
 | Space | Global manual pause for this single-player proof |
 | 1 / 2 / 3 | Set 1× / 2× / 4× speed |

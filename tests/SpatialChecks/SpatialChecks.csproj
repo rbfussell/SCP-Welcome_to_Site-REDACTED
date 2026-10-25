@@ -11,5 +11,6 @@
     <Compile Include="../../game/Presentation/SpriteArtCatalog.cs" Link="SpriteArtCatalog.cs" />
     <Compile Include="../../game/Presentation/ReferenceProjection.cs" Link="ReferenceProjection.cs" />
     <Compile Include="../../game/Presentation/FieldPresentation.cs" Link="FieldPresentation.cs" />
+    <Compile Include="../../game/Presentation/PlayerWallCutaway.cs" Link="PlayerWallCutaway.cs" />
   </ItemGroup>
 </Project>

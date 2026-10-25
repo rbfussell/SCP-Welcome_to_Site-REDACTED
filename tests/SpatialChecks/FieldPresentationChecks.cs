@@ -23,6 +23,28 @@ internal static class FieldPresentationChecks
         Check(FieldPresentation.SightShade(sim, sim.Player.Position - direction * 0.5) == 0,
             "cosmetic shading must not brighten a point behind the viewer");
         Check(sim.Save() == shadingState, "sampling floor appearance cannot mutate observation, RNG or world state");
+        var cutaway = PlayerWallCutaway.AroundSprite(new(100, 200), 60);
+        Check(cutaway.Center == new Point2(100, 170) && cutaway.Radius == 60,
+            "opening centers on the body with a diameter twice the character height");
+        Check(cutaway.Opacity(cutaway.Center) < 0.1 && cutaway.Opacity(new(100, 200)) < 0.1,
+            "clear core keeps the body and feet readable");
+        Check(cutaway.Opacity(new(160, 170)) == 1 && cutaway.Opacity(new(220, 170)) == 1,
+            "walls outside the opening keep full opacity");
+        var inner = cutaway.Opacity(new(130, 170)); var middle = cutaway.Opacity(new(145, 170));
+        Check(inner < middle && middle < 1, "opening feathers gradually from clear core to opaque edge");
+        Check(Math.Abs(cutaway.Opacity(new(145, 170)) - cutaway.Opacity(new(55, 170))) < 1e-8,
+            "feather has no directional or wall-segment bias");
+        Check(Math.Abs(cutaway.Opacity(new(159.999, 170)) - cutaway.Opacity(new(160.001, 170))) < 0.0001,
+            "outer edge joins the unchanged wall continuously");
+        var moved = PlayerWallCutaway.AroundSprite(new(100.25, 200.5), 60);
+        Check(Math.Abs(moved.Opacity(new(145.25, 170.5)) - middle) < 1e-8,
+            "fractional movement carries the opening continuously without tile snapping");
+        var large = PlayerWallCutaway.AroundSprite(new(200, 400), 120);
+        Check(Math.Abs(large.Opacity(new(290, 340)) - middle) < 1e-8,
+            "sprite scale changes preserve the relative clear area and feather");
+        Check(cutaway.Intersects(80, 160, 120, 190) && !cutaway.Intersects(170, 160, 180, 190),
+            "only nearby wall quads need feather geometry");
+        Check(sim.Save() == shadingState, "cutaway sampling cannot advance clocks or mutate sight, collision, module state or RNG");
         var statue = sim.Anomalies.Bodies.Single();
         var feedback = new DiscoveryFeedback(); feedback.Reset(sim);
         Check(!FieldPresentation.ShowAnomaly(sim, statue, false), "closed room hides statue despite another human observing it");

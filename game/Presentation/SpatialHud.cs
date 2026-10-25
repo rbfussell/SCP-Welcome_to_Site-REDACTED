@@ -54,7 +54,7 @@ public partial class SpatialHud : Control
         _toggles[Key.G] = Toggle(view, "Actor hex grid  [G]", false, value => world.HexGrid = value);
         _toggles[Key.B] = Toggle(view, "Square floor grid  [B]", false, value => world.FloorGrid = value);
         _toggles[Key.L] = Toggle(view, "Directional sight  [L]", true, value => world.SightOverlay = value);
-        _toggles[Key.H] = Toggle(view, "Wall cutaway  [H]", true, value => world.Cutaway = value);
+        _toggles[Key.H] = Toggle(view, "Soft player wall cutaway  [H]", true, value => world.Cutaway = value);
         Button(view, "Use nearest door     E", () => sim.ToggleNearestDoor());
         Button(view, "Local hold / release     F6", () => sim.LocalHold = !sim.LocalHold);
         Button(view, "Global manual pause     Space", () => sim.ManualPause = !sim.ManualPause);

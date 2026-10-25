@@ -140,27 +140,27 @@ public partial class WorldView : Node2D
         var sprite = _sprites[key];
         DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * LightAt(feet));
     }
-    private bool ShouldCutAway(WallDefinition wall, IReadOnlyList<Vector2> knownPoints)
-    {
-        if (!Cutaway) return false;
-        if (wall.Y >= 5 || wall.X == Simulation.Map.Definition.Width) return true;
-        var start = Screen(wall.Start); var end = Screen(wall.End);
-        var bounds = new Rect2(Math.Min(start.X, end.X) - 12, Math.Min(start.Y, end.Y) - WallHeight,
-            Math.Abs(end.X - start.X) + 24, Math.Abs(end.Y - start.Y) + WallHeight);
-        var depth = Screen(wall.Center).Y;
-        return knownPoints.Any(point => point.Y <= depth && bounds.HasPoint(point + new Vector2(0, -8)));
-    }
-    private void WallFace(WallDefinition wall, float alpha)
+    private void WallFace(WallDefinition wall, bool feather)
     {
         var start = Screen(wall.Start); var end = Screen(wall.End);
         var top = new Vector2(0, -WallHeight);
         var light = LightAt(Screen(wall.Center)) * (wall.Axis == "u" ? Colors.White : new Color(0.79f, 0.84f, 0.88f));
-        light.A *= alpha;
-        DrawPolygon([start, end, end + top, start + top], [light, light, light, light],
-            [new(0, 1), new(1, 1), new(1, 0), new(0, 0)], _surfaceArt[wall.Door ? "door" : "wall"]);
+        Vector2[] face = [start, end, end + top, start + top];
         var thickness = new Vector2(-3, -2);
-        DrawColoredPolygon([start + top, end + top, end + top + thickness, start + top + thickness], new Color("a5a99f") * light);
-        DrawLine(start, end, new Color("252b2b") * light, 2);
+        Vector2[] cap = [start + top, end + top, end + top + thickness, start + top + thickness];
+        var capLight = new Color("a5a99f") * light;
+        if (feather)
+        {
+            FeatheredQuad(wall.Id + ":face", face, light, _surfaceArt[wall.Door ? "door" : "wall"]);
+            FeatheredQuad(wall.Id + ":cap", cap, capLight);
+        }
+        else
+        {
+            DrawPolygon(face, new Color[] { light, light, light, light },
+                new Vector2[] { new(0, 1), new(1, 1), new(1, 0), new(0, 0) }, _surfaceArt[wall.Door ? "door" : "wall"]);
+            DrawColoredPolygon(cap, capLight);
+        }
+        WallStroke(start, end, new Color("252b2b") * light, 2, feather);
     }
 
     private static Vector2[] Corners(Hex h)
@@ -192,9 +192,7 @@ public partial class WorldView : Node2D
     {
         if (Simulation is null) return;
         _debugLabels.Clear();
-        var cutawayTargets = Cutaway ? Simulation.Actors.Where(a => FieldPresentation.ShowActor(Simulation, a, !FieldView)).Select(a => a.Position)
-            .Concat(Simulation.Anomalies.Bodies.Where(body => FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)).Select(body => body.Position))
-            .Select(Screen).ToArray() : [];
+        RefreshCutaway();
         var map = Simulation.Map;
         for (var y = -2; y < map.Definition.Height + 2; y++)
         for (var x = -2; x < map.Definition.Width + 2; x++)
@@ -241,18 +239,19 @@ public partial class WorldView : Node2D
             var c = Screen(wall.Center);
             drawables.Add((c.Y, wall.Id, () =>
             {
+                var feather = UsesPlayerCutaway(wall);
+                if (feather) FeatheredWallFaces++;
                 var open = wall.Door && map.OpenDoors.Contains(wall.Id);
                 if (open)
                 {
                     var height = DiagnosticSprites ? 54 : WallHeight;
-                    DrawLine(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, height), new Color("b4aaa0"), 3);
-                    DrawLine(Screen(wall.End), Screen(wall.End) - new Vector2(0, height), new Color("b4aaa0"), 3);
-                    DrawLine(Screen(wall.Start) - new Vector2(0, height), Screen(wall.End) - new Vector2(0, height), new Color("888681"), 4);
+                    WallStroke(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, height), new Color("b4aaa0"), 3, feather);
+                    WallStroke(Screen(wall.End), Screen(wall.End) - new Vector2(0, height), new Color("b4aaa0"), 3, feather);
+                    WallStroke(Screen(wall.Start) - new Vector2(0, height), Screen(wall.End) - new Vector2(0, height), new Color("888681"), 4, feather);
                     return;
                 }
-                var alpha = ShouldCutAway(wall, cutawayTargets) ? 0.25f : 1;
-                if (!DiagnosticSprites) WallFace(wall, alpha);
-                else Sprite($"{(wall.Door ? "door" : "wall")}-{wall.Axis}", Screen(wall.Start), new Color(1, 1, 1, alpha));
+                if (!DiagnosticSprites) WallFace(wall, feather);
+                else DiagnosticWall(wall, feather);
             }));
         }
         foreach (var prop in map.Definition.Props)
