@@ -15,11 +15,11 @@ public partial class SpatialScene
         using var release = new InputEventKey { Keycode = key, Pressed = false };
         GetViewport().PushInput(press); GetViewport().PushInput(release);
     }
-    private void InventoryClick(Vector2 position, bool doubleClick = false)
+    private void InventoryClick(Vector2 position, bool doubleClick = false, MouseButton button = MouseButton.Left)
     {
         using var motion = new InputEventMouseMotion { Position = position, GlobalPosition = position };
-        using var press = new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true, DoubleClick = doubleClick };
-        using var release = new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false };
+        using var press = new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = button, Pressed = true, DoubleClick = doubleClick };
+        using var release = new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = button, Pressed = false };
         GetViewport().PushInput(motion); GetViewport().PushInput(press); GetViewport().PushInput(release);
     }
     private static void InventoryMouse(InputEvent e) { using (e) Input.ParseInputEvent(e); }
@@ -60,6 +60,10 @@ public partial class SpatialScene
             var sim = _simulation;
             InventoryKey(Key.I); await InventoryFrames();
             if (!_hud.Inventory.IsOpen || sim.ManualPause) throw new InvalidOperationException("I must open personal inventory without an automatic pause.");
+            if (_hud.Inventory.InspectedContainers.Count != 0) throw new InvalidOperationException("Uninspected pockets or bags were displayed at startup.");
+            _hud.Inventory.Inspect("medical-case");
+            if (_hud.Inventory.InspectedContainers.Count != 0) throw new InvalidOperationException("A packed case bypassed inspection of its parent.");
+            await InventoryCapture("-paperdoll");
             var local = sim.LocalMs; await InventoryFrames(30);
             if (sim.LocalMs <= local) throw new InvalidOperationException("Inventory inspection stopped the realtime world.");
             sim.ManualPause = true;
@@ -69,11 +73,23 @@ public partial class SpatialScene
             InventoryKey(Key.Escape);
             if (_hud.Inventory.IsOpen || !sim.ManualPause) throw new InvalidOperationException("Closing inventory changed the player's explicit pause.");
             sim.ManualPause = false; InventoryKey(Key.I); await InventoryFrames();
-            var side = _hud.Inventory.FindGrid("avatar-backpack", "side");
+            InventoryGrid side = null!, pocket = null!;
+            async Task InspectWornStorage()
+            {
+                var trousers = _hud.Inventory.FindGrid("person:avatar", "legs");
+                InventoryClick(trousers.GlobalPosition + new Vector2(30, 80), button: MouseButton.Right);
+                var backpack = _hud.Inventory.FindGrid("person:avatar", "back");
+                InventoryClick(backpack.GlobalPosition + new Vector2(30, 80), button: MouseButton.Right);
+                await InventoryFrames();
+                side = _hud.Inventory.FindGrid("avatar-backpack", "side");
+                pocket = _hud.Inventory.FindGrid("avatar-trousers", "left");
+                if (!_hud.Inventory.InspectedContainers.SequenceEqual(new[] { "avatar-trousers", "avatar-backpack" }))
+                    throw new InvalidOperationException("Worn storage did not open through actual right-clicks.");
+            }
+            await InspectWornStorage();
             InventoryClick(side.GlobalPosition + new Vector2(15, 60));
             if (_hud.Inventory.SelectedItem != "flashlight") throw new InvalidOperationException("Actual object click did not select the flashlight.");
             InventoryKey(Key.R);
-            var pocket = _hud.Inventory.FindGrid("avatar-trousers", "left");
             InventoryClick(pocket.GlobalPosition + new Vector2(15, 90));
             if (sim.Inventory.Pending?.Request.ItemId != "flashlight" || sim.Inventory.DiagnosticItems.Single(i => i.Id == "flashlight").Placement.ParentId != "avatar-backpack")
                 throw new InvalidOperationException("Placement must begin timed handling, retaining the actual source.");
@@ -84,6 +100,7 @@ public partial class SpatialScene
             if (sim.Inventory.Pending is not null || torch.Placement.ParentId != "avatar-trousers" || !torch.Placement.Rotated)
                 throw new InvalidOperationException("Realtime rotated handling did not complete through the common item service.");
             InventoryKey(Key.I); await InventoryFrames();
+            await InspectWornStorage();
             sim.ManualPause = true;
             var beforePreview = sim.Save();
             var drop = side.GlobalPosition + new Vector2(15, 59);
@@ -117,7 +134,7 @@ public partial class SpatialScene
                 Preview(fine, new(1, 44, 440, 220), false); // Fine physical scale and a forbidden self-container.
                 await InventoryDragHover(side.GlobalPosition + new Vector2(15, 20));
                 if (panel.DropPreview is not null) throw new InvalidOperationException("A compartment heading retained a drop highlight.");
-                await InventoryDragHover(drop);
+                await InventoryDragHover(side.GlobalPosition + new Vector2(15, 59));
                 Preview(side, new(1, 44, 60, 30), true);
                 if (sim.Save() != beforePreview) throw new InvalidOperationException("Dragging or rotating a preview mutated the simulation.");
                 sim.ManualPause = false;
@@ -141,6 +158,7 @@ public partial class SpatialScene
             });
             if (sim.Inventory.Pending is not null) throw new InvalidOperationException("Closing during a drag committed a transfer.");
             InventoryKey(Key.I); await InventoryFrames();
+            await InspectWornStorage();
             InventoryClick(side.GlobalPosition + new Vector2(15, 59));
             InventoryClick(pocket.GlobalPosition + new Vector2(15, 59));
             for (var i = 0; i < 240 && sim.Inventory.Pending is not null; i++) await InventoryFrames(1);
@@ -153,11 +171,34 @@ public partial class SpatialScene
             var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"), Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
             clone.Restore(held);
             if (clone.Save() != held) throw new InvalidOperationException("Rendered item and employment state failed to restore.");
-            _hud.Inventory.Inspect("medical-case"); await InventoryCapture("-case");
+            var mainGrid = _hud.Inventory.FindGrid("avatar-backpack", "main");
+            InventoryClick(mainGrid.GlobalPosition + new Vector2(20, 65), button: MouseButton.Right); await InventoryFrames();
+            if (!_hud.Inventory.InspectedContainers.Contains("medical-case")
+                || !_hud.Inventory.InspectedContainers.Contains("avatar-backpack")) throw new InvalidOperationException("Nested inspection replaced its parent storage.");
+            await InventoryCapture("-case");
+            InventoryKey(Key.Escape); await InventoryFrames();
+            if (!_hud.Inventory.IsOpen || _hud.Inventory.InspectedContainers.Contains("medical-case")
+                || !_hud.Inventory.InspectedContainers.Contains("avatar-backpack")) throw new InvalidOperationException("Back did not close the nested view and preserve its parent/paperdoll.");
+            _hud.Inventory.Inspect("medical-case");
+            sim.ManualPause = false;
+            _hud.Inventory.ChangeLid("avatar-backpack", "main", false);
+            if (sim.Inventory.Pending is null) throw new InvalidOperationException("Physical lid closure did not begin timed handling.");
+            for (var i = 0; i < 240 && sim.Inventory.Pending is not null; i++) await InventoryFrames(1);
+            sim.ManualPause = true; await InventoryFrames();
+            if (_hud.Inventory.InspectedContainers.Contains("medical-case") || sim.InventoryContents("avatar-backpack", "main").Count != 0
+                || !_hud.Inventory.InspectedContainers.Contains("avatar-backpack")) throw new InvalidOperationException("Closing a physical lid failed to hide descendant views while preserving the bag itself.");
+            _hud.Inventory.Inspect("medical-case");
+            if (_hud.Inventory.InspectedContainers.Contains("medical-case")) throw new InvalidOperationException("Closed storage exposed a nested case.");
+            await InventoryCapture("-closed-pack");
+            sim.Restore(held); _runtime.ResetAccumulator();
+            _hud.Inventory.Inspect("gum-packet"); await InventoryFrames();
+            _hud.Inventory.CloseContainerView("avatar-trousers"); await InventoryFrames();
+            if (_hud.Inventory.InspectedContainers.Contains("gum-packet") || !_hud.Inventory.InspectedContainers.Contains("avatar-backpack"))
+                throw new InvalidOperationException("Closing a garment view did not close only its descendant views.");
             sim.Player.Cell = new(13, 6);
             if (!sim.InventoryRoots.Any(r => r.PropId == "crate-a")) throw new InvalidOperationException("Nearby crate not available at actual physical reach.");
             _hud.Inventory.Inspect("fixture:crate-a"); await InventoryCapture("-crate");
-            sim.Restore(held); _runtime.ResetAccumulator(); _hud.Inventory.Inspect("medical-case");
+            sim.Restore(held); _runtime.ResetAccumulator();
             _hud.Inventory.Close();
             sim.Player.Facing = 1;
             sim.ManualPause = false;
@@ -173,7 +214,7 @@ public partial class SpatialScene
             if (sim.Inventory.Pending is not null || sim.Inventory.DiagnosticItems.Single(i => i.Id == "flashlight").Placement.ParentId != "person:avatar")
                 throw new InvalidOperationException("Paid inventory action failed to resolve.");
             sim.ManualPause = true; await InventoryCapture("-combat");
-            GD.Print("INVENTORY_SMOKE_PASS: actual I/Escape, realtime inspection, input isolation, exact native drag sprite/footprint/commit, occupied and edge rejection, rotation and different grid scales, cancellation and preview cleanup, click/rotate/place, timed handling continuing after view close, nested object sprites, read-only rendering, save/restore and paid combat handling.");
+            GD.Print("INVENTORY_SMOKE_PASS: paperdoll-only startup, actual right-click worn/nested inspection, parent-preserving Back, physical-lid hiding and child rejection, descendant-view cleanup, actual I/Escape, realtime inspection, input isolation, exact native drag sprite/footprint/commit, occupied and edge rejection, rotation and different grid scales, cancellation and preview cleanup, click/rotate/place, timed handling continuing after view close, read-only rendering, save/restore and paid combat handling.");
             _hud.Inventory.Close(); await InventoryFrames(3);
             _inventorySmokeQuit = true; // Leave the async capture/input continuation before native teardown.
         }

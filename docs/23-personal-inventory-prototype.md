@@ -4,20 +4,20 @@ Status: Bounded native implementation, October 25, 2026. This is the first perso
 
 ## Playing it
 
-Press **I** in local gameplay to open personal equipment. **I**, **Esc** or Close dismisses it. The world **continues in real time**: opening, inspecting, selecting and previewing rotation do not introduce a pause. Space remains the explicit manual pause control; opening/closing inventory preserves it. The separately approved field-phone pause rule is unchanged.
+Press **I** in local gameplay to open personal equipment. **I** or Close dismisses it. **Esc** returns up the active container branch, and dismisses the screen when no container views remain; during an uncommitted drag it dismisses and cancels the drag. The world **continues in real time**: opening, inspecting, selecting and previewing rotation do not introduce a pause. Space remains the explicit manual pause control; opening/closing inventory preserves it. The separately approved field-phone pause rule is unchanged.
 
-The view shows worn/held objects, separate trouser pockets, coat pocket, backpack main and side compartments, and an inspectable nested container. Items use generated transparent object sprites with restrained grids. The Pacific Drive examples guide packing, rotation and compartment semantics, not card artwork or copied interface styling.
+The paperdoll equipment panel stays visible on the left. Only worn/held objects appear initially. Right-clicking a garment or bag opens its compartments to the right; a nested case opens beside its parent. Independently inspected worn containers can coexist for transfers, with scrolling confined to the storage area. Items use generated transparent object sprites with restrained grids. The Pacific Drive examples guide packing, rotation and compartment semantics, not card artwork or copied interface styling.
 
 - Drag an object onto a compartment cell, or select it and click an empty cell. During a drag, the cursor's cell anchors the footprint's top-left; the object snaps to the exact size, position and rotation it will occupy. Destination cells and the outline are green for a valid physical fit and red for a blocked fit. Invalid releases leave the item at its source. Moving off the grid clears the highlight; closing the view cancels an uncommitted drag.
 - **R** or Rotate changes the placement preview. Dropping/placing starts actual handling; preview rotation is free, actual repacking is not.
-- Double-click/right-click a container, or select it and choose Inspect, to see its compartments and breadcrumb. The utility case and six-piece gum packet demonstrate nested and differently scaled storage.
+- Double-click/right-click a visible container, or select it and choose Inspect, to see its compartments and breadcrumb. The utility case and six-piece gum packet demonstrate nested and differently scaled storage. A packed case requires inspection of its containing storage first. Use the view's × or Back/Esc to close it; closing a parent also closes its descendant views. This navigation does not physically fasten a lid. Reopening inventory starts with the paperdoll again.
 - Open/Close changes a compartment through a timed action. A closed bag can still be carried; its live contents are hidden and cannot be retrieved through the lid. The backpack side pocket is independent of the main zipper.
 - Switch selected power operates a supported device. Cancel handling is available during real-time execution; elapsed time is not refunded. Closing the view lets already committed handling continue.
 - Nearby supply crate opens the same existing `crate-a` fixture when within reach and with clear access. Its stock uses the same item graph and transfers. There is no remote grabbing, actor-to-actor editing or map-wide stock browser.
 
 The first fixture has 11 definitions and 25 instances: trousers, coat, backpack, handset, radio, flashlight, dressing, utility case, gum wrapper, six independent gum pieces and an inert training weight. Chen and Ortiz use the same inventory/equipment semantics. The supplied equipment fills only legs, outerwear, back and hand mount types; the other named garment mounts have no issued content yet.
 
-Confirmed later presentation direction: right-clicking a jacket, backpack or other container will display that object's compartments in the inventory panel. All pockets and bags should not be displayed at once; the player must deliberately look inside the chosen storage. The current always-visible pocket/pack columns remain an engineering layout for now. Choosing a compartment view is separate from opening a physical lid, reaching its contents and paying handling time/AP; those validated access rules still apply.
+This replaces the earlier always-visible pocket/pack columns. Choosing a compartment view is separate from opening a physical lid, reaching its contents and paying handling time/AP; those validated access rules still apply. Shutting an ancestor compartment dismisses its descendant views; moving a viewed container elsewhere or leaving fixture reach also dismisses its stale view. [Body equipment and container navigation](24-body-equipment-and-container-navigation.md) records the next clothing-layer, anatomical coverage, belt-attachment and front/back-mount design; the paperdoll currently retains the simpler issued mount slots.
 
 ## Time and action points
 
@@ -56,6 +56,8 @@ A separate equipment-ready property allows pockets/hand mounts to supply quick c
 | [Transactions](../src/SiteSimulation/Inventory/Transactions/InventoryActions.cs) | Pure staged quotes, timed work, interruption and final atomic commit |
 | [Queries](../src/SiteSimulation/Inventory/InventoryQueries.cs) | Player-bounded roots/contents, cost projection and validated commands |
 | [Presentation](../game/Presentation/Inventory) | Object art, compartment grids, selection, drag/drop and view lifecycle |
+| [Container browser](../game/Presentation/Inventory/InventoryBrowser.cs) | Explicit inspection history, parent/child views, Back and access/move invalidation |
+| [Container view](../game/Presentation/Inventory/InventoryContainerView.cs) | One inspected object's regions, breadcrumbs and physical lid controls |
 
 Both current scenarios explicitly select the native `field-kit-v1` profile. Its [JSON content](../src/SiteSimulation/Inventory/Content/field-kit.json) is an embedded resource available without Godot or sibling UI scenes. The profile registry is a bounded content fixture, not the public mod loader. Content is included in the save identity; changing dimensions/costs/loadouts invalidates an old matching-content claim. Item art is separate and does not enter gameplay identity.
 

@@ -101,7 +101,7 @@ public partial class SpatialScene : Node2D
     public override void _Input(InputEvent e)
     {
         if (_hud.Inventory.IsOpen && e is InputEventKey { Pressed: true, Keycode: Key.Escape })
-        { _hud.Inventory.Close(); GetViewport().SetInputAsHandled(); return; }
+        { _hud.Inventory.HandleInput(e); return; }
         if (_hud.Workspace.IsOpen && e is InputEventKey { Pressed: true, Keycode: Key.Escape })
         { _hud.Workspace.Close(); GetViewport().SetInputAsHandled(); }
     }
