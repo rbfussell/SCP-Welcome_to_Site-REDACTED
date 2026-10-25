@@ -5,7 +5,7 @@ namespace SitePresentation;
 /// <summary>A cosmetic screen-space opening. It never queries or changes observation or collision.</summary>
 public readonly record struct PlayerWallCutaway(Point2 Center, double Radius)
 {
-    public const double DiameterInCharacterHeights = 2;
+    public const double DiameterInCharacterHeights = 1.5;
     public const double ClearCoreFraction = 0.45;
     public const double MinimumOpacity = 0.06;
 

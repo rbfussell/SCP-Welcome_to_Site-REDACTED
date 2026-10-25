@@ -115,3 +115,9 @@ Captures are `player-cutaway.png` and its diagnostic/placeholder/sight variants,
 ### October 25 wall-only refinement
 
 The user's subsequent clarification limits the cutaway to ordinary walls and their caps. Doors and open doorway frames retain normal opacity, alongside all other objects. Door geometry is explicitly excluded before cutaway eligibility in both authored and diagnostic views. This supersedes the preceding note including doors/frames. The held render fixture now selects an ordinary wall rather than a closed door. The existing Godot spatial smoke passes with zero build warnings/errors, including the H round-trip, visible wall opening and unchanged world/sight checks; `walls-only-cutaway.png` was inspected to confirm the adjacent door stays solid.
+
+### October 25 compact cutaway size
+
+Following the supplied Fallout 2 visual reference, the opening diameter is reduced from two character heights to one and a half (25% smaller). Centering, feather shape, stable animation envelope and wall-only eligibility remain unchanged. Existing field-presentation expectations are updated to the smaller radius; the feet now sit farther into the feather. Engine-independent checks pass all 19,590 assertions with zero build warnings/errors.
+
+The Godot spatial smoke also passes with zero build warnings/errors. `compact-cutaway-cutaway.png` was visually inspected for the tighter opening with the adjacent door still opaque; H round-trip, unchanged world/sight and fractional following checks pass. The existing virtual-display V-Sync warning remains nonfatal.
