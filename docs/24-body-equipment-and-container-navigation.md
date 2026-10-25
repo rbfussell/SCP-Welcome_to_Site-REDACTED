@@ -29,6 +29,8 @@ Suggested anatomical coverage is head, face, upper torso, arms, hands, lower tor
 
 Layer numbers describe ordering on overlapping anatomy, not universal compatibility. Profiles also need explicit conflicts, allowed mounts, required support and clearances. A higher number alone must not allow a helmet on a foot, a second pack in the same location or an incompatible harness over a sealed suit. Two backpacks can be supported through distinct front/back mounts when the actor's load and the equipment's bulk/fit rules permit it. View rotation reveals those actual mounts without duplicating any items.
 
+The user further confirms layer 0 as the base position (underwear, socks, base headwear and glasses at their respective locations), with ordered outer headwear/eyewear and construction-dependent fit. [Wear layers and fit standard](25-wear-layer-and-fit-standard.md) records the cap → knit cap → helmet and glasses → compatible goggles/mask examples, the reverse-order rejections and a proposed reusable fit-profile authoring method. Numeric order alone is insufficient. This is the next fit-content contract; current fixture values and runtime compatibility are not silently changed by documenting it.
+
 Attachments use the same hierarchy as storage with specialized mount acceptance. A pistol belongs to its holster, the holster to the belt and the belt to the body. A tourniquet clip or handcuff pouch can have a different mount and access cost from a belt pocket. Equipment capability follows the validated attachment/access path rather than being granted merely by ownership.
 
 ## Dressing and access
