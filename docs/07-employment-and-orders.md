@@ -1,6 +1,8 @@
 # Employment, optional actions, and command authority
 
-Status: Proposed contract, revision 0.5. Autonomous pawns, shift-based employment above optional action preferences, role-specific behavior and higher-rank orders with meaningful overrides are confirmed direction. Later employee starts reuse these records. Exact schedules, staffing numbers and doctrines remain proposed.
+Status: Proposed contract, revision 0.6. Autonomous pawns, shift-based employment above optional action preferences, role-specific behavior and higher-rank orders with meaningful overrides are confirmed direction. Later employee starts reuse these records. Exact schedules, staffing numbers and doctrines remain proposed.
+
+The October 25 [employment prototype](22-employment-prototype.md) now implements one observation routine, two appointments, short local test shifts, physical relief/overtime, order interruption/return and delivered staffing reports. The broader profession, calendar, needs and authority contracts below remain proposed.
 
 ## 1. Separate employment from optional tasks
 

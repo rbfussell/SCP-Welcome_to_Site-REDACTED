@@ -14,7 +14,7 @@ internal static class OperationChecks
         Ticks(initial, 65);
         Check(initial.Operations.PhysicalStatus == "Contained · procedure compliant", "initial scenario must maintain actual three-person coverage");
         Check(!initial.Operations.HadBreach && !initial.Operations.Completed, "initial compliance is not a completed recovery");
-        Check(initial.Operations.OrderHistory.Count == 2 && initial.Operations.OrderHistory.All(o => o.Task == PersonnelTask.Observe), "assigned observation duties must displace discretionary patrol");
+        Check(initial.Operations.OrderHistory.Count == 0 && initial.Employment.DiagnosticDuties.All(d => d.Phase == DutyPhase.OnDuty), "employment, rather than standing orders, must own observation duties and displace discretionary patrol");
         var snapshot = initial.Save(); var clone = Sim(); clone.Restore(snapshot);
         Check(clone.Save() == snapshot, "operation state must restore without replaying delivery or rewards");
         initial.LocalHold = true; var held = initial.Operations.StableMs; var world = initial.WorldMs;
@@ -57,7 +57,7 @@ internal static class OperationChecks
         Check(links.IssueOrder("tech", PersonnelTask.Post, new(8, 4), true), "terminal can submit intent while recipient radio is offline");
         Ticks(links, 4);
         Check(links.Operations.OrderHistory.Last().Status == OrderStatus.Pending, "radio outage prevents acknowledgement");
-        Check(links.Operations.OrderHistory.First(o => o.ActorId == "tech").Status == OrderStatus.Active, "an undelivered replacement cannot relieve an existing duty");
+        Check(links.Employment.DiagnosticDuties.Single(d => d.ActorId == "tech").Phase == DutyPhase.OnDuty, "an undelivered replacement cannot relieve an existing duty");
         links.Operations.Radios[1] = links.Operations.Radios[1] with { Powered = true };
         links.Tick();
         Check(links.Operations.OrderHistory.Last().Status != OrderStatus.Pending, "restoring a link delivers the pending command once");
@@ -71,7 +71,7 @@ internal static class OperationChecks
         var definition = JsonSerializer.Deserialize<OperationDefinition>(config, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         var recoveryConfig = JsonSerializer.Serialize(definition with
         {
-            Home = new(9, -1), Trolley = new(9, -2),
+            Home = new(9, -1), Trolley = new(9, -2), Employment = null,
             Starts = [new("avatar", new(10, 0), 5), new("observer", new(5, 0), 1), new("tech", new(8, -2), 1)]
         });
         var recovery = Sim(recoveryConfig);

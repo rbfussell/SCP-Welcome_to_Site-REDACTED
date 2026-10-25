@@ -94,7 +94,7 @@ internal static class MovementSystem
             }
         }
         var patrol = world.Actors.Single(a => a.Id == "tech");
-        if (onlyActor is null && !PersonnelOrderSystem.Owns(world.Operations, patrol.Id) && !patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
+        if (onlyActor is null && !PersonnelOrderSystem.Owns(world.Operations, patrol.Id) && !EmploymentSystem.Owns(world, patrol.Id) && !patrol.Moving && world.LocalMs % 1000 == 0 && world.LocalMs >= patrol.StartledUntilMs)
             CommitRoute(patrol, PlanRoute(world, patrol, Patrol[world.PatrolIndex++ % Patrol.Length]), false);
         return playerBlocked;
     }

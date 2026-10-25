@@ -16,6 +16,8 @@ public sealed class SpatialSimulation
     public SimulationTrace Trace => _world.Trace;
     public PlayerAwareness Awareness => _world.Awareness;
     public OperationState Operations => _world.Operations;
+    public EmploymentState Employment => _world.Employment;
+    public int DiagnosticPostCoverage(string postId) => EmploymentSystem.Coverage(_world, postId);
     public PlayerEventLog Events => _world.Events;
     public CombatState Combat => _world.Combat;
     public bool LocalProgressHeld => !_world.LocalActive;
@@ -247,6 +249,9 @@ public sealed class SpatialSimulation
             var before = actor.Cell;
             if (Combat.Pending?.Kind == CombatActionKind.Move && MovementSystem.Advance(_world, actor.Id))
                 PlayerFeedback.Add(_world, MessageKind.Warning, "Movement stopped: the way ahead is blocked.");
+            EmploymentSystem.Advance(_world);
+            foreach (var employee in Actors.Where(a => EmploymentSystem.Owns(_world, a.Id) && Combat.For(a.Id) is null))
+                MovementSystem.Advance(_world, employee.Id);
             Anomalies.Evaluate(_world, "tactical-step");
             EvaluatePlayerAwareness();
             TrainingOpponentSystem.Observe(_world);
@@ -256,6 +261,7 @@ public sealed class SpatialSimulation
             return;
         }
         PersonnelOrderSystem.Advance(_world);
+        EmploymentSystem.Advance(_world);
         Anomalies.Evaluate(_world, "orders");
         if (MovementSystem.Advance(_world))
         {

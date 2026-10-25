@@ -57,5 +57,58 @@
   ],
   "commanderId": "avatar",
   "stabilizeMs": 3000,
-  "regionalIntakeEnabled": true
+  "regionalIntakeEnabled": true,
+  "employment": {
+    "posts": [
+      {
+        "id": "receiving-watch",
+        "name": "Receiving room observation",
+        "lookAt": {
+          "x": 5.0,
+          "y": 1.5
+        },
+        "minimumStaff": 1
+      }
+    ],
+    "appointments": [
+      {
+        "actorId": "observer",
+        "role": "Security observer",
+        "supervisorId": "avatar",
+        "postId": "receiving-watch",
+        "station": {
+          "q": 5,
+          "r": 0
+        },
+        "rest": {
+          "q": 4,
+          "r": 0
+        },
+        "restFacing": 3,
+        "cycleMs": 180000,
+        "startMs": 110000,
+        "durationMs": 120000,
+        "maxOvertimeMs": 20000
+      },
+      {
+        "actorId": "tech",
+        "role": "Observation technician",
+        "supervisorId": "avatar",
+        "postId": "receiving-watch",
+        "station": {
+          "q": 12,
+          "r": -2
+        },
+        "rest": {
+          "q": 14,
+          "r": -2
+        },
+        "restFacing": 0,
+        "cycleMs": 180000,
+        "startMs": 0,
+        "durationMs": 120000,
+        "maxOvertimeMs": 20000
+      }
+    ]
+  }
 }

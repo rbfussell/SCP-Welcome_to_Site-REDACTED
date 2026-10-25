@@ -3,9 +3,9 @@ using System.Text.Json;
 namespace SiteSimulation;
 
 public sealed record OperationDefinition(string SubjectId, Hex Home, string[] AccessDoors, Hex[] Posts,
-    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000, bool FieldPhoneIssued = true, bool RegionalIntakeEnabled = false);
+    Hex Terminal, Hex Trolley, ActorStart[] Starts, string[] RadioActors, string CommanderId, int StabilizeMs = 3000, bool FieldPhoneIssued = true, bool RegionalIntakeEnabled = false, EmploymentDefinition? Employment = null);
 public sealed record ActorStart(string ActorId, Hex Cell, int Facing);
-public enum PersonnelTask { Observe, Follow, Post, Transport }
+public enum PersonnelTask { Observe, Follow, Post, Transport, ResumeDuty }
 public enum OrderStatus { Pending, Active, Blocked, Complete, Cancelled }
 public sealed record PersonnelOrder(long Id, string Issuer, string ActorId, PersonnelTask Task, Hex Destination,
     string Channel, OrderStatus Status, string Detail, long IssuedMs, Point2? TargetPoint = null);

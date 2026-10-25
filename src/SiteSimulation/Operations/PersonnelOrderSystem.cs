@@ -15,6 +15,7 @@ internal static class PersonnelOrderSystem
             : state.Definition.CommanderId != issuerId ? "Issuer lacks site operations authority."
             : actor is null || actor.Id == issuerId || actor.ObserverKind != "human" ? "Recipient is not an assigned human employee."
             : !Enum.IsDefined(task) || channel is not ("voice" or "terminal" or "phone") ? "Unsupported task/channel."
+            : task == PersonnelTask.ResumeDuty && !EmploymentSystem.Owns(world, actorId) ? "Recipient has no employment appointment."
             : task == PersonnelTask.Transport && state.Orders.Any(o => o.ActorId != actorId && o.Task == PersonnelTask.Transport
                 && o.Status is OrderStatus.Pending or OrderStatus.Active or OrderStatus.Blocked) ? "Trolley already assigned to another handler."
             : !world.Map.Walkable(destination) ? "Destination is blocked."
@@ -54,13 +55,18 @@ internal static class PersonnelOrderSystem
         foreach (var pending in state.Orders.Where(o => o.Status == OrderStatus.Pending).ToArray())
         {
             if (!FacilityCommunications.Link(world, pending)) { PlayerFeedback.NoAcknowledgement(world, pending); continue; }
+            if (state.Orders.Any(o => o.ActorId == pending.ActorId && o.Task == PersonnelTask.Transport
+                && o.Status is OrderStatus.Active or OrderStatus.Blocked)) ObservedTransportSystem.Interrupt(world);
             foreach (var previous in state.Orders.Where(o => o.ActorId == pending.ActorId && o.Id < pending.Id
                 && o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())
                 Set(world, previous.Id, OrderStatus.Cancelled, "Relieved by an acknowledged replacement order");
             var actor = world.Actors.Single(a => a.Id == pending.ActorId);
             MovementSystem.StopInPlace(actor);
             actor.Attending = true;
-            Set(world, pending.Id, OrderStatus.Active, "Acknowledged");
+            Set(world, pending.Id, OrderStatus.Active, "Acknowledged"
+                + (EmploymentSystem.Owns(world, actor.Id) && pending.Task != PersonnelTask.ResumeDuty ? " · reassignment may leave the employment post uncovered" : ""));
+            if (pending.Task == PersonnelTask.ResumeDuty)
+                Set(world, pending.Id, OrderStatus.Complete, "Released from direct orders; resuming scheduled employment");
         }
         foreach (var order in state.Orders.Where(o => o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())
         {

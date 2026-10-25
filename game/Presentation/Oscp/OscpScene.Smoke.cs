@@ -60,7 +60,20 @@ public partial class OscpScene
                 throw new InvalidOperationException("Open OSCP must receive real acknowledgement while simulation time continues.");
             for (var i = 0; i < 240 && !sim.OscpRecords.Any(r => r.Author.Contains("R-017")); i++) await Frames(1);
             if (!sim.OscpRecords.Any(r => r.Author.Contains("R-017"))) throw new InvalidOperationException("Regional intake must arrive through actual network/report acquisition.");
+            if (sim.Employment.DiagnosticDuties.Single(d => d.ActorId == "tech").Phase != DutyPhase.Interrupted)
+                throw new InvalidOperationException("Delivered OSCP order must suspend actual employment.");
+            await EnterCommand("order tech duty");
+            for (var i = 0; i < 240 && sim.Employment.DeliveredReports.Single(r => r.ActorId == "tech").Phase != DutyPhase.OnDuty; i++) await Frames(1);
+            if (sim.Employment.DeliveredReports.Single(r => r.ActorId == "tech").Phase != DutyPhase.OnDuty
+                || sim.Operations.OrderHistory.Last().Status != OrderStatus.Complete)
+                throw new InvalidOperationException("Return-to-duty command must release the order and restore physical employment.");
             sim.ManualPause = true;
+            _workspace.SelectApp("team"); _workspace.Refresh();
+            if (!_workspace.DocumentText.Contains("Observation technician") || !_workspace.DocumentText.Contains("POST COVERAGE / REPORTED"))
+                throw new InvalidOperationException("Personnel app must show appointments and acquired employment reports.");
+            await Capture("-personnel");
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp("team"); await Capture("-phone-personnel");
+            _workspace.Open(OscpDevice.Workstation);
             var saved = sim.Save();
             _workspace.SelectApp("mail"); await Capture("");
             if (sim.Save() != saved) throw new InvalidOperationException("Drawing and application navigation cannot mutate a held world.");

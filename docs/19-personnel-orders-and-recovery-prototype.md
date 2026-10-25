@@ -4,7 +4,7 @@ Status: Bounded native prototype, October 23, 2026. This adds a playable coordin
 
 ## Playing the operation
 
-The normal launcher now loads [the operation definition](../game/Content/scp650-operation.json) alongside the existing facility geometry. The director, Chen and Ortiz start in actual direct observation. Chen and Ortiz have standing observation duties, which displace their old discretionary patrol. After three local seconds, the lit receiving footprint with closed access and three eligible humans is procedurally compliant. One observer still suffices to suppress SCP-650's self-relocation; understaffing alone cannot release it.
+The normal launcher now loads [the operation definition](../game/Content/scp650-operation.json) alongside the existing facility geometry. The director, Chen and Ortiz start in actual direct observation. Chen and Ortiz now have scheduled employment appointments, which displace their old discretionary patrol; the [employment follow-on](22-employment-prototype.md) replaces the original synthetic standing duties. After three local seconds, the lit receiving footprint with closed access and three eligible humans is procedurally compliant. One observer still suffices to suppress SCP-650's self-relocation; understaffing alone cannot release it.
 
 The field panel provides local voice orders. Select Chen or Ortiz, then maintain observation, follow the director, take a corridor post, pick a post on the map, or recover SCP-650 using the trolley. A picked post uses the next field click; RMB cancels picking. At a post, personnel face the target point communicated with the order. Observation and following remain distinct tasks.
 
@@ -32,7 +32,7 @@ The operation chooses a subject and receiving conditions through data. The SCP m
 
 ## Orders and information
 
-Orders pass through pending, acknowledged active, blocked, complete or cancelled states. A replacement relieves an existing duty only after actual delivery; an offline pending message cannot remove an observer. Blocking does not teleport a worker or substitute a success percentage. The completed transport procedure assigns observation until relief. Arbitrary employee roles, shifts, fear/authority arbitration and team agreements are not implemented by this fixture.
+Orders pass through pending, acknowledged active, blocked, complete or cancelled states. A replacement relieves an existing duty only after actual delivery; an offline pending message cannot remove an observer. Blocking does not teleport a worker or substitute a success percentage. A completed transport procedure returns an employed handler to scheduling; legacy fixtures without employment assign follow-up observation until relief. The employment follow-on adds bounded observation shifts and return-to-duty. Arbitrary employee roles, full fear/authority arbitration and team agreements remain unimplemented.
 
 Local voice requires proximity and clear communication geometry. The explicit site fixture supplies issued radios to the two employees, a physical console, terminal power and network availability. Radio power/link loss prevents delivery. These are persisted bounded device states, not inventory-backed radios, modeled RF propagation, an electrical circuit, SCiPnet synchronization or resident AIC behavior.
 
@@ -55,3 +55,7 @@ Outer save schema **4** includes the operation snapshot. Validation preserves lo
 `python3 tools/run_spatial_scene.py --operation-smoke work/preview/spatial-scene/scp650-operations.png` exercises initial coverage, E door use, physical console approach, T access, order acknowledgement, continuing local time and save round-trip in Godot. `--smoke` retains the original isolated observation/movement fixture.
 
 The three-person operation requires the director to participate in coverage. Unattended full-team recovery, player-as-handler controls, autonomous door use, full transport formations, multiple rigs, continuous trolley motion, room-scale containment validation, injury/panic/employment relief, inventory-backed equipment, cameras/AIC, public scripting, full combat and general world/network operations remain later qualification. The current equipment uses diagnostic geometry/reused stand-ins. This is a focused incident proof over the small scene, not the complete staffed facility milestone.
+
+## Employment and persistence follow-on
+
+The [employment slice](22-employment-prototype.md) now supplies scheduled assignments, physical relief and bounded overtime. Outer schema 6 supersedes the earlier schema-4 reference above. The operation JSON changed, so prior scene saves have a different content identity; matching legacy fixtures retain their compatibility paths.

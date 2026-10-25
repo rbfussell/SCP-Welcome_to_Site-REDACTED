@@ -105,3 +105,5 @@ The current scene adds the [player journal and tactical training proof](20-event
 ## October 24 default facility art
 
 Default scenes now render [the generated facility stand-in set](../game/Assets/facility-standins/README.md): Chen, Ortiz and the director have separate six-facing idle/walk sheets, surfaces map onto the existing projected geometry, and crate/cabinet/CRT/trolley have registered sprites. F4 restores diagnostic art for the whole scene. Character appearance/ordered-layer selection lives in the Godot presentation catalog, with no simulation or save-schema change. These are baked development outfits, with aligned body/head/clothing composition and additional action animations still to qualify.
+
+The [employment prototype](22-employment-prototype.md) now replaces normal-scene synthetic standing observation orders with scheduled posts and relief. Outer schema 6 adds employment continuation. Updated operation content has a new identity; matching legacy fixtures retain their previous migration support.

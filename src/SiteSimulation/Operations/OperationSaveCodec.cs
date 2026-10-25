@@ -22,7 +22,8 @@ internal static class OperationSaveCodec
         var ids = saved.Orders.Select(o => o?.Id ?? 0).Concat(saved.Reports.Select(r => r?.Id ?? 0)).ToArray();
         if (ids.Any(id => id <= 0 || id >= saved.NextId) || ids.Distinct().Count() != ids.Length
             || saved.Orders.Any(o => o is null || o.Issuer != d.CommanderId || !actorIds.Contains(o.ActorId) || o.ActorId == o.Issuer
-                || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status) || o.Channel is not ("voice" or "terminal" or "phone")
+                || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status)
+                || o.Task == PersonnelTask.ResumeDuty && !EmploymentSystem.Owns(world, o.ActorId) || o.Channel is not ("voice" or "terminal" or "phone")
                 || o.IssuedMs < 0 || o.IssuedMs > world.LocalMs || o.Detail is null || o.Detail.Length > 250
                 || !world.Map.Inside(o.Destination.World) || o.TargetPoint is { } target && !world.Map.Inside(target))
             || saved.Orders.Where(o => o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy(o => o.ActorId).Any(g => g.Count() > 1)

@@ -47,7 +47,7 @@ The full view has a visible faux CRT housing with a recessed screen, vents, powe
 
 No construction/economy, full infrastructure controls, equipment logistics, surveillance operator, resident AIC runtime, local-model provider, complete personnel employment, world-map UI or inventory pane is claimed. The shared future phone/inventory menu still reserves inventory on the right as a design direction. Opening a view currently preserves the actor's existing attention state; explicit terminal attention tasks and surveillance eligibility remain to be implemented and qualified. These missing services are not simulated by decorative buttons.
 
-Operation snapshots retain optional handset state, acquired record IDs and regional-message delivery state within outer schema 5. Matching older saves without a handset migrate without inventing an issued device. Existing content identity and detached atomic restore checks remain. UI selection, brightness and unsubmitted editor text are presentation state, separate from accepted world orders.
+Operation snapshots retain handset state, acquired record IDs and regional-message delivery state introduced in outer schema 5. Outer schema 6 now also persists the [employment slice](22-employment-prototype.md); appointments changed the scenario content identity, so earlier scene saves do not match. Matching older saves without a handset migrate without inventing an issued device. Existing content identity and detached atomic restore checks remain. UI selection, brightness and unsubmitted editor text are presentation state, separate from accepted world orders.
 
 ## Checks
 
@@ -58,3 +58,5 @@ python3 tools/run_spatial_scene.py --operation-smoke work/preview/spatial-scene/
 ```
 
 Core checks qualify profile aliases, access/authority, real phone delivery, interrupted links, offline acquisition/cache, local holds, bounded cache eviction, older matching saves, detached rejection and once-only regional delivery on world time. Godot checks additionally exercise standalone lifecycle, physical workstation access, actual UI input, clocks, device switching and rendered CRT/phone/map views. This implementation does not complete M0/M1 acceptance or qualify performance on large simulated sites.
+
+The Personnel app now includes employment roles, short test shifts, last delivered duty reports and reported staffing warnings. `order tech duty` releases direct orders and resumes scheduled work. Full professions remain future work.

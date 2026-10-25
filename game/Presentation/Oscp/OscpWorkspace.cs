@@ -30,6 +30,7 @@ public partial class OscpWorkspace : Control
     public string CurrentApp => _app;
     public string Receipt => _receipt.Text;
     internal LineEdit CommandLine => _command;
+    internal string DocumentText => _document.Text;
     public Action? Closed { get; set; }
 
     public void Initialize(SpatialSimulation sim)
@@ -76,6 +77,8 @@ public partial class OscpWorkspace : Control
         Button(row, "Observe", () => Send(PersonnelTask.Observe)); Button(row, "Follow", () => Send(PersonnelTask.Follow));
         row = new HBoxContainer(); _actions.AddChild(row);
         Button(row, "Take post", () => Send(PersonnelTask.Post)); Button(row, "Recover", () => Send(PersonnelTask.Transport));
+        row = new HBoxContainer(); _actions.AddChild(row);
+        Button(row, "Return to duty", () => Send(PersonnelTask.ResumeDuty));
         _clearDrafts = Button(_actions, "Clear prepared orders", ClearPhoneDrafts);
         _map = new OscpLocalPlan { Simulation = sim, CustomMinimumSize = new(200, 225), SizeFlagsHorizontal = SizeFlags.ExpandFill }; content.AddChild(_map);
         _document = new RichTextLabel { BbcodeEnabled = false, FitContent = true, ScrollActive = false, CustomMinimumSize = new(170, 80), SizeFlagsHorizontal = SizeFlags.ExpandFill, SelectionEnabled = true };
@@ -166,11 +169,11 @@ public partial class OscpWorkspace : Control
         var app = _apps.Find(command.Trim(), Device);
         if (app is not null) { SelectApp(app.Id); _receipt.Text = "Opened " + app.Label; return; }
         if (parts.Length == 1 && parts[0].Equals("help", StringComparison.OrdinalIgnoreCase))
-        { _receipt.Text = "Open: status, team, records, mail, map. Orders: order <staff id> <observe|follow|post|recover> [q r]."; return; }
+        { _receipt.Text = "Open: status, team, records, mail, map. Orders: order <staff id> <observe|follow|post|recover|duty> [q r]."; return; }
         if (parts.Length is 3 or 5 && parts[0].Equals("order", StringComparison.OrdinalIgnoreCase))
         {
             var index = Array.FindIndex(_sim.Actors.Where(a => a != _sim.Player).ToArray(), a => a.Id.Equals(parts[1], StringComparison.OrdinalIgnoreCase));
-            var task = parts[2].ToLowerInvariant() switch { "observe" => PersonnelTask.Observe, "follow" => PersonnelTask.Follow, "post" => PersonnelTask.Post, "recover" => PersonnelTask.Transport, _ => (PersonnelTask)(-1) };
+            var task = parts[2].ToLowerInvariant() switch { "observe" => PersonnelTask.Observe, "follow" => PersonnelTask.Follow, "post" => PersonnelTask.Post, "recover" => PersonnelTask.Transport, "duty" => PersonnelTask.ResumeDuty, _ => (PersonnelTask)(-1) };
             if (index >= 0 && Enum.IsDefined(task) && (parts.Length == 3 || task == PersonnelTask.Post && int.TryParse(parts[3], out _) && int.TryParse(parts[4], out _)))
             {
                 _recipient.Select(index); Send(task, parts.Length == 5 ? new(int.Parse(parts[3]), int.Parse(parts[4])) : null); return;
@@ -220,7 +223,7 @@ public partial class OscpWorkspace : Control
         {
             "operations" => "OBSERVATION SHIFT / INCIDENT 650\n\n" + (_sim.OscpRecords.LastOrDefault(r => r.Text.StartsWith("Containment assessment:") || r.Text.StartsWith("Receiving footprint empty"))?.Text ?? "Awaiting a received containment assessment.")
                 + "\n\nCOMMAND REGISTER\n" + (own.Any() ? string.Join("\n", own) : "No new orders submitted.") + "\n\nOpen PERSONNEL to direct assigned staff. COMMUNICATIONS carries delivered acknowledgements and field reports.",
-            "personnel" => string.Join("\n\n", _sim.Actors.Where(a => a != _sim.Player).Select(a => a.Name + " / " + a.Id + "\nAssigned to current site operation"))
+            "personnel" => PersonnelDocument()
                 + "\n\n" + string.Join("\n", own) + DraftDescription() + "\n\nAn accepted command does not establish coverage. Wait for the employee's acknowledgement and subsequent report.",
             "records" => "SCP-650 / CONTAINMENT BRIEF\n\nMaintain a lit, secured receiving room and continuous human observation. Site procedure calls for three personnel. A single qualifying observer may prevent self-relocation while staffing remains inadequate.\n\nIf found outside containment, establish observation and coordinate recovery. The current procedure uses an open trolley with separate observers. The entity has no demonstrated attack routine.\n\nOld reports and unattended recordings do not establish current observation.\n\nPROCEDURE NOTE\nReport an empty receiving area as an absence. Do not infer the subject's new location.\n\nSource: SCP-650 by Dr Talson / SCP Wiki, CC BY-SA 3.0. This operational brief includes the game's transport adaptation.",
             "communications" => "RECEIVED RECORDS\n\n" + (reports.Any() ? string.Join("\n\n", reports) : "No acquired messages."),

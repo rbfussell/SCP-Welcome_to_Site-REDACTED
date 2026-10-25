@@ -33,6 +33,7 @@ public partial class OperationsPanel : VBoxContainer
         AddButton("Take corridor post", () => Send(PersonnelTask.Post));
         AddButton("Choose observation post on map", () => ChoosingPost = true);
         AddButton("Recover SCP-650 using trolley", () => Send(PersonnelTask.Transport));
+        AddButton("Return to scheduled duty", () => Send(PersonnelTask.ResumeDuty));
         AddLabel("Trolley work needs another observer.\nReceiving: three humans, light, closed access, 3s stabilization.\n\nOrders wait for delivery. Clear access and restore coverage when staff report a blockage.", 12);
     }
     public void ToggleTerminal() => Workspace.Toggle(OscpDevice.Workstation);

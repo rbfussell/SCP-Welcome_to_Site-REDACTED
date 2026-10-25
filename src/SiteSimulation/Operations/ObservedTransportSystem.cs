@@ -100,6 +100,11 @@ internal static class ObservedTransportSystem
                 actor.Cell = exit;
                 actor.Facing = ObservationService.FacingToward(actor.Position, body.Position, actor.Facing);
                 PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Complete, "Delivered and unloaded in receiving footprint");
+                if (EmploymentSystem.Owns(world, actor.Id))
+                {
+                    world.Log("employment", actor.Id, "order-complete", "Transport complete; return to scheduled duty on next tick.");
+                    return;
+                }
                 if (state.Orders.Count >= 32) state.Orders.RemoveAt(state.Orders.FindIndex(o => o.Status is OrderStatus.Complete or OrderStatus.Cancelled));
                 state.Orders.Add(new(state.NextId++, order.Issuer, actor.Id, PersonnelTask.Observe, exit, order.Channel, OrderStatus.Active,
                     "Procedure follow-up: maintain observation until relieved", world.LocalMs, body.Position));

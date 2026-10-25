@@ -11,6 +11,7 @@ internal sealed class SimulationWorld
     public PlayerEventLog Events { get; } = new();
     public CombatState Combat { get; } = new();
     public OperationState Operations { get; }
+    public EmploymentState Employment { get; }
     public long WorldMs { get; set; }
     public long LocalMs { get; set; }
     public bool LocalHold { get; set; }
@@ -32,7 +33,9 @@ internal sealed class SimulationWorld
         Anomalies.RegisterBlockers(Map);
         if (Actors.Any(a => !Map.Walkable(a.Cell))) throw new ArgumentException("Anomaly overlaps an actor spawn.");
         Operations = new(operationJson);
+        Employment = new(Operations.Definition?.Employment);
         OperationLifecycle.Initialize(this);
+        EmploymentSystem.Initialize(this);
     }
     public void Log(string system, string subject, string eventName, string detail) => Trace.Add(WorldMs, LocalMs, system, subject, eventName, detail);
 }

@@ -28,7 +28,7 @@ internal static class OperationLifecycle
         if (world.Actors.Select(a => a.Cell).Distinct().Count() != world.Actors.Count
             || world.Actors.Any(a => a.Cell == d.Terminal || a.Cell == d.Trolley)) throw new ArgumentException("Operation fixtures overlap.");
         world.Map.DynamicBlockers.Add(d.Terminal); world.Map.DynamicBlockers.Add(d.Trolley);
-        foreach (var actor in world.Actors.Where(a => a.Id != d.CommanderId))
+        foreach (var actor in world.Actors.Where(a => a.Id != d.CommanderId && !EmploymentSystem.Owns(world, a.Id)))
             state.Orders.Add(new(state.NextId++, d.CommanderId, actor.Id, PersonnelTask.Observe, actor.Cell, "voice", OrderStatus.Active,
                 "Standing observation duty", 0, world.Anomalies.Bodies.Single(b => b.Id == d.SubjectId).Position));
         state.Report(world, "OPERATIONS", "Observation shift opened. Receiving conditions require three humans, lit room and closed access. One observer can suppress self-relocation.");

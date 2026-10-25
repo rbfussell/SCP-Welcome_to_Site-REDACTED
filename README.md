@@ -4,7 +4,7 @@ Design baseline, revision 0.10 — October 23, 2026.
 
 An isometric SCP world simulation in the spirit of X4: Foundations. The initial scenario places the player in one character as regional operations director of one functioning site, with network expansion and autonomous Groups of Interest ahead. Later employee starts inhabit the same world with their own authority and responsibilities. Personal action, delegation, facility operations, and the terminal all affect the same people, places, equipment, and incidents.
 
-This workspace now contains a runnable Godot spatial/observation, personnel-recovery and tactical-training prototype with a native SCP-650 module alongside the design baseline, diagnostic sprite generators and a standalone CRT/phone OSCP shell. It is not yet a complete game or completed M0 milestone. Godot .NET presentation uses an independent C# simulation core; this proof is pinned to Godot .NET 4.7.1 and .NET SDK 8.0.128, with broader integration/performance still to qualify. Confirmed choices remain separate from proposed contracts and limits. No delivery date, budget or legal agreement has been selected. Work is tracked in local Git.
+This workspace now contains a runnable Godot spatial/observation, personnel-recovery and tactical-training prototype with a native SCP-650 module alongside the design baseline, diagnostic sprite generators and a standalone CRT/phone OSCP shell, and scheduled observation employment with physical relief. It is not yet a complete game or completed M0 milestone. Godot .NET presentation uses an independent C# simulation core; this proof is pinned to Godot .NET 4.7.1 and .NET SDK 8.0.128, with broader integration/performance still to qualify. Confirmed choices remain separate from proposed contracts and limits. No delivery date, budget or legal agreement has been selected. Work is tracked in local Git.
 
 Run the first scene from this directory:
 
@@ -96,3 +96,5 @@ The field event log retains 100 messages with five visible rows. Scroll for hist
 The spatial subset of M0 and a bounded SCP-650 coordination/recovery proof are runnable. Continue qualifying the remaining M0 simulation, module-host and domain-transfer boundaries before treating the first facility scenario as implemented.
 
 [The OSCP runtime guide](docs/21-oscp-runtime-prototype.md) covers the CRT workstation (**T** at the terminal), field phone (**P**, automatic single-player pause and orders submitted on close), native applications, received records and shared commands. Launch independently with `python3 tools/run_spatial_scene.py --mode oscp` or `--mode phone`.
+
+The [employment prototype](docs/22-employment-prototype.md) adds Chen/Ortiz appointments, short local test shifts, physical relief, bounded overtime and report-based OSCP staffing. Use **Return to scheduled duty** or `order tech duty` to release direct orders. These fixtures do not complete the full profession/needs/calendar systems.
