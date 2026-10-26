@@ -34,6 +34,8 @@ internal static class InventoryActions
                 case InventoryActionKind.Close:
                     if (request.RegionId is null || request.Destination is not null) throw new ArgumentException("Choose a compartment");
                     var region = state.Region(item.Id, request.RegionId);
+                    var compartmentAccess = InventoryWear.Compartment(state, item.Id, region);
+                    if (!compartmentAccess.Allowed) throw new ArgumentException(compartmentAccess.Reason);
                     if (state.IsOpen(item.Id, region.Id) == (request.Kind == InventoryActionKind.Open)) throw new ArgumentException("Compartment is already in that state");
                     duration = Math.Max(150, region.AccessMs + InventoryAccessService.HandlingMs(state, item.Placement));
                     ap = Math.Max(1, region.AccessAp + AccessAp(state, item.Placement));
@@ -43,7 +45,7 @@ internal static class InventoryActions
                     if (definition.Wear is not { OpenExposes.Length: > 0 } wear || request.RegionId is not null || request.Destination is not null)
                         throw new ArgumentException("This garment has no supported opening");
                     if (item.GarmentOpen == (request.Kind == InventoryActionKind.OpenGarment)) throw new ArgumentException("Garment is already in that state");
-                    InventoryWear.ValidateAction(state, item, item.Placement, wear.OpenExposes);
+                    InventoryWear.ValidateAction(state, item, item.Placement, wear.OpenExposes, fastening: true);
                     duration = wear.FastenMs + InventoryAccessService.HandlingMs(state, item.Placement);
                     ap = wear.FastenAp + AccessAp(state, item.Placement);
                     break;
@@ -86,6 +88,7 @@ internal static class InventoryActions
     }
     public static void Cancel(SimulationWorld world, string reason)
     {
+        world.Inventory.SecureQueue.Clear();
         if (world.Inventory.Pending is not { } pending) return;
         if (pending.Tactical) { world.Inventory.Pending = pending with { AbortReason = reason }; return; }
         world.Inventory.Pending = null;
@@ -103,7 +106,7 @@ internal static class InventoryActions
         state.Pending = null;
         if (work.AbortReason is not null || work.Revision != state.Revision
             || !Validate(world, work.ActorId, work.Request, out _, out _, out _))
-        { PlayerFeedback.Add(world, MessageKind.Warning, "Inventory: action failed: " + (work.AbortReason ?? "Item, access or destination changed")); return; }
+        { state.SecureQueue.Clear(); PlayerFeedback.Add(world, MessageKind.Warning, "Inventory: action failed: " + (work.AbortReason ?? "Item, access or destination changed")); return; }
         var request = work.Request; var item = state.Items[request.ItemId];
         switch (request.Kind)
         {

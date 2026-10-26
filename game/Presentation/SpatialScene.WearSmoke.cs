@@ -17,7 +17,7 @@ public partial class SpatialScene
             sim.ManualPause = true; await InventoryFrames();
         }
         void Click(Button button) => InventoryClick(button.GetGlobalRect().GetCenter());
-        panel.Inspect("avatar-trousers"); panel.Inspect("gum-packet"); await InventoryFrames();
+        panel.Inspect("avatar-trousers"); panel.OpenCompartment("avatar-trousers", "left"); panel.Inspect("gum-packet"); await InventoryFrames();
         var coat = panel.FindGrid("person:avatar", "outerwear");
         InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();
         if (panel.GarmentToggle.Disabled) throw new InvalidOperationException("Selecting a supported garment did not enable its physical opening control.");
@@ -79,7 +79,7 @@ public partial class SpatialScene
         if (!sim.InventoryAccess("avatar-trousers", "left").Allowed || sim.InventoryContents("person:avatar", "torso").Count != 1)
             throw new InvalidOperationException("Opening a coat failed to expose the underlying paperdoll and storage.");
         await InventoryCapture("-coat-open");
-        sim.Player.Cell = new(13, 6); panel.Inspect("fixture:crate-a"); await InventoryFrames();
+        sim.Player.Cell = new(13, 6); panel.Inspect("fixture:crate-a"); panel.OpenCompartment("fixture:crate-a", "store"); await InventoryFrames();
         var crate = panel.FindGrid("fixture:crate-a", "store");
         void SelectSuit() => InventoryClick(crate.GlobalPosition + new Vector2(6 * crate.CellPixels + 15, 59));
         SelectSuit();

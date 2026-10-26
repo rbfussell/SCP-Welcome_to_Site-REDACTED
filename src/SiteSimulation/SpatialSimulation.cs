@@ -244,6 +244,8 @@ public sealed partial class SpatialSimulation
         _world.WorldMs += TickMs;
         RegionalIntakeSystem.Advance(_world);
         if (LocalHold) return;
+        // Securing may purchase the next action at a tactical input boundary, never free local time.
+        InventorySecuring.TryStart(_world);
         if (Combat.Active && Combat.Pending is null)
         {
             TrainingOpponentSystem.Observe(_world);

@@ -102,6 +102,46 @@ internal static class WearChecks
         state.Items["spare-socks"] = state.Items["spare-socks"] with { Placement = new("person:avatar", "footwear") };
         try { InventoryPlacement.Validate(state); throw new Exception("Duplicate body layer accepted"); }
         catch (ArgumentException ex) { Check(ex.Message.Contains("same body layer"), "different slots cannot bypass overlapping anatomical layer claims"); }
+        state.Content.Definitions[socksIndex] = state.Content.Definitions[socksIndex] with
+        { Wear = state.Content.Definitions[socksIndex].Wear! with { OverlapTags = ["socks"] } };
+        InventoryPlacement.Validate(state);
+        Check(true, "mutually compatible same-layer items can overlap anatomy across distinct mounts");
+        var bootsIndex = Array.FindIndex(state.Content.Definitions, d => d.Id == "boots");
+        state.Content.Definitions[bootsIndex] = state.Content.Definitions[bootsIndex] with
+        { Wear = new(0, [new("footwear", ["feet"])], OverlapTags: ["socks"]) };
+        state.Items["spare-socks"] = state.Items["spare-socks"] with { DefinitionId = "boots" };
+        try { InventoryPlacement.Validate(state); throw new Exception("One-sided overlap accepted"); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains("same body layer"), "overlap permission must be compatible in both profiles"); }
+
+        // Isolate access-covering from removal-blocking, including the confirmed non-covering, removal-blocking belt combination.
+        foreach (var covers in new[] { false, true })
+        foreach (var blocks in new[] { false, true })
+        {
+            var rules = new SimulationWorld(map, config); var inventory = rules.Inventory;
+            var coatIndex = Array.FindIndex(inventory.Content!.Definitions, d => d.Id == "coat");
+            var coat = inventory.Content.Definitions[coatIndex];
+            inventory.Content.Definitions[coatIndex] = coat with { Wear = coat.Wear! with
+            { CoversAccess = covers, BlocksRemoval = blocks, OpenExposes = coat.Wear.Mounts[0].Coverage } };
+            inventory.Items["avatar-coat"] = inventory.Items["avatar-coat"] with { GarmentOpen = false };
+            inventory.Items["avatar-backpack"] = inventory.Items["avatar-backpack"] with { Placement = new("fixture:crate-a", "store", 0, 8) };
+            InventoryContentValidation.Validate(rules);
+            Check(InventoryAccessService.Placement(rules, "avatar", new("avatar-trousers", "left")).Allowed == !covers,
+                $"pocket access independently follows CoversAccess={covers}, BlocksRemoval={blocks}");
+            Check(InventoryActions.Validate(rules, "avatar", Move("avatar-shirt", "person:avatar", "hand"), out _, out _, out _) == !(covers || blocks),
+                "closed coverage requires opening for access; removal blocking independently requires removal");
+            inventory.Items["avatar-coat"] = inventory.Items["avatar-coat"] with { GarmentOpen = true };
+            Check(InventoryAccessService.Placement(rules, "avatar", new("avatar-trousers", "left")).Allowed,
+                "opening an authored covering exposes its pocket access path");
+            Check(InventoryActions.Validate(rules, "avatar", Move("avatar-shirt", "person:avatar", "hand"), out _, out _, out _) == !blocks,
+                "opening an item does not remove its explicit removal block");
+        }
+
+        var invalidMetadata = new SimulationWorld(map, config);
+        var ci = Array.FindIndex(invalidMetadata.Inventory.Content!.Definitions, d => d.Id == "coat");
+        var cd = invalidMetadata.Inventory.Content.Definitions[ci];
+        invalidMetadata.Inventory.Content.Definitions[ci] = cd with { Wear = cd.Wear! with { OverlapTags = [""] } };
+        try { InventoryContentValidation.Validate(invalidMetadata); throw new Exception("Invalid overlap metadata accepted"); }
+        catch (ArgumentException) { Check(true, "invalid authored overlap tags reject at content validation"); }
 
         var outer = new SimulationWorld(map, config); state = outer.Inventory;
         var suitIndex = Array.FindIndex(state.Content!.Definitions, d => d.Id == "chem-suit");

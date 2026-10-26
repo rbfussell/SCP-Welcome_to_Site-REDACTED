@@ -51,5 +51,17 @@ internal static class InventorySaveCodec
         }
         else if (world.Combat.Pending?.Kind == CombatActionKind.Inventory) throw new ArgumentException("Missing paid inventory continuation.");
         state.Pending = saved.Pending;
+        var queue = saved.SecureQueue ?? [];
+        if (queue.Length > InventorySecuring.MaxSteps || queue.Any(s => s is null || s.Request is null || s.Placement is null
+            || !InventorySecuring.IsSecure(s.Request) || s.Request.Destination is not null
+            || !state.Items.TryGetValue(s.Request.ItemId, out var item) || item.Placement != s.Placement
+            || (s.Request.Kind == InventoryActionKind.Close) != (s.Request.RegionId is not null))
+            || queue.Select(s => s.Request).Distinct().Count() != queue.Length)
+            throw new ArgumentException("Invalid inventory securing continuation.");
+        foreach (var step in queue)
+            if (!InventoryActions.Validate(world, world.Player.Id, step.Request, out var reason, out _, out _)
+                && reason is not ("Compartment is already in that state" or "Garment is already in that state"))
+                throw new ArgumentException("Invalid inventory securing target: " + reason);
+        state.SecureQueue.Clear(); state.SecureQueue.AddRange(queue);
     }
 }

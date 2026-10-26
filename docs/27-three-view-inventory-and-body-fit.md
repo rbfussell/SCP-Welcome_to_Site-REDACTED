@@ -1,6 +1,6 @@
 # Three-view inventory, closures and body-shape fitting
 
-Status: October 25, 2026. This records the user's revised interaction and metadata direction. It supersedes the earlier expanding-column inventory proposal and Esc-as-Back behavior. The current runtime still uses that earlier engineering browser; this document does not claim the three-view UI, illustrated hotspots or hex body fitting are implemented. Two implementation questions remain at the end.
+Status: October 25, 2026. The bounded runtime now implements three fixed engineering views, separate gear/contents trails, illustrated compartment hotspots, context actions, paid opening and automatic securing. Esc dismisses only the interface. × secures by default; a later option may disable that default. The body-local hex fit and animated/composited appearance contracts remain proposed.
 
 Related: [physical inventory](23-personal-inventory-prototype.md), [body equipment](24-body-equipment-and-container-navigation.md), [wear layers and fit](25-wear-layer-and-fit-standard.md), and [appearance pipeline](26-wearable-appearance-pipeline.md).
 
@@ -48,7 +48,7 @@ Examples required by the user:
 | Backpack | Bullet box inside a pocket/case | Right × | Entire contents trail closes; backpack remains |
 | Jacket with pocket open | Jacket pocket | Open backpack from paperdoll | Backpack replaces jacket; old contents trail closes |
 
-These are view-lifetime rules. Whether dismissing a view also triggers physical securing is an explicit unresolved question; it must not accidentally become a free zip/latch operation.
+These view-lifetime rules are distinct from physical handling. **Esc only closes the interface and leaves physical containers unchanged. × automatically secures affected inspected containers by default**, with a future option to leave them open. The bounded runtime also secures a popped step when ↑ closes it. Child closures run before parent closures through ordinary time/AP-bearing handling; no UI close supplies a free fastening. [Wearable metadata and surface mapping](28-wearable-metadata-and-surface-mapping.md) records the later clarification and separates overlap, access covering and removal blocking.
 
 ## Object actions and context menu
 
@@ -123,15 +123,20 @@ Geometric fitting must be checked together with layer overlap, the complete worn
 
 Front/back body surfaces, sleeve/shoulder continuity and wraparound items need explicit mappings or seam/contact links. A front-only two-dimensional shape is not proof that a full shirt or belt fits the complete body. Body-family variants should share the standard but provide their actual shape/contact maps.
 
-## Questions before implementation
+## Remaining body-shape qualification
 
-1. **View dismissal and securing:** Are ×, ↑ and Esc navigation/dismissal only, with Secure as the physical action, or does closing a view also physically secure that container? If dismissal secures, its time/AP, multi-container ordering, partial completion and interruption behavior must be defined rather than making closure instantaneous.
-2. **Orientations:** Exact rotations of an axial hex mask are multiples of 60°. A literal 90° vertical placement is not one of those six rotations. Should additional orientations such as 90° use explicitly authored/validated alternative footprints, or should the initial body-grid implementation use only the six exact hex rotations?
+**Body-shape qualification:** The user clarifies the rule: transform local edge contacts with orientation and accept placement wherever they fit the body, potentially including crossed chest belts. Concrete body shapes and extra orientation footprints will be worked out with that geometry; do not freeze a conventional belt slot or promise an already implemented arbitrary-angle solver.
 
 ## Bounded implementation and acceptance
 
-Implement view navigation separately from physical closure commands and from shape fitting. First qualify the three-view state machine with the jacket/shirt/T-shirt and pocket/case/packet examples above. Bind context actions and per-compartment closure metadata through validated simulation commands. Then qualify illustrated hotspot bindings and closure-state sprite swaps. Body-hex fitting needs a separate small mask/contact fixture before replacing the current mount validator.
+View navigation and physical commands now live in separate components. The native fixture qualifies jacket → shirt and pocket → case/packet navigation; it does not yet contain a third T-shirt garment. Context actions and per-compartment secure verbs use validated simulation commands. The enlarged object illustration has authored normalized hotspot overlays; its OPEN/SECURED labels are diagnostic until closure-state sprites/animations are authored. The paperdoll is still a scrollable equipment-slot view, not composited body artwork. Body-hex fitting needs a separate small mask/contact fixture before replacing the current mount validator.
 
 Checks should cover exactly three view slots, both Up controls, both × controls, Esc closing inventory, top-level switching, retained outer-garment contents, removed-owner invalidation, physically blocked descendants, late-action UI cancellation, paid opening/securing and save/restore. Shape checks should include aligned/misaligned shoulders and sides, open neck/arm/bottom edges, translated/rotated belt contacts, unsupported orientations, full-stack fit and unchanged square-grid packing.
 
 No earlier prototype limit, optional three-dimensional authoring pipeline or old slot implementation should silently override this revised design. Conversely, recording this contract is not evidence that the running browser, physical closures or body placement have already been replaced.
+
+## Current securing execution
+
+[InventorySecuring](../src/SiteSimulation/Inventory/Transactions/InventorySecuring.cs) stores an explicit close sequence independently of UI lifetime. × and ↑ prepare the sequence and dismiss the affected views; an existing manipulation/sequence must finish or be canceled before another sequence can be accepted. An entire gear dismissal includes its compartments and containers actually inspected in that gear session. It does not inspect an unseen item hierarchy. Top-level switching and Esc dismiss views without manufacturing a physical closure.
+
+Each closure revalidates placement/access and purchases its normal time/AP. Prepared work waits through manual/local holds and for the player’s tactical turn/AP; it never ends a turn automatically. The progress line reports waiting work and Cancel handling clears it. An impossible per-step AP cost is rejected. Failed or interrupted work stops remaining closures without reopening already secured objects or refunding elapsed time. Explicit successful handling replaces unstarted automatic work. Both pending handling and remaining close intent persist in outer save schema 9. Closing the interface does not discard them. The future no-auto-secure option is not exposed yet.

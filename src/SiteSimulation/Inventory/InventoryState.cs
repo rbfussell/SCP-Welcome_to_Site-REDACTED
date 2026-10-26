@@ -13,6 +13,8 @@ public sealed class InventoryState
     internal List<RegionState> Regions { get; } = [];
     public long Revision { get; internal set; }
     public InventoryWork? Pending { get; internal set; }
+    internal List<InventorySecureStep> SecureQueue { get; } = [];
+    public int SecuringRemaining => SecureQueue.Count;
     public IReadOnlyList<InventoryItem> DiagnosticItems => Items.Values.OrderBy(i => i.Id, StringComparer.Ordinal).ToArray();
     internal InventoryState(string? profile)
     {
@@ -38,5 +40,5 @@ public sealed class InventoryState
     public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;
     public IReadOnlyList<InventoryItem> Children(string parentId, string regionId) => Items.Values
         .Where(i => i.Placement.ParentId == parentId && i.Placement.RegionId == regionId).OrderBy(i => i.Id, StringComparer.Ordinal).ToArray();
-    internal InventorySnapshot Capture() => new(Revision, Items.Values.OrderBy(i => i.Id, StringComparer.Ordinal).ToArray(), Regions.ToArray(), Pending);
+    internal InventorySnapshot Capture() => new(Revision, Items.Values.OrderBy(i => i.Id, StringComparer.Ordinal).ToArray(), Regions.ToArray(), Pending, SecureQueue.ToArray());
 }

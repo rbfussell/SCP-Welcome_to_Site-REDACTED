@@ -35,6 +35,20 @@ internal static class InventoryChecks
         }
         var sim = Sim();
         Check(sim.Inventory.Content!.Definitions.All(d => registered.Contains(d.Id)), "all native item definitions have actual object sprites");
+        using var hotspots = JsonDocument.Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(artPath)!, "hotspots.json")));
+        foreach (var binding in hotspots.RootElement.EnumerateObject())
+        {
+            var definition = sim.Inventory.Content.Definitions.Single(d => d.Id == binding.Name);
+            foreach (var target in binding.Value.EnumerateArray())
+            {
+                var rect = target.GetProperty("rect").EnumerateArray().Select(n => n.GetDouble()).ToArray();
+                Check(rect.Length == 4 && rect.All(double.IsFinite) && rect[0] >= 0 && rect[1] >= 0 && rect[2] > 0 && rect[3] > 0
+                    && rect[0] + rect[2] <= 1 && rect[1] + rect[3] <= 1, "illustrated hotspot stays inside its normalized registration");
+                var region = target.GetProperty("region");
+                Check(region.ValueKind == JsonValueKind.Null ? definition.Wear?.OpenExposes is { Length: > 0 }
+                    : definition.Regions?.Any(r => r.Id == region.GetString()) == true, "each illustrated hotspot binds a real fastening or compartment");
+            }
+        }
         Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 31, "explicit native profile loads unique physical items");
         Check(sim.InventoryRoots.Count == 1 && sim.InventoryRoots[0].ActorId == sim.Player.Id, "UI roots exclude remote fixtures and other personnel");
         Check(sim.InventoryContents("gum-packet", "pieces").Count == 6, "fine-scale packet contains six individual pieces");

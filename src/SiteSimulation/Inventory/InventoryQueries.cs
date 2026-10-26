@@ -31,6 +31,18 @@ public sealed partial class SpatialSimulation
         try { InventoryWear.ValidateAction(Inventory, item, item.Placement); return access; }
         catch (ArgumentException ex) { return new(false, ex.Message); }
     }
+    /// <summary>Exposed lower clothing at the current opening; inspection never changes its physical parent.</summary>
+    public IReadOnlyList<InventoryItem> InventoryUnderlayers(string id)
+    {
+        if (!Inventory.Items.TryGetValue(id, out var item) || !item.GarmentOpen
+            || Inventory.Definition(id).Wear is not { OpenExposes.Length: > 0 } wear
+            || !Inventory.Content!.Roots.Any(r => r.Id == item.Placement.ParentId && r.ActorId == Player.Id)) return [];
+        return Inventory.DiagnosticItems.Where(i => i.Placement.ParentId == item.Placement.ParentId && i.Id != id)
+            .Where(i => Inventory.Definition(i.Id).Wear is { } inner && inner.Layer < wear.Layer
+                && inner.Mounts.Any(m => m.Slot == Inventory.Region(i.Placement.ParentId, i.Placement.RegionId).MountSlot
+                    && m.Coverage.Intersect(wear.OpenExposes).Any()) && InventoryWear.Visible(Inventory, i))
+            .OrderByDescending(i => Inventory.Definition(i.Id).Wear!.Layer).ThenBy(i => i.Id, StringComparer.Ordinal).ToArray();
+    }
     public InventoryAccess InventoryInspectAccess(string id)
     {
         if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");
@@ -47,10 +59,22 @@ public sealed partial class SpatialSimulation
         ? $"{duration / 1000.0:0.00}s · {ap} AP in combat" : reason;
     public bool HandleInventory(InventoryRequest request)
     {
-        var result = InventoryActions.Start(_world, request, out var reason); LastMessage = reason; return result;
+        var result = InventoryActions.Start(_world, request, out var reason);
+        if (result) Inventory.SecureQueue.Clear(); // A new explicit action replaces unstarted automatic work.
+        LastMessage = reason; return result;
+    }
+    public bool SecureInventory(IEnumerable<InventoryRequest> requests)
+    {
+        var result = InventorySecuring.Prepare(_world, requests, out var reason); LastMessage = reason; return result;
     }
     public bool CancelInventoryHandling()
     {
+        if (Inventory.SecureQueue.Count > 0)
+        {
+            Inventory.SecureQueue.Clear();
+            if (Inventory.Pending is null || ManualPause || LocalHold || Combat.Active)
+            { LastMessage = "Remaining securing intent canceled; any already paid action still resolves."; return true; }
+        }
         if (ManualPause || LocalHold || Combat.Active) { LastMessage = "Cannot cancel paid handling during a hold or tactical action."; return false; }
         InventoryActions.Cancel(_world, "Handling cancelled"); return true;
     }

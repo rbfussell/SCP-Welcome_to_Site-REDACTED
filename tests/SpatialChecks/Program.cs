@@ -137,6 +137,7 @@ passed += CombatChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectory
 passed += OscpChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")), File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "oscp-apps.json")));
 passed += EmploymentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventoryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")), Path.Combine(Path.GetDirectoryName(mapPath)!, "../Assets/inventory-objects/manifest.json"));
+passed += InventorySecuringChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += WearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += SpriteArtChecks.Run(json, Path.Combine(Path.GetDirectoryName(mapPath)!, "../Assets/facility-standins/manifest.json"));
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

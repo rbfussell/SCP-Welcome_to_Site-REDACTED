@@ -4,6 +4,8 @@ Status: October 25, 2026. User-confirmed goal: any supported wearable should hav
 
 This extends [sprite presentation](06-sprites-and-placeholders.md), [body equipment](24-body-equipment-and-container-navigation.md) and [wear layers and fit](25-wear-layer-and-fit-standard.md).
 
+The subsequent [surface-mapping proposal](28-wearable-metadata-and-surface-mapping.md) adds an experiment that reuses aligned front/back paperdoll textures through shared body-pose projection maps. It records continuous belt wrapping, backpack straps and independent access/removal/visual masks. Both that route and rig-generated sprite layers remain proposed; the actual world actors still use baked artwork.
+
 ## One outfit, several representations
 
 The authoritative equipped graph determines what a character wears. A separate appearance catalog maps wearable definitions to compatible bodies, garment representations, supported fastening states and attachment points. The paperdoll and world renderer resolve that same outfit; they must not keep independent copies of equipped state.

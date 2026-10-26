@@ -93,7 +93,9 @@ public partial class InventoryGrid : Control
         }
         if (e is not InputEventMouseButton { Pressed: true } mouse) return;
         var picked = Pick(mouse.Position);
-        if (mouse.ButtonIndex == MouseButton.Right || mouse.DoubleClick)
+        if (mouse.ButtonIndex == MouseButton.Right)
+        { if (picked is not null) Panel.Context(picked.Id, null, GetGlobalMousePosition()); AcceptEvent(); return; }
+        if (mouse.ButtonIndex == MouseButton.Left && mouse.DoubleClick)
         { if (picked is not null) { Panel.Select(picked.Id); Panel.Inspect(picked.Id); } AcceptEvent(); return; }
         if (mouse.ButtonIndex != MouseButton.Left) return;
         if (picked is not null) Panel.Select(picked.Id);

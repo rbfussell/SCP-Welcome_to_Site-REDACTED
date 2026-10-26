@@ -15,6 +15,8 @@ public partial class InventoryPanel : Control
     private PanelContainer _window = null!;
     private Label _clock = null!, _receipt = null!, _detail = null!, _progress = null!;
     private InventoryBrowser _browser = null!;
+    private PanelContainer? _contextMenu;
+    internal InventoryBrowser Browser => _browser;
     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
     private ScrollContainer _wornScroll = null!;
     private OptionButton _layerView = null!;
@@ -37,7 +39,7 @@ public partial class InventoryPanel : Control
         Label(header, "PERSONAL EQUIPMENT", 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _clock = Label(header, "", 13);
         Button(header, "CLOSE  /  I", Close);
-        Label(column, "Drag an object to place it · R rotates · double-click or right-click inspects a container · selecting and clicking an empty cell also places", 12);
+        Label(column, "Double-click to open · right-click for actions · hold/drag to move · R rotates · × secures with time/AP · Esc hides the interface", 12);
         column.AddChild(new HSeparator());
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
@@ -70,12 +72,12 @@ public partial class InventoryPanel : Control
         Button(worn, "Nearby supply crate", () => Inspect("fixture:crate-a"));
         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);
         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);
-        Label(storageHeader, "INVENTORY / INSPECTED CONTAINERS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        Button(storageHeader, "Back / close view", () => _browser.Back());
-        Label(storage, "Right-click worn storage to look inside. Close a view to return up its hierarchy.", 12);
+        Label(storageHeader, "GEAR & CONTENTS / TWO INDEPENDENT TRAILS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        Label(storage, "Compartments open individually. ↑ returns one level; × secures the trail. Esc leaves physical closures unchanged.", 12);
         var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill,
-            HorizontalScrollMode = ScrollContainer.ScrollMode.Auto }; storage.AddChild(scroll);
-        _browser = new InventoryBrowser { Panel = this }; _browser.AddThemeConstantOverride("separation", 18); scroll.AddChild(_browser);
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);
+        _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
+        _browser.AddThemeConstantOverride("separation", 18); scroll.AddChild(_browser);
         column.AddChild(new HSeparator());
         _detail = Label(column, "", 13); _detail.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _progress = Label(column, "", 13);
@@ -116,6 +118,7 @@ public partial class InventoryPanel : Control
     }
     public void Close()
     {
+        HideContext();
         CancelDragPreview();
         _browser.Clear(); Visible = false; GetViewport().GuiReleaseFocus();
     }
@@ -171,6 +174,38 @@ public partial class InventoryPanel : Control
     {
         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;
     }
+    internal void OpenCompartment(string id, string region)
+    { _browser.OpenRegion(id, region, out var reason); _receipt.Text = reason; }
+    internal void OpenGarment(string id)
+    {
+        if (Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).GarmentOpen) return;
+        Simulation.HandleInventory(new(InventoryActionKind.OpenGarment, id)); ShowReceipt();
+    }
+    private void HideContext()
+    { if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }
+    public override void _Input(InputEvent e)
+    {
+        if (Visible && _contextMenu is not null && e is InputEventMouseButton { Pressed: true } mouse
+            && !_contextMenu.GetGlobalRect().HasPoint(mouse.Position)) HideContext();
+    }
+    internal void Context(string id, string? region, Vector2 position, bool fastening = false)
+    {
+        HideContext(); Select(id);
+        var definition = Simulation.Inventory.Definition(id);
+        _contextMenu = new PanelContainer { ZIndex = 20 };
+        _contextMenu.AddThemeStyleboxOverride("panel", new StyleBoxFlat { BgColor = new("28372e"), ContentMarginLeft = 8,
+            ContentMarginRight = 8, ContentMarginTop = 8, ContentMarginBottom = 8 });
+        AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list);
+        void Entry(string name, Action action) => Button(list, name, () => { HideContext(); action(); });
+        Entry("Open", () => { if (fastening) OpenGarment(id); else if (region is not null) OpenCompartment(id, region); else Inspect(id); });
+        if (region is not null) Entry(Simulation.Inventory.Region(id, region).SecureVerb, () => ChangeLid(id, region, false));
+        else if (definition.Wear?.OpenExposes is { Length: > 0 }) Entry(definition.Wear.SecureVerb, () =>
+        { Simulation.HandleInventory(new(InventoryActionKind.CloseGarment, id)); ShowReceipt(); });
+        else if (definition.Regions is { Length: 1 } regions) Entry(regions[0].SecureVerb, () => ChangeLid(id, regions[0].Id, false));
+        Entry("Remove → hand", () => { Select(id); MoveSelectedTo("hand"); });
+        var size = _contextMenu.GetCombinedMinimumSize();
+        _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));
+    }
     internal IReadOnlyList<string> InspectedContainers => _browser.ContainerIds;
     internal void CloseContainerView(string id) => _browser.CloseView(id);
     internal void ChangeLid(string id, string region, bool open)
@@ -187,6 +222,7 @@ public partial class InventoryPanel : Control
         _garmentToggle.Text = !_garmentToggle.Disabled && Simulation.Inventory.DiagnosticItems.Single(i => i.Id == SelectedItem).GarmentOpen
             ? "Fasten selected garment" : "Open selected garment";
         _progress.Text = Simulation.Inventory.Pending is { } work ? $"HANDLING · {(work.TotalMs - work.RemainingMs) / 1000.0:0.00} / {work.TotalMs / 1000.0:0.00}s · {work.Request.Kind}"
+            : Simulation.Inventory.SecuringRemaining > 0 ? $"SECURING · {Simulation.Inventory.SecuringRemaining} closures waiting for local progress / your turn and sufficient AP · Cancel handling to stop"
             : $"Carried mass: {InventoryHierarchy.CarriedMass(Simulation.Inventory, "person:avatar") / 1000.0:0.00} kg · no handling in progress";
         var receipt = Simulation.Events.Entries.LastOrDefault(e => e.Text.StartsWith("Inventory: ", StringComparison.Ordinal));
         if (receipt is not null && receipt.Id != _lastReceiptId) { _lastReceiptId = receipt.Id; _receipt.Text = receipt.Text; }
@@ -199,7 +235,7 @@ public partial class InventoryPanel : Control
         if (e is InputEventKey { Pressed: true, Echo: false } key)
         {
             if (key.Keycode == Key.I) Close();
-            else if (key.Keycode == Key.Escape) { if (DragItemId is not null || !_browser.Back()) Close(); }
+            else if (key.Keycode == Key.Escape) Close();
             else if (key.Keycode == Key.R) Rotate();
             else if (key.Keycode == Key.Space) Simulation.ManualPause = !Simulation.ManualPause;
             else if (key.Keycode == Key.Enter && Simulation.Combat.Active) Simulation.EndTurn();

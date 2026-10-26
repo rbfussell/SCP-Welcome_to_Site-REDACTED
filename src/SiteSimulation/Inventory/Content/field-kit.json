@@ -27,7 +27,8 @@
           "accessAp": 1,
           "accessBody": [
             "hips-front"
-          ]
+          ],
+          "secureVerb": "Button"
         },
         {
           "id": "right",
@@ -42,7 +43,8 @@
           "accessAp": 1,
           "accessBody": [
             "hips-front"
-          ]
+          ],
+          "secureVerb": "Button"
         }
       ],
       "wear": {
@@ -107,7 +109,8 @@
           ],
           "accessBody": [
             "torso-front"
-          ]
+          ],
+          "secureVerb": "Button"
         }
       ],
       "wear": {
@@ -129,7 +132,8 @@
           "hips-front"
         ],
         "fastenMs": 700,
-        "fastenAp": 2
+        "fastenAp": 2,
+        "secureVerb": "Zip"
       }
     },
     {
@@ -159,7 +163,8 @@
           "accessBody": [
             "torso-back",
             "torso-front"
-          ]
+          ],
+          "secureVerb": "Zip"
         },
         {
           "id": "side",
@@ -175,7 +180,8 @@
           "accessBody": [
             "torso-back",
             "torso-front"
-          ]
+          ],
+          "secureVerb": "Buckle"
         }
       ],
       "wear": {
@@ -266,7 +272,8 @@
           "heightMm": 40,
           "maxMassGrams": 1200,
           "accessMs": 400,
-          "accessAp": 1
+          "accessAp": 1,
+          "secureVerb": "Latch"
         }
       ]
     },
@@ -290,7 +297,8 @@
           "heightMm": 5,
           "maxMassGrams": 30,
           "accessMs": 150,
-          "accessAp": 0
+          "accessAp": 0,
+          "secureVerb": "Fold"
         }
       ]
     },
