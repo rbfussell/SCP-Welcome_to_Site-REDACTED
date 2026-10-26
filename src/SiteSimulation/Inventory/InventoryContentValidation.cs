@@ -10,7 +10,7 @@ internal static class InventoryContentValidation
         static bool Body(string[]? regions) => regions is { Length: > 0 and <= 10 } && regions.Distinct().Count() == regions.Length
             && regions.All(InventoryWear.BodyRegions.Contains);
         static bool WearValid(WearProfile w) => w.Layer is >= 0 and <= 9 && w.Mounts is { Length: > 0 and <= 10 }
-            && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage)) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
+            && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage) && (m.BodySurface is null or "front" or "back")) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
             && (w.OpenExposes is null || Body(w.OpenExposes) && w.OpenExposes.All(r => w.Mounts.Any(m => m.Coverage.Contains(r))))
             && (w.OverlapTags is null || w.OverlapTags.Length <= 32 && w.OverlapTags.All(Id) && w.OverlapTags.Distinct().Count() == w.OverlapTags.Length)
             && Id(w.SecureVerb) && w.SecureVerb.Length <= 32 && Id(w.OpenVerb) && w.OpenVerb.Length <= 32
@@ -39,6 +39,19 @@ internal static class InventoryContentValidation
             || c.Items.Any(i => i is null || !Id(i.Id) || !c.Definitions.Any(d => d.Id == i.DefinitionId)
                 || c.Roots.Any(r => r.Id == i.Id)) || c.Items.Select(i => i.Id).Distinct().Count() != c.Items.Length)
             throw new ArgumentException("Invalid inventory content.");
+        foreach (var definition in c.Definitions)
+        {
+            var shape = definition.Wear?.FitProfile is { } id ? state.BodyFits!.Shape(id) : null;
+            var cells = shape is null ? null : BodyFitGeometry.Cells(shape.Rows)
+                .Select(cell => new BodyHex(cell.Q - shape.DefaultPose.Q, cell.R - shape.DefaultPose.R)).ToHashSet();
+            foreach (var region in definition.Regions ?? [])
+                if (region.AccessFootprint is { } masks && (cells is null || masks.Length == 0 || !BodyFitCatalog.SurfaceMasksValid(masks, cells)))
+                    throw new ArgumentException("Invalid compartment access footprint: " + definition.Id + "/" + region.Id);
+            var mounted = shape?.Coverage is { } cover && cover.Closed.Concat(cover.Open).Any(m => m.Surface == "mounted")
+                || definition.Regions?.Any(r => r.AccessFootprint?.Any(m => m.Surface == "mounted") == true) == true;
+            if (mounted && definition.Wear!.Mounts.Any(m => m.BodySurface is null))
+                throw new ArgumentException("Mounted surface masks require a surface on every worn mount.");
+        }
         InventorySaveCodec.ValidateGraph(state);
     }
 }

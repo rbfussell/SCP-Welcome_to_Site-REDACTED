@@ -18,6 +18,10 @@ public sealed class BodyFitCatalog
     }
     public BodyMask Body(string id) => Content.Bodies.Single(b => b.Id == id);
     public BodyFitShape Shape(string id) => Content.Shapes.Single(s => s.Id == id);
+    internal static bool SurfaceMasksValid(BodySurfaceMask[]? masks, IReadOnlySet<BodyHex> cells)
+        => masks is { Length: <= 3 } && masks.All(m => m is not null && m.Surface is "front" or "back" or "mounted"
+            && m.Cells is { Length: > 0 and <= 1000 } && m.Cells.Distinct().Count() == m.Cells.Length && m.Cells.All(cells.Contains))
+            && masks.Select(m => m.Surface).Distinct().Count() == masks.Length;
     internal static void Validate(BodyFitContent content)
     {
         static bool Id(string? id) => !string.IsNullOrWhiteSpace(id) && id.Length <= 100;
@@ -37,6 +41,9 @@ public sealed class BodyFitCatalog
         foreach (var shape in content.Shapes)
         {
             var cells = BodyFitGeometry.Cells(shape.Rows).Select(c => new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet();
+            if (shape.Coverage is { } coverage && (!SurfaceMasksValid(coverage.Closed, cells) || !SurfaceMasksValid(coverage.Open, cells)
+                    || coverage.Open.Any(open => !coverage.Closed.Any(closed => closed.Surface == open.Surface && open.Cells.All(closed.Cells.Contains)))))
+                throw new ArgumentException("Invalid closed/open cover masks: " + shape.Id);
             if (shape.Contacts.Any(e => !cells.Contains(e.Cell) || cells.Contains(e.Cell.Neighbor(e.Direction)))
                 || !BodyFitGeometry.Evaluate(content.Bodies.Single(b => b.Id == shape.BodyFamily), shape, shape.DefaultPose).Fits)
                 throw new ArgumentException("Invalid or misaligned authored body contacts: " + shape.Id);

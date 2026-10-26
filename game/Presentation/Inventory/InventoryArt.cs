@@ -67,14 +67,14 @@ internal static class InventoryArt
         canvas.DrawTextureRect(layout.Texture, new(-layout.Size / 2, layout.Size), false, new(1, 1, 1, opacity));
         canvas.DrawSetTransform(Vector2.Zero);
     }
-    internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon)
+    internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon, bool blocked = false)
     {
         if (GetLayout(id, bounds) is not { } layout) return;
         var points = polygon.Select(layout.Project).ToArray();
         var texture = layout.Texture;
         var uv = polygon.Select(p => (texture.Region.Position + p * texture.Region.Size) / texture.Atlas.GetSize()).ToArray();
         // Re-draw only this sprite segment: its alpha and material texture remain intact.
-        canvas.DrawPolygon(points, new[] { new Color(1.45f, 1.65f, 1.35f, 0.65f) }, uv, texture.Atlas);
-        canvas.DrawPolyline(points.Append(points[0]).ToArray(), new Color("b5d2a1", 0.60f), 1, false);
+        canvas.DrawPolygon(points, new[] { blocked ? new Color(1.8f, 1.0f, 0.85f, 0.65f) : new Color(1.45f, 1.65f, 1.35f, 0.65f) }, uv, texture.Atlas);
+        canvas.DrawPolyline(points.Append(points[0]).ToArray(), new Color(blocked ? "ff8c78" : "b5d2a1", 0.75f), 1, false);
     }
 }

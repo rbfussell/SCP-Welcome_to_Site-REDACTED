@@ -8,11 +8,13 @@ public partial class InventoryBodyFitPanel : VBoxContainer
 {
     public InventoryPanel Panel { get; set; } = null!;
     private OptionButton _items = null!;
-    private Label _status = null!;
+    private Label _status = null!, _pocketStatus = null!;
     private Button _apply = null!;
     private string[] _ids = [];
     private string? _selected;
     private ItemPlacement? _seenPlacement;
+    internal PocketCoverage[] Pockets => _selected is null ? [] : (Panel.Simulation.Inventory.Definition(_selected).Regions ?? [])
+        .Select(r => Panel.Simulation.InventoryPocketCoverage(_selected, r.Id)).OfType<PocketCoverage>().ToArray();
     internal BodyPose Draft { get; private set; } = new(0, 0);
     internal BodyFitPreview? Preview { get; private set; }
     internal InventoryBodyFitSurface Surface { get; private set; } = null!;
@@ -32,6 +34,7 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         _status = InventoryPanel.Label(this, "Choose worn or held clothing.", 12);
         _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _status.CustomMinimumSize = new(234, 65);
+        _pocketStatus = InventoryPanel.Label(this, "", 11);
         InventoryPanel.Label(this, "Click sets anchor · R rotates\nWhite: contact · red: failed fit", 11);
         Refresh();
     }
@@ -92,6 +95,8 @@ public partial class InventoryBodyFitPanel : VBoxContainer
             : $"Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n" + (!Preview.Geometry.Fits ? Preview.Geometry.Reason
                 : Preview.Handling.Allowed ? $"Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP"
                 : "Shape fits · " + Preview.Handling.Reason);
+        var pockets = Pockets;
+        _pocketStatus.Text = pockets.Length == 0 ? "" : $"Pockets now: {pockets.Count(p => p.Covered)} covered · {pockets.Count(p => !p.Covered)} clear";
         Surface.QueueRedraw();
     }
 }
@@ -129,6 +134,15 @@ public partial class InventoryBodyFitSurface : Control
                 var edge = Edge(Center(contact.Cell), contact.Direction);
                 DrawLine(edge.A, edge.B, preview.Geometry.FailedContacts.Contains(contact) ? new("ff786d") : new("e3e5d3"), 2);
             }
+        }
+        // These marks show actual worn access, not the uncommitted fit draft.
+        foreach (var pocket in Fit.Pockets)
+        foreach (var cell in pocket.Mouth)
+        {
+            var position = Center(cell.Cell);
+            var obstructed = pocket.CoarseFallback || pocket.Blocked.Contains(cell);
+            DrawCircle(position, 3.2f, obstructed ? new("ff8979") : new("8ee5ce"));
+            if (obstructed) DrawLine(position + new Vector2(-3, 3), position + new Vector2(3, -3), new("242b26"), 1.5f);
         }
         var anchor = Center(new(Fit.Draft.Q, Fit.Draft.R));
         DrawCircle(anchor, 3, new("f1ca7a")); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new("f1ca7a"), 1);

@@ -65,10 +65,10 @@ internal static class InventoryClosureChecks
         Check(paid.Inventory.Pending is not null && paid.SetInventorySecureOnClose("avatar-backpack", "main", false), "preference can change while paid work resolves");
         Finish(paid);
         Check(!paid.Inventory.IsOpen("avatar-backpack", "main"), "already committed work still completes without a free refund or revision failure");
-        // Existing coarse body regions already distinguish two independent access locations. Hex masks follow later.
+        // Explicitly unmapped regions retain the existing coarse compatibility fallback.
         var world = new SimulationWorld(map, config); var definitions = world.Inventory.Content!.Definitions;
         var index = Array.FindIndex(definitions, d => d.Id == "trousers"); var trousers = definitions[index];
-        definitions[index] = trousers with { Regions = trousers.Regions!.Select(r => r with { AccessBody = r.Id == "left" ? ["hips-front"] : ["legs"] }).ToArray() };
+        definitions[index] = trousers with { Regions = trousers.Regions!.Select(r => r with { AccessBody = r.Id == "left" ? ["hips-front"] : ["legs"], AccessFootprint = null }).ToArray() };
         world.Inventory.Items["avatar-coat"] = world.Inventory.Items["avatar-coat"] with { GarmentOpen = false };
         Check(!InventoryAccessService.Placement(world, "avatar", new("avatar-trousers", "left")).Allowed
             && InventoryAccessService.Placement(world, "avatar", new("avatar-trousers", "right")).Allowed,

@@ -19,8 +19,14 @@ public sealed record BodyPose(int Q, int R, int Rotation = 0);
 public sealed record BodyContact(BodyHex Cell, int Direction);
 public sealed record BodyMask(string Id, string Name, string[] Rows);
 /// <summary>Rows share the body's authoring canvas; contacts are local to DefaultPose. Other boundary edges are open.</summary>
-public sealed record BodyFitShape(string Id, string BodyFamily, string[] Rows, BodyPose DefaultPose, int[] Rotations, BodyContact[] Contacts);
+public sealed record BodyFitShape(string Id, string BodyFamily, string[] Rows, BodyPose DefaultPose, int[] Rotations, BodyContact[] Contacts, BodyCoverageProfile? Coverage = null);
 public sealed record BodyFitContent(int Version, BodyMask[] Bodies, BodyFitShape[] Shapes);
 public sealed record BodyFitResult(bool Fits, string Reason, BodyHex[] Cells, BodyHex[] Outside,
     BodyContact[] Contacts, BodyContact[] FailedContacts);
 public sealed record BodyFitPreview(BodyFitResult Geometry, InventoryActionQuote Handling, InventoryRequest Request);
+
+public sealed record BodySurfaceMask(string Surface, BodyHex[] Cells);
+public readonly record struct BodySurfaceCell(string Surface, BodyHex Cell);
+public sealed record BodyCoverageProfile(BodySurfaceMask[] Closed, BodySurfaceMask[] Open);
+public sealed record PocketCoverage(string ItemId, string RegionId, bool Covered, string Reason, BodySurfaceCell[] Mouth,
+    BodySurfaceCell[] Blocked, string[] Blockers, bool CoarseFallback);

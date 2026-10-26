@@ -140,6 +140,7 @@ passed += InventoryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirect
 passed += InventoryPackingChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventorySecuringChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventoryClosureChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
+passed += CoverageChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += BodyFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += WearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += SpriteArtChecks.Run(json, Path.Combine(Path.GetDirectoryName(mapPath)!, "../Assets/facility-standins/manifest.json"));

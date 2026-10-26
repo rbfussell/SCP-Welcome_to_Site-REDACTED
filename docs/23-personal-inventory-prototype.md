@@ -2,7 +2,7 @@
 
 Status: Bounded native implementation, October 25, 2026. This is the first personal equipment/nearby-container slice, not complete inventory/logistics/crafting or STO-01–10 acceptance.
 
-The user subsequently revises navigation to [three fixed views, explicit securing and hex-body shape fitting](27-three-view-inventory-and-body-fit.md). That contract supersedes expanding-column navigation. The runtime implements that three-view navigation and paid automatic securing. Esc remains interface-only. The [first body-mask/contact fit view](30-body-fit-prototype.md) now adds geometric validation and paid fitting alongside legacy mounts; geometric pocket obstruction and animated clothing remain future work.
+The user subsequently revises navigation to [three fixed views, explicit securing and hex-body shape fitting](27-three-view-inventory-and-body-fit.md). That contract supersedes expanding-column navigation. The runtime implements that three-view navigation and paid automatic securing. Esc remains interface-only. The [first body-mask/contact fit view](30-body-fit-prototype.md) now adds geometric validation and paid fitting alongside legacy mounts; the subsequent [pocket coverage slice](31-pocket-coverage-prototype.md) now gates mapped pockets by actual overlap; animated clothing remains future work.
 
 ## Playing it
 
@@ -93,3 +93,7 @@ python3 tools/run_spatial_scene.py --oscp-smoke work/preview/spatial-scene/inven
 ## Body fitting update
 
 Press **Body fit · hex view** in the left panel to inspect the authored nine-shoulder-cell silhouette, move a clothing anchor and rotate it in sixth turns. **Fit / equip** uses the ordinary timed/AP-bearing Move command. Body poses and physical storage envelopes are independent. [The body-fit guide](30-body-fit-prototype.md) explains controls, mask authoring and the remaining coverage/attachment boundaries.
+
+## Geometric pocket coverage update
+
+The trousers now have separate hip and cargo regions with authored access footprints. A closed coat blocks the hip mouths while lower cargo stays accessible; opening changes only its authored cover masks. Segmented hover and body diagnostic markers read that same state. See [the coverage guide](31-pocket-coverage-prototype.md) for native fields, fallback behavior and proof limits.

@@ -50,11 +50,11 @@ Outer save schema **12** retains explicit worn coordinates and pending equipment
 
 ## What this slice does and what follows
 
-This slice qualifies mask/contact fitting, six orientations, inspection feedback and paid placement. Named equipment mounts still restrict eligible locations and occupancy. Existing coarse regions still decide layer overlap, access covering and removal obstruction. A front-projected silhouette alone does not qualify full front/back/seam geometry, clearance, stretch or body proportions.
+This slice qualifies mask/contact fitting, six orientations, inspection feedback and paid placement. Named equipment mounts still restrict eligible locations and occupancy. Existing coarse regions still decide layer overlap and removal obstruction. The subsequent [pocket coverage slice](31-pocket-coverage-prototype.md) now uses geometric masks for mapped compartment access, with a conservative fallback for unmapped gear. A front-projected silhouette alone does not qualify full front/back/seam geometry, clearance, stretch or body proportions.
 
 Next bounded slices:
 
-1. **Geometric coverage:** map each pocket mouth/opening and garment cover/removal mask to body-local cells. Prove a closed jacket blocking hip pockets while lower cargo pockets stay accessible, then opening it changing only the relevant cover.
+1. **Geometric coverage:** the [compartment access proof](31-pocket-coverage-prototype.md) now qualifies hip/cargo mouths and open/closed covers. General geometric removal and visibility remain later.
 2. **Attachment support:** one belt/strap provider and one child attachment, including rotation of support/contact geometry, overlap, clearance and load. Multiple angled belts require loosening legacy mount occupancy through an explicit equipment-graph change.
 3. **Appearance alignment:** map fitted gear/front-back surfaces to the doll and world pose bindings. Reuse the fit coordinates without allowing sprite frames to change physical state. Generated or composited final art is a separate proof.
 

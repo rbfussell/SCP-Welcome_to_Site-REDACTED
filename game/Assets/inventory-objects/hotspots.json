@@ -41,7 +41,23 @@
   ],
   "trousers": [
     {
-      "region": "left", "label": "Left cargo pocket",
+      "region": "left", "label": "Left hip pocket",
+      "polygon": [
+        [0.2, 0.085], [0.275, 0.1], [0.24, 0.15], [0.2, 0.2],
+        [0.08, 0.22], [0.1, 0.17], [0.15, 0.12]
+      ],
+      "hitPoint": [0.18, 0.15]
+    },
+    {
+      "region": "right", "label": "Right hip pocket",
+      "polygon": [
+        [0.7, 0.09], [0.77, 0.08], [0.84, 0.15], [0.89, 0.2],
+        [0.82, 0.22], [0.74, 0.16]
+      ],
+      "hitPoint": [0.79, 0.15]
+    },
+    {
+      "region": "cargo-left", "label": "Left cargo pocket",
       "polygon": [
         [0.053, 0.254], [0.213, 0.259], [0.215, 0.345], [0.204, 0.465],
         [0.169, 0.479], [0.034, 0.471], [0.014, 0.443], [0.016, 0.352],
@@ -50,7 +66,7 @@
       "hitPoint": [0.12, 0.37]
     },
     {
-      "region": "right", "label": "Right cargo pocket",
+      "region": "cargo-right", "label": "Right cargo pocket",
       "polygon": [
         [0.743, 0.272], [0.915, 0.257], [0.954, 0.29], [0.962, 0.334],
         [0.944, 0.352], [0.957, 0.455], [0.923, 0.479], [0.77, 0.481],

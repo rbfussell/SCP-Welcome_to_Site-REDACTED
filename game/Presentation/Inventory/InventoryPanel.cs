@@ -57,7 +57,7 @@ public partial class InventoryPanel : Control
         _layerView.ItemSelected += _ => { CancelDragPreview(); Redraw(this); };
         _layerView.TooltipText = "Inspect known worn layers. Covered equipment stays inaccessible until physically exposed.";
         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
-            CustomMinimumSize = new(234, 280), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
+            CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
         foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front" }) AddGrid(mounts, "person:avatar", slot, 90);
         _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);

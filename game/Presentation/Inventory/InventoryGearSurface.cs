@@ -1,5 +1,6 @@
 using Godot;
 using System.Text.Json;
+using SiteSimulation;
 
 namespace SitePresentation;
 
@@ -22,6 +23,7 @@ public partial class InventoryGearSurface : Control
     private Rect2 Bounds => new(Vector2.Zero, Size);
     private Hotspot? _hovered;
     private bool? _dropAllowed;
+    private PocketCoverage? _coverage;
     public override void _Ready()
     {
         CustomMinimumSize = new(330, 350); MouseFilter = MouseFilterEnum.Stop; TextureFilter = TextureFilterEnum.Nearest;
@@ -38,17 +40,19 @@ public partial class InventoryGearSurface : Control
     private void SetHover(Hotspot? target)
     {
         _hovered = target;
+        _coverage = target?.Region is { } region ? Panel.Simulation.InventoryPocketCoverage(ItemId, region) : null;
         MouseDefaultCursorShape = target is null ? CursorShape.Arrow : CursorShape.PointingHand;
-        TooltipText = target is null ? "" : target.Label + " · " + (Open(target) ? "open" : "secured") + "\nDouble-click to open · right-click for actions";
+        TooltipText = target is null ? "" : target.Label + " · " + (Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
         QueueRedraw();
     }
+    public override void _Process(double delta) { if (_hovered is not null && IsVisibleInTree()) SetHover(_hovered); }
     private bool Open(Hotspot target) => target.Region is null
         ? Panel.Simulation.Inventory.DiagnosticItems.Single(i => i.Id == ItemId).GarmentOpen
         : Panel.Simulation.Inventory.IsOpen(ItemId, target.Region);
     public override void _Draw()
     {
         InventoryArt.Draw(this, DefinitionId, Bounds, false);
-        if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points);
+        if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points, _coverage?.Covered == true);
         if (_dropAllowed is { } allowed)
             DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), allowed ? "Store in this compartment" : "Cannot store here", fontSize: 13,
                 modulate: new(allowed ? "69d89a" : "ef8275"));
@@ -83,6 +87,7 @@ public partial class InventoryGearSurface : Control
         AcceptEvent();
     }
     internal string? HoveredRegion => _hovered?.Region;
+    internal bool HoverCovered => _coverage?.Covered == true;
     internal bool HasHighlight => _hovered is not null;
     internal Vector2 SourcePosition(Vector2 normalized) => GlobalPosition + InventoryArt.Project(DefinitionId, Bounds, normalized);
     internal Vector2 HotspotPosition(string? region)

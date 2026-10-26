@@ -10,14 +10,14 @@ public static class InventoryWear
     public static bool Accepts(ItemDefinition definition, string mount) => definition.Wear is { } wear
         ? wear.Mounts.Any(m => m.Slot == mount) : definition.WearSlot == mount;
 
-    private static WearMount? Mount(InventoryState state, InventoryItem item, ItemPlacement placement)
+    internal static WearMount? Mount(InventoryState state, InventoryItem item, ItemPlacement placement)
         => state.Content!.Roots.Any(r => r.ActorId is not null && r.Id == placement.ParentId)
             ? state.Definition(item.Id).Wear?.Mounts.SingleOrDefault(m => m.Slot == state.Region(placement.ParentId, placement.RegionId).MountSlot) : null;
 
-    private static IEnumerable<InventoryItem> Worn(InventoryState state, string root)
+    internal static IEnumerable<InventoryItem> Worn(InventoryState state, string root)
         => state.Items.Values.Where(i => i.Placement.ParentId == root && Mount(state, i, i.Placement) is not null);
 
-    private static IEnumerable<string> Covered(InventoryState state, InventoryItem item)
+    internal static IEnumerable<string> Covered(InventoryState state, InventoryItem item)
     {
         var coverage = Mount(state, item, item.Placement)!.Coverage;
         return item.GarmentOpen ? coverage.Except(state.Definition(item.Id).Wear!.OpenExposes ?? []) : coverage;
@@ -49,6 +49,8 @@ public static class InventoryWear
     {
         if (!state.Items.TryGetValue(itemId, out var item) || Mount(state, item, item.Placement) is not { } mount)
             return new(true, "Accessible");
+        if (InventoryCoverage.Evaluate(state, item, region) is { } geometric)
+            return new(!geometric.Covered, geometric.Reason);
         var blocker = Blocker(state, item, item.Placement, region.AccessBody ?? mount.Coverage, Obstruction.Access);
         return blocker is null ? new(true, "Accessible") : new(false, region.Name + " is covered by " + state.Definition(blocker.Id).Name + "; expose it first");
     }

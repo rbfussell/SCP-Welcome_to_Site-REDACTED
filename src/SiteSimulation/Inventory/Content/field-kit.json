@@ -16,7 +16,7 @@
       "regions": [
         {
           "id": "left",
-          "name": "Left trouser pocket",
+          "name": "Left hip pocket",
           "columns": 4,
           "rows": 6,
           "cellMm": 25,
@@ -30,11 +30,26 @@
           ],
           "secureVerb": "Button",
           "openVerb": "Unbutton",
-          "secureOnClose": true
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": 0
+                },
+                {
+                  "q": -2,
+                  "r": 1
+                }
+              ]
+            }
+          ]
         },
         {
           "id": "right",
-          "name": "Right trouser pocket",
+          "name": "Right hip pocket",
           "columns": 4,
           "rows": 6,
           "cellMm": 25,
@@ -48,7 +63,88 @@
           ],
           "secureVerb": "Button",
           "openVerb": "Unbutton",
-          "secureOnClose": true
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 1,
+                  "r": 0
+                },
+                {
+                  "q": 0,
+                  "r": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cargo-left",
+          "name": "Left cargo pocket",
+          "columns": 4,
+          "rows": 5,
+          "cellMm": 25,
+          "heightMm": 45,
+          "maxMassGrams": 1500,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 2,
+          "accessBody": [
+            "legs"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -3,
+                  "r": 3
+                },
+                {
+                  "q": -3,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cargo-right",
+          "name": "Right cargo pocket",
+          "columns": 4,
+          "rows": 5,
+          "cellMm": 25,
+          "heightMm": 45,
+          "maxMassGrams": 1500,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 2,
+          "accessBody": [
+            "legs"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": 3
+                },
+                {
+                  "q": -1,
+                  "r": 4
+                }
+              ]
+            }
+          ]
         }
       ],
       "wear": {
@@ -117,7 +213,18 @@
           ],
           "secureVerb": "Button",
           "openVerb": "Unbutton",
-          "secureOnClose": true
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 2
+                }
+              ]
+            }
+          ]
         }
       ],
       "wear": {
@@ -176,7 +283,18 @@
           ],
           "secureVerb": "Zip",
           "openVerb": "Unzip",
-          "secureOnClose": true
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "mounted",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": 2
+                }
+              ]
+            }
+          ]
         },
         {
           "id": "side",
@@ -195,7 +313,18 @@
           ],
           "secureVerb": "Buckle",
           "openVerb": "Unbuckle",
-          "secureOnClose": true
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "mounted",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 4
+                }
+              ]
+            }
+          ]
         }
       ],
       "wear": {
@@ -205,13 +334,15 @@
             "slot": "back",
             "coverage": [
               "torso-back"
-            ]
+            ],
+            "bodySurface": "back"
           },
           {
             "slot": "front",
             "coverage": [
               "torso-front"
-            ]
+            ],
+            "bodySurface": "front"
           }
         ],
         "outermost": true,
@@ -1417,6 +1548,36 @@
     {
       "itemId": "spare-backpack",
       "regionId": "side",
+      "open": true
+    },
+    {
+      "itemId": "avatar-trousers",
+      "regionId": "cargo-left",
+      "open": true
+    },
+    {
+      "itemId": "avatar-trousers",
+      "regionId": "cargo-right",
+      "open": true
+    },
+    {
+      "itemId": "observer-trousers",
+      "regionId": "cargo-left",
+      "open": true
+    },
+    {
+      "itemId": "observer-trousers",
+      "regionId": "cargo-right",
+      "open": true
+    },
+    {
+      "itemId": "tech-trousers",
+      "regionId": "cargo-left",
+      "open": true
+    },
+    {
+      "itemId": "tech-trousers",
+      "regionId": "cargo-right",
       "open": true
     }
   ]
