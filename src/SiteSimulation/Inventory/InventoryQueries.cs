@@ -63,9 +63,36 @@ public sealed partial class SpatialSimulation
         if (result) Inventory.SecureQueue.Clear(); // A new explicit action replaces unstarted automatic work.
         LastMessage = reason; return result;
     }
-    public bool SecureInventory(IEnumerable<InventoryRequest> requests)
+    public bool SecureInventory(IEnumerable<InventoryRequest> requests, bool automatic = false)
     {
-        var result = InventorySecuring.Prepare(_world, requests, out var reason); LastMessage = reason; return result;
+        if (automatic)
+        {
+            var eligible = InventoryClosures.OnDismissal(Inventory, requests);
+            if (eligible.Length == 0) { LastMessage = "This gear stays in its current fastening state."; return true; }
+            requests = eligible;
+        }
+        var result = InventorySecuring.Prepare(_world, requests, out var reason, automatic); LastMessage = reason; return result;
+    }
+    /// <summary>Convenience behavior belongs to this instance/fastening; changing it performs no physical work.</summary>
+    public bool SetInventorySecureOnClose(string itemId, string? regionId, bool value)
+    {
+        if (!Inventory.Items.ContainsKey(itemId)) { LastMessage = "Unknown gear."; return false; }
+        InventoryClosureAction target;
+        try { target = InventoryClosures.Toggle(Inventory, itemId, regionId); }
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+        { LastMessage = "Unknown or unsupported fastening."; return false; }
+        if (!InventoryActions.Validate(_world, Player.Id, target.Request, out var reason, out _, out _))
+        { LastMessage = reason; return false; }
+        if (regionId is null) Inventory.Items[itemId] = Inventory.Items[itemId] with { SecureOnClose = value };
+        else
+        {
+            var index = Inventory.Regions.FindIndex(r => r.ItemId == itemId && r.RegionId == regionId);
+            Inventory.Regions[index] = Inventory.Regions[index] with { SecureOnClose = value };
+        }
+        // This preference changes neither collision/access nor a paid action's revision/cost.
+        if (!value) Inventory.SecureQueue.RemoveAll(s => s.Automatic && s.Request.ItemId == itemId && s.Request.RegionId == regionId);
+        LastMessage = "Auto-secure on dismissal: " + (value ? "on" : "off") + " for this fastening.";
+        return true;
     }
     public bool CancelInventoryHandling()
     {

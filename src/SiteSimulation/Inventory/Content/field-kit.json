@@ -28,7 +28,9 @@
           "accessBody": [
             "hips-front"
           ],
-          "secureVerb": "Button"
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true
         },
         {
           "id": "right",
@@ -44,7 +46,9 @@
           "accessBody": [
             "hips-front"
           ],
-          "secureVerb": "Button"
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true
         }
       ],
       "wear": {
@@ -110,7 +114,9 @@
           "accessBody": [
             "torso-front"
           ],
-          "secureVerb": "Button"
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true
         }
       ],
       "wear": {
@@ -133,7 +139,9 @@
         ],
         "fastenMs": 700,
         "fastenAp": 2,
-        "secureVerb": "Zip"
+        "secureVerb": "Zip",
+        "openVerb": "Unzip",
+        "secureOnClose": false
       }
     },
     {
@@ -164,7 +172,9 @@
             "torso-back",
             "torso-front"
           ],
-          "secureVerb": "Zip"
+          "secureVerb": "Zip",
+          "openVerb": "Unzip",
+          "secureOnClose": true
         },
         {
           "id": "side",
@@ -181,7 +191,9 @@
             "torso-back",
             "torso-front"
           ],
-          "secureVerb": "Buckle"
+          "secureVerb": "Buckle",
+          "openVerb": "Unbuckle",
+          "secureOnClose": true
         }
       ],
       "wear": {
@@ -273,7 +285,9 @@
           "maxMassGrams": 1200,
           "accessMs": 400,
           "accessAp": 1,
-          "secureVerb": "Latch"
+          "secureVerb": "Latch",
+          "openVerb": "Unlatch",
+          "secureOnClose": true
         }
       ]
     },
@@ -298,7 +312,9 @@
           "maxMassGrams": 30,
           "accessMs": 150,
           "accessAp": 0,
-          "secureVerb": "Fold"
+          "secureVerb": "Fold",
+          "openVerb": "Unfold",
+          "secureOnClose": true
         }
       ]
     },

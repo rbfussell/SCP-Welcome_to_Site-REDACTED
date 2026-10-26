@@ -1,6 +1,6 @@
 # Wearable metadata, interactions and surface mapping
 
-Status: October 25, 2026. User-confirmed direction: independent overlap, covering, removal blocking, attachment surfaces and coherent front/back appearance. The bounded runtime now separates access covering, removal blocking and declared same-layer overlap. Body-hex placement, continuous attachment surfaces and procedural world clothing remain proposed. The user confirms belt overlap with accessible pockets and blocked underlying removal, and automatic securing on × by default.
+Status: October 25, 2026. User-confirmed direction: independent overlap, covering, removal blocking, attachment surfaces and coherent front/back appearance. The bounded runtime now separates access covering, removal blocking and declared same-layer overlap. Body-hex placement, continuous attachment surfaces and procedural world clothing remain proposed. The user confirms belt overlap with accessible pockets and blocked underlying removal, and sensible per-fastening securing defaults with player overrides.
 
 Related: [body equipment](24-body-equipment-and-container-navigation.md), [fit standard](25-wear-layer-and-fit-standard.md), [appearance pipeline](26-wearable-appearance-pipeline.md), and [three-view inventory/body fit](27-three-view-inventory-and-body-fit.md).
 
@@ -64,7 +64,7 @@ Qualify one body and one front/back garment across the current six facings/walk 
 
 **Esc closes the interface only.** It does not zip, latch, button or otherwise secure inventory. Open containers stay physically open unless a physical action changes them. Already committed timed work may continue after the UI closes under the existing scheduler.
 
-**× automatically secures by default.** A later option may disable securing on dismissal. The three-view browser prepares child-before-parent close intent through the normal physical action service; every actual closure pays time/AP, can fail, and persists independently of the interface. ↑ secures the step it closes. Preparing a sequence during pause does not physically close anything. Waiting for tactical AP does not end the player’s turn. Esc still performs no securing.
+**↑/× use each fastening’s authored `SecureOnClose` default or player override.** There is no global setting. A jacket front stays open by default; its pocket flaps can auto-secure independently. The three-view browser prepares child-before-parent close intent through the normal physical action service; every actual closure pays time/AP, can fail, and persists independently of the interface. ↑ applies the closed step’s own preference. Preparing a sequence during pause does not physically close anything. Waiting for tactical AP does not end the player’s turn. Esc still performs no securing.
 
 ## Qualification boundary
 
@@ -73,3 +73,5 @@ Runtime checks cover all four access/removal boolean combinations, removal block
 The three-view browser, context menus, illustrated hotspot input, paid opening, automatic securing and saved continuation are now implemented in the bounded native fixture. Hover tooltips report current closure state; animated zipper/flap artwork, anatomical paperdoll compositing, body-local hex fitting, continuous attachments and procedural world clothing remain separate work.
 
 The October 26 gear-view clarification extends attachment surfaces to the exterior of backpacks and other equipment. The middle gear illustration shows those actual mounted items; stored contents stay in the right-hand interior view. A strap's visual segment locates its interaction surface, while authored fit/support geometry and physical constraints decide which item can mount there. The [segmented gear contract](27-three-view-inventory-and-body-fit.md#segmented-gear-illustration-october-26-clarification) records hover contours, child selection priority and the current two-compartment prototype boundary.
+
+Per-compartment obstruction will use the target segment's projected body-local access hexes, with independent access-cover and removal-restraint masks. A jacket over hip pockets therefore leaves lower cargo pockets usable; covering cloth elsewhere never marks every compartment inaccessible. This is the next body-geometry contract. The current coarse regional proof and implemented per-fastening state/behavior fields are qualified separately in the [spatial obstruction and closure section](27-three-view-inventory-and-body-fit.md#spatial-obstruction-and-per-fastening-policy-october-26-clarification).

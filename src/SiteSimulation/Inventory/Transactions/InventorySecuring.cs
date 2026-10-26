@@ -8,7 +8,7 @@ internal static class InventorySecuring
     internal static bool Completed(InventoryState state, InventoryRequest r) => r.Kind == InventoryActionKind.CloseGarment
         ? !state.Items[r.ItemId].GarmentOpen : !state.IsOpen(r.ItemId, r.RegionId!);
 
-    public static bool Prepare(SimulationWorld world, IEnumerable<InventoryRequest> requests, out string reason)
+    public static bool Prepare(SimulationWorld world, IEnumerable<InventoryRequest> requests, out string reason, bool automatic = false)
     {
         reason = "Finish the current handling or securing sequence first.";
         var state = world.Inventory;
@@ -29,7 +29,7 @@ internal static class InventorySecuring
             }
             if (world.Combat.Active && ap > CombatState.TurnAp)
             { reason = $"This closure needs {ap} AP, more than one supported turn. Close deeper containers separately."; return false; }
-            steps.Add(new(request, state.Items[request.ItemId].Placement));
+            steps.Add(new(request, state.Items[request.ItemId].Placement, automatic));
         }
         // Contained closures first; open inner garments before outer garments can cover their fastenings.
         state.SecureQueue.AddRange(steps.OrderByDescending(s => Depth(state, s.Request.ItemId))
@@ -51,6 +51,8 @@ internal static class InventorySecuring
         if (state.Pending is not null || state.SecureQueue.Count == 0 || world.LocalMs < world.Player.StartledUntilMs) return;
         if (world.Combat.Active && !TacticalCombatSystem.CanAct(world, world.Player.Id, out _)) return;
         var step = state.SecureQueue[0];
+        if (step.Automatic && !InventoryClosures.SecureOnClose(state, step.Request.ItemId, step.Request.RegionId))
+        { state.SecureQueue.RemoveAt(0); return; }
         if (state.Items[step.Request.ItemId].Placement != step.Placement)
         { Stop(world, "An inspected object moved; inspect it again before securing."); return; }
         if (Completed(state, step.Request)) { state.SecureQueue.RemoveAt(0); return; }

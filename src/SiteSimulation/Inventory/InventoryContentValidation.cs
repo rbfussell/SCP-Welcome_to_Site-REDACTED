@@ -13,11 +13,11 @@ internal static class InventoryContentValidation
             && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage)) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
             && (w.OpenExposes is null || Body(w.OpenExposes) && w.OpenExposes.All(r => w.Mounts.Any(m => m.Coverage.Contains(r))))
             && (w.OverlapTags is null || w.OverlapTags.Length <= 32 && w.OverlapTags.All(Id) && w.OverlapTags.Distinct().Count() == w.OverlapTags.Length)
-            && Id(w.SecureVerb) && w.SecureVerb.Length <= 32
+            && Id(w.SecureVerb) && w.SecureVerb.Length <= 32 && Id(w.OpenVerb) && w.OpenVerb.Length <= 32
             && w.FastenMs is >= 50 and <= 5000 && w.FastenMs % SpatialSimulation.TickMs == 0 && w.FastenAp is >= 1 and <= 5;
         static bool RegionValid(StorageRegion r) => r is not null && Id(r.Id) && Id(r.Name) && r.Columns is > 0 and <= 32
             && r.Rows is > 0 and <= 32 && r.CellMm is > 0 and <= 1000 && r.HeightMm is > 0 and <= 1000 && r.MaxMassGrams is > 0 and <= 100000
-            && Id(r.SecureVerb) && r.SecureVerb.Length <= 32
+            && Id(r.SecureVerb) && r.SecureVerb.Length <= 32 && Id(r.OpenVerb) && r.OpenVerb.Length <= 32
             && r.AccessMs is >= 0 and <= 5000 && r.AccessMs % SpatialSimulation.TickMs == 0 && r.AccessAp is >= 0 and <= 5
             && (r.Mask is null || r.Mask.Distinct().Count() == r.Mask.Length && r.Mask.All(i => i >= 0 && i < r.Columns * r.Rows))
             && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1) && (r.AccessBody is null || Body(r.AccessBody));

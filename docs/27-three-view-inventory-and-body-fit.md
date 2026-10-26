@@ -1,6 +1,6 @@
 # Three-view inventory, closures and body-shape fitting
 
-Status: October 25, 2026. The bounded runtime now implements three fixed engineering views, separate gear/contents trails, illustrated compartment hotspots, context actions, paid opening and automatic securing. Esc dismisses only the interface. × secures by default; a later option may disable that default. The body-local hex fit and animated/composited appearance contracts remain proposed.
+Status: October 26, 2026. The bounded runtime now implements three fixed engineering views, separate gear/contents trails, illustrated compartment hotspots, context actions, paid opening and automatic securing. Esc dismisses only the interface. ↑/× use each fastening’s authored default or player override; jacket fronts default to staying open. The body-local hex fit and animated/composited appearance contracts remain proposed.
 
 Related: [physical inventory](23-personal-inventory-prototype.md), [body equipment](24-body-equipment-and-container-navigation.md), [wear layers and fit](25-wear-layer-and-fit-standard.md), and [appearance pipeline](26-wearable-appearance-pipeline.md).
 
@@ -48,7 +48,7 @@ Examples required by the user:
 | Backpack | Bullet box inside a pocket/case | Right × | Entire contents trail closes; backpack remains |
 | Jacket with pocket open | Jacket pocket | Open backpack from paperdoll | Backpack replaces jacket; old contents trail closes |
 
-These view-lifetime rules are distinct from physical handling. **Esc only closes the interface and leaves physical containers unchanged. × automatically secures affected inspected containers by default**, with a future option to leave them open. The bounded runtime also secures a popped step when ↑ closes it. Child closures run before parent closures through ordinary time/AP-bearing handling; no UI close supplies a free fastening. [Wearable metadata and surface mapping](28-wearable-metadata-and-surface-mapping.md) records the later clarification and separates overlap, access covering and removal blocking.
+These view-lifetime rules are distinct from physical handling. **Esc only closes the interface and leaves physical containers unchanged. ↑/× consult each affected fastening’s `SecureOnClose` preference.** The authored default is overridden only for the specific gear instance/compartment the player changes. There is no global settings switch. A jacket front defaults to staying open during shirt/lower-layer navigation; its buttoned pocket can independently default to securing. Child closures run before parent closures through ordinary time/AP-bearing handling; no UI close supplies a free fastening. [Wearable metadata and surface mapping](28-wearable-metadata-and-surface-mapping.md) records the later clarification and separates overlap, access covering and removal blocking.
 
 ## Object actions and context menu
 
@@ -139,7 +139,7 @@ No earlier prototype limit, optional three-dimensional authoring pipeline or old
 
 [InventorySecuring](../src/SiteSimulation/Inventory/Transactions/InventorySecuring.cs) stores an explicit close sequence independently of UI lifetime. × and ↑ prepare the sequence and dismiss the affected views; an existing manipulation/sequence must finish or be canceled before another sequence can be accepted. An entire gear dismissal includes its compartments and containers actually inspected in that gear session. It does not inspect an unseen item hierarchy. Top-level switching and Esc dismiss views without manufacturing a physical closure.
 
-Each closure revalidates placement/access and purchases its normal time/AP. Prepared work waits through manual/local holds and for the player’s tactical turn/AP; it never ends a turn automatically. The progress line reports waiting work and Cancel handling clears it. An impossible per-step AP cost is rejected. Failed or interrupted work stops remaining closures without reopening already secured objects or refunding elapsed time. Explicit successful handling replaces unstarted automatic work. Both pending handling and remaining close intent persist in outer save schema 9. Closing the interface does not discard them. The future no-auto-secure option is not exposed yet.
+Each closure revalidates placement/access and purchases its normal time/AP. Prepared work waits through manual/local holds and for the player’s tactical turn/AP; it never ends a turn automatically. The progress line reports waiting work and Cancel handling clears it. An impossible per-step AP cost is rejected. Failed or interrupted work stops remaining closures without reopening already secured objects or refunding elapsed time. Explicit successful handling replaces unstarted automatic work. Pending handling, remaining close intent and per-fastening player overrides persist in outer save schema 10. Closing the interface does not discard them. The context menu’s “Secure on view close” checkbox applies only to its targeted fastening; it is not a global option.
 
 ## Segmented gear illustration (October 26 clarification)
 
@@ -152,3 +152,23 @@ The bounded implementation uses hand-authored polygons in [hotspots.json](../gam
 Vision-assisted authoring can propose contours/label locations, followed by human review of the exact image and physical target binding. Runtime selection uses saved geometry. Pixel masks can replace/refine polygons for detailed silhouettes without changing physical container identity. Per-open/secured illustration variants should bind their own visible contours to the same stable physical targets.
 
 External attachment surfaces are the next distinct target type. A strap can offer usable support geometry, compatibility, orientation, clearance and load limits. A grenade, light stick or injector mounts as a real child item through shared fitting/access/handling rules, then renders at that attachment's registered position in the enlarged gear illustration. Its own sprite takes selection priority where it occludes the supporting strap. Enlarging an illustration never enlarges physical mounting capacity. Continuous attachment fitting, attached-item rendering and world/paperdoll synchronization remain proposed; this pass implements the compartment/fastening selection surface.
+
+## Spatial obstruction and per-fastening policy (October 26 clarification)
+
+The names remain `CoversAccess` and `BlocksRemoval`. Their eventual geometry uses transformed body-local hex masks, not a whole-item covered flag or UI pixel dimensions:
+
+| Target | Relevant overlap | Consequence |
+|---|---|---|
+| Trouser hip pocket | Closed jacket cover overlaps that pocket's required access cells | Expose the jacket opening before reaching the pocket |
+| Trouser leg/cargo pocket | Its own access cells lie below the jacket | Pocket remains reachable, even while some trouser material is hidden |
+| Shirt removal beneath a belt | Belt restraint overlaps required removal/support cells | Remove the belt before removing the shirt; adjacent pockets can remain reachable |
+
+Each compartment's segmented position maps to an access footprint in its worn owner's body coordinates. That footprint follows the garment's placement, orientation and linked front/back surfaces. An active outer cover blocks the action where it intersects required access hexes at the same surface. Fabric pixels elsewhere do not make every pocket inaccessible. Removal restraints use a separate action footprint. Opening a jacket changes its active cover shape; removing a restraint clears the corresponding removal block. The visual compositor occludes actual overlapping surfaces while still drawing exposed leg pockets. None of these rules grant access merely because a layer-inspection filter draws a known covered item.
+
+The current prototype still uses coarse `WearMount.Coverage` and per-compartment `AccessBody` regions. A synthetic hip/leg-pocket check confirms those regions already distinguish covered and uncovered pockets. Body-hex masks, their garment-to-body projection, partial silhouette rendering and real four-pocket trouser content remain the next body implementation, not a completed geometric solver.
+
+Two different booleans must stay separate. `GarmentOpen`/`RegionState.Open` is physical state, changed only by normal time/AP handling. `SecureOnClose` is convenience behavior: author a sensible default on the fastening and allow a nullable instance/compartment override. A preference change performs no physical fastening and does not invalidate a paid action. Turning off a preference drops only that target's unstarted automatic closure, preserving explicit orders and already paid work. Explicit Zip/Button/Latch always remains available regardless of automatic preference.
+
+The rule depends on purpose, not mechanism. A button-up jacket front can stay open by default exactly like a zipped jacket front. A backpack main zipper can default to securing while a different zipper does not. Defaults for a garment front are false and compartment closures true in the native profile; authored data can override either. One jacket's override does not change another jacket or its independent pocket flaps.
+
+Menu text is derived from actual state: zipped → **Unzip**, unzipped → **Zip**; buttoned → **Unbutton**, unbuttoned → **Button**. `OpenVerb` and `SecureVerb` supply these labels. An open menu refreshes its action when physical work completes; a stale label cannot blindly repeat an already completed close. Generic top-level Open is inspection, while a segment's closure action addresses that exact fastening. Both choices still use ordinary access validation and time/AP rules when physical work is needed.

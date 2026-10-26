@@ -192,13 +192,55 @@ public partial class SpatialScene
             Check(panel.Browser.CurrentGear == "avatar-shirt" && panel.Browser.CurrentContents == ("avatar-coat", "chest"), "Jacket pocket lost its owner during lower-layer inspection.");
             Nav(true, "↑"); await InventoryFrames();
             Check(panel.Browser.CurrentGear == "avatar-coat" && panel.Browser.CurrentContents == ("avatar-coat", "chest"), "Middle Up discarded a retained outer-garment pocket.");
+            Check(sim.Inventory.SecuringRemaining == 0 && sim.Inventory.DiagnosticItems.Single(i => i.Id == "avatar-coat").GarmentOpen,
+                "Returning from shirt inspection unexpectedly re-fastened the jacket.");
+            PanelContainer Menu() => panel.GetChildren().OfType<PanelContainer>().Last();
+            async Task FrontMenu()
+            { InventoryClick(Surface().HotspotPosition(null), button: MouseButton.Right); await InventoryFrames(); }
+            Button MenuAction(string label) => Menu().GetChild<VBoxContainer>(0).GetChildren().OfType<Button>().Single(b => b.Text == label);
+            CheckButton Preference() => Menu().GetChild<VBoxContainer>(0).GetChildren().OfType<CheckButton>().Single();
+            await FrontMenu();
+            Check(MenuAction("Zip") is not null && !Preference().ButtonPressed, "Open jacket menu must offer Zip and default to leaving the front open.");
+            // Keep the fold-out menu open while another valid command resolves; its label must read live state.
+            sim.ManualPause = false;
+            Check(sim.HandleInventory(new(InventoryActionKind.CloseGarment, "avatar-coat")), "Could not close jacket for state-menu check.");
+            await Finish(); await InventoryFrames();
+            Check(MenuAction("Unzip") is not null, "An already-open menu did not update when the zipper's physical boolean changed.");
+            await InventoryCapture("-menu-unzip");
+            InventoryClick(MenuAction("Unzip").GetGlobalRect().GetCenter()); await Finish(); sim.ManualPause = true;
+            await OpenPocket("avatar-coat", "chest");
+            InventoryClick(Surface().HotspotPosition("chest"), button: MouseButton.Right); await InventoryFrames();
+            Check(Preference().ButtonPressed && MenuAction("Button") is not null, "Open buttoned-pocket menu has the wrong action or default.");
+            InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();
+            Check(!InventoryClosures.SecureOnClose(sim.Inventory, "avatar-coat", "chest")
+                && !InventoryClosures.SecureOnClose(sim.Inventory, "avatar-coat"), "Pocket override affected the wrong fastening.");
+            var noAuto = sim.Save();
             Nav(true, "×"); await InventoryFrames();
-            Check(panel.Browser.CurrentGear is null && panel.Browser.CurrentContents is null && sim.Inventory.SecuringRemaining == 2, "Gear × failed to close both dependent trails.");
+            Check(panel.Browser.CurrentGear is null && panel.Browser.CurrentContents is null && sim.Inventory.SecuringRemaining == 0 && sim.Save() == noAuto,
+                "Dismissal with both fastening preferences off changed physical state.");
+            await OpenPocket("avatar-coat", "chest");
+            InventoryClick(Surface().HotspotPosition("chest"), button: MouseButton.Right); await InventoryFrames();
+            Check(!Preference().ButtonPressed, "Pocket preference reset when its view reopened.");
+            InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();
+            Nav(true, "×"); await InventoryFrames();
+            Check(sim.Inventory.SecuringRemaining == 1, "Default pocket securing should leave the separate jacket front open.");
             sim.ManualPause = false; await Finish();
-            Check(!sim.Inventory.DiagnosticItems.Single(i => i.Id == "avatar-coat").GarmentOpen && !sim.Inventory.IsOpen("avatar-coat", "chest"), "Jacket auto-securing did not complete through paid actions.");
+            Check(sim.Inventory.DiagnosticItems.Single(i => i.Id == "avatar-coat").GarmentOpen && !sim.Inventory.IsOpen("avatar-coat", "chest"),
+                "Closing the pocket also fastened the jacket front.");
+            await OpenPocket("avatar-coat", "chest"); await Finish(); sim.ManualPause = true;
+            await FrontMenu();
+            InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();
+            Check(InventoryClosures.SecureOnClose(sim.Inventory, "avatar-coat") && !InventoryClosures.SecureOnClose(sim.Inventory, "observer-coat"),
+                "Jacket preference must belong to this gear instance, not a global setting.");
+            await InventoryCapture("-jacket-preference");
+            Nav(true, "×"); await InventoryFrames();
+            Check(sim.Inventory.SecuringRemaining == 2, "Opted-in jacket and pocket must both use normal paid securing.");
+            sim.ManualPause = false; await Finish();
+            Check(!sim.Inventory.DiagnosticItems.Single(i => i.Id == "avatar-coat").GarmentOpen && !sim.Inventory.IsOpen("avatar-coat", "chest"),
+                "Per-piece opted-in securing failed to finish.");
             sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); await OpenPocket("avatar-backpack", "main"); panel.Inspect("medical-case");
             await InventoryCapture("");
-            GD.Print("INVENTORY_SMOKE_PASS: exactly three views, gear/contents ancestry, actual context menu and illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.");
+            GD.Print("INVENTORY_SMOKE_PASS: exactly three views, gear/contents ancestry, live Zip/Unzip and Button/Unbutton menus, per-piece securing preferences, illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.");
             panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true;
         }
         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }

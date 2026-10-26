@@ -101,7 +101,8 @@ public partial class InventoryBrowser : HBoxContainer
             .Concat(removedGear.Where(g => g.Placement is not null && Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: > 0 })
                 .Select(g => new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))
             .Where(r => Placement(r.ItemId) is not null).ToArray();
-        if (requests.Length != 0 && !Panel.Simulation.SecureInventory(requests)) { Panel.ShowReceipt(); return false; }
+        var automatic = InventoryClosures.OnDismissal(Panel.Simulation.Inventory, requests);
+        if (automatic.Length != 0 && !Panel.Simulation.SecureInventory(automatic, automatic: true)) { Panel.ShowReceipt(); return false; }
         Panel.CancelDragPreview(); _context++; _opening = null;
         if (gear) _gear.RemoveRange(entire ? 0 : _gear.Count - 1, entire ? _gear.Count : 1);
         if (removedContents.Length != 0) _contents.RemoveRange(_contents.Count - removedContents.Length, removedContents.Length);

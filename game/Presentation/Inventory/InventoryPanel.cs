@@ -16,6 +16,7 @@ public partial class InventoryPanel : Control
     private Label _clock = null!, _receipt = null!, _detail = null!, _progress = null!;
     private InventoryBrowser _browser = null!;
     private PanelContainer? _contextMenu;
+    private readonly List<Action> _contextUpdates = [];
     internal InventoryBrowser Browser => _browser;
     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
     private ScrollContainer _wornScroll = null!;
@@ -39,7 +40,7 @@ public partial class InventoryPanel : Control
         Label(header, "PERSONAL EQUIPMENT", 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _clock = Label(header, "", 13);
         Button(header, "CLOSE  /  I", Close);
-        Label(column, "Double-click to open · right-click for actions · hold/drag to move · R rotates · × secures with time/AP · Esc hides the interface", 12);
+        Label(column, "Double-click opens · right-click for actions · drag to move · R rotates · ↑/× use gear securing preferences · Esc hides interface", 12);
         column.AddChild(new HSeparator());
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
@@ -73,7 +74,7 @@ public partial class InventoryPanel : Control
         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);
         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);
         Label(storageHeader, "GEAR & CONTENTS / TWO INDEPENDENT TRAILS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        Label(storage, "Compartments open individually. ↑ returns one level; × secures the trail. Esc leaves physical closures unchanged.", 12);
+        Label(storage, "Compartments open individually. ↑/× follow each fastening’s preference. Esc leaves physical closures unchanged.", 12);
         var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill,
             HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);
         _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -181,8 +182,15 @@ public partial class InventoryPanel : Control
         if (Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).GarmentOpen) return;
         Simulation.HandleInventory(new(InventoryActionKind.OpenGarment, id)); ShowReceipt();
     }
+    internal void ToggleClosure(string id, string? region = null)
+    {
+        var action = InventoryClosures.Toggle(Simulation.Inventory, id, region);
+        if (action.Request.Kind == InventoryActionKind.Open) OpenCompartment(id, region!);
+        else if (action.Request.Kind == InventoryActionKind.OpenGarment) OpenGarment(id);
+        else { Simulation.HandleInventory(action.Request); ShowReceipt(); }
+    }
     private void HideContext()
-    { if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }
+    { _contextUpdates.Clear(); if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }
     public override void _Input(InputEvent e)
     {
         if (Visible && _contextMenu is not null && e is InputEventMouseButton { Pressed: true } mouse
@@ -197,11 +205,31 @@ public partial class InventoryPanel : Control
             ContentMarginRight = 8, ContentMarginTop = 8, ContentMarginBottom = 8 });
         AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list);
         void Entry(string name, Action action) => Button(list, name, () => { HideContext(); action(); });
-        Entry("Open", () => { if (fastening) OpenGarment(id); else if (region is not null) OpenCompartment(id, region); else Inspect(id); });
-        if (region is not null) Entry(Simulation.Inventory.Region(id, region).SecureVerb, () => ChangeLid(id, region, false));
-        else if (definition.Wear?.OpenExposes is { Length: > 0 }) Entry(definition.Wear.SecureVerb, () =>
-        { Simulation.HandleInventory(new(InventoryActionKind.CloseGarment, id)); ShowReceipt(); });
-        else if (definition.Regions is { Length: 1 } regions) Entry(regions[0].SecureVerb, () => ChangeLid(id, regions[0].Id, false));
+        if (!fastening && region is null) Entry("Open", () => Inspect(id));
+        var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: > 0 } && definition.Regions is { Length: 1 } regions ? regions[0].Id : null);
+        if (closureRegion is not null || definition.Wear?.OpenExposes is { Length: > 0 })
+        {
+            var closure = Button(list, "", () =>
+            {
+                HideContext(); ToggleClosure(id, closureRegion);
+            });
+            var automatic = new CheckButton { Text = "Secure on view close", FocusMode = FocusModeEnum.None,
+                TooltipText = "Only this fastening. Changing this preference does not physically open or secure it." }; list.AddChild(automatic);
+            automatic.Toggled += value =>
+            {
+                Simulation.SetInventorySecureOnClose(id, closureRegion, value); ShowReceipt();
+                automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));
+            };
+            void UpdateClosure()
+            {
+                var action = InventoryClosures.Toggle(Simulation.Inventory, id, closureRegion);
+                closure.Text = action.Verb;
+                closure.Disabled = Simulation.Inventory.Pending is not null || !Simulation.QuoteInventory(action.Request).Allowed;
+                closure.TooltipText = Simulation.InventoryCost(action.Request);
+                automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));
+            }
+            _contextUpdates.Add(UpdateClosure); UpdateClosure();
+        }
         Entry("Remove → hand", () => { Select(id); MoveSelectedTo("hand"); });
         var size = _contextMenu.GetCombinedMinimumSize();
         _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));
@@ -219,8 +247,9 @@ public partial class InventoryPanel : Control
         _clock.Text = Simulation.ManualPause ? "MANUAL PAUSE" : Simulation.Combat.Active ? $"TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP" : $"REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s";
         _browser.Refresh();
         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: > 0 };
-        _garmentToggle.Text = !_garmentToggle.Disabled && Simulation.Inventory.DiagnosticItems.Single(i => i.Id == SelectedItem).GarmentOpen
-            ? "Fasten selected garment" : "Open selected garment";
+        _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + " selected garment" : "Garment fastening";
+        if (SelectedItem is { } current) _detail.Text = Describe(current);
+        foreach (var update in _contextUpdates) update();
         _progress.Text = Simulation.Inventory.Pending is { } work ? $"HANDLING · {(work.TotalMs - work.RemainingMs) / 1000.0:0.00} / {work.TotalMs / 1000.0:0.00}s · {work.Request.Kind}"
             : Simulation.Inventory.SecuringRemaining > 0 ? $"SECURING · {Simulation.Inventory.SecuringRemaining} closures waiting for local progress / your turn and sufficient AP · Cancel handling to stop"
             : $"Carried mass: {InventoryHierarchy.CarriedMass(Simulation.Inventory, "person:avatar") / 1000.0:0.00} kg · no handling in progress";

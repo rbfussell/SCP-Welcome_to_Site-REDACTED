@@ -94,7 +94,7 @@ internal static class AwarenessChecks
         legacy["Version"] = 2; legacy.AsObject().Remove("Awareness");
         foreach (var actor in legacy["Actors"]!.AsArray()) actor!.AsObject().Remove("StoppedStep");
         var migrated = new SpatialSimulation(json); migrated.Restore(legacy.ToJsonString());
-        Check(JsonNode.Parse(migrated.Save())!["Version"]!.GetValue<int>() == 9 && migrated.Awareness.StopOnDirectSight && migrated.Awareness.StopOnReports,
+        Check(JsonNode.Parse(migrated.Save())!["Version"]!.GetValue<int>() == 10 && migrated.Awareness.StopOnDirectSight && migrated.Awareness.StopOnReports,
             "compatible schema-2 prototype saves must upgrade with both safety settings enabled");
         var patrolWorld = new SimulationWorld(json);
         var patrol = patrolWorld.Actors.Single(a => a.Id == "tech");

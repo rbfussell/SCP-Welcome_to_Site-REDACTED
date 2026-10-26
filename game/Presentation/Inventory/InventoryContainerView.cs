@@ -13,11 +13,12 @@ public partial class InventoryContainerView : VBoxContainer
     private string? _region;
     private Label? _state;
     private VBoxContainer? _lower;
+    private Button? _fastening;
     private string _lowerSignature = "";
     internal void Build(string? id, string? region, string path)
     {
         foreach (var child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
-        _id = id; _region = region; _lower = null; _state = null; _lowerSignature = "";
+        _id = id; _region = region; _lower = null; _state = null; _fastening = null; _lowerSignature = "";
         CustomMinimumSize = new(GearView ? 330 : 280, 0); SizeFlagsHorizontal = SizeFlags.ExpandFill;
         var header = new HBoxContainer(); AddChild(header);
         InventoryPanel.Label(header, GearView ? "GEAR" : "CONTENTS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -37,7 +38,7 @@ public partial class InventoryContainerView : VBoxContainer
             {
                 AddChild(new InventoryGearSurface { Panel = Panel, Browser = Browser, ItemId = id });
                 if (definition.Wear?.OpenExposes is { Length: > 0 })
-                    InventoryPanel.Button(this, "Opening / fastening…", () => Panel.Context(id, null, GetGlobalMousePosition()));
+                    _fastening = InventoryPanel.Button(this, "", () => Panel.ToggleClosure(id));
             }
             // Authoring fallback for an unregistered sprite/hotspot; never derive capacity from pixels.
             if (root is not null || !InventoryGearSurface.Registered(definition!.Id))
@@ -59,6 +60,12 @@ public partial class InventoryContainerView : VBoxContainer
     {
         if (_id is null || _state is null) return;
         var sim = Panel.Simulation; var state = sim.Inventory;
+        if (_fastening is not null)
+        {
+            var action = InventoryClosures.Toggle(state, _id);
+            _fastening.Text = action.Verb;
+            _fastening.Disabled = state.Pending is not null || !sim.QuoteInventory(action.Request).Allowed;
+        }
         _state.Text = _region is not null ? (state.IsOpen(_id, _region) ? "OPEN · contents accessible" : "SECURED")
             : state.DiagnosticItems.SingleOrDefault(i => i.Id == _id) is { } item
                 ? state.Definition(_id).Wear?.OpenExposes is { Length: > 0 }
