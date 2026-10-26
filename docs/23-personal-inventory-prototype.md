@@ -2,6 +2,8 @@
 
 Status: Bounded native implementation, October 25, 2026. This is the first personal equipment/nearby-container slice, not complete inventory/logistics/crafting or STO-01–10 acceptance.
 
+The user subsequently revises navigation to [three fixed views, explicit securing and hex-body shape fitting](27-three-view-inventory-and-body-fit.md). That contract supersedes the expanding-column and Esc-as-Back design below, which still describes the current runtime. Closure/dismissal and non-60° orientation questions are pending before the replacement is wired.
+
 ## Playing it
 
 Press **I** in local gameplay to open personal equipment. **I** or Close dismisses it. **Esc** returns up the active container branch, and dismisses the screen when no container views remain; during an uncommitted drag it dismisses and cancels the drag. The world **continues in real time**: opening, inspecting, selecting and previewing rotation do not introduce a pause. Space remains the explicit manual pause control; opening/closing inventory preserves it. The separately approved field-phone pause rule is unchanged.

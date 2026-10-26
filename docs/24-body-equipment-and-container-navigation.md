@@ -4,6 +4,8 @@ Status: October 25, 2026. The user confirms the paperdoll/container interaction 
 
 ## Looking inside storage
 
+The later [three-view inventory and body-fit contract](27-three-view-inventory-and-body-fit.md) supersedes the expanding-column/Back interaction in this section. It separates a gear/clothing trail from a physical contents trail, restores Esc to whole-inventory dismissal and specifies body-local hex shape/contact fitting. The following remains the earlier implemented engineering-browser behavior until that revision is qualified.
+
 The paperdoll is the permanent top level. It shows what is worn or held, rather than exposing the contents of every garment and bag. Right-clicking trousers, a jacket, a shirt with pockets or a backpack opens that container's compartments to the right. Only actually inspected storage appears. Empty inspection history is the default whenever the inventory screen opens.
 
 The **Layers** selector can show exposed equipment, all known worn equipment or one numbered layer. This lets the player identify covered clothing without uncovering it. Covered objects remain inaccessible for dragging/manipulation and their storage still follows physical access rules. This is an inspection projection of the player's own equipment, not a query into nested storage or another person's hidden outfit. Reopening inventory resets the filter. [Wearable appearance](26-wearable-appearance-pipeline.md) records how this distinction should carry over to the future composited paperdoll and world sprites.

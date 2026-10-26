@@ -4,6 +4,8 @@ Status: October 25, 2026. User-confirmed direction: base garments occupy layer 0
 
 This extends [body equipment and container navigation](24-body-equipment-and-container-navigation.md). The current runtime already validates authored layers, body coverage, fastening, dressing order and outermost packs. It does not yet implement the fit/comfort details described here.
 
+The subsequent [body-hex shape/contact proposal](27-three-view-inventory-and-body-fit.md) refines worn placement: closed contact edges must align with the body's boundary while authored openings permit continuation. Packed inventory remains square-grid. This proposal extends the fit standard without claiming that named mounts have already been replaced in the runtime.
+
 ## Layer means position in a wearing order
 
 Layer 0 is the base or closest-to-body position for a particular body location. Examples include underwear, socks, a baseball cap and ordinary glasses. These belong to different anatomical locations, so sharing the number does not make them conflict.
