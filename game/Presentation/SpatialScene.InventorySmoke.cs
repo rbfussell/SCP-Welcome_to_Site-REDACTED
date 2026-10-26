@@ -82,6 +82,34 @@ public partial class SpatialScene
             sim.ManualPause = true; var original = sim.Save();
             await OpenPocket("avatar-backpack", "main");
             Check(panel.Browser.CurrentGear == "avatar-backpack" && panel.Browser.CurrentContents == ("avatar-backpack", "main"), "Gear/contents slots did not open independently.");
+            async Task Hover(Vector2 position)
+            {
+                using var motion = new InputEventMouseMotion { Position = position, GlobalPosition = position };
+                GetViewport().PushInput(motion); await InventoryFrames();
+            }
+            var surface = Surface();
+            var segmentSave = sim.Save();
+            await Hover(surface.HotspotPosition("side"));
+            Check(surface.HasHighlight && surface.HoveredRegion == "side", "Hover did not identify the visible side pouch.");
+            await InventoryCapture("-side-hover");
+            // Inside the old bounding rectangle but outside the traced contour: it must not be clickable.
+            var blank = surface.SourcePosition(new(0.80f, 0.49f));
+            await Hover(blank); Check(!surface.HasHighlight, "A polygon bounding-box corner highlighted empty space.");
+            InventoryClick(blank, true); await InventoryFrames();
+            Check(panel.Browser.CurrentContents == ("avatar-backpack", "main"), "Blank-space double-click opened a compartment.");
+            await Hover(surface.SourcePosition(new(0.02f, 0.02f)));
+            Check(!surface.HasHighlight, "Transparent image margin retained a highlight.");
+            await Hover(surface.HotspotPosition("main"));
+            Check(surface.HoveredRegion == "main", "Main segment hit area drifted from artwork.");
+            await InventoryCapture("-main-hover");
+            // Same source pixel through a different aspect ratio, matching the real drawing transform.
+            var beforeSize = surface.Size;
+            surface.Size = new(330, 410); await InventoryFrames();
+            await Hover(surface.HotspotPosition("side"));
+            Check(surface.HoveredRegion == "side", "Segment mapping drifted when the view was resized.");
+            surface.Size = beforeSize; await InventoryFrames();
+            await Hover(panel.FindGrid("person:avatar", "hand").GetGlobalRect().GetCenter());
+            Check(!surface.HasHighlight && sim.Save() == segmentSave, "Leaving the illustration retained a highlight or mutated inventory.");
             var main = panel.FindGrid("avatar-backpack", "main");
             InventoryClick(main.GlobalPosition + new Vector2(20, 65), true); await InventoryFrames();
             Check(panel.Browser.CurrentGear == "avatar-backpack" && panel.Browser.CurrentContents == ("medical-case", "inside"), "Nested case must replace contents, retaining gear.");
@@ -92,6 +120,9 @@ public partial class SpatialScene
             var pocket = panel.FindGrid("avatar-trousers", "left");
             InventoryClick(pocket.GlobalPosition + new Vector2(15, 59), true); await InventoryFrames();
             Check(panel.Browser.CurrentContents == ("gum-packet", "pieces") && sim.InventoryContents("gum-packet", "pieces").Count == 6, "Packet did not replace the pocket at its own fine grid scale.");
+            var packetPreview = InventoryArt.Project("gum-pack", new Rect2(0, 0, 330, 350), new(0.50f, 0.49f));
+            var packetSource = InventoryArt.Unproject("gum-pack", new Rect2(0, 0, 330, 350), packetPreview);
+            Check(packetSource.DistanceTo(new Vector2(0.50f, 0.49f)) < 0.0001f, "Rotated item artwork failed to share its source-image transform.");
             await InventoryCapture("-packet");
             Nav(false, "↑"); await InventoryFrames();
             Check(panel.Browser.CurrentContents == ("avatar-trousers", "left") && sim.Inventory.SecuringRemaining == 1, "Contents Up must return one level and queue normal securing.");

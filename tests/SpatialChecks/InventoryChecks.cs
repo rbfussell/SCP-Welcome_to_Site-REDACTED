@@ -41,9 +41,20 @@ internal static class InventoryChecks
             var definition = sim.Inventory.Content.Definitions.Single(d => d.Id == binding.Name);
             foreach (var target in binding.Value.EnumerateArray())
             {
-                var rect = target.GetProperty("rect").EnumerateArray().Select(n => n.GetDouble()).ToArray();
-                Check(rect.Length == 4 && rect.All(double.IsFinite) && rect[0] >= 0 && rect[1] >= 0 && rect[2] > 0 && rect[3] > 0
-                    && rect[0] + rect[2] <= 1 && rect[1] + rect[3] <= 1, "illustrated hotspot stays inside its normalized registration");
+                var polygon = target.GetProperty("polygon").EnumerateArray().Select(n => n.EnumerateArray().Select(v => v.GetDouble()).ToArray()).ToArray();
+                Check(polygon.Length is >= 3 and <= 128 && polygon.All(p => p.Length == 2 && p.All(v => double.IsFinite(v) && v >= 0 && v <= 1)),
+                    "segmented hotspot vertices stay inside source-image registration");
+                var points = polygon.Select(p => new Point2(p[0], p[1])).ToArray();
+                var area = Math.Abs(Enumerable.Range(0, points.Length).Sum(i => points[i].X * points[(i + 1) % points.Length].Y - points[(i + 1) % points.Length].X * points[i].Y));
+                Check(area > 0.00001 && points.Distinct().Count() == points.Length, "segment has a nondegenerate contour without repeated vertices");
+                var simple = true;
+                for (var i = 0; i < points.Length; i++)
+                for (var j = i + 1; j < points.Length; j++)
+                    if (j != i + 1 && !(i == 0 && j == points.Length - 1)
+                        && Geometry.Intersects(points[i], points[(i + 1) % points.Length], points[j], points[(j + 1) % points.Length])) simple = false;
+                Check(simple, "segment contour must not cross itself");
+                var hit = target.GetProperty("hitPoint").EnumerateArray().Select(v => v.GetDouble()).ToArray();
+                Check(hit.Length == 2 && hit.All(v => double.IsFinite(v) && v > 0 && v < 1), "native interaction sample uses source-image coordinates");
                 var region = target.GetProperty("region");
                 Check(region.ValueKind == JsonValueKind.Null ? definition.Wear?.OpenExposes is { Length: > 0 }
                     : definition.Regions?.Any(r => r.Id == region.GetString()) == true, "each illustrated hotspot binds a real fastening or compartment");
