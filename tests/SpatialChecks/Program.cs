@@ -137,6 +137,7 @@ passed += CombatChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectory
 passed += OscpChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")), File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "oscp-apps.json")));
 passed += EmploymentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventoryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")), Path.Combine(Path.GetDirectoryName(mapPath)!, "../Assets/inventory-objects/manifest.json"));
+passed += InventoryPackingChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventorySecuringChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += InventoryClosureChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += WearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));

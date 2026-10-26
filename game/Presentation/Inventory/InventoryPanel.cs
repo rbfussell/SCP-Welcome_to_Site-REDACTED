@@ -189,6 +189,21 @@ public partial class InventoryPanel : Control
         else if (action.Request.Kind == InventoryActionKind.OpenGarment) OpenGarment(id);
         else { Simulation.HandleInventory(action.Request); ShowReceipt(); }
     }
+    internal string? DefaultDropRegion(string id)
+    {
+        var definition = Simulation.Inventory.Definition(id);
+        return definition.DefaultDropRegion ?? (definition.Regions is { Length: 1 } regions ? regions[0].Id : null);
+    }
+    internal InventoryPackingQuote PreviewContainerDrop(string item, string owner, string region)
+    {
+        var quote = Simulation.QuoteInventoryPacking(new(InventoryActionKind.AutoPlace, item, new(owner, region)));
+        _receipt.Text = quote.Allowed ? $"{(quote.Plan!.Repacked ? "Arrange and store" : "Store in free space")} · {quote.Plan.Moves.Length} items handled · {quote.DurationMs / 1000.0:0.00}s · {quote.Ap} AP in combat" : quote.Reason;
+        return quote;
+    }
+    internal void StoreInContainer(string item, string owner, string region)
+    { Simulation.HandleInventory(new(InventoryActionKind.AutoPlace, item, new(owner, region))); ShowReceipt(); }
+    internal void Arrange(string owner, string region)
+    { Simulation.HandleInventory(new(InventoryActionKind.Arrange, owner, new(owner, region))); ShowReceipt(); }
     private void HideContext()
     { _contextUpdates.Clear(); if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }
     public override void _Input(InputEvent e)
@@ -196,14 +211,29 @@ public partial class InventoryPanel : Control
         if (Visible && _contextMenu is not null && e is InputEventMouseButton { Pressed: true } mouse
             && !_contextMenu.GetGlobalRect().HasPoint(mouse.Position)) HideContext();
     }
-    internal void Context(string id, string? region, Vector2 position, bool fastening = false)
+    private VBoxContainer BeginContext()
     {
-        HideContext(); Select(id);
-        var definition = Simulation.Inventory.Definition(id);
+        HideContext();
         _contextMenu = new PanelContainer { ZIndex = 20 };
         _contextMenu.AddThemeStyleboxOverride("panel", new StyleBoxFlat { BgColor = new("28372e"), ContentMarginLeft = 8,
             ContentMarginRight = 8, ContentMarginTop = 8, ContentMarginBottom = 8 });
-        AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list);
+        AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list); return list;
+    }
+    private void PositionContext(Vector2 position)
+    {
+        var size = _contextMenu!.GetCombinedMinimumSize();
+        _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));
+    }
+    internal void ContainerContext(string owner, string region, Vector2 position)
+    {
+        var list = BeginContext();
+        Button(list, "Arrange " + Simulation.Inventory.Region(owner, region).Name, () => { HideContext(); Arrange(owner, region); });
+        PositionContext(position);
+    }
+    internal void Context(string id, string? region, Vector2 position, bool fastening = false)
+    {
+        Select(id); var list = BeginContext();
+        var definition = Simulation.Inventory.Definition(id);
         void Entry(string name, Action action) => Button(list, name, () => { HideContext(); action(); });
         if (!fastening && region is null) Entry("Open", () => Inspect(id));
         var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: > 0 } && definition.Regions is { Length: 1 } regions ? regions[0].Id : null);
@@ -230,9 +260,14 @@ public partial class InventoryPanel : Control
             }
             _contextUpdates.Add(UpdateClosure); UpdateClosure();
         }
+        if (region is not null) Entry("Arrange " + Simulation.Inventory.Region(id, region).Name, () => Arrange(id, region));
+        else foreach (var interior in definition.Regions ?? [])
+            Entry("Arrange " + interior.Name, () => Arrange(id, interior.Id));
+        var location = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement;
+        var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);
+        if (enclosing.MountSlot is null) Entry("Arrange " + enclosing.Name, () => Arrange(location.ParentId, location.RegionId));
         Entry("Remove → hand", () => { Select(id); MoveSelectedTo("hand"); });
-        var size = _contextMenu.GetCombinedMinimumSize();
-        _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));
+        PositionContext(position);
     }
     internal IReadOnlyList<string> InspectedContainers => _browser.ContainerIds;
     internal void CloseContainerView(string id) => _browser.CloseView(id);

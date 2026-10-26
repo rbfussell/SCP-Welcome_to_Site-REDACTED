@@ -4,9 +4,18 @@ namespace SiteSimulation;
 internal static class InventoryActions
 {
     public static bool Validate(SimulationWorld world, string actorId, InventoryRequest request, out string reason, out int duration, out int ap)
+        => Validate(world, actorId, request, out reason, out duration, out ap, out _);
+    internal static bool Validate(SimulationWorld world, string actorId, InventoryRequest request, out string reason, out int duration, out int ap,
+        out InventoryPackingPlan? packing)
     {
-        var state = world.Inventory; duration = 0; ap = 0;
+        var state = world.Inventory; duration = 0; ap = 0; packing = null;
         reason = "Inventory is unavailable";
+        if (state.Enabled && request?.Kind is InventoryActionKind.AutoPlace or InventoryActionKind.Arrange)
+        {
+            try { packing = InventoryPackingActions.Quote(world, actorId, request, out duration, out ap); reason = "Ready"; return true; }
+            catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or KeyNotFoundException)
+            { reason = ex is ArgumentException ? ex.Message : "Unknown packing destination."; return false; }
+        }
         if (!state.Enabled || request is null || !Enum.IsDefined(request.Kind) || !state.Items.TryGetValue(request.ItemId, out var item)) return false;
         var access = InventoryAccessService.Placement(world, actorId, item.Placement);
         if (!access.Allowed) { reason = access.Reason; return false; }
@@ -60,7 +69,7 @@ internal static class InventoryActions
         { reason = ex is ArgumentException ? ex.Message : "Invalid physical destination or compartment"; return false; }
         reason = "Ready"; return true;
     }
-    private static int AccessAp(InventoryState state, ItemPlacement placement)
+    internal static int AccessAp(InventoryState state, ItemPlacement placement)
     {
         var cost = 0;
         for (var depth = 0; depth <= InventoryHierarchy.MaxDepth; depth++)
@@ -78,11 +87,11 @@ internal static class InventoryActions
             : world.Inventory.Pending is not null ? "Finish the current inventory action first."
             : world.LocalMs < actor.StartledUntilMs ? "Recovering from startle." : "Ready";
         if (reason != "Ready") return false;
-        if (!Validate(world, actor.Id, request, out reason, out var duration, out var ap)) return false;
+        if (!Validate(world, actor.Id, request, out reason, out var duration, out var ap, out var packing)) return false;
         if (world.Combat.Active && !TacticalCombatSystem.HandleInventory(world, ap, duration, out reason)) return false;
         MovementSystem.StopInPlace(actor);
-        world.Inventory.Pending = new(actor.Id, request, actor.Position, duration, duration, world.Inventory.Revision, ap, world.Combat.Active);
-        reason = $"Handling {world.Inventory.Definition(request.ItemId).Name}: {duration / 1000.0:0.00}s" + (world.Combat.Active ? $" · {ap} AP" : "");
+        world.Inventory.Pending = new(actor.Id, request, actor.Position, duration, duration, world.Inventory.Revision, ap, world.Combat.Active, Packing: packing);
+        reason = $"Handling {world.Inventory.Name(request.ItemId)}: {duration / 1000.0:0.00}s" + (world.Combat.Active ? $" · {ap} AP" : "");
         PlayerFeedback.Add(world, MessageKind.Equipment, "Inventory: " + reason);
         return true;
     }
@@ -105,8 +114,17 @@ internal static class InventoryActions
         if (work.RemainingMs > 0) return;
         state.Pending = null;
         if (work.AbortReason is not null || work.Revision != state.Revision
-            || !Validate(world, work.ActorId, work.Request, out _, out _, out _))
+            || !Validate(world, work.ActorId, work.Request, out _, out _, out _, out var verified)
+            || !InventoryPackingActions.Same(work.Packing, verified))
         { state.SecureQueue.Clear(); PlayerFeedback.Add(world, MessageKind.Warning, "Inventory: action failed: " + (work.AbortReason ?? "Item, access or destination changed")); return; }
+        if (work.Packing is { } plan)
+        {
+            foreach (var move in plan.Moves) state.Items[move.ItemId] = state.Items[move.ItemId] with { Placement = move.To };
+            state.Revision++;
+            world.Log("inventory", work.Request.ItemId, work.Request.Kind.ToString(), "Atomic region packing committed.");
+            PlayerFeedback.Add(world, MessageKind.Equipment, "Inventory: " + state.Name(work.Request.ItemId) + ": " + work.Request.Kind + " completed.");
+            return;
+        }
         var request = work.Request; var item = state.Items[request.ItemId];
         switch (request.Kind)
         {

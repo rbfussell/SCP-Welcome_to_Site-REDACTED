@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "design-contract",
+  "id": "example:ammo-box",
+  "name": "Ammunition box",
+  "description": "Authoring example; not registered in the native field-kit profile.",
+  "massGrams": 80,
+  "materials": [
+    {
+      "id": "core:cardboard",
+      "massFraction": 1
+    }
+  ],
+  "traits": [],
+  "forms": [
+    {
+      "id": "packed",
+      "envelopeMm": [
+        100,
+        100,
+        40
+      ],
+      "referenceCellMm": 100,
+      "squareShape": {
+        "columns": 1,
+        "rows": 1
+      },
+      "orientations": [
+        0,
+        90
+      ],
+      "sprite": "example:packed"
+    }
+  ],
+  "defaultForm": "packed",
+  "appearance": {
+    "inventory": "example:ammo-box"
+  },
+  "condition": {
+    "maximum": 100,
+    "default": 100,
+    "responses": [
+      "core:use-wear",
+      "core:material-damage"
+    ]
+  },
+  "crafting": {
+    "deconstructable": false,
+    "crafted": false,
+    "compositionPolicy": "none"
+  },
+  "stateDefaults": {},
+  "sources": [
+    "Original game design example; no SCP article claim."
+  ],
+  "compartments": [
+    {
+      "id": "rounds",
+      "name": "Loose rounds",
+      "kind": "storage",
+      "grid": {
+        "columns": 4,
+        "rows": 4,
+        "cellMm": 25,
+        "depthMm": 60,
+        "maxMassGrams": 5000
+      },
+      "snug": false,
+      "defaultOpen": false,
+      "defaultDrop": false,
+      "accessMs": 500,
+      "accessAp": 2,
+      "spillProfile": "core:loose-movement"
+    }
+  ],
+  "closures": [
+    {
+      "id": "lid",
+      "targets": [
+        "rounds"
+      ],
+      "mechanism": "flap",
+      "openVerb": "Open",
+      "secureVerb": "Close",
+      "defaultOpen": false,
+      "secureOnViewClose": true,
+      "handleMs": 500,
+      "handleAp": 2
+    }
+  ]
+}

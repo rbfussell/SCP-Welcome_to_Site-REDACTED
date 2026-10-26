@@ -1,0 +1,945 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "design-contract"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "massGrams": {
+      "type": "number",
+      "minimum": 0
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/material"
+      },
+      "minItems": 1
+    },
+    "traits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+      },
+      "uniqueItems": true
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/form"
+      },
+      "minItems": 1
+    },
+    "defaultForm": {
+      "type": "string",
+      "minLength": 1
+    },
+    "appearance": {
+      "$ref": "#/$defs/appearance"
+    },
+    "compartments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/compartment"
+      }
+    },
+    "closures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/closure"
+      }
+    },
+    "wear": {
+      "$ref": "#/$defs/wear"
+    },
+    "attachmentSurfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attachment"
+      }
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/function"
+      }
+    },
+    "condition": {
+      "$ref": "#/$defs/condition"
+    },
+    "crafting": {
+      "$ref": "#/$defs/crafting"
+    },
+    "stateDefaults": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "null"
+        ]
+      }
+    },
+    "knowledgePolicy": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "status",
+    "id",
+    "name",
+    "description",
+    "massGrams",
+    "materials",
+    "traits",
+    "forms",
+    "defaultForm",
+    "appearance",
+    "condition",
+    "crafting",
+    "stateDefaults",
+    "sources"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:scp-site:gear-definition:1",
+  "title": "Gear definition design contract v1",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+      },
+      "additionalProperties": true
+    },
+    "hexMask": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "uniqueItems": true
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rows": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cellMm": {
+          "type": "number",
+          "minimum": 0.001
+        },
+        "depthMm": {
+          "type": "number",
+          "minimum": 0.001
+        },
+        "usableCells": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "maxMassGrams": {
+          "type": "number",
+          "minimum": 0
+        },
+        "acceptTraits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "columns",
+        "rows",
+        "cellMm",
+        "depthMm",
+        "maxMassGrams"
+      ]
+    },
+    "form": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "envelopeMm": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "referenceCellMm": {
+          "type": "number",
+          "minimum": 0.001
+        },
+        "squareShape": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "columns": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "usableCells": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "columns",
+            "rows"
+          ]
+        },
+        "orientations": {
+          "const": [
+            0,
+            90
+          ]
+        },
+        "sprite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transitionFunction": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        }
+      },
+      "required": [
+        "id",
+        "envelopeMm",
+        "referenceCellMm",
+        "squareShape",
+        "orientations",
+        "sprite"
+      ]
+    },
+    "compartment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "storage",
+            "service-slot",
+            "feed"
+          ]
+        },
+        "grid": {
+          "$ref": "#/$defs/storage"
+        },
+        "slot": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "interface": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "maxMassGrams": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "interface",
+            "count",
+            "maxMassGrams"
+          ]
+        },
+        "snug": {
+          "type": "boolean"
+        },
+        "defaultOpen": {
+          "type": "boolean"
+        },
+        "defaultDrop": {
+          "type": "boolean"
+        },
+        "accessMs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "accessAp": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "accessFunction": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "spillProfile": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "presentation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "snug",
+        "defaultOpen",
+        "accessMs",
+        "accessAp"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "storage"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "grid"
+            ],
+            "not": {
+              "required": [
+                "slot"
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "slot"
+            ],
+            "not": {
+              "required": [
+                "grid"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "mechanism": {
+          "type": "string",
+          "minLength": 1
+        },
+        "openVerb": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secureVerb": {
+          "type": "string",
+          "minLength": 1
+        },
+        "defaultOpen": {
+          "type": "boolean"
+        },
+        "secureOnViewClose": {
+          "type": "boolean"
+        },
+        "handleMs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "handleAp": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "id",
+        "targets",
+        "mechanism",
+        "openVerb",
+        "secureVerb",
+        "defaultOpen",
+        "secureOnViewClose",
+        "handleMs",
+        "handleAp"
+      ]
+    },
+    "segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "view": {
+          "enum": [
+            "front",
+            "back",
+            "gear"
+          ]
+        },
+        "sprite": {
+          "type": "string",
+          "minLength": 1
+        },
+        "polygon": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 3
+        },
+        "compartment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "closure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attachmentSurface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bodySurface": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "view",
+        "sprite",
+        "polygon"
+      ]
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interface": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "hexMask": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "maxMassGrams": {
+          "type": "number",
+          "minimum": 0
+        },
+        "allowedRotations": {
+          "const": [
+            0,
+            60,
+            120,
+            180,
+            240,
+            300
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "interface",
+        "hexMask",
+        "maxMassGrams",
+        "allowedRotations"
+      ]
+    },
+    "wear": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bodyFamily": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "layer": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "surfaces": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "hexFootprint": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "openEdges": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "requiredContacts": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "orientations": {
+          "const": [
+            0,
+            60,
+            120,
+            180,
+            240,
+            300
+          ]
+        },
+        "coversAccess": {
+          "type": "boolean"
+        },
+        "blocksRemoval": {
+          "type": "boolean"
+        },
+        "outermost": {
+          "type": "boolean"
+        },
+        "overlapTraits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        },
+        "coverMask": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "removalMask": {
+          "$ref": "#/$defs/hexMask"
+        },
+        "appearanceTemplate": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "attachmentRequirement": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        }
+      },
+      "required": [
+        "bodyFamily",
+        "layer",
+        "surfaces",
+        "hexFootprint",
+        "orientations",
+        "coversAccess",
+        "blocksRemoval",
+        "outermost"
+      ]
+    },
+    "function": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "handler": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "requiredTraits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "handler",
+        "capabilities"
+      ]
+    },
+    "appearance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "inventory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paperdollFront": {
+          "type": "string",
+          "minLength": 1
+        },
+        "paperdollBack": {
+          "type": "string",
+          "minLength": 1
+        },
+        "worldBinding": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stateSprites": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          }
+        }
+      },
+      "required": [
+        "inventory"
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maximum": {
+          "type": "number",
+          "minimum": 0.001
+        },
+        "default": {
+          "type": "number",
+          "minimum": 0
+        },
+        "responses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "maximum",
+        "default",
+        "responses"
+      ]
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "massFraction": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "massFraction"
+      ]
+    },
+    "crafting": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deconstructable": {
+          "type": "boolean"
+        },
+        "crafted": {
+          "type": "boolean"
+        },
+        "recipe": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "disassemblyFunction": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "compositionPolicy": {
+          "enum": [
+            "none",
+            "sealed-work-record"
+          ]
+        }
+      },
+      "required": [
+        "deconstructable",
+        "crafted",
+        "compositionPolicy"
+      ]
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definition": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "form": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": "number",
+          "minimum": 0
+        },
+        "parent": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "relation": {
+              "enum": [
+                "contained",
+                "service-installed",
+                "attached",
+                "worn",
+                "world",
+                "work-held"
+              ]
+            },
+            "region": {
+              "type": "string",
+              "minLength": 1
+            },
+            "orientation": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "x": {
+              "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "relation"
+          ]
+        },
+        "compartments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "state": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "closures": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "open": {
+                "type": "boolean"
+              },
+              "secureOnViewCloseOverride": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "open"
+            ]
+          }
+        },
+        "state": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "definition",
+        "form",
+        "condition",
+        "parent",
+        "state",
+        "provenance"
+      ]
+    }
+  }
+}

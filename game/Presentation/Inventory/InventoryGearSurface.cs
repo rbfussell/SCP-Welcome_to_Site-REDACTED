@@ -21,10 +21,11 @@ public partial class InventoryGearSurface : Control
     private Hotspot[] Targets => Bindings.GetValueOrDefault(DefinitionId) ?? [];
     private Rect2 Bounds => new(Vector2.Zero, Size);
     private Hotspot? _hovered;
+    private bool? _dropAllowed;
     public override void _Ready()
     {
         CustomMinimumSize = new(330, 350); MouseFilter = MouseFilterEnum.Stop; TextureFilter = TextureFilterEnum.Nearest;
-        MouseExited += () => SetHover(null);
+        MouseExited += () => { _dropAllowed = null; SetHover(null); };
         Resized += () => { SetHover(null); QueueRedraw(); };
     }
     private Hotspot? Pick(Vector2 position)
@@ -48,7 +49,24 @@ public partial class InventoryGearSurface : Control
     {
         InventoryArt.Draw(this, DefinitionId, Bounds, false);
         if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points);
+        if (_dropAllowed is { } allowed)
+            DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), allowed ? "Store in this compartment" : "Cannot store here", fontSize: 13,
+                modulate: new(allowed ? "69d89a" : "ef8275"));
     }
+    public override bool _CanDropData(Vector2 atPosition, Variant data)
+    {
+        if (data.VariantType != Variant.Type.String || data.AsString() != Panel.DragItemId) return false;
+        var target = Pick(atPosition); SetHover(target);
+        _dropAllowed = target?.Region is { } region && Panel.PreviewContainerDrop(data.AsString(), ItemId, region).Allowed;
+        return _dropAllowed.Value;
+    }
+    public override void _DropData(Vector2 atPosition, Variant data)
+    {
+        if (Pick(atPosition)?.Region is { } region) Panel.StoreInContainer(data.AsString(), ItemId, region);
+        _dropAllowed = null; QueueRedraw();
+    }
+    public override void _Notification(int what)
+    { if (what == NotificationDragEnd) { _dropAllowed = null; QueueRedraw(); } }
     public override void _GuiInput(InputEvent e)
     {
         if (e is InputEventMouseMotion motion) { SetHover(Pick(motion.Position)); return; }

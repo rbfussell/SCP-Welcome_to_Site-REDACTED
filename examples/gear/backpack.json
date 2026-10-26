@@ -1,0 +1,387 @@
+{
+  "schemaVersion": 1,
+  "status": "design-contract",
+  "id": "example:backpack",
+  "name": "Field backpack",
+  "description": "Authoring example; not registered in the native field-kit profile.",
+  "massGrams": 1100,
+  "materials": [
+    {
+      "id": "core:fabric",
+      "massFraction": 1
+    }
+  ],
+  "traits": [],
+  "forms": [
+    {
+      "id": "packed",
+      "envelopeMm": [
+        300,
+        400,
+        40
+      ],
+      "referenceCellMm": 100,
+      "squareShape": {
+        "columns": 3,
+        "rows": 4
+      },
+      "orientations": [
+        0,
+        90
+      ],
+      "sprite": "example:packed"
+    }
+  ],
+  "defaultForm": "packed",
+  "appearance": {
+    "inventory": "example:backpack",
+    "segments": [
+      {
+        "id": "main-panel",
+        "view": "gear",
+        "sprite": "example:backpack",
+        "polygon": [
+          [
+            0.2,
+            0.1
+          ],
+          [
+            0.8,
+            0.1
+          ],
+          [
+            0.8,
+            0.7
+          ],
+          [
+            0.2,
+            0.7
+          ]
+        ],
+        "compartment": "main",
+        "closure": "main-zip"
+      },
+      {
+        "id": "left-pouch",
+        "view": "gear",
+        "sprite": "example:backpack",
+        "polygon": [
+          [
+            0.02,
+            0.45
+          ],
+          [
+            0.18,
+            0.45
+          ],
+          [
+            0.18,
+            0.8
+          ],
+          [
+            0.02,
+            0.8
+          ]
+        ],
+        "compartment": "left",
+        "closure": "left-zip"
+      }
+    ]
+  },
+  "condition": {
+    "maximum": 100,
+    "default": 100,
+    "responses": [
+      "core:use-wear",
+      "core:material-damage"
+    ]
+  },
+  "crafting": {
+    "deconstructable": false,
+    "crafted": false,
+    "compositionPolicy": "none"
+  },
+  "stateDefaults": {},
+  "sources": [
+    "Original game design example; no SCP article claim."
+  ],
+  "compartments": [
+    {
+      "id": "main",
+      "name": "Main compartment",
+      "kind": "storage",
+      "grid": {
+        "columns": 10,
+        "rows": 12,
+        "cellMm": 25,
+        "depthMm": 60,
+        "maxMassGrams": 5000
+      },
+      "snug": false,
+      "defaultOpen": false,
+      "defaultDrop": true,
+      "accessMs": 500,
+      "accessAp": 2,
+      "spillProfile": "core:loose-movement"
+    },
+    {
+      "id": "left",
+      "name": "Left pocket",
+      "kind": "storage",
+      "grid": {
+        "columns": 3,
+        "rows": 6,
+        "cellMm": 25,
+        "depthMm": 60,
+        "maxMassGrams": 5000
+      },
+      "snug": false,
+      "defaultOpen": false,
+      "defaultDrop": false,
+      "accessMs": 500,
+      "accessAp": 2,
+      "spillProfile": "core:loose-movement"
+    },
+    {
+      "id": "right",
+      "name": "Right pocket",
+      "kind": "storage",
+      "grid": {
+        "columns": 3,
+        "rows": 6,
+        "cellMm": 25,
+        "depthMm": 60,
+        "maxMassGrams": 5000
+      },
+      "snug": false,
+      "defaultOpen": false,
+      "defaultDrop": false,
+      "accessMs": 500,
+      "accessAp": 2,
+      "spillProfile": "core:loose-movement"
+    },
+    {
+      "id": "front",
+      "name": "Front pouch",
+      "kind": "storage",
+      "grid": {
+        "columns": 6,
+        "rows": 4,
+        "cellMm": 25,
+        "depthMm": 60,
+        "maxMassGrams": 5000
+      },
+      "snug": false,
+      "defaultOpen": false,
+      "defaultDrop": false,
+      "accessMs": 500,
+      "accessAp": 2,
+      "spillProfile": "core:loose-movement"
+    }
+  ],
+  "closures": [
+    {
+      "id": "main-zip",
+      "targets": [
+        "main"
+      ],
+      "mechanism": "zipper",
+      "openVerb": "Unzip",
+      "secureVerb": "Zip",
+      "defaultOpen": false,
+      "secureOnViewClose": true,
+      "handleMs": 500,
+      "handleAp": 2
+    },
+    {
+      "id": "left-zip",
+      "targets": [
+        "left"
+      ],
+      "mechanism": "zipper",
+      "openVerb": "Unzip",
+      "secureVerb": "Zip",
+      "defaultOpen": false,
+      "secureOnViewClose": true,
+      "handleMs": 500,
+      "handleAp": 2
+    },
+    {
+      "id": "right-zip",
+      "targets": [
+        "right"
+      ],
+      "mechanism": "zipper",
+      "openVerb": "Unzip",
+      "secureVerb": "Zip",
+      "defaultOpen": false,
+      "secureOnViewClose": true,
+      "handleMs": 500,
+      "handleAp": 2
+    },
+    {
+      "id": "front-zip",
+      "targets": [
+        "front"
+      ],
+      "mechanism": "zipper",
+      "openVerb": "Unzip",
+      "secureVerb": "Zip",
+      "defaultOpen": false,
+      "secureOnViewClose": true,
+      "handleMs": 500,
+      "handleAp": 2
+    }
+  ],
+  "wear": {
+    "bodyFamily": "core:human-nine-shoulder",
+    "layer": 4,
+    "surfaces": [
+      "back",
+      "shoulders"
+    ],
+    "hexFootprint": [
+      [
+        -2,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        -2,
+        3
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "orientations": [
+      0,
+      60,
+      120,
+      180,
+      240,
+      300
+    ],
+    "coversAccess": true,
+    "blocksRemoval": true,
+    "outermost": true,
+    "appearanceTemplate": "core:body-surface-map"
+  },
+  "attachmentSurfaces": [
+    {
+      "id": "left-strap",
+      "interface": "core:strap-loop",
+      "hexMask": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "maxMassGrams": 750,
+      "allowedRotations": [
+        0,
+        60,
+        120,
+        180,
+        240,
+        300
+      ]
+    }
+  ]
+}

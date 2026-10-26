@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "status": "design-contract",
+  "id": "example:shirt",
+  "name": "Folded shirt",
+  "description": "Authoring example; not registered in the native field-kit profile.",
+  "massGrams": 200,
+  "materials": [
+    {
+      "id": "core:fabric",
+      "massFraction": 1
+    }
+  ],
+  "traits": [],
+  "forms": [
+    {
+      "id": "folded",
+      "envelopeMm": [
+        300,
+        100,
+        40
+      ],
+      "referenceCellMm": 100,
+      "squareShape": {
+        "columns": 3,
+        "rows": 1
+      },
+      "orientations": [
+        0,
+        90
+      ],
+      "sprite": "example:packed"
+    }
+  ],
+  "defaultForm": "folded",
+  "appearance": {
+    "inventory": "example:shirt",
+    "paperdollFront": "example:shirt-front",
+    "paperdollBack": "example:shirt-back",
+    "worldBinding": "core:shirt-body-projection"
+  },
+  "condition": {
+    "maximum": 100,
+    "default": 100,
+    "responses": [
+      "core:use-wear",
+      "core:material-damage"
+    ]
+  },
+  "crafting": {
+    "deconstructable": false,
+    "crafted": false,
+    "compositionPolicy": "none"
+  },
+  "stateDefaults": {},
+  "sources": [
+    "Original game design example; no SCP article claim."
+  ],
+  "wear": {
+    "bodyFamily": "core:human-nine-shoulder",
+    "layer": 0,
+    "surfaces": [
+      "torso-front",
+      "torso-back",
+      "arms"
+    ],
+    "hexFootprint": [
+      [
+        -4,
+        0
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        -4,
+        1
+      ],
+      [
+        -3,
+        1
+      ],
+      [
+        -2,
+        1
+      ],
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -2,
+        2
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        -4,
+        3
+      ],
+      [
+        -3,
+        3
+      ],
+      [
+        -2,
+        3
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "orientations": [
+      0,
+      60,
+      120,
+      180,
+      240,
+      300
+    ],
+    "coversAccess": true,
+    "blocksRemoval": true,
+    "outermost": false,
+    "appearanceTemplate": "core:body-surface-map"
+  }
+}

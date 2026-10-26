@@ -41,8 +41,8 @@ internal static class InventorySaveCodec
                 || work.CostAp < 1 || work.AbortReason is { Length: > 250 } || work.Position != world.Player.Position || world.Player.Moving)
                 throw new ArgumentException("Invalid inventory handling continuation.");
             // An interrupted action can remain paid while resolving; its original physical request must still be structurally valid.
-            if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap)
-                || duration != work.TotalMs || ap != work.CostAp)
+            if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)
+                || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))
                 throw new ArgumentException("Invalid inventory request or declared cost.");
             var tactical = world.Combat.Pending;
             if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)

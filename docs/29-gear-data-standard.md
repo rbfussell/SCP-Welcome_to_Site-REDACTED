@@ -1,0 +1,112 @@
+# Gear data standard and compartment packing
+
+Status: packing behavior below is implemented in the native prototype. The version-1 gear card is a **proposed authoring contract**, validated by a separate tool; it is not yet the public module loader or a replacement for the native DTOs. Body hex fitting, arbitrary attachments, folded-state changes, spillage, materials and inventory-backed weapons remain future implementation work.
+
+Use the [reusable author sheet](../templates/gear-data-sheet.md), [JSON Schema](../schemas/gear-definition.schema.json), [example cards](../examples/gear/backpack.json), and [validator](../tools/check_gear_data.py). This consolidates the [storage model](05-storage-and-logistics.md), [composition/crafting](16-item-composition-and-crafting.md), [wear standard](25-wear-layer-and-fit-standard.md), [appearance pipeline](26-wearable-appearance-pipeline.md), and [surface contract](28-wearable-metadata-and-surface-mapping.md). Earlier proposed numbers are not silently adopted as engine limits.
+
+## Player interaction contract
+
+| Intent | Result |
+|---|---|
+| Drop within an ordinary storage grid | Exact cursor cell and chosen horizontal/vertical orientation. Reject an overlap, bad edge or full placement; change nothing. |
+| Drop directly onto a different open container shown in its parent view | Select that container's authored default compartment, or its only compartment. Try a free slot, then repack that compartment only if necessary. |
+| Drop onto a highlighted pouch on the gear illustration | Address that exact compartment. Use the same free-fit/repack operation. |
+| Right-click → Arrange | Deliberately repack the selected compartment. Available from its blank grid, items inside it, or the container/pouch outside it. |
+| Spill | Random legal free placement, without rearrangement or automatic rotation. |
+
+Dropping over another container in a parent grid is a distinct container-target action: its outline identifies the target container. The ordinary exposed grid never invokes automatic repacking because of a failed placement. A container header is not a drop target. Dropping an item on a surface for the compartment it already occupies does not reorganize it; use exact placement or explicit Arrange.
+
+Multiple-compartment objects need an authored `DefaultDropRegion` for whole-object drops. The native backpack chooses main. A pouch segment always addresses its specific region. Closed/covered containers and inaccessible sources fail with a reason; neither dragging nor Arrange opens them for free. No action sorts a sibling pocket, another case's contents, or the whole facility.
+
+Automatic packing may choose either of the two storage orientations. Manual grid placement never changes the selected orientation. A container's descendants keep their own local placements and identities when that container moves.
+
+## Packing strategy and handling
+
+Research informs the separation of intent, not the internal solver. [Grim Dawn's official 1.1.4.1 notes](https://forums.crateentertainment.com/t/grim-dawn-version-1-1-4-1/87266) distinguish an auto-sort control from component transfer. [Path of Exile's official stash affinities](https://www.pathofexile.com/forum/view-thread/2986656) route transfers to a chosen destination. For this game's physical pockets, explicit local Arrange and deliberate container-target transfer provide useful distinct controls. Neither source is evidence for our packing algorithm.
+
+The native solver operates on rectangular item envelopes and the compartment's usable-cell mask:
+
+1. Check actual access, thickness, category filters, recursive mass and usable-cell area. If the item plus current contents exceed usable area, report full without searching.
+2. For insertion, search existing free space first. Preserve every existing placement if any legal direct fit exists.
+3. Otherwise, arrange largest footprint first, then longest dimension, then stable definition/instance IDs. Prefer compact positions near the upper-left with contact to occupied cells/edges. Backtrack where necessary.
+4. Validate the complete candidate graph, including parent load limits and hierarchy, before offering a plan.
+5. Quote handling time and combat AP for every moved item, including its source/destination ancestor access costs. Unchanged items cost nothing.
+6. Keep the current graph unchanged during paid work. At completion, revalidate revision, access and the exact plan; commit all moves atomically or fail unchanged.
+
+There is a 60,000-node and 200,000-position evaluation budget per native quote. These are provisional responsiveness bounds, not geometric capacity limits. A limit reports **search limit** and leaves contents unchanged; it must not falsely claim the container is full. This is a bounded deterministic packer, not a globally optimal space or minimum-handling solver. Already arranged compartments require no handling.
+
+Pause/local hold cannot provide free physical arranging. Tactical packing pays its actual AP; insufficient AP rejects before changes. Large arrangements currently must fit the supported single handling action; splitting packing over turns is future UX. Schema 11 persists the exact paid layout and rejects modified moves/costs during detached restore. Saves must match content identity.
+
+## One definition, many physical instances
+
+Definitions supply defaults and reusable rules. Instances supply actual parentage, orientation, condition, knowledge/provenance and current state. A compartment is a region belonging to one object, not a portable object created for every pocket. A removable pouch is a separate item attached to its carrier, with its own compartments.
+
+| Section / fields | Meaning and ownership |
+|---|---|
+| `schemaVersion`, namespaced `id`, `name`, `description`, `sources` | Stable author identity and reference provenance. Definition revisions/migrations must be handled by the eventual content loader. Current schema version is 1; status is explicitly `design-contract`. |
+| `massGrams`, `materials` | Empty object's own mass and material fractions. Contents are counted recursively exactly once. Material references and typed properties can drive magnetism, damage, temperature or module-specific effects. Material identity is not merely a durability category. |
+| `traits` | Namespaced special classes usable by other objects/functions/modules. A consumer evaluates the referenced traits; adding a tag alone does not implement an effect. |
+| `forms`, `defaultForm` | Independent packed/folded envelopes, reference square shape, reference cell size, sprite and optional transition handler. A form change is actual validated work. |
+| `appearance` | Inventory art, front/back doll surfaces, world binding, state art and segmented interaction polygons. Pixel dimensions are not physical storage dimensions. |
+| `compartments` | Stable IDs, storage/service-slot/feed kind, square grid or slot geometry, load, retention (`snug`), initial state, access costs and behavior references. Each has its own current state. |
+| `closures` | A named fastening and its targets, open/secure verbs, physical default, auto-secure-on-view-close default and handling costs. The player overrides the convenience behavior per fastening instance. |
+| `wear` | Body-family fit, layer, surface(s), footprint, contact/open-edge masks, orientation domain, covering/removal/overlap behavior, outermost rule and appearance binding. |
+| `attachmentSurfaces` | Offered interface, local hex shape and orientation/load limits. A child item may require such an interface; attachability does not follow from being small enough for storage. |
+| `condition` | Scale/default and references to use/damage response evaluators. Actual current condition belongs to the instance; future component-specific condition belongs to that component. |
+| `functions` | Explicit action handlers, parameters, required traits and requested host capabilities. They use validated transactions, not unrestricted mutation. |
+| `crafting` | Crafted/deconstructable flags, optional schematic/disassembly handler, and a separate composition policy. Does not expose every installed part as ordinary inventory. |
+| `stateDefaults`, `knowledgePolicy`, `extensions` | Bounded ordinary state defaults, optional knowledge policy, namespaced module extension fields. Unknown top-level misspellings fail validation. New behavior needs a handler/capability contract. |
+
+The [backpack instance example](../examples/gear/backpack.instance.json) demonstrates mutable state. Its parent relation distinguishes contained, service-installed, attached, worn, world and work-held membership. A future world/work parent is a real host-owned location, not an arbitrary extra item parent. Its `closures` are the authority for physical opening; compartment accessibility is derived from those gates plus coverings. Do not duplicate contradictory open booleans in both places. Compartments without a fastening use their declared accessibility rule/default. The present native model still stores region-open and garment-open booleans directly; migration must preserve meaning.
+
+The v1 checker accepts one closure gate per target, with an optional closure controlling several targets. Multiple locks/flaps in series require a later explicit gate expression, rather than ambiguous duplicate booleans. `garment-front` is a reserved wearable-opening target. Opening a jacket is distinct from opening its pocket. Default auto-secure is usually false for the garment front and true for a pocket, but is authored per fastening, not inferred from whether it uses buttons or a zipper. Menu verbs read the current physical boolean state.
+
+Materials and special traits may be unknown to an actor even when true in simulation. OSCP, tooltips and crafting previews must use acquired knowledge. A module requesting an anomalous alteration must supply a validated transaction and an explicit exception where ordinary conservation changes; it cannot corrupt inventory membership to obtain the effect.
+
+## Packed size, body size and segmented access
+
+Storage uses square cells and two orthogonal orientations. Worn/body and gear-attachment placement uses six 60° hex orientations; the grids can remain invisible in the finished UI. Different orientation domains are stored independently; rotating a shirt icon in a backpack does not rotate its worn placement.
+
+The shirt example is folded 3×1 and jacket 3×2 at an explicit 100 mm reference cell. These reference shapes express 300×100 mm and 300×200 mm packed envelopes. Native pockets currently use 25 mm cells and derive occupied cells from physical dimensions; a coarse three-cell shirt is not three of those small pocket cells. Every placement rescales/rounds the physical envelope for the destination. Garment folding and its visual/state transition have not yet been implemented.
+
+Proposed next fit fixture: nine hexes across human shoulders, within the user's seven-to-nine range. This is a body-family resolution proposal, not a universal body size. Shape/contact/open-edge tests must qualify shoulders, neck/arm openings, trousers, straps and crossed belts. Tiny attachment hardware can use finer provider-local anchors/coordinates rather than forcing every button or clip into a shoulder-scale body hex. Concrete refinement resolution remains to be tested. Example masks are authoring placeholders, not accepted production silhouettes.
+
+Access coverage, removal obstruction, overlap and visual opacity are separate masks transformed with position and orientation. A jacket covering a trouser side-pocket mouth can block that pocket while leaving a lower cargo pocket accessible. The future test compares **the affected segment's body-surface footprint**, not the entire pair of trousers or all opaque sprite pixels. Opening the jacket changes its authored surfaces/gates and can expose those segments; removing a restraining belt may still be required to remove the trousers. Compatible belts may overlap, permit pocket access and obstruct removal beneath them.
+
+Polygons in inventory/gear art are normalized to that sprite's cropped source rectangle. They refer to compartment, closure or attachment surface IDs. The view's shared image transform maps them to screen; a separate authored/baked body-surface mapping projects their access footprint to the doll. Current native hover polygons work; the complete hex projection/overlap solver is future work. Linked front/back/strap surfaces remain one item. World clothing composition needs shared pose maps or authored overlays; a single front image cannot invent a bulky object's back/side silhouette.
+
+## Assembled gun, magazine and rounds
+
+Confirmed user clarification: the ordinary **assembled gun has a magazine slot; the inserted magazine contains rounds**. This is ordinary functional containment, independent of unassembled weapons and the separate crafting/composition system. Reloading does not require taking the whole gun apart. An assembled weapon is not a box of loose barrel/trigger parts exposed through Open.
+
+The [assembled gun](../examples/gear/service-pistol.json) and [magazine](../examples/gear/magazine.json) cards illustrate a service slot and an ordered feed. There is one physical membership for the magazine and each round. A feed can be physically exposed for loading yet `snug=true` through retention; these are independent concepts.
+
+A magazine provides physical envelope, capacity, retention and feed behavior. A round's physical fit and ability to be loaded are distinct from whether a gun can use it correctly. The **weapon's function** evaluates the actual fed round's class, traits, condition and fictional effect ratings, then applies content-authored normal behavior or fault outcomes. Do not put a universal caliber blacklist in the generic container system. Envelope/shape/interface checks still reject physically impossible insertion; this does not promise every ammunition type can load into every magazine.
+
+Jam, misfire, reduced effect and equipment damage can be authored game outcomes. No percentages or weapon-specific compatibility rules are settled by these examples. The native tactical sidearm remains a nonlethal training fixture, not this item-backed feed implementation. Internal disassembly, part access and composition stay under the separate crafting design.
+
+## Spillage contract for a later slice
+
+`snug=true` retains contents even when open. `snug=false` makes an actually open region eligible to spill when jostled. It does not mean an item spills on every frame or every move. There is no fixed spill-rate tuning yet.
+
+- Evaluate from local movement/jostling events or accumulated distance, independent of render rate. Save deterministic random state/counters and the event identity. Local tactical input waits, pauses and holds generate no movement-driven spills.
+- Weight and physical size affect likelihood: light/small items have higher rates, and running increases the rate. An outer backpack evaluates a heavy loaded box using its recursive loaded mass, so it cannot trail boxes at a loose-bullet rate. Opening geometry/orientation can constrain eligibility.
+- A bullet leaving an open box inside a backpack attempts a random **currently free legal** placement in that backpack region. Preserve its existing storage orientation; do not pack, rotate it to find room, move other items, or invoke Arrange. Random placement should not favor an ordered upper-left arrangement.
+- If there is no free valid placement, it stays in the box. A failed inner spill never searches an ancestor or deletes an item. Source and destination change atomically, retaining identity and accounting.
+- The surrounding backpack independently evaluates whether its own contents can spill through its opening. A closed backpack can receive a spill inside it but cannot spill outward through its closed boundary. An open spillable backpack may later spill onto a valid ground location.
+- Each movement event uses an eligibility snapshot and an at-most-once item check. No same-event box → backpack → ground cascade. Newly arrived items become candidates on a later event; existing outer items may be evaluated independently.
+- World/ground placement must use the shared map inventory transaction and collision/capacity checks. If no valid ground destination exists, retain the item. Actual actor-held boxes, containers on vehicles and anomalous handling can supply their own jostle contexts through the same service.
+
+Qualification must cover a full receiving backpack retaining the bullet, an open box inside a closed backpack, independent outward spilling, weighted/run frequency under a seeded sample, paused replay, masks/capacity and no duplicate or reorganized items. This turn implements packing and the data contract; it does not claim the spill simulator or run gait is already present.
+
+## Validation and rollout
+
+```sh
+python3 tools/check_gear_data.py
+python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/inventory-packing.png
+```
+
+The gear checker requires Python `jsonschema` (Draft 2020-12), available in the development environment. It validates six cards plus one instance, stable nested IDs/references, masks, default destinations, material fractions and orientation domains, with invalid-card fixtures. It does not resolve handler registries or art assets; the example references are illustrative logical IDs. Native inventory content still loads through its own strict `InventoryContentValidation` path. The public mod loader, catalogs of material/trait/function semantics and migration adapters need their own bounded milestone.
+
+The C# [packing checks](../tests/SpatialChecks/InventoryPackingChecks.cs) qualify direct fit, fragmentation/repack, area-vs-shape failure, masks, unchanged exact drops, nested identity, scope, access, determinism, handling/AP, pause/cancel and forged-save rejection. The [native input proof](../game/Presentation/SpatialScene.PackingSmoke.cs) exercises actual container/pouch drag-and-drop, right-click Arrange entry points, paused rejection and paid execution alongside the existing manual-placement suite.

@@ -35,6 +35,7 @@ public sealed class InventoryState
         Regions.AddRange(other.Regions); Revision = other.Revision;
     }
     public ItemDefinition Definition(string id) => Content!.Definitions.Single(d => d.Id == Items[id].DefinitionId);
+    public string Name(string id) => Items.ContainsKey(id) ? Definition(id).Name : Content!.Roots.Single(r => r.Id == id).Name;
     public StorageRegion Region(string parentId, string regionId) => (Items.ContainsKey(parentId) ? Definition(parentId).Regions! : Content!.Roots.Single(r => r.Id == parentId).Regions)
         .Single(r => r.Id == regionId);
     public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;

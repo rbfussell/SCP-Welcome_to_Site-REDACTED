@@ -213,7 +213,8 @@
           }
         ],
         "outermost": true
-      }
+      },
+      "defaultDropRegion": "main"
     },
     {
       "id": "phone",

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "status": "design-contract",
+  "id": "example:service-pistol",
+  "name": "Assembled training pistol",
+  "description": "Authoring example; not registered in the native field-kit profile.",
+  "massGrams": 700,
+  "materials": [
+    {
+      "id": "core:steel",
+      "massFraction": 0.6
+    },
+    {
+      "id": "core:polymer",
+      "massFraction": 0.4
+    }
+  ],
+  "traits": [
+    "core:assembled-equipment"
+  ],
+  "forms": [
+    {
+      "id": "packed",
+      "envelopeMm": [
+        200,
+        200,
+        40
+      ],
+      "referenceCellMm": 100,
+      "squareShape": {
+        "columns": 2,
+        "rows": 2
+      },
+      "orientations": [
+        0,
+        90
+      ],
+      "sprite": "example:packed"
+    }
+  ],
+  "defaultForm": "packed",
+  "appearance": {
+    "inventory": "example:service-pistol"
+  },
+  "condition": {
+    "maximum": 100,
+    "default": 100,
+    "responses": [
+      "core:use-wear",
+      "core:material-damage"
+    ]
+  },
+  "crafting": {
+    "deconstructable": false,
+    "crafted": false,
+    "compositionPolicy": "sealed-work-record"
+  },
+  "stateDefaults": {},
+  "sources": [
+    "Original game design example; no SCP article claim."
+  ],
+  "compartments": [
+    {
+      "id": "magazine-well",
+      "name": "Magazine well",
+      "kind": "service-slot",
+      "slot": {
+        "interface": "example:magazine-interface",
+        "count": 1,
+        "maxMassGrams": 1500
+      },
+      "snug": true,
+      "defaultOpen": true,
+      "accessMs": 700,
+      "accessAp": 3,
+      "accessFunction": "core:reload-magazine"
+    }
+  ],
+  "functions": [
+    {
+      "id": "core:fire",
+      "handler": "example:fictional-firearm",
+      "capabilities": [
+        "inventory:consume-feed",
+        "world:apply-effect",
+        "inventory:spawn-remnant"
+      ],
+      "parameters": {
+        "acceptedRoundClass": "example:training-round",
+        "incompatibleRoundEvaluator": "example:game-fault-policy",
+        "deriveEffectsFromActualRound": true
+      }
+    }
+  ]
+}

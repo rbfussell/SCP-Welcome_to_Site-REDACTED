@@ -46,7 +46,7 @@ An assembled item retains a composition record but does **not** expose all insta
 
 Completing assembly changes accessibility and available actions; it does not erase provenance or magically create an unrelated item from its name. Disassembly is a validated work action that exposes/reclaims actual parts and materials. Required tools, competence, damage, losses and irreversible joins are content rules. A completed item cannot be emptied for free through a generic container command. A multi-select “disassemble and empty” request expands into real accessible work, then ordinary transfers/splits, with capacity/staging checks.
 
-Whether explicitly designed service slots may remain accessible without full disassembly—for example a replaceable radio battery—is awaiting the user's answer. Proposed service ports would grant only their named access, leaving other installed components sealed. This must not silently turn every assembly into an open container.
+The user clarified that an ordinary assembled gun has a functional magazine slot and the magazine contains rounds. This is normal service containment, separate from crafting or unassembled weapons; reloading does not require disassembly. Other explicitly authored service interfaces may follow this pattern, while unrelated installed parts remain sealed. See the [gear standard](29-gear-data-standard.md).
 
 ## Assemble from components and properties
 

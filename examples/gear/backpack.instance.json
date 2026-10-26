@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "backpack-0001",
+  "definition": "example:backpack",
+  "form": "packed",
+  "condition": 85,
+  "parent": {
+    "id": "person:avatar",
+    "relation": "worn",
+    "region": "back",
+    "orientation": 0
+  },
+  "compartments": {
+    "main": {
+      "state": {}
+    },
+    "left": {
+      "state": {}
+    },
+    "right": {
+      "state": {}
+    },
+    "front": {
+      "state": {}
+    }
+  },
+  "closures": {
+    "main-zip": {
+      "open": false,
+      "secureOnViewCloseOverride": null
+    },
+    "left-zip": {
+      "open": false,
+      "secureOnViewCloseOverride": null
+    },
+    "right-zip": {
+      "open": false,
+      "secureOnViewCloseOverride": null
+    },
+    "front-zip": {
+      "open": false,
+      "secureOnViewCloseOverride": null
+    }
+  },
+  "state": {},
+  "provenance": [
+    "spawn:example-fixture"
+  ]
+}

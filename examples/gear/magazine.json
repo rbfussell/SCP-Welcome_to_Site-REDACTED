@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "design-contract",
+  "id": "example:magazine",
+  "name": "Detachable magazine",
+  "description": "Authoring example; not registered in the native field-kit profile.",
+  "massGrams": 170,
+  "materials": [
+    {
+      "id": "core:steel",
+      "massFraction": 1,
+      "properties": {
+        "ferromagnetic": true
+      }
+    }
+  ],
+  "traits": [
+    "example:magazine-interface"
+  ],
+  "forms": [
+    {
+      "id": "packed",
+      "envelopeMm": [
+        100,
+        200,
+        40
+      ],
+      "referenceCellMm": 100,
+      "squareShape": {
+        "columns": 1,
+        "rows": 2
+      },
+      "orientations": [
+        0,
+        90
+      ],
+      "sprite": "example:packed"
+    }
+  ],
+  "defaultForm": "packed",
+  "appearance": {
+    "inventory": "example:magazine"
+  },
+  "condition": {
+    "maximum": 100,
+    "default": 100,
+    "responses": [
+      "core:use-wear",
+      "core:material-damage"
+    ]
+  },
+  "crafting": {
+    "deconstructable": false,
+    "crafted": false,
+    "compositionPolicy": "none"
+  },
+  "stateDefaults": {},
+  "sources": [
+    "Original game design example; no SCP article claim."
+  ],
+  "compartments": [
+    {
+      "id": "feed",
+      "name": "Round feed",
+      "kind": "feed",
+      "slot": {
+        "interface": "core:round-envelope",
+        "count": 10,
+        "maxMassGrams": 1000
+      },
+      "snug": true,
+      "defaultOpen": true,
+      "accessMs": 500,
+      "accessAp": 2,
+      "accessFunction": "core:load-feed"
+    }
+  ],
+  "functions": [
+    {
+      "id": "core:feed",
+      "handler": "core:ordered-feed",
+      "capabilities": [
+        "inventory:validated-transfer"
+      ],
+      "parameters": {
+        "retention": "spring",
+        "caliberUseValidation": "consumer"
+      }
+    }
+  ]
+}

@@ -55,6 +55,11 @@ public sealed partial class SpatialSimulation
         var allowed = InventoryActions.Validate(_world, Player.Id, request, out var reason, out var duration, out var ap);
         return new(allowed, reason, duration, ap);
     }
+    public InventoryPackingQuote QuoteInventoryPacking(InventoryRequest request)
+    {
+        var allowed = InventoryActions.Validate(_world, Player.Id, request, out var reason, out var duration, out var ap, out var plan);
+        return new(allowed, reason, duration, ap, plan);
+    }
     public string InventoryCost(InventoryRequest request) => InventoryActions.Validate(_world, Player.Id, request, out var reason, out var duration, out var ap)
         ? $"{duration / 1000.0:0.00}s · {ap} AP in combat" : reason;
     public bool HandleInventory(InventoryRequest request)

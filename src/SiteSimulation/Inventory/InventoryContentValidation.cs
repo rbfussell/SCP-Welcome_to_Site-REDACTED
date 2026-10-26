@@ -26,6 +26,7 @@ internal static class InventoryContentValidation
                 || d.WidthMm is <= 0 or > 1000 || d.LengthMm is <= 0 or > 1000 || d.ThicknessMm is <= 0 or > 1000
                 || d.MassGrams is < 0 or > 100000 || d.HandleMs is < 50 or > 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
                 || d.HandleAp is < 1 or > 5 || d.Wear is not null && !WearValid(d.Wear)
+                || d.DefaultDropRegion is not null && d.Regions?.Any(r => r is not null && r.Id == d.DefaultDropRegion && r.MountSlot is null) != true
                 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
             || c.Definitions.Select(d => d.Id).Distinct().Count() != c.Definitions.Length
             || c.Roots.Any(r => r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region => !RegionValid(region))

@@ -4,7 +4,7 @@ using SiteSimulation;
 namespace SitePresentation;
 
 internal sealed record InventoryDropPreview(InventoryGrid Grid, string ItemId, InventoryRequest Request,
-    InventoryActionQuote Quote, Rect2 Bounds);
+    InventoryActionQuote Quote, Rect2 Bounds, bool IntoContainer = false);
 
 /// <summary>A physical compartment view: no transfers, capacity decisions or clock progression in drawing.</summary>
 public partial class InventoryGrid : Control
@@ -41,7 +41,7 @@ public partial class InventoryGrid : Control
             var destination = preview.Request.Destination!;
             var width = (int)Math.Round(preview.Bounds.Size.X / CellPixels);
             var height = (int)Math.Round(preview.Bounds.Size.Y / CellPixels);
-            for (var y = Math.Max(0, destination.Y); y < Math.Min(region.Rows, destination.Y + height); y++)
+            for (var y = Math.Max(0, destination.Y); !preview.IntoContainer && y < Math.Min(region.Rows, destination.Y + height); y++)
             for (var x = Math.Max(0, destination.X); x < Math.Min(region.Columns, destination.X + width); x++)
             {
                 var cell = new Rect2(Origin + new Vector2(x, y) * CellPixels, Vector2.One * CellPixels);
@@ -69,7 +69,7 @@ public partial class InventoryGrid : Control
             DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), "Covered", fontSize: 12, modulate: new("c99c76"));
         if (preview is not null)
         {
-            InventoryArt.Draw(this, state.Definition(preview.ItemId).Id, preview.Bounds.Grow(-3), preview.Request.Destination!.Rotated, 0.85f);
+            if (!preview.IntoContainer) InventoryArt.Draw(this, state.Definition(preview.ItemId).Id, preview.Bounds.Grow(-3), (preview.Request.Destination!).Rotated, 0.85f);
             DrawRect(preview.Bounds.Grow(-1), preview.Quote.Allowed ? new("69d89a") : new("ef8275"), false, 2);
         }
     }
@@ -94,7 +94,8 @@ public partial class InventoryGrid : Control
         if (e is not InputEventMouseButton { Pressed: true } mouse) return;
         var picked = Pick(mouse.Position);
         if (mouse.ButtonIndex == MouseButton.Right)
-        { if (picked is not null) Panel.Context(picked.Id, null, GetGlobalMousePosition()); AcceptEvent(); return; }
+        { if (picked is not null) Panel.Context(picked.Id, null, GetGlobalMousePosition());
+          else if (!IsPaperdoll) Panel.ContainerContext(ParentId, RegionId, GetGlobalMousePosition()); AcceptEvent(); return; }
         if (mouse.ButtonIndex == MouseButton.Left && mouse.DoubleClick)
         { if (picked is not null) { Panel.Select(picked.Id); Panel.Inspect(picked.Id); } AcceptEvent(); return; }
         if (mouse.ButtonIndex != MouseButton.Left) return;
@@ -126,16 +127,29 @@ public partial class InventoryGrid : Control
         return Panel.DropPreview?.Quote.Allowed == true;
     }
     public override void _DropData(Vector2 atPosition, Variant data) { if (OS.GetCmdlineUserArgs().Contains("--inventory-smoke")) GD.Print("INVENTORY_DRAG_DROP: " + data.AsString()); Place(data.AsString(), atPosition); }
-    private void Place(string id, Vector2 position) { Panel.Simulation.HandleInventory(Request(id, position)); Panel.ShowReceipt(); }
+    private void Place(string id, Vector2 position)
+    { Panel.Simulation.HandleInventory(PreviewAt(id, position)?.Request ?? Request(id, position)); Panel.ShowReceipt(); }
 
     internal InventoryDropPreview? PreviewAt(string id, Vector2 position)
     {
+        if (Pick(position) is { } container && container.Id != id && Panel.DefaultDropRegion(container.Id) is { } interior)
+        {
+            var (cw, ch) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(container.Id), Region, container.Placement.Rotated);
+            return AutoPreview(id, container.Id, interior,
+                new(Origin + new Vector2(container.Placement.X, container.Placement.Y) * CellPixels, new Vector2(cw, ch) * CellPixels));
+        }
         if (!new Rect2(Origin, new Vector2(Region.Columns, Region.Rows) * CellPixels).HasPoint(position)) return null;
         // The cursor cell is the footprint's top-left anchor. Drawing and committing use this same request.
         var request = Request(id, position);
         var (w, h) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(id), Region, request.Destination!.Rotated);
         var bounds = new Rect2(Origin + new Vector2(request.Destination.X, request.Destination.Y) * CellPixels, new Vector2(w, h) * CellPixels);
         return new(this, id, request, Panel.Simulation.QuoteInventory(request), bounds);
+    }
+    private InventoryDropPreview AutoPreview(string id, string owner, string region, Rect2 targetBounds)
+    {
+        var request = new InventoryRequest(InventoryActionKind.AutoPlace, id, new(owner, region));
+        var quote = Panel.Simulation.QuoteInventoryPacking(request);
+        return new(this, id, request, new(quote.Allowed, quote.Reason, quote.DurationMs, quote.Ap), targetBounds, IntoContainer: true);
     }
 }
 
