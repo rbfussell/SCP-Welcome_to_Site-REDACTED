@@ -26,6 +26,7 @@ internal static class InventoryContentValidation
                 || d.WidthMm is <= 0 or > 1000 || d.LengthMm is <= 0 or > 1000 || d.ThicknessMm is <= 0 or > 1000
                 || d.MassGrams is < 0 or > 100000 || d.HandleMs is < 50 or > 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
                 || d.HandleAp is < 1 or > 5 || d.Wear is not null && !WearValid(d.Wear)
+                || d.Wear?.FitProfile is { } fit && !state.BodyFits!.Content.Shapes.Any(s => s.Id == fit)
                 || d.DefaultDropRegion is not null && d.Regions?.Any(r => r is not null && r.Id == d.DefaultDropRegion && r.MountSlot is null) != true
                 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
             || c.Definitions.Select(d => d.Id).Distinct().Count() != c.Definitions.Length
@@ -33,6 +34,7 @@ internal static class InventoryContentValidation
                 || r.Regions.Select(region => region.Id).Distinct().Count() != r.Regions.Length || r.MaxMassGrams is <= 0 or > 100000
                 || (r.ActorId is null) == (r.PropId is null) || r.ActorId is not null && !world.Actors.Any(a => a.Id == r.ActorId)
                 || r.PropId is not null && !world.Map.Definition.Props.Any(p => p.Id == r.PropId))
+            || c.Roots.Any(r => r.BodyFamily is not null && !state.BodyFits!.Content.Bodies.Any(b => b.Id == r.BodyFamily))
             || c.Roots.Select(r => r.Id).Distinct().Count() != c.Roots.Length
             || c.Items.Any(i => i is null || !Id(i.Id) || !c.Definitions.Any(d => d.Id == i.DefinitionId)
                 || c.Roots.Any(r => r.Id == i.Id)) || c.Items.Select(i => i.Id).Distinct().Count() != c.Items.Length)

@@ -2,7 +2,7 @@
 
 Status: Bounded native implementation, October 25, 2026. This is the first personal equipment/nearby-container slice, not complete inventory/logistics/crafting or STO-01–10 acceptance.
 
-The user subsequently revises navigation to [three fixed views, explicit securing and hex-body shape fitting](27-three-view-inventory-and-body-fit.md). That contract supersedes expanding-column navigation. The runtime implements that three-view navigation and paid automatic securing. Esc remains interface-only; body-hex fitting and animated clothing remain proposed.
+The user subsequently revises navigation to [three fixed views, explicit securing and hex-body shape fitting](27-three-view-inventory-and-body-fit.md). That contract supersedes expanding-column navigation. The runtime implements that three-view navigation and paid automatic securing. Esc remains interface-only. The [first body-mask/contact fit view](30-body-fit-prototype.md) now adds geometric validation and paid fitting alongside legacy mounts; geometric pocket obstruction and animated clothing remain future work.
 
 ## Playing it
 
@@ -71,7 +71,7 @@ A separate equipment-ready property allows pockets/hand mounts to supply quick c
 
 Both current scenarios explicitly select the native `field-kit-v1` profile. Its [JSON content](../src/SiteSimulation/Inventory/Content/field-kit.json) is an embedded resource available without Godot or sibling UI scenes. The profile registry is a bounded content fixture, not the public mod loader. Content is included in the save identity; changing dimensions/costs/loadouts invalidates an old matching-content claim. Item art is separate and does not enter gameplay identity.
 
-Outer schema **11** retains items, placements, compartment states, revision, pending handling, each garment’s open/fastened state, per-instance/compartment securing overrides, remaining securing intent and exact pending packing plans. Matching schema-8 inventory snapshots migrate with an empty close queue, and matching older snapshots without overrides inherit authored fastening defaults. Authored coverage, layer and mount profiles remain part of content identity alongside existing employment, orders, journal and tactical state. Restore validates the entire detached graph and checks inventory/tactical schedules agree before replacing the running world. Matching scenarios without inventory retain the earlier supported migration paths; current profiles require their real inventory snapshot. The changed scene/catalog identity requires fresh saves. SCP-650 module schema remains 2.
+Outer schema **12** retains items, placements, compartment states, revision, pending handling, each garment’s open/fastened state, per-instance/compartment securing overrides, remaining securing intent and exact pending packing plans, plus optional worn body coordinates and pending fit destinations. Matching schema-8 inventory snapshots migrate with an empty close queue, and matching older snapshots without overrides inherit authored fastening defaults. Authored coverage, layer and mount profiles remain part of content identity alongside existing employment, orders, journal and tactical state. Restore validates the entire detached graph and checks inventory/tactical schedules agree before replacing the running world. Matching scenarios without inventory retain the earlier supported migration paths; current profiles require their real inventory snapshot. The changed scene/catalog identity requires fresh saves. SCP-650 module schema remains 2.
 
 Warmth/protection effects, layered clothing on actor sprites, garment folding, consumption, stacking/splitting, materials, composition, crafting, injuries/wear, tools/treatments/lighting from inventory items, weapon/ammunition integration, two hands, other specialized fixture layouts and automated logistics remain future work. The existing nonlethal combat sidearm is still a training fixture, not an inventory-backed weapon. This slice establishes the reusable membership/access/handling foundation for those features.
 
@@ -89,3 +89,7 @@ python3 tools/run_spatial_scene.py --oscp-smoke work/preview/spatial-scene/inven
 ## Scoped packing update
 
 [Container-target packing and the gear standard](29-gear-data-standard.md) distinguish exact manual grid placement from deliberate drops onto a different open container or pouch. Container drops use free space first, then rearrange only the addressed compartment if necessary. Right-click Arrange is available on blank grid, its items, or the external container/pouch. Every moved item pays handling time/AP; completion is atomic and saveable. Failed manual drops and spills never invoke rearrangement. Spillage itself remains future work.
+
+## Body fitting update
+
+Press **Body fit · hex view** in the left panel to inspect the authored nine-shoulder-cell silhouette, move a clothing anchor and rotate it in sixth turns. **Fit / equip** uses the ordinary timed/AP-bearing Move command. Body poses and physical storage envelopes are independent. [The body-fit guide](30-body-fit-prototype.md) explains controls, mask authoring and the remaining coverage/attachment boundaries.

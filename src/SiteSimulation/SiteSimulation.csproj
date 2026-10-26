@@ -7,5 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Inventory/Content/field-kit.json" />
+    <EmbeddedResource Include="Inventory/Content/body-fit.json" />
   </ItemGroup>
 </Project>

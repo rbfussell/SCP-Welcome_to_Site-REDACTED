@@ -19,6 +19,11 @@ public partial class InventoryPanel : Control
     private readonly List<Action> _contextUpdates = [];
     internal InventoryBrowser Browser => _browser;
     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
+    private InventoryBodyFitPanel _bodyFit = null!;
+    private Button _bodyFitToggle = null!;
+    private VBoxContainer _equipmentActions = null!;
+    internal InventoryBodyFitPanel BodyFit => _bodyFit;
+    internal Button BodyFitToggle => _bodyFitToggle;
     private ScrollContainer _wornScroll = null!;
     private OptionButton _layerView = null!;
     internal bool ShowCoveredLayers => _layerView.Selected != 0;
@@ -45,6 +50,7 @@ public partial class InventoryPanel : Control
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
         Label(worn, "PAPERDOLL / WORN & HELD", 16);
+        _bodyFitToggle = Button(worn, "Body fit · hex view", ToggleBodyFit);
         _layerView = new OptionButton { FocusMode = FocusModeEnum.None }; worn.AddChild(_layerView);
         _layerView.AddItem("Layers: exposed equipment"); _layerView.AddItem("Layers: all worn equipment");
         for (var layer = 0; layer <= 9; layer++) _layerView.AddItem($"Layer {layer} · inspect");
@@ -54,23 +60,25 @@ public partial class InventoryPanel : Control
             CustomMinimumSize = new(234, 280), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
         foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front" }) AddGrid(mounts, "person:avatar", slot, 90);
-        _garmentToggle = new Button { Text = "Open / fasten selected garment", FocusMode = FocusModeEnum.None }; worn.AddChild(_garmentToggle);
+        _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);
+        _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);
+        _garmentToggle = new Button { Text = "Open / fasten selected garment", FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);
         _garmentToggle.Pressed += ToggleGarment;
-        _takeInHand = Button(worn, "Take selected in hand", () => MoveSelectedTo("hand"));
-        _wearDefault = Button(worn, "Wear selected (default mount)", () =>
+        _takeInHand = Button(_equipmentActions, "Take selected in hand", () => MoveSelectedTo("hand"));
+        _wearDefault = Button(_equipmentActions, "Wear selected (default mount)", () =>
         {
             if (SelectedItem is { } id && Simulation.Inventory.Definition(id).WearSlot is { } slot) MoveSelectedTo(slot);
         });
-        Button(worn, "Rotate selected object  R", Rotate);
-        Button(worn, "Inspect selected container", () => { if (SelectedItem is { } id) Inspect(id); });
-        Button(worn, "Switch selected power", () =>
+        Button(_equipmentActions, "Rotate selected object  R", Rotate);
+        Button(_equipmentActions, "Inspect selected container", () => { if (SelectedItem is { } id) Inspect(id); });
+        Button(_equipmentActions, "Switch selected power", () =>
         {
             if (SelectedItem is not { } id) return;
             var item = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id);
             Simulation.HandleInventory(new(item.Powered ? InventoryActionKind.PowerOff : InventoryActionKind.PowerOn, id)); ShowReceipt();
         });
-        Button(worn, "Cancel handling", () => { Simulation.CancelInventoryHandling(); ShowReceipt(); });
-        Button(worn, "Nearby supply crate", () => Inspect("fixture:crate-a"));
+        Button(_equipmentActions, "Cancel handling", () => { Simulation.CancelInventoryHandling(); ShowReceipt(); });
+        Button(_equipmentActions, "Nearby supply crate", () => Inspect("fixture:crate-a"));
         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);
         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);
         Label(storageHeader, "GEAR & CONTENTS / TWO INDEPENDENT TRAILS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -105,12 +113,20 @@ public partial class InventoryPanel : Control
     {
         if (!Simulation.Inventory.Enabled) return false;
         Visible = true; _lastReceiptId = -1; _browser.Clear();
+        SetBodyFit(false);
         _wornScroll.ScrollVertical = 0;
         _layerView.Select(0);
         SelectedItem = null; Rotated = false;
         _detail.Text = "Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.";
         Refresh(); return true;
     }
+    private void SetBodyFit(bool enabled)
+    {
+        _bodyFit.Visible = enabled; _wornScroll.Visible = _layerView.Visible = _equipmentActions.Visible = !enabled;
+        _bodyFitToggle.Text = enabled ? "Equipment slots" : "Body fit · hex view";
+        if (enabled) _bodyFit.Refresh();
+    }
+    private void ToggleBodyFit() { CancelDragPreview(); SetBodyFit(!_bodyFit.Visible); }
     internal InventoryGrid FindGrid(string parentId, string regionId) => Grids(this).First(g => g.ParentId == parentId && g.RegionId == regionId);
     private static IEnumerable<InventoryGrid> Grids(Node parent)
     {
@@ -170,7 +186,7 @@ public partial class InventoryPanel : Control
             + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
             + (definition.Capability is not null && !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? " · unavailable until accessible and powered" : "");
     }
-    public void Rotate() { if (SelectedItem is null) return; Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
+    public void Rotate() { if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; } if (SelectedItem is null) return; Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
     public void Inspect(string id)
     {
         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;
@@ -280,7 +296,7 @@ public partial class InventoryPanel : Control
         if (!Visible) return;
         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);
         _clock.Text = Simulation.ManualPause ? "MANUAL PAUSE" : Simulation.Combat.Active ? $"TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP" : $"REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s";
-        _browser.Refresh();
+        _browser.Refresh(); _bodyFit.Refresh();
         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: > 0 };
         _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + " selected garment" : "Garment fastening";
         if (SelectedItem is { } current) _detail.Text = Describe(current);

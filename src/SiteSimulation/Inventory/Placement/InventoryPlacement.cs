@@ -19,6 +19,7 @@ public static class InventoryPlacement
                 throw new ArgumentException(region.Name + " accepts only matching wearable equipment");
             if (region.AcceptTags is { Length: > 0 } tags && !definition.Tags.Any(tags.Contains))
                 throw new ArgumentException(region.Name + " rejects this item category");
+            InventoryBodyFit.Validate(state, item);
             var (width, height) = Footprint(definition, region, p.Rotated);
             if (p.X < 0 || p.Y < 0 || p.X + width > region.Columns || p.Y + height > region.Rows
                 || region.MountSlot is null && definition.ThicknessMm > region.HeightMm)

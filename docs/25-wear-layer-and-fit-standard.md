@@ -1,6 +1,6 @@
 # Wear layers and fit standard
 
-Status: October 25, 2026. User-confirmed direction: base garments occupy layer 0; outer items have a predictable wearing order; fitting something over another item depends on its construction. The example ordering below records the user's intended game behavior. Fit-profile fields, compatibility defaults and discomfort effects are proposed. This does not add accessory items or a fit solver to the running game.
+Status: October 25, 2026. User-confirmed direction: base garments occupy layer 0; outer items have a predictable wearing order; fitting something over another item depends on its construction. The example ordering below records the user's intended game behavior. Fit-profile fields, compatibility defaults and discomfort effects are proposed. This document does not add accessory items or a clearance/stretch solver. A subsequent [body-mask/contact fixture](30-body-fit-prototype.md) now qualifies basic geometric fit separately.
 
 This extends [body equipment and container navigation](24-body-equipment-and-container-navigation.md). The current runtime already validates authored layers, body coverage, fastening, dressing order and outermost packs. It does not yet implement the fit/comfort details described here.
 
@@ -54,4 +54,4 @@ An author should be able to choose a standard body location and fit family, rece
 
 Before publishing the accessory standard, each profile needs examples of allowed, rejected and awkward stacks; checks for both attempted wearing orders; overlap with adjacent equipment; total bulk/load; fastening/access changes; and save/restore. Existing outermost-pack rules remain mandatory. A valid final stack does not bypass the physical dressing sequence: placing a cap underneath an already worn toque still requires clearing the outer headwear first.
 
-The next implementation step is reusable fit metadata and validation over the existing equipment graph. A general cloth simulation, bespoke code for every item pair, new art for every combination and completed comfort/protection systems are not prerequisites for that bounded step.
+Basic body-mask/contact metadata now validates the existing equipment graph in the [first fit slice](30-body-fit-prototype.md). The next accessory work is reusable clearance/fit-family metadata and its full-stack checks. A general cloth simulation, bespoke code for every item pair, new art for every combination and completed comfort/protection systems are not prerequisites for that bounded step.

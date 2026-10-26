@@ -8,6 +8,7 @@ public sealed class InventoryState
     public const string FieldProfile = "field-kit-v1";
     public bool Enabled => Content is not null;
     public InventoryContent? Content { get; }
+    public BodyFitCatalog? BodyFits { get; }
     internal string ContentJson { get; } = "";
     internal Dictionary<string, InventoryItem> Items { get; } = new(StringComparer.Ordinal);
     internal List<RegionState> Regions { get; } = [];
@@ -25,12 +26,14 @@ public sealed class InventoryState
         ContentJson = new StreamReader(stream).ReadToEnd();
         Content = JsonSerializer.Deserialize<InventoryContent>(ContentJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
             ?? throw new ArgumentException("Empty inventory content.");
+        BodyFits = new BodyFitCatalog();
+        ContentJson += "\nBODY-FIT\n" + BodyFits.Source;
         foreach (var item in Content.Items) Items.Add(item.Id, item);
         Regions.AddRange(Content.Regions);
     }
     internal InventoryState(InventoryState other)
     {
-        Content = other.Content; ContentJson = other.ContentJson;
+        Content = other.Content; ContentJson = other.ContentJson; BodyFits = other.BodyFits;
         foreach (var item in other.Items.Values) Items.Add(item.Id, item);
         Regions.AddRange(other.Regions); Revision = other.Revision;
     }

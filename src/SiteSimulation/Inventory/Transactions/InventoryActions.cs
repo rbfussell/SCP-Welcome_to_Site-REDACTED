@@ -28,7 +28,7 @@ internal static class InventoryActions
             {
                 case InventoryActionKind.Move:
                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException("Choose a physical destination");
-                    if (destination == item.Placement) throw new ArgumentException("Item is already there");
+                    if (InventoryBodyFit.SamePlace(state, item, destination)) throw new ArgumentException("Item is already there");
                     InventoryWear.ValidateAction(state, item, item.Placement);
                     var target = InventoryAccessService.Placement(world, actorId, destination);
                     if (!target.Allowed) throw new ArgumentException(target.Reason);

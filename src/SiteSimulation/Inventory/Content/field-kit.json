@@ -62,7 +62,8 @@
               "legs"
             ]
           }
-        ]
+        ],
+        "fitProfile": "trousers"
       }
     },
     {
@@ -141,7 +142,8 @@
         "fastenAp": 2,
         "secureVerb": "Zip",
         "openVerb": "Unzip",
-        "secureOnClose": false
+        "secureOnClose": false,
+        "fitProfile": "coat"
       }
     },
     {
@@ -212,7 +214,8 @@
             ]
           }
         ],
-        "outermost": true
+        "outermost": true,
+        "fitProfile": "backpack"
       },
       "defaultDropRegion": "main"
     },
@@ -366,7 +369,8 @@
               "arms"
             ]
           }
-        ]
+        ],
+        "fitProfile": "shirt"
       }
     },
     {
@@ -391,7 +395,8 @@
               "feet"
             ]
           }
-        ]
+        ],
+        "fitProfile": "socks"
       }
     },
     {
@@ -416,7 +421,8 @@
               "feet"
             ]
           }
-        ]
+        ],
+        "fitProfile": "boots"
       }
     },
     {
@@ -450,7 +456,8 @@
               "feet"
             ]
           }
-        ]
+        ],
+        "fitProfile": "chem-suit"
       }
     }
   ],
@@ -617,7 +624,8 @@
           "accessAp": 0
         }
       ],
-      "maxMassGrams": 20000
+      "maxMassGrams": 20000,
+      "bodyFamily": "human-nine-shoulder"
     },
     {
       "id": "person:observer",
@@ -781,7 +789,8 @@
           "accessAp": 0
         }
       ],
-      "maxMassGrams": 20000
+      "maxMassGrams": 20000,
+      "bodyFamily": "human-nine-shoulder"
     },
     {
       "id": "person:tech",
@@ -945,7 +954,8 @@
           "accessAp": 0
         }
       ],
-      "maxMassGrams": 20000
+      "maxMassGrams": 20000,
+      "bodyFamily": "human-nine-shoulder"
     },
     {
       "id": "fixture:crate-a",
