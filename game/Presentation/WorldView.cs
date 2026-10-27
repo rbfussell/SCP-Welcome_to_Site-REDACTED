@@ -13,6 +13,7 @@ public partial class WorldView : Node2D
     public bool FloorGrid { get; set; }
     public bool SightOverlay { get; set; } = true;
     public bool Cutaway { get; set; } = true;
+    public bool ReducedWalls { get; set; }
     public bool FieldView { get; set; } = true;
     public bool DiagnosticSprites { get; set; }
     public Hex? Hover { get; set; }
@@ -25,6 +26,11 @@ public partial class WorldView : Node2D
     private SpriteArtCatalog _facilityArt = null!;
     private readonly Dictionary<string, Texture2D> _surfaceArt = [];
     private const float WallHeight = 68;
+    // Crop at the top of the dark lower panel; preserve the original texture scale below the cut.
+    internal const float ReducedWallFraction = 0.31f;
+    internal float RenderedWallHeight(WallDefinition wall) => (DiagnosticSprites ? 54 : WallHeight)
+        * (ReducedWalls && !wall.Door ? ReducedWallFraction : 1);
+    internal int ReducedWallFaces { get; private set; }
     internal int GroundShadingBuilds => _ground.ShadingBuilds;
     private int _walkFrames = 3;
     private int _walkCycleMs = 300;
@@ -143,12 +149,13 @@ public partial class WorldView : Node2D
     private void WallFace(WallDefinition wall, bool feather)
     {
         var start = Screen(wall.Start); var end = Screen(wall.End);
-        var top = new Vector2(0, -WallHeight);
+        var height = RenderedWallHeight(wall);
+        var top = new Vector2(0, -height);
         var light = LightAt(Screen(wall.Center)) * (wall.Axis == "u" ? Colors.White : new Color(0.79f, 0.84f, 0.88f));
         Vector2[] face = [start, end, end + top, start + top];
         var thickness = new Vector2(-3, -2);
         Vector2[] cap = [start + top, end + top, end + top + thickness, start + top + thickness];
-        var capLight = new Color("a5a99f") * light;
+        var capLight = new Color(ReducedWalls && !wall.Door ? "555b58" : "a5a99f") * light;
         if (feather)
         {
             FeatheredQuad(wall.Id + ":face", face, light, _surfaceArt[wall.Door ? "door" : "wall"]);
@@ -157,7 +164,7 @@ public partial class WorldView : Node2D
         else
         {
             DrawPolygon(face, new Color[] { light, light, light, light },
-                new Vector2[] { new(0, 1), new(1, 1), new(1, 0), new(0, 0) }, _surfaceArt[wall.Door ? "door" : "wall"]);
+                new Vector2[] { new(0, 1), new(1, 1), new(1, 1 - height / WallHeight), new(0, 1 - height / WallHeight) }, _surfaceArt[wall.Door ? "door" : "wall"]);
             DrawColoredPolygon(cap, capLight);
         }
         WallStroke(start, end, new Color("252b2b") * light, 2, feather);
@@ -193,6 +200,7 @@ public partial class WorldView : Node2D
         if (Simulation is null) return;
         _debugLabels.Clear();
         RefreshCutaway();
+        ReducedWallFaces = 0;
         var map = Simulation.Map;
         for (var y = -2; y < map.Definition.Height + 2; y++)
         for (var x = -2; x < map.Definition.Width + 2; x++)
@@ -239,6 +247,7 @@ public partial class WorldView : Node2D
             var c = Screen(wall.Center);
             drawables.Add((c.Y, wall.Id, () =>
             {
+                if (ReducedWalls && !wall.Door) ReducedWallFaces++;
                 var feather = UsesPlayerCutaway(wall);
                 if (feather) FeatheredWallFaces++;
                 var open = wall.Door && map.OpenDoors.Contains(wall.Id);

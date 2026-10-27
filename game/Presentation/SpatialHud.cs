@@ -19,6 +19,7 @@ public partial class SpatialHud : Control
     private CheckButton _stopDirect = null!, _stopReports = null!;
     private Label _viewHint = null!, _fieldMode = null!;
     private Control _footer = null!;
+    internal Button WallViewButton { get; private set; } = null!;
     private Label _clock = null!, _mode = null!, _status = null!, _coordinates = null!, _timers = null!;
     private Label _anomaly = null!, _observers = null!, _rule = null!, _witnesses = null!;
     private RichTextLabel _trace = null!;
@@ -56,6 +57,7 @@ public partial class SpatialHud : Control
         _toggles[Key.G] = Toggle(view, "Actor hex grid  [G]", false, value => world.HexGrid = value);
         _toggles[Key.B] = Toggle(view, "Square floor grid  [B]", false, value => world.FloorGrid = value);
         _toggles[Key.L] = Toggle(view, "Directional sight  [L]", true, value => world.SightOverlay = value);
+        _toggles[Key.W] = Toggle(view, "Lower all walls  [W]", false, value => world.ReducedWalls = value);
         _toggles[Key.H] = Toggle(view, "Soft player wall cutaway  [H]", true, value => world.Cutaway = value);
         Button(view, "Use nearest door     E", () => sim.ToggleNearestDoor());
         Button(view, "Local hold / release     F6", () => sim.LocalHold = !sim.LocalHold);
@@ -92,6 +94,9 @@ public partial class SpatialHud : Control
         _fieldPanel.AddThemeConstantOverride("separation", 16);
         Line(_fieldPanel, "OBSERVATION SHIFT", 18, Text);
         _fieldMode = Line(_fieldPanel, "", 12, Green);
+        WallViewButton = new Button { FocusMode = FocusModeEnum.None, TooltipText = "Lower walls to their dark base strip. Doors and gameplay sight/collision remain unchanged. H controls the local opening in full-height mode." };
+        WallViewButton.AddThemeFontSizeOverride("font_size", 12); _fieldPanel.AddChild(WallViewButton);
+        WallViewButton.Pressed += () => world.ReducedWalls = !world.ReducedWalls;
         _combat = new CombatPanel(); _fieldPanel.AddChild(_combat); _combat.Initialize(sim);
         Operations = new OperationsPanel(); _fieldPanel.AddChild(Operations); Operations.Initialize(sim);
         _stopDirect = Toggle(_fieldPanel, "Stop on my anomaly sightings", sim.Awareness.StopOnDirectSight, value => sim.Awareness.StopOnDirectSight = value);
@@ -164,11 +169,13 @@ public partial class SpatialHud : Control
         _clock.Text = $"WORLD  {time:hh\\:mm\\:ss}     {sim.Speed}×";
         _mode.Text = sim.ManualPause ? "MANUAL PAUSE · all areas" : sim.LocalHold ? "LOCAL HELD · world continues" : sim.Combat.Active ? sim.Combat.Pending is null ? "LOCAL TURN HELD · calendar continues" : "TACTICAL ACTION · local resolving" : "REAL TIME · local active";
         _fieldMode.Text = _mode.Text;
+        WallViewButton.Text = world.ReducedWalls ? "Walls: lowered bases    W" : world.Cutaway ? "Walls: full + local cutaway    W" : "Walls: full height    W";
         Workspace.Refresh(); Inventory.Refresh(); Operations.Refresh(); _combat.Refresh(); _journal.Refresh(sim.Events);
         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";
         _status.Text = notice ?? sim.LastMessage;
+        _toggles[Key.W].SetPressedNoSignal(world.ReducedWalls);
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);
         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);
         _coordinates.Text = hover is { } cell ? $"HEX {cell.Q},{cell.R}   FLOOR {Math.Floor(ground.X)},{Math.Floor(ground.Y)}   {(world.FieldView ? sim.KnownNavigationBlocked(cell) ? "KNOWN BLOCK" : "NO KNOWN BLOCK" : sim.Map.Walkable(cell) ? "FREE" : "BLOCKED")}   ZOOM {zoom:0.00}×{(sim.Combat.Active ? $"   ROUTE {world.Preview.Count} AP" : "")}" : "FLOOR / HEX / SPRITE anchors remain separate";

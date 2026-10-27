@@ -164,6 +164,7 @@ public partial class SpatialScene
                     var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + "-sight.png");
                     if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException("Sight screenshot failed.");
                     await CheckPlayerCutaway();
+                    await CheckReducedWalls();
                     GD.Print("SCENE_SMOKE_PASS: feathered player cutaway/H toggle/fractional following with unchanged world and sight, click/move, observation/release, held world/save and shading cache, ordinary RMB look stop with anomaly interruption disabled, RMB discovery and exact look stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, F4 reversible full-art swap with unchanged held state, field/diagnostic/placeholder/sight screenshots.");
                     GetTree().Quit();
                     return;

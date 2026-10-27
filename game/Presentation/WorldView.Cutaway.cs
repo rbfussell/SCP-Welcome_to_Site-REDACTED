@@ -37,7 +37,7 @@ public partial class WorldView
     private bool UsesPlayerCutaway(WallDefinition wall)
     {
         // Doors share map geometry with walls, but keep their normal opacity in both open and closed states.
-        if (wall.Door || !Cutaway || Screen(wall.Center).Y < _playerDepth) return false;
+        if (wall.Door || ReducedWalls || !Cutaway || Screen(wall.Center).Y < _playerDepth) return false;
         var start = Screen(wall.Start); var end = Screen(wall.End);
         return _playerCutaway.Intersects(Math.Min(start.X, end.X) - 4, Math.Min(start.Y, end.Y) - WallHeight - 4,
             Math.Max(start.X, end.X) + 4, Math.Max(start.Y, end.Y) + 4);
@@ -101,6 +101,14 @@ public partial class WorldView
 
     private void DiagnosticWall(WallDefinition wall, bool feather)
     {
+        if (ReducedWalls && !wall.Door)
+        {
+            var start = Screen(wall.Start); var end = Screen(wall.End); var top = new Vector2(0, -RenderedWallHeight(wall));
+            var light = LightAt(Screen(wall.Center));
+            DrawColoredPolygon([start, end, end + top, start + top], new Color("62516d") * light);
+            DrawColoredPolygon([start + top, end + top, end + top + new Vector2(-3, -2), start + top + new Vector2(-3, -2)], new Color("8a7d91") * light);
+            DrawLine(start, end, new Color("252b2b") * light, 2); return;
+        }
         var sprite = _sprites[$"{(wall.Door ? "door" : "wall")}-{wall.Axis}"];
         var feet = Screen(wall.Start);
         if (!feather) { Sprite($"{(wall.Door ? "door" : "wall")}-{wall.Axis}", feet); return; }

@@ -150,6 +150,7 @@ public partial class SpatialScene : Node2D
             case Key.G: _world.HexGrid = !_world.HexGrid; break;
             case Key.B: _world.FloorGrid = !_world.FloorGrid; break;
             case Key.L: _world.SightOverlay = !_world.SightOverlay; break;
+            case Key.W: _world.ReducedWalls = !_world.ReducedWalls; break;
             case Key.H: _world.Cutaway = !_world.Cutaway; break;
             case Key.E: _simulation.ToggleNearestDoor(); break;
             case Key.O: _simulation.ToggleObserverAttention(); break;

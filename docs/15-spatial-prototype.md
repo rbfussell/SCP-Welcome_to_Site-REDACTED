@@ -32,7 +32,8 @@ Tested: Godot `4.7.1.stable.mono.official.a13da4feb`, .NET SDK `8.0.128`, runtim
 | J | Toggle the avatar's module-owned complacency flag; future automatic metric remains undecided |
 | M / R | Mute presentation audio / reduce discovery border effect; caption remains available |
 | C / G / B | Toggle white collision boundaries / full hex grid / square construction grid in diagnostics |
-| L / H | Toggle directional sight overlay / feathered player wall cutaway |
+| L / H | Toggle directional sight overlay / feathered player wall cutaway (full-height mode) |
+| W | Toggle all ordinary walls between full height and short dark bases; also available through the field-panel wall button |
 | F6 | Hold all local progress while world/off-site counters continue |
 | Space | Global manual pause for this single-player proof |
 | 1 / 2 / 3 | Set 1× / 2× / 4× speed |
@@ -107,3 +108,11 @@ The current scene adds the [player journal and tactical training proof](20-event
 Default scenes now render [the generated facility stand-in set](../game/Assets/facility-standins/README.md): Chen, Ortiz and the director have separate six-facing idle/walk sheets, surfaces map onto the existing projected geometry, and crate/cabinet/CRT/trolley have registered sprites. F4 restores diagnostic art for the whole scene. Character appearance/ordered-layer selection lives in the Godot presentation catalog, with no simulation or save-schema change. These are baked development outfits, with aligned body/head/clothing composition and additional action animations still to qualify.
 
 The [employment prototype](22-employment-prototype.md) now replaces normal-scene synthetic standing observation orders with scheduled posts and relief. Outer schema 6 adds employment continuation. Updated operation content has a new identity; matching legacy fixtures retain their previous migration support.
+
+## Lowered-wall view
+
+**W**, or the wall-view button near the top of the field panel, switches between full-height walls with the existing local cutaway and short bases across the entire map. The View tab also provides a Lower all walls toggle. The base is approximately 31% of full height, cropped at the dark lower panel of the current wall texture rather than squashing the full image. A small cap follows the lowered top edge. Diagnostic artwork supports the same mode. Doors, open door frames, props and people retain their normal appearance.
+
+The local feather is dormant while every wall is lowered; returning to full height restores the current H preference. This is presentation state only: collision, pathfinding, observation, concealment, anomaly rules and save data do not change. Lowered walls make already-permitted characters and objects easier to read without revealing unseen entities. The setting currently lasts for the scene session.
+
+The native spatial smoke captures full, lowered, restored and diagnostic-lowered views, checks W and the actual field button, verifies all ordinary walls are lowered while doors retain full height, and compares unchanged world/save state, sight and walkability.
