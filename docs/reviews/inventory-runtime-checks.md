@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current mounting alignment / equipped-target qualification (October 27):
+Current zero-angle correction qualification (October 27):
+
+- The earlier -30° pouch source offset shifted all six visual headings by half a step. The registration now uses 0°, preserving the loop anchor and source aspect ratio. Upright/inverted orientations are actual mount 0°/180°, with R stepping 0/60/120/180/240/300/0.
+- `--inventory-smoke work/preview/spatial-scene/attachment-zero.png`: all six native suites pass with zero compiler warnings/errors. In addition to preview rotation, the test commits a complete six-step cycle through native drag/R/release and paid handling, verifies stored poses and independent source-relative direction vectors, and captures every resulting sprite. Committed 0° and 180° captures were visually inspected. Existing alpha-picked inspection/detachment, equipped-target drops, body fitting, packing, closures and persistence still pass. The existing nonfatal software-display V-Sync warning and two-reference shutdown-only ObjectDB warning remain.
+- This corrects the visual baseline, not the authored physical occupancy mask. No source PNG, simulation rule, content identity or save schema changes.
+
+Earlier mounting alignment / equipped-target qualification (October 27):
 
 - `--check`: **20,470 assertions**, including **102 attachment** and **238 inventory** checks. Provider drops choose deterministic free compatible support at the requested orientation, handle non-origin contacts, reject occupied/closed support without rearrangement, and commit through the ordinary paid Move path. Existing action, access, load, AP and persistence tests remain required. Art metadata checks cover explicit native attachment bindings, bounded size, source anchor and orientation.
 - `--inventory-smoke work/preview/spatial-scene/attachment-alignment.png`: all six inventory suites pass. Native checks rotate the mounted sprite through all six directions and compare its loop anchor/hanging axis with independent reference vectors. Actual alpha-picked inspection/detachment still works. Dragging a loaded pouch onto the worn belt in the equipped view shows a whole-provider target, uses six-direction R rotation and starts paid work on release. Existing open-backpack container drops and precise manual packing retain their scoped behavior. Direction and equipped-target captures were visually inspected. Builds have zero compiler warnings/errors; the known two-reference shutdown-only ObjectDB warning remains.

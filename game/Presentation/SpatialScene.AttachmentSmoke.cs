@@ -41,8 +41,8 @@ public partial class SpatialScene
                 var anchor = Surface().MountedImagePoint("utility-pouch", pose, new(.5f, .12f));
                 Check(anchor.DistanceTo(Surface().MountPosition(new(1, 0))) < .01f, "sprite loops drifted away from their mounting anchor");
                 var hanging = Surface().MountedImagePoint("utility-pouch", pose, new(.5f, .9f)) - anchor;
-                var forward = new Vector2(22, 38.105118f).Rotated(rotation % 6 * Mathf.Pi / 3);
-                Check(Math.Abs(hanging.Cross(forward)) < .05f && hanging.Dot(forward) > 0, "sprite hanging direction differs from the footprint's diagonal axis");
+                var forward = new Vector2(0, 44).Rotated(rotation % 6 * Mathf.Pi / 3);
+                Check(Math.Abs(hanging.Cross(forward)) < .05f && hanging.Dot(forward) > 0, "sprite differs from the unrotated source plus exact sixth-turn steps");
                 await InventoryCapture("-mount-direction-" + rotation % 6);
             }
             Check(sim.Inventory.Pending is null && sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement.RegionId == "hand", "preview performed free physical work");
@@ -55,6 +55,29 @@ public partial class SpatialScene
         var pouchPlacement = sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement;
         Check(pouchPlacement.ParentId == "utility-belt", "timed attachment did not commit");
         await InventoryCapture("-belt-mounted");
+        // Commit each step too: zero is the original upright source, not a half-step offset onto a hex diagonal.
+        var directions = new[] { new Vector2(0, 1), new(-.8660254f, .5f), new(-.8660254f, -.5f),
+            new(0, -1), new(.8660254f, -.5f), new(.8660254f, .5f) };
+        for (var step = 1; step <= 6; step++)
+        {
+            var previous = new BodyPose(1, 0, (step - 1) % 6); var next = step % 6;
+            await InventoryDrag(Surface().MountedImagePoint("utility-pouch", previous, new(.5f, .6f)), Surface().MountPosition(new(1, 0)), async () =>
+            {
+                InventoryKey(Key.R); await InventoryDragHover(Surface().MountPosition(new(1, 0)));
+                Check(Surface().MountPreview is { Handling.Allowed: true } preview && preview.Request.Destination?.AttachmentPose?.Rotation == next,
+                    "one R press skipped or repeated a mount orientation");
+                sim.ManualPause = false;
+            });
+            Check(sim.Inventory.Pending?.Request.Destination?.AttachmentPose?.Rotation == next, "release committed a different rotation from its preview");
+            await Finish();
+            var placed = sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement;
+            Check(placed.AttachmentPose == new BodyPose(1, 0, next), "paid rotation lost its exact sixth-turn pose");
+            var sourceAnchor = Surface().MountedImagePoint("utility-pouch", placed.AttachmentPose!, new(.5f, .12f));
+            var axis = (Surface().MountedImagePoint("utility-pouch", placed.AttachmentPose!, new(.5f, .9f)) - sourceAnchor).Normalized();
+            Check(axis.DistanceTo(directions[next]) < .0001f, "committed sprite misses the independent upright/60-degree reference direction");
+            await InventoryCapture("-committed-direction-" + next);
+        }
+
         InventoryClick(Surface().MountPosition(new(-1, 0)), button: MouseButton.Right); await InventoryFrames();
         var supportMenu = panel.GetChildren().OfType<PanelContainer>().Last().GetChild<VBoxContainer>(0).GetChildren().OfType<Button>().Select(b => b.Text).ToArray();
         Check(supportMenu.Contains("Open") && !supportMenu.Any(t => t.StartsWith("Arrange") || t is "Zip" or "Close" or "Snap"),
