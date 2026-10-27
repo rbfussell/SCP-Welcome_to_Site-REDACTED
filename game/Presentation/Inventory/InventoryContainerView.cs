@@ -51,7 +51,7 @@ public partial class InventoryContainerView : VBoxContainer
             var r = state.Region(id, region);
             var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill };
             AddChild(scroll); Panel.AddGrid(scroll, id, region, r.CellMm < 25 ? 44 : r.Columns >= 8 ? 29 : 30);
-            if (definition is not null)
+            if (definition is not null && r.Sealable)
                 InventoryPanel.Button(this, r.SecureVerb, () => Panel.ChangeLid(id, region, false));
         }
         Refresh();
@@ -66,7 +66,8 @@ public partial class InventoryContainerView : VBoxContainer
             _fastening.Text = action.Verb;
             _fastening.Disabled = state.Pending is not null || !sim.QuoteInventory(action.Request).Allowed;
         }
-        _state.Text = _region is not null ? (state.IsOpen(_id, _region) ? "OPEN · contents accessible" : "SECURED")
+        _state.Text = _region is not null && !state.Region(_id, _region).Sealable ? "UNSEALABLE" + (state.Region(_id, _region).Snug ? " · snug fit" : "")
+            : _region is not null ? (state.IsOpen(_id, _region) ? "OPEN · contents accessible" : "SECURED")
             : state.DiagnosticItems.SingleOrDefault(i => i.Id == _id) is { } item
                 ? state.Definition(_id).Wear?.OpenExposes is { Length: > 0 }
                     ? item.GarmentOpen ? "GARMENT OPEN · removal restrictions still apply" : "GARMENT FASTENED"

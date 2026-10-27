@@ -22,7 +22,7 @@ internal static class InventoryContentValidation
             && r.AccessMs is >= 0 and <= 5000 && r.AccessMs % SpatialSimulation.TickMs == 0 && r.AccessAp is >= 0 and <= 5
             && (r.Mask is null || r.Mask.Distinct().Count() == r.Mask.Length && r.Mask.All(i => i >= 0 && i < r.Columns * r.Rows))
             && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1) && (r.AccessBody is null || Body(r.AccessBody))
-            && InventoryAttachments.SurfaceValid(r);
+            && InventoryAttachments.SurfaceValid(r) && (r.Sealable || !r.SecureOnClose);
         if (c.Definitions is null || c.Roots is null || c.Items is null || c.Regions is null
             || c.Definitions.Any(d => d is null || !Id(d.Id) || !Id(d.Name) || d.Tags is null
                 || d.WidthMm is <= 0 or > 1000 || d.LengthMm is <= 0 or > 1000 || d.ThicknessMm is <= 0 or > 1000

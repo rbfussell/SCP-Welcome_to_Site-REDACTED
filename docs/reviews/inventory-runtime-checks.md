@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current belt/pouch attachment qualification (October 26):
+Current hip-pocket correction qualification (October 26):
+
+- `--check`: **20,455 assertions**, including **44 closure-policy** and **234 inventory** checks. Hip compartments are `Sealable=false`, `Snug=true`; cargo flaps retain buttons. Explicit Open/Close, invented auto-secure preferences and forged sealed hip saves reject without changing physical state. Inspection remains free, and coverage/access still applies.
+- `--inventory-smoke work/preview/spatial-scene/inventory-hip.png`: all six native suites pass, including unsealable hip inspection/menu controls and the belt/pouch regression. The hip capture was visually inspected. Zero compiler warnings/errors; the existing two-reference shutdown-only ObjectDB warning remains. The user's desktop belt-test process was left running unchanged.
+- Schema 13 and fixture counts are unchanged. Static definition metadata changes field-kit content identity. `Snug` records retention policy for later spillage implementation; no spill scheduler is claimed.
+
+Earlier belt/pouch attachment qualification (October 26):
 
 - `--check`: **20,441 assertions**, including **91 attachment**, **232 inventory**, **120 body-fit**, **72 coverage**, **32 closure-policy** and **70 wear** checks; zero compiler warnings/errors. Connector/contact/collision checks, loaded graph movement, recursive mass, separate body/storage/mount coordinates, independent removal restraints, covered/closed ancestor access, paid time/AP, insufficient AP, cancellation, post-start access loss and detached invalid-save rejection pass.
 - `--inventory-smoke work/preview/spatial-scene/inventory-attachments.png`: native drag mounting with six R orientations, source retention, paid pouch flap, gear/contents trails, square-grid dressing storage, child securing on ↑, diagonal parent refit and loaded native detachment pass alongside existing wear/packing/body/coverage/inventory suites. Belt, interior, diagonal occupancy and detached-pouch captures were visually inspected. Builds have zero compiler warnings/errors. The final run reports the previously documented intermittent shutdown-only ObjectDB warning (two references; earlier attachment runs had three/four), not an interaction failure.

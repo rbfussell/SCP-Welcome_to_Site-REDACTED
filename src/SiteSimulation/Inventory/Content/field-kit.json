@@ -28,9 +28,7 @@
           "accessBody": [
             "hips-front"
           ],
-          "secureVerb": "Button",
-          "openVerb": "Unbutton",
-          "secureOnClose": true,
+          "secureOnClose": false,
           "accessFootprint": [
             {
               "surface": "front",
@@ -45,7 +43,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "sealable": false,
+          "snug": true
         },
         {
           "id": "right",
@@ -61,9 +61,7 @@
           "accessBody": [
             "hips-front"
           ],
-          "secureVerb": "Button",
-          "openVerb": "Unbutton",
-          "secureOnClose": true,
+          "secureOnClose": false,
           "accessFootprint": [
             {
               "surface": "front",
@@ -78,7 +76,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "sealable": false,
+          "snug": true
         },
         {
           "id": "cargo-left",

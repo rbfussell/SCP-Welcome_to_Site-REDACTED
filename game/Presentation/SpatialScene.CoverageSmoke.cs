@@ -40,6 +40,15 @@ public partial class SpatialScene
             await Hover(Surface(), region);
             Check(Surface().HoveredRegion == region && !Surface().HoverCovered, "four sprite segments did not map to separate accessible regions");
         }
+        var hipBefore = sim.Save();
+        InventoryClick(Surface().HotspotPosition("left"), true); await InventoryFrames();
+        Check(panel.Browser.CurrentContents == ("avatar-trousers", "left") && sim.Save() == hipBefore, "unsealable hip inspection bought physical opening work");
+        InventoryClick(Surface().HotspotPosition("left"), button: MouseButton.Right); await InventoryFrames();
+        var hipMenu = panel.GetChildren().OfType<PanelContainer>().Last().GetChild<VBoxContainer>(0);
+        Check(!hipMenu.GetChildren().OfType<CheckButton>().Any() && !hipMenu.GetChildren().OfType<Button>().Any(b => b.Text is "Button" or "Unbutton" or "Close"),
+            "unsealable hip menu invented a fastening action or preference");
+        InventoryClick(new Vector2(600, 55)); await InventoryFrames();
+        await InventoryCapture("-unsealable-hip");
         InventoryClick(Surface().HotspotPosition("cargo-left"), true); await InventoryFrames();
         Check(panel.Browser.CurrentContents == ("avatar-trousers", "cargo-left"), "cargo pouch did not open its own grid");
         await ToggleCoat();

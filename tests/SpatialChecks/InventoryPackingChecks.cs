@@ -106,8 +106,8 @@ internal static class InventoryPackingChecks
         var closed = Sim();
         Check(closed.HandleInventory(new(InventoryActionKind.Close, "medical-case", RegionId: "inside")), "close destination fixture"); Finish(closed);
         Check(!closed.QuoteInventoryPacking(request).Allowed, "closed destination does not get opened for free");
-        Check(closed.HandleInventory(new(InventoryActionKind.Close, "avatar-trousers", RegionId: "left")), "close source fixture"); Finish(closed);
-        Check(!closed.QuoteInventoryPacking(Store("gum-packet", "avatar-backpack", "main")).Allowed, "closed source blocks automatic insertion");
+        Check(closed.HandleInventory(new(InventoryActionKind.Close, "avatar-backpack", RegionId: "side")), "close source fixture"); Finish(closed);
+        Check(!closed.QuoteInventoryPacking(Store("flashlight", "avatar-backpack", "main")).Allowed, "closed source blocks automatic insertion");
         var held = Sim(); held.ManualPause = true; var heldSave = held.Save();
         Check(!held.HandleInventory(request) && held.Save() == heldSave, "pause does not grant free arranging");
         held.ManualPause = false; Check(held.HandleInventory(request), "start cancel fixture"); held.Tick();

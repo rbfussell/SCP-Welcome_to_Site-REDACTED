@@ -143,9 +143,10 @@ internal static class InventoryChecks
         Check(!phone.OscpAccess(OscpDevice.Phone).Available, "the real item's power state gates the handset service");
         Act(phone, new(InventoryActionKind.PowerOn, "field-phone"));
         Check(phone.OscpAccess(OscpDevice.Phone).Available, "powering the carried device restores access");
-        Act(phone, new(InventoryActionKind.Close, "avatar-trousers", RegionId: "right"));
+        Act(phone, Move("field-phone", "avatar-backpack", "side"));
+        Act(phone, new(InventoryActionKind.Close, "avatar-backpack", RegionId: "side"));
         Check(!phone.OscpAccess(OscpDevice.Phone).Available, "closing an ancestor compartment propagates equipment inaccessibility");
-        Act(phone, new(InventoryActionKind.Open, "avatar-trousers", RegionId: "right"));
+        Act(phone, new(InventoryActionKind.Open, "avatar-backpack", RegionId: "side"));
         var radioWorld = new SimulationWorld(map, config);
         var radio = radioWorld.Inventory.Items["tech-radio"];
         radioWorld.Inventory.Items[radio.Id] = radio with { Placement = new("tech-backpack", "main", 0, 0) };

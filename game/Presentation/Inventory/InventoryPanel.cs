@@ -256,9 +256,10 @@ public partial class InventoryPanel : Control
         Select(id); var list = BeginContext();
         var definition = Simulation.Inventory.Definition(id);
         void Entry(string name, Action action) => Button(list, name, () => { HideContext(); action(); });
-        if (!fastening && region is null) Entry("Open", () => Inspect(id));
+        if (!fastening && (region is null || !Simulation.Inventory.Region(id, region).Sealable)) Entry("Open", () => { if (region is not null) OpenCompartment(id, region); else Inspect(id); });
         var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: > 0 } && definition.Regions is { Length: 1 } regions && regions[0].Attachment is null ? regions[0].Id : null);
-        if (closureRegion is not null || definition.Wear?.OpenExposes is { Length: > 0 })
+        if (closureRegion is not null && !Simulation.Inventory.Region(id, closureRegion).Sealable) closureRegion = null;
+        if (closureRegion is not null || region is null && definition.Wear?.OpenExposes is { Length: > 0 })
         {
             var closure = Button(list, "", () =>
             {

@@ -44,7 +44,7 @@ public partial class InventoryGearSurface : Control
         MouseDefaultCursorShape = target is null ? CursorShape.Arrow : CursorShape.PointingHand;
         TooltipText = target?.Region is { } support && Panel.Simulation.Inventory.Region(ItemId, support).Attachment is not null
             ? "Belt support · drag a compatible pouch onto the webbing · R rotates its mounting pose"
-            : target is null ? "" : target.Label + " · " + (Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
+            : target is null ? "" : target.Label + " · " + (target.Region is { } id && !Panel.Simulation.Inventory.Region(ItemId, id).Sealable ? "unsealable" + (Panel.Simulation.Inventory.Region(ItemId, id).Snug ? " · snug" : "") : Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
         QueueRedraw();
     }
     public override void _Process(double delta)

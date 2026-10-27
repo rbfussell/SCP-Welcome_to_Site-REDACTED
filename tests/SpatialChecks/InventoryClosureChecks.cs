@@ -15,6 +15,22 @@ internal static class InventoryClosureChecks
             Check(sim.Inventory.Pending is null && sim.Inventory.SecuringRemaining == 0, "work finishes under normal scheduler");
         }
         var sim = Sim(); var state = sim.Inventory;
+        foreach (var hip in new[] { "left", "right" })
+        {
+            var r = state.Region("avatar-trousers", hip);
+            Check(!r.Sealable && r.Snug && !InventoryClosures.SecureOnClose(state, "avatar-trousers", hip), "hip opening is snug and has no fastening policy");
+            var safeHip = sim.Save();
+            foreach (var kind in new[] { InventoryActionKind.Open, InventoryActionKind.Close })
+                Check(!sim.HandleInventory(new(kind, "avatar-trousers", RegionId: hip)) && sim.Save() == safeHip, "no invented opening/closing work for an unsealable pocket");
+            Check(!sim.SetInventorySecureOnClose("avatar-trousers", hip, true) && sim.Save() == safeHip, "player cannot invent a fastening with a preference");
+            Check(InventoryClosures.OnDismissal(state, [Pocket("avatar-trousers", hip)]).Length == 0, "dismissal never queues a closure on an unsealable mouth");
+        }
+        Check(state.Region("avatar-trousers", "cargo-left").Sealable, "cargo flap retains its independent closure");
+        var forgedHip = JsonNode.Parse(sim.Save())!;
+        forgedHip["Inventory"]!["Regions"]!.AsArray().First(r => r!["ItemId"]!.GetValue<string>() == "avatar-trousers" && r["RegionId"]!.GetValue<string>() == "left")!["Open"] = false;
+        var validHip = sim.Save();
+        try { sim.Restore(forgedHip.ToJsonString()); throw new Exception("Sealed unsealable pocket accepted"); }
+        catch (ArgumentException) { Check(sim.Save() == validHip, "forged sealed hip state rejects without changing live state"); }
         var jacket = new InventoryRequest(InventoryActionKind.CloseGarment, "avatar-coat");
         var chest = Pocket("avatar-coat", "chest"); var pack = Pocket("avatar-backpack", "main");
         Check(!InventoryClosures.SecureOnClose(state, "avatar-coat") && InventoryClosures.SecureOnClose(state, "avatar-coat", "chest"),
