@@ -58,6 +58,36 @@ public sealed partial class SpatialSimulation
         var request = new InventoryRequest(InventoryActionKind.Move, itemId, new(owner, surface, AttachmentPose: pose));
         return new(QuoteInventory(request), request);
     }
+    /// <summary>Container-style exterior drop: choose free support at the requested orientation without moving existing children.</summary>
+    public AttachmentPreview PreviewAttachmentDrop(string itemId, string owner, int rotation = 0)
+    {
+        var fallback = new InventoryRequest(InventoryActionKind.Move, itemId);
+        if (!Inventory.Items.TryGetValue(itemId, out var incoming) || !Inventory.Items.ContainsKey(owner) || rotation is < 0 or > 5)
+            return new(new(false, "Choose known equipment and a valid attachment orientation.", 0, 0), fallback);
+        var profile = Inventory.Definition(itemId).Attachment;
+        var supports = Inventory.Definition(owner).Regions?.Where(r => r.Attachment is not null).OrderBy(r => r.Id, StringComparer.Ordinal).ToArray() ?? [];
+        if (profile is null || !supports.Any(s => s.Attachment!.Interface == profile.Interface))
+            return new(new(false, "No compatible exterior attachment surface.", 0, 0), fallback);
+        if (incoming.Placement.ParentId == owner && incoming.Placement.AttachmentPose is not null)
+            return new(new(false, "Already attached here; reposition it on the gear illustration.", 0, 0), fallback);
+        AttachmentPreview? refused = null;
+        // A contact need not sit at the authored origin: enumerate every support/contact alignment, not just origins on support.
+        foreach (var support in supports.Where(s => s.Attachment!.Interface == profile.Interface))
+        {
+            var origins = support.Attachment!.Cells.SelectMany(cell => profile.Contacts.Select(contact =>
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct().OrderBy(c => Math.Max(Math.Abs(c.Q), Math.Max(Math.Abs(c.R), Math.Abs(c.Q + c.R))))
+                .ThenBy(c => c.R).ThenBy(c => c.Q);
+            foreach (var cell in origins)
+            {
+                var preview = PreviewAttachment(itemId, owner, support.Id, new(cell.Q, cell.R, rotation));
+                if (preview.Handling.Allowed) return preview;
+                refused ??= preview;
+            }
+        }
+        return refused ?? new(new(false, "No free compatible support; existing attachments stay in place.", 0, 0), fallback);
+    }
     public IReadOnlyList<InventoryItem> InventoryAttachmentsOn(string owner, string surface)
         => InventoryAccess(owner, surface).Allowed ? Inventory.Children(owner, surface) : [];
 }

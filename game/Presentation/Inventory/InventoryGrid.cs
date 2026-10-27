@@ -38,14 +38,16 @@ public partial class InventoryGrid : Control
         if (preview is not null)
         {
             var color = preview.Quote.Allowed ? new Color("69d89a") : new Color("ef8275");
-            var destination = preview.Request.Destination!;
-            var width = (int)Math.Round(preview.Bounds.Size.X / CellPixels);
-            var height = (int)Math.Round(preview.Bounds.Size.Y / CellPixels);
-            for (var y = Math.Max(0, destination.Y); !preview.IntoContainer && y < Math.Min(region.Rows, destination.Y + height); y++)
-            for (var x = Math.Max(0, destination.X); x < Math.Min(region.Columns, destination.X + width); x++)
+            if (!preview.IntoContainer && preview.Request.Destination is { } destination)
             {
-                var cell = new Rect2(Origin + new Vector2(x, y) * CellPixels, Vector2.One * CellPixels);
-                DrawRect(cell.Grow(-1), new Color(color, 0.30f)); DrawRect(cell.Grow(-1), color, false, 1);
+                var width = (int)Math.Round(preview.Bounds.Size.X / CellPixels);
+                var height = (int)Math.Round(preview.Bounds.Size.Y / CellPixels);
+                for (var y = Math.Max(0, destination.Y); y < Math.Min(region.Rows, destination.Y + height); y++)
+                for (var x = Math.Max(0, destination.X); x < Math.Min(region.Columns, destination.X + width); x++)
+                {
+                    var cell = new Rect2(Origin + new Vector2(x, y) * CellPixels, Vector2.One * CellPixels);
+                    DrawRect(cell.Grow(-1), new Color(color, 0.30f)); DrawRect(cell.Grow(-1), color, false, 1);
+                }
             }
         }
         var access = sim.InventoryAccess(ParentId, RegionId);
@@ -132,6 +134,14 @@ public partial class InventoryGrid : Control
 
     internal InventoryDropPreview? PreviewAt(string id, Vector2 position)
     {
+        if (Pick(position) is { } provider && provider.Id != id && Panel.Simulation.Inventory.Definition(provider.Id).Regions?.Any(r => r.Attachment is not null) == true)
+        {
+            var region = Region; var p = provider.Placement;
+            var size = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(provider.Id), region, p.Rotated);
+            var preview = Panel.Simulation.PreviewAttachmentDrop(id, provider.Id, Panel.AttachmentRotation);
+            return new(this, id, preview.Request, preview.Handling,
+                new(Origin + new Vector2(p.X, p.Y) * CellPixels, new Vector2(size.Width, size.Height) * CellPixels), IntoContainer: true);
+        }
         if (Pick(position) is { } container && container.Id != id && Panel.DefaultDropRegion(container.Id) is { } interior)
         {
             var (cw, ch) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(container.Id), Region, container.Placement.Rotated);

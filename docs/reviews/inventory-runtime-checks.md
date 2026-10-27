@@ -2,7 +2,14 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current hip-pocket correction qualification (October 26):
+Current mounting alignment / equipped-target qualification (October 27):
+
+- `--check`: **20,470 assertions**, including **102 attachment** and **238 inventory** checks. Provider drops choose deterministic free compatible support at the requested orientation, handle non-origin contacts, reject occupied/closed support without rearrangement, and commit through the ordinary paid Move path. Existing action, access, load, AP and persistence tests remain required. Art metadata checks cover explicit native attachment bindings, bounded size, source anchor and orientation.
+- `--inventory-smoke work/preview/spatial-scene/attachment-alignment.png`: all six inventory suites pass. Native checks rotate the mounted sprite through all six directions and compare its loop anchor/hanging axis with independent reference vectors. Actual alpha-picked inspection/detachment still works. Dragging a loaded pouch onto the worn belt in the equipped view shows a whole-provider target, uses six-direction R rotation and starts paid work on release. Existing open-backpack container drops and precise manual packing retain their scoped behavior. Direction and equipped-target captures were visually inspected. Builds have zero compiler warnings/errors; the known two-reference shutdown-only ObjectDB warning remains.
+- The source PNGs and physical definition fields are unchanged. The inventory art manifest now registers mounted height, normalized anchor and baseline orientation. Hex-outline radius follows center spacing. Schema 13 and inventory content identity stay unchanged.
+- The separate [fit-rank/worn-stack contract](../33-fit-ranks-and-worn-stacks.md) records the user-confirmed replacement direction, including base garment + two belts consuming an under-limit of three. It is a design contract; the current fixed-layer runtime and selector have not migrated in this fix.
+
+Earlier hip-pocket correction qualification (October 26):
 
 - `--check`: **20,455 assertions**, including **44 closure-policy** and **234 inventory** checks. Hip compartments are `Sealable=false`, `Snug=true`; cargo flaps retain buttons. Explicit Open/Close, invented auto-secure preferences and forged sealed hip saves reject without changing physical state. Inspection remains free, and coverage/access still applies.
 - `--inventory-smoke work/preview/spatial-scene/inventory-hip.png`: all six native suites pass, including unsealable hip inspection/menu controls and the belt/pouch regression. The hip capture was visually inspected. Zero compiler warnings/errors; the existing two-reference shutdown-only ObjectDB warning remains. The user's desktop belt-test process was left running unchanged.

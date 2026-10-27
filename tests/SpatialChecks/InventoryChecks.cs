@@ -35,6 +35,19 @@ internal static class InventoryChecks
         }
         var sim = Sim();
         Check(sim.Inventory.Content!.Definitions.All(d => registered.Contains(d.Id)), "all native item definitions have actual object sprites");
+        var mountArt = art.RootElement.GetProperty("attachmentIllustrations");
+        Check(sim.Inventory.Content.Definitions.Where(d => d.Attachment is not null).All(d => mountArt.TryGetProperty(d.Id, out _)),
+            "each attachable native object has an explicit mounting illustration");
+        foreach (var mount in mountArt.EnumerateObject())
+        {
+            Check(registered.Contains(mount.Name) && sim.Inventory.Content.Definitions.Single(d => d.Id == mount.Name).Attachment is not null,
+                "mount registration references an actual attachable sprite");
+            var anchor = mount.Value.GetProperty("anchor").EnumerateArray().Select(v => v.GetDouble()).ToArray();
+            Check(anchor.Length == 2 && anchor.All(v => double.IsFinite(v) && v >= 0 && v <= 1), "mounted anchor lies on the registered source image");
+            var height = mount.Value.GetProperty("height").GetDouble(); var rotation = mount.Value.GetProperty("rotationDegrees").GetDouble();
+            Check(double.IsFinite(height) && height is > 0 and <= 256 && double.IsFinite(rotation) && Math.Abs(rotation) <= 360,
+                "mounted art has bounded aspect-preserving size and source orientation");
+        }
         using var hotspots = JsonDocument.Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(artPath)!, "hotspots.json")));
         foreach (var binding in hotspots.RootElement.EnumerateObject())
         {

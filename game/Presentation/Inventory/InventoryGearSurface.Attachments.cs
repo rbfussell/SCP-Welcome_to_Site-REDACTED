@@ -15,16 +15,15 @@ public partial class InventoryGearSurface
     private Vector2 MountPoint(BodyHex cell) => MountOrigin + new Vector2(cell.Q + cell.R * .5f, cell.R * .8660254f) * MountStep;
     internal Vector2 MountPosition(BodyHex cell) => GlobalPosition + MountPoint(cell);
     private BodyHex MountCell(Vector2 at) => Support!.Attachment!.Cells.OrderBy(c => MountPoint(c).DistanceSquaredTo(at)).First();
-    private static float Angle(BodyPose pose) => pose.Rotation * Mathf.Pi / 3;
-    private Rect2 PouchBounds => new(-22, -8, 44, 70);
+    private const float MountRadius = MountStep / 1.7320508f;
     private IReadOnlyList<InventoryItem> Mounted => Support is { } s ? Panel.Simulation.InventoryAttachmentsOn(ItemId, s.Id) : [];
     private InventoryItem? PickMounted(Vector2 at) => Mounted.LastOrDefault(item =>
     {
         var pose = item.Placement.AttachmentPose!;
-        var local = (at - MountPoint(new(pose.Q, pose.R))).Rotated(-Angle(pose));
-        return InventoryArt.Opaque(item.DefinitionId, InventoryArt.Unproject(item.DefinitionId, PouchBounds, local));
+        var local = at - MountPoint(new(pose.Q, pose.R));
+        return InventoryArt.Opaque(item.DefinitionId, InventoryArt.UnprojectMount(item.DefinitionId, pose.Rotation, local));
     });
-    private bool OverSupport(Vector2 at) => Support is not null && MountPoint(MountCell(at)).DistanceTo(at) <= 24;
+    private bool OverSupport(Vector2 at) => Support is not null && MountPoint(MountCell(at)).DistanceTo(at) <= MountRadius;
     private AttachmentPreview PreviewMount(string id, Vector2 at)
     {
         var cell = MountCell(at);
@@ -34,10 +33,10 @@ public partial class InventoryGearSurface
     }
     private void DrawMounted(string definition, BodyPose pose, float opacity, bool highlight = false)
     {
-        DrawSetTransform(MountPoint(new(pose.Q, pose.R)), Angle(pose));
-        InventoryArt.DrawLocal(this, definition, PouchBounds, opacity, highlight);
-        DrawSetTransform(Vector2.Zero);
+        InventoryArt.DrawMount(this, definition, MountPoint(new(pose.Q, pose.R)), pose.Rotation, opacity, highlight);
     }
+    internal Vector2 MountedImagePoint(string definition, BodyPose pose, Vector2 source)
+        => GlobalPosition + MountPoint(new(pose.Q, pose.R)) + InventoryArt.ProjectMount(definition, pose.Rotation, source);
     private void DrawAttachments()
     {
         foreach (var child in Mounted) DrawMounted(child.DefinitionId, child.Placement.AttachmentPose!, Panel.DragItemId == child.Id ? .3f : 1, _hoveredAttachment == child.Id);
@@ -48,7 +47,7 @@ public partial class InventoryGearSurface
         foreach (var cell in Panel.Simulation.Inventory.Definition(id).Attachment?.Occupancy ?? [])
         {
             var center = MountPoint(BodyFitGeometry.Transform(cell, pose));
-            var points = Enumerable.Range(0, 6).Select(i => center + Vector2.FromAngle(i * Mathf.Pi / 3 + Mathf.Pi / 6) * 24).ToArray();
+            var points = Enumerable.Range(0, 6).Select(i => center + Vector2.FromAngle(i * Mathf.Pi / 3 + Mathf.Pi / 6) * MountRadius).ToArray();
             DrawPolyline(points.Append(points[0]).ToArray(), color, 1);
         }
         DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), $"Mount · {pose.Rotation * 60}° · R rotates", fontSize: 13, modulate: color);

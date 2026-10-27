@@ -1,5 +1,7 @@
 # Wearable metadata, interactions and surface mapping
 
+October 27 revision: the user separates fit compatibility from actual wearing order and adds per-hex same-layer subpositions. See [fit ranks and actual worn stacks](33-fit-ranks-and-worn-stacks.md). That contract supersedes fixed authored-layer design assumptions below; the current native runtime has not yet migrated.
+
 Status: October 25, 2026. User-confirmed direction: independent overlap, covering, removal blocking, attachment surfaces and coherent front/back appearance. The bounded runtime now separates access covering, removal blocking and declared same-layer overlap. Body-hex placement, continuous attachment surfaces and procedural world clothing remain proposed. The user confirms belt overlap with accessible pockets and blocked underlying removal, and sensible per-fastening securing defaults with player overrides.
 
 Related: [body equipment](24-body-equipment-and-container-navigation.md), [fit standard](25-wear-layer-and-fit-standard.md), [appearance pipeline](26-wearable-appearance-pipeline.md), and [three-view inventory/body fit](27-three-view-inventory-and-body-fit.md).

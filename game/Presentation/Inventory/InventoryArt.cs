@@ -8,6 +8,8 @@ internal static class InventoryArt
 {
     private static readonly Dictionary<string, AtlasTexture> Textures = [];
     private static readonly Dictionary<string, Image> Images = [];
+    private sealed record MountIllustration(float Height, float[] Anchor, float RotationDegrees);
+    private static readonly Dictionary<string, MountIllustration> MountIllustrations = [];
     private static bool _loaded;
     private static void Load()
     {
@@ -18,6 +20,15 @@ internal static class InventoryArt
             var r = asset.GetProperty("region").EnumerateArray().Select(v => v.GetInt32()).ToArray();
             Textures.Add(asset.GetProperty("id").GetString()!, new AtlasTexture
             { Atlas = GD.Load<Texture2D>("res://Assets/inventory-objects/" + asset.GetProperty("file").GetString()), Region = new(r[0], r[1], r[2], r[3]) });
+        }
+        foreach (var binding in json.RootElement.GetProperty("attachmentIllustrations").EnumerateObject())
+        {
+            var profile = binding.Value.Deserialize<MountIllustration>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+            if (profile is null || !Textures.ContainsKey(binding.Name) || !float.IsFinite(profile.Height) || profile.Height is <= 0 or > 256
+                || profile.Anchor is not { Length: 2 } || profile.Anchor.Any(v => !float.IsFinite(v) || v is < 0 or > 1)
+                || !float.IsFinite(profile.RotationDegrees) || Math.Abs(profile.RotationDegrees) > 360)
+                throw new InvalidOperationException("Invalid mounted illustration: " + binding.Name);
+            MountIllustrations.Add(binding.Name, profile);
         }
         _loaded = true;
     }
@@ -58,7 +69,7 @@ internal static class InventoryArt
         foreach (var image in Images.Values) image.Dispose();
         Images.Clear();
         foreach (var texture in Textures.Values) { var source = texture.Atlas; texture.Dispose(); source?.Dispose(); }
-        Textures.Clear(); _loaded = false;
+        Textures.Clear(); MountIllustrations.Clear(); _loaded = false;
     }
     public static void Draw(Control canvas, string definitionId, Rect2 bounds, bool rotated, float opacity = 1)
     {
@@ -67,11 +78,28 @@ internal static class InventoryArt
         canvas.DrawTextureRect(layout.Texture, new(-layout.Size / 2, layout.Size), false, new(1, 1, 1, opacity));
         canvas.DrawSetTransform(Vector2.Zero);
     }
-    // Uses the caller's transform, allowing six-way mounting without changing square-storage rotation.
-    internal static void DrawLocal(Control canvas, string id, Rect2 bounds, float opacity, bool highlight = false)
+    private readonly record struct MountLayout(AtlasTexture Texture, Vector2 Size, Vector2 Anchor, float Angle)
     {
-        if (GetLayout(id, bounds) is not { } layout) return;
-        canvas.DrawTextureRect(layout.Texture, new(layout.Center - layout.Size / 2, layout.Size), false, highlight ? new(1.3f, 1.5f, 1.25f, opacity) : new(1, 1, 1, opacity));
+        public Vector2 Project(Vector2 source) => ((source - Anchor) * Size).Rotated(Angle);
+        public Vector2 Unproject(Vector2 point) => point.Rotated(-Angle) / Size + Anchor;
+    }
+    private static MountLayout MountedLayout(string id, int rotation)
+    {
+        Load(); var profile = MountIllustrations[id]; var texture = Textures[id];
+        return new(texture, texture.GetSize() * (profile.Height / texture.GetHeight()), new(profile.Anchor[0], profile.Anchor[1]),
+            Mathf.DegToRad(profile.RotationDegrees + rotation * 60));
+    }
+    internal static Vector2 ProjectMount(string id, int rotation, Vector2 source) => MountedLayout(id, rotation).Project(source);
+    internal static Vector2 UnprojectMount(string id, int rotation, Vector2 point) => MountedLayout(id, rotation).Unproject(point);
+    internal static bool HasMountIllustration(string id) { Load(); return MountIllustrations.ContainsKey(id); }
+    internal static void DrawMount(Control canvas, string id, Vector2 origin, int rotation, float opacity, bool highlight = false)
+    {
+        if (!HasMountIllustration(id)) return;
+        var layout = MountedLayout(id, rotation);
+        canvas.DrawSetTransform(origin, layout.Angle);
+        canvas.DrawTextureRect(layout.Texture, new(-layout.Anchor * layout.Size, layout.Size), false,
+            highlight ? new(1.3f, 1.5f, 1.25f, opacity) : new(1, 1, 1, opacity));
+        canvas.DrawSetTransform(Vector2.Zero);
     }
     internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon, bool blocked = false)
     {

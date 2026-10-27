@@ -347,5 +347,15 @@
         255
       ]
     }
-  ]
+  ],
+  "attachmentIllustrations": {
+    "utility-pouch": {
+      "height": 60,
+      "anchor": [
+        0.5,
+        0.12
+      ],
+      "rotationDegrees": -30
+    }
+  }
 }

@@ -1,5 +1,7 @@
 # Wear layers and fit standard
 
+October 27 revision: the user separates fit compatibility from actual wearing order and adds per-hex same-layer subpositions. See [fit ranks and actual worn stacks](33-fit-ranks-and-worn-stacks.md). That contract supersedes fixed authored-layer design assumptions below; the current native runtime has not yet migrated.
+
 Status: October 25, 2026. User-confirmed direction: base garments occupy layer 0; outer items have a predictable wearing order; fitting something over another item depends on its construction. The example ordering below records the user's intended game behavior. Fit-profile fields, compatibility defaults and discomfort effects are proposed. This document does not add accessory items or a clearance/stretch solver. A subsequent [body-mask/contact fixture](30-body-fit-prototype.md) now qualifies basic geometric fit separately.
 
 This extends [body equipment and container navigation](24-body-equipment-and-container-navigation.md). The current runtime already validates authored layers, body coverage, fastening, dressing order and outermost packs. It does not yet implement the fit/comfort details described here.

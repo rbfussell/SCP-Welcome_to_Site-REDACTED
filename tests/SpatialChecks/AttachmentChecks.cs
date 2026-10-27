@@ -22,6 +22,12 @@ internal static class AttachmentChecks
         Act(sim, Move("utility-belt", "person:avatar", "belt"));
         for (var angle = 0; angle < 6; angle++)
             Check(sim.QuoteInventory(Mount(sim, angle: angle)).Allowed, "six mounting directions are independent of square-storage rotation");
+        var unchangedDrop = sim.Save();
+        var automatic = sim.PreviewAttachmentDrop("utility-pouch", "utility-belt", 2);
+        Check(automatic.Handling.Allowed && automatic.Request.Destination?.AttachmentPose == new BodyPose(0, 0, 2) && sim.Save() == unchangedDrop,
+            "whole-provider drop chooses deterministic free support and preserves the requested orientation without mutating state");
+        Check(!sim.PreviewAttachmentDrop("field-phone", "utility-belt").Handling.Allowed
+            && !sim.PreviewAttachmentDrop("utility-pouch", "utility-belt", 6).Handling.Allowed, "whole-provider drop rejects incompatible items and invalid directions");
         var source = state.Items["utility-pouch"].Placement; var quote = sim.QuoteInventory(Mount(sim));
         Check(quote.DurationMs > 0 && quote.Ap > 0, "mounting quotes real handling time and AP");
         sim.ManualPause = true; var safe = sim.Save();
@@ -30,6 +36,9 @@ internal static class AttachmentChecks
         var mid = sim.Save(); var copy = Sim(); copy.Restore(mid); Check(copy.Save() == mid, "mid-attachment continuation restores exactly");
         Finish(sim); Finish(copy); Check(sim.Save() == copy.Save(), "resumption matches uninterrupted attachment");
         var attached = state.Items["utility-pouch"].Placement;
+        unchangedDrop = sim.Save();
+        Check(!sim.PreviewAttachmentDrop("utility-pouch", "utility-belt").Handling.Allowed && sim.Save() == unchangedDrop,
+            "dropping onto the existing provider does not relocate or rearrange its mounted child");
         Check(attached.ParentId == "utility-belt" && attached.AttachmentPose == new BodyPose(0, 0), "single physical parent plus local mount pose");
         Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == shape.DefaultPose, "mount anchor resolves through worn support");
         Check(sim.InventoryContents("utility-pouch", "inside").Count == 0 && !sim.InventoryAccess("utility-pouch", "inside").Allowed,
@@ -92,6 +101,34 @@ internal static class AttachmentChecks
         defs[bi] = belt with { Regions = belt.Regions!.Select(r => r with { MaxMassGrams = 150 }).ToArray() }; RejectGraph("support sums all loaded attachments"); defs[bi] = belt;
         Check(!InventoryAttachments.ProfileValid(pouch.Attachment! with { Contacts = [new(99, 99)] })
             && !InventoryAttachments.ProfileValid(pouch.Attachment! with { Occupancy = [new(0, 0), new(0, 0)] }), "malformed authored footprints rejected");
+
+        var blockedDrop = Sim();
+        blockedDrop.Inventory.Items["utility-belt"] = blockedDrop.Inventory.Items["utility-belt"] with { Placement = new("avatar-backpack", "main", 0, 4) };
+        var closedIndex = blockedDrop.Inventory.Regions.FindIndex(r => r.ItemId == "avatar-backpack" && r.RegionId == "main");
+        blockedDrop.Inventory.Regions[closedIndex] = blockedDrop.Inventory.Regions[closedIndex] with { Open = false };
+        unchangedDrop = blockedDrop.Save();
+        Check(!blockedDrop.PreviewAttachmentDrop("utility-pouch", "utility-belt").Handling.Allowed && blockedDrop.Save() == unchangedDrop,
+            "whole-provider shortcut respects closed ancestors and performs no hidden opening");
+        var drop = Sim(); Act(drop, Move("utility-belt", "person:avatar", "belt"));
+        var dropRequest = drop.PreviewAttachmentDrop("utility-pouch", "utility-belt", 5).Request;
+        Act(drop, dropRequest);
+        Check(drop.Inventory.Items["utility-pouch"].Placement.AttachmentPose == new BodyPose(0, 0, 5), "provider drop commits the quoted sixth-turn pose through paid work");
+
+        var offset = Sim(); var offsetDefs = offset.Inventory.Content!.Definitions;
+        var offsetBelt = Array.FindIndex(offsetDefs, d => d.Id == "utility-belt");
+        offsetDefs[offsetBelt] = offsetDefs[offsetBelt] with { Regions = offsetDefs[offsetBelt].Regions!.Select(r => r with
+            { Attachment = r.Attachment! with { Cells = [new(0, 0)] } }).ToArray() };
+        var offsetPouch = Array.FindIndex(offsetDefs, d => d.Id == "utility-pouch");
+        offsetDefs[offsetPouch] = offsetDefs[offsetPouch] with { Attachment = new("belt-loop", [new(1, 0), new(1, 1)], [new(1, 0)]) };
+        var offsetPreview = offset.PreviewAttachmentDrop("utility-pouch", "utility-belt", 2);
+        Check(offsetPreview.Handling.Allowed && offsetPreview.Request.Destination?.AttachmentPose == new BodyPose(1, -1, 2),
+            "non-origin contacts align with support at the requested direction instead of requiring the item's origin on a support cell");
+        var dd = Array.FindIndex(offsetDefs, d => d.Id == "dressing");
+        offsetDefs[dd] = offsetDefs[dd] with { Attachment = new("belt-loop", [new(0, 0)], [new(0, 0)]) };
+        offset.Inventory.Items["spare-dressing"] = offset.Inventory.Items["spare-dressing"] with { Placement = new("utility-belt", "webbing", AttachmentPose: new(0, 0)) };
+        unchangedDrop = offset.Save();
+        Check(!offset.PreviewAttachmentDrop("utility-pouch", "utility-belt", 2).Handling.Allowed && offset.Save() == unchangedDrop,
+            "a full exterior support never rearranges or rotates existing mounted equipment");
 
         var accessWorld = new SimulationWorld(map, config); accessWorld.Player.Cell = new(13, 6); var aw = accessWorld.Inventory;
         aw.Items["utility-belt"] = aw.Items["utility-belt"] with { Placement = new("person:avatar", "belt") };

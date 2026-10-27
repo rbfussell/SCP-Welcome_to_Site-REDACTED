@@ -188,10 +188,19 @@ public partial class InventoryPanel : Control
             + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
             + (definition.Capability is not null && !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? " · unavailable until accessible and powered" : "");
     }
-    public void Rotate() { if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; } if (SelectedItem is null) return;
-        if (GetViewport().GuiGetHoveredControl() is InventoryGearSurface surface && surface.HasAttachmentSurface)
-        { AttachmentRotation = (AttachmentRotation + 1) % 6; surface.QueueRedraw(); return; }
-        Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
+    public void Rotate()
+    {
+        if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; }
+        if (SelectedItem is null) return;
+        var supportHover = GetViewport().GuiGetHoveredControl() is InventoryGearSurface { HasAttachmentSurface: true };
+        if (supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)
+        {
+            AttachmentRotation = (AttachmentRotation + 1) % 6;
+            RefreshDragPreview(); Redraw(this); return;
+        }
+        Rotated = !Rotated; RefreshDragPreview();
+        _receipt.Text = "Placement preview rotated; drop to begin timed handling.";
+    }
     public void Inspect(string id)
     {
         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;

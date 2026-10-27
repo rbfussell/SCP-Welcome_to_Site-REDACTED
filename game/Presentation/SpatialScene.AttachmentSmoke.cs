@@ -37,6 +37,13 @@ public partial class SpatialScene
             {
                 InventoryKey(Key.R); await InventoryDragHover(Surface().MountPosition(new(1, 0)));
                 Check(Surface().MountPreview?.Request.Destination?.AttachmentPose?.Rotation == rotation % 6, "R did not cycle six mounting directions");
+                var pose = new BodyPose(1, 0, rotation % 6);
+                var anchor = Surface().MountedImagePoint("utility-pouch", pose, new(.5f, .12f));
+                Check(anchor.DistanceTo(Surface().MountPosition(new(1, 0))) < .01f, "sprite loops drifted away from their mounting anchor");
+                var hanging = Surface().MountedImagePoint("utility-pouch", pose, new(.5f, .9f)) - anchor;
+                var forward = new Vector2(22, 38.105118f).Rotated(rotation % 6 * Mathf.Pi / 3);
+                Check(Math.Abs(hanging.Cross(forward)) < .05f && hanging.Dot(forward) > 0, "sprite hanging direction differs from the footprint's diagonal axis");
+                await InventoryCapture("-mount-direction-" + rotation % 6);
             }
             Check(sim.Inventory.Pending is null && sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement.RegionId == "hand", "preview performed free physical work");
             await InventoryCapture("-mount-preview");
@@ -53,7 +60,7 @@ public partial class SpatialScene
         Check(supportMenu.Contains("Open") && !supportMenu.Any(t => t.StartsWith("Arrange") || t is "Zip" or "Close" or "Snap"),
             "exterior context invented a storage/closure action");
         InventoryClick(new Vector2(600, 55)); await InventoryFrames();
-        InventoryClick(Surface().MountPosition(new(1, 0)) + new Vector2(0, 28), true); await InventoryFrames();
+        InventoryClick(Surface().MountedImagePoint("utility-pouch", new(1, 0), new(.5f, .6f)), true); await InventoryFrames();
         Check(panel.Browser.GearIds.SequenceEqual(new[] { "utility-belt", "utility-pouch" }) && panel.Browser.CurrentContents is null,
             "mounted pouch did not enter the middle gear trail without revealing contents");
         sim.ManualPause = false; InventoryClick(Surface().HotspotPosition("inside"), true);
@@ -80,10 +87,34 @@ public partial class SpatialScene
         await InventoryCapture("-belt-diagonal");
         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); panel.Inspect("utility-belt"); await InventoryFrames();
         hand = await Hand(); sim.ManualPause = false;
-        await InventoryDrag(Surface().MountPosition(new(1, 0)) + new Vector2(0, 28), hand.GlobalPosition + new Vector2(12, 55)); await Finish();
+        await InventoryDrag(Surface().MountedImagePoint("utility-pouch", new(1, 0), new(.5f, .6f)), hand.GlobalPosition + new Vector2(12, 55)); await Finish();
         Check(sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement is { ParentId: "person:avatar", RegionId: "hand", AttachmentPose: null }
             && sim.Inventory.DiagnosticItems.Single(i => i.Id == "spare-dressing").Placement.ParentId == "utility-pouch", "native detachment lost the loaded pouch");
         await InventoryCapture("-pouch-detached");
+        // Whole-provider drop from the equipped/body view uses support fit, never the belt's folded packing envelope.
+        var beltGrid = panel.FindGrid("person:avatar", "belt");
+        ((ScrollContainer)beltGrid.GetParent().GetParent()).EnsureControlVisible(beltGrid); await InventoryFrames();
+        panel.Select("utility-pouch");
+        var loosePouch = sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement;
+        var providerPreview = beltGrid.PreviewAt("utility-pouch", new(30, 80));
+        Check(providerPreview is { IntoContainer: true, Quote.Allowed: true, Request.Kind: InventoryActionKind.Move }
+            && providerPreview.Request.Destination?.ParentId == "utility-belt", "equipped belt failed to offer its exterior support");
+        // The hand and belt are far apart in this temporary slot list: start the drag at the hand, then scroll while dragging.
+        hand = await Hand();
+        await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), hand.GlobalPosition + new Vector2(15, 55), async () =>
+        {
+            ((ScrollContainer)beltGrid.GetParent().GetParent()).EnsureControlVisible(beltGrid); await InventoryFrames();
+            await InventoryDragHover(beltGrid.GlobalPosition + new Vector2(30, 80));
+            InventoryKey(Key.R); await InventoryFrames();
+            Check(panel.DropPreview is { IntoContainer: true, Quote.Allowed: true } p && p.Request.Destination?.AttachmentPose?.Rotation == 1,
+                "equipped support drop did not use sixth-turn rotation");
+            Check(sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement == loosePouch && sim.Inventory.Pending is null,
+                "equipped provider preview moved or unpacked the loaded pouch");
+            await InventoryCapture("-equipped-belt-drop"); sim.ManualPause = false;
+        });
+        Check(sim.Inventory.Pending?.Request.Destination?.ParentId == "utility-belt", "equipped provider release did not start paid attachment"); await Finish();
+        Check(sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement.AttachmentPose == new BodyPose(0, 0, 1)
+            && sim.Inventory.DiagnosticItems.Single(i => i.Id == "spare-dressing").Placement.ParentId == "utility-pouch", "provider drop lost pose or loaded contents");
         var snapshot = sim.Save(); var copy = new SpatialSimulation(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"), Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
         copy.Restore(snapshot); Check(copy.Save() == snapshot, "loaded rotated attachment hierarchy changed on restore");
         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;

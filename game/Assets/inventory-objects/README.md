@@ -21,3 +21,5 @@ The coverage slice rebinds the trouser image to four real compartments: hip seam
 ## Belt / utility pouch stand-ins
 
 The built-in image generator produced `utility-belt.png` and `utility-pouch.png` with real transparency. [Exact prompts and tool mode](attachment-prompts.json) and [source/alpha/atlas registration](manifest.json) accompany the unchanged source PNGs. Both assets were visually inspected. Atlas regions exclude faint transparent-margin noise; no background was painted into the originals. The pouch flap is a source-image interaction segment; mounting occupancy lives separately in simulation metadata.
+
+Mounted illustrations now use `attachmentIllustrations` in the manifest: height, normalized mounting anchor and baseline rotation. The pouch’s strap anchor and diagonal footprint axis drive preview, rendering and alpha picking together. This is registration metadata over the existing source PNG, not regenerated artwork.
