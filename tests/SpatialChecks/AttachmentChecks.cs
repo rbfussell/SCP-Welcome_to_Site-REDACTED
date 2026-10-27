@@ -95,6 +95,8 @@ internal static class AttachmentChecks
         defs[pi] = pouch with { Attachment = pouch.Attachment! with { Interface = "other-interface" } }; RejectGraph("wrong connector refused"); defs[pi] = pouch;
         s.Items["spare-dressing"] = s.Items["spare-dressing"] with { DefinitionId = "utility-pouch", Placement = new("utility-belt", "webbing", AttachmentPose: new(0, 0, 3)) };
         RejectGraph("occupied anchor cannot accept an overlapping attachment");
+        s.Items["spare-dressing"] = s.Items["spare-dressing"] with { Placement = new("utility-belt", "webbing", AttachmentPose: new(1, 0)) };
+        RejectGraph("upright pouch width occupies both lower neighbors, preventing side-by-side silhouette overlap");
         s.Items["spare-dressing"] = s.Items["spare-dressing"] with { Placement = new("utility-belt", "webbing", AttachmentPose: new(2, 0)) };
         InventoryPlacement.Validate(s); Check(true, "separate support positions do not overlap");
         var bi = Array.FindIndex(defs, d => d.Id == "utility-belt"); var belt = defs[bi];

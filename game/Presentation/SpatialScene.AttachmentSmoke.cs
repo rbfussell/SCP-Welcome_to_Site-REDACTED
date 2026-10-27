@@ -43,6 +43,14 @@ public partial class SpatialScene
                 var hanging = Surface().MountedImagePoint("utility-pouch", pose, new(.5f, .9f)) - anchor;
                 var forward = new Vector2(0, 44).Rotated(rotation % 6 * Mathf.Pi / 3);
                 Check(Math.Abs(hanging.Cross(forward)) < .05f && hanging.Dot(forward) > 0, "sprite differs from the unrotated source plus exact sixth-turn steps");
+                // Compare with the actual physical cells, not just the sprite's own rotation formula.
+                // A two-cell (0,0)/(0,1) footprint leans 30 degrees away from this upright source.
+                var profile = sim.Inventory.Definition("utility-pouch").Attachment!;
+                var lowerCells = profile.Occupancy.Except(profile.Contacts).ToArray();
+                var footprintAxis = lowerCells.Select(cell => Surface().MountPosition(BodyFitGeometry.Transform(cell, pose)) - anchor)
+                    .Aggregate(Vector2.Zero, (sum, point) => sum + point) / lowerCells.Length;
+                Check(Math.Abs(hanging.Normalized().Cross(footprintAxis.Normalized())) < .0001f && hanging.Dot(footprintAxis) > 0,
+                    "physical footprint leans away from the mounted illustration");
                 await InventoryCapture("-mount-direction-" + rotation % 6);
             }
             Check(sim.Inventory.Pending is null && sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement.RegionId == "hand", "preview performed free physical work");

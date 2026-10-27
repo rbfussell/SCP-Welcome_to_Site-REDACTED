@@ -63,6 +63,16 @@ A compatible pouch dropped directly onto the belt in the equipped view selects f
 
 ## October 27 zero-angle correction
 
+This corrected the sprite baseline only. The footprint correction below completes the alignment.
+
 The initial alignment follow-up added a -30° art offset to align the pouch with a diagonal occupancy axis. That made the displayed 0° already tilted and shifted all six visible headings by half a step. The pouch registration now uses a **0° source offset**: mount 0° is the original upright illustration, 180° is inverted, and R advances 0 → 60 → 120 → 180 → 240 → 300 → 0. The mounting-loop anchor remains fixed. Physical hex occupancy is unchanged; its authored shape is separate from the source image’s upright axis.
 
 The native test now commits all six rotations through actual drag/R/release and paid handling, compares each placed sprite with independent reference directions, and captures the committed 0°/180° states. This catches a half-step source offset as well as skipped or repeated input steps. Save fields and physical content identity remain unchanged.
+
+## October 27 symmetric footprint correction
+
+The remaining mismatch was authored geometry: `(0,0), (0,1)` forms a diagonal pair in the point-up attachment grid, while the pouch source hangs vertically. Rotating the source alone could not make both agree at upright 0°/inverted 180°. The pouch now occupies `(0,0), (-1,1), (0,1)`: the mounting-loop cell plus a symmetric pair beneath it. Its single contact remains `(0,0)`. This is a coarse physical envelope for the pouch's width; it does not require every occupied cell to touch webbing.
+
+The regular hex projection, horizontal belt support, source registration and six exact 60° rotations are unchanged. Both body-local and gear-view occupancy read the same corrected definition. Adjacent upright pouches now collide across their lower cells; two support steps apart remain valid. No view-only footprint or extra rotation offset is introduced.
+
+Native checks compare the actual projected physical cells' centerline against the source illustration's hanging axis at every rotation, in addition to committing all six poses through paid drag/R/release. This catches the earlier diagonal footprint that a sprite-only rotation check missed. Physical content identity changes, requiring a fresh fixture save; schema remains 13.

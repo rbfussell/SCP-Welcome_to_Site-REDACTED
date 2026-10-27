@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current zero-angle correction qualification (October 27):
+Current symmetric-footprint correction qualification (October 27):
+
+- `--check`: **20,471 assertions**, including **103 attachment** checks. An adjacent upright pouch now fails physical overlap validation; two support steps apart still fit. Existing paid handling, load, access, body composition, AP and persistence checks pass. Build has zero compiler warnings/errors.
+- `--inventory-smoke work/preview/spatial-scene/attachment-footprint.png`: all six native inventory suites pass. The new regression compares the centerline of the actual projected non-contact occupancy cells against the sprite's hanging axis in all six rotations. The old diagonal two-cell shape fails that relationship. Native drag/R/release still commits every orientation through paid work. Upright and inverted preview captures were visually inspected: outlines now surround a symmetric pouch envelope beneath/above the fixed loop anchor. Existing picking, inspection, packing, closures, parent refit and loaded detachment pass. The known software-display V-Sync warning and two-reference shutdown-only ObjectDB warning remain.
+- The source PNG, projection, zero-angle art registration and save schema 13 remain unchanged. The corrected physical definition changes fixture content identity, so earlier field-kit saves require a fresh scene.
+
+Earlier zero-angle correction qualification (October 27):
 
 - The earlier -30° pouch source offset shifted all six visual headings by half a step. The registration now uses 0°, preserving the loop anchor and source aspect ratio. Upright/inverted orientations are actual mount 0°/180°, with R stepping 0/60/120/180/240/300/0.
 - `--inventory-smoke work/preview/spatial-scene/attachment-zero.png`: all six native suites pass with zero compiler warnings/errors. In addition to preview rotation, the test commits a complete six-step cycle through native drag/R/release and paid handling, verifies stored poses and independent source-relative direction vectors, and captures every resulting sprite. Committed 0° and 180° captures were visually inspected. Existing alpha-picked inspection/detachment, equipped-target drops, body fitting, packing, closures and persistence still pass. The existing nonfatal software-display V-Sync warning and two-reference shutdown-only ObjectDB warning remain.
