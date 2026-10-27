@@ -12,7 +12,7 @@ internal static class InventorySaveCodec
                 || i.SecureOnClose is not null && state.Definition(i.Id).Wear?.OpenExposes is not { Length: > 0 }
                 || !state.Items.ContainsKey(i.Placement.ParentId) && !content.Roots.Any(r => r.Id == i.Placement.ParentId))
             || state.Regions.Any(r => r is null || !state.Items.ContainsKey(r.ItemId)
-                || state.Definition(r.ItemId).Regions?.Any(region => region.Id == r.RegionId) != true)
+                || state.Definition(r.ItemId).Regions?.Any(region => region.Id == r.RegionId && region.Attachment is null) != true)
             || state.Regions.Select(r => (r.ItemId, r.RegionId)).Distinct().Count() != state.Regions.Count
             || state.Regions.Count != content.Regions.Length)
             throw new ArgumentException("Invalid inventory identity, membership or compartment state.");

@@ -42,7 +42,7 @@ public partial class InventoryContainerView : VBoxContainer
             }
             // Authoring fallback for an unregistered sprite/hotspot; never derive capacity from pixels.
             if (root is not null || !InventoryGearSurface.Registered(definition!.Id))
-                foreach (var r in root?.Regions ?? definition!.Regions ?? [])
+                foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r => r.Attachment is null))
                     InventoryPanel.Button(this, "Open " + r.Name, () => Panel.OpenCompartment(id, r.Id));
             _lower = new VBoxContainer(); AddChild(_lower);
         }
@@ -70,7 +70,9 @@ public partial class InventoryContainerView : VBoxContainer
             : state.DiagnosticItems.SingleOrDefault(i => i.Id == _id) is { } item
                 ? state.Definition(_id).Wear?.OpenExposes is { Length: > 0 }
                     ? item.GarmentOpen ? "GARMENT OPEN · removal restrictions still apply" : "GARMENT FASTENED"
-                    : "Inspect individual compartments; other compartments stay hidden."
+                    : state.Definition(_id).Regions?.Any(r => r.Attachment is not null) == true
+                        ? "Exterior mounts · drag compatible gear onto the webbing · R rotates"
+                        : "Inspect individual compartments; other compartments stay hidden."
                 : "Nearby storage · physical reach required";
         if (_lower is null) return;
         var exposed = sim.InventoryUnderlayers(_id);

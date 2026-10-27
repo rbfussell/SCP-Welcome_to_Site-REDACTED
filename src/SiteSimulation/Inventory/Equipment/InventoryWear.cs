@@ -35,7 +35,7 @@ public static class InventoryWear
                 _ => true
             })
             .OrderByDescending(other => state.Definition(other.Id).Wear!.Layer).ThenBy(other => other.Id, StringComparer.Ordinal)
-            .FirstOrDefault(other => (purpose == Obstruction.Removal ? Mount(state, other, other.Placement)!.Coverage : Covered(state, other)).Intersect(regions).Any());
+            .FirstOrDefault(other => (purpose == Obstruction.Removal ? state.Definition(other.Id).Wear!.RemovalRegions ?? Mount(state, other, other.Placement)!.Coverage : Covered(state, other)).Intersect(regions).Any());
     }
 
     /// <summary>Partial exposure is enough to draw a garment; manipulating it can still require removing outer layers.</summary>

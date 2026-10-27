@@ -67,6 +67,12 @@ internal static class InventoryArt
         canvas.DrawTextureRect(layout.Texture, new(-layout.Size / 2, layout.Size), false, new(1, 1, 1, opacity));
         canvas.DrawSetTransform(Vector2.Zero);
     }
+    // Uses the caller's transform, allowing six-way mounting without changing square-storage rotation.
+    internal static void DrawLocal(Control canvas, string id, Rect2 bounds, float opacity, bool highlight = false)
+    {
+        if (GetLayout(id, bounds) is not { } layout) return;
+        canvas.DrawTextureRect(layout.Texture, new(layout.Center - layout.Size / 2, layout.Size), false, highlight ? new(1.3f, 1.5f, 1.25f, opacity) : new(1, 1, 1, opacity));
+    }
     internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon, bool blocked = false)
     {
         if (GetLayout(id, bounds) is not { } layout) return;

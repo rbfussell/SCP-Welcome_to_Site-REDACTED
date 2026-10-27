@@ -41,7 +41,7 @@ public sealed class InventoryState
     public string Name(string id) => Items.ContainsKey(id) ? Definition(id).Name : Content!.Roots.Single(r => r.Id == id).Name;
     public StorageRegion Region(string parentId, string regionId) => (Items.ContainsKey(parentId) ? Definition(parentId).Regions! : Content!.Roots.Single(r => r.Id == parentId).Regions)
         .Single(r => r.Id == regionId);
-    public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;
+    public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || Region(parentId, regionId).Attachment is not null || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;
     public IReadOnlyList<InventoryItem> Children(string parentId, string regionId) => Items.Values
         .Where(i => i.Placement.ParentId == parentId && i.Placement.RegionId == regionId).OrderBy(i => i.Id, StringComparer.Ordinal).ToArray();
     internal InventorySnapshot Capture() => new(Revision, Items.Values.OrderBy(i => i.Id, StringComparer.Ordinal).ToArray(), Regions.ToArray(), Pending, SecureQueue.ToArray());

@@ -306,6 +306,46 @@
         0,
         254
       ]
+    },
+    {
+      "id": "utility-belt",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-6b657dbf-f88b-4a97-a072-7531c50c7574.png",
+      "subject": "utility-belt",
+      "file": "utility-belt.png",
+      "size": [
+        2172,
+        724
+      ],
+      "region": [
+        36,
+        240,
+        2100,
+        230
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "id": "utility-pouch",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-4a1b85b2-dccf-4672-81bb-18c3009d3e48.png",
+      "subject": "utility-pouch",
+      "file": "utility-pouch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "region": [
+        120,
+        97,
+        1015,
+        1090
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
     }
   ]
 }

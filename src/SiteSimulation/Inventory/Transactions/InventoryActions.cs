@@ -43,6 +43,7 @@ internal static class InventoryActions
                 case InventoryActionKind.Close:
                     if (request.RegionId is null || request.Destination is not null) throw new ArgumentException("Choose a compartment");
                     var region = state.Region(item.Id, request.RegionId);
+                    if (region.Attachment is not null) throw new ArgumentException("An attachment surface has no lid.");
                     var compartmentAccess = InventoryWear.Compartment(state, item.Id, region);
                     if (!compartmentAccess.Allowed) throw new ArgumentException(compartmentAccess.Reason);
                     if (state.IsOpen(item.Id, region.Id) == (request.Kind == InventoryActionKind.Open)) throw new ArgumentException("Compartment is already in that state");

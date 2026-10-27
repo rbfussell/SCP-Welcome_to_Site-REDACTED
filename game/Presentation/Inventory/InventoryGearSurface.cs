@@ -27,7 +27,7 @@ public partial class InventoryGearSurface : Control
     public override void _Ready()
     {
         CustomMinimumSize = new(330, 350); MouseFilter = MouseFilterEnum.Stop; TextureFilter = TextureFilterEnum.Nearest;
-        MouseExited += () => { _dropAllowed = null; SetHover(null); };
+        MouseExited += () => { _dropAllowed = null; MountPreview = null; _hoveredAttachment = null; SetHover(null); };
         Resized += () => { SetHover(null); QueueRedraw(); };
     }
     private Hotspot? Pick(Vector2 position)
@@ -42,10 +42,13 @@ public partial class InventoryGearSurface : Control
         _hovered = target;
         _coverage = target?.Region is { } region ? Panel.Simulation.InventoryPocketCoverage(ItemId, region) : null;
         MouseDefaultCursorShape = target is null ? CursorShape.Arrow : CursorShape.PointingHand;
-        TooltipText = target is null ? "" : target.Label + " · " + (Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
+        TooltipText = target?.Region is { } support && Panel.Simulation.Inventory.Region(ItemId, support).Attachment is not null
+            ? "Belt support · drag a compatible pouch onto the webbing · R rotates its mounting pose"
+            : target is null ? "" : target.Label + " · " + (Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
         QueueRedraw();
     }
-    public override void _Process(double delta) { if (_hovered is not null && IsVisibleInTree()) SetHover(_hovered); }
+    public override void _Process(double delta)
+    { if (!IsVisibleInTree()) return; if (_hovered is not null) SetHover(_hovered); if (HasAttachmentSurface) HoverAttachment(GetLocalMousePosition()); }
     private bool Open(Hotspot target) => target.Region is null
         ? Panel.Simulation.Inventory.DiagnosticItems.Single(i => i.Id == ItemId).GarmentOpen
         : Panel.Simulation.Inventory.IsOpen(ItemId, target.Region);
@@ -53,29 +56,54 @@ public partial class InventoryGearSurface : Control
     {
         InventoryArt.Draw(this, DefinitionId, Bounds, false);
         if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points, _coverage?.Covered == true);
-        if (_dropAllowed is { } allowed)
+        DrawAttachments();
+        if (!HasAttachmentSurface && _dropAllowed is { } allowed)
             DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), allowed ? "Store in this compartment" : "Cannot store here", fontSize: 13,
                 modulate: new(allowed ? "69d89a" : "ef8275"));
     }
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
         if (data.VariantType != Variant.Type.String || data.AsString() != Panel.DragItemId) return false;
+        if (HasAttachmentSurface)
+        {
+            MountPreview = PreviewMount(data.AsString(), atPosition); Panel.ShowQuote(MountPreview.Handling); QueueRedraw();
+            return MountPreview.Handling.Allowed;
+        }
         var target = Pick(atPosition); SetHover(target);
         _dropAllowed = target?.Region is { } region && Panel.PreviewContainerDrop(data.AsString(), ItemId, region).Allowed;
         return _dropAllowed.Value;
     }
     public override void _DropData(Vector2 atPosition, Variant data)
     {
+        if (HasAttachmentSurface)
+        { var preview = PreviewMount(data.AsString(), atPosition); if (preview.Handling.Allowed) Panel.Simulation.HandleInventory(preview.Request); Panel.ShowReceipt(); MountPreview = null; QueueRedraw(); return; }
         if (Pick(atPosition)?.Region is { } region) Panel.StoreInContainer(data.AsString(), ItemId, region);
         _dropAllowed = null; QueueRedraw();
     }
     public override void _Notification(int what)
-    { if (what == NotificationDragEnd) { _dropAllowed = null; QueueRedraw(); } }
+    { if (what == NotificationDragEnd) { _dropAllowed = null; MountPreview = null; QueueRedraw(); } }
     public override void _GuiInput(InputEvent e)
     {
-        if (e is InputEventMouseMotion motion) { SetHover(Pick(motion.Position)); return; }
+        if (e is InputEventMouseMotion motion)
+        { SetHover(Pick(motion.Position)); HoverAttachment(motion.Position); return; }
         if (e is not InputEventMouseButton { Pressed: true } mouse) return;
+        var mounted = PickMounted(mouse.Position);
+        if (mounted is not null)
+        {
+            if (mouse.ButtonIndex == MouseButton.Right) Panel.Context(mounted.Id, null, GetGlobalMousePosition());
+            else if (mouse.ButtonIndex == MouseButton.Left && mouse.DoubleClick) Panel.Inspect(mounted.Id);
+            else if (mouse.ButtonIndex == MouseButton.Left) Panel.Select(mounted.Id);
+            AcceptEvent(); return;
+        }
+        if (HasAttachmentSurface && mouse.ButtonIndex == MouseButton.Left && !mouse.DoubleClick && Panel.SelectedItem is { } selected && selected != ItemId && OverSupport(mouse.Position))
+        { var preview = PreviewMount(selected, mouse.Position); Panel.Simulation.HandleInventory(preview.Request); Panel.ShowReceipt(); AcceptEvent(); return; }
         var spot = Pick(mouse.Position); SetHover(spot);
+        if (HasAttachmentSurface)
+        {
+            if (spot is not null && mouse.ButtonIndex == MouseButton.Right) Panel.Context(ItemId, null, GetGlobalMousePosition());
+            else if (mouse.ButtonIndex == MouseButton.Left) Panel.Select(ItemId);
+            AcceptEvent(); return;
+        }
         if (mouse.ButtonIndex == MouseButton.Right && spot is not null)
             Panel.Context(ItemId, spot.Region, GetGlobalMousePosition(), spot.Region is null);
         else if (mouse.ButtonIndex == MouseButton.Left && mouse.DoubleClick && spot is not null)

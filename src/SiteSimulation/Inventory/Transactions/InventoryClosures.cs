@@ -9,6 +9,7 @@ public static class InventoryClosures
         if (regionId is not null)
         {
             var region = state.Region(itemId, regionId);
+            if (region.Attachment is not null) throw new ArgumentException("An attachment surface has no fastening.");
             var open = state.IsOpen(itemId, regionId);
             return new(open ? region.SecureVerb : region.OpenVerb,
                 new(open ? InventoryActionKind.Close : InventoryActionKind.Open, itemId, RegionId: regionId));
@@ -23,7 +24,7 @@ public static class InventoryClosures
     public static bool SecureOnClose(InventoryState state, string itemId, string? regionId = null)
     {
         if (regionId is not null)
-            return state.Regions.Single(r => r.ItemId == itemId && r.RegionId == regionId).SecureOnClose ?? state.Region(itemId, regionId).SecureOnClose;
+            return state.Region(itemId, regionId).Attachment is null && (state.Regions.Single(r => r.ItemId == itemId && r.RegionId == regionId).SecureOnClose ?? state.Region(itemId, regionId).SecureOnClose);
         return state.Items[itemId].SecureOnClose ?? state.Definition(itemId).Wear!.SecureOnClose;
     }
     public static InventoryRequest[] OnDismissal(InventoryState state, IEnumerable<InventoryRequest> candidates)

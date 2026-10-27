@@ -1,0 +1,16 @@
+{
+  "generator": "built-in image_gen.imagegen",
+  "transparentBackground": true,
+  "assets": [
+    {
+      "id": "utility-belt",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game inventory sprite. Create one isolated utility belt laid perfectly straight horizontally, viewed directly from the front, fully visible end to end. Dark worn olive military webbing, small dull steel buckle at left end, readable fine pixel texture and material shading like detailed late-1990s prerendered RPG inventory art. Broad unobstructed central webbing for mounting a separate utility pouch in the game. No attached equipment, no pouches, no text, no labels, no frame, no floor shadow. Transparent background with real alpha, ample transparent margin. One belt only.",
+      "file": "utility-belt.png"
+    },
+    {
+      "id": "utility-pouch",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game inventory sprite. Create one isolated small military utility pouch viewed directly from the front with very slight top visible. Worn muted olive canvas with a single wide closed flap and a small dull metal snap button, visible stitched edges, belt loops just visible at top. Detailed visibly pixelated sprite treatment reminiscent of late-1990s prerendered RPG inventory objects, nuanced material shading and compact readable silhouette. One pouch only, no belt, no equipment, no text or labels or frame, no floor or shadow. Real transparent alpha background, ample transparent margin. Object fills most of square canvas.",
+      "file": "utility-pouch.png"
+    }
+  ]
+}

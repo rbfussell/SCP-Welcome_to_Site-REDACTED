@@ -52,6 +52,7 @@ The launcher handles this workspace's path characters through a temporary build 
 31. [Gear data and scoped packing](docs/29-gear-data-standard.md): deliberate container insertion, Arrange, the proposed author sheet/schema and future spillage.
 32. [First body-fit runtime](docs/30-body-fit-prototype.md): readable hex masks, contact failures, six-orientation previews and paid fitting.
 33. [Geometric pocket access](docs/31-pocket-coverage-prototype.md): independent hip/cargo compartments, closed/open cover masks and same-surface overlap.
+34. [Belt and utility pouch](docs/32-belt-and-attachment-prototype.md): compatible hex support, mounted gear inspection, loaded parent movement and paid attachment handling.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic artwork, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 

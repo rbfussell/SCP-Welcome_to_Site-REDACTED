@@ -63,7 +63,7 @@ Outer schema **12** already persists the required garment state, compartment sta
 
 This qualifies geometric compartment access. Whole-garment visibility, layer conflicts and removal restraints still use the existing coarse regions; opening a pocket does not certify arbitrary geometric undressing. The single front-projected diagnostic body is not a finished front/back clothing compositor. Shape symmetry, final cloth/fastening animation and six-direction world outfit art remain separate work.
 
-Next: attachment support for one belt/strap and one child item, preserving transformed support, compatibility and load. Drag-and-drop fitting remains the intended next body-control interaction; it must reuse the same fit/coverage/handling services rather than applying free placement on release. Spillage remains a separate inventory behavior.
+The following [belt/pouch slice](32-belt-and-attachment-prototype.md) now qualifies one exterior support, compatibility and loaded parent movement. Drag-and-drop fitting remains the intended next body-control interaction; it must reuse the same fit/coverage/handling services rather than applying free placement on release. Spillage remains a separate inventory behavior.
 
 ## Verification
 

@@ -43,6 +43,8 @@ public partial class InventoryBrowser : HBoxContainer
         if (!access.Allowed) { reason = access.Reason; return false; }
         if (state.Content.Roots.Any(r => r.Id == item.Placement.ParentId && r.ActorId == sim.Player.Id))
         { StartGear(id); return true; }
+        if (item.Placement.AttachmentPose is not null && CurrentGear == item.Placement.ParentId)
+        { Panel.CancelDragPreview(); _gear.Add(new(id, Placement(id))); _contents.Clear(); Build(); return true; }
         if (_contents.LastOrDefault() is not { } containing || containing.Owner != item.Placement.ParentId || containing.Region != item.Placement.RegionId) return false;
         if (state.Definition(id).Regions is not { Length: > 0 } regions) { reason = "This item has no interior."; return false; }
         return OpenRegion(id, regions[0].Id, out reason);
@@ -56,6 +58,7 @@ public partial class InventoryBrowser : HBoxContainer
     {
         var sim = Panel.Simulation;
         reason = "Choose a compartment in the current gear or contents.";
+        if (sim.Inventory.Region(owner, region).Attachment is not null) { reason = "This is an exterior mounting surface."; return false; }
         var isGear = _gear.Any(g => g.Id == owner);
         var item = sim.Inventory.DiagnosticItems.SingleOrDefault(i => i.Id == owner);
         var nested = _contents.LastOrDefault() is { } parent && item?.Placement.ParentId == parent.Owner && item.Placement.RegionId == parent.Region;
@@ -95,7 +98,7 @@ public partial class InventoryBrowser : HBoxContainer
             ? (entire || gear ? _contents.ToArray() : [_contents[^1]]) : Array.Empty<Interior>();
         // Dismissing views has a physical default. A busy handler leaves the views in place with an explanation.
         var interiors = gear && entire ? _visited.Concat(removedGear.SelectMany(g => g.Placement is null ? Array.Empty<Interior>()
-            : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Select(r => new Interior(g.Id, r.Id, g.Placement)))) : removedContents;
+            : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r => r.Attachment is null).Select(r => new Interior(g.Id, r.Id, g.Placement)))) : removedContents;
         var requests = interiors.Where(c => Placement(c.Owner) == c.Placement && Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
             .Select(c => new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
             .Concat(removedGear.Where(g => g.Placement is not null && Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: > 0 })

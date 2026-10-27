@@ -590,6 +590,134 @@
         ],
         "fitProfile": "chem-suit"
       }
+    },
+    {
+      "id": "utility-belt",
+      "name": "Utility belt",
+      "widthMm": 150,
+      "lengthMm": 75,
+      "thicknessMm": 35,
+      "massGrams": 250,
+      "tags": [
+        "belt"
+      ],
+      "wearSlot": "belt",
+      "handleMs": 1000,
+      "handleAp": 2,
+      "wear": {
+        "layer": 3,
+        "mounts": [
+          {
+            "slot": "belt",
+            "coverage": [
+              "hips-front",
+              "hips-back"
+            ],
+            "bodySurface": "front"
+          }
+        ],
+        "coversAccess": false,
+        "blocksRemoval": true,
+        "overlapTags": [
+          "belt"
+        ],
+        "fitProfile": "belt",
+        "removalRegions": [
+          "hips-front",
+          "hips-back",
+          "torso-front",
+          "torso-back"
+        ]
+      },
+      "regions": [
+        {
+          "id": "webbing",
+          "name": "Belt webbing",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 25,
+          "heightMm": 100,
+          "maxMassGrams": 2000,
+          "equipmentReady": true,
+          "accessMs": 250,
+          "accessAp": 1,
+          "attachment": {
+            "interface": "belt-loop",
+            "cells": [
+              {
+                "q": -2,
+                "r": 0
+              },
+              {
+                "q": -1,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "utility-pouch",
+      "name": "Utility pouch",
+      "widthMm": 75,
+      "lengthMm": 100,
+      "thicknessMm": 50,
+      "massGrams": 100,
+      "tags": [
+        "utility-pouch"
+      ],
+      "handleMs": 500,
+      "handleAp": 1,
+      "attachment": {
+        "interface": "belt-loop",
+        "occupancy": [
+          {
+            "q": 0,
+            "r": 0
+          },
+          {
+            "q": 0,
+            "r": 1
+          }
+        ],
+        "contacts": [
+          {
+            "q": 0,
+            "r": 0
+          }
+        ]
+      },
+      "defaultDropRegion": "inside",
+      "regions": [
+        {
+          "id": "inside",
+          "name": "Utility pouch interior",
+          "columns": 3,
+          "rows": 4,
+          "cellMm": 25,
+          "heightMm": 45,
+          "maxMassGrams": 1000,
+          "equipmentReady": true,
+          "accessMs": 300,
+          "accessAp": 1,
+          "secureVerb": "Snap",
+          "openVerb": "Unsnap",
+          "secureOnClose": true
+        }
+      ]
     }
   ],
   "roots": [
@@ -1452,6 +1580,26 @@
         "y": 5,
         "rotated": false
       }
+    },
+    {
+      "id": "utility-belt",
+      "definitionId": "utility-belt",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 10,
+        "y": 13
+      }
+    },
+    {
+      "id": "utility-pouch",
+      "definitionId": "utility-pouch",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 17,
+        "y": 13
+      }
     }
   ],
   "regions": [
@@ -1579,6 +1727,11 @@
       "itemId": "tech-trousers",
       "regionId": "cargo-right",
       "open": true
+    },
+    {
+      "itemId": "utility-pouch",
+      "regionId": "inside",
+      "open": false
     }
   ]
 }

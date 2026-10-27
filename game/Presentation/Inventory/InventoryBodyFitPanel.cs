@@ -15,6 +15,7 @@ public partial class InventoryBodyFitPanel : VBoxContainer
     private ItemPlacement? _seenPlacement;
     internal PocketCoverage[] Pockets => _selected is null ? [] : (Panel.Simulation.Inventory.Definition(_selected).Regions ?? [])
         .Select(r => Panel.Simulation.InventoryPocketCoverage(_selected, r.Id)).OfType<PocketCoverage>().ToArray();
+    internal string? SelectedId => _selected;
     internal BodyPose Draft { get; private set; } = new(0, 0);
     internal BodyFitPreview? Preview { get; private set; }
     internal InventoryBodyFitSurface Surface { get; private set; } = null!;
@@ -129,6 +130,12 @@ public partial class InventoryBodyFitSurface : Control
             var outside = preview.Geometry.Outside.ToHashSet();
             foreach (var cell in preview.Geometry.Cells)
                 DrawColoredPolygon(Polygon(cell), outside.Contains(cell) ? new Color("d06258", .85f) : new Color("62baa2", .65f));
+            if (Fit.SelectedId is { } selected)
+                foreach (var region in Fit.Panel.Simulation.Inventory.Definition(selected).Regions ?? [])
+                    if (region.Attachment is not null)
+                        foreach (var child in Fit.Panel.Simulation.InventoryAttachmentsOn(selected, region.Id))
+                            foreach (var local in InventoryAttachments.Occupancy(Fit.Panel.Simulation.Inventory, child))
+                                DrawColoredPolygon(Polygon(BodyFitGeometry.Transform(local, Fit.Draft)), new Color("d1ad68", .85f));
             foreach (var contact in preview.Geometry.Contacts)
             {
                 var edge = Edge(Center(contact.Cell), contact.Direction);

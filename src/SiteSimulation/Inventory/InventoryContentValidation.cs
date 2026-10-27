@@ -11,6 +11,7 @@ internal static class InventoryContentValidation
             && regions.All(InventoryWear.BodyRegions.Contains);
         static bool WearValid(WearProfile w) => w.Layer is >= 0 and <= 9 && w.Mounts is { Length: > 0 and <= 10 }
             && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage) && (m.BodySurface is null or "front" or "back")) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
+            && (w.RemovalRegions is null || Body(w.RemovalRegions))
             && (w.OpenExposes is null || Body(w.OpenExposes) && w.OpenExposes.All(r => w.Mounts.Any(m => m.Coverage.Contains(r))))
             && (w.OverlapTags is null || w.OverlapTags.Length <= 32 && w.OverlapTags.All(Id) && w.OverlapTags.Distinct().Count() == w.OverlapTags.Length)
             && Id(w.SecureVerb) && w.SecureVerb.Length <= 32 && Id(w.OpenVerb) && w.OpenVerb.Length <= 32
@@ -20,14 +21,16 @@ internal static class InventoryContentValidation
             && Id(r.SecureVerb) && r.SecureVerb.Length <= 32 && Id(r.OpenVerb) && r.OpenVerb.Length <= 32
             && r.AccessMs is >= 0 and <= 5000 && r.AccessMs % SpatialSimulation.TickMs == 0 && r.AccessAp is >= 0 and <= 5
             && (r.Mask is null || r.Mask.Distinct().Count() == r.Mask.Length && r.Mask.All(i => i >= 0 && i < r.Columns * r.Rows))
-            && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1) && (r.AccessBody is null || Body(r.AccessBody));
+            && (r.MountSlot is null || r.Columns == 1 && r.Rows == 1) && (r.AccessBody is null || Body(r.AccessBody))
+            && InventoryAttachments.SurfaceValid(r);
         if (c.Definitions is null || c.Roots is null || c.Items is null || c.Regions is null
             || c.Definitions.Any(d => d is null || !Id(d.Id) || !Id(d.Name) || d.Tags is null
                 || d.WidthMm is <= 0 or > 1000 || d.LengthMm is <= 0 or > 1000 || d.ThicknessMm is <= 0 or > 1000
                 || d.MassGrams is < 0 or > 100000 || d.HandleMs is < 50 or > 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
                 || d.HandleAp is < 1 or > 5 || d.Wear is not null && !WearValid(d.Wear)
                 || d.Wear?.FitProfile is { } fit && !state.BodyFits!.Content.Shapes.Any(s => s.Id == fit)
-                || d.DefaultDropRegion is not null && d.Regions?.Any(r => r is not null && r.Id == d.DefaultDropRegion && r.MountSlot is null) != true
+                || !InventoryAttachments.ProfileValid(d.Attachment)
+                || d.DefaultDropRegion is not null && d.Regions?.Any(r => r is not null && r.Id == d.DefaultDropRegion && r.MountSlot is null && r.Attachment is null) != true
                 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
             || c.Definitions.Select(d => d.Id).Distinct().Count() != c.Definitions.Length
             || c.Roots.Any(r => r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region => !RegionValid(region))

@@ -10,7 +10,7 @@ internal static class InventoryPacking
     public static InventoryPackingPlan Plan(InventoryState state, string owner, string regionId, string? incoming)
     {
         var region = state.Region(owner, regionId);
-        if (region.MountSlot is not null) throw new ArgumentException("Arrange applies to storage, not body or attachment mounts.");
+        if (region.MountSlot is not null || region.Attachment is not null) throw new ArgumentException("Arrange applies to storage, not body or attachment mounts.");
         var ids = state.Children(owner, regionId).Select(i => i.Id).Where(id => id != incoming).ToList();
         if (incoming is not null) ids.Add(incoming);
         var shapes = ids.Select(id =>

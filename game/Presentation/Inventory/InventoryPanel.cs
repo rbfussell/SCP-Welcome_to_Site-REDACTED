@@ -9,6 +9,7 @@ public partial class InventoryPanel : Control
     public SpatialSimulation Simulation { get; private set; } = null!;
     public string? SelectedItem { get; private set; }
     public bool Rotated { get; private set; }
+    internal int AttachmentRotation { get; private set; }
     public bool IsOpen => Visible;
     internal string? DragItemId { get; private set; }
     internal InventoryDropPreview? DropPreview { get; private set; }
@@ -59,7 +60,7 @@ public partial class InventoryPanel : Control
         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
             CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
-        foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front" }) AddGrid(mounts, "person:avatar", slot, 90);
+        foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front", "belt" }) AddGrid(mounts, "person:avatar", slot, 90);
         _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);
         _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);
         _garmentToggle = new Button { Text = "Open / fasten selected garment", FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);
@@ -162,7 +163,8 @@ public partial class InventoryPanel : Control
     public void Select(string id)
     {
         SelectedItem = id;
-        Rotated = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement.Rotated;
+        var placement = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement;
+        Rotated = placement.Rotated; AttachmentRotation = placement.AttachmentPose?.Rotation ?? 0;
         _detail.Text = Describe(id);
     }
     internal Button GarmentToggle => _garmentToggle;
@@ -186,7 +188,10 @@ public partial class InventoryPanel : Control
             + (definition.Capability is null ? "" : item.Powered ? " · powered" : " · switched off")
             + (definition.Capability is not null && !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? " · unavailable until accessible and powered" : "");
     }
-    public void Rotate() { if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; } if (SelectedItem is null) return; Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
+    public void Rotate() { if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; } if (SelectedItem is null) return;
+        if (GetViewport().GuiGetHoveredControl() is InventoryGearSurface surface && surface.HasAttachmentSurface)
+        { AttachmentRotation = (AttachmentRotation + 1) % 6; surface.QueueRedraw(); return; }
+        Rotated = !Rotated; RefreshDragPreview(); _receipt.Text = "Placement preview rotated; drop to begin timed handling."; }
     public void Inspect(string id)
     {
         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;
@@ -208,7 +213,7 @@ public partial class InventoryPanel : Control
     internal string? DefaultDropRegion(string id)
     {
         var definition = Simulation.Inventory.Definition(id);
-        return definition.DefaultDropRegion ?? (definition.Regions is { Length: 1 } regions ? regions[0].Id : null);
+        return definition.DefaultDropRegion ?? (definition.Regions is { Length: 1 } regions && regions[0].Attachment is null ? regions[0].Id : null);
     }
     internal InventoryPackingQuote PreviewContainerDrop(string item, string owner, string region)
     {
@@ -252,7 +257,7 @@ public partial class InventoryPanel : Control
         var definition = Simulation.Inventory.Definition(id);
         void Entry(string name, Action action) => Button(list, name, () => { HideContext(); action(); });
         if (!fastening && region is null) Entry("Open", () => Inspect(id));
-        var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: > 0 } && definition.Regions is { Length: 1 } regions ? regions[0].Id : null);
+        var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: > 0 } && definition.Regions is { Length: 1 } regions && regions[0].Attachment is null ? regions[0].Id : null);
         if (closureRegion is not null || definition.Wear?.OpenExposes is { Length: > 0 })
         {
             var closure = Button(list, "", () =>
@@ -277,11 +282,11 @@ public partial class InventoryPanel : Control
             _contextUpdates.Add(UpdateClosure); UpdateClosure();
         }
         if (region is not null) Entry("Arrange " + Simulation.Inventory.Region(id, region).Name, () => Arrange(id, region));
-        else foreach (var interior in definition.Regions ?? [])
+        else foreach (var interior in (definition.Regions ?? []).Where(r => r.Attachment is null))
             Entry("Arrange " + interior.Name, () => Arrange(id, interior.Id));
         var location = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement;
         var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);
-        if (enclosing.MountSlot is null) Entry("Arrange " + enclosing.Name, () => Arrange(location.ParentId, location.RegionId));
+        if (enclosing.MountSlot is null && enclosing.Attachment is null) Entry("Arrange " + enclosing.Name, () => Arrange(location.ParentId, location.RegionId));
         Entry("Remove → hand", () => { Select(id); MoveSelectedTo("hand"); });
         PositionContext(position);
     }

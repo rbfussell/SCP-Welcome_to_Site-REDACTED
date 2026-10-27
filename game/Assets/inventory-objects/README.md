@@ -17,3 +17,7 @@ Each entry supplies a physical `region` (or null for the garment's front fasteni
 When replacing/cropping artwork, retrace its contours and review both hover captures and actual context/double-click input. Keep physical region IDs stable. Core checks reject out-of-bounds, degenerate and self-crossing contours; Godot checks qualify actual source-to-screen mapping, blank-space rejection and resize alignment. The current backpack binds only its main and side compartments; extra visible pouches/straps await their gameplay definitions. Attachment-surface fitting/rendering and state-specific open/flap illustrations remain separate work.
 
 The coverage slice rebinds the trouser image to four real compartments: hip seams (`left`/`right`) and the visible lower pouches (`cargo-left`/`cargo-right`). The source PNG is unchanged. Hover tint reads physical access coverage; body-local mouth/cover geometry is authored separately from these image contours.
+
+## Belt / utility pouch stand-ins
+
+The built-in image generator produced `utility-belt.png` and `utility-pouch.png` with real transparency. [Exact prompts and tool mode](attachment-prompts.json) and [source/alpha/atlas registration](manifest.json) accompany the unchanged source PNGs. Both assets were visually inspected. Atlas regions exclude faint transparent-margin noise; no background was painted into the originals. The pouch flap is a source-image interaction segment; mounting occupancy lives separately in simulation metadata.

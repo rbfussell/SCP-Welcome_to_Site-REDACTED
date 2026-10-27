@@ -20,17 +20,21 @@ public static class InventoryPlacement
             if (region.AcceptTags is { Length: > 0 } tags && !definition.Tags.Any(tags.Contains))
                 throw new ArgumentException(region.Name + " rejects this item category");
             InventoryBodyFit.Validate(state, item);
-            var (width, height) = Footprint(definition, region, p.Rotated);
-            if (p.X < 0 || p.Y < 0 || p.X + width > region.Columns || p.Y + height > region.Rows
-                || region.MountSlot is null && definition.ThicknessMm > region.HeightMm)
-                throw new ArgumentException(definition.Name + " does not physically fit in " + region.Name);
-            var cells = Enumerable.Range(p.Y, height).SelectMany(y => Enumerable.Range(p.X, width).Select(x => y * region.Columns + x)).ToArray();
-            if (region.Mask is { } mask && cells.Any(c => !mask.Contains(c))) throw new ArgumentException("Item overlaps the compartment's unusable area");
-            foreach (var other in state.Items.Values.Where(i => i.Id != item.Id && i.Placement.ParentId == p.ParentId && i.Placement.RegionId == p.RegionId))
+            InventoryAttachments.Validate(state, item);
+            if (region.Attachment is null)
             {
-                var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);
-                if (p.X < other.Placement.X + w && p.X + width > other.Placement.X && p.Y < other.Placement.Y + h && p.Y + height > other.Placement.Y)
-                    throw new ArgumentException("Packing footprint overlaps another item");
+                var (width, height) = Footprint(definition, region, p.Rotated);
+                if (p.X < 0 || p.Y < 0 || p.X + width > region.Columns || p.Y + height > region.Rows
+                    || region.MountSlot is null && definition.ThicknessMm > region.HeightMm)
+                    throw new ArgumentException(definition.Name + " does not physically fit in " + region.Name);
+                var cells = Enumerable.Range(p.Y, height).SelectMany(y => Enumerable.Range(p.X, width).Select(x => y * region.Columns + x)).ToArray();
+                if (region.Mask is { } mask && cells.Any(c => !mask.Contains(c))) throw new ArgumentException("Item overlaps the compartment's unusable area");
+                foreach (var other in state.Items.Values.Where(i => i.Id != item.Id && i.Placement.ParentId == p.ParentId && i.Placement.RegionId == p.RegionId))
+                {
+                    var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);
+                    if (p.X < other.Placement.X + w && p.X + width > other.Placement.X && p.Y < other.Placement.Y + h && p.Y + height > other.Placement.Y)
+                        throw new ArgumentException("Packing footprint overlaps another item");
+                }
             }
             if (state.Children(p.ParentId, p.RegionId).Sum(i => InventoryHierarchy.Mass(state, i.Id)) > region.MaxMassGrams)
                 throw new ArgumentException(region.Name + " exceeds its load limit");
