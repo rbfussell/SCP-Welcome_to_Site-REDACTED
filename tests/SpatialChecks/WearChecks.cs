@@ -47,7 +47,7 @@ internal static class WearChecks
         Check(sim.Save() == clone.Save() && !Item(sim, "avatar-coat").GarmentOpen, "restored fastening commits once under the ordinary scheduler");
         Check(!sim.InventoryAccess("avatar-trousers", "left").Allowed && sim.InventoryContents("avatar-trousers", "left").Count == 0,
             "a fastened coat blocks and hides covered trouser pockets");
-        Check(sim.InventoryPaperdollContents("torso", true, 1).Single().Id == "avatar-shirt" && !sim.InventoryMoveAccess("avatar-shirt").Allowed,
+        Check(sim.InventoryPaperdollContents("torso", true, 0).Single().Id == "avatar-shirt" && !sim.InventoryMoveAccess("avatar-shirt").Allowed,
             "a covered shirt can be identified in layer view while removal remains blocked");
         Check(sim.InventoryContents("person:avatar", "legs").Count == 1 && sim.InventoryContents("person:avatar", "torso").Count == 0,
             "partial visible legs do not reveal a fully covered shirt");
@@ -99,19 +99,19 @@ internal static class WearChecks
         var socks = state.Content.Definitions[socksIndex];
         state.Content.Definitions[socksIndex] = socks with { Wear = socks.Wear! with { Mounts = [new("socks", ["feet"]), new("footwear", ["feet"])] } };
         state.Items["avatar-shoes"] = state.Items["avatar-shoes"] with { Placement = new("person:avatar", "hand") };
-        state.Items["spare-socks"] = state.Items["spare-socks"] with { Placement = new("person:avatar", "footwear") };
-        try { InventoryPlacement.Validate(state); throw new Exception("Duplicate body layer accepted"); }
-        catch (ArgumentException ex) { Check(ex.Message.Contains("same body layer"), "different slots cannot bypass overlapping anatomical layer claims"); }
+        state.Items["spare-socks"] = state.Items["spare-socks"] with { Placement = new("person:avatar", "footwear", WornOrder: 7) };
+        try { InventoryPlacement.Validate(state); throw new Exception("Tight duplicate socks accepted"); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains("cannot fit"), "different mounts cannot bypass actual under-fit requirements"); }
         state.Content.Definitions[socksIndex] = state.Content.Definitions[socksIndex] with
-        { Wear = state.Content.Definitions[socksIndex].Wear! with { OverlapTags = ["socks"] } };
+        { Wear = state.Content.Definitions[socksIndex].Wear! with { OverlapTags = ["socks"], Fit = socks.Wear!.Fit! with { MaxUnderBulk = 1, FitsOver = ["core:light-textile"] } } };
         InventoryPlacement.Validate(state);
-        Check(true, "mutually compatible same-layer items can overlap anatomy across distinct mounts");
+        Check(true, "a roomy second pair uses its actual outer order despite sharing the same authored layer");
         var bootsIndex = Array.FindIndex(state.Content.Definitions, d => d.Id == "boots");
         state.Content.Definitions[bootsIndex] = state.Content.Definitions[bootsIndex] with
-        { Wear = new(0, [new("footwear", ["feet"])], OverlapTags: ["socks"]) };
+        { Wear = state.Content.Definitions[bootsIndex].Wear! with { Layer = 0, Fit = state.Content.Definitions[bootsIndex].Wear!.Fit! with { FitsOver = [] } } };
         state.Items["spare-socks"] = state.Items["spare-socks"] with { DefinitionId = "boots" };
         try { InventoryPlacement.Validate(state); throw new Exception("One-sided overlap accepted"); }
-        catch (ArgumentException ex) { Check(ex.Message.Contains("same body layer"), "overlap permission must be compatible in both profiles"); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains("cannot fit"), "actual outer fit requirements cannot be bypassed by an authored layer or overlap tag"); }
 
         // Isolate access-covering from removal-blocking, including the confirmed non-covering, removal-blocking belt combination.
         foreach (var covers in new[] { false, true })
@@ -147,7 +147,7 @@ internal static class WearChecks
         var suitIndex = Array.FindIndex(state.Content!.Definitions, d => d.Id == "chem-suit");
         var suitDef = state.Content.Definitions[suitIndex];
         state.Content.Definitions[suitIndex] = suitDef with { Wear = suitDef.Wear! with { Layer = 6 } };
-        state.Items["chemical-suit"] = state.Items["chemical-suit"] with { Placement = new("person:avatar", "suit") };
+        state.Items["chemical-suit"] = state.Items["chemical-suit"] with { Placement = new("person:avatar", "suit", WornOrder: 7) };
         try { InventoryPlacement.Validate(state); throw new Exception("Covered outermost pack accepted"); }
         catch (ArgumentException ex) { Check(ex.Message.Contains("outermost"), "a higher numeric layer cannot cover an outermost pack"); }
 

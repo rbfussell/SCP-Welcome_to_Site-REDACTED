@@ -1,6 +1,6 @@
 # Fit compatibility and actual worn stacks
 
-Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The current runtime still uses `WearProfile.Layer` for order. The [fit-rule foundation](34-wear-fit-rules.md) now provides separate compatibility metadata and validates cumulative bulk; this document defines the remaining worn-stack migration.
+Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The [fit-rule foundation](34-wear-fit-rules.md) separates compatibility from order, and [actual worn order](35-actual-worn-order.md) now implements saved paid dressing, local primary depths and the grouped equipment list. Per-hex same-band overlays and crossed belts remain pending; this document is their design contract.
 
 ## Separate fit from position
 
@@ -99,3 +99,7 @@ The current fixed-layer runtime, its selector and its save fields remain qualifi
 ## October 29 foundation boundary
 
 The [first fit-rule slice](34-wear-fit-rules.md) implements directional families, relative bulk, aggregate clearance and explicit exclusions, including a bridge into the existing ordered equipment graph. It does not yet replace the order representation, derive local bands/subpositions, add crossed belts, change the layer selector or enable dressing in arbitrary order through the UI. Those remain the next staged migration. The pure fit evaluator accepts a proposed outer/under relationship without consulting `Layer`, so the future per-surface worn-stack projection can reuse it.
+
+## October 29 primary-order migration
+
+The [primary-order slice](35-actual-worn-order.md) supersedes the fixed-order/runtime-selector statements above: saved dressing precedence now drives coverage, fit, access, removal, underlayer browsing and the equipment list. It uses local anatomical regions for primary depth. Per-hex same-band counts and `layer_N`, multiple crossed belts, fastening-interference masks and attachment-support exposure are still separate work. Schema 14 requires a fresh inventory scene rather than inventing past dressing order.

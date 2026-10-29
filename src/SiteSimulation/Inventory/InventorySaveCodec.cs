@@ -45,6 +45,8 @@ internal static class InventorySaveCodec
             if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)
                 || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))
                 throw new ArgumentException("Invalid inventory request or declared cost.");
+            if (InventoryWornOrder.Resolve(state, work.Request) != work.Request)
+                throw new ArgumentException("Saved handling is missing its resolved dressing order.");
             var tactical = world.Combat.Pending;
             if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)
                 || work.Tactical && (tactical!.ActorId != work.ActorId || tactical.RemainingMs != work.RemainingMs

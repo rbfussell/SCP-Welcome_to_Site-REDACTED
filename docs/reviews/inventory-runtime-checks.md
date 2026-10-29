@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current fit-rule foundation qualification (October 29):
+Current actual-order qualification (October 29):
+
+- `--check`: **20,577 assertions**, including **43 new worn-order** checks. Paid jacket-then-shirt dressing, local primary depths, reversed mapped pocket cover, fastening/removal restrictions, source retention, exact mid-action resume and malformed/duplicate/noncanonical save rejection pass. Existing fit, handling, AP, coverage, body fitting and attachment tests still pass. Build has zero compiler warnings/errors.
+- `--inventory-smoke work/preview/spatial-scene/worn-order.png`: all six native inventory suites pass. The new default grouped list shows current depths and access states. Native clicks select a covered shirt without mutation; double-click cannot inspect through its covering. The engineering slot toggle retains the existing native drag/dress/closure checks. Default-list and covered-equipment captures were visually reviewed. The known software-display V-Sync and shutdown-only ObjectDB warnings remain; this run reported three references.
+- Schema **14** stores canonical actual dressing precedence and pending order, with a fresh-scene requirement for earlier inventory saves. Matching non-inventory legacy migrations remain tested. Per-hex belt sublayers and crossed belts are not claimed by this primary-layer slice; see [the runtime boundary](../35-actual-worn-order.md).
+
+Earlier fit-rule foundation qualification (October 29):
 
 - `--check`: **20,534 assertions**, including **63 new wear-fit** checks. Reversed compatible shirt/jacket and armor/jacket combinations, incompatible bulky gear, aggregate clearance, repeated garment definitions, explicit exclusions, outermost packs, malformed metadata and per-region isolation pass. Ordinary paid moves reject incompatible fits atomically, retain source ownership until completion, revalidate before commit, spend the expected combat AP and resume identical pending work after restore. Build has zero compiler warnings/errors.
 - `--inventory-smoke work/preview/spatial-scene/wear-fit.png`: all six native inventory suites pass with the new graph validation. Existing packing, dress/undress, fastening, access coverage, body fitting, attachment mounting/rotation, closure navigation and saved work continue to pass. The existing software-display V-Sync warning and shutdown-only ObjectDB warning remain; this run reported three references. No interface or source sprite changed in this slice.

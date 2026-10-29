@@ -38,7 +38,7 @@ public static class InventoryWearFit
             : new(true, "Fits within the authored clearance.", bulk, fit.MaxUnderBulk);
     }
 
-    /// <summary>Temporary bridge from the existing layer order; the evaluator is reusable by the future worn-stack projection.</summary>
+    /// <summary>Validate compatibility beneath the actual saved dressing order at each declared body region.</summary>
     internal static void ValidateWorn(InventoryState state, IReadOnlyList<InventoryItem> worn)
     {
         foreach (var outer in worn)
@@ -46,7 +46,7 @@ public static class InventoryWearFit
             var definition = state.Definition(outer.Id);
             foreach (var region in InventoryWear.Mount(state, outer, outer.Placement)!.Coverage)
             {
-                var beneath = worn.Where(i => i.Id != outer.Id && state.Definition(i.Id).Wear!.Layer < definition.Wear!.Layer
+                var beneath = worn.Where(i => i.Id != outer.Id && InventoryWornOrder.Order(i) < InventoryWornOrder.Order(outer)
                     && InventoryWear.Mount(state, i, i.Placement)!.Coverage.Contains(region)).Select(i => state.Definition(i.Id)).ToArray();
                 var result = Evaluate(definition, beneath);
                 if (!result.Fits) throw new ArgumentException(region + ": " + result.Reason);

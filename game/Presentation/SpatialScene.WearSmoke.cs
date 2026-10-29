@@ -30,34 +30,22 @@ public partial class SpatialScene
             || sim.InventoryContents("person:avatar", "torso").Count != 0)
             throw new InvalidOperationException("Fastened coat failed to hide its inner shirt/pocket paths and descendant views.");
         held = sim.Save();
-        // Use the native option popup and keyboard selection, rather than calling its selection callback directly.
-        async Task LayerMenu()
-        {
-            var position = panel.LayerView.GetGlobalRect().GetCenter();
-            Input.WarpMouse(position); await InventoryFrames();
-            InventoryMouse(new InputEventMouseMotion { Position = position, GlobalPosition = position });
-            InventoryMouse(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true });
-            InventoryMouse(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false });
-            Input.FlushBufferedEvents(); await InventoryFrames();
-            if (!panel.LayerView.GetPopup().Visible) throw new InvalidOperationException("Native layer popup did not open.");
-        }
-        void LayerKey(Key key)
-        {
-            InventoryMouse(new InputEventKey { Keycode = key, Pressed = true });
-            InventoryMouse(new InputEventKey { Keycode = key, Pressed = false });
-            Input.FlushBufferedEvents();
-        }
-        async Task ChooseLayer(int index)
-        {
-            await LayerMenu();
-            for (var i = 0; i < panel.LayerView.ItemCount + 1 && panel.LayerView.GetPopup().GetFocusedItem() != index; i++)
-            { LayerKey(Key.Down); await InventoryFrames(1); }
-            if (panel.LayerView.GetPopup().GetFocusedItem() != index) throw new InvalidOperationException("Could not focus the requested native layer menu item.");
-            LayerKey(Key.Enter); await InventoryFrames();
-        }
-        await ChooseLayer(3);
-        if (panel.ViewedLayer != 1 || !panel.FindGrid("person:avatar", "torso").DisplayedItems.Any(i => i.Id == "avatar-shirt"))
-            throw new InvalidOperationException($"Native layer selector did not reveal the covered shirt on layer 1 (selected {panel.LayerView.Selected}).");
+        // The main equipment list replaces the old fixed-layer selector; covered rows remain read-only.
+        Click(panel.EngineeringSlots); await InventoryFrames();
+        var list = panel.EquipmentList;
+        var shirtRow = list.Row("avatar-shirt");
+        if (shirtRow < 0 || !list.GetItemText(shirtRow).Contains("0") || !list.GetItemText(shirtRow).Contains("covered"))
+            throw new InvalidOperationException("Equipment list omitted the covered shirt's real layer.");
+        InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter()); await InventoryFrames();
+        if (panel.SelectedItem != "avatar-shirt" || sim.Save() != held)
+            throw new InvalidOperationException("Native equipment row selection changed physical state or selected the wrong item.");
+        InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter(), true); await InventoryFrames();
+        if (panel.Browser.CurrentGear == "avatar-shirt" || sim.Save() != held)
+            throw new InvalidOperationException("Double-clicking covered equipment bypassed inspection access.");
+        await InventoryCapture("-equipment-layers");
+        Click(panel.EngineeringSlots); await InventoryFrames();
+        if (!sim.InventoryEquipment.Any(e => e.ItemId == "avatar-shirt" && !e.Visible && e.Layers.Any(l => l.Layer == 0)))
+            throw new InvalidOperationException("Known covered shirt is missing from actual layer projection.");
         panel.Inspect("gum-packet");
         if (panel.InspectedContainers.Contains("gum-packet") || sim.Save() != held)
             throw new InvalidOperationException("Layer inspection uncovered physical storage or mutated the save.");
@@ -69,9 +57,6 @@ public partial class SpatialScene
         InventoryClick(panel.TakeInHand.GetGlobalRect().GetCenter());
         if (sim.Save() != held) throw new InvalidOperationException("Layer-view selection bypassed physical dressing rules.");
         await InventoryCapture("-layer-inspection");
-        // Return to the normal exposed view before continuing the existing dressing/packing fixture.
-        await ChooseLayer(0);
-        if (panel.ShowCoveredLayers) throw new InvalidOperationException("Native layer selector did not return to exposed equipment.");
         ((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible(coat); await InventoryFrames();
         InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();
         await InventoryCapture("-coat-fastened");

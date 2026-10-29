@@ -28,6 +28,7 @@ internal static class InventoryActions
             {
                 case InventoryActionKind.Move:
                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException("Choose a physical destination");
+                    destination = InventoryWornOrder.Destination(state, item, destination);
                     if (InventoryBodyFit.SamePlace(state, item, destination)) throw new ArgumentException("Item is already there");
                     InventoryWear.ValidateAction(state, item, item.Placement);
                     var target = InventoryAccessService.Placement(world, actorId, destination);
@@ -89,6 +90,7 @@ internal static class InventoryActions
             : world.LocalMs < actor.StartledUntilMs ? "Recovering from startle." : "Ready";
         if (reason != "Ready") return false;
         if (!Validate(world, actor.Id, request, out reason, out var duration, out var ap, out var packing)) return false;
+        request = InventoryWornOrder.Resolve(world.Inventory, request);
         if (world.Combat.Active && !TacticalCombatSystem.HandleInventory(world, ap, duration, out reason)) return false;
         MovementSystem.StopInPlace(actor);
         world.Inventory.Pending = new(actor.Id, request, actor.Position, duration, duration, world.Inventory.Revision, ap, world.Combat.Active, Packing: packing);

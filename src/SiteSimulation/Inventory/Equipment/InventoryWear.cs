@@ -26,15 +26,15 @@ public static class InventoryWear
     private static InventoryItem? Blocker(InventoryState state, InventoryItem item, ItemPlacement placement, IEnumerable<string> regions,
         Obstruction purpose)
     {
-        var wear = state.Definition(item.Id).Wear!;
-        return Worn(state, placement.ParentId).Where(other => other.Id != item.Id && state.Definition(other.Id).Wear!.Layer > wear.Layer)
+        var order = placement.WornOrder ?? InventoryWornOrder.Order(item);
+        return Worn(state, placement.ParentId).Where(other => other.Id != item.Id && InventoryWornOrder.Order(other) > order)
             .Where(other => purpose switch
             {
                 Obstruction.Access => state.Definition(other.Id).Wear!.CoversAccess,
                 Obstruction.Removal => state.Definition(other.Id).Wear!.BlocksRemoval,
                 _ => true
             })
-            .OrderByDescending(other => state.Definition(other.Id).Wear!.Layer).ThenBy(other => other.Id, StringComparer.Ordinal)
+            .OrderByDescending(InventoryWornOrder.Order).ThenBy(other => other.Id, StringComparer.Ordinal)
             .FirstOrDefault(other => (purpose == Obstruction.Removal ? state.Definition(other.Id).Wear!.RemovalRegions ?? Mount(state, other, other.Placement)!.Coverage : Covered(state, other)).Intersect(regions).Any());
     }
 
@@ -76,11 +76,9 @@ public static class InventoryWear
             {
                 var left = worn[a]; var right = worn[b];
                 if (!Mount(state, left, left.Placement)!.Coverage.Intersect(Mount(state, right, right.Placement)!.Coverage).Any()) continue;
-                var l = state.Definition(left.Id).Wear!; var r = state.Definition(right.Id).Wear!;
-                if (l.Layer == r.Layer && !(l.OverlapTags is { Length: > 0 } lt && state.Definition(right.Id).Tags.Any(lt.Contains)
-                    && r.OverlapTags is { Length: > 0 } rt && state.Definition(left.Id).Tags.Any(rt.Contains)))
-                    throw new ArgumentException("Worn items conflict at the same body layer");
-                if (l.Layer != r.Layer && (l.Layer < r.Layer ? l : r).Outermost) throw new ArgumentException("Nothing can cover an outermost pack; remove it first");
+                var inner = InventoryWornOrder.Order(left) < InventoryWornOrder.Order(right) ? left : right;
+                if (state.Definition(inner.Id).Wear!.Outermost)
+                    throw new ArgumentException("Nothing can cover outermost " + state.Definition(inner.Id).Name + "; remove it first");
             }
             InventoryWearFit.ValidateWorn(state, worn);
         }

@@ -82,7 +82,8 @@ internal static class InventorySecuringChecks
         try { protectedSim.Restore(corrupt.ToJsonString()); throw new Exception("Injected open intent accepted"); }
         catch (ArgumentException) { Check(protectedSim.Save() == protectedSave, "malformed queue rejects without partially restoring world state"); }
         var legacy = JsonNode.Parse(protectedSave)!; legacy["Version"] = 8; legacy["Inventory"]!.AsObject().Remove("SecureQueue");
-        protectedSim.Restore(legacy.ToJsonString()); Check(protectedSim.Inventory.SecuringRemaining == 0, "matching schema-8 inventory upgrades to an empty securing queue");
+        try { protectedSim.Restore(legacy.ToJsonString()); throw new Exception("Pre-order inventory schema accepted"); }
+        catch (ArgumentException) { Check(protectedSim.Save() == protectedSave, "pre-order inventory saves require a fresh scene and reject atomically"); }
         Console.WriteLine($"INVENTORY_SECURING_CHECKS_PASS: {passed} assertions; child-first closures, time/AP, pause, interruptions, explicit override and persistence.");
         return passed;
     }

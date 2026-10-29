@@ -7,7 +7,7 @@ public static class InventoryBodyFit
         ? state.BodyFits!.Shape(id) : null;
     public static BodyPose? Pose(InventoryState state, InventoryItem item) => item.Placement.BodyPose ?? Shape(state, item.Id)?.DefaultPose;
     internal static bool SamePlace(InventoryState state, InventoryItem item, ItemPlacement destination)
-        => item.Placement with { BodyPose = null } == destination with { BodyPose = null }
+        => item.Placement with { BodyPose = null, WornOrder = null } == destination with { BodyPose = null, WornOrder = null }
             && (item.Placement.BodyPose ?? Shape(state, item.Id)?.DefaultPose) == (destination.BodyPose ?? Shape(state, item.Id)?.DefaultPose);
     internal static void Validate(InventoryState state, InventoryItem item)
     {

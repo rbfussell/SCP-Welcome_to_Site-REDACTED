@@ -97,9 +97,8 @@ internal static class InventoryClosureChecks
         var legacy = JsonNode.Parse(new SpatialSimulation(map, config).Save())!; legacy["Version"] = 9;
         foreach (var item in legacy["Inventory"]!["Items"]!.AsArray()) item!.AsObject().Remove("SecureOnClose");
         foreach (var region in legacy["Inventory"]!["Regions"]!.AsArray()) region!.AsObject().Remove("SecureOnClose");
-        clone.Restore(legacy.ToJsonString());
-        Check(!InventoryClosures.SecureOnClose(clone.Inventory, "avatar-coat") && InventoryClosures.SecureOnClose(clone.Inventory, "avatar-coat", "chest"),
-            "matching older snapshots inherit the authored defaults without inventing player overrides");
+        try { clone.Restore(legacy.ToJsonString()); throw new Exception("Pre-order closure save accepted"); }
+        catch (ArgumentException) { Check(clone.Save() == safe, "older inventory schemas cannot invent actual dressing order or mutate the current world"); }
         Console.WriteLine($"INVENTORY_CLOSURE_CHECKS_PASS: {passed} assertions; state verbs, per-fastening defaults/overrides, pocket coverage, paid work and persistence.");
         return passed;
     }

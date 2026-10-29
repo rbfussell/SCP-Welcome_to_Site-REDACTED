@@ -34,7 +34,7 @@ internal static class InventorySecuring
         // Contained closures first; open inner garments before outer garments can cover their fastenings.
         state.SecureQueue.AddRange(steps.OrderByDescending(s => Depth(state, s.Request.ItemId))
             .ThenBy(s => s.Request.Kind == InventoryActionKind.CloseGarment ? 1 : 0)
-            .ThenBy(s => state.Definition(s.Request.ItemId).Wear?.Layer ?? 0));
+            .ThenBy(s => InventoryWornOrder.Order(state.Items[s.Request.ItemId])));
         reason = steps.Count == 0 ? "These containers are already secured." : $"Securing queued: {steps.Count} closures; normal time/AP apply. Cancel handling to stop.";
         if (steps.Count != 0) PlayerFeedback.Add(world, MessageKind.Equipment, "Inventory: " + reason);
         return true;

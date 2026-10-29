@@ -77,6 +77,7 @@ public partial class SpatialScene
             Check(panel.IsOpen && !sim.ManualPause && panel.InspectedContainers.Count == 0, "Inventory startup must be paperdoll only without pausing.");
             panel.Inspect("medical-case"); Check(panel.InspectedContainers.Count == 0, "Hidden case bypassed parent inspection.");
             await InventoryCapture("-paperdoll");
+            InventoryClick(panel.EngineeringSlots.GetGlobalRect().GetCenter()); await InventoryFrames();
             await RunWearSmoke();
             await RunPackingSmoke();
             await RunBodyFitSmoke();

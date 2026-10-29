@@ -61,7 +61,8 @@ internal static class WearFitChecks
         var world = new SimulationWorld(map, config); var state = world.Inventory;
         void Change(string id, Func<ItemDefinition, ItemDefinition> change)
         { var index = Array.FindIndex(state.Content!.Definitions, d => d.Id == id); state.Content.Definitions[index] = change(state.Content.Definitions[index]); }
-        Change("shirt", d => d with { Wear = d.Wear! with { Layer = 3 } });
+        state.Items["avatar-backpack"] = state.Items["avatar-backpack"] with { Placement = new("fixture:crate-a", "store", 0, 8) };
+        state.Items["avatar-shirt"] = state.Items["avatar-shirt"] with { Placement = state.Items["avatar-shirt"].Placement with { WornOrder = 7 } };
         InventoryPlacement.Validate(state);
         Check(true, "graph bridge accepts a compatible shirt above the light jacket in a proposed ordering");
         Change("coat", d => d with { Name = parka.Name, Wear = parka.Wear });

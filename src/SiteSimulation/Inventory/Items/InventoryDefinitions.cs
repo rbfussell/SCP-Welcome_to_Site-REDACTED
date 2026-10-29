@@ -12,7 +12,7 @@ public sealed record StorageRegion(string Id, string Name, int Columns, int Rows
     string? MountSlot = null, string[]? AcceptTags = null, int[]? Mask = null, bool EquipmentReady = false, int AccessMs = 300, int AccessAp = 1, string[]? AccessBody = null,
     string SecureVerb = "Close", string OpenVerb = "Open", bool SecureOnClose = true, BodySurfaceMask[]? AccessFootprint = null, AttachmentSurface? Attachment = null, bool Sealable = true, bool Snug = false);
 public sealed record InventoryRoot(string Id, string Name, StorageRegion[] Regions, string? ActorId = null, string? PropId = null, int MaxMassGrams = 20000, string? BodyFamily = null);
-public sealed record ItemPlacement(string ParentId, string RegionId, int X = 0, int Y = 0, bool Rotated = false, BodyPose? BodyPose = null, BodyPose? AttachmentPose = null);
+public sealed record ItemPlacement(string ParentId, string RegionId, int X = 0, int Y = 0, bool Rotated = false, BodyPose? BodyPose = null, BodyPose? AttachmentPose = null, long? WornOrder = null);
 public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement Placement, bool Powered = true, int Condition = 100, bool GarmentOpen = false,
     bool? SecureOnClose = null);
 public sealed record RegionState(string ItemId, string RegionId, bool Open = true, bool? SecureOnClose = null);

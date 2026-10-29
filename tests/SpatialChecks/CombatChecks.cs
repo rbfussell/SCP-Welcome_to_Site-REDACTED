@@ -124,9 +124,11 @@ internal static class CombatChecks
         Reject(n => n["Combat"]!["Participants"]![0]!["ActorId"] = "missing");
         Reject(n => n["Events"]!["Entries"]![0]!["Text"] = "");
         Reject(n => n["Combat"] = null);
-        var legacy = JsonNode.Parse(new SpatialSimulation(map, operation).Save())!;
+        var oldOperation = JsonNode.Parse(operation)!; oldOperation.AsObject().Remove("inventoryProfile");
+        var oldConfig = oldOperation.ToJsonString();
+        var legacy = JsonNode.Parse(new SpatialSimulation(map, oldConfig).Save())!;
         legacy["Version"] = 4; legacy.AsObject().Remove("Events"); legacy.AsObject().Remove("Combat");
-        var migrated = new SpatialSimulation(map, operation); migrated.Restore(legacy.ToJsonString());
+        var migrated = new SpatialSimulation(map, oldConfig); migrated.Restore(legacy.ToJsonString());
         Check(migrated.Events.Entries.Count == 0 && !migrated.Combat.Armed, "schema-4 migration starts empty journal and inactive combat");
         migrated.Tick();
         Check(!migrated.Events.Entries.Any(e => e.Text.Contains("Observation shift opened")), "migration cannot replay old already-received reports");

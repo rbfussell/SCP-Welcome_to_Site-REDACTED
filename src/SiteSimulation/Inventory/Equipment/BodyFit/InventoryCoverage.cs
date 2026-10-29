@@ -17,8 +17,8 @@ public static class InventoryCoverage
         var fallback = false;
         foreach (var outer in InventoryWear.Worn(state, item.Placement.ParentId)
             .Where(other => other.Id != item.Id && state.Definition(other.Id).Wear is { CoversAccess: true } wear
-                && wear.Layer > state.Definition(item.Id).Wear!.Layer)
-            .OrderByDescending(other => state.Definition(other.Id).Wear!.Layer).ThenBy(other => other.Id, StringComparer.Ordinal))
+                && InventoryWornOrder.Order(other) > InventoryWornOrder.Order(item))
+            .OrderByDescending(InventoryWornOrder.Order).ThenBy(other => other.Id, StringComparer.Ordinal))
         {
             var coverShape = InventoryBodyFit.Shape(state, outer.Id);
             if (coverShape?.Coverage is { } coverage)

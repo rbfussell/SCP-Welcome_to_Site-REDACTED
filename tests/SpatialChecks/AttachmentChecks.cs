@@ -133,7 +133,7 @@ internal static class AttachmentChecks
             "a full exterior support never rearranges or rotates existing mounted equipment");
 
         var accessWorld = new SimulationWorld(map, config); accessWorld.Player.Cell = new(13, 6); var aw = accessWorld.Inventory;
-        aw.Items["utility-belt"] = aw.Items["utility-belt"] with { Placement = new("person:avatar", "belt") };
+        aw.Items["utility-belt"] = aw.Items["utility-belt"] with { Placement = new("person:avatar", "belt", WornOrder: 7) };
         foreach (var id in new[] { "coat", "backpack" })
         {
             var index = Array.FindIndex(aw.Content!.Definitions, d => d.Id == id); var def = aw.Content.Definitions[index];

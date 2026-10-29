@@ -15,7 +15,7 @@ public partial class InventoryGrid : Control
     public float CellPixels { get; set; } = 29;
     public bool IsPaperdoll { get; set; }
     internal IReadOnlyList<InventoryItem> DisplayedItems => IsPaperdoll
-        ? Panel.Simulation.InventoryPaperdollContents(RegionId, Panel.ShowCoveredLayers, Panel.ViewedLayer)
+        ? Panel.Simulation.InventoryPaperdollContents(RegionId, true)
         : Panel.Simulation.InventoryContents(ParentId, RegionId);
     private readonly Color _grid = new("33443d");
     private StorageRegion Region => Panel.Simulation.Inventory.Region(ParentId, RegionId);
@@ -66,8 +66,7 @@ public partial class InventoryGrid : Control
             if (state.Definition(item.Id).Wear?.OpenExposes is { Length: > 0 })
                 DrawString(ThemeDB.FallbackFont, bounds.Position + new Vector2(3, bounds.Size.Y - 4), item.GarmentOpen ? "OPEN" : "FASTENED", fontSize: 11, modulate: new("d8dfcf"));
         }
-        if (region.MountSlot is not null && state.Children(ParentId, RegionId).Any(i => !InventoryWear.Visible(state, i)
-            && (Panel.ViewedLayer is null || state.Definition(i.Id).Wear?.Layer == Panel.ViewedLayer)))
+        if (region.MountSlot is not null && state.Children(ParentId, RegionId).Any(i => !InventoryWear.Visible(state, i)))
             DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), "Covered", fontSize: 12, modulate: new("c99c76"));
         if (preview is not null)
         {

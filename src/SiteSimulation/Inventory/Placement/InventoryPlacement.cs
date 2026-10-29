@@ -9,6 +9,7 @@ public static class InventoryPlacement
     internal static void Validate(InventoryState state)
     {
         if (!state.Enabled) return;
+        InventoryWornOrder.Validate(state);
         foreach (var item in state.Items.Values)
         {
             _ = InventoryHierarchy.Root(state, item.Id); // Cycle/depth validation precedes recursive mass.

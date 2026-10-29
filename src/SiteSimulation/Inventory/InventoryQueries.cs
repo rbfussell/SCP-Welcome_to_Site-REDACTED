@@ -19,8 +19,8 @@ public sealed partial class SpatialSimulation
     {
         var root = Inventory.Content?.Roots.SingleOrDefault(r => r.ActorId == Player.Id);
         var mount = root?.Regions.SingleOrDefault(r => r.Id == regionId)?.MountSlot;
-        if (root is null || mount is null || layer is < 0 or > 9 || layer is not null && mount == "hand") return [];
-        return Inventory.Children(root.Id, regionId).Where(i => (layer is null || Inventory.Definition(i.Id).Wear?.Layer == layer)
+        if (root is null || mount is null || layer is < 0 || layer is not null && mount == "hand") return [];
+        return Inventory.Children(root.Id, regionId).Where(i => (layer is null || InventoryWornOrder.Layers(Inventory, i.Id).Any(l => l.Layer == layer))
             && (showCovered || InventoryWear.Visible(Inventory, i))).ToArray();
     }
     public InventoryAccess InventoryMoveAccess(string id)
@@ -38,10 +38,10 @@ public sealed partial class SpatialSimulation
             || Inventory.Definition(id).Wear is not { OpenExposes.Length: > 0 } wear
             || !Inventory.Content!.Roots.Any(r => r.Id == item.Placement.ParentId && r.ActorId == Player.Id)) return [];
         return Inventory.DiagnosticItems.Where(i => i.Placement.ParentId == item.Placement.ParentId && i.Id != id)
-            .Where(i => Inventory.Definition(i.Id).Wear is { } inner && inner.Layer < wear.Layer
+            .Where(i => Inventory.Definition(i.Id).Wear is { } inner && InventoryWornOrder.Order(i) < InventoryWornOrder.Order(item)
                 && inner.Mounts.Any(m => m.Slot == Inventory.Region(i.Placement.ParentId, i.Placement.RegionId).MountSlot
                     && m.Coverage.Intersect(wear.OpenExposes).Any()) && InventoryWear.Visible(Inventory, i))
-            .OrderByDescending(i => Inventory.Definition(i.Id).Wear!.Layer).ThenBy(i => i.Id, StringComparer.Ordinal).ToArray();
+            .OrderByDescending(InventoryWornOrder.Order).ThenBy(i => i.Id, StringComparer.Ordinal).ToArray();
     }
     public InventoryAccess InventoryInspectAccess(string id)
     {

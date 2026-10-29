@@ -1331,7 +1331,8 @@
         "regionId": "legs",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 4
       }
     },
     {
@@ -1342,7 +1343,8 @@
         "regionId": "outerwear",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 5
       },
       "garmentOpen": true
     },
@@ -1354,7 +1356,8 @@
         "regionId": "back",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 6
       }
     },
     {
@@ -1376,7 +1379,8 @@
         "regionId": "legs",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 1
       }
     },
     {
@@ -1387,7 +1391,8 @@
         "regionId": "outerwear",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 2
       },
       "garmentOpen": true
     },
@@ -1399,7 +1404,8 @@
         "regionId": "back",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 3
       }
     },
     {
@@ -1421,7 +1427,8 @@
         "regionId": "legs",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 1
       }
     },
     {
@@ -1432,7 +1439,8 @@
         "regionId": "outerwear",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 2
       },
       "garmentOpen": true
     },
@@ -1444,7 +1452,8 @@
         "regionId": "back",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 3
       }
     },
     {
@@ -1609,7 +1618,8 @@
         "regionId": "torso",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 2
       }
     },
     {
@@ -1620,7 +1630,8 @@
         "regionId": "socks",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 1
       }
     },
     {
@@ -1631,7 +1642,8 @@
         "regionId": "footwear",
         "x": 0,
         "y": 0,
-        "rotated": false
+        "rotated": false,
+        "wornOrder": 3
       }
     },
     {

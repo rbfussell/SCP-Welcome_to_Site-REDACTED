@@ -1,6 +1,6 @@
 # Wearable fit-rule foundation
 
-Implemented October 29, 2026. This is the compatibility foundation for the [confirmed worn-stack design](33-fit-ranks-and-worn-stacks.md). It separates fit from order without replacing the current ordering representation in this slice.
+Implemented October 29, 2026. **Follow-up:** [actual worn order](35-actual-worn-order.md) now supplies runtime ordering and replaces the temporary fixed-order bridge described below. This is the compatibility foundation for the [confirmed worn-stack design](33-fit-ranks-and-worn-stacks.md). It separates fit from order without replacing the current ordering representation in this slice.
 
 ## Authoring contract
 

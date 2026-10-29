@@ -562,7 +562,7 @@
         "layer": {
           "type": "integer",
           "minimum": 0,
-          "description": "Legacy/provisional authored order; fit compatibility comes from fit, not this number. Actual worn-stack migration is separate."
+          "description": "Legacy/provisional authored order; fit compatibility comes from fit, not this number. Actual runtime dressing order belongs to the item instance, not this definition field."
         },
         "surfaces": {
           "type": "array",

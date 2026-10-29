@@ -6,7 +6,7 @@ internal static class InventoryPackingActions
     public static InventoryPackingPlan Quote(SimulationWorld world, string actorId, InventoryRequest request, out int duration, out int ap)
     {
         duration = ap = 0;
-        if (request.Destination is not { X: 0, Y: 0, Rotated: false } target || request.RegionId is not null)
+        if (request.Destination is not { X: 0, Y: 0, Rotated: false, WornOrder: null, BodyPose: null, AttachmentPose: null } target || request.RegionId is not null)
             throw new ArgumentException("Choose a compartment for packing.");
         var state = world.Inventory;
         if (request.Kind == InventoryActionKind.Arrange && request.ItemId != target.ParentId)
