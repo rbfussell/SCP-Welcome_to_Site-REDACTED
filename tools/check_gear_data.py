@@ -122,6 +122,9 @@ def main():
     reject(lambda c: c['wear']['fit'].update(fitsOver=['core:light-textile', 'core:light-textile']))
     reject(lambda c: c['wear']['fit'].update(family='bad token'))
     reject(lambda c: c['wear'].pop('fit'))
+    reject(lambda c: c['wear'].update(overlayLimit=0))
+    reject(lambda c: c['wear'].update(overlayLimit=17))
+    reject(lambda c: c['wear'].update(fasteningFootprint=[{'surface': 'sideways', 'cells': [[0, 0]]}]))
     print(f'GEAR_STANDARD_CHECKS_PASS: {len(cards)} definitions, 1 instance, {rejected} invalid author cards rejected.')
 
 

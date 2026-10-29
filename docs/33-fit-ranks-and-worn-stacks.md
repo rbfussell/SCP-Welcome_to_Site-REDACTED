@@ -1,6 +1,6 @@
 # Fit compatibility and actual worn stacks
 
-Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The [fit-rule foundation](34-wear-fit-rules.md) separates compatibility from order, and [actual worn order](35-actual-worn-order.md) now implements saved paid dressing, local primary depths and the grouped equipment list. Per-hex same-band overlays and crossed belts remain pending; this document is their design contract.
+Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The [fit-rule foundation](34-wear-fit-rules.md) separates compatibility from order, and [actual worn order](35-actual-worn-order.md) now implements saved paid dressing, local primary depths and the grouped equipment list. The [physical overlay slice](36-overlay-sublayers.md) now implements per-hex/surface bands, crossed straps and exposed contacts; this document remains the broader design contract.
 
 ## Separate fit from position
 
@@ -103,3 +103,7 @@ The [first fit-rule slice](34-wear-fit-rules.md) implements directional families
 ## October 29 primary-order migration
 
 The [primary-order slice](35-actual-worn-order.md) supersedes the fixed-order/runtime-selector statements above: saved dressing precedence now drives coverage, fit, access, removal, underlayer browsing and the equipment list. It uses local anatomical regions for primary depth. Per-hex same-band counts and `layer_N`, multiple crossed belts, fastening-interference masks and attachment-support exposure are still separate work. Schema 14 requires a fresh inventory scene rather than inventing past dressing order.
+
+## October 29 overlay migration
+
+The [physical overlay slice](36-overlay-sublayers.md) supersedes the pending-band statements above. Bands now count the base once at each hex/surface; native crossed straps, a symmetric reference X, mixed allowances, exposed mounting contacts and fastening interference are qualified. Normal primary depths and fit also use physical intersections. The native body silhouette, hook art, global cross-provider clearance and world outfit compositing remain outside this slice.

@@ -32,6 +32,8 @@ public static class InventoryPlacement
                 if (region.Mask is { } mask && cells.Any(c => !mask.Contains(c))) throw new ArgumentException("Item overlaps the compartment's unusable area");
                 foreach (var other in state.Items.Values.Where(i => i.Id != item.Id && i.Placement.ParentId == p.ParentId && i.Placement.RegionId == p.RegionId))
                 {
+                    if (region.MountSlot is not null && definition.Wear?.OverlayLimit is not null && state.Definition(other.Id).Wear?.OverlayLimit is not null)
+                        continue; // Physical bands govern shared strap mounts, not their temporary 1×1 widget.
                     var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);
                     if (p.X < other.Placement.X + w && p.X + width > other.Placement.X && p.Y < other.Placement.Y + h && p.Y + height > other.Placement.Y)
                         throw new ArgumentException("Packing footprint overlaps another item");

@@ -114,3 +114,7 @@ The C# [packing checks](../tests/SpatialChecks/InventoryPackingChecks.cs) qualif
 ## October 29 fit-rule foundation
 
 The proposed wearable cards now require `wear.fit`, matching the [native fit-rule foundation](34-wear-fit-rules.md). The shirt, jacket and backpack examples include it. Fit family, bulk, maximum combined underlying bulk, accepted families and excluded traits are separate from `wear.layer` and anatomical contact geometry. The native runtime uses these compatibility checks with its current authored ordering; saved actual dressing order and local strap bands are still pending. The proposed v1 cards remain design contracts rather than a public module loader.
+
+## October 29 overlay fields
+
+The [physical overlay slice](36-overlay-sublayers.md) implements per-hex/surface bands, base-inclusive allowances and exposed mounting contacts. The proposed wearable card accepts `overlayLimit`, `blocksFastenings` and `fasteningFootprint`; the jacket example includes its own front opening mask. These remain separate from fit bulk and pocket access masks. Native body zone/pose validation and paid transactions still require runtime checks; schema acceptance alone does not load a mod.

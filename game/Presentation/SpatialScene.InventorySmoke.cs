@@ -83,6 +83,7 @@ public partial class SpatialScene
             await RunBodyFitSmoke();
             await RunCoverageSmoke();
             await RunAttachmentSmoke();
+            await RunOverlaySmoke();
             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs > local, "Inspection froze realtime simulation.");
             sim.ManualPause = true; var original = sim.Save();
             await OpenPocket("avatar-backpack", "main");

@@ -67,11 +67,11 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         if (!_ids.SequenceEqual(ids))
         {
             _ids = ids; _items.Clear();
-            foreach (var item in items) _items.AddItem(sim.Inventory.Definition(item.Id).Name + (item.Placement.RegionId == "hand" ? " · held" : ""));
+            foreach (var item in items) _items.AddItem(sim.Inventory.EquipmentLabel(item.Id) + (item.Placement.RegionId == "hand" ? " · held" : ""));
             if (_selected is not null && !_ids.Contains(_selected)) _selected = null;
         }
         for (var i = 0; i < items.Count; i++)
-            _items.SetItemText(i, sim.Inventory.Definition(items[i].Id).Name + (items[i].Placement.RegionId == "hand" ? " · held" : ""));
+            _items.SetItemText(i, sim.Inventory.EquipmentLabel(items[i].Id) + (items[i].Placement.RegionId == "hand" ? " · held" : ""));
         if (Panel.SelectedItem is { } selected && _ids.Contains(selected) && selected != _selected) { _selected = selected; _seenPlacement = null; }
         _selected ??= _ids.FirstOrDefault();
         if (_selected is not null)
@@ -125,6 +125,9 @@ public partial class InventoryBodyFitSurface : Control
             var polygon = Polygon(cell);
             DrawColoredPolygon(polygon, new("34433e")); DrawPolyline(polygon.Append(polygon[0]).ToArray(), new("60746a"), 1);
         }
+        var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c => c.Cell.Surface == "front"
+            && Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray();
+        foreach (var cell in straps.Select(c => c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color("d1ad68", .5f));
         if (Fit.Preview is { } preview)
         {
             var outside = preview.Geometry.Outside.ToHashSet();
@@ -143,6 +146,8 @@ public partial class InventoryBodyFitSurface : Control
             }
         }
         // These marks show actual worn access, not the uncommitted fit draft.
+        foreach (var cross in straps.GroupBy(c => c.Cell.Cell).Where(g => g.Count() > 1))
+            DrawString(ThemeDB.FallbackFont, Center(cross.Key) + new Vector2(-3, 3), cross.Max(c => c.SubLayer).ToString(), fontSize: 9, modulate: new("ffdc86"));
         foreach (var pocket in Fit.Pockets)
         foreach (var cell in pocket.Mouth)
         {

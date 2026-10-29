@@ -57,6 +57,9 @@ internal static class InventoryActions
                         throw new ArgumentException("This garment has no supported opening");
                     if (item.GarmentOpen == (request.Kind == InventoryActionKind.OpenGarment)) throw new ArgumentException("Garment is already in that state");
                     InventoryWear.ValidateAction(state, item, item.Placement, wear.OpenExposes, fastening: true);
+                    var closureCandidate = new InventoryState(state);
+                    closureCandidate.Items[item.Id] = item with { GarmentOpen = request.Kind == InventoryActionKind.OpenGarment };
+                    InventoryPlacement.Validate(closureCandidate);
                     duration = wear.FastenMs + InventoryAccessService.HandlingMs(state, item.Placement);
                     ap = wear.FastenAp + AccessAp(state, item.Placement);
                     break;

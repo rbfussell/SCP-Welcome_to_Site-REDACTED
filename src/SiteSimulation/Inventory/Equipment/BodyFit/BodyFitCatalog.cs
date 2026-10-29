@@ -38,6 +38,12 @@ public sealed class BodyFitCatalog
                 || s.Contacts.Any(e => e is null || e.Direction is < 0 or > 5) || s.Contacts.Distinct().Count() != s.Contacts.Length)
             || content.Shapes.Select(s => s.Id).Distinct().Count() != content.Shapes.Length)
             throw new ArgumentException("Invalid body-fit catalog.");
+        foreach (var body in content.Bodies)
+            if (body.Zones is not { Length: > 0 and <= 32 } || body.Zones.Any(z => z is null || !InventoryWear.BodyRegions.Contains(z.Region)
+                || z.Surface is not ("front" or "back") || z.FirstRow < 0 || z.LastRow < z.FirstRow || z.LastRow >= body.Rows.Length)
+                || BodyFitGeometry.Cells(body.Rows).Any(c => new[] { "front", "back" }.Any(surface =>
+                    body.Zones.Count(z => z.Surface == surface && c.R >= z.FirstRow && c.R <= z.LastRow) != 1)))
+                throw new ArgumentException("Body zones must identify every surface cell exactly once.");
         foreach (var shape in content.Shapes)
         {
             var cells = BodyFitGeometry.Cells(shape.Rows).Select(c => new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet();

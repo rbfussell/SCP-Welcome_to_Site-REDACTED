@@ -1,7 +1,7 @@
 namespace SiteSimulation;
 
 /// <summary>Hexes are local to the support item, independent of square packing and the worn body pose.</summary>
-public sealed record AttachmentSurface(string Interface, BodyHex[] Cells);
+public sealed record AttachmentSurface(string Interface, BodyHex[] Cells, string Surface = "mounted");
 public sealed record AttachmentProfile(string Interface, BodyHex[] Occupancy, BodyHex[] Contacts);
 public sealed record AttachmentPreview(InventoryActionQuote Handling, InventoryRequest Request);
 
@@ -14,7 +14,7 @@ public static class InventoryAttachments
         && CellsValid(profile.Occupancy) && CellsValid(profile.Contacts) && profile.Contacts.All(profile.Occupancy.Contains);
     internal static bool SurfaceValid(StorageRegion region) => region.Attachment is not { } surface
         || InterfaceValid(surface.Interface) && CellsValid(surface.Cells) && region.MountSlot is null && region.Mask is null
-            && region.AccessFootprint is null;
+            && region.AccessFootprint is null && surface.Surface is "front" or "back" or "mounted";
 
     public static BodyHex[] Occupancy(InventoryState state, InventoryItem item) => state.Definition(item.Id).Attachment is { } profile
         && item.Placement.AttachmentPose is { } pose ? profile.Occupancy.Select(c => BodyFitGeometry.Transform(c, pose)).ToArray() : [];
@@ -34,6 +34,9 @@ public static class InventoryAttachments
             throw new ArgumentException("Choose a six-direction position on the support, separate from storage/body coordinates.");
         if (profile.Contacts.Select(c => BodyFitGeometry.Transform(c, pose)).Any(c => !support.Cells.Contains(c)))
             throw new ArgumentException("Attachment contacts must sit on the support surface.");
+        var exposure = InventoryAttachmentExposure.Check(state, p.ParentId, state.Region(p.ParentId, p.RegionId),
+            profile.Contacts.Select(c => BodyFitGeometry.Transform(c, pose)));
+        if (!exposure.Allowed) throw new ArgumentException(exposure.Reason);
         var occupied = Occupancy(state, item).ToHashSet();
         if (state.Children(p.ParentId, p.RegionId).Any(other => other.Id != item.Id && Occupancy(state, other).Any(occupied.Contains)))
             throw new ArgumentException("Attachment overlaps equipment already mounted on this surface.");

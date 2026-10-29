@@ -41,15 +41,16 @@ public static class InventoryWearFit
     /// <summary>Validate compatibility beneath the actual saved dressing order at each declared body region.</summary>
     internal static void ValidateWorn(InventoryState state, IReadOnlyList<InventoryItem> worn)
     {
+        var cells = worn.ToDictionary(i => i.Id, i => InventoryWornStack.Cells(state, i).ToHashSet(), StringComparer.Ordinal);
         foreach (var outer in worn)
         {
             var definition = state.Definition(outer.Id);
-            foreach (var region in InventoryWear.Mount(state, outer, outer.Placement)!.Coverage)
+            foreach (var cell in cells[outer.Id])
             {
                 var beneath = worn.Where(i => i.Id != outer.Id && InventoryWornOrder.Order(i) < InventoryWornOrder.Order(outer)
-                    && InventoryWear.Mount(state, i, i.Placement)!.Coverage.Contains(region)).Select(i => state.Definition(i.Id)).ToArray();
+                    && cells[i.Id].Contains(cell)).Select(i => state.Definition(i.Id)).ToArray();
                 var result = Evaluate(definition, beneath);
-                if (!result.Fits) throw new ArgumentException(region + ": " + result.Reason);
+                if (!result.Fits) throw new ArgumentException($"{cell.Surface} {cell.Cell.Q},{cell.Cell.R}: " + result.Reason);
             }
         }
     }

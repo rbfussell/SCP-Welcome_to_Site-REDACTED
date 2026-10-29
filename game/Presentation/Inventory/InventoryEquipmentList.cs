@@ -21,8 +21,9 @@ public partial class InventoryEquipmentList : ItemList
     }
     internal static string LayerText(IEnumerable<WornLayer> layers)
     {
-        var depths = layers.Select(l => l.Layer).Distinct().Order().ToArray();
-        return depths.Length == 0 ? "held" : depths.Length == 1 ? depths[0].ToString() : $"{depths[0]}–{depths[^1]}";
+        var positions = layers.Select(l => (l.Layer, l.SubLayer)).Distinct().OrderBy(p => p.Layer).ThenBy(p => p.SubLayer).ToArray();
+        static string Text((int Layer, int SubLayer) p) => p.SubLayer == 0 ? p.Layer.ToString() : $"{p.Layer}_{p.SubLayer}";
+        return positions.Length == 0 ? "held" : positions.Length == 1 ? Text(positions[0]) : Text(positions[0]) + "…" + Text(positions[^1]);
     }
     internal void RefreshEntries()
     {
@@ -36,7 +37,7 @@ public partial class InventoryEquipmentList : ItemList
             if (entry.Group != group)
             { group = entry.Group; var header = AddItem(group.ToUpperInvariant()); _ids.Add(null); SetItemSelectable(header, false); }
             var status = !entry.Visible ? "covered" : !entry.Access.Allowed ? "restrained" : "exposed";
-            var row = AddItem($"  {LayerText(entry.Layers)}  {Panel.Simulation.Inventory.Definition(entry.ItemId).Name} · {status}"); _ids.Add(entry.ItemId);
+            var row = AddItem($"  {LayerText(entry.Layers)}  {Panel.Simulation.Inventory.EquipmentLabel(entry.ItemId)} · {status}"); _ids.Add(entry.ItemId);
             SetItemCustomFgColor(row, new Color(entry.Visible ? "d8dfcf" : "8fa598"));
             SetItemTooltip(row, Panel.Describe(entry.ItemId) + "\n" + entry.Access.Reason);
             if (Panel.SelectedItem == entry.ItemId) Select(row);

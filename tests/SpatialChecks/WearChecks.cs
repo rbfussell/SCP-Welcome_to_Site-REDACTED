@@ -103,7 +103,7 @@ internal static class WearChecks
         try { InventoryPlacement.Validate(state); throw new Exception("Tight duplicate socks accepted"); }
         catch (ArgumentException ex) { Check(ex.Message.Contains("cannot fit"), "different mounts cannot bypass actual under-fit requirements"); }
         state.Content.Definitions[socksIndex] = state.Content.Definitions[socksIndex] with
-        { Wear = state.Content.Definitions[socksIndex].Wear! with { OverlapTags = ["socks"], Fit = socks.Wear!.Fit! with { MaxUnderBulk = 1, FitsOver = ["core:light-textile"] } } };
+        { Wear = state.Content.Definitions[socksIndex].Wear! with { OverlapTags = ["socks"], Fit = socks.Wear!.Fit! with { MaxUnderBulk = 3, FitsOver = ["core:light-textile"] } } };
         InventoryPlacement.Validate(state);
         Check(true, "a roomy second pair uses its actual outer order despite sharing the same authored layer");
         var bootsIndex = Array.FindIndex(state.Content.Definitions, d => d.Id == "boots");

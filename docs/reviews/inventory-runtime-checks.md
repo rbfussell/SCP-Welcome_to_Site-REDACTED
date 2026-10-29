@@ -2,7 +2,14 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current actual-order qualification (October 29):
+Current overlay/sublayer qualification (October 29):
+
+- `--check`: **20,644 assertions**, including **65 new overlay** checks. Native crossings, a fully authored symmetric X, bare/clothed thresholds, deeper-band isolation, heterogeneous allowances, opposite surfaces, independent bulk, physical restraint, covered/occupied contacts, closure/zipper guards, tactical AP and exact pending-work continuation pass. Invalid saved bands reject atomically. Compiler warnings/errors: zero.
+- `--inventory-smoke work/preview/spatial-scene/sublayers.png`: all seven native inventory suites pass. Actual dragging rejects the crossed lower contact without moving its source; a four-item crossing disables paid fit with the physical reason. The equipment list exposes `layer_N`; body diagnostics show worn straps/crossing numbers. Existing closure, packing, wear, coverage, parent refit and save tests pass. Captures of the crossed straps and sublayer list were visually reviewed. The known software-display V-Sync and shutdown-only ObjectDB warnings remain; this run reported two references.
+- Proposed gear-card validation: six definitions, one instance, **18 invalid card cases** rejected. Native fixture: 17 definitions, **36 instances**, 26 compartment states. Source sprites are unchanged; four belts reuse the same definition/art. The current native silhouette admits one diagonal line; a symmetric authored reference qualifies the full X without weakening contacts.
+- Physical sublayers are derived, so schema stays **14**. New static masks, zones and fixture items require a fresh scene through content identity. Normal garment restraint declarations remain partly coarse; global cross-provider clearance, hooks and world clothing are separate work. See [the runtime contract](../36-overlay-sublayers.md).
+
+Earlier actual-order qualification (October 29):
 
 - `--check`: **20,577 assertions**, including **43 new worn-order** checks. Paid jacket-then-shirt dressing, local primary depths, reversed mapped pocket cover, fastening/removal restrictions, source retention, exact mid-action resume and malformed/duplicate/noncanonical save rejection pass. Existing fit, handling, AP, coverage, body fitting and attachment tests still pass. Build has zero compiler warnings/errors.
 - `--inventory-smoke work/preview/spatial-scene/worn-order.png`: all six native inventory suites pass. The new default grouped list shows current depths and access states. Native clicks select a covered shirt without mutation; double-click cannot inspect through its covering. The engineering slot toggle retains the existing native drag/dress/closure checks. Default-list and covered-equipment captures were visually reviewed. The known software-display V-Sync and shutdown-only ObjectDB warnings remain; this run reported three references.

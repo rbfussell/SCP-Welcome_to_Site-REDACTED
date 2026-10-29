@@ -17,7 +17,8 @@ public readonly record struct BodyHex(int Q, int R)
 
 public sealed record BodyPose(int Q, int R, int Rotation = 0);
 public sealed record BodyContact(BodyHex Cell, int Direction);
-public sealed record BodyMask(string Id, string Name, string[] Rows);
+public sealed record BodyZone(string Region, string Surface, int FirstRow, int LastRow);
+public sealed record BodyMask(string Id, string Name, string[] Rows, BodyZone[]? Zones = null);
 /// <summary>Rows share the body's authoring canvas; contacts are local to DefaultPose. Other boundary edges are open.</summary>
 public sealed record BodyFitShape(string Id, string BodyFamily, string[] Rows, BodyPose DefaultPose, int[] Rotations, BodyContact[] Contacts, BodyCoverageProfile? Coverage = null);
 public sealed record BodyFitContent(int Version, BodyMask[] Bodies, BodyFitShape[] Shapes);

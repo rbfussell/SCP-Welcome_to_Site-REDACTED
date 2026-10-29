@@ -51,6 +51,7 @@ internal static class AttachmentChecks
         Act(sim, Move("utility-belt", "person:avatar", "hand"));
         Check(state.Items["utility-pouch"].Placement == attached && state.Items["spare-dressing"].Placement == dressing
             && InventoryAttachments.BodyPosition(state, "utility-pouch") is null, "taking belt off carries its loaded attachment without rewriting children");
+        Act(sim, Move("avatar-backpack", "fixture:crate-a", "store") with { Destination = new("fixture:crate-a", "store", 0, 8) });
         var fit = new InventoryRequest(InventoryActionKind.Move, "utility-belt", new("person:avatar", "belt", BodyPose: new(-3, 9, 2)));
         Act(sim, fit);
         Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == new BodyPose(-3, 9, 2), "rotating/translating belt composes child's body pose");
@@ -82,7 +83,7 @@ internal static class AttachmentChecks
         Check(state.Items["utility-pouch"].Placement.AttachmentPose is null && state.Items["spare-dressing"].Placement == dressing
             && InventoryHierarchy.CarriedMass(state, "person:avatar") == loadedMass, "detaching keeps contents and total carried mass");
         Act(sim, Mount(sim));
-        Act(sim, Move("utility-belt", "fixture:crate-a", "store") with { Destination = new("fixture:crate-a", "store", 0, 13) });
+        Act(sim, Move("utility-belt", "fixture:crate-a", "store") with { Destination = new("fixture:crate-a", "store", 10, 13) });
         sim.Player.Cell = new(9, 2);
         Check(!sim.InventoryAccess("utility-pouch", "inside").Allowed && sim.InventoryAttachmentsOn("utility-belt", "webbing").Count == 0, "remote belt does not expose attached contents");
 

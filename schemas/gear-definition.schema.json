@@ -625,6 +625,41 @@
         },
         "fit": {
           "$ref": "#/$defs/wearFit"
+        },
+        "overlayLimit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Same local band capacity, counting the base garment once. Omit for ordinary primary clothing."
+        },
+        "blocksFastenings": {
+          "type": "boolean",
+          "description": "Can obstruct an underlying fastening where physical masks intersect."
+        },
+        "fasteningFootprint": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "surface": {
+                "enum": [
+                  "front",
+                  "back",
+                  "mounted"
+                ]
+              },
+              "cells": {
+                "$ref": "#/$defs/hexMask"
+              }
+            },
+            "required": [
+              "surface",
+              "cells"
+            ]
+          }
         }
       },
       "required": [

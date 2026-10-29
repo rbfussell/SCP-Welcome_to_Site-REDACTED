@@ -265,9 +265,49 @@
           "maxUnderBulk": 6,
           "fitsOver": [
             "core:light-textile",
-            "core:flexible-armor"
+            "core:flexible-armor",
+            "core:strap"
           ]
-        }
+        },
+        "fasteningFootprint": [
+          {
+            "surface": "front",
+            "cells": [
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 1
+              },
+              {
+                "q": -1,
+                "r": 2
+              },
+              {
+                "q": -1,
+                "r": 3
+              },
+              {
+                "q": -2,
+                "r": 4
+              },
+              {
+                "q": -2,
+                "r": 5
+              },
+              {
+                "q": -3,
+                "r": 6
+              },
+              {
+                "q": -3,
+                "r": 7
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -606,7 +646,7 @@
         "fit": {
           "family": "core:footwear",
           "bulk": 4,
-          "maxUnderBulk": 2,
+          "maxUnderBulk": 3,
           "fitsOver": [
             "core:light-textile"
           ]
@@ -709,7 +749,9 @@
             "core:sealed-suit",
             "core:strap"
           ]
-        }
+        },
+        "overlayLimit": 3,
+        "blocksFastenings": true
       },
       "regions": [
         {
@@ -1332,7 +1374,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 4
+        "wornOrder": 2
       }
     },
     {
@@ -1619,7 +1661,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 2
+        "wornOrder": 3
       }
     },
     {
@@ -1643,7 +1685,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 3
+        "wornOrder": 4
       }
     },
     {
@@ -1695,8 +1737,38 @@
       "placement": {
         "parentId": "fixture:crate-a",
         "regionId": "store",
-        "x": 17,
+        "x": 10,
+        "y": 9
+      }
+    },
+    {
+      "id": "utility-belt-2",
+      "definitionId": "utility-belt",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 16,
         "y": 13
+      }
+    },
+    {
+      "id": "utility-belt-3",
+      "definitionId": "utility-belt",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 10,
+        "y": 17
+      }
+    },
+    {
+      "id": "utility-belt-4",
+      "definitionId": "utility-belt",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 16,
+        "y": 17
       }
     }
   ],

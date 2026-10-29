@@ -27,11 +27,15 @@ For each closure: ID, target region(s) or `garment-front`, mechanism, current-st
 - Fit family / relative bulk / maximum combined underlying bulk / accepted underlying families / excluded underlying traits:
 - Six-orientation hex footprint, contact edges and open edges:
 - Covers access mask / blocks removal mask / overlap permissions / outermost rule:
+- Overlay allowance (base garment counted once), or ordinary primary garment:
+- Blocks underlying fastenings / own fastening footprint and surface:
 - Which openings expose which pocket mouths or underlying regions:
 - Offered attachment interface/surface, transformed anchors, occupied span and load:
 - Required attachment interface if this is a child attachment:
 
 Compatibility is directional and independent of current worn depth. Use the [fit-rule foundation](../docs/34-wear-fit-rules.md) for units, evaluation and its current migration boundary. Same-band strap counts and geometric contacts are separate from the fit-bulk budget.
+
+[Physical sublayers](../docs/36-overlay-sublayers.md) count only simultaneous items in the current band at each transformed hex/surface. A later primary garment starts a new band. Required attachment contacts must remain exposed; crossing an occupied contact is refused until its child is moved. These rules are independent of pocket access coverage and of whether an object is known in the equipment list.
 
 ## Art and interaction
 

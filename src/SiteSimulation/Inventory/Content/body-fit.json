@@ -25,6 +25,68 @@
         "..##.##..",
         "..##.##..",
         ".###.###."
+      ],
+      "zones": [
+        {
+          "region": "head",
+          "surface": "front",
+          "firstRow": 0,
+          "lastRow": 3
+        },
+        {
+          "region": "head",
+          "surface": "back",
+          "firstRow": 0,
+          "lastRow": 3
+        },
+        {
+          "region": "torso-front",
+          "surface": "front",
+          "firstRow": 4,
+          "lastRow": 10
+        },
+        {
+          "region": "torso-back",
+          "surface": "back",
+          "firstRow": 4,
+          "lastRow": 10
+        },
+        {
+          "region": "hips-front",
+          "surface": "front",
+          "firstRow": 11,
+          "lastRow": 13
+        },
+        {
+          "region": "hips-back",
+          "surface": "back",
+          "firstRow": 11,
+          "lastRow": 13
+        },
+        {
+          "region": "legs",
+          "surface": "front",
+          "firstRow": 14,
+          "lastRow": 16
+        },
+        {
+          "region": "legs",
+          "surface": "back",
+          "firstRow": 14,
+          "lastRow": 16
+        },
+        {
+          "region": "feet",
+          "surface": "front",
+          "firstRow": 17,
+          "lastRow": 19
+        },
+        {
+          "region": "feet",
+          "surface": "back",
+          "firstRow": 17,
+          "lastRow": 19
+        }
       ]
     }
   ],
@@ -2070,7 +2132,113 @@
           },
           "direction": 1
         }
-      ]
+      ],
+      "coverage": {
+        "closed": [
+          {
+            "surface": "front",
+            "cells": [
+              {
+                "q": -2,
+                "r": 0
+              },
+              {
+                "q": -1,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              }
+            ]
+          },
+          {
+            "surface": "back",
+            "cells": [
+              {
+                "q": -2,
+                "r": 0
+              },
+              {
+                "q": -1,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              }
+            ]
+          }
+        ],
+        "open": [
+          {
+            "surface": "front",
+            "cells": [
+              {
+                "q": -2,
+                "r": 0
+              },
+              {
+                "q": -1,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              }
+            ]
+          },
+          {
+            "surface": "back",
+            "cells": [
+              {
+                "q": -2,
+                "r": 0
+              },
+              {
+                "q": -1,
+                "r": 0
+              },
+              {
+                "q": 0,
+                "r": 0
+              },
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

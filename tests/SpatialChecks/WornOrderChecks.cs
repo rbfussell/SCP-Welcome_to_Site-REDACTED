@@ -16,8 +16,8 @@ internal static class WornOrderChecks
         var sim = Sim(); var inv = sim.Inventory;
         var shirt = inv.Items["avatar-shirt"]; var pack = inv.Items["avatar-backpack"];
         Check(InventoryWornOrder.Layers(inv, shirt.Id).All(l => l.Layer == 0), "shirt is on skin despite authored layer 1");
-        Check(InventoryWornOrder.Layers(inv, pack.Id).Single().Layer == 2, "pack is third on the chest, independent of its authored 5");
-        Check(InventoryWornOrder.Layers(inv, "avatar-shoes").All(l => l.Layer == 1), "foot layers ignore chest clothing");
+        Check(InventoryWornOrder.Layers(inv, pack.Id).Max(l => l.Layer) == 2, "pack is third on the chest, independent of its authored 5");
+        Check(InventoryWornOrder.Layers(inv, "avatar-shoes").All(l => l.Layer is 1 or 2), "local foot layers include physical trouser overlap while ignoring chest clothing");
         var before = sim.Save();
         var row = sim.InventoryEquipment.Single(e => e.ItemId == shirt.Id && e.Group == "Chest");
         Check(row.Layers.All(l => l.Layer == 0) && !row.Access.Allowed && sim.Save() == before,
@@ -56,7 +56,7 @@ internal static class WornOrderChecks
         Act(sim, Move("avatar-backpack", "store", "fixture:crate-a", 0, 8));
         Act(sim, Move("avatar-coat", "hand"));
         Act(sim, Move("avatar-backpack", "back"));
-        Check(InventoryWornOrder.Layers(inv, "avatar-backpack").Single().Layer == 1, "outer pack fits at actual depth 1 over one shirt");
+        Check(InventoryWornOrder.Layers(inv, "avatar-backpack").Max(l => l.Layer) == 1, "outer pack fits at actual depth 1 over one shirt");
         before = sim.Save();
         Check(!sim.HandleInventory(Move("avatar-coat", "outerwear")) && sim.Save() == before,
             "a pack must be removed before dressing another overlapping garment");

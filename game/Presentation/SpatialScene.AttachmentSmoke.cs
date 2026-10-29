@@ -107,6 +107,8 @@ public partial class SpatialScene
         sim.ManualPause = false; InventoryClick(middle.GetChildren().OfType<Button>().First().GetGlobalRect().GetCenter()); await Finish();
         Check(panel.Browser.CurrentGear == "utility-belt" && panel.Browser.CurrentContents is null && !sim.Inventory.IsOpen("utility-pouch", "inside"),
             "up did not return to belt and secure its departing child through paid work");
+        // A strap cannot be fitted across an outermost pack: put the pack aside first.
+        await Act(new(InventoryActionKind.Move, "avatar-backpack", new("fixture:crate-a", "store", 0, 8)));
         // Move and rotate the parent using the existing paid body-fit controls.
         panel.Select("utility-belt"); InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
         panel.BodyFit.Choose("utility-belt"); InventoryKey(Key.R); InventoryKey(Key.R);

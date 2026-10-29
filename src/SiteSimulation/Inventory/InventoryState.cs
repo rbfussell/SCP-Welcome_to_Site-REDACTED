@@ -39,6 +39,12 @@ public sealed class InventoryState
     }
     public ItemDefinition Definition(string id) => Content!.Definitions.Single(d => d.Id == Items[id].DefinitionId);
     public string Name(string id) => Items.ContainsKey(id) ? Definition(id).Name : Content!.Roots.Single(r => r.Id == id).Name;
+    public string EquipmentLabel(string id)
+    {
+        // Authored numeric fixture suffixes distinguish stand-ins without counting unknown copies elsewhere.
+        var prefix = Items[id].DefinitionId + "-";
+        return Definition(id).Name + (id.StartsWith(prefix, StringComparison.Ordinal) && int.TryParse(id[prefix.Length..], out var number) ? " #" + number : "");
+    }
     public StorageRegion Region(string parentId, string regionId) => (Items.ContainsKey(parentId) ? Definition(parentId).Regions! : Content!.Roots.Single(r => r.Id == parentId).Regions)
         .Single(r => r.Id == regionId);
     public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || (Region(parentId, regionId).Attachment is not null || !Region(parentId, regionId).Sealable) || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;

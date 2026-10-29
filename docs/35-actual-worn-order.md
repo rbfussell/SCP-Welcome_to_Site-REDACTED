@@ -1,6 +1,6 @@
 # Actual worn order and primary layers
 
-Implemented October 29, 2026. This migrates primary clothing order from fixed definition numbers to actual paid dressing, using the [fit-rule foundation](34-wear-fit-rules.md). The [full stack design](33-fit-ranks-and-worn-stacks.md) still defines the later per-hex overlay work.
+Implemented October 29, 2026. **Follow-up:** [physical overlay bands](36-overlay-sublayers.md) now replace the coarse primary-depth bridge below with surface-cell depths and `layer_N`, adding contact exposure and fastening masks. This migrates primary clothing order from fixed definition numbers to actual paid dressing, using the [fit-rule foundation](34-wear-fit-rules.md). The [full stack design](33-fit-ranks-and-worn-stacks.md) still defines the later per-hex overlay work.
 
 ## Physical contract
 
