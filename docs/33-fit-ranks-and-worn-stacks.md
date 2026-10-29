@@ -49,6 +49,8 @@ These checks use transformed physical surface/contact masks and actual stack ord
 
 ## Hooks, loops and nested providers
 
+The [utility-hook slice](37-placement-extenders-and-mount-points.md) now implements the first provider chain and common-plane exterior clearance described here. Keyring content, latching hooks, arbitrary depth offsets and production illustrations remain separate scope.
+
 An attachment may itself provide support. A hook on a belt is a separate actual item with one parent, its own contact, and an offered attachment hex. A pouch hanging from the hook belongs to the hook; a pouch directly on the belt belongs to the belt. Their support stacks are distinct from the body’s clothing band, although their physical clearance can still conflict.
 
 A key loop can offer an interface restricted to `keyring`, with its own secure state. A hook/loop does not create arbitrary loose-item inventory capacity. Connection compatibility, support span, occupied shape, load, closure and access are separate requirements.

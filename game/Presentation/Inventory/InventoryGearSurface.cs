@@ -32,30 +32,45 @@ public partial class InventoryGearSurface : Control
     }
     private Hotspot? Pick(Vector2 position)
     {
-        var source = InventoryArt.Unproject(DefinitionId, Bounds, position);
+        var source = MountedProviderArt ? InventoryArt.UnprojectMount(DefinitionId, 0, position - MountOrigin)
+            : InventoryArt.Unproject(DefinitionId, Bounds, position);
         if (!InventoryArt.Opaque(DefinitionId, source)) return null;
         // Later entries win where a small visible feature lies over a larger segment.
         return Targets.LastOrDefault(t => Geometry2D.IsPointInPolygon(source, t.Points));
     }
     private void SetHover(Hotspot? target)
     {
+        if (!IsInsideTree()) return;
         _hovered = target;
         _coverage = target?.Region is { } region ? Panel.Simulation.InventoryPocketCoverage(ItemId, region) : null;
         MouseDefaultCursorShape = target is null ? CursorShape.Arrow : CursorShape.PointingHand;
         TooltipText = target?.Region is { } support && Panel.Simulation.Inventory.Region(ItemId, support).Attachment is not null
-            ? "Belt support · drag a compatible pouch onto the webbing · R rotates its mounting pose"
+            ? "Exterior support · drag compatible gear onto its mount point · R rotates its mounting pose"
             : target is null ? "" : target.Label + " · " + (target.Region is { } id && !Panel.Simulation.Inventory.Region(ItemId, id).Sealable ? "unsealable" + (Panel.Simulation.Inventory.Region(ItemId, id).Snug ? " · snug" : "") : Open(target) ? "open" : "secured") + (_coverage?.Covered == true ? "\n" + _coverage.Reason : "\nDouble-click to open · right-click for actions");
         QueueRedraw();
     }
     public override void _Process(double delta)
-    { if (!IsVisibleInTree()) return; if (_hovered is not null) SetHover(_hovered); if (HasAttachmentSurface) HoverAttachment(GetLocalMousePosition()); }
+    {
+        if (!IsVisibleInTree()) return;
+        if (_hovered is not null) SetHover(_hovered);
+        if (HasAttachmentSurface) HoverAttachment(GetLocalMousePosition());
+        if (MountPreview is not null && Panel.DragItemId is { } id && GetViewport().GuiIsDragging())
+        {
+            MountPreview = PreviewMount(id, GetLocalMousePosition());
+            Panel.ShowQuote(MountPreview.Handling); QueueRedraw();
+        }
+    }
     private bool Open(Hotspot target) => target.Region is null
         ? Panel.Simulation.Inventory.DiagnosticItems.Single(i => i.Id == ItemId).GarmentOpen
         : Panel.Simulation.Inventory.IsOpen(ItemId, target.Region);
     public override void _Draw()
     {
-        InventoryArt.Draw(this, DefinitionId, Bounds, false);
-        if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points, _coverage?.Covered == true);
+        if (MountedProviderArt) DrawMounted(DefinitionId, new(0, 0), 1, _hovered is not null);
+        else
+        {
+            InventoryArt.Draw(this, DefinitionId, Bounds, false);
+            if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points, _coverage?.Covered == true);
+        }
         DrawAttachments();
         if (!HasAttachmentSurface && _dropAllowed is { } allowed)
             DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), allowed ? "Store in this compartment" : "Cannot store here", fontSize: 13,
@@ -81,13 +96,15 @@ public partial class InventoryGearSurface : Control
         _dropAllowed = null; QueueRedraw();
     }
     public override void _Notification(int what)
-    { if (what == NotificationDragEnd) { _dropAllowed = null; MountPreview = null; QueueRedraw(); } }
+    { if (what == NotificationDragEnd) { _dropAllowed = null; MountPreview = null; _pressedAttachment = null; QueueRedraw(); } }
     public override void _GuiInput(InputEvent e)
     {
         if (e is InputEventMouseMotion motion)
         { SetHover(Pick(motion.Position)); HoverAttachment(motion.Position); return; }
+        if (e is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false }) _pressedAttachment = null;
         if (e is not InputEventMouseButton { Pressed: true } mouse) return;
         var mounted = PickMounted(mouse.Position);
+        _pressedAttachment = mouse.ButtonIndex == MouseButton.Left ? mounted?.Id : null;
         if (mounted is not null)
         {
             if (mouse.ButtonIndex == MouseButton.Right) Panel.Context(mounted.Id, null, GetGlobalMousePosition());
@@ -117,7 +134,8 @@ public partial class InventoryGearSurface : Control
     internal string? HoveredRegion => _hovered?.Region;
     internal bool HoverCovered => _coverage?.Covered == true;
     internal bool HasHighlight => _hovered is not null;
-    internal Vector2 SourcePosition(Vector2 normalized) => GlobalPosition + InventoryArt.Project(DefinitionId, Bounds, normalized);
+    internal Vector2 SourcePosition(Vector2 normalized) => MountedProviderArt ? MountedImagePoint(DefinitionId, new(0, 0), normalized)
+        : GlobalPosition + InventoryArt.Project(DefinitionId, Bounds, normalized);
     internal Vector2 HotspotPosition(string? region)
     {
         var point = Targets.Single(t => t.Region == region).HitPoint;

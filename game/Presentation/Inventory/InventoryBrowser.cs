@@ -43,8 +43,22 @@ public partial class InventoryBrowser : HBoxContainer
         if (!access.Allowed) { reason = access.Reason; return false; }
         if (state.Content.Roots.Any(r => r.Id == item.Placement.ParentId && r.ActorId == sim.Player.Id))
         { StartGear(id); return true; }
-        if (item.Placement.AttachmentPose is not null && CurrentGear == item.Placement.ParentId)
-        { Panel.CancelDragPreview(); _gear.Add(new(id, Placement(id))); _contents.Clear(); Build(); return true; }
+        if (item.Placement.AttachmentPose is not null && CurrentGear is { } current)
+        {
+            var path = new List<string>(); var cursor = item;
+            for (var depth = 0; depth < InventoryHierarchy.MaxDepth && cursor.Placement.AttachmentPose is not null; depth++)
+            {
+                if (!sim.InventoryInspectAccess(cursor.Id).Allowed) break;
+                path.Add(cursor.Id);
+                if (cursor.Placement.ParentId == current)
+                {
+                    Panel.CancelDragPreview(); _context++; _opening = null;
+                    path.Reverse(); _gear.AddRange(path.Select(next => new Gear(next, Placement(next))));
+                    _contents.Clear(); Build(); return true;
+                }
+                cursor = state.DiagnosticItems.Single(i => i.Id == cursor.Placement.ParentId);
+            }
+        }
         if (_contents.LastOrDefault() is not { } containing || containing.Owner != item.Placement.ParentId || containing.Region != item.Placement.RegionId) return false;
         if (state.Definition(id).Regions is not { Length: > 0 } regions) { reason = "This item has no interior."; return false; }
         return OpenRegion(id, regions[0].Id, out reason);

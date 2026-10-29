@@ -45,5 +45,6 @@ public static class InventoryPlacement
         foreach (var root in state.Content!.Roots)
             if (InventoryHierarchy.CarriedMass(state, root.Id) > root.MaxMassGrams) throw new ArgumentException(root.Name + " exceeds its total load limit");
         InventoryWear.ValidateGraph(state);
+        InventoryAttachmentClearance.Validate(state);
     }
 }

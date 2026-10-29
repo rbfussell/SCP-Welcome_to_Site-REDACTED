@@ -1,5 +1,7 @@
 # Belt and attachable utility pouch
 
+Follow-up: [placement extenders and mount points](37-placement-extenders-and-mount-points.md) now qualify the utility hook, a hanging pouch, composed exterior views and shared clearance across providers. Original single-belt counts and pending-hook statements below describe this earlier slice.
+
 Implemented October 26, 2026. This slice adds one utility belt and one utility pouch to the existing Godot inventory fixture. It qualifies physical mounting, not the complete wearable authoring system.
 
 ## Try it

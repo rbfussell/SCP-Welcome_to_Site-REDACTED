@@ -72,7 +72,7 @@ public partial class InventoryContainerView : VBoxContainer
                 ? state.Definition(_id).Wear?.OpenExposes is { Length: > 0 }
                     ? item.GarmentOpen ? "GARMENT OPEN · removal restrictions still apply" : "GARMENT FASTENED"
                     : state.Definition(_id).Regions?.Any(r => r.Attachment is not null) == true
-                        ? "Exterior mounts · drag compatible gear onto the webbing · R rotates"
+                        ? "Exterior mounts · drag compatible gear onto an exposed mount · R rotates"
                         : "Inspect individual compartments; other compartments stay hidden."
                 : "Nearby storage · physical reach required";
         if (_lower is null) return;

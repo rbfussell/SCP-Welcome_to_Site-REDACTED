@@ -846,6 +846,71 @@
           "secureOnClose": true
         }
       ]
+    },
+    {
+      "id": "utility-hook",
+      "name": "Utility hook",
+      "widthMm": 40,
+      "lengthMm": 90,
+      "thicknessMm": 15,
+      "massGrams": 80,
+      "tags": [
+        "placement-extender"
+      ],
+      "handleMs": 400,
+      "handleAp": 1,
+      "attachment": {
+        "interface": "belt-loop",
+        "occupancy": [
+          {
+            "q": 0,
+            "r": 0
+          },
+          {
+            "q": -1,
+            "r": 1
+          },
+          {
+            "q": 0,
+            "r": 1
+          },
+          {
+            "q": -1,
+            "r": 2
+          }
+        ],
+        "contacts": [
+          {
+            "q": 0,
+            "r": 0
+          }
+        ]
+      },
+      "regions": [
+        {
+          "id": "hook",
+          "name": "Lower hook mount",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 25,
+          "heightMm": 100,
+          "maxMassGrams": 500,
+          "equipmentReady": true,
+          "accessMs": 200,
+          "accessAp": 1,
+          "sealable": false,
+          "secureOnClose": false,
+          "attachment": {
+            "interface": "belt-loop",
+            "cells": [
+              {
+                "q": -1,
+                "r": 2
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "roots": [
@@ -1770,6 +1835,26 @@
         "x": 16,
         "y": 17
       }
+    },
+    {
+      "id": "utility-hook",
+      "definitionId": "utility-hook",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 22,
+        "y": 13
+      }
+    },
+    {
+      "id": "utility-pouch-2",
+      "definitionId": "utility-pouch",
+      "placement": {
+        "parentId": "fixture:crate-a",
+        "regionId": "store",
+        "x": 3,
+        "y": 4
+      }
     }
   ],
   "regions": [
@@ -1900,6 +1985,11 @@
     },
     {
       "itemId": "utility-pouch",
+      "regionId": "inside",
+      "open": false
+    },
+    {
+      "itemId": "utility-pouch-2",
       "regionId": "inside",
       "open": false
     }

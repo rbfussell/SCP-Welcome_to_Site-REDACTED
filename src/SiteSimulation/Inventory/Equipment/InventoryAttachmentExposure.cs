@@ -13,7 +13,7 @@ internal static class InventoryAttachmentExposure
         }
         var mount = InventoryWear.Mount(state, ancestor, ancestor.Placement);
         if (mount is null) return new(false, "Attachment provider chain exceeds its supported depth.");
-        var side = region.Attachment!.Surface == "mounted" ? mount.BodySurface ?? "front" : region.Attachment.Surface;
+        var side = InventoryAttachmentFrames.Provider(state, owner, region.Attachment!.Surface).Surface;
         var points = contacts.Select(c => new BodySurfaceCell(side, BodyFitGeometry.Transform(c, pose))).ToHashSet();
         var blocker = InventoryWear.Worn(state, ancestor.Placement.ParentId).Where(i => InventoryWornOrder.Order(i) > InventoryWornOrder.Order(ancestor))
             .OrderByDescending(InventoryWornOrder.Order).FirstOrDefault(i => InventoryWornStack.Cells(state, i, true).Any(points.Contains));

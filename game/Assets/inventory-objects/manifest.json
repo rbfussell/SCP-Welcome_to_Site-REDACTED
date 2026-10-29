@@ -346,6 +346,27 @@
         0,
         255
       ]
+    },
+    {
+      "id": "utility-hook",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-992db339-05a3-4347-a30e-d9ff8f22420e.png",
+      "subject": "Steel utility belt hook / placement extender",
+      "file": "utility-hook.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "region": [
+        357,
+        225,
+        422,
+        1091
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "prompt": "Game asset: a single steel belt utility hook / placement extender for a detailed isometric RPG with material-rich visibly pixelated texture and shaded volume reminiscent of Fallout 2 inventory sprites. Exactly one object: small worn dark gunmetal vertical hanger, upper compact belt-webbing clip, straight short drop arm, lower open J-hook facing right. Flat front orthographic view, upright, the upper clip centered horizontally and the lower hook directly beneath it; readable mechanical shape. No belt, pouch, hand, backdrop, text, interface, border, floor or cast shadow. Light from upper left, subdued realistic steel colors with edge highlights. Fully visible centered object with generous genuinely transparent margin. Opaque metal interior and genuinely transparent background including the hook opening. This is the actual physical object sprite, never a card or icon badge. The bottom hook can receive another item's mounting loop."
     }
   ],
   "attachmentIllustrations": {
@@ -354,6 +375,14 @@
       "anchor": [
         0.5,
         0.12
+      ],
+      "rotationDegrees": 0
+    },
+    "utility-hook": {
+      "height": 88,
+      "anchor": [
+        0.36,
+        0.1
       ],
       "rotationDegrees": 0
     }

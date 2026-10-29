@@ -117,4 +117,6 @@ The proposed wearable cards now require `wear.fit`, matching the [native fit-rul
 
 ## October 29 overlay fields
 
+Follow-up: [placement extenders and mount points](37-placement-extenders-and-mount-points.md) now qualify the native utility hook, composed descendants and shared clearance across providers using existing interfaces and geometry. The proposed v1 public card remains separate; dynamic assembly packing envelopes and spillage remain future work.
+
 The [physical overlay slice](36-overlay-sublayers.md) implements per-hex/surface bands, base-inclusive allowances and exposed mounting contacts. The proposed wearable card accepts `overlayLimit`, `blocksFastenings` and `fasteningFootprint`; the jacket example includes its own front opening mask. These remain separate from fit bulk and pocket access masks. Native body zone/pose validation and paid transactions still require runtime checks; schema acceptance alone does not load a mod.

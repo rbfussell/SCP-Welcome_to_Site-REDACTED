@@ -4,6 +4,8 @@ Implemented October 29, 2026. This extends [actual worn order](35-actual-worn-or
 
 ## Try the native fixture
 
+Follow-up: [placement extenders and mount points](37-placement-extenders-and-mount-points.md) add the hook, composed exterior descendants and shared clearance. Counts and hook exclusions below describe this overlay slice's original fixture; the later guide records the current field-kit counts.
+
 Start a fresh scene. The supply crate now contains four instances of the existing utility belt definition; the existing transparent sprite is reused. There are **17 definitions, 36 instances and 26 compartment states**. No fictitious lid was added to a belt. The pouch is now at crate cell `(10,9)`; the belts occupy `(10,13)`, `(16,13)`, `(10,17)` and `(16,17)`.
 
 Put the worn pack aside before fitting straps across the chest: a belt cannot cover an outermost pack. Take a belt into the hand, select **Body fit · hex view**, then set its anchor/orientation and apply normal paid fitting. Useful native poses, in dressing order:

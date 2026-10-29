@@ -39,6 +39,8 @@ Compatibility is directional and independent of current worn depth. Use the [fit
 
 ## Art and interaction
 
+For [placement extenders](../docs/37-placement-extenders-and-mount-points.md), author required contacts/occupancy and offered points separately in provider-local coordinates. Offered and required interfaces may differ. Name each offered surface, load limit and category restriction; do not invent a loose-item pocket or lid. Composed poses, exposed contacts and shared exterior clearance apply throughout the assembly. Only immediate connector contacts are exempt from collision; parentage grants no extra space.
+
 Inventory sprite; doll front/back; world/pose binding; state art. For each segment: view, sprite, normalized contour, linked compartment/closure/attachment ID and body-surface mapping. Use one transform for drawing and picking. An opaque pixel is not automatically a physical obstruction.
 
 ## Use, assembly and extensions
