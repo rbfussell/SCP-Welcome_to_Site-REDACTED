@@ -118,6 +118,10 @@ def main():
     reject(lambda c: c.update(unregisteredMagic=True))
     reject(lambda c: c.update(extensions={'unscoped': {}}))
     reject(lambda c: c['forms'][0].update(envelopeMm=[9999, 100, 40]))
+    reject(lambda c: c['wear']['fit'].update(bulk=0))
+    reject(lambda c: c['wear']['fit'].update(fitsOver=['core:light-textile', 'core:light-textile']))
+    reject(lambda c: c['wear']['fit'].update(family='bad token'))
+    reject(lambda c: c['wear'].pop('fit'))
     print(f'GEAR_STANDARD_CHECKS_PASS: {len(cards)} definitions, 1 instance, {rejected} invalid author cards rejected.')
 
 

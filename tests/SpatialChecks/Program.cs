@@ -144,5 +144,6 @@ passed += AttachmentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirec
 passed += CoverageChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += BodyFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += WearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
+passed += WearFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += SpriteArtChecks.Run(json, Path.Combine(Path.GetDirectoryName(mapPath)!, "../Assets/facility-standins/manifest.json"));
 Console.WriteLine($"SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.");

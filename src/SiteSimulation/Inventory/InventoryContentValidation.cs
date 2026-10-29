@@ -9,7 +9,7 @@ internal static class InventoryContentValidation
         static bool Id(string? id) => !string.IsNullOrWhiteSpace(id) && id.Length <= 100;
         static bool Body(string[]? regions) => regions is { Length: > 0 and <= 10 } && regions.Distinct().Count() == regions.Length
             && regions.All(InventoryWear.BodyRegions.Contains);
-        static bool WearValid(WearProfile w) => w.Layer is >= 0 and <= 9 && w.Mounts is { Length: > 0 and <= 10 }
+        static bool WearValid(WearProfile w) => w.Layer is >= 0 and <= 9 && InventoryWearFit.ProfileValid(w.Fit) && w.Mounts is { Length: > 0 and <= 10 }
             && w.Mounts.All(m => m is not null && Id(m.Slot) && Body(m.Coverage) && (m.BodySurface is null or "front" or "back")) && w.Mounts.Select(m => m.Slot).Distinct().Count() == w.Mounts.Length
             && (w.RemovalRegions is null || Body(w.RemovalRegions))
             && (w.OpenExposes is null || Body(w.OpenExposes) && w.OpenExposes.All(r => w.Mounts.Any(m => m.Coverage.Contains(r))))

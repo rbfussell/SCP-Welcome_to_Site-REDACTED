@@ -353,7 +353,20 @@
     "coversAccess": true,
     "blocksRemoval": true,
     "outermost": true,
-    "appearanceTemplate": "core:body-surface-map"
+    "appearanceTemplate": "core:body-surface-map",
+    "fit": {
+      "family": "core:outer-pack",
+      "bulk": 6,
+      "maxUnderBulk": 20,
+      "fitsOver": [
+        "core:light-textile",
+        "core:light-jacket",
+        "core:bulky-coat",
+        "core:flexible-armor",
+        "core:sealed-suit",
+        "core:strap"
+      ]
+    }
   },
   "attachmentSurfaces": [
     {

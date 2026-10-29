@@ -82,6 +82,7 @@ public static class InventoryWear
                     throw new ArgumentException("Worn items conflict at the same body layer");
                 if (l.Layer != r.Layer && (l.Layer < r.Layer ? l : r).Outermost) throw new ArgumentException("Nothing can cover an outermost pack; remove it first");
             }
+            InventoryWearFit.ValidateWorn(state, worn);
         }
     }
 }

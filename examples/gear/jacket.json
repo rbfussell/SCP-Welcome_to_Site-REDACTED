@@ -254,7 +254,16 @@
     "coversAccess": true,
     "blocksRemoval": true,
     "outermost": false,
-    "appearanceTemplate": "core:body-surface-map"
+    "appearanceTemplate": "core:body-surface-map",
+    "fit": {
+      "family": "core:light-jacket",
+      "bulk": 3,
+      "maxUnderBulk": 6,
+      "fitsOver": [
+        "core:light-textile",
+        "core:flexible-armor"
+      ]
+    }
   },
   "compartments": [
     {

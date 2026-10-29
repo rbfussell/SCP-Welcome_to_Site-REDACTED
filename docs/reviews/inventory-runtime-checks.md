@@ -2,7 +2,14 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current symmetric-footprint correction qualification (October 27):
+Current fit-rule foundation qualification (October 29):
+
+- `--check`: **20,534 assertions**, including **63 new wear-fit** checks. Reversed compatible shirt/jacket and armor/jacket combinations, incompatible bulky gear, aggregate clearance, repeated garment definitions, explicit exclusions, outermost packs, malformed metadata and per-region isolation pass. Ordinary paid moves reject incompatible fits atomically, retain source ownership until completion, revalidate before commit, spend the expected combat AP and resume identical pending work after restore. Build has zero compiler warnings/errors.
+- `--inventory-smoke work/preview/spatial-scene/wear-fit.png`: all six native inventory suites pass with the new graph validation. Existing packing, dress/undress, fastening, access coverage, body fitting, attachment mounting/rotation, closure navigation and saved work continue to pass. The existing software-display V-Sync warning and shutdown-only ObjectDB warning remain; this run reported three references. No interface or source sprite changed in this slice.
+- `tools/check_gear_data.py`: six proposed cards, one instance and **15 invalid card cases** pass, including required fit metadata and family/bulk authoring checks. The shirt, jacket and backpack cards now include the new section.
+- [Fit-rule foundation](../34-wear-fit-rules.md) is implemented; actual dressing order, same-band under-limits, crossed belts and the grouped equipment list remain pending. Native immutable fit definitions change inventory content identity, requiring a fresh field-kit scene. No mutable instance field was added; schema remains 13.
+
+Earlier symmetric-footprint correction qualification (October 27):
 
 - `--check`: **20,471 assertions**, including **103 attachment** checks. An adjacent upright pouch now fails physical overlap validation; two support steps apart still fit. Existing paid handling, load, access, body composition, AP and persistence checks pass. Build has zero compiler warnings/errors.
 - `--inventory-smoke work/preview/spatial-scene/attachment-footprint.png`: all six native inventory suites pass. The new regression compares the centerline of the actual projected non-contact occupancy cells against the sprite's hanging axis in all six rotations. The old diagonal two-cell shape fails that relationship. Native drag/R/release still commits every orientation through paid work. Upright and inverted preview captures were visually inspected: outlines now surround a symmetric pouch envelope beneath/above the fixed loop anchor. Existing picking, inspection, packing, closures, parent refit and loaded detachment pass. The known software-display V-Sync warning and two-reference shutdown-only ObjectDB warning remain.

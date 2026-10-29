@@ -561,7 +561,8 @@
         },
         "layer": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "description": "Legacy/provisional authored order; fit compatibility comes from fit, not this number. Actual worn-stack migration is separate."
         },
         "surfaces": {
           "type": "array",
@@ -621,6 +622,9 @@
         "attachmentRequirement": {
           "type": "string",
           "pattern": "^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$"
+        },
+        "fit": {
+          "$ref": "#/$defs/wearFit"
         }
       },
       "required": [
@@ -631,7 +635,8 @@
         "orientations",
         "coversAccess",
         "blocksRemoval",
-        "outermost"
+        "outermost",
+        "fit"
       ]
     },
     "function": {
@@ -939,6 +944,57 @@
         "parent",
         "state",
         "provenance"
+      ]
+    },
+    "wearFit": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Directional compatibility and relative cumulative bulk; independent of actual worn order and same-band strap limits.",
+      "properties": {
+        "family": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9_.:-]+$"
+        },
+        "bulk": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "maxUnderBulk": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "fitsOver": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9_.:-]+$"
+          },
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "excludesUnderTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9_.:-]+$"
+          },
+          "maxItems": 32,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "family",
+        "bulk",
+        "maxUnderBulk",
+        "fitsOver"
       ]
     }
   }

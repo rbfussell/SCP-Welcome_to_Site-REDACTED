@@ -7,7 +7,7 @@ public sealed record WearMount(string Slot, string[] Coverage, string? BodySurfa
 public sealed record WearProfile(int Layer, WearMount[] Mounts, bool Outermost = false,
     string[]? OpenExposes = null, int FastenMs = 700, int FastenAp = 2,
     bool CoversAccess = true, bool BlocksRemoval = true, string[]? OverlapTags = null, string SecureVerb = "Fasten",
-    string OpenVerb = "Open", bool SecureOnClose = false, string? FitProfile = null, string[]? RemovalRegions = null);
+    string OpenVerb = "Open", bool SecureOnClose = false, string? FitProfile = null, string[]? RemovalRegions = null, WearFitProfile? Fit = null);
 public sealed record StorageRegion(string Id, string Name, int Columns, int Rows, int CellMm, int HeightMm, int MaxMassGrams,
     string? MountSlot = null, string[]? AcceptTags = null, int[]? Mask = null, bool EquipmentReady = false, int AccessMs = 300, int AccessAp = 1, string[]? AccessBody = null,
     string SecureVerb = "Close", string OpenVerb = "Open", bool SecureOnClose = true, BodySurfaceMask[]? AccessFootprint = null, AttachmentSurface? Attachment = null, bool Sealable = true, bool Snug = false);

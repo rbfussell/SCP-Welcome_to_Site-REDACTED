@@ -23,12 +23,15 @@ For each closure: ID, target region(s) or `garment-front`, mechanism, current-st
 
 ## Worn fit and attachments
 
-- Body family / surfaces / layer / front and back fit:
+- Body family / surfaces / provisional order / front and back geometric fit:
+- Fit family / relative bulk / maximum combined underlying bulk / accepted underlying families / excluded underlying traits:
 - Six-orientation hex footprint, contact edges and open edges:
 - Covers access mask / blocks removal mask / overlap permissions / outermost rule:
 - Which openings expose which pocket mouths or underlying regions:
 - Offered attachment interface/surface, transformed anchors, occupied span and load:
 - Required attachment interface if this is a child attachment:
+
+Compatibility is directional and independent of current worn depth. Use the [fit-rule foundation](../docs/34-wear-fit-rules.md) for units, evaluation and its current migration boundary. Same-band strap counts and geometric contacts are separate from the fit-bulk budget.
 
 ## Art and interaction
 

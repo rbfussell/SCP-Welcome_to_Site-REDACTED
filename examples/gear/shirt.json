@@ -221,6 +221,19 @@
     "coversAccess": true,
     "blocksRemoval": true,
     "outermost": false,
-    "appearanceTemplate": "core:body-surface-map"
+    "appearanceTemplate": "core:body-surface-map",
+    "fit": {
+      "family": "core:light-textile",
+      "bulk": 1,
+      "maxUnderBulk": 5,
+      "fitsOver": [
+        "core:light-textile",
+        "core:light-jacket",
+        "core:flexible-armor"
+      ],
+      "excludesUnderTags": [
+        "core:rigid-shell"
+      ]
+    }
   }
 }

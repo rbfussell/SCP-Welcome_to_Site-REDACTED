@@ -1,6 +1,6 @@
 # Fit compatibility and actual worn stacks
 
-Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The current runtime still uses `WearProfile.Layer`; this document defines its staged replacement, not a completed migration.
+Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The current runtime still uses `WearProfile.Layer` for order. The [fit-rule foundation](34-wear-fit-rules.md) now provides separate compatibility metadata and validates cumulative bulk; this document defines the remaining worn-stack migration.
 
 ## Separate fit from position
 
@@ -95,3 +95,7 @@ The replacement rank/stack runtime should next qualify one small authoring set: 
 - The grouped equipment list backed by the same authoritative stack projection, preserving knowledge/access boundaries.
 
 The current fixed-layer runtime, its selector and its save fields remain qualified by their existing tests until that replacement slice passes. Three belts, hooks/key loops, variable clearance, full body drag-fitting and procedural world clothing are not implemented by the alignment/drop fix.
+
+## October 29 foundation boundary
+
+The [first fit-rule slice](34-wear-fit-rules.md) implements directional families, relative bulk, aggregate clearance and explicit exclusions, including a bridge into the existing ordered equipment graph. It does not yet replace the order representation, derive local bands/subpositions, add crossed belts, change the layer selector or enable dressing in arbitrary order through the UI. Those remain the next staged migration. The pure fit evaluator accepts a proposed outer/under relationship without consulting `Layer`, so the future per-surface worn-stack projection can reuse it.

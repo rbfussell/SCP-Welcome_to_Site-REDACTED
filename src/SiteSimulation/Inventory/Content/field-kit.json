@@ -159,7 +159,15 @@
             ]
           }
         ],
-        "fitProfile": "trousers"
+        "fitProfile": "trousers",
+        "fit": {
+          "family": "core:light-textile",
+          "bulk": 2,
+          "maxUnderBulk": 3,
+          "fitsOver": [
+            "core:light-textile"
+          ]
+        }
       }
     },
     {
@@ -250,7 +258,16 @@
         "secureVerb": "Zip",
         "openVerb": "Unzip",
         "secureOnClose": false,
-        "fitProfile": "coat"
+        "fitProfile": "coat",
+        "fit": {
+          "family": "core:light-jacket",
+          "bulk": 3,
+          "maxUnderBulk": 6,
+          "fitsOver": [
+            "core:light-textile",
+            "core:flexible-armor"
+          ]
+        }
       }
     },
     {
@@ -346,7 +363,20 @@
           }
         ],
         "outermost": true,
-        "fitProfile": "backpack"
+        "fitProfile": "backpack",
+        "fit": {
+          "family": "core:outer-pack",
+          "bulk": 6,
+          "maxUnderBulk": 20,
+          "fitsOver": [
+            "core:light-textile",
+            "core:light-jacket",
+            "core:bulky-coat",
+            "core:flexible-armor",
+            "core:sealed-suit",
+            "core:strap"
+          ]
+        }
       },
       "defaultDropRegion": "main"
     },
@@ -501,7 +531,20 @@
             ]
           }
         ],
-        "fitProfile": "shirt"
+        "fitProfile": "shirt",
+        "fit": {
+          "family": "core:light-textile",
+          "bulk": 1,
+          "maxUnderBulk": 5,
+          "fitsOver": [
+            "core:light-textile",
+            "core:light-jacket",
+            "core:flexible-armor"
+          ],
+          "excludesUnderTags": [
+            "core:rigid-shell"
+          ]
+        }
       }
     },
     {
@@ -527,7 +570,13 @@
             ]
           }
         ],
-        "fitProfile": "socks"
+        "fitProfile": "socks",
+        "fit": {
+          "family": "core:light-textile",
+          "bulk": 1,
+          "maxUnderBulk": 0,
+          "fitsOver": []
+        }
       }
     },
     {
@@ -553,7 +602,15 @@
             ]
           }
         ],
-        "fitProfile": "boots"
+        "fitProfile": "boots",
+        "fit": {
+          "family": "core:footwear",
+          "bulk": 4,
+          "maxUnderBulk": 2,
+          "fitsOver": [
+            "core:light-textile"
+          ]
+        }
       }
     },
     {
@@ -588,7 +645,19 @@
             ]
           }
         ],
-        "fitProfile": "chem-suit"
+        "fitProfile": "chem-suit",
+        "fit": {
+          "family": "core:sealed-suit",
+          "bulk": 3,
+          "maxUnderBulk": 10,
+          "fitsOver": [
+            "core:light-textile",
+            "core:light-jacket",
+            "core:flexible-armor",
+            "core:footwear",
+            "core:strap"
+          ]
+        }
       }
     },
     {
@@ -627,7 +696,20 @@
           "hips-back",
           "torso-front",
           "torso-back"
-        ]
+        ],
+        "fit": {
+          "family": "core:strap",
+          "bulk": 1,
+          "maxUnderBulk": 20,
+          "fitsOver": [
+            "core:light-textile",
+            "core:light-jacket",
+            "core:bulky-coat",
+            "core:flexible-armor",
+            "core:sealed-suit",
+            "core:strap"
+          ]
+        }
       },
       "regions": [
         {
