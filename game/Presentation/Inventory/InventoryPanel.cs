@@ -10,6 +10,7 @@ public partial class InventoryPanel : Control
     public string? SelectedItem { get; private set; }
     public bool Rotated { get; private set; }
     internal int AttachmentRotation { get; private set; }
+    internal int BodyRotation { get; private set; }
     public bool IsOpen => Visible;
     internal string? DragItemId { get; private set; }
     internal InventoryDropPreview? DropPreview { get; private set; }
@@ -142,8 +143,14 @@ public partial class InventoryPanel : Control
     {
         if (DragItemId is not null) GetViewport().GuiCancelDrag();
         DragItemId = null; DropPreview = null;
+        _bodyFit?.Surface?.ClearDropPreview();
     }
-    internal void BeginDrag(string id) { DragItemId = id; DropPreview = null; }
+    internal void BeginDrag(string id)
+    {
+        DragItemId = id; DropPreview = null;
+        BodyRotation = InventoryBodyFit.Pose(Simulation.Inventory, Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id))?.Rotation ?? 0;
+        _bodyFit.Surface.ClearDropPreview();
+    }
     internal void PreviewDrop(InventoryGrid grid, Vector2 position)
     {
         DropPreview = DragItemId is { } id ? grid.PreviewAt(id, position) : null;
@@ -152,10 +159,13 @@ public partial class InventoryPanel : Control
     public override void _Process(double delta) => RefreshDragPreview();
     private void RefreshDragPreview()
     {
-        if (!Visible || !GetViewport().GuiIsDragging()) { DragItemId = null; DropPreview = null; return; }
+        if (!Visible || !GetViewport().GuiIsDragging())
+        { DragItemId = null; DropPreview = null; _bodyFit?.Surface?.ClearDropPreview(); return; }
         if (GetViewport().GuiGetHoveredControl() is InventoryGrid grid && grid.Panel == this)
             PreviewDrop(grid, grid.GetLocalMousePosition());
         else DropPreview = null;
+        if (_bodyFit.Surface.IsDropTarget) _bodyFit.Surface.PreviewDrop(_bodyFit.Surface.GetLocalMousePosition());
+        else _bodyFit.Surface.ClearDropPreview();
     }
     public void Toggle() { if (Visible) Close(); else Open(); }
     public void Select(string id)
@@ -189,7 +199,12 @@ public partial class InventoryPanel : Control
     }
     public void Rotate()
     {
-        if (_bodyFit.Visible) { _bodyFit.RotateDraft(); return; }
+        if (_bodyFit.Visible && DragItemId is null) { _bodyFit.RotateDraft(); return; }
+        if (_bodyFit.Surface.IsDropTarget)
+        {
+            BodyRotation = (BodyRotation + 1) % 6;
+            RefreshDragPreview(); Redraw(this); return;
+        }
         if (SelectedItem is null) return;
         var supportHover = GetViewport().GuiGetHoveredControl() is InventoryGearSurface { HasAttachmentSurface: true };
         if (supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)

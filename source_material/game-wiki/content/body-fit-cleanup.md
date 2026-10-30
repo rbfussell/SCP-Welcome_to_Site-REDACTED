@@ -22,6 +22,6 @@ The five central authored webbing points remain inside the guaranteed core. Exte
 - [Native body-fit checks](file-game-presentation-spatialscene-bodyfitsmoke-cs.html): actual anchor/R/Apply controls, paid X and read-only previews.
 - [Recorded results](doc-docs-reviews-inventory-runtime-checks-md.html): actual runs; wiki compilation does not execute tests.
 
-Final anatomy art, body sizes, curved straps, cloth fitting, drag-fitting, extended webbing art, spillage and world clothing remain future work. The [gear standard](doc-docs-29-gear-data-standard-md.html) remains distinct from native DTOs and public mod loading.
+[Direct body-fit drops](body-drag-fitting.html) now qualify stored-clothing fitting through actual dragging. Final anatomy art, body sizes, curved straps, cloth fitting, dragging worn gear out of the body, extended webbing art, spillage and world clothing remain future work. The [gear standard](doc-docs-29-gear-data-standard-md.html) remains distinct from native DTOs and public mod loading.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [overlay bands](doc-docs-36-overlay-sublayers-md.html), [body-fit foundation](doc-docs-30-body-fit-prototype-md.html), [design library](documents.html).

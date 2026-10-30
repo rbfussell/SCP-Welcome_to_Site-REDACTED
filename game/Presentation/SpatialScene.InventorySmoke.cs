@@ -82,9 +82,14 @@ public partial class SpatialScene
             {
                 await RunHookSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
             }
+            if (OS.GetCmdlineUserArgs().Contains("--body-drop-smoke"))
+            {
+                await RunBodyDropSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             await RunWearSmoke();
             await RunPackingSmoke();
             await RunBodyFitSmoke();
+            await RunBodyDropSmoke();
             await RunCoverageSmoke();
             await RunAttachmentSmoke();
             await RunOverlaySmoke();

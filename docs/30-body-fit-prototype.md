@@ -1,5 +1,7 @@
 # Body fitting: first playable slice
 
+Current control follow-up: [direct body-fit drops](39-body-drag-fitting.md) now fit a specific accessible stored wearable by dragging it onto a body hex. This does not broaden the own worn/held selector or scan stored gear.
+
 Status: October 26, 2026. The first body-local hex mask/contact fixture runs in the native simulation and Godot inventory. It is an engineering fit view alongside the existing sprite equipment view, not finished anatomical artwork or a complete replacement for named mounts.
 
 Current follow-up: [symmetric body fit and adjustable straps](38-body-fit-cleanup.md) supersedes the initial silhouette and adds bounded native spans and a human-body chest X. Schema and limits below describe the original slice; current inventory schema is 14.

@@ -36,7 +36,7 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _status.CustomMinimumSize = new(234, 65);
         _pocketStatus = InventoryPanel.Label(this, "", 11);
-        InventoryPanel.Label(this, "Click sets anchor · R rotates\nWhite: contact · red: failed fit", 11);
+        InventoryPanel.Label(this, "Click sets anchor · drag clothing to fit\nR: 6 body turns / 2 storage turns\nWhite: contact · red: failed fit", 11);
         Refresh();
     }
     internal void Choose(string id)
@@ -76,7 +76,8 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         _selected ??= _ids.FirstOrDefault();
         if (_selected is not null)
         {
-            if (Panel.SelectedItem is null || !_ids.Contains(Panel.SelectedItem)) Panel.Select(_selected);
+            if (Panel.DragItemId is null && (Panel.SelectedItem is null || Panel.Simulation.Inventory.Pending?.Request.ItemId != Panel.SelectedItem)
+                && (Panel.SelectedItem is null || !_ids.Contains(Panel.SelectedItem))) Panel.Select(_selected);
             _items.Select(Array.IndexOf(_ids, _selected));
             var item = items.Single(i => i.Id == _selected);
             if (_seenPlacement != item.Placement)
@@ -90,8 +91,19 @@ public partial class InventoryBodyFitPanel : VBoxContainer
     private void UpdatePreview()
     {
         if (!IsNodeReady()) return;
+        if (Surface.IsDropTarget)
+        {
+            _apply.Disabled = true;
+            _status.Text = Surface.DropPreview is { } drop ? $"Drop: {Panel.Simulation.Inventory.Definition(drop.Request.ItemId).Name}\n"
+                + $"Anchor {drop.Request.Destination!.BodyPose!.Q},{drop.Request.Destination.BodyPose.R} · {Panel.BodyRotation * 60}°\n"
+                + (drop.Handling.Allowed ? $"{drop.Handling.DurationMs / 1000.0:0.00}s · {drop.Handling.Ap} AP · release to fit" : Surface.DropReason)
+                : Surface.DropReason;
+            if (Surface.DropPreview is { Geometry.Fits: true } fittedDrop && InventoryBodyFit.Shape(Panel.Simulation.Inventory, fittedDrop.Request.ItemId)?.LinearSpan is { } spanDrop)
+                _status.Text += $"\nSpan {fittedDrop.Geometry.Cells.Length} cells · range {spanDrop.MinCells}–{spanDrop.MaxCells}";
+            _pocketStatus.Text = ""; Surface.QueueRedraw(); return;
+        }
         Preview = _selected is null ? null : Panel.Simulation.PreviewBodyFit(_selected, Draft);
-        _apply.Disabled = Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null;
+        _apply.Disabled = Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null || Panel.DragItemId is not null;
         _status.Text = Preview is null ? "No known clothing is available."
             : $"Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n" + (!Preview.Geometry.Fits ? Preview.Geometry.Reason
                 : Preview.Handling.Allowed ? $"Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP"
@@ -130,17 +142,19 @@ public partial class InventoryBodyFitSurface : Control
         var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c => c.Cell.Surface == "front"
             && Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray();
         foreach (var cell in straps.Select(c => c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color("d1ad68", .5f));
-        if (Fit.Preview is { } preview)
+        var activePreview = Fit.Panel.DragItemId is null ? Fit.Preview : DropPreview;
+        if (activePreview is { } preview)
         {
             var outside = preview.Geometry.Outside.ToHashSet();
             foreach (var cell in preview.Geometry.Cells)
-                DrawColoredPolygon(Polygon(cell), outside.Contains(cell) ? new Color("d06258", .85f) : new Color("62baa2", .65f));
-            if (Fit.SelectedId is { } selected)
+                DrawColoredPolygon(Polygon(cell), outside.Contains(cell) || Fit.Panel.DragItemId is not null && !preview.Handling.Allowed
+                    ? new Color("d06258", .85f) : new Color("62baa2", .65f));
+            if (preview.Request.ItemId is { } selected)
                 foreach (var region in Fit.Panel.Simulation.Inventory.Definition(selected).Regions ?? [])
                     if (region.Attachment is not null)
                         foreach (var child in Fit.Panel.Simulation.InventoryAttachmentsOn(selected, region.Id))
                             foreach (var local in InventoryAttachments.Occupancy(Fit.Panel.Simulation.Inventory, child))
-                                DrawColoredPolygon(Polygon(BodyFitGeometry.Transform(local, Fit.Draft)), new Color("d1ad68", .85f));
+                                DrawColoredPolygon(Polygon(BodyFitGeometry.Transform(local, preview.Request.Destination!.BodyPose!)), new Color("d1ad68", .85f));
             foreach (var contact in preview.Geometry.Contacts)
             {
                 var edge = Edge(Center(contact.Cell), contact.Direction);
@@ -158,17 +172,14 @@ public partial class InventoryBodyFitSurface : Control
             DrawCircle(position, 3.2f, obstructed ? new("ff8979") : new("8ee5ce"));
             if (obstructed) DrawLine(position + new Vector2(-3, 3), position + new Vector2(3, -3), new("242b26"), 1.5f);
         }
-        var anchor = Center(new(Fit.Draft.Q, Fit.Draft.R));
+        var activePose = activePreview?.Request.Destination?.BodyPose ?? Fit.Draft;
+        var anchor = Center(new(activePose.Q, activePose.R));
         DrawCircle(anchor, 3, new("f1ca7a")); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new("f1ca7a"), 1);
     }
     public override void _GuiInput(InputEvent e)
     {
         if (e is not InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true } mouse) return;
-        // Pick actual hex polygons, including their padded edges; empty canvas does not choose a body anchor.
-        var selected = BodyFitGeometry.Cells(Fit.Body.Rows).Select(c => (Cell: c, Distance: Center(c).DistanceTo(mouse.Position)))
-            .OrderBy(p => p.Distance).FirstOrDefault();
-        if (Geometry2D.IsPointInPolygon(mouse.Position, Enumerable.Range(0, 6).Select(i => Center(selected.Cell)
-            + Vector2.FromAngle(Mathf.Pi / 6 + i * Mathf.Pi / 3) * Radius).ToArray())) Fit.SetDraftAnchor(selected.Cell);
+        if (PickCell(mouse.Position) is { } cell) Fit.SetDraftAnchor(cell);
         AcceptEvent();
     }
 }

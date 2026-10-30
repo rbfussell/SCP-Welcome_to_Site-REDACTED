@@ -1,5 +1,7 @@
 # Three-view inventory, closures and body-shape fitting
 
+Current interaction follow-up: [body drag-fitting](39-body-drag-fitting.md) now allows explicit accessible stored clothing to be dropped onto the diagnostic body with exact mask previews and normal paid handling. The final anatomical/artwork and body-to-provider interactions remain separate work.
+
 Status: October 26, 2026. The bounded runtime now implements three fixed engineering views, separate gear/contents trails, illustrated compartment hotspots, context actions, paid opening and automatic securing. Esc dismisses only the interface. ↑/× use each fastening’s authored default or player override; jacket fronts default to staying open. The [first body-local mask/contact fit slice](30-body-fit-prototype.md) now runs alongside existing mounts; the [mapped pocket access slice](31-pocket-coverage-prototype.md) now qualifies hip/cargo obstruction, while animated/composited appearance remains future work.
 
 Related: [physical inventory](23-personal-inventory-prototype.md), [body equipment](24-body-equipment-and-container-navigation.md), [wear layers and fit](25-wear-layer-and-fit-standard.md), and [appearance pipeline](26-wearable-appearance-pipeline.md).

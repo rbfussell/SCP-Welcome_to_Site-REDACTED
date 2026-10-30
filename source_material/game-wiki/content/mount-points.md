@@ -27,3 +27,5 @@ Normal inventory transactions charge time/combat AP and revalidate clearance/acc
 Latching hooks, keyring content, arbitrary depth offsets, assembly packing envelopes, swinging and world clothing composition remain future work. This does not change the SCP module contract or reveal hidden contents to actors.
 
 Related: [engine](engine.html), [implementation ledger](status.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [belt foundation](doc-docs-32-belt-and-attachment-prototype-md.html), [design library](documents.html).
+
+[Body-fit drops](body-drag-fitting.html) are a separate target for wearable gear in the diagnostic body view. Enlarged provider surfaces keep their explicit mount points, six attachment rotations and existing clearance rules.

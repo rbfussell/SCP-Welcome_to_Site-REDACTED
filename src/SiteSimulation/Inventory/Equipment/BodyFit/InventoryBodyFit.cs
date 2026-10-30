@@ -46,13 +46,23 @@ public sealed partial class SpatialSimulation
     public BodyFitPreview? PreviewBodyFit(string itemId, BodyPose pose, string? mount = null)
     {
         if (!BodyFitItems.Any(i => i.Id == itemId) || InventoryBodyFit.Shape(Inventory, itemId) is not { } shape) return null;
+        return BuildBodyFitPreview(Inventory.Items[itemId], shape, pose, mount);
+    }
+    /// <summary>One explicitly addressed, currently inspectable item. Never expands the own-equipment selector or scans hidden storage.</summary>
+    public BodyFitPreview? PreviewBodyFitDrop(string itemId, BodyPose pose, string? mount = null)
+    {
+        if (!Inventory.Items.TryGetValue(itemId, out var item) || !InventoryInspectAccess(itemId).Allowed
+            || InventoryBodyFit.Shape(Inventory, itemId) is not { } shape) return null;
+        return BuildBodyFitPreview(item, shape, pose, mount);
+    }
+    private BodyFitPreview? BuildBodyFitPreview(InventoryItem item, BodyFitShape shape, BodyPose pose, string? mount)
+    {
         var root = Inventory.Content!.Roots.Single(r => r.ActorId == Player.Id);
         if (root.BodyFamily is null) return null;
-        var item = Inventory.DiagnosticItems.Single(i => i.Id == itemId);
         var currentMount = item.Placement.ParentId == root.Id ? Inventory.Region(root.Id, item.Placement.RegionId).MountSlot : null;
-        var target = mount ?? (currentMount is not null && InventoryWear.Accepts(Inventory.Definition(itemId), currentMount)
-            ? item.Placement.RegionId : Inventory.Definition(itemId).WearSlot!);
-        var request = new InventoryRequest(InventoryActionKind.Move, itemId, new(root.Id, target, BodyPose: pose));
+        var target = mount ?? (currentMount is not null && InventoryWear.Accepts(Inventory.Definition(item.Id), currentMount)
+            ? item.Placement.RegionId : Inventory.Definition(item.Id).WearSlot!);
+        var request = new InventoryRequest(InventoryActionKind.Move, item.Id, new(root.Id, target, BodyPose: pose));
         return new(BodyFitGeometry.Evaluate(Inventory.BodyFits!.Body(root.BodyFamily), shape, pose), QuoteInventory(request), request);
     }
 }
