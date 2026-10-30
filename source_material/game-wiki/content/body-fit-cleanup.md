@@ -12,6 +12,8 @@ The five central authored webbing points remain inside the guaranteed core. Exte
 
 ## Presentation and continuation
 
+[Final clothing presentation](wearable-appearance.html) uses a matching character body and worn sprite silhouettes, with the fit grid hidden in normal use and cutout-clipped highlights. The current cell/contact drawing remains an engineering fixture.
+
 [Presentation](system-presentation.html) previews the same geometry and reports span/range. Anchor/R input is read-only; Apply uses paid handling. `tools/author_body_fit_fixture.py` regenerates matching body/clothing/mouth/fastening geometry using odd-row reflection `(q,r) → (-q-r,r)`.
 
 [Persistence](system-persistence.html) derives length from body, shape and saved pose; no duplicate mutable length is stored. Schema stays 14, but content identity changed: start fresh for earlier field-kit content. Exact pending continuation remains qualified.

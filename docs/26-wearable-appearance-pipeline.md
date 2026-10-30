@@ -8,6 +8,20 @@ The subsequent [surface-mapping proposal](28-wearable-metadata-and-surface-mappi
 
 ## One outfit, several representations
 
+### Confirmed paperdoll presentation (October 30)
+
+The [game-wiki appearance guide](../source_material/game-wiki/wearable-appearance.html) connects this requirement to current body fitting, provider interactions and source evidence.
+
+The finished paperdoll depicts the controlled character's actual appearance: matching supported body proportions, skin/head/hair and appearance variants, with worn clothing sprites aligned to that body. The equipped graph supplies the same item identities, colors, variants, placement and fastening states used for the character's world appearance. A universal mannequin or the packed inventory illustration is not the final worn representation.
+
+The normal paperdoll hides its fitting grid. Body/gear hexes remain underneath for occupancy, contact, layering, attachment and access checks; engineering diagnostics can still expose them. Hiding the grid changes presentation only.
+
+Hover/selection and valid/invalid placement feedback follow the garment's visible cutout. Clip tint and outline to the current worn sprite's silhouette/alpha and its visible portions after layering. Transparent padding, neck/arm openings and cutout gaps must not be filled by hexes, overlapping squares or a rectangular highlight. Drawing and visual picking share the same body, pose, scale, orientation, closure-state and occlusion transforms. An open jacket uses its actual open silhouette, with the exposed shirt visible beneath it. Retain the detailed pixel-sprite treatment; following a rounded garment contour does not call for smoothing away authored pixel structure.
+
+Visual silhouettes, fitting occupancy, access cover and removal restraints remain separate. Alpha cutouts do not resize the physical grid footprint, grant access through a transparent barrier or clear an obstruction. Final rendering/picking masks need art qualification; no new alpha threshold or production baking method is frozen here.
+
+**Implementation boundary:** the current [body-drag fixture](39-body-drag-fitting.md) still draws diagnostic cells and contacts. Enlarged gear segments already have alpha-clipped tint/picking in `InventoryArt`/`InventoryGearSurface`; their polygon outlines and body diagnostics do not qualify the final silhouette compositor. Inventory-driven matching body/clothing sprites and their silhouette highlights remain confirmed requirements, not implemented artwork.
+
 The authoritative equipped graph determines what a character wears. A separate appearance catalog maps wearable definitions to compatible bodies, garment representations, supported fastening states and attachment points. The paperdoll and world renderer resolve that same outfit; they must not keep independent copies of equipped state.
 
 | Representation | Purpose |
@@ -39,7 +53,7 @@ Each appearance profile should identify:
 - Required action/facing/frame bindings, common ground anchor and attachment transforms.
 - Occlusion masks and split draw parts where necessary: a far arm, torso, near arm, straps and back-mounted pack do not always share one whole-image draw order.
 
-Physical layer numbers establish wearing order; visual compositing also depends on facing, anatomy, pose, transparency and surface visibility. Drawing an inner object through a transparent visor must not grant physical access through the visor. The current coarse equipment-slot view does not qualify that final material/occlusion behavior.
+The [actual dressing order](35-actual-worn-order.md) and [physical surface intersections](36-overlay-sublayers.md) establish the worn stack; visual compositing also depends on facing, anatomy, pose, transparency and surface visibility. Drawing an inner object through a transparent visor must not grant physical access through the visor. The current engineering views do not qualify that final material/occlusion behavior.
 
 Procedural visual fitting must not override the fit validator. If a cap does not fit over a knit cap, rendering a stretched cap is not permission to equip it. Conversely, a compatible item must resolve to a usable appearance or an explicit stand-in rather than disappearing. The same equipped instance must retain its color, variant and fastening state in both paperdoll and world views.
 
@@ -52,6 +66,8 @@ Missing artwork should fall back to the existing readable diagnostic style: name
 The first qualification should use one body family, a base garment and an openable jacket: show both on the paperdoll, equip/fasten/open them through ordinary item actions and display the matching outfit across the current world facings and walk frames. Then add a pack to check straps, front/back mounting and occlusion. Compare the visual outfit with the authoritative equipped graph and verify unchanged movement, observation and save behavior. Full wardrobes, procedural cloth simulation and a general reconstruction system are outside that first slice.
 
 ## Layer inspection
+
+Historical October 25 inspection UI: the selector described below was superseded by the [grouped equipment list and actual worn order](35-actual-worn-order.md), followed by physical sublayers. Preserve its distinction between knowing an item and having physical access when implementing the final sprite paperdoll.
 
 The paperdoll now has a **Layers** selector for exposed equipment, all known worn equipment or one numbered layer. Layer inspection reveals known own equipment for identification; it is a presentation filter. Covered objects remain marked and cannot be dragged or manipulated through the covering. Opening their storage still requires the normal physical access path. The filter does not reveal items inside pockets or cases and does not change what other characters see in the world.
 

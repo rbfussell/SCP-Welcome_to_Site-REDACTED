@@ -40,6 +40,8 @@ Packs, garments, armor and anomalous objects can provide other interfaces throug
 
 ## Representations of one item
 
+The [October 30 paperdoll clarification](26-wearable-appearance-pipeline.md#confirmed-paperdoll-presentation-october-30) confirms a character-matched sprite body, hidden normal-use fit grid and highlights clipped to visible worn garment silhouettes. Physical surface masks remain independent of rendered alpha. This is a confirmed output requirement; the procedural mapping route below remains proposed.
+
 | Representation | Describes |
 |---|---|
 | Inventory sprite and packing data | Loose/packed item and square-grid storage envelope |

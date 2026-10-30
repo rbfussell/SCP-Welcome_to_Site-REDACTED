@@ -24,4 +24,6 @@ Release submits ordinary Move with its exact pose. Geometry, [overlay bands](doc
 
 This is a fitting target in the engineering view. Dragging worn gear out of the body, final composited clothing, front/back views, anatomical default-mount selection, body/provider target arbitration and world appearance remain future work.
 
+[Confirmed final presentation](wearable-appearance.html) hides the fitting grid and shows character-matched clothing sprites, with highlights clipped to visible garment cutouts. The diagnostic cells remain useful engineering geometry; this requirement does not change current fitting or access rules.
+
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [symmetric fit](body-fit-cleanup.html), [mount points](mount-points.html), [three-view inventory](doc-docs-27-three-view-inventory-and-body-fit-md.html), [design library](documents.html).

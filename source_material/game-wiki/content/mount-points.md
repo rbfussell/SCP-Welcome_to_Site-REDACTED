@@ -12,6 +12,8 @@ Clothing cover, exposed contacts, fit bands, compatibility, ancestor access, hie
 
 ## Interaction and continuation
 
+[Clothing presentation](wearable-appearance.html) will hide normal body/gear fit grids and highlight actual visible sprite cutouts. Physical support/contact geometry remains separate from the rendered silhouette.
+
 [Symmetric body fitting](body-fit-cleanup.html) adds bounded adjustable native belt spans and a human-body chest X. Resolved cells affect interference and contact exposure; the five central webbing points stay inside the fixed core. Extension does not create new mounts or resize the gear illustration.
 
 The [gear-view presentation](system-presentation.html) draws and alpha-picks visible exterior descendants in composed coordinates. Drop on the lower hook point while viewing the belt; double-click the hanging pouch to follow **belt → hook → pouch** in the middle view. Contents stay on the right. Preview rotation carries visible descendants without doing work.

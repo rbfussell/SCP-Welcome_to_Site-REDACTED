@@ -4,6 +4,8 @@ Implemented October 30, 2026. This adds direct fitting drops to the [symmetric b
 
 ## Controls
 
+Final presentation requirement: [character-matched clothing and silhouette highlights](26-wearable-appearance-pipeline.md#confirmed-paperdoll-presentation-october-30) will hide the fit grid in normal use and clip feedback to worn garment cutouts. The cells and contacts in this slice are engineering diagnostics, with unchanged physical rules.
+
 1. Open **I**, inspect an accessible container with wearable gear, and open its compartment. The supply crate holds belts; use its contents scrollbars to reach them.
 2. Switch the left view to **Body fit · hex view**. Gear/contents views remain available.
 3. Drag the actual item from its visible grid onto a body hex. That hex is the authored fitting anchor. The complete worn mask/contact preview appears in its exact proposed position. Green permits fitting; red explains a geometric or physical refusal. Blank margins and spaces between limbs do not snap to another anchor.
