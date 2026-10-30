@@ -34,7 +34,7 @@ public partial class SpatialScene
         var startRotation = fit.Draft.Rotation;
         for (var i = 0; i < 6; i++) { InventoryKey(Key.R); await InventoryFrames(1); }
         Check(fit.Draft.Rotation == startRotation && !panel.Rotated && sim.Save() == safe, "six body rotations affected storage orientation or gameplay");
-        var defaults = fit.GetChildren().OfType<HBoxContainer>().Single().GetChildren().OfType<Button>().Single(b => b.Text == "Default");
+        var defaults = fit.GetChildren().OfType<HBoxContainer>().SelectMany(r => r.GetChildren().OfType<Button>()).Single(b => b.Text == "Default");
         InventoryClick(defaults.GetGlobalRect().GetCenter()); await InventoryFrames();
         Check(fit.Draft == defaultPose && !fit.ApplyButton.Disabled, "Default did not restore the valid body anchor");
         InventoryClick(fit.ApplyButton.GetGlobalRect().GetCenter()); await InventoryFrames();

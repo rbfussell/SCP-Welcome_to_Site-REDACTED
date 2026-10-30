@@ -84,12 +84,13 @@ public partial class SpatialScene
             }
             if (OS.GetCmdlineUserArgs().Contains("--body-drop-smoke"))
             {
-                await RunBodyDropSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+                await RunBodyDropSmoke(); await RunBodyInspectionSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
             }
             await RunWearSmoke();
             await RunPackingSmoke();
             await RunBodyFitSmoke();
             await RunBodyDropSmoke();
+            await RunBodyInspectionSmoke();
             await RunCoverageSmoke();
             await RunAttachmentSmoke();
             await RunOverlaySmoke();

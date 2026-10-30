@@ -113,6 +113,7 @@ public partial class InventoryPanel : Control
         if (!Simulation.Inventory.Enabled) return false;
         Visible = true; _lastReceiptId = -1; _browser.Clear();
         SetBodyFit(false);
+        _bodyFit.ResetInspection();
         _wornScroll.ScrollVertical = 0;
         SelectedItem = null; Rotated = false;
         _detail.Text = "Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.";

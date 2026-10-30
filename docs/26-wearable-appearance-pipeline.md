@@ -1,5 +1,7 @@
 # Wearable appearance: paperdoll and world sprites
 
+Current interaction follow-up: [body inspection/removal](40-body-inspection-and-removal.md) now supplies exposed front/back targets and paid drag sources in the engineering view. This does not implement the character-matched sprite or alpha-silhouette compositor described here.
+
 Status: October 25, 2026. User-confirmed goal: any supported wearable should have a coherent appearance on the paperdoll and on the character in the world, with procedural authoring where practical. The production approach below is proposed, not a completed renderer or asset-generation tool. Existing world characters remain baked artwork.
 
 This extends [sprite presentation](06-sprites-and-placeholders.md), [body equipment](24-body-equipment-and-container-navigation.md) and [wear layers and fit](25-wear-layer-and-fit-standard.md).

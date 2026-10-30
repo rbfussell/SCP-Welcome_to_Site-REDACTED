@@ -10,6 +10,13 @@ public partial class InventoryBodyFitPanel : VBoxContainer
     private OptionButton _items = null!;
     private Label _status = null!, _pocketStatus = null!;
     private Button _apply = null!;
+    private Button _default = null!, _rotate = null!, _flip = null!;
+    private CheckButton _inspect = null!;
+    private Label _instructions = null!;
+    internal bool InspectWorn => _inspect.ButtonPressed;
+    internal string ViewSurface { get; private set; } = "front";
+    internal Button FlipButton => _flip;
+    internal CheckButton InspectToggle => _inspect;
     private string[] _ids = [];
     private string? _selected;
     private ItemPlacement? _seenPlacement;
@@ -26,17 +33,25 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         AddThemeConstantOverride("separation", 5);
         _items = new OptionButton { FocusMode = FocusModeEnum.None, CustomMinimumSize = new(234, 0) }; AddChild(_items);
         _items.ItemSelected += index => Choose(_ids[(int)index]);
+        var views = new HBoxContainer(); AddChild(views);
+        _inspect = new CheckButton { Text = "Inspect worn", FocusMode = FocusModeEnum.None }; views.AddChild(_inspect);
+        _flip = InventoryPanel.Button(views, "Front · flip", () =>
+        {
+            Panel.CancelDragPreview(); ViewSurface = ViewSurface == "front" ? "back" : "front";
+            Surface.ClearInspection(); UpdatePreview();
+        });
+        _inspect.Toggled += _ => { Panel.CancelDragPreview(); Surface.ClearInspection(); UpdatePreview(); };
         InventoryPanel.Label(this, "9-hex shoulders · body-local scale", 12);
-        Surface = new InventoryBodyFitSurface { Fit = this, CustomMinimumSize = new(234, 300) }; AddChild(Surface);
+        Surface = new InventoryBodyFitSurface { Fit = this, CustomMinimumSize = new(234, 285) }; AddChild(Surface);
         var row = new HBoxContainer(); AddChild(row);
-        InventoryPanel.Button(row, "Default", ResetDraft);
-        InventoryPanel.Button(row, "Rotate 60°", RotateDraft);
+        _default = InventoryPanel.Button(row, "Default", ResetDraft);
+        _rotate = InventoryPanel.Button(row, "Rotate 60°", RotateDraft);
         _apply = InventoryPanel.Button(row, "Fit / equip", Apply);
         _status = InventoryPanel.Label(this, "Choose worn or held clothing.", 12);
         _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _status.CustomMinimumSize = new(234, 65);
         _pocketStatus = InventoryPanel.Label(this, "", 11);
-        InventoryPanel.Label(this, "Click sets anchor · drag clothing to fit\nR: 6 body turns / 2 storage turns\nWhite: contact · red: failed fit", 11);
+        _instructions = InventoryPanel.Label(this, "", 11);
         Refresh();
     }
     internal void Choose(string id)
@@ -44,12 +59,14 @@ public partial class InventoryBodyFitPanel : VBoxContainer
         _selected = id; _seenPlacement = null;
         Panel.Select(id); Refresh();
     }
+    internal void ResetInspection()
+    { _inspect.SetPressedNoSignal(false); ViewSurface = "front"; Surface.ClearInspection(); }
     internal void ResetDraft()
     {
         if (_selected is null) return;
         Draft = InventoryBodyFit.Shape(Panel.Simulation.Inventory, _selected)!.DefaultPose; UpdatePreview();
     }
-    internal void RotateDraft() { Draft = Draft with { Rotation = (Draft.Rotation + 1) % 6 }; UpdatePreview(); }
+    internal void RotateDraft() { if (InspectWorn) return; Draft = Draft with { Rotation = (Draft.Rotation + 1) % 6 }; UpdatePreview(); }
     internal void SetDraftAnchor(BodyHex cell) { Draft = Draft with { Q = cell.Q, R = cell.R }; UpdatePreview(); }
     private void Apply()
     {
@@ -91,6 +108,9 @@ public partial class InventoryBodyFitPanel : VBoxContainer
     private void UpdatePreview()
     {
         if (!IsNodeReady()) return;
+        _default.Disabled = _rotate.Disabled = InspectWorn;
+        _flip.Disabled = !InspectWorn; _flip.Text = ViewSurface == "front" ? "Front · flip" : "Back · flip";
+        _instructions.Text = InspectWorn ? "Click selects · double-click inspects\nDrag moves · right-click actions" : "Click: anchor · R: 6 body / 2 storage\nWhite: contact · red: failed fit";
         if (Surface.IsDropTarget)
         {
             _apply.Disabled = true;
@@ -103,7 +123,13 @@ public partial class InventoryBodyFitPanel : VBoxContainer
             _pocketStatus.Text = ""; Surface.QueueRedraw(); return;
         }
         Preview = _selected is null ? null : Panel.Simulation.PreviewBodyFit(_selected, Draft);
-        _apply.Disabled = Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null || Panel.DragItemId is not null;
+        _apply.Disabled = InspectWorn || Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null || Panel.DragItemId is not null;
+        if (InspectWorn)
+        {
+            _status.Text = $"{ViewSurface.ToUpperInvariant()} · worn material\n" + (_selected is null ? "Choose exposed equipment." : Panel.Simulation.Inventory.Definition(_selected).Name
+                + "\n" + Panel.Simulation.InventoryMoveAccess(_selected).Reason);
+            _pocketStatus.Text = "Engineering masks · attachments use gear view"; Surface.QueueRedraw(); return;
+        }
         _status.Text = Preview is null ? "No known clothing is available."
             : $"Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n" + (!Preview.Geometry.Fits ? Preview.Geometry.Reason
                 : Preview.Handling.Allowed ? $"Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP"
@@ -121,16 +147,22 @@ public partial class InventoryBodyFitSurface : Control
 {
     public InventoryBodyFitPanel Fit { get; set; } = null!;
     private const float Radius = 9;
-    private Vector2 Center(BodyHex cell) => new(Size.X / 2 + (float)(Math.Sqrt(3) * Radius * (cell.Q + cell.R / 2.0)), 16 + Radius * 1.5f * cell.R);
+    private float Mirror => Fit.InspectWorn && Fit.ViewSurface == "back" ? -1 : 1;
+    private Vector2 Center(BodyHex cell) => new(Size.X / 2 + Mirror * (float)(Math.Sqrt(3) * Radius * (cell.Q + cell.R / 2.0)), 16 + Radius * 1.5f * cell.R);
     internal Vector2 CellPosition(BodyHex cell) => GlobalPosition + Center(cell);
     private Vector2[] Polygon(BodyHex cell) => Enumerable.Range(0, 6).Select(i => Center(cell)
         + Vector2.FromAngle(Mathf.Pi / 6 + i * Mathf.Pi / 3) * (Radius - .45f)).ToArray();
-    private static (Vector2 A, Vector2 B) Edge(Vector2 center, int direction)
+    private (Vector2 A, Vector2 B) Edge(Vector2 center, int direction)
     {
         var normal = (direction - 1) * Mathf.Pi / 3;
-        return (center + Vector2.FromAngle(normal - Mathf.Pi / 6) * Radius, center + Vector2.FromAngle(normal + Mathf.Pi / 6) * Radius);
+        var a = Vector2.FromAngle(normal - Mathf.Pi / 6) * Radius; var b = Vector2.FromAngle(normal + Mathf.Pi / 6) * Radius;
+        return (center + new Vector2(Mirror * a.X, a.Y), center + new Vector2(Mirror * b.X, b.Y));
     }
-    public override void _Ready() { MouseFilter = MouseFilterEnum.Stop; ClipContents = true; TooltipText = "Select clothing, then click a body cell to preview its anchor. Apply uses real handling time/AP."; }
+    public override void _Ready()
+    {
+        MouseFilter = MouseFilterEnum.Stop; ClipContents = true;
+        MouseExited += () => { _hoveredItem = null; TooltipText = ""; QueueRedraw(); };
+    }
     public override void _Draw()
     {
         var cells = BodyFitGeometry.Cells(Fit.Body.Rows);
@@ -139,10 +171,11 @@ public partial class InventoryBodyFitSurface : Control
             var polygon = Polygon(cell);
             DrawColoredPolygon(polygon, new("34433e")); DrawPolyline(polygon.Append(polygon[0]).ToArray(), new("60746a"), 1);
         }
-        var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c => c.Cell.Surface == "front"
+        if (Fit.InspectWorn) DrawOutfit();
+        var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c => c.Cell.Surface == (Fit.InspectWorn ? Fit.ViewSurface : "front")
             && Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray();
-        foreach (var cell in straps.Select(c => c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color("d1ad68", .5f));
-        var activePreview = Fit.Panel.DragItemId is null ? Fit.Preview : DropPreview;
+        if (!Fit.InspectWorn) foreach (var cell in straps.Select(c => c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color("d1ad68", .5f));
+        var activePreview = Fit.Panel.DragItemId is null ? Fit.InspectWorn ? null : Fit.Preview : DropPreview;
         if (activePreview is { } preview)
         {
             var outside = preview.Geometry.Outside.ToHashSet();
@@ -167,17 +200,22 @@ public partial class InventoryBodyFitSurface : Control
         foreach (var pocket in Fit.Pockets)
         foreach (var cell in pocket.Mouth)
         {
+            if (Fit.InspectWorn && cell.Surface != Fit.ViewSurface) continue;
             var position = Center(cell.Cell);
             var obstructed = pocket.CoarseFallback || pocket.Blocked.Contains(cell);
             DrawCircle(position, 3.2f, obstructed ? new("ff8979") : new("8ee5ce"));
             if (obstructed) DrawLine(position + new Vector2(-3, 3), position + new Vector2(3, -3), new("242b26"), 1.5f);
         }
-        var activePose = activePreview?.Request.Destination?.BodyPose ?? Fit.Draft;
-        var anchor = Center(new(activePose.Q, activePose.R));
-        DrawCircle(anchor, 3, new("f1ca7a")); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new("f1ca7a"), 1);
+        if (activePreview is not null || !Fit.InspectWorn)
+        {
+            var activePose = activePreview?.Request.Destination?.BodyPose ?? Fit.Draft;
+            var anchor = Center(new(activePose.Q, activePose.R));
+            DrawCircle(anchor, 3, new("f1ca7a")); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new("f1ca7a"), 1);
+        }
     }
     public override void _GuiInput(InputEvent e)
     {
+        if (Fit.InspectWorn) { InspectInput(e); return; }
         if (e is not InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true } mouse) return;
         if (PickCell(mouse.Position) is { } cell) Fit.SetDraftAnchor(cell);
         AcceptEvent();

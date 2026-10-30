@@ -27,7 +27,7 @@ def main():
     parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
     parser.add_argument('--inventory-smoke', type=Path, metavar='PNG', help='Run realtime packing, rotation, nested inspection and inventory input/render checks.')
     parser.add_argument('--hook-smoke', type=Path, metavar='PNG', help='Run only the native placement-extender and nested-mount checks.')
-    parser.add_argument('--body-drop-smoke', type=Path, metavar='PNG', help='Run only native stored-clothing body-drop fitting checks.')
+    parser.add_argument('--body-drop-smoke', type=Path, metavar='PNG', help='Run native body fitting, exposed-equipment inspection and body-source drag checks.')
     parser.add_argument('--combat-smoke', type=Path, metavar='PNG', help='Run tactical input, clocks, save and journal render checks.')
     parser.add_argument('--mode', choices=('local', 'oscp', 'phone'), default='local', help='Launch local play or standalone OSCP with a workstation/phone profile.')
     parser.add_argument('--oscp-smoke', type=Path, metavar='PNG', help='Run standalone CRT/phone command, lifecycle and render checks.')

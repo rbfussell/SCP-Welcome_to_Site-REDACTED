@@ -1,5 +1,7 @@
 # Body equipment and container navigation
 
+Current follow-up: [front/back body inspection and removal](40-body-inspection-and-removal.md) now qualifies diagnostic worn-material picking and paid body-to-storage drags. The earlier fixed-layer/slot implementation and lack of a flip view described below are historical; final anatomical clothing art remains future work.
+
 Status: October 25, 2026. The user confirms the paperdoll/container interaction and body-region/layer direction below. Navigation is implemented in the bounded [personal inventory prototype](23-personal-inventory-prototype.md). A bounded data-driven clothing-layer, coverage, fastening and front/back-pack slice is now implemented too. Belt attachment content, anatomical/composited paperdoll art and general clothing effects remain future work.
 
 ## Looking inside storage
