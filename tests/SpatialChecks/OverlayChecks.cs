@@ -14,15 +14,15 @@ internal static class OverlayChecks
         InventoryRequest Fit(string id, BodyPose pose) => new(InventoryActionKind.Move, id, new("person:avatar", "belt", BodyPose: pose));
         InventoryRequest Mount(int q) => new(InventoryActionKind.Move, "utility-pouch", new("utility-belt", "webbing", AttachmentPose: new(q, 0)));
         void ClearPack(SpatialSimulation s) => Act(s, new(InventoryActionKind.Move, "avatar-backpack", new("fixture:crate-a", "store", 0, 8)));
-        var waist = new BodyPose(-5, 11); var diagonal = new BodyPose(-3, 9, 2); var chest = new BodyPose(-4, 9);
+        var waist = new BodyPose(-6, 12); var diagonal = new BodyPose(-4, 10, 2); var chest = new BodyPose(-4, 8);
         var sim = Sim(); ClearPack(sim);
         Act(sim, Fit(Belts[0], waist)); Act(sim, Fit(Belts[1], diagonal)); Act(sim, Fit(Belts[2], chest));
         var cells = sim.InventoryWornCells;
         foreach (var side in new[] { "front", "back" })
         {
-            var atWaist = cells.Where(c => c.Cell == new BodySurfaceCell(side, new(-5, 11))).ToArray();
-            Check(atWaist.Select(c => c.ItemId).SequenceEqual(new[] { "avatar-trousers", "avatar-coat", Belts[0], Belts[1] }),
-                "independent native crossing contains deeper trousers, one base jacket and two belts: " + side);
+            var atWaist = cells.Where(c => c.Cell == new BodySurfaceCell(side, new(-2, 8))).ToArray();
+            Check(atWaist.Select(c => c.ItemId).SequenceEqual(new[] { "avatar-shirt", "avatar-coat", Belts[1], Belts[2] }),
+                "independent native crossing contains deeper shirt, one base jacket and two belts: " + side);
             Check(atWaist[^1] is { Layer: 1, SubLayer: 2, BandCount: 3 }, "deeper garment does not count twice in the current band: " + side);
         }
         Check(cells.Where(c => Belts.Take(3).Contains(c.ItemId)).Max(c => c.BandCount) == 3,
@@ -52,12 +52,12 @@ internal static class OverlayChecks
         var closure = Sim(); var state = closure.Inventory;
         foreach (var item in state.Items.Values.Where(i => i.Placement.WornOrder is not null).ToArray())
             state.Items[item.Id] = item with { Placement = item.Placement with { WornOrder = item.Placement.WornOrder * 10 } };
-        state.Items[Belts[0]] = state.Items[Belts[0]] with { Placement = new("person:avatar", "belt", BodyPose: waist, WornOrder: 45) };
+        state.Items[Belts[0]] = state.Items[Belts[0]] with { Placement = new("person:avatar", "belt", BodyPose: new(-5, 10), WornOrder: 45) };
         InventoryPlacement.Validate(state); Act(closure, Mount(0)); before = closure.Save();
         Check(!closure.HandleInventory(new(InventoryActionKind.CloseGarment, "avatar-coat")) && closure.Save() == before,
             "closing clothing also refuses to cover an occupied mounting contact");
 
-        // Fully authored symmetric reference body: both diagonals fit, independent of the deliberately crude native silhouette.
+        // Isolated reference disc keeps band-limit cases independent of the native human authoring.
         foreach (var bare in new[] { false, true })
         {
             var reference = Reference(map, config, bare); state = reference.Inventory;

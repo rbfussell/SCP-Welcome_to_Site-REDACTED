@@ -17,7 +17,7 @@ internal static class AttachmentChecks
         Check(!state.Regions.Any(r => r.ItemId == "utility-belt"), "no fictitious belt-lid state");
         var shape = state.BodyFits!.Shape("belt"); var body = state.BodyFits.Body(shape.BodyFamily);
         Check(BodyFitGeometry.Evaluate(body, shape, shape.DefaultPose).Fits, "belt ends fit waist");
-        Check(BodyFitGeometry.Evaluate(body, shape, new(-3, 9, 2)).Fits, "transformed end contacts also admit a diagonal torso fit");
+        Check(BodyFitGeometry.Evaluate(body, shape, new(-4, 10, 2)).Fits, "transformed end contacts also admit a diagonal torso fit");
         Check(!BodyFitGeometry.Evaluate(body, shape, new(-5, 9)).Fits, "interior endpoints are not allowed to float without body-edge contact");
         Act(sim, Move("utility-belt", "person:avatar", "belt"));
         for (var angle = 0; angle < 6; angle++)
@@ -52,11 +52,11 @@ internal static class AttachmentChecks
         Check(state.Items["utility-pouch"].Placement == attached && state.Items["spare-dressing"].Placement == dressing
             && InventoryAttachments.BodyPosition(state, "utility-pouch") is null, "taking belt off carries its loaded attachment without rewriting children");
         Act(sim, Move("avatar-backpack", "fixture:crate-a", "store") with { Destination = new("fixture:crate-a", "store", 0, 8) });
-        var fit = new InventoryRequest(InventoryActionKind.Move, "utility-belt", new("person:avatar", "belt", BodyPose: new(-3, 9, 2)));
+        var fit = new InventoryRequest(InventoryActionKind.Move, "utility-belt", new("person:avatar", "belt", BodyPose: new(-4, 10, 2)));
         Act(sim, fit);
-        Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == new BodyPose(-3, 9, 2), "rotating/translating belt composes child's body pose");
+        Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == new BodyPose(-4, 10, 2), "rotating/translating belt composes child's body pose");
         Act(sim, Mount(sim, 1, 0, 4));
-        Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == new BodyPose(-4, 10, 0), "independent axial reference: parent 120 plus child 240 equals full turn");
+        Check(InventoryAttachments.BodyPosition(state, "utility-pouch") == new BodyPose(-5, 11, 0), "independent axial reference: parent 120 plus child 240 equals full turn");
         Check(sim.InventoryAccess("avatar-trousers", "left").Allowed && sim.InventoryAccess("avatar-trousers", "cargo-left").Allowed,
             "belt leaves ordinary pockets accessible");
         Check(!sim.InventoryMoveAccess("avatar-trousers").Allowed && !sim.InventoryMoveAccess("avatar-shirt").Allowed,

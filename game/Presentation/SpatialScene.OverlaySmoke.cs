@@ -19,8 +19,8 @@ public partial class SpatialScene
         }
         await Act(new(InventoryActionKind.Move, "avatar-backpack", new("fixture:crate-a", "store", 0, 8)));
         await Act(new(InventoryActionKind.Move, "utility-belt", new("person:avatar", "belt")));
-        await Act(new(InventoryActionKind.Move, "utility-belt-2", new("person:avatar", "belt", BodyPose: new(-3, 9, 2))));
-        await Act(new(InventoryActionKind.Move, "utility-belt-3", new("person:avatar", "belt", BodyPose: new(-4, 9))));
+        await Act(new(InventoryActionKind.Move, "utility-belt-2", new("person:avatar", "belt", BodyPose: new(-4, 10, 2))));
+        await Act(new(InventoryActionKind.Move, "utility-belt-3", new("person:avatar", "belt", BodyPose: new(-4, 8))));
         Check(sim.InventoryWornCells.Any(c => c.ItemId == "utility-belt-2" && c.SubLayer == 2), "crossing did not create a second sublayer");
         // Real pointer preview on the lower belt: the crossed contact is unavailable, the source remains in hand.
         await Act(new(InventoryActionKind.Move, "utility-pouch", new("person:avatar", "hand")));
@@ -41,7 +41,7 @@ public partial class SpatialScene
         await Act(new(InventoryActionKind.Move, "utility-belt-4", new("person:avatar", "hand")));
         panel.Select("utility-belt-4"); InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
         panel.BodyFit.Choose("utility-belt-4"); await InventoryFrames();
-        InventoryClick(panel.BodyFit.Surface.CellPosition(new(-4, 9))); await InventoryFrames();
+        InventoryClick(panel.BodyFit.Surface.CellPosition(new(-4, 8))); await InventoryFrames();
         Check(panel.BodyFit.Preview is { Geometry.Fits: true, Handling.Allowed: false } blocked
             && blocked.Handling.Reason.Contains("Overlay limit") && panel.BodyFit.ApplyButton.Disabled,
             "a geometrically valid fourth-item crossing failed to explain its band rejection");

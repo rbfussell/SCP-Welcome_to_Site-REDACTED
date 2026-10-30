@@ -112,11 +112,11 @@ public partial class SpatialScene
         // Move and rotate the parent using the existing paid body-fit controls.
         panel.Select("utility-belt"); InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
         panel.BodyFit.Choose("utility-belt"); InventoryKey(Key.R); InventoryKey(Key.R);
-        InventoryClick(panel.BodyFit.Surface.CellPosition(new(-3, 9))); await InventoryFrames();
+        InventoryClick(panel.BodyFit.Surface.CellPosition(new(-4, 10))); await InventoryFrames();
         Check(panel.BodyFit.Preview is { Geometry.Fits: true, Handling.Allowed: true }, "diagonal belt preview rejected");
         sim.ManualPause = false; InventoryClick(panel.BodyFit.ApplyButton.GetGlobalRect().GetCenter()); await Finish();
         Check(sim.Inventory.DiagnosticItems.Single(i => i.Id == "utility-pouch").Placement == pouchPlacement
-            && InventoryAttachments.BodyPosition(sim.Inventory, "utility-pouch") == new BodyPose(-4, 10, 2), "parent refit did not carry local attachment pose");
+            && InventoryAttachments.BodyPosition(sim.Inventory, "utility-pouch") == new BodyPose(-5, 11, 2), "parent refit did not carry local attachment pose");
         await InventoryCapture("-belt-diagonal");
         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); panel.Inspect("utility-belt"); await InventoryFrames();
         hand = await Hand(); sim.ManualPause = false;

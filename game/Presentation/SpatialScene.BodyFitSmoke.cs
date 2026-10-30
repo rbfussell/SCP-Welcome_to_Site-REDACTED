@@ -49,7 +49,35 @@ public partial class SpatialScene
         Check(!fit.Visible && panel.FindGrid("person:avatar", "hand").IsVisibleInTree(), "returning to slots lost existing paperdoll controls");
         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"), Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
         clone.Restore(saved); Check(clone.Save() == saved, "body-fitted equipment failed to restore with the ordinary save");
+        sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.Player.Cell = new(13, 6);
+        async Task Act(InventoryRequest request)
+        {
+            sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish();
+        }
+        await Act(new(InventoryActionKind.Move, "avatar-backpack", new("fixture:crate-a", "store", 0, 8)));
+        for (var belt = 1; belt <= 2; belt++)
+        {
+            var id = belt == 1 ? "utility-belt" : "utility-belt-2";
+            await Act(new(InventoryActionKind.Move, id, new("person:avatar", "hand")));
+            panel.Select(id);
+            if (!fit.Visible) { InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames(); }
+            fit.Choose(id); await InventoryFrames();
+            for (var step = 0; step < belt; step++) { InventoryKey(Key.R); await InventoryFrames(1); }
+            InventoryClick(fit.Surface.CellPosition(new(-4, 8))); await InventoryFrames();
+            Check(fit.Preview is { Geometry.Fits: true, Handling.Allowed: true } span && span.Geometry.Cells.Length == 10,
+                "native diagonal failed to adjust within its authored range");
+            safe = sim.Save();
+            await InventoryCapture(belt == 1 ? "-symmetric-left-preview" : "-symmetric-x-preview");
+            Check(sim.Save() == safe, "adjustable preview changed physical state");
+            sim.ManualPause = false; InventoryClick(fit.ApplyButton.GetGlobalRect().GetCenter());
+            Check(sim.Inventory.Pending is not null, "diagonal did not purchase normal fitting work"); await Finish();
+        }
+        Check(sim.InventoryWornCells.Last(c => c.Cell == new BodySurfaceCell("front", new(-4, 8))) is { SubLayer: 2, BandCount: 3 },
+            "native X crossing has the wrong band count");
+        await InventoryCapture("-symmetric-x-applied");
+        saved = sim.Save(); clone.Restore(saved); Check(clone.Save() == saved, "adjusted native outfit failed exact restore");
+        InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;
-        GD.Print("BODY_FIT_SMOKE_PASS: native body-mode toggle, real item selection, mask/contact preview, invalid click, six rotations, default reset, paused rejection and paid fitting/save.");
+        GD.Print("BODY_FIT_SMOKE_PASS: native body-mode toggle, real item selection, mask/contact preview, invalid click, six rotations, default reset, paused rejection, paid fitting/save and symmetric adjustable chest X.");
     }
 }

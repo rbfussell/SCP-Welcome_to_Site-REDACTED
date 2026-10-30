@@ -26,6 +26,7 @@ For each closure: ID, target region(s) or `garment-front`, mechanism, current-st
 - Body family / surfaces / provisional order / front and back geometric fit:
 - Fit family / relative bulk / maximum combined underlying bulk / accepted underlying families / excluded underlying traits:
 - Six-orientation hex footprint, contact edges and open edges:
+- Optional straight-strap core / maximum fitted span, end contacts and surfaces (native [bounded fitting](../docs/38-body-fit-cleanup.md), separate from the proposed public card):
 - Covers access mask / blocks removal mask / overlap permissions / outermost rule:
 - Overlay allowance (base garment counted once), or ordinary primary garment:
 - Blocks underlying fastenings / own fastening footprint and surface:

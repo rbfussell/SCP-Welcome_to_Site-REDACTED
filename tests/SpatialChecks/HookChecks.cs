@@ -82,7 +82,7 @@ internal static class HookChecks
         // Separate worn providers must not bypass the shared body/surface clearance plane.
         var shared = Sim(); Act(shared, Move("avatar-backpack", "fixture:crate-a", "store", 0, 8));
         Act(shared, Move("utility-belt", "person:avatar", "belt"));
-        Act(shared, new(InventoryActionKind.Move, "utility-belt-2", new("person:avatar", "belt", BodyPose: new(-3, 9, 2))));
+        Act(shared, new(InventoryActionKind.Move, "utility-belt-2", new("person:avatar", "belt", BodyPose: new(-4, 10, 2))));
         Act(shared, Mount("utility-hook", "utility-belt", "webbing", new(1, 0)));
         Act(shared, Mount("utility-pouch-2", "utility-belt-2", "webbing", new(-2, 0)));
         var clash = Mount("utility-pouch-2", "utility-belt-2", "webbing", new(1, 0, 3)); before = shared.Save();

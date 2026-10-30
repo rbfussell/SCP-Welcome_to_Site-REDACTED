@@ -20,7 +20,9 @@ public sealed record BodyContact(BodyHex Cell, int Direction);
 public sealed record BodyZone(string Region, string Surface, int FirstRow, int LastRow);
 public sealed record BodyMask(string Id, string Name, string[] Rows, BodyZone[]? Zones = null);
 /// <summary>Rows share the body's authoring canvas; contacts are local to DefaultPose. Other boundary edges are open.</summary>
-public sealed record BodyFitShape(string Id, string BodyFamily, string[] Rows, BodyPose DefaultPose, int[] Rotations, BodyContact[] Contacts, BodyCoverageProfile? Coverage = null);
+public sealed record BodyFitShape(string Id, string BodyFamily, string[] Rows, BodyPose DefaultPose, int[] Rotations, BodyContact[] Contacts, BodyCoverageProfile? Coverage = null, BodyLinearSpan? LinearSpan = null);
+/// <summary>Extension-only straight straps. The authored core remains present; both ends must meet the body boundary.</summary>
+public sealed record BodyLinearSpan(int MinCells, int MaxCells);
 public sealed record BodyFitContent(int Version, BodyMask[] Bodies, BodyFitShape[] Shapes);
 public sealed record BodyFitResult(bool Fits, string Reason, BodyHex[] Cells, BodyHex[] Outside,
     BodyContact[] Contacts, BodyContact[] FailedContacts);

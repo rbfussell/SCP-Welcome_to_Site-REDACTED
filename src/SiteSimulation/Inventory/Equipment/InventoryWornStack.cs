@@ -10,6 +10,15 @@ public static class InventoryWornStack
         var mount = InventoryWear.Mount(state, item, item.Placement);
         var shape = InventoryBodyFit.Shape(state, item.Id);
         if (mount is null || shape is null) return [];
+        if (shape.LinearSpan is not null)
+        {
+            var pose = InventoryBodyFit.Pose(state, item)!;
+            var fitted = BodyFitGeometry.Evaluate(state.BodyFits!.Body(shape.BodyFamily), shape, pose).Cells;
+            var masks = shape.Coverage is { } strapCoverage ? open && item.GarmentOpen ? strapCoverage.Open : strapCoverage.Closed : null;
+            var sides = masks?.Select(m => m.Surface == "mounted" ? mount.BodySurface! : m.Surface).ToArray()
+                ?? (mount.BodySurface is { } side ? [side] : new[] { "front", "back" });
+            return fitted.SelectMany(c => sides.Select(s => new BodySurfaceCell(s, c))).ToArray();
+        }
         if (shape.Coverage is { } coverage)
             return InventoryCoverage.Project(open && item.GarmentOpen ? coverage.Open : coverage.Closed, InventoryBodyFit.Pose(state, item)!, mount);
         // Legacy unmapped artwork still has a physical fitted shape. A mounted pack uses only its specified surface.

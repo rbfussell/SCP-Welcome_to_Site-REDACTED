@@ -1,5 +1,7 @@
 # Placement extenders and mount points: the utility hook
 
+Follow-up: [body-fit cleanup](38-body-fit-cleanup.md) corrects native body/clothing geometry and adds bounded adjustable belt fitting. Hook/provider contracts below remain; central webbing points retain their local coordinates.
+
 Implemented October 29, 2026. This extends [belt attachments](32-belt-and-attachment-prototype.md), [physical overlays](36-overlay-sublayers.md) and the [nested-provider design](33-fit-ranks-and-worn-stacks.md). The hook is ordinary prototype equipment, not an SCP canon claim. The [game-wiki guide](../source_material/game-wiki/mount-points.html) connects inventory, presentation and persistence.
 
 ## Try the fixture

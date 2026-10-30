@@ -96,6 +96,8 @@ public partial class InventoryBodyFitPanel : VBoxContainer
             : $"Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n" + (!Preview.Geometry.Fits ? Preview.Geometry.Reason
                 : Preview.Handling.Allowed ? $"Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP"
                 : "Shape fits · " + Preview.Handling.Reason);
+        if (Preview is { Geometry.Fits: true } fitted && _selected is { } id && InventoryBodyFit.Shape(Panel.Simulation.Inventory, id)?.LinearSpan is { } span)
+            _status.Text += $"\nSpan {fitted.Geometry.Cells.Length} cells · range {span.MinCells}–{span.MaxCells}";
         var pockets = Pockets;
         _pocketStatus.Text = pockets.Length == 0 ? "" : $"Pockets now: {pockets.Count(p => p.Covered)} covered · {pockets.Count(p => !p.Covered)} clear";
         Surface.QueueRedraw();

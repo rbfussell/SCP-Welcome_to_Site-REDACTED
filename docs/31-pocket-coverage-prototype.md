@@ -1,5 +1,7 @@
 # Pocket access from body-surface overlap
 
+Current follow-up: [body-fit cleanup](38-body-fit-cleanup.md) regenerates paired mouths with the symmetric body and projects adjustable outer straps using their resolved span. Access behavior below remains; new immutable geometry requires a fresh field-kit scene.
+
 Status: October 26, 2026. The native inventory now uses authored body-local overlap to decide access to mapped compartments. The first fixture is a zipped jacket over hip pockets, with exposed lower cargo pockets. This extends the [body-fit slice](30-body-fit-prototype.md) and [gear metadata contract](29-gear-data-standard.md).
 
 ## Try it

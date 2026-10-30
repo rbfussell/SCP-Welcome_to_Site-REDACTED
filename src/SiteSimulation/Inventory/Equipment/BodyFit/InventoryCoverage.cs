@@ -21,10 +21,9 @@ public static class InventoryCoverage
             .OrderByDescending(InventoryWornOrder.Order).ThenBy(other => other.Id, StringComparer.Ordinal))
         {
             var coverShape = InventoryBodyFit.Shape(state, outer.Id);
-            if (coverShape?.Coverage is { } coverage)
+            if (coverShape?.Coverage is not null)
             {
-                var masks = outer.GarmentOpen ? coverage.Open : coverage.Closed;
-                var cover = Project(masks, InventoryBodyFit.Pose(state, outer)!, InventoryWear.Mount(state, outer, outer.Placement)!).ToHashSet();
+                var cover = InventoryWornStack.Cells(state, outer, open: true).ToHashSet();
                 var intersection = mouth.Where(cover.Contains).ToArray();
                 if (intersection.Length == 0) continue;
                 blocked.UnionWith(intersection);

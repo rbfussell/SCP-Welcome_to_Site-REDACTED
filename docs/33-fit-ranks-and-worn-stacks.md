@@ -1,5 +1,7 @@
 # Fit compatibility and actual worn stacks
 
+Current follow-up: [symmetric body fit and adjustable straps](38-body-fit-cleanup.md) qualifies a real X on the native human body, replacing the earlier silhouette limitation. Bounds, boundary contacts, paid handling and existing band/clearance rules remain independent.
+
 Status: October 27, 2026. User-confirmed replacement direction. This supersedes the fixed authored-layer assumption in the earlier [wear standard](25-wear-layer-and-fit-standard.md). The [fit-rule foundation](34-wear-fit-rules.md) separates compatibility from order, and [actual worn order](35-actual-worn-order.md) now implements saved paid dressing, local primary depths and the grouped equipment list. The [physical overlay slice](36-overlay-sublayers.md) now implements per-hex/surface bands, crossed straps and exposed contacts; this document remains the broader design contract.
 
 ## Separate fit from position

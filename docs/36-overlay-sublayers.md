@@ -2,6 +2,8 @@
 
 Implemented October 29, 2026. This extends [actual worn order](35-actual-worn-order.md) with per-hex/surface bands, the agreed base-inclusive allowance, and exposed attachment contacts. It does not add crafting, spillage, hook art or world outfit compositing.
 
+Current follow-up: [body-fit cleanup](38-body-fit-cleanup.md) replaces the crude silhouette and fixed-length native belt limitation below. Use its corrected poses and adjustable native chest X; coordinates and one-diagonal limitation in this original qualification are historical.
+
 ## Try the native fixture
 
 Follow-up: [placement extenders and mount points](37-placement-extenders-and-mount-points.md) add the hook, composed exterior descendants and shared clearance. Counts and hook exclusions below describe this overlay slice's original fixture; the later guide records the current field-kit counts.

@@ -47,6 +47,12 @@ public sealed class BodyFitCatalog
         foreach (var shape in content.Shapes)
         {
             var cells = BodyFitGeometry.Cells(shape.Rows).Select(c => new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet();
+            if (shape.LinearSpan is { } span && (span.MinCells is < 3 or > 33 || span.MaxCells < span.MinCells || span.MaxCells > 33
+                || cells.Count != span.MinCells || cells.Any(c => c.R != 0) || !cells.Contains(new(0, 0))
+                || cells.Max(c => c.Q) - cells.Min(c => c.Q) + 1 != cells.Count
+                || !shape.Contacts.ToHashSet().SetEquals([new(new(cells.Min(c => c.Q), 0), 4), new(new(cells.Max(c => c.Q), 0), 1)])
+                || shape.Coverage is { } spanCoverage && spanCoverage.Closed.Concat(spanCoverage.Open).Any(m => !m.Cells.ToHashSet().SetEquals(cells))))
+                throw new ArgumentException("Invalid adjustable linear span: " + shape.Id);
             if (shape.Coverage is { } coverage && (!SurfaceMasksValid(coverage.Closed, cells) || !SurfaceMasksValid(coverage.Open, cells)
                     || coverage.Open.Any(open => !coverage.Closed.Any(closed => closed.Surface == open.Surface && open.Cells.All(closed.Cells.Contains)))))
                 throw new ArgumentException("Invalid closed/open cover masks: " + shape.Id);
