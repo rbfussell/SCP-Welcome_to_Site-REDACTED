@@ -27,3 +27,5 @@ The five central authored webbing points remain inside the guaranteed core. Exte
 [Direct body-fit drops](body-drag-fitting.html) now qualify stored-clothing fitting through actual dragging. [Front/back inspection and removal](body-inspection.html) now qualifies worn-item picking and drag sources using these masks. Final anatomy art, body sizes, curved straps, cloth fitting, extended webbing art, spillage and world clothing remain future work. The [gear standard](doc-docs-29-gear-data-standard-md.html) remains distinct from native DTOs and public mod loading.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [overlay bands](doc-docs-36-overlay-sublayers-md.html), [body-fit foundation](doc-docs-30-body-fit-prototype-md.html), [design library](documents.html).
+
+Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

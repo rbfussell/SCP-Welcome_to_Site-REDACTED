@@ -25,3 +25,5 @@ Paid moves retain the source on the body until completion and use exact grid pla
 This is colored diagnostic hex material. [Character-matched sprites and alpha-clipped highlights](wearable-appearance.html) remain future presentation. The final visual picker must refine sprite occlusion separately from physical masks. Exterior child attachments still use the enlarged gear view; body targets identify their worn provider. World clothing, general cloth/transparent-material rendering and anatomical mount inference are not added.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [incoming fitting](body-drag-fitting.html), [body geometry](body-fit-cleanup.html), [mount points](mount-points.html), [appearance target](wearable-appearance.html), [design library](documents.html).
+
+Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

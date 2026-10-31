@@ -33,3 +33,5 @@ Related: [engine](engine.html), [implementation ledger](status.html), [inventory
 [Body-fit drops](body-drag-fitting.html) are a separate target for wearable gear in the diagnostic body view. Enlarged provider surfaces keep their explicit mount points, six attachment rotations and existing clearance rules.
 
 [Body inspection/removal](body-inspection.html) targets the worn provider on its exposed front/back material; moving it carries the loaded assembly through normal handling. Exterior children remain separately inspectable/dragged in the enlarged gear view.
+
+Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

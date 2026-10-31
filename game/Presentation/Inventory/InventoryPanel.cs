@@ -26,6 +26,8 @@ public partial class InventoryPanel : Control
     private VBoxContainer _equipmentActions = null!;
     internal InventoryBodyFitPanel BodyFit => _bodyFit;
     internal Button BodyFitToggle => _bodyFitToggle;
+    internal InventoryPaperdollProof PaperdollProof { get; private set; } = null!;
+    internal Button PaperdollProofToggle { get; private set; } = null!;
     private ScrollContainer _wornScroll = null!;
     private InventoryEquipmentList _equipmentList = null!;
     internal InventoryEquipmentList EquipmentList => _equipmentList;
@@ -51,7 +53,11 @@ public partial class InventoryPanel : Control
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);
         Label(worn, "PAPERDOLL / WORN & HELD", 16);
-        _bodyFitToggle = Button(worn, "Body fit · hex view", ToggleBodyFit);
+        var bodyViews = new HBoxContainer(); worn.AddChild(bodyViews);
+        _bodyFitToggle = Button(bodyViews, "Body fit · hex view", ToggleBodyFit);
+        _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        PaperdollProofToggle = Button(bodyViews, "Sprites", TogglePaperdollProof);
+        PaperdollProofToggle.TooltipText = "Upper-body clothing sprite qualification; other gear is explicitly omitted.";
         EngineeringSlots = new CheckButton { Text = "Engineering slot controls", FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);
         _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);
         EngineeringSlots.Toggled += _ => { CancelDragPreview(); SetBodyFit(false); };
@@ -78,6 +84,7 @@ public partial class InventoryPanel : Control
         });
         Button(_equipmentActions, "Cancel handling", () => { Simulation.CancelInventoryHandling(); ShowReceipt(); });
         Button(_equipmentActions, "Nearby supply crate", () => Inspect("fixture:crate-a"));
+        PaperdollProof = new InventoryPaperdollProof { Panel = this, Visible = false }; worn.AddChild(PaperdollProof);
         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);
         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);
         Label(storageHeader, "GEAR & CONTENTS / TWO INDEPENDENT TRAILS", 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -113,7 +120,7 @@ public partial class InventoryPanel : Control
         if (!Simulation.Inventory.Enabled) return false;
         Visible = true; _lastReceiptId = -1; _browser.Clear();
         SetBodyFit(false);
-        _bodyFit.ResetInspection();
+        _bodyFit.ResetInspection(); PaperdollProof.ResetView();
         _wornScroll.ScrollVertical = 0;
         SelectedItem = null; Rotated = false;
         _detail.Text = "Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.";
@@ -121,11 +128,18 @@ public partial class InventoryPanel : Control
     }
     private void SetBodyFit(bool enabled)
     {
+        PaperdollProof.Visible = false;
         _bodyFit.Visible = enabled; _wornScroll.Visible = !enabled && EngineeringSlots.ButtonPressed;
         _equipmentList.Visible = !enabled && !EngineeringSlots.ButtonPressed;
         EngineeringSlots.Visible = _equipmentActions.Visible = !enabled;
         _bodyFitToggle.Text = enabled ? "Equipment slots" : "Body fit · hex view";
         if (enabled) _bodyFit.Refresh();
+    }
+    private void TogglePaperdollProof()
+    {
+        CancelDragPreview(); var show = !PaperdollProof.Visible; SetBodyFit(false);
+        PaperdollProof.Visible = show;
+        if (show) { _equipmentList.Visible = _wornScroll.Visible = EngineeringSlots.Visible = _equipmentActions.Visible = false; PaperdollProof.Refresh(); }
     }
     private void ToggleBodyFit() { CancelDragPreview(); SetBodyFit(!_bodyFit.Visible); }
     internal InventoryGrid FindGrid(string parentId, string regionId) => Grids(this).First(g => g.ParentId == parentId && g.RegionId == regionId);
@@ -326,7 +340,7 @@ public partial class InventoryPanel : Control
         if (!Visible) return;
         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);
         _clock.Text = Simulation.ManualPause ? "MANUAL PAUSE" : Simulation.Combat.Active ? $"TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP" : $"REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s";
-        _browser.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();
+        _browser.Refresh(); PaperdollProof.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();
         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: > 0 };
         _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + " selected garment" : "Garment fastening";
         if (SelectedItem is { } current) _detail.Text = Describe(current);

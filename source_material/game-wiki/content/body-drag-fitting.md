@@ -27,3 +27,5 @@ This is a fitting target in the engineering view. [Body inspection/removal](body
 [Confirmed final presentation](wearable-appearance.html) hides the fitting grid and shows character-matched clothing sprites, with highlights clipped to visible garment cutouts. The diagnostic cells remain useful engineering geometry; this requirement does not change current fitting or access rules.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [symmetric fit](body-fit-cleanup.html), [mount points](mount-points.html), [three-view inventory](doc-docs-27-three-view-inventory-and-body-fit-md.html), [design library](documents.html).
+
+Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

@@ -78,6 +78,10 @@ public partial class SpatialScene
             panel.Inspect("medical-case"); Check(panel.InspectedContainers.Count == 0, "Hidden case bypassed parent inspection.");
             await InventoryCapture("-paperdoll");
             InventoryClick(panel.EngineeringSlots.GetGlobalRect().GetCenter()); await InventoryFrames();
+            if (OS.GetCmdlineUserArgs().Contains("--paperdoll-smoke"))
+            {
+                await RunPaperdollSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             if (OS.GetCmdlineUserArgs().Contains("--hook-smoke"))
             {
                 await RunHookSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
@@ -91,6 +95,7 @@ public partial class SpatialScene
             await RunBodyFitSmoke();
             await RunBodyDropSmoke();
             await RunBodyInspectionSmoke();
+            await RunPaperdollSmoke();
             await RunCoverageSmoke();
             await RunAttachmentSmoke();
             await RunOverlaySmoke();
