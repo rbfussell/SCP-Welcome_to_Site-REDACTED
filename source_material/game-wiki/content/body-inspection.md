@@ -26,4 +26,4 @@ This is colored diagnostic hex material. [Character-matched sprites and alpha-cl
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [incoming fitting](body-drag-fitting.html), [body geometry](body-fit-cleanup.html), [mount points](mount-points.html), [appearance target](wearable-appearance.html), [design library](documents.html).
 
-Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
+Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

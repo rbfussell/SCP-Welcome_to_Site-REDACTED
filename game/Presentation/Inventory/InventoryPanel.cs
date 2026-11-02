@@ -64,7 +64,7 @@ public partial class InventoryPanel : Control
         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
             CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride("h_separation", 16); _wornScroll.AddChild(mounts);
-        foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front", "belt" }) AddGrid(mounts, "person:avatar", slot, 90);
+        foreach (var slot in new[] { "outerwear", "back", "legs", "hand", "torso", "suit", "socks", "footwear", "front", "belt", "underwear" }) AddGrid(mounts, "person:avatar", slot, 90);
         _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);
         _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);
         _garmentToggle = new Button { Text = "Open / fasten selected garment", FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);

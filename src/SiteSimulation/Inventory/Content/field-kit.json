@@ -927,6 +927,39 @@
           }
         }
       ]
+    },
+    {
+      "id": "underwear",
+      "name": "Cotton boxer briefs",
+      "widthMm": 100,
+      "lengthMm": 100,
+      "thicknessMm": 15,
+      "massGrams": 80,
+      "tags": [
+        "underwear"
+      ],
+      "wearSlot": "underwear",
+      "handleMs": 1000,
+      "handleAp": 2,
+      "wear": {
+        "layer": 0,
+        "mounts": [
+          {
+            "slot": "underwear",
+            "coverage": [
+              "hips-front",
+              "hips-back"
+            ]
+          }
+        ],
+        "fitProfile": "underwear",
+        "fit": {
+          "family": "core:light-textile",
+          "bulk": 1,
+          "maxUnderBulk": 0,
+          "fitsOver": []
+        }
+      }
     }
   ],
   "roots": [
@@ -1455,7 +1488,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 2
+        "wornOrder": 3
       }
     },
     {
@@ -1467,7 +1500,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 5
+        "wornOrder": 6
       },
       "garmentOpen": true
     },
@@ -1480,7 +1513,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 6
+        "wornOrder": 7
       }
     },
     {
@@ -1742,7 +1775,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 3
+        "wornOrder": 4
       }
     },
     {
@@ -1754,7 +1787,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 1
+        "wornOrder": 2
       }
     },
     {
@@ -1766,7 +1799,7 @@
         "x": 0,
         "y": 0,
         "rotated": false,
-        "wornOrder": 4
+        "wornOrder": 5
       }
     },
     {
@@ -1870,6 +1903,15 @@
         "regionId": "store",
         "x": 3,
         "y": 4
+      }
+    },
+    {
+      "id": "avatar-underwear",
+      "definitionId": "underwear",
+      "placement": {
+        "parentId": "person:avatar",
+        "regionId": "underwear",
+        "wornOrder": 1
       }
     }
   ],

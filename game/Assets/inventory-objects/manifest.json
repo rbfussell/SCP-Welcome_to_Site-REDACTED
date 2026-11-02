@@ -367,6 +367,26 @@
         254
       ],
       "prompt": "Game asset: a single steel belt utility hook / placement extender for a detailed isometric RPG with material-rich visibly pixelated texture and shaded volume reminiscent of Fallout 2 inventory sprites. Exactly one object: small worn dark gunmetal vertical hanger, upper compact belt-webbing clip, straight short drop arm, lower open J-hook facing right. Flat front orthographic view, upright, the upper clip centered horizontally and the lower hook directly beneath it; readable mechanical shape. No belt, pouch, hand, backdrop, text, interface, border, floor or cast shadow. Light from upper left, subdued realistic steel colors with edge highlights. Fully visible centered object with generous genuinely transparent margin. Opaque metal interior and genuinely transparent background including the hook opening. This is the actual physical object sprite, never a card or icon badge. The bottom hook can receive another item's mounting loop."
+    },
+    {
+      "id": "underwear",
+      "file": "../paperdoll-proof/lower-clothes-v1.png",
+      "source": "built-in imagegen: exec-3eb06cce-3f73-4c1f-af53-d31a15bde4c3.png",
+      "subject": "dark navy cotton boxer briefs, front",
+      "size": [
+        1536,
+        1024
+      ],
+      "region": [
+        40,
+        205,
+        335,
+        240
+      ],
+      "alphaExtrema": [
+        0,
+        254
+      ]
     }
   ],
   "attachmentIllustrations": {

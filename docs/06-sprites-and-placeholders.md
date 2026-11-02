@@ -4,7 +4,7 @@ Status: Revision 0.7. Godot, a fixed isometric/three-quarter field view, square 
 
 ## 1. Art and development pipeline
 
-[Wearable appearance](26-wearable-appearance-pipeline.md) records the proposed shared body/garment source pipeline for matching paperdoll and in-world outfits, including procedural templates, sprite baking, custom wearable overrides and bounded compositing. The current baked actor artwork does not yet derive from equipped inventory. An optional [upper-body paperdoll proof](41-paperdoll-sprite-proof.md) now composes reference body/shirt/coat sprites from actual worn order and fastening state, with explicit missing-gear disclosure.
+[Wearable appearance](26-wearable-appearance-pipeline.md) records the proposed shared body/garment source pipeline for matching paperdoll and in-world outfits, including procedural templates, sprite baking, custom wearable overrides and bounded compositing. The current baked actor artwork does not yet derive from equipped inventory. The optional [full-body paperdoll proof](42-full-body-paperdoll.md) now composes six clothing definitions over one reference body from actual worn order and fastening state, with paired visual feet, missing-gear disclosure and explicit visual-only modesty base.
 
 The user's visual reference is Fallout 2: detailed sprite characters, substantial environmental detail and a grounded, textured appearance. “Retro” here refers to that classic PC RPG sensibility. The target is not a low-color NES/RPG Maker-style treatment. Use enough color, shading and resolution to distinguish bodies, equipment and surface materials at the chosen gameplay zoom. Do not interpret the earlier “modern sprites” wording as rejecting the now-confirmed Fallout 2 reference.
 

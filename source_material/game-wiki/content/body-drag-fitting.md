@@ -28,4 +28,4 @@ This is a fitting target in the engineering view. [Body inspection/removal](body
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [symmetric fit](body-fit-cleanup.html), [mount points](mount-points.html), [three-view inventory](doc-docs-27-three-view-inventory-and-body-fit-md.html), [design library](documents.html).
 
-Presentation follow-up: [upper-body sprite qualification](paperdoll-sprite-proof.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
+Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.

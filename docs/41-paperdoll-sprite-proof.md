@@ -1,5 +1,7 @@
 # Upper-body paperdoll sprite qualification
 
+Historical October 31 qualification. The current native view is superseded by [full-body paperdoll and base garments](42-full-body-paperdoll.md), including its new content identity, paired visual parts and explicit modesty reference. The implementation and limits below describe the earlier slice.
+
 Implemented October 31, 2026. This is the first bounded 2D art/compositing experiment for [wearable appearance](26-wearable-appearance-pipeline.md), alongside the existing [body inspection/removal](40-body-inspection-and-removal.md). See the [game-wiki mechanic](../source_material/game-wiki/paperdoll-sprite-proof.html) for connected source and evidence.
 
 ## Try the proof

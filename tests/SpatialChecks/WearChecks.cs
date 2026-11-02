@@ -99,7 +99,7 @@ internal static class WearChecks
         var socks = state.Content.Definitions[socksIndex];
         state.Content.Definitions[socksIndex] = socks with { Wear = socks.Wear! with { Mounts = [new("socks", ["feet"]), new("footwear", ["feet"])] } };
         state.Items["avatar-shoes"] = state.Items["avatar-shoes"] with { Placement = new("person:avatar", "hand") };
-        state.Items["spare-socks"] = state.Items["spare-socks"] with { Placement = new("person:avatar", "footwear", WornOrder: 7) };
+        state.Items["spare-socks"] = state.Items["spare-socks"] with { Placement = new("person:avatar", "footwear", WornOrder: state.Items.Values.Where(i => i.Placement.ParentId == "person:avatar").Max(i => i.Placement.WornOrder ?? 0) + 1) };
         try { InventoryPlacement.Validate(state); throw new Exception("Tight duplicate socks accepted"); }
         catch (ArgumentException ex) { Check(ex.Message.Contains("cannot fit"), "different mounts cannot bypass actual under-fit requirements"); }
         state.Content.Definitions[socksIndex] = state.Content.Definitions[socksIndex] with
@@ -147,7 +147,7 @@ internal static class WearChecks
         var suitIndex = Array.FindIndex(state.Content!.Definitions, d => d.Id == "chem-suit");
         var suitDef = state.Content.Definitions[suitIndex];
         state.Content.Definitions[suitIndex] = suitDef with { Wear = suitDef.Wear! with { Layer = 6 } };
-        state.Items["chemical-suit"] = state.Items["chemical-suit"] with { Placement = new("person:avatar", "suit", WornOrder: 7) };
+        state.Items["chemical-suit"] = state.Items["chemical-suit"] with { Placement = new("person:avatar", "suit", WornOrder: state.Items.Values.Where(i => i.Placement.ParentId == "person:avatar").Max(i => i.Placement.WornOrder ?? 0) + 1) };
         try { InventoryPlacement.Validate(state); throw new Exception("Covered outermost pack accepted"); }
         catch (ArgumentException ex) { Check(ex.Message.Contains("outermost"), "a higher numeric layer cannot cover an outermost pack"); }
 

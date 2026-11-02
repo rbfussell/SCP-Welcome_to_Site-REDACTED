@@ -20,9 +20,9 @@ BODY = [
     '..##.##..', '.##..##..', '..##.##..', '###..###.',
 ]
 DIRECTIONS = [(1, -1), (1, 0), (0, 1), (-1, 1), (-1, 0), (0, -1)]
-RANGES = {'shirt': (4, 8), 'coat': (4, 11), 'trousers': (11, 18),
+RANGES = {'underwear': (11, 13), 'shirt': (4, 8), 'coat': (4, 11), 'trousers': (11, 18),
           'socks': (18, 19), 'boots': (17, 19), 'chem-suit': (0, 19)}
-POSES = {'shirt': (-2, 4), 'coat': (-2, 4), 'trousers': (-6, 12),
+POSES = {'underwear': (-6, 12), 'shirt': (-2, 4), 'coat': (-2, 4), 'trousers': (-6, 12),
          'socks': (-9, 18), 'boots': (-9, 18), 'chem-suit': (0, 0),
          'backpack': (-2, 4), 'belt': (-6, 12)}
 

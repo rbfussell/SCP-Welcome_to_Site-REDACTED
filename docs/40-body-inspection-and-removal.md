@@ -1,6 +1,6 @@
 # Front/back body inspection and worn-item drag sources
 
-Art follow-up: [upper-body sprite qualification](41-paperdoll-sprite-proof.md) adds a separate optional alpha-based view; this guide still describes the complete diagnostic hex interaction.
+Art follow-up: [full-body sprite qualification](42-full-body-paperdoll.md) adds a separate optional alpha-based view; this guide still describes the complete diagnostic hex interaction.
 
 Implemented October 30, 2026. This completes the first body-to-storage interaction alongside [stored-to-body fitting](39-body-drag-fitting.md), [body geometry](38-body-fit-cleanup.md) and the [three-view browser](27-three-view-inventory-and-body-fit.md). The [game-wiki guide](../source_material/game-wiki/body-inspection.html) connects source, mechanics and evidence.
 
@@ -46,4 +46,4 @@ The focused body launcher now runs both incoming fit drops and inspection/remova
 
 [InventoryBodyInspection](../src/SiteSimulation/Inventory/Equipment/BodyFit/InventoryBodyInspection.cs) owns the bounded query. [InventoryBodyFitSurface.Inspect](../game/Presentation/Inventory/InventoryBodyFitSurface.Inspect.cs) owns hover/picking/source input and diagnostic tints; [the panel](../game/Presentation/Inventory/InventoryBodyFitPanel.cs) owns modes and mirrored projection. The pressed item and cell are retained across Godot's drag threshold, then revalidated before beginning a drag.
 
-The complete character-matched paperdoll, general wardrobe alpha presentation, world clothing composition, body attachment targets and general visual/material transparency remain future work. The separate upper-body sprite proof qualifies only its explicitly documented subset. This slice adds no SCP canon or anomalous behavior.
+The complete character-matched paperdoll, general wardrobe alpha presentation, world clothing composition, body attachment targets and general visual/material transparency remain future work. The separate full-body sprite proof qualifies only its explicitly documented reference-body/default-pose subset. This slice adds no SCP canon or anomalous behavior.

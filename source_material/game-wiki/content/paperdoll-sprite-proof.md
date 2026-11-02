@@ -1,5 +1,7 @@
 # Upper-body paperdoll sprite proof
 
+**Historical first qualification.** The current native view is [full-body paperdoll/base garments](full-body-paperdoll.html), including new kit identity, six clothing bindings, paired feet and explicit visual-only modesty base. The October 31 scope below is preserved as historical evidence; the linked source pages reflect current code.
+
 **Implemented bounded art fixture, October 31.** Open **I → Sprites** for one reference upper body with worn shirt/coat layers, front/back artwork and an openable jacket. This is ordinary game presentation, not SCP canon. Read the [runtime/limitations guide](doc-docs-41-paperdoll-sprite-proof-md.html), [appearance target](wearable-appearance.html), [inventory](system-inventory.html), [presentation](system-presentation.html) and [implementation ledger](status.html).
 
 ## One outfit source, separate art geometry

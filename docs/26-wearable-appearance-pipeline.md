@@ -1,6 +1,6 @@
 # Wearable appearance: paperdoll and world sprites
 
-Current art follow-up: [upper-body sprite qualification](41-paperdoll-sprite-proof.md) now tests one reference body with shirt/coat layers, source-alpha feedback and paid fastening. It is an optional partial outfit proof; world composition, full character matching and general wardrobe fitting remain future work.
+Current art follow-up: [full-body paperdoll qualification](42-full-body-paperdoll.md) now adds real underwear, trousers, socks and shoes to the [original upper-body proof](41-paperdoll-sprite-proof.md), with paired visual parts, source-alpha feedback, paid removal and explicit visual-only modesty garments. It remains one reference body/default-pose subset; world composition, full character matching and general wardrobe fitting remain future work.
 
 Current interaction follow-up: [body inspection/removal](40-body-inspection-and-removal.md) now supplies exposed front/back targets and paid drag sources in the engineering view. This does not implement the character-matched sprite or alpha-silhouette compositor described here.
 
