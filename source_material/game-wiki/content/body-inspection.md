@@ -27,3 +27,5 @@ This is colored diagnostic hex material. [Character-matched sprites and alpha-cl
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [incoming fitting](body-drag-fitting.html), [body geometry](body-fit-cleanup.html), [mount points](mount-points.html), [appearance target](wearable-appearance.html), [design library](documents.html).
 
 Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
+
+Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The requested featureless mannequin asset remains unresolved after imagegen rejection; the earlier painted reference body is retained. Physical equipment and access rules are unchanged.

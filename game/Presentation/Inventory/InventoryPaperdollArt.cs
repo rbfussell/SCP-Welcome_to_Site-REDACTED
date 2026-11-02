@@ -8,7 +8,7 @@ internal sealed record PaperdollBinding(string Definition, int Column, int? Open
 internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
-    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts);
+    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic);
 internal sealed record PaperdollLayer(string? ItemId, int Column);
 
 /// <summary>Registered full-body art fixture. One source/destination transform serves drawing and alpha picking; pixels never grant physical access.</summary>
@@ -46,6 +46,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
             || m.Frames.Single(f => f.Column == 0).Parts.Length != 1
             || m.HeadCutouts is null || !new[] { "front", "back" }.All(side => m.HeadCutouts.TryGetValue(side, out var polygon)
                 && polygon.Length >= 3 && polygon.All(p => p is { Length: 2 } && p.All(n => float.IsFinite(n) && n is >= 0 and <= 1)))
+            || m.Mosaic is null || !Rect(m.Mosaic.Front) || !Rect(m.Mosaic.Back) || m.Mosaic.BlockSize is < 8 or > 40
             || m.Bindings is not { Length: > 0 and <= 128 } || m.Bindings.Select(b => b.Definition).Distinct().Count() != m.Bindings.Length
             || m.Bindings.Any(b => string.IsNullOrWhiteSpace(b.Definition) || b.Column <= 0 || !m.Frames.Any(f => f.Column == b.Column)
                 || (b.OpenColumn is { } open && (open <= 0 || !m.Frames.Any(f => f.Column == open)))
@@ -121,6 +122,23 @@ internal sealed class InventoryPaperdollArt : IDisposable
         }
         return result.ToArray();
     }
+    /// <summary>Visual exposure only; neither this overlay nor garment alpha changes physical access or item identity.</summary>
+    internal bool MosaicVisible(SpatialSimulation sim, string side, Vector2 uv)
+        => PaperdollMosaic.Region(_manifest.Mosaic, side).HasPoint(uv) && Layers(sim) is { Length: > 0 } layers
+            && !layers.Any(l => l.ItemId is not null && Opaque(l, side, uv));
+    private void DrawMosaic(Control canvas, Rect2 bounds, string side)
+    {
+        var body = Frame(new(null, 0)); var part = body.Parts.Single();
+        var source = Source(part, side); var dest = Destination(part, side);
+        foreach (var tile in PaperdollMosaic.Tiles(_manifest.Mosaic, side, new(_manifest.CanvasSize[0], _manifest.CanvasSize[1])))
+        {
+            var sample = source.Position + (tile.GetCenter() - dest.Position) / dest.Size * source.Size;
+            var color = _images[body.File].GetPixel((int)sample.X, (int)sample.Y);
+            // Opaque coarse blocks are synthesized by Godot; no mosaic is stored in the source image.
+            color = new(MathF.Round(color.R * 12) / 12, MathF.Round(color.G * 12) / 12, MathF.Round(color.B * 12) / 12, 1);
+            canvas.DrawRect(new(bounds.Position + tile.Position * bounds.Size, tile.Size * bounds.Size), color);
+        }
+    }
     internal void Draw(Control canvas, SpatialSimulation sim, string side, string? hover, string? selected)
     {
         var layers = Layers(sim); if (layers.Length == 0) return;
@@ -140,6 +158,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
                     canvas.DrawTextureRectRegion(_textures[Frame(layer).File], new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, tint);
                 }
             }
+            if (layer.ItemId is null) DrawMosaic(canvas, bounds, side);
         }
         var body = new PaperdollLayer(null, 0); var bodyPart = Frame(body).Parts.Single();
         var source = Source(bodyPart, side); var destBody = Destination(bodyPart, side); var head = Head(side);

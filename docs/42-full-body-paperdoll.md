@@ -1,5 +1,7 @@
 # Full-body paperdoll and base garments
 
+Current follow-up: [engine-rendered mosaic](43-paperdoll-mosaic.md) adds front/back privacy blocks beneath real clothing. The requested featureless mannequin asset was rejected by imagegen; the painted reference below is retained.
+
 Implemented November 2, 2026. This extends the [original upper-body proof](41-paperdoll-sprite-proof.md) into one complete front/back reference body with six supported wearable definitions: underwear, socks, trousers, shirt, work shoes and open/closed field coat. The [game-wiki mechanic](../source_material/game-wiki/full-body-paperdoll.html) links the implementation and evidence.
 
 ## Controls and scope

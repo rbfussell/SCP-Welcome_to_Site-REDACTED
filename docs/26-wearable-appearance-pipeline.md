@@ -76,3 +76,5 @@ Historical October 25 inspection UI: the selector described below was superseded
 The paperdoll now has a **Layers** selector for exposed equipment, all known worn equipment or one numbered layer. Layer inspection reveals known own equipment for identification; it is a presentation filter. Covered objects remain marked and cannot be dragged or manipulated through the covering. Opening their storage still requires the normal physical access path. The filter does not reveal items inside pockets or cases and does not change what other characters see in the world.
 
 Changing this view costs no simulation time/AP, modifies no item/fastening state and is not saved as physical equipment state. Closing/reopening inventory resets it to exposed equipment. This inspection feature is implemented in the engineering slot UI; a future composited paperdoll should preserve the same access distinction.
+
+The [engine mosaic follow-up](43-paperdoll-mosaic.md) adds a visual overlay beneath committed clothing. It does not replace physical access, and the requested mannequin asset remains unresolved; the existing painted reference is retained.

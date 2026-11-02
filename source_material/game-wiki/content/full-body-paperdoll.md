@@ -26,3 +26,5 @@ Native content now has **19 definitions, 39 instances, 9 fit profiles**. [Persis
 - [Recorded runs](doc-docs-reviews-inventory-runtime-checks-md.html): actual results and limits; building this wiki does not run gameplay checks.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [appearance](wearable-appearance.html), [original art proof](paperdoll-sprite-proof.html), [body fit](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection](body-inspection.html), [mounts](mount-points.html), [design library](documents.html).
+
+Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The requested featureless mannequin asset remains unresolved after imagegen rejection; the earlier painted reference body is retained. Physical equipment and access rules are unchanged.

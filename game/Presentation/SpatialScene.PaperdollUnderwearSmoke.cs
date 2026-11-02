@@ -38,16 +38,34 @@ public partial class SpatialScene
         var at = surface.GlobalPosition + bounds.Position + exposed!.Value * bounds.Size;
         Input.WarpMouse(at); InventoryClick(at, true); await InventoryFrames();
         Check(panel.SelectedItem == "avatar-underwear" && panel.Browser.CurrentGear == "avatar-underwear", "visible briefs did not select/inspect their actual identity");
+        Check(new[] { "front", "back" }.All(side => !proof.Art.MosaicVisible(sim, side, new(.5f, .55f))),
+            "real exposed briefs failed to cover the mosaic");
         await InventoryCapture("-paperdoll-underwear");
         var request = new InventoryRequest(InventoryActionKind.Move, "avatar-underwear", new("person:avatar", "hand"));
         var before = sim.Save(); Check(!sim.HandleInventory(request) && sim.Save() == before, "paused briefs removal supplied free work");
         sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage);
         Check(proof.Art.Layers(sim).Any(l => l.ItemId == "avatar-underwear"), "briefs vanished before work committed");
+        Check(!proof.Art.MosaicVisible(sim, "front", new(.5f, .55f)), "mosaic revealed before paid removal committed");
         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString("res://Content/spatial-facility.json"), Godot.FileAccess.GetFileAsString("res://Content/scp650-operation.json"));
         clone.Restore(saved); Check(clone.Save() == saved, "new loadout removal failed exact restore");
         await Finish();
         Check(!proof.Art.Layers(sim).Any(l => l.ItemId == "avatar-underwear")
-            && surface.Pick(bounds.Position + exposed.Value * bounds.Size) is null, "visual modesty base became a false worn underwear item");
-        await InventoryCapture("-paperdoll-modesty-base");
+            && surface.Pick(bounds.Position + exposed.Value * bounds.Size) is null, "visual base became a false worn underwear item");
+        before = sim.Save();
+        foreach (var side in new[] { "front", "back" })
+        {
+            Check(proof.Art.MosaicVisible(sim, side, new(.5f, .55f))
+                && !proof.Art.MosaicVisible(sim, side, new(.5f, .8f)), "mosaic exposure did not follow the groin region");
+            clone.Restore(before);
+            Check(proof.Art.MosaicVisible(clone, side, new(.5f, .55f)), "mosaic did not regenerate from restored outfit");
+            var b = proof.Art.Bounds(new(300, 270));
+            Check(proof.Art.Pick(sim, side, new(300, 270), b.Position + new Vector2(.5f, .55f) * b.Size) is null,
+                "resized mosaic acquired an item target");
+        }
+        Check(sim.Save() == before && clone.Save() == before, "privacy inspection changed physical or saved state");
+        await InventoryCapture("-paperdoll-mosaic-front");
+        Input.WarpMouse(proof.Flip.GetGlobalRect().GetCenter()); InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();
+        Check(proof.Side == "back", "mosaic back capture did not flip");
+        await InventoryCapture("-paperdoll-mosaic-back");
     }
 }

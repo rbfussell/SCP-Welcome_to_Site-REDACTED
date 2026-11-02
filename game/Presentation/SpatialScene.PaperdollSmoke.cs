@@ -32,6 +32,8 @@ public partial class SpatialScene
             throw new InvalidOperationException("Paperdoll: required alpha registration region missing");
         }
         string? PickUv(Vector2 uv) { var b = proof.Art.Bounds(surface.Size); return surface.Pick(b.Position + uv * b.Size); }
+        Check(new[] { "front", "back" }.All(side => !proof.Art.MosaicVisible(sim, side, new(.5f, .55f))),
+            "privacy mosaic painted over committed clothing");
         var shirt = layers.Single(l => l.ItemId == "avatar-shirt"); var coat = layers.Single(l => l.ItemId == "avatar-coat");
         var trousers = layers.Single(l => l.ItemId == "avatar-trousers"); var socks = layers.Single(l => l.ItemId == "avatar-socks");
         var shoes = layers.Single(l => l.ItemId == "avatar-shoes"); var underwear = layers.Single(l => l.ItemId == "avatar-underwear");

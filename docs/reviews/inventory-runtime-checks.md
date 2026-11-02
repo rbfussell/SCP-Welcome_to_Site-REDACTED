@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current full-body/base-garment qualification (November 2):
+Current engine-mosaic follow-up (November 2):
+
+- `--check`: **20,907 assertions pass**, zero compiler warnings/errors. Physical inventory content, schema 14 and full-body save identity are unchanged.
+- `--paperdoll-smoke work/preview/spatial-scene/mosaic.png`: **PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors and no runtime errors. Added checks cover committed trousers/briefs concealing front/back mosaic, no premature exposure during paid removal, exposed groin versus unaffected legs, no mosaic item target at another aspect ratio, identical restored outfit/exposure and unchanged saved state. Existing full-body alpha, fastening, removal and continuation checks pass. Front/back exposed mosaic and real-underwear captures were visually inspected at 1440×900. The existing unsupported software-display V-Sync and two-reference shutdown ObjectDB warnings remain.
+- The built-in image generator rejected the requested smooth featureless mannequin at output validation; no new PNG was accepted. **The painted base is retained**, beneath the new Godot-generated mosaic. This is a renderer improvement with an unresolved replacement asset, not a finished mannequin. See [current guide](../43-paperdoll-mosaic.md), [wiki mechanic](../../source_material/game-wiki/paperdoll-mosaic.html) and linked exact attempt/provenance. Earlier full-suite results below remain historical; this follow-up reruns the affected native paperdoll suite.
+
+Earlier full-body/base-garment qualification (November 2):
 
 - `--check`: **20,907 assertions**, including **21 new underwear checks**, 124 body-fit and 55 symmetry checks. The native loadout is **19 definitions/39 instances/9 fit profiles**. New checks qualify real base identity/mass, pelvis/front/back fit, covered refusal, loaded trousers, paid source retention, exact continuation and atomic missing-item rejection. Compiler warnings/errors: zero. The fixed fixture-count assertion now includes the new item. Two existing contrived wear tests derive a later dressing order instead of accidentally reusing the new pack order, retaining their original fit/outermost failure assertions.
 - `--inventory-smoke work/preview/spatial-scene/fullbody-full.png`: all **eleven native suites pass**. The expanded paperdoll suite qualifies full outfit IDs/order, covered underwear, both sock/shoe draw parts, alpha holes/tint/occlusion, front/back, resize, paid Zip/Unzip, paid context removal, exposed socks and bare feet. Existing dressing, packing, fitting/removal, coverage, attachments, overlays, hooks and general inventory behavior pass. Zero compiler warnings/errors; no runtime errors.

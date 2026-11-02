@@ -41,7 +41,7 @@ public partial class InventoryPaperdollProof : VBoxContainer
         }
         var omitted = Art.Omitted(Panel.Simulation);
         _limits.Text = "One reference body; other gear omitted:\n" + (omitted.Length == 0 ? "none" : string.Join(", ", omitted))
-            + "\nModesty base is visual only.\nWorld outfit remains baked artwork.";
+            + "\nEngine mosaic beneath clothing.\nWorld outfit remains baked artwork.";
         Surface.QueueRedraw();
     }
     public override void _ExitTree() => Art?.Dispose();
@@ -65,7 +65,7 @@ public partial class InventoryPaperdollSurface : Control
     {
         if (!IsVisibleInTree() || GetViewport().GuiGetHoveredControl() != this) return;
         Hovered = Pick(GetLocalMousePosition());
-        TooltipText = Hovered is { } id ? Proof.Panel.Describe(id) + "\n" + Proof.Panel.Simulation.InventoryMoveAccess(id).Reason : "Reference body / visual modesty base or transparent space.";
+        TooltipText = Hovered is { } id ? Proof.Panel.Describe(id) + "\n" + Proof.Panel.Simulation.InventoryMoveAccess(id).Reason : "Reference body / visual mosaic or transparent space.";
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }
     public override void _Draw() => Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem);
