@@ -8,9 +8,11 @@ Draw order is base body, mosaic, actual clothing in committed worn order, then f
 
 The renderer exposes a read-only visual-exposure query for native checks. It does not decide physical accessibility. Transparent/unrepresented garments do not imply privacy coverage; this is a bounded opaque-clothing fixture, not a general fabric or wardrobe solver.
 
-## Requested mannequin: unresolved asset
+## Current reference and earlier mannequin request
 
-The requested adult smooth, featureless mannequin is **not implemented**. The built-in image generator rejected its output with category `sexual`, despite the nonsexual mannequin/no-detail specification. No accepted asset was produced. The earlier painted tan undershirt/charcoal shorts reference therefore remains underneath the new engine mosaic. It is still labeled reference art, not real clothing. See [the exact attempt/provenance](../game/Assets/paperdoll-proof/FULL-BODY-PROVENANCE.md). This limitation must not be described as a finished Ken-doll body. Replacing that base still requires a suitable approved asset; the mosaic renderer is ready to sit above it.
+The current base is **shirtless with close-fitting matte tan fabric briefs**, registered as `full-body-v2.png`. It replaces the painted undershirt/loose charcoal shorts while retaining front/back positions and the existing source/destination registration. Tan briefs remain opaque visual reference clothing, not real equipment. The original PNG is preserved. The engine mosaic is unchanged and is still drawn beneath actual clothing.
+
+The earlier featureless mannequin request was rejected by built-in imagegen (`sexual` output category), producing no accepted asset. That request is not implemented; the user-selected tan-briefs alternative is now the accepted reference. [Exact edit prompts, selected sources and hashes](../game/Assets/paperdoll-proof/FULL-BODY-PROVENANCE.md) preserve both history and the current asset.
 
 ## Verification
 

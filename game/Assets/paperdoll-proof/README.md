@@ -1,6 +1,6 @@
 # Upper-body sprite proof assets
 
-These original assets are retained. Current full-body additions, exact prompts and hashes are in [full-body provenance](FULL-BODY-PROVENANCE.md) and the [current runtime guide](../../../docs/42-full-body-paperdoll.md).
+These original assets are retained. The current body is the shirtless tan-briefs `full-body-v2.png`; its registration and engine mosaic remain presentation only. Current full-body additions, exact prompts and hashes are in [full-body provenance](FULL-BODY-PROVENANCE.md) and the [current runtime guide](../../../docs/42-full-body-paperdoll.md).
 
 New project stand-ins generated with the **built-in imagegen tool** on October 30, 2026. The local `upper-body.png` is copied byte-for-byte from the selected output, with original alpha preserved. No script crops, recolors or edits its pixels. The manifest authors source rectangles/registration and head foreground cutouts; runtime drawing uses the experimental alpha cutoff described in [the qualification guide](../../../docs/41-paperdoll-sprite-proof.md).
 

@@ -8,9 +8,11 @@ Actual worn garment alpha conceals the overlay; real underwear/trousers removal 
 
 [The renderer](file-game-presentation-inventory-inventorypaperdollart-cs.html) draws base → engine mosaic → worn layers → foreground head. [Tile generation](file-game-presentation-inventory-inventorypaperdollmosaic-cs.html) is separate readable presentation code. Matching [saved outfits](system-persistence.html) reconstruct the mosaic without a flag or content-identity change; schema stays 14.
 
-## Mannequin request remains unresolved
+## Current reference and asset history
 
-The requested adult featureless mannequin replacement was rejected by built-in imagegen at output validation (`sexual` category), producing no accepted image. The existing painted tan undershirt/charcoal shorts body remains beneath the overlay. It is visual reference art, not real equipment. This is **not a completed mannequin replacement**. Exact attempted prompt and tool result are recorded in the runtime guide's linked asset provenance. Other bodies, general garment transparency and world wardrobe composition remain future work.
+The current shirtless reference has **close-fitting matte tan fabric briefs** (`full-body-v2.png`), replacing the former painted undershirt/charcoal shorts. The briefs retain opaque coverage, waistband and fabric seams; their compact shape removes loose hems and reduces color contrast. They are visual pixels, not real inventory equipment. Front/back registration and the engine mosaic are unchanged; the original PNG is preserved.
+
+The earlier featureless mannequin request was rejected by built-in imagegen at output validation (`sexual` category). It remains unimplemented. The current user-selected clothed alternative was accepted; exact prompts, source identities and hashes are recorded in the runtime guide's linked provenance. Other bodies, general garment transparency and world wardrobe composition remain future work.
 
 ## Evidence
 

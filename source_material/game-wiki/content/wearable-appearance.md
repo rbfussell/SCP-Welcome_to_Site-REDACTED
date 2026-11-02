@@ -20,4 +20,4 @@ The shared rig/sprite-baking and body-surface projection routes are proposals. T
 
 Related: [engine](engine.html), [sprite direction](doc-docs-06-sprites-and-placeholders-md.html), [three-view inventory](doc-docs-27-three-view-inventory-and-body-fit-md.html), [body fit](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [mount points](mount-points.html), [implementation ledger](status.html), [design library](documents.html).
 
-Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The requested featureless mannequin asset remains unresolved after imagegen rejection; the earlier painted reference body is retained. Physical equipment and access rules are unchanged.
+Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.

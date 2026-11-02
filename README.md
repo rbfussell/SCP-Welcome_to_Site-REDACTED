@@ -63,7 +63,7 @@ The launcher handles this workspace's path characters through a temporary build 
 42. [Body inspection and removal](docs/40-body-inspection-and-removal.md): exposed front/back picking, normal context/inspection and timed body-to-storage dragging.
 43. [Original paperdoll sprite proof](docs/41-paperdoll-sprite-proof.md): historical upper-body qualification.
 44. [Full-body paperdoll](docs/42-full-body-paperdoll.md): underwear, trousers, paired socks/shoes, alpha feedback and paid removal.
-45. [Engine paperdoll mosaic](docs/43-paperdoll-mosaic.md): visual privacy blocks beneath clothing; mannequin asset remains unresolved.
+45. [Engine paperdoll mosaic](docs/43-paperdoll-mosaic.md): visual privacy blocks beneath clothing; shirtless tan-briefs reference.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic artwork, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 

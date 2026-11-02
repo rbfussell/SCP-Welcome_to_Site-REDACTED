@@ -2,7 +2,12 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current engine-mosaic follow-up (November 2):
+Current shirtless/tan-briefs asset follow-up (November 2):
+
+- `--paperdoll-smoke work/preview/spatial-scene/tan-briefs.png`: **PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors and no runtime errors. Existing own-outfit order, front/back, source alpha/occlusion, resize, paid closure/removal, covered/exposed mosaic, no false item target and continuation checks pass with the new base image. Open/closed/back outfit and front/back exposed-mosaic captures were visually reviewed at 1440×900. The existing software-display V-Sync and two-reference shutdown ObjectDB warnings remain.
+- `full-body-v2.png` is an untouched built-in imagegen output: shirtless adult reference with close-fitting opaque matte tan briefs. The loose charcoal shorts/tank-top original is preserved. Registration, garment art, physical item graph, content identity and schema 14 are unchanged. This is the user's selected clothed alternative, not a featureless mannequin. Exact prompts/source identities/hashes are in [provenance](../../game/Assets/paperdoll-proof/FULL-BODY-PROVENANCE.md); see [current guide](../42-full-body-paperdoll.md) and [mosaic behavior](../43-paperdoll-mosaic.md). No new simulation behavior or domain test is introduced; earlier simulation results below remain historical evidence.
+
+Earlier engine-mosaic follow-up (November 2):
 
 - `--check`: **20,907 assertions pass**, zero compiler warnings/errors. Physical inventory content, schema 14 and full-body save identity are unchanged.
 - `--paperdoll-smoke work/preview/spatial-scene/mosaic.png`: **PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors and no runtime errors. Added checks cover committed trousers/briefs concealing front/back mosaic, no premature exposure during paid removal, exposed groin versus unaffected legs, no mosaic item target at another aspect ratio, identical restored outfit/exposure and unchanged saved state. Existing full-body alpha, fastening, removal and continuation checks pass. Front/back exposed mosaic and real-underwear captures were visually inspected at 1440×900. The existing unsupported software-display V-Sync and two-reference shutdown ObjectDB warnings remain.

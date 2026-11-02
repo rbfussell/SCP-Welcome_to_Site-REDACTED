@@ -11,11 +11,11 @@
       1774,
       887
     ],
-    "full-body-v1.png": [
+    "lower-clothes-v1.png": [
       1536,
       1024
     ],
-    "lower-clothes-v1.png": [
+    "full-body-v2.png": [
       1536,
       1024
     ]
@@ -23,7 +23,7 @@
   "frames": [
     {
       "column": 0,
-      "file": "full-body-v1.png",
+      "file": "full-body-v2.png",
       "parts": [
         {
           "front": [

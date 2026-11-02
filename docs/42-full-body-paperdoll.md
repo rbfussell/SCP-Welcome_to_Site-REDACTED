@@ -1,6 +1,6 @@
 # Full-body paperdoll and base garments
 
-Current follow-up: [engine-rendered mosaic](43-paperdoll-mosaic.md) adds front/back privacy blocks beneath real clothing. The requested featureless mannequin asset was rejected by imagegen; the painted reference below is retained.
+Current follow-up: [engine-rendered mosaic](43-paperdoll-mosaic.md) adds front/back privacy blocks beneath real clothing. The current reference is shirtless with close-fitting matte tan briefs (`full-body-v2.png`), replacing the original painted tank top/loose shorts. The featureless mannequin request remains unimplemented.
 
 Implemented November 2, 2026. This extends the [original upper-body proof](41-paperdoll-sprite-proof.md) into one complete front/back reference body with six supported wearable definitions: underwear, socks, trousers, shirt, work shoes and open/closed field coat. The [game-wiki mechanic](../source_material/game-wiki/full-body-paperdoll.html) links the implementation and evidence.
 
@@ -10,7 +10,9 @@ Open **I → Sprites**. Click a visible garment to select its actual instance, d
 
 The full hex diagnostics remain the place for body fitting, drag sources and attachments. This view adds no sprite-drop equipping or direct pocket segments. Packs, belts/attachments, suits, alternate bodies and non-default fitted poses remain unqualified and explicitly omitted. The world character still uses baked artwork; the current paperdoll does not recolor the existing loose-item illustrations or generate world animations.
 
-The new body is a **modest development reference**, with a painted tan undershirt and charcoal shorts underneath real equipment layers. These base pixels are not inventory items, storage, insulation, armor or physical obstructions, and they cannot be selected or manipulated. Removing the actual underwear can therefore leave the clearly disclosed visual modesty base. A real cotton boxer-briefs layer is navy and has its own identity; the reference shorts are not evidence that it is still worn. The initial unclothed asset request was rejected by the image generator; the accepted clothed reference is recorded explicitly rather than presenting it as an anatomy-complete production body.
+The current body is a **shirtless development reference with close-fitting skin-tone tan briefs**, copied unchanged from a built-in imagegen edit. The briefs are opaque fabric with a waistband/seams and full coverage. Their compact silhouette removes loose shorts hems; their warm tan color reduces contrast with skin. They remain painted visual reference pixels, not inventory items, storage, insulation, armor or physical obstructions, and cannot be selected or manipulated. Actual navy boxer briefs remain a separate real item. Removing those reveals the reference/mosaic, not evidence of another equipped garment.
+
+The original tan tank-top/charcoal-shorts PNG is preserved as historical source, with exact prompts/hashes in provenance. The prior featureless mannequin generation failed; the current accepted clothed alternative does not claim to be that mannequin.
 
 ## Registered parts, alpha and body cutouts
 
