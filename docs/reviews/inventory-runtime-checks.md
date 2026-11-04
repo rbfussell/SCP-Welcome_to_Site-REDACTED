@@ -2,7 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
-Current worn-backpack qualification (November 4):
+Current rear shoulder-connection correction (November 4):
+
+- `--paperdoll-smoke work/preview/spatial-scene/pack-shoulders.png`: **PAPERDOLL_BACKPACK_SMOKE_PASS / PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors. The rear bag now overlays the same-scale harness instead of replacing it. The rendered rear shoulder connections were visually reviewed. The original normal front paperdoll crop (pixels 75,215–250,555) and corrected front capture compare **pixel-identical** using Pillow difference inspection; no source image was edited.
+- `--paperdoll-smoke work/preview/spatial-scene/pack-shoulders-final.png`: **PAPERDOLL_BACKPACK_SMOKE_PASS / PAPERDOLL_SMOKE_PASS**, including both explicit rear shoulder picking assertions. Zero compiler warnings/errors; the existing software-display V-Sync warning remains.
+- Added optional per-part `front`/`back` selection, shared by drawing and alpha picking; omitted means both. The single base-body part remains both-sided. Existing pack dimensions, front harness registration, physical state, content identity and schema 14 are unchanged. [Runtime guide](../44-worn-backpack-paperdoll.md), [wiki mechanic](../../source_material/game-wiki/worn-backpack.html) and [atlas provenance/registration](../../game/Assets/paperdoll-proof/BACKPACK-PROVENANCE.md) describe the correction. Earlier full-suite results remain historical evidence.
+
+Earlier worn-backpack qualification (November 4):
 
 - `--check`: **20,907 assertions pass**, zero compiler warnings/errors. No domain definitions/fit profiles, physical access masks, item counts, inventory content identity or schema 14 changes.
 - `--paperdoll-smoke work/preview/spatial-scene/worn-pack.png`: **PAPERDOLL_BACKPACK_SMOKE_PASS / PAPERDOLL_SMOKE_PASS**. The new fixture exercises bag/harness identity on both sides, existing main/side segmented contents, paused closure refusal, paid Zip/Unzip retention/commitment, loaded removal/source retention, exact pending restore, held omission, front mounting and two independent packs. Front/back and two-pack captures were visually reviewed at 1440×900. Zero compiler warnings/errors; the existing software-display V-Sync and two-reference shutdown ObjectDB warnings remain.

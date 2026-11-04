@@ -51,7 +51,14 @@ public partial class SpatialScene
         Click(Gear().HotspotPosition("side"), true); await InventoryFrames();
         Check(panel.Browser.CurrentContents == ("avatar-backpack", "side"), "side segment did not open independently");
         await InventoryCapture("-pack-straps-and-side");
-        await Flip(); Click(Target("avatar-backpack"), true); await InventoryFrames();
+        await Flip();
+        foreach (var uv in new[] { new Vector2(.3f, .215f), new Vector2(.7f, .215f) })
+        {
+            var rearBounds = proof.Art.Bounds(surface.Size);
+            Check(surface.Pick(rearBounds.Position + uv * rearBounds.Size) == "avatar-backpack",
+                "rear shoulder harness was missing or picked the coat through its material");
+        }
+        Click(Target("avatar-backpack"), true); await InventoryFrames();
         Check(panel.Browser.CurrentGear == "avatar-backpack" && sim.Save() == original, "rear bag inspection changed ownership or closures");
         var paused = sim.Save(); panel.ChangeLid("avatar-backpack", "main", false); await InventoryFrames();
         Check(sim.Save() == paused && sim.Inventory.IsOpen("avatar-backpack", "main"), "paused pack inspection supplied free zipper work");

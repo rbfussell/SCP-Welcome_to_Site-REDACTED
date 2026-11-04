@@ -1,6 +1,6 @@
 # Worn backpack and harness paperdoll
 
-Implemented November 4, 2026. **I → Sprites** now displays the actual worn field backpack. A back-mounted pack shows its harness in front and bag behind; front-mounted equipment reverses those two registered art views. Two packs retain two item IDs and inventories. This extends the [full-body fixture](42-full-body-paperdoll.md); the [wiki mechanic](../source_material/game-wiki/worn-backpack.html) cross-links source and evidence.
+Implemented November 4, 2026. **I → Sprites** now displays the actual worn field backpack. A back-mounted pack shows its harness in front and a bag over the rear shoulder harness behind; front-mounted equipment moves the bag to the front over that same harness. The bag no longer appears attached directly to the coat without straps. Two packs retain two item IDs and inventories. This extends the [full-body fixture](42-full-body-paperdoll.md); the [wiki mechanic](../source_material/game-wiki/worn-backpack.html) cross-links source and evidence.
 
 ## Selection and existing segmented storage
 
@@ -10,7 +10,7 @@ The enlarged gear view retains its authored main and side pocket segments. Doubl
 
 ## Mount-aware presentation metadata
 
-`PaperdollBinding.MountColumns` optionally maps an actual root `MountSlot` to a qualified frame. The field backpack maps `back` to frame 8 and `front` to 9. Each uses the same bag/harness sources on opposite sides, with authored front/back destinations. Missing mount variants are omitted; they do not silently borrow an incompatible view. Existing default-pose qualification remains in force. This remains a bounded presentation manifest, not a public mod format.
+`PaperdollBinding.MountColumns` optionally maps an actual root `MountSlot` to a qualified frame. The field backpack maps `back` to frame 8 and `front` to 9. Each draws the harness on both sides at the same authored shoulder scale, then draws the bag over it only on its mounted side. `PaperdollPart.Side` optionally selects `front` or `back`; omitted means both. Rendering and alpha picking share the same part filter. The single base-body part must remain on both sides. Existing sources/destinations and the normal front harness are retained. Missing mount variants are omitted; they do not silently borrow an incompatible view. Existing default-pose qualification remains in force. This remains a bounded presentation manifest, not a public mod format.
 
 The [appearance adapter](../game/Presentation/Inventory/InventoryPaperdollArt.cs) filters actual own worn items and orders them by committed dressing order. Foreign, stored and held packs are excluded. Both sides and all visual parts keep one physical item, parent, contents and recursive mass. Paid removal leaves the pack drawn until completion; moving it carries the loaded assembly normally. Pack/strap art does not add physical coverage, loosen restraints or grant access. Transparent visual regions are separate from body-fit and access masks.
 

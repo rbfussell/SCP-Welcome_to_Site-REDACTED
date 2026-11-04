@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace SitePresentation;
 
 internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null);
-internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null);
+internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
     PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic);
@@ -40,10 +40,10 @@ internal sealed class InventoryPaperdollArt : IDisposable
             || m.Frames is not { Length: > 0 and <= 128 } || m.Frames.Any(f => f.Column is < 0 or > 127)
             || m.Frames.Select(f => f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f => f.Column == 0)
             || m.Frames.Any(f => !m.Images.ContainsKey(f.File) || f.Parts is not { Length: > 0 and <= 8 }
-                || f.Parts.Any(p => !Rect(p.Destination) || p.BackDestination is { } back && !Rect(back)
+                || f.Parts.Any(p => p.Side is not (null or "front" or "back") || !Rect(p.Destination) || p.BackDestination is { } back && !Rect(back)
                     || new[] { p.Front, p.Back }.Any(r => r is not { Length: 4 } || r[0] < 0 || r[1] < 0 || r[2] <= 0 || r[3] <= 0
                         || (long)r[0] + r[2] > m.Images[f.File][0] || (long)r[1] + r[3] > m.Images[f.File][1])))
-            || m.Frames.Single(f => f.Column == 0).Parts.Length != 1
+            || m.Frames.Single(f => f.Column == 0).Parts.Length != 1 || m.Frames.Single(f => f.Column == 0).Parts[0].Side is not null
             || m.HeadCutouts is null || !new[] { "front", "back" }.All(side => m.HeadCutouts.TryGetValue(side, out var polygon)
                 && polygon.Length >= 3 && polygon.All(p => p is { Length: 2 } && p.All(n => float.IsFinite(n) && n is >= 0 and <= 1)))
             || m.Mosaic is null || !Rect(m.Mosaic.Front) || !Rect(m.Mosaic.Back) || m.Mosaic.BlockSize is < 8 or > 40
@@ -84,6 +84,9 @@ internal sealed class InventoryPaperdollArt : IDisposable
             .Select(i => sim.Inventory.Definition(i.Id).Name).ToArray();
     }
     private PaperdollFrame Frame(PaperdollLayer layer) => _manifest.Frames.Single(f => f.Column == layer.Column);
+    /// <summary>Side-specific overlays share one filter for rendering and alpha picking.</summary>
+    private IEnumerable<PaperdollPart> Parts(PaperdollLayer layer, string side)
+        => Frame(layer).Parts.Where(p => p.Side is null || p.Side == side);
     private static Rect2 Source(PaperdollPart part, string side)
     { var r = side == "back" ? part.Back : part.Front; return new(r[0], r[1], r[2], r[3]); }
     private static Rect2 Destination(PaperdollPart part, string side)
@@ -95,7 +98,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
     }
     internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv)
     {
-        foreach (var part in Frame(layer).Parts)
+        foreach (var part in Parts(layer, side))
         {
             var dest = Destination(part, side); var local = (uv - dest.Position) / dest.Size;
             if (local.X is < 0 or >= 1 || local.Y is < 0 or >= 1) continue;
@@ -155,7 +158,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
         {
             var tint = layer.ItemId is not null && layer.ItemId == hover ? new Color(1.3f, 1.5f, 1.25f)
                 : layer.ItemId is not null && layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;
-            foreach (var part in Frame(layer).Parts)
+            foreach (var part in Parts(layer, side))
             {
                 var dest = Destination(part, side); var sourcePart = Source(part, side);
                 foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })

@@ -6,7 +6,8 @@ Generated November 4, 2026 with the **built-in imagegen tool**, requesting a tra
 - SHA-256: `de4d13c25681160a72f853d3eb7ffa01699d02fa2667d946808f71f1dc4136be`.
 - References: [existing gear-view backpack](../inventory-objects/backpack.png) for identity/materials; [current reference body](full-body-v2.png) for pose/style.
 - Harness source: `[104,201,561,652]`; bag source: `[860,83,586,840]`. Bounds were inspected from source alpha > 0.1, not cropped into new images.
-- Back-mounted frame 8: front harness destination `[.21,.195,.58,.31]`, back bag destination `[.22,.19,.56,.325]` on the 360×800 normalized body canvas. Front-mounted frame 9 swaps those source/destination pairs. The [manifest](manifest.json) is authoritative.
+- Initial registration: back-mounted frame 8 used front harness destination `[.21,.195,.58,.31]`, back bag destination `[.22,.19,.56,.325]` on the 360×800 normalized body canvas. Front-mounted frame 9 initially swapped those source/destination pairs.
+- Shoulder-connection correction: both frames now draw the harness at `[.21,.195,.58,.31]` on both sides. A second bag part at `[.22,.19,.56,.325]` draws only on `back` for frame 8 or `front` for frame 9. The front harness size/position, bag size/position and PNG pixels are unchanged; adding the harness behind the bag supplies the missing rear shoulder connections. The [manifest](manifest.json) is authoritative.
 
 See [runtime guide](../../../docs/44-worn-backpack-paperdoll.md) for normal paid inspection/handling, two physical mounts and qualification limits. This is hand-registered static art; it does not resize real storage, animate closures, supply physical fit/access masks or implement general cloth fitting. The existing enlarged gear illustration and hotspot segments are unchanged.
 
