@@ -72,7 +72,7 @@ The archive is authoring reference. Access to it does not give the player or res
 
 ## Restoring the reference checkout
 
-The game's [private remote and recovery workflow](../docs/12-development-workflow.md#remote-backup-and-recovery) excludes this independent bulk archive. After cloning the game, restore its inspected reference revision from the game repository root:
+The game's [remote and recovery workflow](../docs/12-development-workflow.md#remote-backup-and-recovery) excludes this independent bulk archive. After cloning the game, restore its inspected reference revision from the game repository root:
 
 ```sh
 git clone --filter=blob:none --no-checkout https://github.com/scp-data/scp-api.git source_material/scp-api
