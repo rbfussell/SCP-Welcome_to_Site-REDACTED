@@ -3115,6 +3115,7 @@
       "function-3c962201b492995e8c5e.html",
       "function-406d9435e62679d705d0.html",
       "function-44bdd90eaa2a9670d508.html",
+      "function-4957b651af67e6bb9c50.html",
       "function-4a1e376075486800d5c9.html",
       "function-50b4b4b455d959a5f4f3.html",
       "function-5327ca52d036c04b6ba8.html",
@@ -3685,6 +3686,7 @@
       "function-3c962201b492995e8c5e.html",
       "function-406d9435e62679d705d0.html",
       "function-44bdd90eaa2a9670d508.html",
+      "function-4957b651af67e6bb9c50.html",
       "function-4a1e376075486800d5c9.html",
       "function-50b4b4b455d959a5f4f3.html",
       "function-5327ca52d036c04b6ba8.html",
@@ -3855,6 +3857,7 @@
       "function-406d9435e62679d705d0.html",
       "function-42ab0c41f644f708ca3e.html",
       "function-44bdd90eaa2a9670d508.html",
+      "function-4957b651af67e6bb9c50.html",
       "function-4a1e376075486800d5c9.html",
       "function-4fdc29a1069517db21f5.html",
       "function-50b4b4b455d959a5f4f3.html",
@@ -5400,6 +5403,7 @@
     ],
     "candidate_incoming": [
       "function-1bab14fbdd5649042751.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-22daec565c979b0ec1d9.html",
       "function-266270f6fb4087bdbc78.html",
       "function-39be252f6ed553406ed8.html",
@@ -5430,6 +5434,7 @@
     ],
     "candidate_incoming": [
       "function-1bab14fbdd5649042751.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-22daec565c979b0ec1d9.html",
       "function-266270f6fb4087bdbc78.html",
       "function-39be252f6ed553406ed8.html",
@@ -9668,6 +9673,7 @@
     "candidate_incoming": [
       "function-0587fb81855352c26851.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-24effbaa33246ef354e3.html",
       "function-28a949ca54ec42cb0888.html",
       "function-44f78a6897368e41e985.html",
@@ -9741,6 +9747,7 @@
       "function-4f3abb1fae94501a4d34.html",
       "function-5e2b6295a5348f8c7909.html",
       "function-67e9932321b6bbf3001b.html",
+      "function-6fb392ac924646a11427.html",
       "function-7da2e75fa53038583034.html",
       "function-7e2aab1972b873f7d4b5.html",
       "function-800b0606e2f0fd53f269.html",
@@ -12008,6 +12015,7 @@
     ],
     "candidate_incoming": [
       "function-025bc4c5cdfd10c1130e.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-22057eb1d6f524b4964e.html",
       "function-de27d70373ce01fc3861.html"
     ]
@@ -14373,6 +14381,7 @@
     "signature": "private Rect2 Bounds",
     "candidate_outgoing": [],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-2230668e50a05bebc771.html",
       "function-44f78a6897368e41e985.html",
       "function-7dc3091239d038860ec1.html",
@@ -14408,6 +14417,7 @@
       "function-d54388e0adadd8cfe703.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-2230668e50a05bebc771.html",
       "function-44f78a6897368e41e985.html",
       "function-53d386bf8d63dc175b52.html",
@@ -14959,6 +14969,7 @@
       "function-c43bedfb1bcb0a94094b.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-2230668e50a05bebc771.html",
       "function-319f205e228e1fc0ac95.html",
       "function-44f78a6897368e41e985.html",
@@ -16015,6 +16026,7 @@
       "function-1b9b1db217f4def9420d.html",
       "function-1bab14fbdd5649042751.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1f773115897c0143fcb6.html",
       "function-208da63d790a6d018fd2.html",
       "function-2217a790885805d9ee25.html",
       "function-2533e924f7dfec6bf5a2.html",
@@ -16060,6 +16072,7 @@
       "function-67288a8f80f87a924f6a.html",
       "function-697734665a6eed61103c.html",
       "function-6eb4951cd1c973bc935b.html",
+      "function-6fb392ac924646a11427.html",
       "function-73c7971d370ba0862882.html",
       "function-7411a08c0118f45f2df8.html",
       "function-780a25774535263eabd7.html",
@@ -16761,7 +16774,7 @@
     "name": "InventoryPaperdollArt",
     "kind": "ConstructorDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 20,
+    "line": 22,
     "signature": "internal InventoryPaperdollArt()",
     "candidate_outgoing": [
       "function-3e3decffd37010238dfc.html",
@@ -16780,11 +16793,12 @@
     "name": "Validate",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 32,
+    "line": 34,
     "signature": "private static void Validate(PaperdollManifest m)",
     "candidate_outgoing": [
       "function-129048a6e3783a09fa1e.html",
       "function-6f172cad323a98a2b3ea.html",
+      "function-6fb392ac924646a11427.html",
       "function-aaee74bf4fdac98efe9d.html"
     ],
     "candidate_incoming": [
@@ -16797,7 +16811,7 @@
     "name": "Rect",
     "kind": "LocalFunctionStatement",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 34,
+    "line": 36,
     "signature": "static bool Rect(float[]? r)",
     "candidate_outgoing": [
       "function-6f172cad323a98a2b3ea.html"
@@ -16812,7 +16826,7 @@
     "name": "Layers",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 58,
+    "line": 62,
     "signature": "internal PaperdollLayer[] Layers(SpatialSimulation sim)",
     "candidate_outgoing": [
       "function-0d0ba7986c4637c3a29a.html",
@@ -16831,6 +16845,7 @@
       "function-e56b03b5d93150b61b5c.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-208da63d790a6d018fd2.html",
       "function-226fdd0b456b6674acf0.html",
       "function-39be252f6ed553406ed8.html",
@@ -16848,7 +16863,7 @@
     "name": "Omitted",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 80,
+    "line": 84,
     "signature": "internal string[] Omitted(SpatialSimulation sim)",
     "candidate_outgoing": [
       "function-0d0ba7986c4637c3a29a.html",
@@ -16869,14 +16884,15 @@
     "name": "Frame",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 86,
+    "line": 90,
     "signature": "private PaperdollFrame Frame(PaperdollLayer layer)",
     "candidate_outgoing": [],
     "candidate_incoming": [
       "function-208da63d790a6d018fd2.html",
+      "function-4957b651af67e6bb9c50.html",
+      "function-7d1a55636251f9e995fe.html",
       "function-95c7d7a795cc6ceb436f.html",
-      "function-e82a34af84dd9f1bb05d.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-e82a34af84dd9f1bb05d.html"
     ]
   },
   {
@@ -16885,14 +16901,14 @@
     "name": "Parts",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 88,
+    "line": 92,
     "signature": "private IEnumerable<PaperdollPart> Parts(PaperdollLayer layer, string side)",
     "candidate_outgoing": [
       "function-089ea55d218c40dd7ba5.html"
     ],
     "candidate_incoming": [
       "function-208da63d790a6d018fd2.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-7d1a55636251f9e995fe.html"
     ]
   },
   {
@@ -16901,13 +16917,14 @@
     "name": "Source",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 90,
+    "line": 94,
     "signature": "private static Rect2 Source(PaperdollPart part, string side)",
     "candidate_outgoing": [],
     "candidate_incoming": [
       "function-208da63d790a6d018fd2.html",
-      "function-e82a34af84dd9f1bb05d.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-4957b651af67e6bb9c50.html",
+      "function-7d1a55636251f9e995fe.html",
+      "function-e82a34af84dd9f1bb05d.html"
     ]
   },
   {
@@ -16916,13 +16933,34 @@
     "name": "Destination",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 92,
+    "line": 96,
     "signature": "private static Rect2 Destination(PaperdollPart part, string side)",
     "candidate_outgoing": [],
     "candidate_incoming": [
       "function-208da63d790a6d018fd2.html",
-      "function-e82a34af84dd9f1bb05d.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-7d1a55636251f9e995fe.html",
+      "function-e82a34af84dd9f1bb05d.html"
+    ]
+  },
+  {
+    "url": "function-4957b651af67e6bb9c50.html",
+    "owner": "InventoryPaperdollArt",
+    "name": "Raster",
+    "kind": "MethodDeclaration",
+    "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
+    "line": 99,
+    "signature": "private PaperdollRaster Raster(PaperdollLayer layer, PaperdollPart part, string side)",
+    "candidate_outgoing": [
+      "function-089ea55d218c40dd7ba5.html",
+      "function-1f773115897c0143fcb6.html",
+      "function-3330a538746c3bf85f5a.html",
+      "function-7850e5f6be281e029702.html",
+      "function-bcf73aecd0f059a757f5.html",
+      "function-bff55eb0adaf5375bc57.html"
+    ],
+    "candidate_incoming": [
+      "function-208da63d790a6d018fd2.html",
+      "function-7d1a55636251f9e995fe.html"
     ]
   },
   {
@@ -16931,10 +16969,11 @@
     "name": "Bounds",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 94,
+    "line": 110,
     "signature": "internal Rect2 Bounds(Vector2 size)",
     "candidate_outgoing": [],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-208da63d790a6d018fd2.html",
       "function-2230668e50a05bebc771.html",
       "function-226fdd0b456b6674acf0.html",
@@ -16946,20 +16985,22 @@
     ]
   },
   {
-    "url": "function-fb98f959c71e2b2e4b76.html",
+    "url": "function-7d1a55636251f9e995fe.html",
     "owner": "InventoryPaperdollArt",
     "name": "Opaque",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 99,
-    "signature": "internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv)",
+    "line": 115,
+    "signature": "internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv, bool worn = true)",
     "candidate_outgoing": [
       "function-089ea55d218c40dd7ba5.html",
       "function-3330a538746c3bf85f5a.html",
+      "function-4957b651af67e6bb9c50.html",
       "function-884fca7b1637826341a1.html",
       "function-95c7d7a795cc6ceb436f.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-226fdd0b456b6674acf0.html",
       "function-780e705c5046543f5d9a.html",
       "function-ceb53591e820b4cda7ea.html",
@@ -16972,7 +17013,7 @@
     "name": "Head",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 110,
+    "line": 127,
     "signature": "private Vector2[] Head(string side)",
     "candidate_outgoing": [
       "function-aaee74bf4fdac98efe9d.html"
@@ -16988,11 +17029,11 @@
     "name": "HeadOpaque",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 111,
+    "line": 128,
     "signature": "internal bool HeadOpaque(string side, Vector2 uv)",
     "candidate_outgoing": [
-      "function-be0bc952af291987e4ce.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-7d1a55636251f9e995fe.html",
+      "function-be0bc952af291987e4ce.html"
     ],
     "candidate_incoming": [
       "function-226fdd0b456b6674acf0.html",
@@ -17005,15 +17046,16 @@
     "name": "Pick",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 112,
+    "line": 129,
     "signature": "internal string? Pick(SpatialSimulation sim, string side, Vector2 size, Vector2 position)",
     "candidate_outgoing": [
       "function-400eeea8cb0959dc6f06.html",
+      "function-7d1a55636251f9e995fe.html",
       "function-a63342796dc9c9ed33a3.html",
-      "function-ceb53591e820b4cda7ea.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-ceb53591e820b4cda7ea.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-2230668e50a05bebc771.html",
       "function-44f78a6897368e41e985.html",
       "function-7dc3091239d038860ec1.html",
@@ -17028,7 +17070,7 @@
     "name": "BaseRegions",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 119,
+    "line": 136,
     "signature": "private Rect2[] BaseRegions(PaperdollLayer[] layers)",
     "candidate_outgoing": [
       "function-2674ebc4f15481027064.html",
@@ -17047,12 +17089,12 @@
     "name": "MosaicVisible",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 137,
+    "line": 154,
     "signature": "internal bool MosaicVisible(SpatialSimulation sim, string side, Vector2 uv)",
     "candidate_outgoing": [
+      "function-7d1a55636251f9e995fe.html",
       "function-91f463fa8046959b4b81.html",
-      "function-a63342796dc9c9ed33a3.html",
-      "function-fb98f959c71e2b2e4b76.html"
+      "function-a63342796dc9c9ed33a3.html"
     ],
     "candidate_incoming": [
       "function-44f78a6897368e41e985.html",
@@ -17065,7 +17107,7 @@
     "name": "DrawMosaic",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 140,
+    "line": 157,
     "signature": "private void DrawMosaic(Control canvas, Rect2 bounds, string side)",
     "candidate_outgoing": [
       "function-089ea55d218c40dd7ba5.html",
@@ -17084,12 +17126,13 @@
     "name": "Draw",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 153,
+    "line": 170,
     "signature": "internal void Draw(Control canvas, SpatialSimulation sim, string side, string? hover, string? selected)",
     "candidate_outgoing": [
       "function-089ea55d218c40dd7ba5.html",
       "function-3330a538746c3bf85f5a.html",
       "function-400eeea8cb0959dc6f06.html",
+      "function-4957b651af67e6bb9c50.html",
       "function-82246aedd86f3023c374.html",
       "function-884fca7b1637826341a1.html",
       "function-95c7d7a795cc6ceb436f.html",
@@ -17109,7 +17152,7 @@
     "name": "Dispose",
     "kind": "MethodDeclaration",
     "path": "game/Presentation/Inventory/InventoryPaperdollArt.cs",
-    "line": 180,
+    "line": 197,
     "signature": "public void Dispose()",
     "candidate_outgoing": [
       "function-1941dc81806c4916cde5.html"
@@ -17539,6 +17582,7 @@
     ],
     "candidate_incoming": [
       "function-0038529ef7a7351c141e.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-2230668e50a05bebc771.html",
       "function-44f78a6897368e41e985.html",
       "function-7dc3091239d038860ec1.html",
@@ -17634,6 +17678,41 @@
       "function-e96de535d569435021f6.html"
     ],
     "candidate_incoming": []
+  },
+  {
+    "url": "function-6fb392ac924646a11427.html",
+    "owner": "PaperdollWornMask",
+    "name": "Valid",
+    "kind": "MethodDeclaration",
+    "path": "game/Presentation/Inventory/PaperdollWornMask.cs",
+    "line": 8,
+    "signature": "internal static bool Valid(float[][][]? cutouts)",
+    "candidate_outgoing": [
+      "function-6f172cad323a98a2b3ea.html",
+      "function-aaee74bf4fdac98efe9d.html"
+    ],
+    "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
+      "function-1f773115897c0143fcb6.html",
+      "function-48266518ecb149950757.html"
+    ]
+  },
+  {
+    "url": "function-1f773115897c0143fcb6.html",
+    "owner": "PaperdollWornMask",
+    "name": "Apply",
+    "kind": "MethodDeclaration",
+    "path": "game/Presentation/Inventory/PaperdollWornMask.cs",
+    "line": 15,
+    "signature": "internal static void Apply(Image image, float[][][] cutouts)",
+    "candidate_outgoing": [
+      "function-6fb392ac924646a11427.html",
+      "function-aaee74bf4fdac98efe9d.html"
+    ],
+    "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
+      "function-4957b651af67e6bb9c50.html"
+    ]
   },
   {
     "url": "function-c53465c1ee1e95c86632.html",
@@ -19504,6 +19583,7 @@
       "function-6469798b617ec9f67b98.html",
       "function-64b20a86e991440adc9f.html",
       "function-6710472d44b17b7840dd.html",
+      "function-68635185828f88e981c3.html",
       "function-6b33f3124d5698c11591.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
@@ -19575,6 +19655,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -19616,6 +19697,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -19670,6 +19752,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -19769,6 +19852,7 @@
       "function-5cd29b7803afdc844ebe.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
       "function-73c7971d370ba0862882.html",
@@ -19827,6 +19911,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -19868,6 +19953,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -19979,6 +20065,7 @@
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
       "function-6710472d44b17b7840dd.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -20029,6 +20116,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -20070,6 +20158,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -20124,6 +20213,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -20183,6 +20273,7 @@
       "function-553327117b7a641ba6b0.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -20254,6 +20345,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -20295,6 +20387,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -20414,6 +20507,7 @@
       "function-553327117b7a641ba6b0.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
       "function-73c7971d370ba0862882.html",
@@ -20474,6 +20568,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -20515,6 +20610,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -20604,6 +20700,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -20840,6 +20937,7 @@
     "candidate_incoming": [
       "function-0587fb81855352c26851.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-28a949ca54ec42cb0888.html",
       "function-44f78a6897368e41e985.html",
       "function-5ae9576e6493b79a50f6.html",
@@ -21017,6 +21115,7 @@
       "function-5d38d45e7793a12775f1.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
       "function-73c7971d370ba0862882.html",
@@ -21084,6 +21183,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -21125,6 +21225,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -21179,6 +21280,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -21267,6 +21369,7 @@
       "function-07477c1b6ec950067700.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-26febcdb0b596301a36b.html",
       "function-27e4634901b893bd127a.html",
@@ -21329,6 +21432,7 @@
     "candidate_incoming": [
       "function-0587fb81855352c26851.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-33efb3cfcabbe21ba187.html",
       "function-44f78a6897368e41e985.html",
       "function-48f163b3cd0bbddb8b7d.html",
@@ -21432,6 +21536,7 @@
     "candidate_incoming": [
       "function-0587fb81855352c26851.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-44f78a6897368e41e985.html",
       "function-636936daab561e47bbb5.html",
       "function-7dc3091239d038860ec1.html",
@@ -21491,6 +21596,7 @@
       "function-61f1fbe997de6c840a62.html",
       "function-636936daab561e47bbb5.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-732066f10b48f358e290.html",
       "function-738bc47c82c149139857.html",
@@ -21568,6 +21674,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -21609,6 +21716,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -21893,6 +22001,7 @@
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
       "function-6710472d44b17b7840dd.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
       "function-73c7971d370ba0862882.html",
@@ -21945,6 +22054,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -21987,6 +22097,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -22046,6 +22157,7 @@
       "function-553327117b7a641ba6b0.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-7274b193a9a8b15b673e.html",
       "function-738bc47c82c149139857.html",
@@ -22107,6 +22219,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -22148,6 +22261,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -22202,6 +22316,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -22298,6 +22413,7 @@
       "function-5d38d45e7793a12775f1.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-738bc47c82c149139857.html",
       "function-73c7971d370ba0862882.html",
@@ -22363,6 +22479,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -22423,6 +22540,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -22477,6 +22595,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -22552,6 +22671,96 @@
     ]
   },
   {
+    "url": "function-1e68f5e03dc561605d89.html",
+    "owner": "SpatialScene",
+    "name": "RunPaperdollMaskSmoke",
+    "kind": "MethodDeclaration",
+    "path": "game/Presentation/SpatialScene.PaperdollMaskSmoke.cs",
+    "line": 9,
+    "signature": "private async Task RunPaperdollMaskSmoke()",
+    "candidate_outgoing": [
+      "function-089146c0d543eebf62bd.html",
+      "function-0c623fa40c397b194255.html",
+      "function-1f773115897c0143fcb6.html",
+      "function-22057eb1d6f524b4964e.html",
+      "function-226fdd0b456b6674acf0.html",
+      "function-24effbaa33246ef354e3.html",
+      "function-27fc66abf19922bfa212.html",
+      "function-37831e2ab5125b39ef21.html",
+      "function-3868faea977bd33b4c3f.html",
+      "function-3ad315fa7a49f27489ee.html",
+      "function-400eeea8cb0959dc6f06.html",
+      "function-483544472457d191de92.html",
+      "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
+      "function-6ca2ee0a15dfe92e27ca.html",
+      "function-6fb392ac924646a11427.html",
+      "function-786fcd16dc8fcd90f1da.html",
+      "function-7d1a55636251f9e995fe.html",
+      "function-850c8ed481e97c657823.html",
+      "function-8d6ca7964d6a1d5f9859.html",
+      "function-918554009bb5efb6c491.html",
+      "function-93795b6a89e28abd71b9.html",
+      "function-941c8db3e233126b64d3.html",
+      "function-972f51d2c02986945d58.html",
+      "function-a155034e04e63e955f0d.html",
+      "function-a63342796dc9c9ed33a3.html",
+      "function-aa69254c64f3fd01f3f4.html",
+      "function-c7f6fb2ef36812a55859.html",
+      "function-dbf5f416a067cab43a27.html",
+      "function-e215fbbf95b9dd150544.html",
+      "function-e7cd2df4d6ce8536b165.html",
+      "function-fa224abb4116b9fed83b.html"
+    ],
+    "candidate_incoming": [
+      "function-de27d70373ce01fc3861.html"
+    ]
+  },
+  {
+    "url": "function-68635185828f88e981c3.html",
+    "owner": "SpatialScene",
+    "name": "Check",
+    "kind": "LocalFunctionStatement",
+    "path": "game/Presentation/SpatialScene.PaperdollMaskSmoke.cs",
+    "line": 13,
+    "signature": "void Check(bool ok, string reason)",
+    "candidate_outgoing": [],
+    "candidate_incoming": [
+      "function-016b38302207c8ccd929.html",
+      "function-0587fb81855352c26851.html",
+      "function-07477c1b6ec950067700.html",
+      "function-10c607deb234c2acc029.html",
+      "function-1443472b35854bba8dbd.html",
+      "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
+      "function-1e9b5994be7b5532664f.html",
+      "function-234b6468ec60f82967c3.html",
+      "function-26febcdb0b596301a36b.html",
+      "function-27e4634901b893bd127a.html",
+      "function-437bdfff80409077a5f4.html",
+      "function-44f78a6897368e41e985.html",
+      "function-45eb2318b34d5fab2dc8.html",
+      "function-5d38d45e7793a12775f1.html",
+      "function-636936daab561e47bbb5.html",
+      "function-7dc3091239d038860ec1.html",
+      "function-7eb300265d6bd70b5e8f.html",
+      "function-8b329c86d66532851768.html",
+      "function-8c8b9d929699c2fe4716.html",
+      "function-9ce48cd98d897a7a08ac.html",
+      "function-9d6fc5ec3d33e70f7b07.html",
+      "function-a3f6deda586c7d6b6df9.html",
+      "function-abefa2f77652b6d17366.html",
+      "function-cdeb7c893d805bf2e798.html",
+      "function-cf154c80b9ad8ab44959.html",
+      "function-de27d70373ce01fc3861.html",
+      "function-e329ddad01189dd0d8a2.html",
+      "function-e573f894f6639244d8ed.html",
+      "function-f412789919c7e13a6d0b.html",
+      "function-f48ca0a4023d40c726bb.html",
+      "function-fe39d4526dbfad08ec88.html"
+    ]
+  },
+  {
     "url": "function-de27d70373ce01fc3861.html",
     "owner": "SpatialScene",
     "name": "RunPaperdollSmoke",
@@ -22569,6 +22778,7 @@
       "function-1443472b35854bba8dbd.html",
       "function-15df43c72b0c3ad941c4.html",
       "function-163ab890ac230eb06416.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-22057eb1d6f524b4964e.html",
       "function-2230668e50a05bebc771.html",
       "function-226fdd0b456b6674acf0.html",
@@ -22595,10 +22805,12 @@
       "function-553327117b7a641ba6b0.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-6f172cad323a98a2b3ea.html",
       "function-780e705c5046543f5d9a.html",
       "function-786fcd16dc8fcd90f1da.html",
+      "function-7d1a55636251f9e995fe.html",
       "function-7dc3091239d038860ec1.html",
       "function-7eb300265d6bd70b5e8f.html",
       "function-81d3911febd43f008c30.html",
@@ -22635,7 +22847,6 @@
       "function-e7cd2df4d6ce8536b165.html",
       "function-f48ca0a4023d40c726bb.html",
       "function-fa224abb4116b9fed83b.html",
-      "function-fb98f959c71e2b2e4b76.html",
       "function-ffa1b0e7fe3c7962525a.html"
     ],
     "candidate_incoming": [
@@ -22658,6 +22869,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -22718,6 +22930,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -22843,6 +23056,7 @@
       "function-5d38d45e7793a12775f1.html",
       "function-61f1fbe997de6c840a62.html",
       "function-6469798b617ec9f67b98.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-6f172cad323a98a2b3ea.html",
       "function-780e705c5046543f5d9a.html",
@@ -22895,6 +23109,7 @@
       "function-10c607deb234c2acc029.html",
       "function-1443472b35854bba8dbd.html",
       "function-1e02f2cf76c9d57a4e26.html",
+      "function-1e68f5e03dc561605d89.html",
       "function-1e9b5994be7b5532664f.html",
       "function-234b6468ec60f82967c3.html",
       "function-26febcdb0b596301a36b.html",
@@ -22936,6 +23151,7 @@
       "function-3868faea977bd33b4c3f.html",
       "function-3ad315fa7a49f27489ee.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-8d6ca7964d6a1d5f9859.html",
@@ -22990,6 +23206,7 @@
       "function-437bdfff80409077a5f4.html",
       "function-45eb2318b34d5fab2dc8.html",
       "function-61f1fbe997de6c840a62.html",
+      "function-68635185828f88e981c3.html",
       "function-6ca2ee0a15dfe92e27ca.html",
       "function-786fcd16dc8fcd90f1da.html",
       "function-7eb300265d6bd70b5e8f.html",
@@ -23345,6 +23562,7 @@
       "function-aaee74bf4fdac98efe9d.html"
     ],
     "candidate_incoming": [
+      "function-1e68f5e03dc561605d89.html",
       "function-39be252f6ed553406ed8.html",
       "function-44f78a6897368e41e985.html",
       "function-7dc3091239d038860ec1.html",

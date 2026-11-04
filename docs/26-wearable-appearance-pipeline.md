@@ -80,3 +80,5 @@ Changing this view costs no simulation time/AP, modifies no item/fastening state
 The [engine mosaic follow-up](43-paperdoll-mosaic.md) adds a visual overlay beneath committed clothing. It does not replace physical access, and the current base is shirtless with close-fitting tan fabric briefs. The earlier featureless mannequin request remains unimplemented.
 
 [Worn backpack/harness qualification](44-worn-backpack-paperdoll.md) now connects mount-aware front/back art to existing segmented gear inspection, with unchanged paid access and save identity.
+
+Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.

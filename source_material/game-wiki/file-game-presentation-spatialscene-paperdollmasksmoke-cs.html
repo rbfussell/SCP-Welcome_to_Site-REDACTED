@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PaperdollMaskSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PaperdollMaskSmoke.cs</h1><p>game/Presentation/SpatialScene.PaperdollMaskSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-1e68f5e03dc561605d89.html">SpatialScene.RunPaperdollMaskSmoke</a> · line 9</li><li><a href="function-68635185828f88e981c3.html">SpatialScene.Check</a> · line 13</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using System.Threading.Tasks;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> public partial class SpatialScene</span>
+<span id="L7"><a class="line" href="#L7">7</a> {</span>
+<span id="L8"><a class="line" href="#L8">8</a>     /// &lt;summary&gt;Qualify worn-only shoe holes, unchanged loose source pixels, both feet/sides, picking and paid-state isolation.&lt;/summary&gt;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunPaperdollMaskSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var proof = _hud.Inventory.PaperdollProof; var surface = proof.Surface;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         var before = sim.Save(); var shoes = proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;avatar-shoes&quot;);</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Worn mask: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         Check(PaperdollWornMask.Valid(null) &amp;&amp; PaperdollWornMask.Valid([]), &quot;optional masks rejected&quot;);</span>
+<span id="L15"><a class="line" href="#L15">15</a>         Check(!PaperdollWornMask.Valid([[[float.NaN, 0], [1, 0], [0, 1]]])</span>
+<span id="L16"><a class="line" href="#L16">16</a>             &amp;&amp; !PaperdollWornMask.Valid([[[-.1f, 0], [1, 0], [0, 1]]])</span>
+<span id="L17"><a class="line" href="#L17">17</a>             &amp;&amp; !PaperdollWornMask.Valid([[[0, 0], [0, 0], [0, 0]]]), &quot;invalid mask geometry accepted&quot;);</span>
+<span id="L18"><a class="line" href="#L18">18</a>         using (var original = Image.CreateEmpty(10, 10, false, Image.Format.Rgba8))</span>
+<span id="L19"><a class="line" href="#L19">19</a>         {</span>
+<span id="L20"><a class="line" href="#L20">20</a>             original.Fill(new Color(.4f, .2f, .1f, .8f));</span>
+<span id="L21"><a class="line" href="#L21">21</a>             using var copy = original.GetRegion(new(0, 0, 10, 10));</span>
+<span id="L22"><a class="line" href="#L22">22</a>             PaperdollWornMask.Apply(copy, [[[0, 0], [.5f, 0], [.5f, .5f], [0, .5f]]]);</span>
+<span id="L23"><a class="line" href="#L23">23</a>             Check(copy.GetPixel(2, 2).A == 0 &amp;&amp; copy.GetPixel(8, 8) == original.GetPixel(8, 8)</span>
+<span id="L24"><a class="line" href="#L24">24</a>                 &amp;&amp; original.GetPixel(2, 2).A &gt; .7f &amp;&amp; copy.GetPixel(2, 2).R == original.GetPixel(2, 2).R,</span>
+<span id="L25"><a class="line" href="#L25">25</a>                 &quot;mask altered loose pixels, surviving pixels or source RGB&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         }</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var looseBefore = InventoryArt.Opaque(&quot;boots&quot;, new(.5f, .5f));</span>
+<span id="L28"><a class="line" href="#L28">28</a>         foreach (var side in new[] { &quot;front&quot;, &quot;back&quot; })</span>
+<span id="L29"><a class="line" href="#L29">29</a>         {</span>
+<span id="L30"><a class="line" href="#L30">30</a>             if (proof.Side != side) { InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames(); }</span>
+<span id="L31"><a class="line" href="#L31">31</a>             foreach (var left in new[] { true, false })</span>
+<span id="L32"><a class="line" href="#L32">32</a>             {</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 Vector2? hole = null; var retained = false;</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 for (var y = .865f; y &lt; .985f; y += .002f)</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 for (var x = left ? .1f : .65f; x &lt; (left ? .4f : .91f); x += .002f)</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 {</span>
+<span id="L37"><a class="line" href="#L37">37</a>                     var uv = new Vector2(x, y);</span>
+<span id="L38"><a class="line" href="#L38">38</a>                     var loose = proof.Art.Opaque(shoes, side, uv, worn: false);</span>
+<span id="L39"><a class="line" href="#L39">39</a>                     var worn = proof.Art.Opaque(shoes, side, uv);</span>
+<span id="L40"><a class="line" href="#L40">40</a>                     Check(!worn || loose, &quot;mask added pixels outside the source shoe&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     if (loose &amp;&amp; !worn) hole ??= uv;</span>
+<span id="L42"><a class="line" href="#L42">42</a>                     if (worn) retained = true;</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 }</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 Check(hole is not null &amp;&amp; retained, &quot;missing opening cutout or shoe erased on &quot; + side);</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 var b = proof.Art.Bounds(surface.Size); var at = b.Position + hole!.Value * b.Size;</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 Check(surface.Pick(at) != &quot;avatar-shoes&quot; &amp;&amp; proof.Art.Opaque(shoes, side, hole.Value, worn: false),</span>
+<span id="L47"><a class="line" href="#L47">47</a>                     &quot;masked opening still selects the shoe, or loose source was destroyed&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 var size = surface.Size; surface.Size = new(300, 270); b = proof.Art.Bounds(surface.Size);</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 Check(surface.Pick(b.Position + hole.Value * b.Size) != &quot;avatar-shoes&quot;, &quot;masked picking drifted after resize&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>                 surface.Size = size;</span>
+<span id="L51"><a class="line" href="#L51">51</a>             }</span>
+<span id="L52"><a class="line" href="#L52">52</a>             await InventoryCapture(&quot;-worn-mask-&quot; + side);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         }</span>
+<span id="L54"><a class="line" href="#L54">54</a>         InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Check(proof.Side == &quot;front&quot; &amp;&amp; sim.Save() == before &amp;&amp; InventoryArt.Opaque(&quot;boots&quot;, new(.5f, .5f)) == looseBefore,</span>
+<span id="L56"><a class="line" href="#L56">56</a>             &quot;visual masking changed equipment, paid work, loose art or simulation state&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         GD.Print(&quot;PAPERDOLL_MASK_SMOKE_PASS: both feet/front-back worn holes, retained source/loose pixels, mask validation, shared alpha picking, resize and unchanged physical state.&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>     }</span>
+<span id="L59"><a class="line" href="#L59">59</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

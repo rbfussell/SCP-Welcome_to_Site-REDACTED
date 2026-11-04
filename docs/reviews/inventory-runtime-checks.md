@@ -2,6 +2,13 @@
 
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
+Current worn-only footwear masks (November 4):
+
+- `--paperdoll-smoke work/preview/spatial-scene/worn-mask.png`: **PAPERDOLL_MASK_SMOKE_PASS / PAPERDOLL_BACKPACK_SMOKE_PASS / PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors and successful native exit. Both feet/front-back retain source pixels outside the authored holes; hidden shaft pixels are no longer shoe targets, including after letterbox resize. Mask geometry rejects non-finite, out-of-range and zero-area input. Private-copy raster checks preserve original alpha/RGB, and visual queries leave saved simulation state unchanged. Parent checks retain paid shoe/sock removal, exposed socks/feet, closures, pack handling and continuation.
+- Front/back masked outfit captures were visually reviewed at 1440×900. All five source paperdoll PNGs compare byte-for-byte with their pre-change Git blobs. Loose packing/drag illustrations remain on the existing independent, unmasked `InventoryArt` path. This does not add dragging to the sprite proof or unify loose/worn atlas registrations.
+- The first native import was blocked by sandbox-denied local editor sockets; rerunning with the required local socket/display access resolved that environment failure. The first mask assertion then exposed Godot triangulation accepting a zero-area input; explicit distinct-vertex/nonzero-area validation corrected it. The final native run passed; its existing unsupported software-display V-Sync warning remains, with no ObjectDB warning in this final run.
+- See [runtime/metadata guide](../45-worn-alpha-masks.md) and [wiki mechanic](../../source_material/game-wiki/worn-alpha-masks.html). These presentation masks change no inventory/save schema, immutable kit identity or physical fit/access behavior. Full domain and all eleven native inventory suites were not rerun for this presentation-only change; prior reports below remain historical evidence.
+
 Current rear shoulder-connection correction (November 4):
 
 - `--paperdoll-smoke work/preview/spatial-scene/pack-shoulders.png`: **PAPERDOLL_BACKPACK_SMOKE_PASS / PAPERDOLL_SMOKE_PASS**, zero compiler warnings/errors. The rear bag now overlays the same-scale harness instead of replacing it. The rendered rear shoulder connections were visually reviewed. The original normal front paperdoll crop (pixels 75,215–250,555) and corrected front capture compare **pixel-identical** using Pillow difference inspection; no source image was edited.

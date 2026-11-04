@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.RunPaperdollMaskSmoke | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.RunPaperdollMaskSmoke</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-paperdollmasksmoke-cs.html#L9">game/Presentation/SpatialScene.PaperdollMaskSmoke.cs:9</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async Task RunPaperdollMaskSmoke()</code></pre><h2>Source documentation</h2><pre>/// &lt;summary&gt;Qualify worn-only shoe holes, unchanged loose source pixels, both feet/sides, picking and paid-state isolation.&lt;/summary&gt;</pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-0c623fa40c397b194255.html">SpriteArtCatalog.Layers</a></li><li><a href="function-1f773115897c0143fcb6.html">PaperdollWornMask.Apply</a></li><li><a href="function-22057eb1d6f524b4964e.html">InventoryGearSurface.Pick</a></li><li><a href="function-226fdd0b456b6674acf0.html">InventoryPaperdollArt.Pick</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-27fc66abf19922bfa212.html">SpatialScene.Check</a></li><li><a href="function-37831e2ab5125b39ef21.html">SpatialScene.Check</a></li><li><a href="function-3868faea977bd33b4c3f.html">SpatialScene.Check</a></li><li><a href="function-3ad315fa7a49f27489ee.html">SpatialScene.Check</a></li><li><a href="function-400eeea8cb0959dc6f06.html">InventoryPaperdollArt.Bounds</a></li><li><a href="function-483544472457d191de92.html">InventoryGrid.Pick</a></li><li><a href="function-61f1fbe997de6c840a62.html">SpatialScene.Check</a></li><li><a href="function-68635185828f88e981c3.html">SpatialScene.Check</a></li><li><a href="function-6ca2ee0a15dfe92e27ca.html">SpatialScene.Check</a></li><li><a href="function-6fb392ac924646a11427.html">PaperdollWornMask.Valid</a></li><li><a href="function-786fcd16dc8fcd90f1da.html">SpatialScene.Check</a></li><li><a href="function-7d1a55636251f9e995fe.html">InventoryPaperdollArt.Opaque</a></li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a></li><li><a href="function-8d6ca7964d6a1d5f9859.html">SpatialScene.Check</a></li><li><a href="function-918554009bb5efb6c491.html">SpatialScene.InventoryClick</a></li><li><a href="function-93795b6a89e28abd71b9.html">InventoryGearSurface.Bounds</a></li><li><a href="function-941c8db3e233126b64d3.html">InventoryPaperdollSurface.Pick</a></li><li><a href="function-972f51d2c02986945d58.html">SpatialScene.InventoryFrames</a></li><li><a href="function-a155034e04e63e955f0d.html">InventoryArt.Opaque</a></li><li><a href="function-a63342796dc9c9ed33a3.html">InventoryPaperdollArt.Layers</a></li><li><a href="function-aa69254c64f3fd01f3f4.html">SpatialScene.Check</a></li><li><a href="function-c7f6fb2ef36812a55859.html">InventoryWornOrder.Layers</a></li><li><a href="function-dbf5f416a067cab43a27.html">SpatialScene.Check</a></li><li><a href="function-e215fbbf95b9dd150544.html">InventoryWornOrder.Layers</a></li><li><a href="function-e7cd2df4d6ce8536b165.html">SpatialScene.Check</a></li><li><a href="function-fa224abb4116b9fed83b.html">SpatialScene.Check</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>sim.Save
+proof.Art.Layers(sim).Single
+proof.Art.Layers
+Check
+PaperdollWornMask.Valid
+Image.CreateEmpty
+original.Fill
+original.GetRegion
+PaperdollWornMask.Apply
+copy.GetPixel
+original.GetPixel
+InventoryArt.Opaque
+InventoryClick
+proof.Flip.GetGlobalRect().GetCenter
+proof.Flip.GetGlobalRect
+InventoryFrames
+proof.Art.Opaque
+proof.Art.Bounds
+surface.Pick
+InventoryCapture
+GD.Print</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart.html">InventoryArt</a></li><li><a href="type-paperdollwornmask.html">PaperdollWornMask</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Implementation</h2><pre><code>private async Task RunPaperdollMaskSmoke()
+    {
+        var sim = _simulation; var proof = _hud.Inventory.PaperdollProof; var surface = proof.Surface;
+        var before = sim.Save(); var shoes = proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;avatar-shoes&quot;);
+        void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Worn mask: &quot; + reason); }
+        Check(PaperdollWornMask.Valid(null) &amp;&amp; PaperdollWornMask.Valid([]), &quot;optional masks rejected&quot;);
+        Check(!PaperdollWornMask.Valid([[[float.NaN, 0], [1, 0], [0, 1]]])
+            &amp;&amp; !PaperdollWornMask.Valid([[[-.1f, 0], [1, 0], [0, 1]]])
+            &amp;&amp; !PaperdollWornMask.Valid([[[0, 0], [0, 0], [0, 0]]]), &quot;invalid mask geometry accepted&quot;);
+        using (var original = Image.CreateEmpty(10, 10, false, Image.Format.Rgba8))
+        {
+            original.Fill(new Color(.4f, .2f, .1f, .8f));
+            using var copy = original.GetRegion(new(0, 0, 10, 10));
+            PaperdollWornMask.Apply(copy, [[[0, 0], [.5f, 0], [.5f, .5f], [0, .5f]]]);
+            Check(copy.GetPixel(2, 2).A == 0 &amp;&amp; copy.GetPixel(8, 8) == original.GetPixel(8, 8)
+                &amp;&amp; original.GetPixel(2, 2).A &gt; .7f &amp;&amp; copy.GetPixel(2, 2).R == original.GetPixel(2, 2).R,
+                &quot;mask altered loose pixels, surviving pixels or source RGB&quot;);
+        }
+        var looseBefore = InventoryArt.Opaque(&quot;boots&quot;, new(.5f, .5f));
+        foreach (var side in new[] { &quot;front&quot;, &quot;back&quot; })
+        {
+            if (proof.Side != side) { InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames(); }
+            foreach (var left in new[] { true, false })
+            {
+                Vector2? hole = null; var retained = false;
+                for (var y = .865f; y &lt; .985f; y += .002f)
+                for (var x = left ? .1f : .65f; x &lt; (left ? .4f : .91f); x += .002f)
+                {
+                    var uv = new Vector2(x, y);
+                    var loose = proof.Art.Opaque(shoes, side, uv, worn: false);
+                    var worn = proof.Art.Opaque(shoes, side, uv);
+                    Check(!worn || loose, &quot;mask added pixels outside the source shoe&quot;);
+                    if (loose &amp;&amp; !worn) hole ??= uv;
+                    if (worn) retained = true;
+                }
+                Check(hole is not null &amp;&amp; retained, &quot;missing opening cutout or shoe erased on &quot; + side);
+                var b = proof.Art.Bounds(surface.Size); var at = b.Position + hole!.Value * b.Size;
+                Check(surface.Pick(at) != &quot;avatar-shoes&quot; &amp;&amp; proof.Art.Opaque(shoes, side, hole.Value, worn: false),
+                    &quot;masked opening still selects the shoe, or loose source was destroyed&quot;);
+                var size = surface.Size; surface.Size = new(300, 270); b = proof.Art.Bounds(surface.Size);
+                Check(surface.Pick(b.Position + hole.Value * b.Size) != &quot;avatar-shoes&quot;, &quot;masked picking drifted after resize&quot;);
+                surface.Size = size;
+            }
+            await InventoryCapture(&quot;-worn-mask-&quot; + side);
+        }
+        InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();
+        Check(proof.Side == &quot;front&quot; &amp;&amp; sim.Save() == before &amp;&amp; InventoryArt.Opaque(&quot;boots&quot;, new(.5f, .5f)) == looseBefore,
+            &quot;visual masking changed equipment, paid work, loose art or simulation state&quot;);
+        GD.Print(&quot;PAPERDOLL_MASK_SMOKE_PASS: both feet/front-back worn holes, retained source/loose pixels, mask validation, shared alpha picking, resize and unchanged physical state.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.PaperdollMaskSmoke.cs:9</footer></main></div></body></html>

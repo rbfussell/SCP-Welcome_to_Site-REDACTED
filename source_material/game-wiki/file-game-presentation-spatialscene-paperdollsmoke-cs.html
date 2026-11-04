@@ -25,7 +25,7 @@
 <span id="L25"><a class="line" href="#L25">25</a>         Check(layers.Select(l =&gt; l.ItemId).SequenceEqual(new string?[] { null, &quot;avatar-underwear&quot;, &quot;avatar-socks&quot;, &quot;avatar-trousers&quot;, &quot;avatar-shirt&quot;, &quot;avatar-shoes&quot;, &quot;avatar-coat&quot;, &quot;avatar-backpack&quot; }), &quot;actual own dressing order/bindings changed or leaked foreign gear&quot;);</span>
 <span id="L26"><a class="line" href="#L26">26</a>         Check(layers.Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;).Column == 3 &amp;&amp; proof.Art.Omitted(sim).Length == 0,</span>
 <span id="L27"><a class="line" href="#L27">27</a>             &quot;open jacket, backpack binding or omission report incorrect&quot;);</span>
-<span id="L28"><a class="line" href="#L28">28</a>         await RunPaperdollBackpackSmoke(); before = sim.Save();</span>
+<span id="L28"><a class="line" href="#L28">28</a>         await RunPaperdollBackpackSmoke(); await RunPaperdollMaskSmoke(); before = sim.Save();</span>
 <span id="L29"><a class="line" href="#L29">29</a>         Vector2 Find(Func&lt;Vector2, bool&gt; predicate)</span>
 <span id="L30"><a class="line" href="#L30">30</a>         {</span>
 <span id="L31"><a class="line" href="#L31">31</a>             for (var y = .04f; y &lt; .96f; y += .008f)</span>

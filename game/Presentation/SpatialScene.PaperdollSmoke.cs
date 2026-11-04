@@ -25,7 +25,7 @@ public partial class SpatialScene
         Check(layers.Select(l => l.ItemId).SequenceEqual(new string?[] { null, "avatar-underwear", "avatar-socks", "avatar-trousers", "avatar-shirt", "avatar-shoes", "avatar-coat", "avatar-backpack" }), "actual own dressing order/bindings changed or leaked foreign gear");
         Check(layers.Single(l => l.ItemId == "avatar-coat").Column == 3 && proof.Art.Omitted(sim).Length == 0,
             "open jacket, backpack binding or omission report incorrect");
-        await RunPaperdollBackpackSmoke(); before = sim.Save();
+        await RunPaperdollBackpackSmoke(); await RunPaperdollMaskSmoke(); before = sim.Save();
         Vector2 Find(Func<Vector2, bool> predicate)
         {
             for (var y = .04f; y < .96f; y += .008f)

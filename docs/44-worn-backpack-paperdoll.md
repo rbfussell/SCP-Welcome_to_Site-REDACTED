@@ -29,3 +29,5 @@ python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.

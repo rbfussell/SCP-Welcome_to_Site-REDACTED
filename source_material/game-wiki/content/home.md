@@ -15,6 +15,7 @@ Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Sit
 - [Function directory](functions.html): methods, constructors, operators, local functions, properties, and explicit accessors extracted with the C# compiler's syntax parser.
 - [Source files](files.html): complete indexed C# source with stable line anchors.
 - [Design library](documents.html): browsable project design, architecture decisions, reviews, and authoring contracts.
+- [Worn-only alpha masks](worn-alpha-masks.html): intact loose artwork and context-specific worn-shoe visibility.
 - [Implementation ledger](status.html): runnable slices, future work, and known documentation drift.
 - [Research and provenance](research.html): archive revision, credits, evidence boundaries, and refresh instructions.
 - [Development and documentation consistency](development.html): required reading before changes, cross-linked wiki maintenance, and final agreement with implementation and project documents.

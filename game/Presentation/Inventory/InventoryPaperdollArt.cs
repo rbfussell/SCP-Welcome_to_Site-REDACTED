@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace SitePresentation;
 
 internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null);
-internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null);
+internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
     PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic);
@@ -17,6 +17,8 @@ internal sealed class InventoryPaperdollArt : IDisposable
     private readonly PaperdollManifest _manifest;
     private readonly Dictionary<string, Texture2D> _textures = [];
     private readonly Dictionary<string, Image> _images = [];
+    private readonly Dictionary<(PaperdollPart Part, string Side), PaperdollRaster> _worn = [];
+    private sealed record PaperdollRaster(Texture2D Texture, Image Pixels, Rect2 Source);
     internal InventoryPaperdollArt()
     {
         _manifest = JsonSerializer.Deserialize<PaperdollManifest>(Godot.FileAccess.GetFileAsString("res://Assets/paperdoll-proof/manifest.json"),
@@ -41,9 +43,11 @@ internal sealed class InventoryPaperdollArt : IDisposable
             || m.Frames.Select(f => f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f => f.Column == 0)
             || m.Frames.Any(f => !m.Images.ContainsKey(f.File) || f.Parts is not { Length: > 0 and <= 8 }
                 || f.Parts.Any(p => p.Side is not (null or "front" or "back") || !Rect(p.Destination) || p.BackDestination is { } back && !Rect(back)
+                    || !PaperdollWornMask.Valid(p.FrontWornCutouts) || !PaperdollWornMask.Valid(p.BackWornCutouts)
                     || new[] { p.Front, p.Back }.Any(r => r is not { Length: 4 } || r[0] < 0 || r[1] < 0 || r[2] <= 0 || r[3] <= 0
                         || (long)r[0] + r[2] > m.Images[f.File][0] || (long)r[1] + r[3] > m.Images[f.File][1])))
             || m.Frames.Single(f => f.Column == 0).Parts.Length != 1 || m.Frames.Single(f => f.Column == 0).Parts[0].Side is not null
+            || m.Frames.Single(f => f.Column == 0).Parts.Any(p => p.FrontWornCutouts is not null || p.BackWornCutouts is not null)
             || m.HeadCutouts is null || !new[] { "front", "back" }.All(side => m.HeadCutouts.TryGetValue(side, out var polygon)
                 && polygon.Length >= 3 && polygon.All(p => p is { Length: 2 } && p.All(n => float.IsFinite(n) && n is >= 0 and <= 1)))
             || m.Mosaic is null || !Rect(m.Mosaic.Front) || !Rect(m.Mosaic.Back) || m.Mosaic.BlockSize is < 8 or > 40
@@ -91,19 +95,32 @@ internal sealed class InventoryPaperdollArt : IDisposable
     { var r = side == "back" ? part.Back : part.Front; return new(r[0], r[1], r[2], r[3]); }
     private static Rect2 Destination(PaperdollPart part, string side)
     { var r = side == "back" ? part.BackDestination ?? part.Destination : part.Destination; return new(r[0], r[1], r[2], r[3]); }
+    /// <summary>Only worn paperdoll parts use these cached derived pixels. Loose art/drag previews never consult this cache.</summary>
+    private PaperdollRaster Raster(PaperdollLayer layer, PaperdollPart part, string side)
+    {
+        var file = Frame(layer).File; var source = Source(part, side);
+        var cuts = side == "back" ? part.BackWornCutouts : part.FrontWornCutouts;
+        if (cuts is not { Length: > 0 }) return new(_textures[file], _images[file], source);
+        if (_worn.TryGetValue((part, side), out var cached)) return cached;
+        var pixels = _images[file].GetRegion(new((int)source.Position.X, (int)source.Position.Y, (int)source.Size.X, (int)source.Size.Y));
+        PaperdollWornMask.Apply(pixels, cuts);
+        var raster = new PaperdollRaster(ImageTexture.CreateFromImage(pixels), pixels, new(Vector2.Zero, source.Size));
+        _worn.Add((part, side), raster); return raster;
+    }
     internal Rect2 Bounds(Vector2 size)
     {
         var source = new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);
         var scaled = source * Math.Min(size.X / source.X, size.Y / source.Y); return new((size - scaled) / 2, scaled);
     }
-    internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv)
+    internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv, bool worn = true)
     {
         foreach (var part in Parts(layer, side))
         {
             var dest = Destination(part, side); var local = (uv - dest.Position) / dest.Size;
             if (local.X is < 0 or >= 1 || local.Y is < 0 or >= 1) continue;
-            var source = Source(part, side); var pixel = source.Position + local * source.Size;
-            if (_images[Frame(layer).File].GetPixel((int)pixel.X, (int)pixel.Y).A > .1f) return true;
+            var raster = worn ? Raster(layer, part, side) : new PaperdollRaster(_textures[Frame(layer).File], _images[Frame(layer).File], Source(part, side));
+            var pixel = raster.Source.Position + local * raster.Source.Size;
+            if (raster.Pixels.GetPixel((int)pixel.X, (int)pixel.Y).A > .1f) return true;
         }
         return false;
     }
@@ -160,13 +177,13 @@ internal sealed class InventoryPaperdollArt : IDisposable
                 : layer.ItemId is not null && layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;
             foreach (var part in Parts(layer, side))
             {
-                var dest = Destination(part, side); var sourcePart = Source(part, side);
+                var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
                 foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })
                 {
                     var visible = dest.Intersection(clip); if (!visible.HasArea()) continue;
                     var sourceClip = new Rect2(sourcePart.Position + (visible.Position - dest.Position) / dest.Size * sourcePart.Size,
                         visible.Size / dest.Size * sourcePart.Size);
-                    canvas.DrawTextureRectRegion(_textures[Frame(layer).File], new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, tint);
+                    canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, tint);
                 }
             }
             if (layer.ItemId is null) DrawMosaic(canvas, bounds, side);
@@ -179,6 +196,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
     }
     public void Dispose()
     {
+        foreach (var raster in _worn.Values) { raster.Texture.Dispose(); raster.Pixels.Dispose(); } _worn.Clear();
         foreach (var image in _images.Values) image.Dispose(); foreach (var texture in _textures.Values) texture.Dispose();
         _images.Clear(); _textures.Clear();
     }
