@@ -1,0 +1,30 @@
+# Implementation ledger
+
+This ledger describes the inspected source snapshot. Existing checks and reviews are evidence sources, not a fresh certification of every game feature.
+
+| Area | Current implementation | Remaining work |
+|---|---|---|
+| SCP-650 | Native module; human/AI/any profile fixtures; direct sight; relocation/poses/RNG; complacency flags; witnesses; bounded recovery | Live human-attended cameras, general fear/doctrine, public sandbox, complete M1 acceptance |
+| SCP-1499 | Design and art references | Mask interaction, domains, physical/perceived contexts, linked consequences, procedural population |
+| Movement/perception | Hex routing, physical interpolation, doors, facing, lighting, acquired evidence and movement interruption | Broader swept/sub-tick qualification, general hearing and cross-zone effects |
+| Operations/employment | Delivered voice/device orders; trolley; receiving conditions; real posts, relief, bounded overtime | Full professions, needs, hiring, calendar shifts and general logistics |
+| OSCP | Native app registry, workstation/phone modes, acquired records, prepared phone orders, device access gates | General SCiPnet, production applications, resident AIC execution and provider integration |
+| Inventory | Physical graph, nesting, closures, timed/AP actions, exact/scoped packing, [symmetric body fit and bounded spans](body-fit-cleanup.html), [direct stored-clothing fitting drops](body-drag-fitting.html), [front/back inspection and removal](body-inspection.html), [full-body sprite qualification and real base garment](full-body-paperdoll.html), pocket coverage, worn overlays, [hook/provider chains](mount-points.html) and shared exterior clearance | General crafting, material accounting, spillage, assembly packing envelopes, arbitrary depth offsets, [character-matched clothing/silhouette presentation](wearable-appearance.html) and protection effects |
+| Combat | Local turns/AP, training equipment, autonomous training opponents, saved pending actions | Full injuries/death, ordinary hostility/factions, lethal SCPs, general weapon content and aftermath reveal |
+| Facility utilities | Debug lighting and physical map/doors | Electrical circuits, batteries, HVAC, heat/air transport, utility maintenance |
+| Persistence | Content-identified detached validation, native subsystem continuations | General module migration/removal, cross-domain continuation and broader compatibility |
+| Regional game | Requirements and bounded intake fixture | Autonomous GOIs, network economy, world-map travel, production offsite simulation |
+
+## Documentation drift found during research
+
+The simulation README now identifies inventory schema 14; earlier prototype guides retain schemas 4–13 as historical context. Current `PrototypeSaveCodec` rejects inventory saves older than 14. The full-body follow-up adds underwear (19 definitions/39 instances/9 fit profiles) and changes native content identity; older-kit inventory saves need a fresh start even though schema remains 14. The wiki's current-state statements follow code; historical documents remain available with their original context.
+
+Older SCP-650 and code-map text lists shifts, inventory devices, or belt attachments as future work. Later employment/inventory source and guides implement bounded versions of these. A future-work sentence in an early document must be read alongside the later system page.
+
+## Decisions that remain open
+
+AIC identity, authority and canon/timeline; final Technical Services terminology; automatic complacency measurement; production utility routing UI; broad combat tuning; public scripting security and capabilities; production art coverage; cross-zone effects and transfer policies. This wiki records these questions without choosing new game rules.
+
+Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.
+
+November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.

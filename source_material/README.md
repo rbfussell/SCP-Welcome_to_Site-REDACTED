@@ -69,3 +69,14 @@ print(article["raw_source"])
 The technical tales are candidate sources for support duties and anomalous IT incidents. The inspected orientation uses “Tech Support”; this does not settle the user's intended “Department of Technical Services” hub or select a universal organizational chart. Resolve that terminology/canon choice explicitly.
 
 The archive is authoring reference. Access to it does not give the player or resident AIC all of its contents as in-world knowledge. A later local-model provider receives only the actor's permitted, acquired evidence. A generated SCP module still needs an authored behavior contract, adaptation notes and actual acceptance evidence.
+
+## Restoring the reference checkout
+
+The game's [private remote and recovery workflow](../docs/12-development-workflow.md#remote-backup-and-recovery) excludes this independent bulk archive. After cloning the game, restore its inspected reference revision from the game repository root:
+
+```sh
+git clone --filter=blob:none --no-checkout https://github.com/scp-data/scp-api.git source_material/scp-api
+git -C source_material/scp-api checkout 278a69a68e4b85ac7135d061b9fbd6f1027e1a96
+```
+
+These commands are for a missing checkout; do not replace an existing checkout or its local changes. Restoring the archive requires network access and substantial disk space. Selected canon snapshots are already included in the [game wiki](game-wiki/index.html); the full archive is required for rebuilding and validating their source evidence.

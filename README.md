@@ -14,6 +14,10 @@ python3 tools/run_spatial_scene.py
 
 The launcher handles this workspace's path characters through a temporary build copy. See [the spatial prototype guide](docs/15-spatial-prototype.md) for dependencies, controls, verification, the Fallout mapping comparison and implementation limits.
 
+## Game wiki
+
+The [browsable game wiki](source_material/game-wiki/index.html) sits beside the cloned SCP archive. It covers SCP mechanics/lore/status, shared engine systems, every declared C# function/property, source evidence and cross-links. Open its index directly or see the [wiki build/serve guide](source_material/game-wiki/README.md). Regenerate after code changes with `python3 tools/build_game_wiki.py`; `--check` validates links and source freshness.
+
 ## Read in this order
 
 1. [Game design](docs/01-game-design.md): player experience, systems, and boundaries.

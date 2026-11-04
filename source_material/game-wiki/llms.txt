@@ -1,0 +1,27 @@
+# SCP: Welcome to Site-[REDACTED] — game knowledge base
+
+Purpose: source-backed authoring/engineering wiki; not actor or AIC in-world knowledge.
+
+Reading order:
+- index.html — project, navigation and evidence conventions
+- status.html — current bounded implementation and unresolved design
+- engine.html — authority, time, spatial and continuation boundaries
+- scp-index.html — 13 referenced SCPs; only SCP-650 has a native module
+- systems.html — subsystem responsibilities and interactions
+- mount-points.html — placement extenders, nested provider geometry, shared clearance and the native hook fixture
+- functions.html / types.html / files.html — declaration and source catalog
+- documents.html — historical design, ADR and review evidence
+- research.html — provenance and maintenance
+- development.html — mandatory wiki reading, maintenance, cross-links and final consistency gate (repository AGENTS.md)
+
+Machine-readable evidence:
+- manifest.json — revisions, coverage, source/evidence hashes
+- symbols.json — per-member declaration, source location, candidate incoming/outgoing links
+- article-evidence.json — source-article metadata, excerpts and hashes
+- archive-research.json — cross-archive discovery leads, not adopted canon
+
+Implementation claims follow current native source. Call links are syntax candidates, not semantically resolved dispatch. Never turn proposed contracts into implementation claims. Read relevant original game source before editing. Rebuild with python3 tools/build_game_wiki.py; validate freshness with --check. Preserve separation between original SCP articles, selected game adaptations, current native proofs and future requirements.
+
+Before planning or editing any game system, preload and read its relevant game-wiki pages and linked dependencies/evidence, plus applicable project Markdown documents. Update the affected authored wiki sources and other documentation in the same change. Give distinct new concepts discoverable pages with reciprocal links to all materially related pages. After final edits, rebuild and validate the wiki, then compare implementation, actual check results, wiki and other documentation for agreement. Follow the root AGENTS.md rules and development.html; the SCP canon dump is not a substitute for this game knowledge base.
+
+Canon traversal: canon-index.html / canon-index.json pair hosted SCP Wiki articles with local snapshot pages, exact JSON record extractions, original dataset paths and backlinks. Local copy availability is explicit. Do not treat hosted and snapshot content as synchronized.
