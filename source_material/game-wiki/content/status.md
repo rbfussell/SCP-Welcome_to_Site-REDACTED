@@ -30,3 +30,5 @@ Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
 November 4 footwear follow-up: [worn-only alpha masks](worn-alpha-masks.html) qualify source-preserving front/back shoe cutouts. Rendering and picking share derived worn alpha; packing/drag art and physical access remain independent.
+
+November 4 authoring follow-up: [the item catalog](items.html) indexes all 19 native definitions under 30 type categories with representative artwork, current stats, explicit missing-art coverage and raw data. [Asset bundle organization](asset-library.html) documents future per-item directories and view/state mask names; runtime atlases have not moved.

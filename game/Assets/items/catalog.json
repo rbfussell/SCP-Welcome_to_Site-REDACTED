@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "status": "authoring-catalog",
+  "definitionSource": "src/SiteSimulation/Inventory/Content/field-kit.json",
+  "inventoryArtSource": "game/Assets/inventory-objects/manifest.json",
+  "paperdollArtSource": "game/Assets/paperdoll-proof/manifest.json",
+  "categories": [
+    {
+      "path": "worn",
+      "name": "Worn equipment",
+      "representativeItem": "boots"
+    },
+    {
+      "path": "worn/clothing",
+      "name": "Clothing",
+      "representativeItem": "shirt"
+    },
+    {
+      "path": "worn/clothing/shirts",
+      "name": "Shirts",
+      "representativeItem": "shirt"
+    },
+    {
+      "path": "worn/clothing/coats",
+      "name": "Coats and jackets",
+      "representativeItem": "coat"
+    },
+    {
+      "path": "worn/clothing/trousers",
+      "name": "Trousers",
+      "representativeItem": "trousers"
+    },
+    {
+      "path": "worn/clothing/shoes",
+      "name": "Shoes and boots",
+      "representativeItem": "boots"
+    },
+    {
+      "path": "worn/clothing/socks",
+      "name": "Socks",
+      "representativeItem": "socks"
+    },
+    {
+      "path": "worn/clothing/underwear",
+      "name": "Underwear",
+      "representativeItem": "underwear"
+    },
+    {
+      "path": "worn/clothing/suits",
+      "name": "Protective suits",
+      "representativeItem": "chem-suit"
+    },
+    {
+      "path": "worn/clothing/gloves",
+      "name": "Gloves"
+    },
+    {
+      "path": "worn/clothing/hats",
+      "name": "Hats"
+    },
+    {
+      "path": "worn/clothing/helmets",
+      "name": "Helmets"
+    },
+    {
+      "path": "worn/containers",
+      "name": "Wearable containers",
+      "representativeItem": "backpack"
+    },
+    {
+      "path": "worn/containers/backpacks",
+      "name": "Backpacks",
+      "representativeItem": "backpack"
+    },
+    {
+      "path": "worn/containers/pouches",
+      "name": "Pouches",
+      "representativeItem": "utility-pouch"
+    },
+    {
+      "path": "worn/accessories",
+      "name": "Straps and fittings",
+      "representativeItem": "utility-belt"
+    },
+    {
+      "path": "worn/accessories/belts",
+      "name": "Belts",
+      "representativeItem": "utility-belt"
+    },
+    {
+      "path": "worn/accessories/hooks",
+      "name": "Hooks and extenders",
+      "representativeItem": "utility-hook"
+    },
+    {
+      "path": "equipment",
+      "name": "Equipment",
+      "representativeItem": "phone"
+    },
+    {
+      "path": "equipment/communications",
+      "name": "Communications",
+      "representativeItem": "radio"
+    },
+    {
+      "path": "equipment/communications/phones",
+      "name": "Phones",
+      "representativeItem": "phone"
+    },
+    {
+      "path": "equipment/communications/radios",
+      "name": "Radios",
+      "representativeItem": "radio"
+    },
+    {
+      "path": "equipment/lighting",
+      "name": "Lighting",
+      "representativeItem": "torch"
+    },
+    {
+      "path": "equipment/training",
+      "name": "Training equipment",
+      "representativeItem": "weight"
+    },
+    {
+      "path": "containers",
+      "name": "Portable containers",
+      "representativeItem": "case"
+    },
+    {
+      "path": "containers/cases",
+      "name": "Cases",
+      "representativeItem": "case"
+    },
+    {
+      "path": "consumables",
+      "name": "Consumables",
+      "representativeItem": "gum-pack"
+    },
+    {
+      "path": "consumables/food",
+      "name": "Food and gum",
+      "representativeItem": "gum-pack"
+    },
+    {
+      "path": "medical",
+      "name": "Medical supplies",
+      "representativeItem": "dressing"
+    },
+    {
+      "path": "medical/dressings",
+      "name": "Dressings",
+      "representativeItem": "dressing"
+    }
+  ],
+  "items": {
+    "trousers": {
+      "category": "worn/clothing/trousers"
+    },
+    "coat": {
+      "category": "worn/clothing/coats"
+    },
+    "backpack": {
+      "category": "worn/containers/backpacks"
+    },
+    "phone": {
+      "category": "equipment/communications/phones"
+    },
+    "radio": {
+      "category": "equipment/communications/radios"
+    },
+    "torch": {
+      "category": "equipment/lighting"
+    },
+    "dressing": {
+      "category": "medical/dressings"
+    },
+    "case": {
+      "category": "containers/cases"
+    },
+    "gum-pack": {
+      "category": "consumables/food"
+    },
+    "gum": {
+      "category": "consumables/food"
+    },
+    "weight": {
+      "category": "equipment/training"
+    },
+    "shirt": {
+      "category": "worn/clothing/shirts"
+    },
+    "socks": {
+      "category": "worn/clothing/socks"
+    },
+    "boots": {
+      "category": "worn/clothing/shoes"
+    },
+    "chem-suit": {
+      "category": "worn/clothing/suits"
+    },
+    "utility-belt": {
+      "category": "worn/accessories/belts"
+    },
+    "utility-pouch": {
+      "category": "worn/containers/pouches"
+    },
+    "utility-hook": {
+      "category": "worn/accessories/hooks"
+    },
+    "underwear": {
+      "category": "worn/clothing/underwear"
+    }
+  }
+}

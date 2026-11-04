@@ -6,6 +6,8 @@ Reading order:
 - index.html — project, navigation and evidence conventions
 - status.html — current bounded implementation and unresolved design
 - engine.html — authority, time, spatial and continuation boundaries
+- items.html / item-catalog.json — native item types, source art, current stats and authoring coverage
+- asset-library.html — item bundle naming, masks and explicit migration boundaries
 - scp-index.html — 13 referenced SCPs; only SCP-650 has a native module
 - systems.html — subsystem responsibilities and interactions
 - mount-points.html — placement extenders, nested provider geometry, shared clearance and the native hook fixture

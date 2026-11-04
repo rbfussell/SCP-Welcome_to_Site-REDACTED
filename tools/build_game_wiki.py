@@ -17,6 +17,7 @@ import tempfile
 from urllib.parse import unquote, urlsplit
 import markdown
 from wiki_canon import build_canon
+from wiki_items import build_items
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'source_material/game-wiki'
@@ -118,7 +119,7 @@ SYSTEMS = {
 'inventory': ('Physical inventory, clothing and body fit', 'Inventory/',
     'Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.',
     'The facade submits shared transactions; tactical combat charges source-dependent AP and time. Equipment access gates handset/radio services. Body-fit geometry and clothing cover decide real access independently of UI inspection and art. Exact paid plans survive saves.',
-    'Inventory/Transactions/InventoryActions.cs', ['23-personal-inventory-prototype.md', '24-body-equipment-and-container-navigation.md', '29-gear-data-standard.md', '30-body-fit-prototype.md', '31-pocket-coverage-prototype.md', '32-belt-and-attachment-prototype.md', '34-wear-fit-rules.md', '35-actual-worn-order.md', '36-overlay-sublayers.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '26-wearable-appearance-pipeline.md', '28-wearable-metadata-and-surface-mapping.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md'],
+    'Inventory/Transactions/InventoryActions.cs', ['23-personal-inventory-prototype.md', '24-body-equipment-and-container-navigation.md', '29-gear-data-standard.md', '30-body-fit-prototype.md', '31-pocket-coverage-prototype.md', '32-belt-and-attachment-prototype.md', '34-wear-fit-rules.md', '35-actual-worn-order.md', '36-overlay-sublayers.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '26-wearable-appearance-pipeline.md', '28-wearable-metadata-and-surface-mapping.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md', '46-item-asset-library.md'],
     'General crafting, material portions, spillage, item-backed weapons, protective effects and composited world clothing art are not completed.'),
 'combat': ('Tactical turns and training', 'Combat/',
     'Owns local turn/AP scheduling, training equipment and points, pending actions, acquired contacts and autonomous training-opponent decisions.',
@@ -143,12 +144,12 @@ SYSTEMS = {
 'persistence': ('Persistence and continuation', 'Persistence/',
     'Owns outer versioned snapshot validation and detached candidate restore. Domain codecs preserve their own state and pending work.',
     'Content identity binds maps, operations and active inventory definitions. Restore validates actor, body, item, command and module continuation before replacing the live world. An invalid restore leaves current state intact.',
-    'Persistence/PrototypeSaveCodec.cs', ['35-actual-worn-order.md', '36-overlay-sublayers.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md'],
+    'Persistence/PrototypeSaveCodec.cs', ['35-actual-worn-order.md', '36-overlay-sublayers.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md', '46-item-asset-library.md'],
     'Current inventory requires outer schema 14; SCP-650 module schema is 2. General migration and module removal/recovery are not a finished public contract.'),
 'presentation': ('Godot presentation and runtime', 'game/',
     'Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.',
     'SimulationRuntime connects views to one SpatialSimulation. Panels submit commands and read acquired/query state. WorldView draws committed bodies. Visual wall lowering and diagnostic art selection leave physical collision and sight intact.',
-    '', ['06-sprites-and-placeholders.md', '15-spatial-prototype.md', '21-oscp-runtime-prototype.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '26-wearable-appearance-pipeline.md', '28-wearable-metadata-and-surface-mapping.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md'],
+    '', ['06-sprites-and-placeholders.md', '15-spatial-prototype.md', '21-oscp-runtime-prototype.md', '37-placement-extenders-and-mount-points.md', '38-body-fit-cleanup.md', '39-body-drag-fitting.md', '26-wearable-appearance-pipeline.md', '28-wearable-metadata-and-surface-mapping.md', '40-body-inspection-and-removal.md', '41-paperdoll-sprite-proof.md', '42-full-body-paperdoll.md', '43-paperdoll-mosaic.md', '44-worn-backpack-paperdoll.md', '45-worn-alpha-masks.md', '46-item-asset-library.md'],
     'Production sprites and composited clothing remain incomplete. World-map/facility-management entry scenes are planned.'),
 'facade': ('Simulation command facade', 'SpatialSimulation.cs',
     'Coordinates validated commands, shared queries, explicit time controls, tick ordering and snapshot entry points.',
@@ -236,7 +237,7 @@ def build_code(files):
         body += '<h2>Source files and function pages</h2>' + listing(link(file_url(f['path']), f['path']) for f in selected)
         body += '<h2>Design and qualification notes</h2>' + listing(link(doc_url('docs/' + d), d) for d in s[5])
         if key in ('inventory', 'presentation', 'persistence'):
-            body += '<h2>Related mechanics</h2><p>' + link('mount-points.html', 'Mount points and placement extenders') + ' · ' + link('body-fit-cleanup.html', 'Symmetric body fit and adjustable straps') + ' · ' + link('body-drag-fitting.html', 'Direct body-fit drops') + ' · ' + link('body-inspection.html', 'Front/back body inspection and removal') + ' · ' + link('full-body-paperdoll.html', 'Full-body sprite qualification and base garments') + ' · ' + link('paperdoll-mosaic.html', 'Engine-rendered paperdoll mosaic') + ' · ' + link('worn-backpack.html', 'Worn backpacks and harnesses') + ' · ' + link('worn-alpha-masks.html', 'Worn-only alpha masks') + '</p>'
+            body += '<h2>Related mechanics</h2><p>' + link('mount-points.html', 'Mount points and placement extenders') + ' · ' + link('body-fit-cleanup.html', 'Symmetric body fit and adjustable straps') + ' · ' + link('body-drag-fitting.html', 'Direct body-fit drops') + ' · ' + link('body-inspection.html', 'Front/back body inspection and removal') + ' · ' + link('full-body-paperdoll.html', 'Full-body sprite qualification and base garments') + ' · ' + link('paperdoll-mosaic.html', 'Engine-rendered paperdoll mosaic') + ' · ' + link('worn-backpack.html', 'Worn backpacks and harnesses') + ' · ' + link('worn-alpha-masks.html', 'Worn-only alpha masks') + ' · ' + link('items.html', 'Item catalog') + ' · ' + link('asset-library.html', 'Asset organization') + '</p>'
         if key in ('inventory', 'presentation'):
             body += '<p>' + link('wearable-appearance.html', 'Confirmed clothing silhouettes and character-matched paperdoll') + '</p>'
         body += '<h2>Existing checks mentioning these types</h2><p>Evidence leads from textual matches, not a fresh test result.</p>' + listing(link('check-' + slug(p.stem) + '.html', p.name) for p in checks)
@@ -459,7 +460,7 @@ def cross_archive_research():
     return len(findings)
 
 
-NAV = [('index.html', 'Main archive'), ('scp-index.html', 'SCP files'), ('engine.html', 'Engine overview'),
+NAV = [('index.html', 'Main archive'), ('items.html', 'Item catalog'), ('scp-index.html', 'SCP files'), ('engine.html', 'Engine overview'),
        ('systems.html', 'Shared systems'), ('functions.html', 'Function directory'), ('types.html', 'Types'),
        ('files.html', 'Source files'), ('documents.html', 'Design library'), ('status.html', 'Implementation ledger'),
        ('research.html', 'Research & credits'), ('canon-index.html', 'Canon sources'), ('archive-research.html', 'Archive research')]
@@ -502,6 +503,9 @@ def check():
         if digest((ROOT / path).read_text()) != expected: errors.append('Stale source: ' + path)
     for path, expected in manifest['evidence_hashes'].items():
         if digest((ROOT / path).read_text()) != expected: errors.append('Stale evidence: ' + path)
+    for path, expected in manifest.get('binary_hashes', {}).items():
+        file = ROOT / path
+        if not file.is_file() or hashlib.sha256(file.read_bytes()).hexdigest() != expected: errors.append('Stale item artwork: ' + path)
     for path, expected in manifest.get('archive_evidence_hashes', {}).items():
         if digest((ARCHIVE / path).read_text()) != expected: errors.append('Stale canon source: ' + path)
     @lru_cache(maxsize=2)
@@ -539,11 +543,14 @@ def main():
         if p.stem == 'research': text += '\n\n[Cross-archive discovery register](archive-research.html) · [Article evidence and source hashes](article-evidence.json)\n'
         title = re.search(r'^# (.+)', text, re.M).group(1)
         add(name, title, md(text), 'Guide')
+    item_sources, binary_hashes, item_count, item_categories = build_items(ROOT, OUT, add)
     archive_hashes, canon_count = build_canon(PAGES, add, ARCHIVE, OUT, slug, digest, link, listing, git(ARCHIVE, 'rev-parse', 'HEAD'))
     evidence_paths = docs + sorted((OUT / 'content').glob('*.md')) + sorted((ROOT / 'game/Content').glob('*.json')) + sorted((ROOT / 'schemas').glob('*.json')) + sorted((ROOT / 'tests/SpatialChecks').glob('*.cs'))
+    evidence_paths += item_sources + [OUT / 'assets/wiki.css', ROOT / 'tools/build_game_wiki.py', ROOT / 'tests/test_wiki_items.py']
     manifest = {'built_utc': datetime.now(timezone.utc).isoformat(), 'game_revision': git(ROOT, 'rev-parse', 'HEAD'),
         'archive_revision': git(ARCHIVE, 'rev-parse', 'HEAD'), 'source_files': len(files), 'declared_members': len(members),
         'types': len(types), 'scp_entries': ['SCP-' + n for n in scps], 'cross_archive_matches': matches, 'canon_snapshots': canon_count, 'archive_evidence_hashes': archive_hashes,
+        'item_catalog': {'definitions': item_count, 'categories': item_categories}, 'binary_hashes': binary_hashes,
         'source_hashes': {f['path']: digest(f['source']) for f in files},
         'evidence_hashes': {p.relative_to(ROOT).as_posix(): digest(p.read_text()) for p in evidence_paths},
         'generated_pages': sorted(PAGES), 'call_graph': 'syntax candidate links; not semantically resolved'}

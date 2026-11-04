@@ -122,3 +122,5 @@ Follow-up: [placement extenders and mount points](37-placement-extenders-and-mou
 The [physical overlay slice](36-overlay-sublayers.md) implements per-hex/surface bands, base-inclusive allowances and exposed mounting contacts. The proposed wearable card accepts `overlayLimit`, `blocksFastenings` and `fasteningFootprint`; the jacket example includes its own front opening mask. These remain separate from fit bulk and pocket access masks. Native body zone/pose validation and paid transactions still require runtime checks; schema acceptance alone does not load a mod.
 
 Current native fit follow-up: [symmetric body cleanup and adjustable straps](38-body-fit-cleanup.md) qualifies a 5–10-cell straight belt span and human-body X, independently of packed dimensions. The proposed v1 public card has not gained a native span loader.
+
+Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.

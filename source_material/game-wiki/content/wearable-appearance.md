@@ -25,3 +25,5 @@ Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
+
+[Asset organization and item bundles](asset-library.html) connect these authoring requirements to the [visual item catalog](items.html), current native definitions, source artwork and future representation-specific mask filenames.

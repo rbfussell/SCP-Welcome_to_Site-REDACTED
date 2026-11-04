@@ -21,3 +21,5 @@ The actual equipped graph and dressing order determine when an item is worn. Pen
 Only the authored reference body/default shoe pose is qualified. Arbitrary gear poses, world clothing composition, deformed footwear and automatic mask authoring remain future work.
 
 Related: [presentation](system-presentation.html), [inventory](system-inventory.html), [full-body proof](full-body-paperdoll.html), [appearance](wearable-appearance.html), [worn backpack](worn-backpack.html), [implementation ledger](status.html), [design library](documents.html).
+
+[Asset organization and item bundles](asset-library.html) connect these authoring requirements to the [visual item catalog](items.html), current native definitions, source artwork and future representation-specific mask filenames.

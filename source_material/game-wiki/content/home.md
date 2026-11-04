@@ -8,6 +8,8 @@ Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Sit
 
 ## Start reading
 
+- [Item catalog](items.html): browse equipment types, native item artwork, current statistics and art coverage.
+- [Asset library](asset-library.html): per-item bundle naming, mask roles and migration boundaries.
 - [SCP directory](scp-index.html): mechanics, adopted lore, implementation status, and engine dependencies for every SCP referenced in the design.
 - [Engine overview](engine.html): authority, execution order, shared services, and presentation.
 - [Systems directory](systems.html): what each subsystem does and how it connects.

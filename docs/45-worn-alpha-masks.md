@@ -27,3 +27,5 @@ python3 tools/build_game_wiki.py --check
 ```
 
 Related: [appearance contract](26-wearable-appearance-pipeline.md), [backpack presentation](44-worn-backpack-paperdoll.md), [body fit](38-body-fit-cleanup.md), [inspection and removal](40-body-inspection-and-removal.md).
+
+Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.

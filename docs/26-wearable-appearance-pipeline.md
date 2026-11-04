@@ -82,3 +82,5 @@ The [engine mosaic follow-up](43-paperdoll-mosaic.md) adds a visual overlay bene
 [Worn backpack/harness qualification](44-worn-backpack-paperdoll.md) now connects mount-aware front/back art to existing segmented gear inspection, with unchanged paid access and save identity.
 
 Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.
+
+Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.

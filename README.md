@@ -18,6 +18,8 @@ The launcher handles this workspace's path characters through a temporary build 
 
 Read the [public game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/), or open the [local wiki](source_material/game-wiki/index.html) beside the cloned SCP archive. It covers SCP mechanics/lore/status, shared engine systems, every declared C# function/property, source evidence and cross-links. Open its index directly or see the [wiki build/serve guide](source_material/game-wiki/README.md). Regenerate after code changes with `python3 tools/build_game_wiki.py`; `--check` validates links and source freshness.
 
+Browse the [visual item catalog](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/items.html) for native equipment types, artwork and current item data; see the [asset bundle standard](docs/46-item-asset-library.md) for naming and migration.
+
 ## Read in this order
 
 1. [Game design](docs/01-game-design.md): player experience, systems, and boundaries.

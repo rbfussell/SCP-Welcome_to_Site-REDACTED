@@ -25,3 +25,5 @@ SHA-256 of `upper-body.png`: `dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43
 The November 4 [worn backpack atlas](backpack-v1.png) adds separate harness/bag sources. [Exact prompt, sources, hash and mount registration](BACKPACK-PROVENANCE.md) qualify this bounded addition.
 
 November 4: [worn-only alpha masks](../../../docs/45-worn-alpha-masks.md) author front/back shoe cutout polygons in the manifest. Godot derives masked worn copies at runtime; `lower-clothes-v1.png` and all source PNGs remain unchanged. These polygons are presentation registration, separate from physical fit/access masks and intact loose/drag artwork.
+
+The [item asset library standard](../../../docs/46-item-asset-library.md) links these reference-body registrations to categorized item pages and future per-item bundles. Existing runtime atlases and authored polygon masks are retained.
