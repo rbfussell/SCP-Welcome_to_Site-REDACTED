@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace SitePresentation;
 
-internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null);
+internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null);
 internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
@@ -50,7 +50,9 @@ internal sealed class InventoryPaperdollArt : IDisposable
             || m.Bindings is not { Length: > 0 and <= 128 } || m.Bindings.Select(b => b.Definition).Distinct().Count() != m.Bindings.Length
             || m.Bindings.Any(b => string.IsNullOrWhiteSpace(b.Definition) || b.Column <= 0 || !m.Frames.Any(f => f.Column == b.Column)
                 || (b.OpenColumn is { } open && (open <= 0 || !m.Frames.Any(f => f.Column == open)))
-                || b.BaseCutouts is { } cuts && cuts.Any(r => !Rect(r))))
+                || b.BaseCutouts is { } cuts && cuts.Any(r => !Rect(r))
+                || b.MountColumns is { } mounts && (mounts.Count == 0 || mounts.Any(pair => string.IsNullOrWhiteSpace(pair.Key)
+                    || pair.Value <= 0 || !m.Frames.Any(f => f.Column == pair.Value)))))
             throw new InvalidOperationException("Invalid bounded full-body paperdoll manifest.");
     }
     internal PaperdollLayer[] Layers(SpatialSimulation sim)
@@ -65,7 +67,13 @@ internal sealed class InventoryPaperdollArt : IDisposable
             var binding = _manifest.Bindings.SingleOrDefault(b => b.Definition == sim.Inventory.Definition(item.Id).Id);
             var shape = InventoryBodyFit.Shape(sim.Inventory, item.Id);
             if (binding is null || shape is null || InventoryBodyFit.Pose(sim.Inventory, item) != shape.DefaultPose) continue;
-            result.Add(new(item.Id, item.GarmentOpen ? binding.OpenColumn ?? binding.Column : binding.Column));
+            var column = item.GarmentOpen ? binding.OpenColumn ?? binding.Column : binding.Column;
+            if (binding.MountColumns is { } mounts)
+            {
+                var slot = sim.Inventory.Region(item.Placement.ParentId, item.Placement.RegionId).MountSlot!;
+                if (!mounts.TryGetValue(slot, out column)) continue; // Unqualified mounts stay explicitly omitted.
+            }
+            result.Add(new(item.Id, column));
         }
         return result.ToArray();
     }

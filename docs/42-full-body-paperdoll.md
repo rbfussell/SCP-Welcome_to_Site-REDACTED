@@ -1,6 +1,8 @@
 # Full-body paperdoll and base garments
 
-Current follow-up: [engine-rendered mosaic](43-paperdoll-mosaic.md) adds front/back privacy blocks beneath real clothing. The current reference is shirtless with close-fitting matte tan briefs (`full-body-v2.png`), replacing the original painted tank top/loose shorts. The featureless mannequin request remains unimplemented.
+Current November 4 follow-up: [worn backpack and harness](44-worn-backpack-paperdoll.md) adds a seventh wearable definition and mount-aware front/back art linked to existing segmented storage.
+
+Current base/mosaic follow-up: [engine-rendered mosaic](43-paperdoll-mosaic.md) adds front/back privacy blocks beneath real clothing. The current reference is shirtless with close-fitting matte tan briefs (`full-body-v2.png`), replacing the original painted tank top/loose shorts. The featureless mannequin request remains unimplemented.
 
 Implemented November 2, 2026. This extends the [original upper-body proof](41-paperdoll-sprite-proof.md) into one complete front/back reference body with six supported wearable definitions: underwear, socks, trousers, shirt, work shoes and open/closed field coat. The [game-wiki mechanic](../source_material/game-wiki/full-body-paperdoll.html) links the implementation and evidence.
 
@@ -8,7 +10,7 @@ Implemented November 2, 2026. This extends the [original upper-body proof](41-pa
 
 Open **I → Sprites**. Click a visible garment to select its actual instance, double-click to inspect it in the middle gear view, and right-click for existing actions. Zip/Unzip still uses normal paid jacket handling. Removing shoes reveals socks; removing socks reveals the reference feet. Moving clothing into hand or storage removes its worn sprite only when the physical transaction commits. Held/stored clothing is never an outfit layer.
 
-The full hex diagnostics remain the place for body fitting, drag sources and attachments. This view adds no sprite-drop equipping or direct pocket segments. Packs, belts/attachments, suits, alternate bodies and non-default fitted poses remain unqualified and explicitly omitted. The world character still uses baked artwork; the current paperdoll does not recolor the existing loose-item illustrations or generate world animations.
+The full hex diagnostics remain the place for body fitting, drag sources and attachments. This view adds no sprite-drop equipping or direct pocket segments. Belts/attachments, suits, alternate bodies and non-default fitted poses remain unqualified and explicitly omitted. The world character still uses baked artwork; the current paperdoll does not recolor the existing loose-item illustrations or generate world animations.
 
 The current body is a **shirtless development reference with close-fitting skin-tone tan briefs**, copied unchanged from a built-in imagegen edit. The briefs are opaque fabric with a waistband/seams and full coverage. Their compact silhouette removes loose shorts hems; their warm tan color reduces contrast with skin. They remain painted visual reference pixels, not inventory items, storage, insulation, armor or physical obstructions, and cannot be selected or manipulated. Actual navy boxer briefs remain a separate real item. Removing those reveals the reference/mosaic, not evidence of another equipped garment.
 
@@ -16,7 +18,7 @@ The original tan tank-top/charcoal-shorts PNG is preserved as historical source,
 
 ## Registered parts, alpha and body cutouts
 
-[The appearance adapter](../game/Presentation/Inventory/InventoryPaperdollArt.cs) reads the same own worn graph, actual dressing order, default body poses and committed closures as before. [Manifest version 2](../game/Assets/paperdoll-proof/manifest.json) supports multiple images and authored parts per frame. Each part has front/back source rectangles and normalized destinations on one 360×800 reference canvas. Frame/binding references are validated from data rather than hardcoding this fixture's six bindings/eight frames; this remains presentation metadata, not a public mod loader. Back destinations can differ. Drawing and picking share these exact transforms and letterboxing.
+[The appearance adapter](../game/Presentation/Inventory/InventoryPaperdollArt.cs) reads the same own worn graph, actual dressing order, default body poses and committed closures as before. [Manifest version 2](../game/Assets/paperdoll-proof/manifest.json) supports multiple images and authored parts per frame. Each part has front/back source rectangles and normalized destinations on one 360×800 reference canvas. Frame/binding references are validated from data rather than hardcoding specific fixture counts; this remains presentation metadata, not a public mod loader. Back destinations can differ. Drawing and picking share these exact transforms and letterboxing.
 
 The existing shirt/coat sheet is retained; new body and lower-clothing PNGs are registered alongside it. Socks and shoes each use two draw parts so their left/right feet align independently. Both parts retain **one item ID, parent, condition and mass**. This is visual registration, not extra inventory instances or a new pair-splitting mechanic. Physical occupancy and fit do not derive from image dimensions.
 

@@ -29,3 +29,5 @@ This is a fitting target in the engineering view. [Body inspection/removal](body
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [symmetric fit](body-fit-cleanup.html), [mount points](mount-points.html), [three-view inventory](doc-docs-27-three-view-inventory-and-body-fit-md.html), [design library](documents.html).
 
 Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
+
+November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.

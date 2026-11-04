@@ -1,6 +1,6 @@
 # Full-body paperdoll and base garments
 
-**Implemented bounded fixture, November 2.** **I → Sprites** now shows one front/back reference body with real underwear, socks, trousers, shirt, work shoes and an open/closed coat. This follows the [original upper-body proof](paperdoll-sprite-proof.html). See the [runtime/data guide](doc-docs-42-full-body-paperdoll-md.html), [appearance contract](wearable-appearance.html), [inventory](system-inventory.html), [presentation](system-presentation.html) and [implementation ledger](status.html). No SCP canon or anomalous rule is changed.
+**Implemented bounded fixture, November 2.** **I → Sprites** now shows one front/back reference body with real underwear, socks, trousers, shirt, work shoes, an open/closed coat and a field backpack. This follows the [original upper-body proof](paperdoll-sprite-proof.html). See the [runtime/data guide](doc-docs-42-full-body-paperdoll-md.html), [appearance contract](wearable-appearance.html), [inventory](system-inventory.html), [presentation](system-presentation.html) and [implementation ledger](status.html). No SCP canon or anomalous rule is changed.
 
 ## One physical outfit, multiple visual parts
 
@@ -8,7 +8,7 @@
 
 Source alpha, layering and the same letterbox transform govern drawing, tint and picking. Transparent gaps/padding do not acquire cell fills or rectangular targets. The fixture's alpha cutoff stays 0.1; it is not a production material policy. Foreground head/neck or hair keeps collars behind the head. Qualified long sleeves use authored base-body cutouts to prevent stand-in arm/shoulder clipping. These suppress only the reference body, never real gear or physical cover, and are not a general transparent/torn-cloth solver.
 
-[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Sprite-drop equipping, direct body pocket segments, pack/attachment art, arbitrary poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
+[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Sprite-drop equipping, direct body pocket segments, belt/attachment art, arbitrary poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
 
 ## Base garment and honest visual fallback
 
@@ -28,3 +28,5 @@ Native content now has **19 definitions, 39 instances, 9 fit profiles**. [Persis
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [appearance](wearable-appearance.html), [original art proof](paperdoll-sprite-proof.html), [body fit](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection](body-inspection.html), [mounts](mount-points.html), [design library](documents.html).
 
 Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.
+
+November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.

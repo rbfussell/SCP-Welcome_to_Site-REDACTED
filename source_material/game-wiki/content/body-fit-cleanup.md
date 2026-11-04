@@ -29,3 +29,5 @@ The five central authored webbing points remain inside the guaranteed core. Exte
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [overlay bands](doc-docs-36-overlay-sublayers-md.html), [body-fit foundation](doc-docs-30-body-fit-prototype-md.html), [design library](documents.html).
 
 Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
+
+November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.

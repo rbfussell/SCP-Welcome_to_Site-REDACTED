@@ -78,3 +78,5 @@ The paperdoll now has a **Layers** selector for exposed equipment, all known wor
 Changing this view costs no simulation time/AP, modifies no item/fastening state and is not saved as physical equipment state. Closing/reopening inventory resets it to exposed equipment. This inspection feature is implemented in the engineering slot UI; a future composited paperdoll should preserve the same access distinction.
 
 The [engine mosaic follow-up](43-paperdoll-mosaic.md) adds a visual overlay beneath committed clothing. It does not replace physical access, and the current base is shirtless with close-fitting tan fabric briefs. The earlier featureless mannequin request remains unimplemented.
+
+[Worn backpack/harness qualification](44-worn-backpack-paperdoll.md) now connects mount-aware front/back art to existing segmented gear inspection, with unchanged paid access and save identity.

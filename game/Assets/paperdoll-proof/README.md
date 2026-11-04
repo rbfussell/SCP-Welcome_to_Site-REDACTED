@@ -21,3 +21,5 @@ Use case: precise-object-edit. Fix this layered game sprite atlas registration a
 The generator did not supply exact equal cells or production-ready alignment. Source rectangles are manually registered, with a head/neck foreground part to put the rear collar behind the face. Very low alpha edge fringe remains in the untouched source; the fixture discards alpha ≤ 0.1 in both rendering and picking. Garments and body are stand-ins requiring further art qualification before production coverage. This source image is 1774 × 887 RGBA.
 
 SHA-256 of `upper-body.png`: `dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e`.
+
+The November 4 [worn backpack atlas](backpack-v1.png) adds separate harness/bag sources. [Exact prompt, sources, hash and mount registration](BACKPACK-PROVENANCE.md) qualify this bounded addition.
