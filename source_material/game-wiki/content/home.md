@@ -4,6 +4,8 @@ A working archive of the game: its anomalies, shared simulation, Godot presentat
 
 The game combines personal participation with Foundation operations: you embody a regional operations director in one functioning site, issue orders to real personnel, move physical equipment, and respond to incidents in the same world. The visual target is fixed isometric, textured pixel art inspired by Fallout 2; the management reference is X4: Foundations.
 
+Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/). Deployment and local archive limits are described in [Development and documentation consistency](development.html).
+
 ## Start reading
 
 - [SCP directory](scp-index.html): mechanics, adopted lore, implementation status, and engine dependencies for every SCP referenced in the design.

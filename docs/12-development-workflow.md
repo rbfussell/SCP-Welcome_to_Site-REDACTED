@@ -27,7 +27,7 @@ git diff --cached
 git commit -m "Describe the concrete change"
 ```
 
-Use a feature branch for nontrivial implementation. The initial design baseline remains on `main`; current prototype development uses `prototype/m0-spatial-scene`. The private GitHub remote is [rbfussell/SCP-Welcome_to_Site-REDACTED](https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED). The remote name normalizes punctuation unsupported by GitHub; the game title is unchanged. CI and the longer-term branching/merge policy remain undecided.
+Use a feature branch for nontrivial implementation. The initial design baseline remains on `main`; current prototype development uses `prototype/m0-spatial-scene`. The GitHub remote, now public at the user’s request, is [rbfussell/SCP-Welcome_to_Site-REDACTED](https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED). The remote name normalizes punctuation unsupported by GitHub; the game title is unchanged. CI and the longer-term branching/merge policy remain undecided.
 
 Documentation checks validate local links, code fences, unique requirement IDs and references. They do not certify gameplay. Prototype gates require the actual runtime evidence in [scope and acceptance](04-scope-and-acceptance.md).
 
@@ -37,6 +37,12 @@ The [terminal design review](reviews/terminal-design-checks.md) records this pas
 
 ## Remote backup and recovery
 
-The private `origin` remote uses `https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED.git`. Publish reviewed commits with `git push origin --all` and tags with `git push origin --tags`; pushes preserve both the baseline and prototype histories. The GitHub default branch should be the current `prototype/m0-spatial-scene` branch. A remote contains committed files only: uncommitted edits and ignored saves, caches, builds and local account configuration are not backed up.
+The public `origin` remote uses `https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED.git`. Publish reviewed commits with `git push origin --all` and tags with `git push origin --tags`; pushes preserve both the baseline and prototype histories. The GitHub default branch should be the current `prototype/m0-spatial-scene` branch. A remote contains committed files only: uncommitted edits and ignored saves, caches, builds and local account configuration are not backed up.
 
-For a fresh checkout, clone the private repository using an authorized GitHub account. The committed game assets, source, design documentation, wiki tooling and generated wiki travel together. Restore the separately maintained canon checkout using the [archive recovery guide](../source_material/README.md#restoring-the-reference-checkout) before rebuilding the wiki. Generated wiki pages remain readable without that bulk archive. See the [wiki build guide](../source_material/game-wiki/README.md) for required tooling and freshness checks.
+For a fresh checkout, clone the public repository. The committed game assets, source, design documentation, wiki tooling and generated wiki travel together. Restore the separately maintained canon checkout using the [archive recovery guide](../source_material/README.md#restoring-the-reference-checkout) before rebuilding the wiki. Generated wiki pages remain readable without that bulk archive. See the [wiki build guide](../source_material/game-wiki/README.md) for required tooling and freshness checks.
+
+## Public wiki publishing
+
+The user subsequently made the repository public and authorized a public browsable wiki. GitHub Pages serves [the game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/) through `.github/workflows/game-wiki-pages.yml`. Pushes affecting the committed wiki or that workflow on `prototype/m0-spatial-scene` deploy automatically; the workflow can also be dispatched manually on that branch. GitHub Pages must use the Actions publishing source.
+
+Build and fully validate the wiki locally before committing. Deployment checks the committed source/evidence hashes and required generated pages, then uploads only generated HTML, JSON, search assets, canon extracts and the agent entry point. It does not rebuild, download the bulk archive, run gameplay tests or certify canon freshness. A stale snapshot fails deployment rather than silently publishing outdated evidence. The public site preserves styling, search and per-page links; full original archive-shard links remain local-checkout features. The included single-record canon snapshots work publicly. This is a documentation website, not a downloadable game release.

@@ -16,9 +16,9 @@ A distinct new system, mechanic or SCP adaptation needs its own page when it war
 
 Update affected design guides, contracts, ADR references, templates, reviews and acceptance documents alongside the wiki. Keep historical evidence historical; add explicit superseding/current references rather than claiming earlier implementations or tests existed. Do not change canon records to agree with the adaptation, or expose authoring knowledge automatically to game actors.
 
-## Private remote and recovery
+## Remote, publishing and recovery
 
-The user selected a private GitHub remote on November 4, 2026: [rbfussell/SCP-Welcome_to_Site-REDACTED](https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED). The [version-control guide](doc-docs-12-development-workflow-md.html) records branch publishing and recovery. Committed game source, assets, wiki sources, tooling and generated pages belong in this backup. Ignored runtime data and the independent bulk canon checkout do not. The [archive guide](doc-source-material-readme-md.html) records its upstream and pinned revision for restoration. This repository remains private; remote storage does not imply a public release.
+The user selected a private GitHub remote on November 4, 2026: [rbfussell/SCP-Welcome_to_Site-REDACTED](https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED). The [version-control guide](doc-docs-12-development-workflow-md.html) records branch publishing and recovery. Committed game source, assets, wiki sources, tooling and generated pages belong in this backup. Ignored runtime data and the independent bulk canon checkout do not. The [archive guide](doc-source-material-readme-md.html) records its upstream and pinned revision for restoration. The user subsequently made the repository public and authorized [public wiki publishing](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/). The GitHub Actions workflow `.github/workflows/game-wiki-pages.yml` publishes committed generated pages from `prototype/m0-spatial-scene` after checking source/evidence hashes and page presence. Full local rebuild and validation remain required before committing. Hosting documentation does not certify gameplay or constitute a packaged game release. See the [wiki build guide](evidence-source-material-game-wiki-readme-md.html) for publishing limits.
 
 ## Author, rebuild and verify
 

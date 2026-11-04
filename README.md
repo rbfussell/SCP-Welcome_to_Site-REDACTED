@@ -16,7 +16,7 @@ The launcher handles this workspace's path characters through a temporary build 
 
 ## Game wiki
 
-The [browsable game wiki](source_material/game-wiki/index.html) sits beside the cloned SCP archive. It covers SCP mechanics/lore/status, shared engine systems, every declared C# function/property, source evidence and cross-links. Open its index directly or see the [wiki build/serve guide](source_material/game-wiki/README.md). Regenerate after code changes with `python3 tools/build_game_wiki.py`; `--check` validates links and source freshness.
+Read the [public game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/), or open the [local wiki](source_material/game-wiki/index.html) beside the cloned SCP archive. It covers SCP mechanics/lore/status, shared engine systems, every declared C# function/property, source evidence and cross-links. Open its index directly or see the [wiki build/serve guide](source_material/game-wiki/README.md). Regenerate after code changes with `python3 tools/build_game_wiki.py`; `--check` validates links and source freshness.
 
 ## Read in this order
 

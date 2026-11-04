@@ -1,0 +1,64 @@
+name: Publish game wiki
+
+on:
+  push:
+    branches: [prototype/m0-spatial-scene]
+    paths:
+      - source_material/game-wiki/**
+      - .github/workflows/game-wiki-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: game-wiki-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/prototype/m0-spatial-scene'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out committed wiki
+        uses: actions/checkout@v6
+      - name: Check published snapshot against source
+        shell: python
+        run: |
+          import hashlib
+          import json
+          from pathlib import Path
+          root = Path.cwd()
+          wiki = root / "source_material/game-wiki"
+          manifest = json.loads((wiki / "manifest.json").read_text())
+          for group in ("source_hashes", "evidence_hashes"):
+              for name, expected in manifest[group].items():
+                  actual = hashlib.sha256((root / name).read_text().encode()).hexdigest()
+                  if actual != expected:
+                      raise SystemExit("Stale wiki evidence; rebuild locally: " + name)
+          for name in manifest["generated_pages"]:
+              if not (wiki / name).is_file():
+                  raise SystemExit("Missing generated page: " + name)
+          print("Committed source/evidence hashes and generated pages verified.")
+      - name: Stage browsable files
+        run: |
+          mkdir _site
+          cp source_material/game-wiki/*.html source_material/game-wiki/*.json source_material/game-wiki/search-index.js _site/
+          cp -R source_material/game-wiki/assets source_material/game-wiki/canon-records _site/
+          cp source_material/game-wiki/llms.txt _site/
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload wiki
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy wiki
+        id: deployment
+        uses: actions/deploy-pages@v4
