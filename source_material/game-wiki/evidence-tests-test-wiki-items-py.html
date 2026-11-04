@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/test_wiki_items.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>test_wiki_items.py</h1><pre>&quot;&quot;&quot;Meaningful item catalog checks: complete real-data rendering and rejection of classification/art drift.&quot;&quot;&quot;
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / &#x27;tools&#x27;))
+from wiki_items import REGISTRY, build_items, load_catalog
+
+
+class ItemCatalogChecks(unittest.TestCase):
+    def fixture(self, directory):
+        root = Path(directory)
+        registry = json.loads((ROOT / REGISTRY).read_text())
+        for name in [REGISTRY, registry[&#x27;definitionSource&#x27;], registry[&#x27;inventoryArtSource&#x27;], registry[&#x27;paperdollArtSource&#x27;]]:
+            dest = root / name
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, dest)
+        return root, registry
+
+    def test_complete_catalog_and_exact_pngs(self):
+        work = ROOT / &#x27;work/preview&#x27;
+        work.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=work, prefix=&#x27;item-catalog-check-&#x27;) as directory:
+            pages = {}
+            def add(name, *values):
+                self.assertNotIn(name, pages)
+                pages[name] = values
+            sources, hashes, count, categories = build_items(ROOT, Path(directory), add)
+            index = json.loads((Path(directory) / &#x27;item-catalog.json&#x27;).read_text())
+            data = json.loads((ROOT / &#x27;src/SiteSimulation/Inventory/Content/field-kit.json&#x27;).read_text())
+            self.assertEqual({d[&#x27;id&#x27;]: d for d in data[&#x27;definitions&#x27;]}, {i: v[&#x27;definition&#x27;] for i, v in index[&#x27;items&#x27;].items()})
+            self.assertEqual(count, len(index[&#x27;items&#x27;]))
+            self.assertEqual(len(pages), count + categories + 1)
+            self.assertIn(&#x27;items-worn-clothing-helmets.html&#x27;, pages)
+            self.assertIn(&#x27;Reserved category&#x27;, pages[&#x27;items-worn-clothing-helmets.html&#x27;][1])
+            self.assertIn(&#x27;storage&#x27;, index[&#x27;items&#x27;][&#x27;coat&#x27;][&#x27;capabilities&#x27;])
+            self.assertIn(&#x27;wearable&#x27;, index[&#x27;items&#x27;][&#x27;coat&#x27;][&#x27;capabilities&#x27;])
+            self.assertNotIn(&#x27;storage&#x27;, index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;capabilities&#x27;])
+            self.assertTrue(index[&#x27;items&#x27;][&#x27;boots&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;frontWornCutouts&#x27;])
+            for item, entry in index[&#x27;items&#x27;].items():
+                copied = (Path(directory) / entry[&#x27;art&#x27;][&#x27;url&#x27;]).read_bytes()
+                self.assertEqual(copied, (ROOT / entry[&#x27;art&#x27;][&#x27;source&#x27;]).read_bytes())
+                self.assertEqual(hashlib.sha256(copied).hexdigest(), entry[&#x27;art&#x27;][&#x27;sha256&#x27;])
+                self.assertIn(&#x27;viewBox=&#x27;, pages[entry[&#x27;url&#x27;]][1])
+            self.assertTrue(hashes)
+
+    def test_missing_classification_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, registry = self.fixture(directory)
+            registry[&#x27;items&#x27;].pop(&#x27;boots&#x27;)
+            (root / REGISTRY).write_text(json.dumps(registry))
+            with self.assertRaisesRegex(ValueError, &#x27;classify every&#x27;):
+                load_catalog(root)
+
+    def test_representative_from_another_family_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, registry = self.fixture(directory)
+            next(c for c in registry[&#x27;categories&#x27;] if c[&#x27;path&#x27;] == &#x27;worn/clothing/shoes&#x27;)[&#x27;representativeItem&#x27;] = &#x27;phone&#x27;
+            (root / REGISTRY).write_text(json.dumps(registry))
+            with self.assertRaisesRegex(ValueError, &#x27;representative&#x27;):
+                load_catalog(root)
+
+    def test_escaped_source_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, registry = self.fixture(directory)
+            registry[&#x27;definitionSource&#x27;] = &#x27;../outside.json&#x27;
+            (root / REGISTRY).write_text(json.dumps(registry))
+            with self.assertRaisesRegex(ValueError, &#x27;escaped&#x27;):
+                load_catalog(root)
+
+    def test_invalid_art_region_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, registry = self.fixture(directory)
+            manifest_path = root / registry[&#x27;inventoryArtSource&#x27;]
+            art = json.loads(manifest_path.read_text())
+            asset = next(a for a in art[&#x27;assets&#x27;] if a[&#x27;id&#x27;] == &#x27;trousers&#x27;)
+            dest = manifest_path.parent / asset[&#x27;file&#x27;]
+            shutil.copyfile(ROOT / registry[&#x27;inventoryArtSource&#x27;].rsplit(&#x27;/&#x27;, 1)[0] / asset[&#x27;file&#x27;], dest)
+            asset[&#x27;region&#x27;][2] = 99999
+            manifest_path.write_text(json.dumps(art))
+            with self.assertRaisesRegex(ValueError, &#x27;source region&#x27;):
+                load_catalog(root)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    unittest.main()
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

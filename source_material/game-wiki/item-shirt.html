@@ -1,0 +1,111 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Work shirt — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Work shirt</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-clothing.html">Clothing</a> / <a href="items-worn-clothing-shirts.html">Shirts</a></p><svg class="item-art" role="img" aria-label="Work shirt — loose source artwork" viewBox="114 60 1085 1087"><image href="assets/items/3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552.png" width="1312" height="1199"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>shirt</code></dd><dt>Primary type</dt><dd>worn/clothing/shirts</dd><dt>Capability cross-references</dt><dd>wearable</dd><dt>Empty mass</dt><dd>300 g; contents are additional</dd><dt>Packed envelope</dt><dd>150 × 200 × 25 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1500 ms / 3 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>shirt</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 1,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;torso&quot;,
+      &quot;coverage&quot;: [
+        &quot;torso-front&quot;,
+        &quot;torso-back&quot;,
+        &quot;arms&quot;
+      ]
+    }
+  ],
+  &quot;fitProfile&quot;: &quot;shirt&quot;,
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:light-textile&quot;,
+    &quot;bulk&quot;: 1,
+    &quot;maxUnderBulk&quot;: 5,
+    &quot;fitsOver&quot;: [
+      &quot;core:light-textile&quot;,
+      &quot;core:light-jacket&quot;,
+      &quot;core:flexible-armor&quot;
+    ],
+    &quot;excludesUnderTags&quot;: [
+      &quot;core:rigid-shell&quot;
+    ]
+  }
+}</pre><h2>Artwork and authoring coverage</h2><p><a href="assets/items/3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552.png">Full original loose-art PNG</a>; registered source region <code>[114, 60, 1085, 1087]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/shirt.png</code>. SHA-256: <code>3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+  &quot;definition&quot;: &quot;shirt&quot;,
+  &quot;column&quot;: 1,
+  &quot;baseCutouts&quot;: [
+    [
+      0,
+      0.18,
+      0.36,
+      0.33
+    ],
+    [
+      0.64,
+      0.18,
+      0.36,
+      0.33
+    ]
+  ]
+}</pre><details><summary>Registered worn frames, views and masks</summary><pre>[
+  {
+    &quot;column&quot;: 1,
+    &quot;file&quot;: &quot;upper-body.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          512,
+          80,
+          310,
+          400
+        ],
+        &quot;back&quot;: [
+          512,
+          480,
+          310,
+          407
+        ],
+        &quot;destination&quot;: [
+          0,
+          0.02,
+          1,
+          0.575
+        ]
+      }
+    ]
+  }
+]</pre></details><p>Future bundle location: <code>game/Assets/items/worn/clothing/shirts/shirt/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;shirt&quot;,
+  &quot;name&quot;: &quot;Work shirt&quot;,
+  &quot;widthMm&quot;: 150,
+  &quot;lengthMm&quot;: 200,
+  &quot;thicknessMm&quot;: 25,
+  &quot;massGrams&quot;: 300,
+  &quot;tags&quot;: [
+    &quot;shirt&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;torso&quot;,
+  &quot;handleMs&quot;: 1500,
+  &quot;handleAp&quot;: 3,
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 1,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;torso&quot;,
+        &quot;coverage&quot;: [
+          &quot;torso-front&quot;,
+          &quot;torso-back&quot;,
+          &quot;arms&quot;
+        ]
+      }
+    ],
+    &quot;fitProfile&quot;: &quot;shirt&quot;,
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:light-textile&quot;,
+      &quot;bulk&quot;: 1,
+      &quot;maxUnderBulk&quot;: 5,
+      &quot;fitsOver&quot;: [
+        &quot;core:light-textile&quot;,
+        &quot;core:light-jacket&quot;,
+        &quot;core:flexible-armor&quot;
+      ],
+      &quot;excludesUnderTags&quot;: [
+        &quot;core:rigid-shell&quot;
+      ]
+    }
+  }
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #shirt</footer></main></div></body></html>

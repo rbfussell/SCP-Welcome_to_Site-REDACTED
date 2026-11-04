@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Utility hook — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Utility hook</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-accessories.html">Straps and fittings</a> / <a href="items-worn-accessories-hooks.html">Hooks and extenders</a></p><svg class="item-art" role="img" aria-label="Utility hook — loose source artwork" viewBox="357 225 422 1091"><image href="assets/items/a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899.png" width="1024" height="1536"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>utility-hook</code></dd><dt>Primary type</dt><dd>worn/accessories/hooks</dd><dt>Capability cross-references</dt><dd>attachment, mount-provider</dd><dt>Empty mass</dt><dd>80 g; contents are additional</dd><dt>Packed envelope</dt><dd>40 × 90 × 15 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>400 ms / 1 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>placement-extender</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Lower hook mount</td><td>attachment surface</td><td>1 × 1 cells @ 25 mm; height 100 mm</td><td>500 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899.png">Full original loose-art PNG</a>; registered source region <code>[357, 225, 422, 1091]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/utility-hook.png</code>. SHA-256: <code>a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899</code>.</p><p>Paperdoll: no qualified native worn-sprite binding. World outfit composition remains unimplemented.</p><p>Future bundle location: <code>game/Assets/items/worn/accessories/hooks/utility-hook/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;utility-hook&quot;,
+  &quot;name&quot;: &quot;Utility hook&quot;,
+  &quot;widthMm&quot;: 40,
+  &quot;lengthMm&quot;: 90,
+  &quot;thicknessMm&quot;: 15,
+  &quot;massGrams&quot;: 80,
+  &quot;tags&quot;: [
+    &quot;placement-extender&quot;
+  ],
+  &quot;handleMs&quot;: 400,
+  &quot;handleAp&quot;: 1,
+  &quot;attachment&quot;: {
+    &quot;interface&quot;: &quot;belt-loop&quot;,
+    &quot;occupancy&quot;: [
+      {
+        &quot;q&quot;: 0,
+        &quot;r&quot;: 0
+      },
+      {
+        &quot;q&quot;: -1,
+        &quot;r&quot;: 1
+      },
+      {
+        &quot;q&quot;: 0,
+        &quot;r&quot;: 1
+      },
+      {
+        &quot;q&quot;: -1,
+        &quot;r&quot;: 2
+      }
+    ],
+    &quot;contacts&quot;: [
+      {
+        &quot;q&quot;: 0,
+        &quot;r&quot;: 0
+      }
+    ]
+  },
+  &quot;regions&quot;: [
+    {
+      &quot;id&quot;: &quot;hook&quot;,
+      &quot;name&quot;: &quot;Lower hook mount&quot;,
+      &quot;columns&quot;: 1,
+      &quot;rows&quot;: 1,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 100,
+      &quot;maxMassGrams&quot;: 500,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 200,
+      &quot;accessAp&quot;: 1,
+      &quot;sealable&quot;: false,
+      &quot;secureOnClose&quot;: false,
+      &quot;attachment&quot;: {
+        &quot;interface&quot;: &quot;belt-loop&quot;,
+        &quot;cells&quot;: [
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 2
+          }
+        ]
+      }
+    }
+  ]
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #utility-hook</footer></main></div></body></html>

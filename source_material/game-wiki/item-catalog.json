@@ -1,0 +1,2062 @@
+{
+  "version": 1,
+  "definitionSource": "src/SiteSimulation/Inventory/Content/field-kit.json",
+  "categories": [
+    {
+      "path": "worn",
+      "name": "Worn equipment",
+      "representativeItem": "boots"
+    },
+    {
+      "path": "worn/clothing",
+      "name": "Clothing",
+      "representativeItem": "shirt"
+    },
+    {
+      "path": "worn/clothing/shirts",
+      "name": "Shirts",
+      "representativeItem": "shirt"
+    },
+    {
+      "path": "worn/clothing/coats",
+      "name": "Coats and jackets",
+      "representativeItem": "coat"
+    },
+    {
+      "path": "worn/clothing/trousers",
+      "name": "Trousers",
+      "representativeItem": "trousers"
+    },
+    {
+      "path": "worn/clothing/shoes",
+      "name": "Shoes and boots",
+      "representativeItem": "boots"
+    },
+    {
+      "path": "worn/clothing/socks",
+      "name": "Socks",
+      "representativeItem": "socks"
+    },
+    {
+      "path": "worn/clothing/underwear",
+      "name": "Underwear",
+      "representativeItem": "underwear"
+    },
+    {
+      "path": "worn/clothing/suits",
+      "name": "Protective suits",
+      "representativeItem": "chem-suit"
+    },
+    {
+      "path": "worn/clothing/gloves",
+      "name": "Gloves"
+    },
+    {
+      "path": "worn/clothing/hats",
+      "name": "Hats"
+    },
+    {
+      "path": "worn/clothing/helmets",
+      "name": "Helmets"
+    },
+    {
+      "path": "worn/containers",
+      "name": "Wearable containers",
+      "representativeItem": "backpack"
+    },
+    {
+      "path": "worn/containers/backpacks",
+      "name": "Backpacks",
+      "representativeItem": "backpack"
+    },
+    {
+      "path": "worn/containers/pouches",
+      "name": "Pouches",
+      "representativeItem": "utility-pouch"
+    },
+    {
+      "path": "worn/accessories",
+      "name": "Straps and fittings",
+      "representativeItem": "utility-belt"
+    },
+    {
+      "path": "worn/accessories/belts",
+      "name": "Belts",
+      "representativeItem": "utility-belt"
+    },
+    {
+      "path": "worn/accessories/hooks",
+      "name": "Hooks and extenders",
+      "representativeItem": "utility-hook"
+    },
+    {
+      "path": "equipment",
+      "name": "Equipment",
+      "representativeItem": "phone"
+    },
+    {
+      "path": "equipment/communications",
+      "name": "Communications",
+      "representativeItem": "radio"
+    },
+    {
+      "path": "equipment/communications/phones",
+      "name": "Phones",
+      "representativeItem": "phone"
+    },
+    {
+      "path": "equipment/communications/radios",
+      "name": "Radios",
+      "representativeItem": "radio"
+    },
+    {
+      "path": "equipment/lighting",
+      "name": "Lighting",
+      "representativeItem": "torch"
+    },
+    {
+      "path": "equipment/training",
+      "name": "Training equipment",
+      "representativeItem": "weight"
+    },
+    {
+      "path": "containers",
+      "name": "Portable containers",
+      "representativeItem": "case"
+    },
+    {
+      "path": "containers/cases",
+      "name": "Cases",
+      "representativeItem": "case"
+    },
+    {
+      "path": "consumables",
+      "name": "Consumables",
+      "representativeItem": "gum-pack"
+    },
+    {
+      "path": "consumables/food",
+      "name": "Food and gum",
+      "representativeItem": "gum-pack"
+    },
+    {
+      "path": "medical",
+      "name": "Medical supplies",
+      "representativeItem": "dressing"
+    },
+    {
+      "path": "medical/dressings",
+      "name": "Dressings",
+      "representativeItem": "dressing"
+    }
+  ],
+  "items": {
+    "chem-suit": {
+      "url": "item-chem-suit.html",
+      "category": "worn/clothing/suits",
+      "capabilities": [
+        "wearable"
+      ],
+      "definition": {
+        "id": "chem-suit",
+        "name": "Chemical coverall",
+        "widthMm": 150,
+        "lengthMm": 200,
+        "thicknessMm": 100,
+        "massGrams": 1800,
+        "tags": [
+          "chem-suit"
+        ],
+        "wearSlot": "suit",
+        "handleMs": 3000,
+        "handleAp": 5,
+        "wear": {
+          "layer": 4,
+          "mounts": [
+            {
+              "slot": "suit",
+              "coverage": [
+                "head",
+                "face",
+                "torso-front",
+                "torso-back",
+                "arms",
+                "hands",
+                "hips-front",
+                "hips-back",
+                "legs",
+                "feet"
+              ]
+            }
+          ],
+          "fitProfile": "chem-suit",
+          "fit": {
+            "family": "core:sealed-suit",
+            "bulk": 3,
+            "maxUnderBulk": 10,
+            "fitsOver": [
+              "core:light-textile",
+              "core:light-jacket",
+              "core:flexible-armor",
+              "core:footwear",
+              "core:strap"
+            ]
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/a26e12cd65041493b8085c7d4ec632ac4e678e54e0054283cc097c6fcb13e143.png",
+        "source": "game/Assets/inventory-objects/chem-suit.png",
+        "region": [
+          206,
+          32,
+          615,
+          1468
+        ],
+        "sha256": "a26e12cd65041493b8085c7d4ec632ac4e678e54e0054283cc097c6fcb13e143"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/worn/clothing/suits/chem-suit/"
+    },
+    "underwear": {
+      "url": "item-underwear.html",
+      "category": "worn/clothing/underwear",
+      "capabilities": [
+        "wearable"
+      ],
+      "definition": {
+        "id": "underwear",
+        "name": "Cotton boxer briefs",
+        "widthMm": 100,
+        "lengthMm": 100,
+        "thicknessMm": 15,
+        "massGrams": 80,
+        "tags": [
+          "underwear"
+        ],
+        "wearSlot": "underwear",
+        "handleMs": 1000,
+        "handleAp": 2,
+        "wear": {
+          "layer": 0,
+          "mounts": [
+            {
+              "slot": "underwear",
+              "coverage": [
+                "hips-front",
+                "hips-back"
+              ]
+            }
+          ],
+          "fitProfile": "underwear",
+          "fit": {
+            "family": "core:light-textile",
+            "bulk": 1,
+            "maxUnderBulk": 0,
+            "fitsOver": []
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png",
+        "source": "game/Assets/paperdoll-proof/lower-clothes-v1.png",
+        "region": [
+          40,
+          205,
+          335,
+          240
+        ],
+        "sha256": "84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42"
+      },
+      "paperdollBinding": {
+        "definition": "underwear",
+        "column": 4
+      },
+      "paperdollFrames": [
+        {
+          "column": 4,
+          "file": "lower-clothes-v1.png",
+          "parts": [
+            {
+              "front": [
+                40,
+                205,
+                335,
+                240
+              ],
+              "back": [
+                40,
+                725,
+                335,
+                240
+              ],
+              "destination": [
+                0.19,
+                0.465,
+                0.62,
+                0.19
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/underwear/underwear/"
+    },
+    "dressing": {
+      "url": "item-dressing.html",
+      "category": "medical/dressings",
+      "capabilities": [],
+      "definition": {
+        "id": "dressing",
+        "name": "Dressing packet",
+        "widthMm": 50,
+        "lengthMm": 50,
+        "thicknessMm": 15,
+        "massGrams": 40,
+        "tags": [
+          "dressing"
+        ]
+      },
+      "art": {
+        "url": "assets/items/7bbb8fcec910e348273ed1ba128da2c4a6dfdee4a3b3a9ec67edf7d7a26edfdd.png",
+        "source": "game/Assets/inventory-objects/dressing.png",
+        "region": [
+          294,
+          133,
+          648,
+          1025
+        ],
+        "sha256": "7bbb8fcec910e348273ed1ba128da2c4a6dfdee4a3b3a9ec67edf7d7a26edfdd"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/medical/dressings/dressing/"
+    },
+    "backpack": {
+      "url": "item-backpack.html",
+      "category": "worn/containers/backpacks",
+      "capabilities": [
+        "wearable",
+        "storage"
+      ],
+      "definition": {
+        "id": "backpack",
+        "name": "Field backpack",
+        "widthMm": 250,
+        "lengthMm": 300,
+        "thicknessMm": 160,
+        "massGrams": 700,
+        "tags": [
+          "backpack"
+        ],
+        "wearSlot": "back",
+        "handleMs": 1500,
+        "handleAp": 3,
+        "regions": [
+          {
+            "id": "main",
+            "name": "Backpack main section",
+            "columns": 8,
+            "rows": 10,
+            "cellMm": 25,
+            "heightMm": 140,
+            "maxMassGrams": 8000,
+            "accessMs": 1000,
+            "accessAp": 3,
+            "accessBody": [
+              "torso-back",
+              "torso-front"
+            ],
+            "secureVerb": "Zip",
+            "openVerb": "Unzip",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "mounted",
+                "cells": [
+                  {
+                    "q": -1,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "side",
+            "name": "Backpack side pocket",
+            "columns": 3,
+            "rows": 6,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1200,
+            "equipmentReady": true,
+            "accessMs": 500,
+            "accessAp": 2,
+            "accessBody": [
+              "torso-back",
+              "torso-front"
+            ],
+            "secureVerb": "Buckle",
+            "openVerb": "Unbuckle",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "mounted",
+                "cells": [
+                  {
+                    "q": 0,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "wear": {
+          "layer": 5,
+          "mounts": [
+            {
+              "slot": "back",
+              "coverage": [
+                "torso-back"
+              ],
+              "bodySurface": "back"
+            },
+            {
+              "slot": "front",
+              "coverage": [
+                "torso-front"
+              ],
+              "bodySurface": "front"
+            }
+          ],
+          "outermost": true,
+          "fitProfile": "backpack",
+          "fit": {
+            "family": "core:outer-pack",
+            "bulk": 6,
+            "maxUnderBulk": 20,
+            "fitsOver": [
+              "core:light-textile",
+              "core:light-jacket",
+              "core:bulky-coat",
+              "core:flexible-armor",
+              "core:sealed-suit",
+              "core:strap"
+            ]
+          }
+        },
+        "defaultDropRegion": "main"
+      },
+      "art": {
+        "url": "assets/items/fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089.png",
+        "source": "game/Assets/inventory-objects/backpack.png",
+        "region": [
+          145,
+          83,
+          935,
+          1093
+        ],
+        "sha256": "fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089"
+      },
+      "paperdollBinding": {
+        "definition": "backpack",
+        "column": 8,
+        "mountColumns": {
+          "back": 8,
+          "front": 9
+        }
+      },
+      "paperdollFrames": [
+        {
+          "column": 8,
+          "file": "backpack-v1.png",
+          "parts": [
+            {
+              "front": [
+                104,
+                201,
+                561,
+                652
+              ],
+              "back": [
+                104,
+                201,
+                561,
+                652
+              ],
+              "destination": [
+                0.21,
+                0.195,
+                0.58,
+                0.31
+              ]
+            },
+            {
+              "front": [
+                860,
+                83,
+                586,
+                840
+              ],
+              "back": [
+                860,
+                83,
+                586,
+                840
+              ],
+              "destination": [
+                0.22,
+                0.19,
+                0.56,
+                0.325
+              ],
+              "side": "back"
+            }
+          ]
+        },
+        {
+          "column": 9,
+          "file": "backpack-v1.png",
+          "parts": [
+            {
+              "front": [
+                104,
+                201,
+                561,
+                652
+              ],
+              "back": [
+                104,
+                201,
+                561,
+                652
+              ],
+              "destination": [
+                0.21,
+                0.195,
+                0.58,
+                0.31
+              ]
+            },
+            {
+              "front": [
+                860,
+                83,
+                586,
+                840
+              ],
+              "back": [
+                860,
+                83,
+                586,
+                840
+              ],
+              "destination": [
+                0.22,
+                0.19,
+                0.56,
+                0.325
+              ],
+              "side": "front"
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/containers/backpacks/backpack/"
+    },
+    "coat": {
+      "url": "item-coat.html",
+      "category": "worn/clothing/coats",
+      "capabilities": [
+        "wearable",
+        "storage"
+      ],
+      "definition": {
+        "id": "coat",
+        "name": "Field coat",
+        "widthMm": 400,
+        "lengthMm": 350,
+        "thicknessMm": 60,
+        "massGrams": 900,
+        "tags": [
+          "coat"
+        ],
+        "wearSlot": "outerwear",
+        "handleMs": 1500,
+        "handleAp": 3,
+        "regions": [
+          {
+            "id": "chest",
+            "name": "Coat chest pocket",
+            "columns": 4,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1500,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 1,
+            "mask": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18
+            ],
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": 0,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "wear": {
+          "layer": 2,
+          "mounts": [
+            {
+              "slot": "outerwear",
+              "coverage": [
+                "torso-front",
+                "torso-back",
+                "arms",
+                "hips-front",
+                "hips-back"
+              ]
+            }
+          ],
+          "openExposes": [
+            "torso-front",
+            "hips-front"
+          ],
+          "fastenMs": 700,
+          "fastenAp": 2,
+          "secureVerb": "Zip",
+          "openVerb": "Unzip",
+          "secureOnClose": false,
+          "fitProfile": "coat",
+          "fit": {
+            "family": "core:light-jacket",
+            "bulk": 3,
+            "maxUnderBulk": 6,
+            "fitsOver": [
+              "core:light-textile",
+              "core:flexible-armor",
+              "core:strap"
+            ]
+          },
+          "fasteningFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 0
+                },
+                {
+                  "q": -1,
+                  "r": 1
+                },
+                {
+                  "q": 0,
+                  "r": 1
+                },
+                {
+                  "q": -1,
+                  "r": 2
+                },
+                {
+                  "q": -2,
+                  "r": 3
+                },
+                {
+                  "q": -1,
+                  "r": 3
+                },
+                {
+                  "q": -2,
+                  "r": 4
+                },
+                {
+                  "q": -3,
+                  "r": 5
+                },
+                {
+                  "q": -2,
+                  "r": 5
+                },
+                {
+                  "q": -3,
+                  "r": 6
+                },
+                {
+                  "q": -4,
+                  "r": 7
+                },
+                {
+                  "q": -3,
+                  "r": 7
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "art": {
+        "url": "assets/items/a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016.png",
+        "source": "game/Assets/inventory-objects/coat.png",
+        "region": [
+          80,
+          60,
+          1074,
+          1153
+        ],
+        "sha256": "a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016"
+      },
+      "paperdollBinding": {
+        "definition": "coat",
+        "column": 2,
+        "openColumn": 3,
+        "baseCutouts": [
+          [
+            0,
+            0.18,
+            0.36,
+            0.33
+          ],
+          [
+            0.64,
+            0.18,
+            0.36,
+            0.33
+          ]
+        ]
+      },
+      "paperdollFrames": [
+        {
+          "column": 2,
+          "file": "upper-body.png",
+          "parts": [
+            {
+              "front": [
+                952,
+                80,
+                310,
+                400
+              ],
+              "back": [
+                952,
+                480,
+                310,
+                407
+              ],
+              "destination": [
+                0,
+                0.02,
+                1,
+                0.575
+              ]
+            }
+          ]
+        },
+        {
+          "column": 3,
+          "file": "upper-body.png",
+          "parts": [
+            {
+              "front": [
+                1395,
+                80,
+                310,
+                400
+              ],
+              "back": [
+                1395,
+                480,
+                310,
+                407
+              ],
+              "destination": [
+                0,
+                0.02,
+                1,
+                0.575
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/coats/coat/"
+    },
+    "torch": {
+      "url": "item-torch.html",
+      "category": "equipment/lighting",
+      "capabilities": [],
+      "definition": {
+        "id": "torch",
+        "name": "Flashlight",
+        "widthMm": 25,
+        "lengthMm": 100,
+        "thicknessMm": 25,
+        "massGrams": 180,
+        "tags": [
+          "torch"
+        ],
+        "handleMs": 250
+      },
+      "art": {
+        "url": "assets/items/0c4498f56c7ef3efd8e0fcf03fb9a6b65b99a6c236fc1ee2fd63c7a4388125a0.png",
+        "source": "game/Assets/inventory-objects/torch.png",
+        "region": [
+          315,
+          100,
+          395,
+          1325
+        ],
+        "sha256": "0c4498f56c7ef3efd8e0fcf03fb9a6b65b99a6c236fc1ee2fd63c7a4388125a0"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/equipment/lighting/torch/"
+    },
+    "gum-pack": {
+      "url": "item-gum-pack.html",
+      "category": "consumables/food",
+      "capabilities": [
+        "storage"
+      ],
+      "definition": {
+        "id": "gum-pack",
+        "name": "Gum packet",
+        "widthMm": 50,
+        "lengthMm": 25,
+        "thicknessMm": 12,
+        "massGrams": 3,
+        "tags": [
+          "gum-pack"
+        ],
+        "regions": [
+          {
+            "id": "pieces",
+            "name": "Six-piece packet",
+            "columns": 3,
+            "rows": 2,
+            "cellMm": 5,
+            "heightMm": 5,
+            "maxMassGrams": 30,
+            "accessMs": 150,
+            "accessAp": 0,
+            "secureVerb": "Fold",
+            "openVerb": "Unfold",
+            "secureOnClose": true
+          }
+        ]
+      },
+      "art": {
+        "url": "assets/items/6a31dae3e2c6837e79aa830f3c8fc6990cd53ba9e3e824dce69353a9764e2f68.png",
+        "source": "game/Assets/inventory-objects/gum-pack.png",
+        "region": [
+          643,
+          137,
+          265,
+          760
+        ],
+        "sha256": "6a31dae3e2c6837e79aa830f3c8fc6990cd53ba9e3e824dce69353a9764e2f68"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/consumables/food/gum-pack/"
+    },
+    "gum": {
+      "url": "item-gum.html",
+      "category": "consumables/food",
+      "capabilities": [],
+      "definition": {
+        "id": "gum",
+        "name": "Gum piece",
+        "widthMm": 5,
+        "lengthMm": 5,
+        "thicknessMm": 3,
+        "massGrams": 2,
+        "tags": [
+          "gum"
+        ],
+        "handleMs": 150
+      },
+      "art": {
+        "url": "assets/items/a215fbd7dfd9f51c4224beba0f93c546fd77236573fc6360854e9367d15cc668.png",
+        "source": "game/Assets/inventory-objects/gum.png",
+        "region": [
+          464,
+          337,
+          305,
+          691
+        ],
+        "sha256": "a215fbd7dfd9f51c4224beba0f93c546fd77236573fc6360854e9367d15cc668"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/consumables/food/gum/"
+    },
+    "weight": {
+      "url": "item-weight.html",
+      "category": "equipment/training",
+      "capabilities": [],
+      "definition": {
+        "id": "weight",
+        "name": "Inert training weight",
+        "widthMm": 60,
+        "lengthMm": 60,
+        "thicknessMm": 60,
+        "massGrams": 1000,
+        "tags": [
+          "weight"
+        ]
+      },
+      "art": {
+        "url": "assets/items/b8f84a462c19ba088b35639b037aa1276af446990892cbe14446ffe2c8626194.png",
+        "source": "game/Assets/inventory-objects/weight.png",
+        "region": [
+          335,
+          252,
+          640,
+          719
+        ],
+        "sha256": "b8f84a462c19ba088b35639b037aa1276af446990892cbe14446ffe2c8626194"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/equipment/training/weight/"
+    },
+    "phone": {
+      "url": "item-phone.html",
+      "category": "equipment/communications/phones",
+      "capabilities": [],
+      "definition": {
+        "id": "phone",
+        "name": "Secure field phone",
+        "widthMm": 60,
+        "lengthMm": 120,
+        "thicknessMm": 15,
+        "massGrams": 180,
+        "tags": [
+          "phone"
+        ],
+        "capability": "field-phone",
+        "handleMs": 250
+      },
+      "art": {
+        "url": "assets/items/e48b5b35ed96ea49a1cb4b6910cf4c00adc26e40e11641affe18b0ac807f1dde.png",
+        "source": "game/Assets/inventory-objects/phone.png",
+        "region": [
+          227,
+          72,
+          570,
+          1378
+        ],
+        "sha256": "e48b5b35ed96ea49a1cb4b6910cf4c00adc26e40e11641affe18b0ac807f1dde"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/equipment/communications/phones/phone/"
+    },
+    "radio": {
+      "url": "item-radio.html",
+      "category": "equipment/communications/radios",
+      "capabilities": [],
+      "definition": {
+        "id": "radio",
+        "name": "Site radio",
+        "widthMm": 50,
+        "lengthMm": 100,
+        "thicknessMm": 35,
+        "massGrams": 350,
+        "tags": [
+          "radio"
+        ],
+        "capability": "site-radio",
+        "handleMs": 250
+      },
+      "art": {
+        "url": "assets/items/508166dc87a94506fb2dd2d52757d93e7da7075970666861d256621c599a9488.png",
+        "source": "game/Assets/inventory-objects/radio.png",
+        "region": [
+          224,
+          29,
+          566,
+          1471
+        ],
+        "sha256": "508166dc87a94506fb2dd2d52757d93e7da7075970666861d256621c599a9488"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/equipment/communications/radios/radio/"
+    },
+    "utility-belt": {
+      "url": "item-utility-belt.html",
+      "category": "worn/accessories/belts",
+      "capabilities": [
+        "wearable",
+        "mount-provider"
+      ],
+      "definition": {
+        "id": "utility-belt",
+        "name": "Utility belt",
+        "widthMm": 150,
+        "lengthMm": 75,
+        "thicknessMm": 35,
+        "massGrams": 250,
+        "tags": [
+          "belt"
+        ],
+        "wearSlot": "belt",
+        "handleMs": 1000,
+        "handleAp": 2,
+        "wear": {
+          "layer": 3,
+          "mounts": [
+            {
+              "slot": "belt",
+              "coverage": [
+                "hips-front",
+                "hips-back"
+              ],
+              "bodySurface": "front"
+            }
+          ],
+          "coversAccess": false,
+          "blocksRemoval": true,
+          "overlapTags": [
+            "belt"
+          ],
+          "fitProfile": "belt",
+          "removalRegions": [
+            "hips-front",
+            "hips-back",
+            "torso-front",
+            "torso-back"
+          ],
+          "fit": {
+            "family": "core:strap",
+            "bulk": 1,
+            "maxUnderBulk": 20,
+            "fitsOver": [
+              "core:light-textile",
+              "core:light-jacket",
+              "core:bulky-coat",
+              "core:flexible-armor",
+              "core:sealed-suit",
+              "core:strap"
+            ]
+          },
+          "overlayLimit": 3,
+          "blocksFastenings": true
+        },
+        "regions": [
+          {
+            "id": "webbing",
+            "name": "Belt webbing",
+            "columns": 1,
+            "rows": 1,
+            "cellMm": 25,
+            "heightMm": 100,
+            "maxMassGrams": 2000,
+            "equipmentReady": true,
+            "accessMs": 250,
+            "accessAp": 1,
+            "attachment": {
+              "interface": "belt-loop",
+              "cells": [
+                {
+                  "q": -2,
+                  "r": 0
+                },
+                {
+                  "q": -1,
+                  "r": 0
+                },
+                {
+                  "q": 0,
+                  "r": 0
+                },
+                {
+                  "q": 1,
+                  "r": 0
+                },
+                {
+                  "q": 2,
+                  "r": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "art": {
+        "url": "assets/items/5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded.png",
+        "source": "game/Assets/inventory-objects/utility-belt.png",
+        "region": [
+          36,
+          240,
+          2100,
+          230
+        ],
+        "sha256": "5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/worn/accessories/belts/utility-belt/"
+    },
+    "case": {
+      "url": "item-case.html",
+      "category": "containers/cases",
+      "capabilities": [
+        "storage"
+      ],
+      "definition": {
+        "id": "case",
+        "name": "Utility case",
+        "widthMm": 100,
+        "lengthMm": 75,
+        "thicknessMm": 50,
+        "massGrams": 150,
+        "tags": [
+          "case"
+        ],
+        "regions": [
+          {
+            "id": "inside",
+            "name": "Case interior",
+            "columns": 3,
+            "rows": 2,
+            "cellMm": 25,
+            "heightMm": 40,
+            "maxMassGrams": 1200,
+            "accessMs": 400,
+            "accessAp": 1,
+            "secureVerb": "Latch",
+            "openVerb": "Unlatch",
+            "secureOnClose": true
+          }
+        ]
+      },
+      "art": {
+        "url": "assets/items/e787be22c24dfcdc450409df15bf091ca9825408408caf36b6b5205d4feedd6d.png",
+        "source": "game/Assets/inventory-objects/case.png",
+        "region": [
+          310,
+          175,
+          934,
+          680
+        ],
+        "sha256": "e787be22c24dfcdc450409df15bf091ca9825408408caf36b6b5205d4feedd6d"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/containers/cases/case/"
+    },
+    "utility-hook": {
+      "url": "item-utility-hook.html",
+      "category": "worn/accessories/hooks",
+      "capabilities": [
+        "attachment",
+        "mount-provider"
+      ],
+      "definition": {
+        "id": "utility-hook",
+        "name": "Utility hook",
+        "widthMm": 40,
+        "lengthMm": 90,
+        "thicknessMm": 15,
+        "massGrams": 80,
+        "tags": [
+          "placement-extender"
+        ],
+        "handleMs": 400,
+        "handleAp": 1,
+        "attachment": {
+          "interface": "belt-loop",
+          "occupancy": [
+            {
+              "q": 0,
+              "r": 0
+            },
+            {
+              "q": -1,
+              "r": 1
+            },
+            {
+              "q": 0,
+              "r": 1
+            },
+            {
+              "q": -1,
+              "r": 2
+            }
+          ],
+          "contacts": [
+            {
+              "q": 0,
+              "r": 0
+            }
+          ]
+        },
+        "regions": [
+          {
+            "id": "hook",
+            "name": "Lower hook mount",
+            "columns": 1,
+            "rows": 1,
+            "cellMm": 25,
+            "heightMm": 100,
+            "maxMassGrams": 500,
+            "equipmentReady": true,
+            "accessMs": 200,
+            "accessAp": 1,
+            "sealable": false,
+            "secureOnClose": false,
+            "attachment": {
+              "interface": "belt-loop",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": 2
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "art": {
+        "url": "assets/items/a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899.png",
+        "source": "game/Assets/inventory-objects/utility-hook.png",
+        "region": [
+          357,
+          225,
+          422,
+          1091
+        ],
+        "sha256": "a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/worn/accessories/hooks/utility-hook/"
+    },
+    "utility-pouch": {
+      "url": "item-utility-pouch.html",
+      "category": "worn/containers/pouches",
+      "capabilities": [
+        "storage",
+        "attachment"
+      ],
+      "definition": {
+        "id": "utility-pouch",
+        "name": "Utility pouch",
+        "widthMm": 75,
+        "lengthMm": 100,
+        "thicknessMm": 50,
+        "massGrams": 100,
+        "tags": [
+          "utility-pouch"
+        ],
+        "handleMs": 500,
+        "handleAp": 1,
+        "attachment": {
+          "interface": "belt-loop",
+          "occupancy": [
+            {
+              "q": 0,
+              "r": 0
+            },
+            {
+              "q": -1,
+              "r": 1
+            },
+            {
+              "q": 0,
+              "r": 1
+            }
+          ],
+          "contacts": [
+            {
+              "q": 0,
+              "r": 0
+            }
+          ]
+        },
+        "defaultDropRegion": "inside",
+        "regions": [
+          {
+            "id": "inside",
+            "name": "Utility pouch interior",
+            "columns": 3,
+            "rows": 4,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1000,
+            "equipmentReady": true,
+            "accessMs": 300,
+            "accessAp": 1,
+            "secureVerb": "Snap",
+            "openVerb": "Unsnap",
+            "secureOnClose": true
+          }
+        ]
+      },
+      "art": {
+        "url": "assets/items/8f9391dea799f33bd3d354f808ad43720e577620cea93ba7ebd43d963f5d360f.png",
+        "source": "game/Assets/inventory-objects/utility-pouch.png",
+        "region": [
+          120,
+          97,
+          1015,
+          1090
+        ],
+        "sha256": "8f9391dea799f33bd3d354f808ad43720e577620cea93ba7ebd43d963f5d360f"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [],
+      "futureBundle": "game/Assets/items/worn/containers/pouches/utility-pouch/"
+    },
+    "trousers": {
+      "url": "item-trousers.html",
+      "category": "worn/clothing/trousers",
+      "capabilities": [
+        "wearable",
+        "storage"
+      ],
+      "definition": {
+        "id": "trousers",
+        "name": "Utility trousers",
+        "widthMm": 400,
+        "lengthMm": 300,
+        "thicknessMm": 45,
+        "massGrams": 600,
+        "tags": [
+          "trousers"
+        ],
+        "wearSlot": "legs",
+        "handleMs": 2000,
+        "handleAp": 4,
+        "regions": [
+          {
+            "id": "left",
+            "name": "Left hip pocket",
+            "columns": 4,
+            "rows": 6,
+            "cellMm": 25,
+            "heightMm": 40,
+            "maxMassGrams": 1200,
+            "equipmentReady": true,
+            "accessMs": 250,
+            "accessAp": 1,
+            "accessBody": [
+              "hips-front"
+            ],
+            "secureOnClose": false,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -1,
+                    "r": -1
+                  },
+                  {
+                    "q": -1,
+                    "r": 0
+                  }
+                ]
+              }
+            ],
+            "sealable": false,
+            "snug": true
+          },
+          {
+            "id": "right",
+            "name": "Right hip pocket",
+            "columns": 4,
+            "rows": 6,
+            "cellMm": 25,
+            "heightMm": 40,
+            "maxMassGrams": 1200,
+            "equipmentReady": true,
+            "accessMs": 250,
+            "accessAp": 1,
+            "accessBody": [
+              "hips-front"
+            ],
+            "secureOnClose": false,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": 2,
+                    "r": -1
+                  },
+                  {
+                    "q": 1,
+                    "r": 0
+                  }
+                ]
+              }
+            ],
+            "sealable": false,
+            "snug": true
+          },
+          {
+            "id": "cargo-left",
+            "name": "Left cargo pocket",
+            "columns": 4,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1500,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 2,
+            "accessBody": [
+              "legs"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -2,
+                    "r": 2
+                  },
+                  {
+                    "q": -3,
+                    "r": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "cargo-right",
+            "name": "Right cargo pocket",
+            "columns": 4,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1500,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 2,
+            "accessBody": [
+              "legs"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": 0,
+                    "r": 2
+                  },
+                  {
+                    "q": 0,
+                    "r": 3
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "wear": {
+          "layer": 1,
+          "mounts": [
+            {
+              "slot": "legs",
+              "coverage": [
+                "hips-front",
+                "hips-back",
+                "legs"
+              ]
+            }
+          ],
+          "fitProfile": "trousers",
+          "fit": {
+            "family": "core:light-textile",
+            "bulk": 2,
+            "maxUnderBulk": 3,
+            "fitsOver": [
+              "core:light-textile"
+            ]
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb.png",
+        "source": "game/Assets/inventory-objects/trousers.png",
+        "region": [
+          159,
+          72,
+          726,
+          1395
+        ],
+        "sha256": "a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb"
+      },
+      "paperdollBinding": {
+        "definition": "trousers",
+        "column": 5
+      },
+      "paperdollFrames": [
+        {
+          "column": 5,
+          "file": "lower-clothes-v1.png",
+          "parts": [
+            {
+              "front": [
+                405,
+                15,
+                340,
+                525
+              ],
+              "back": [
+                405,
+                540,
+                340,
+                470
+              ],
+              "destination": [
+                0.15,
+                0.455,
+                0.7,
+                0.47
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/trousers/trousers/"
+    },
+    "socks": {
+      "url": "item-socks.html",
+      "category": "worn/clothing/socks",
+      "capabilities": [
+        "wearable"
+      ],
+      "definition": {
+        "id": "socks",
+        "name": "Wool socks",
+        "widthMm": 50,
+        "lengthMm": 75,
+        "thicknessMm": 20,
+        "massGrams": 100,
+        "tags": [
+          "socks"
+        ],
+        "wearSlot": "socks",
+        "handleMs": 1500,
+        "handleAp": 3,
+        "wear": {
+          "layer": 0,
+          "mounts": [
+            {
+              "slot": "socks",
+              "coverage": [
+                "feet"
+              ]
+            }
+          ],
+          "fitProfile": "socks",
+          "fit": {
+            "family": "core:light-textile",
+            "bulk": 1,
+            "maxUnderBulk": 0,
+            "fitsOver": []
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/81307eb2dc08d79001c3f592a2b8a4298b5a5bd3aae065caa694b8f0718339a0.png",
+        "source": "game/Assets/inventory-objects/socks.png",
+        "region": [
+          170,
+          91,
+          912,
+          1127
+        ],
+        "sha256": "81307eb2dc08d79001c3f592a2b8a4298b5a5bd3aae065caa694b8f0718339a0"
+      },
+      "paperdollBinding": {
+        "definition": "socks",
+        "column": 6
+      },
+      "paperdollFrames": [
+        {
+          "column": 6,
+          "file": "lower-clothes-v1.png",
+          "parts": [
+            {
+              "front": [
+                800,
+                350,
+                135,
+                225
+              ],
+              "back": [
+                800,
+                775,
+                140,
+                225
+              ],
+              "destination": [
+                0.13,
+                0.75,
+                0.23,
+                0.23
+              ],
+              "backDestination": [
+                0.15,
+                0.75,
+                0.23,
+                0.23
+              ]
+            },
+            {
+              "front": [
+                995,
+                350,
+                140,
+                225
+              ],
+              "back": [
+                995,
+                775,
+                140,
+                225
+              ],
+              "destination": [
+                0.65,
+                0.75,
+                0.23,
+                0.23
+              ],
+              "backDestination": [
+                0.66,
+                0.75,
+                0.23,
+                0.23
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/socks/socks/"
+    },
+    "shirt": {
+      "url": "item-shirt.html",
+      "category": "worn/clothing/shirts",
+      "capabilities": [
+        "wearable"
+      ],
+      "definition": {
+        "id": "shirt",
+        "name": "Work shirt",
+        "widthMm": 150,
+        "lengthMm": 200,
+        "thicknessMm": 25,
+        "massGrams": 300,
+        "tags": [
+          "shirt"
+        ],
+        "wearSlot": "torso",
+        "handleMs": 1500,
+        "handleAp": 3,
+        "wear": {
+          "layer": 1,
+          "mounts": [
+            {
+              "slot": "torso",
+              "coverage": [
+                "torso-front",
+                "torso-back",
+                "arms"
+              ]
+            }
+          ],
+          "fitProfile": "shirt",
+          "fit": {
+            "family": "core:light-textile",
+            "bulk": 1,
+            "maxUnderBulk": 5,
+            "fitsOver": [
+              "core:light-textile",
+              "core:light-jacket",
+              "core:flexible-armor"
+            ],
+            "excludesUnderTags": [
+              "core:rigid-shell"
+            ]
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552.png",
+        "source": "game/Assets/inventory-objects/shirt.png",
+        "region": [
+          114,
+          60,
+          1085,
+          1087
+        ],
+        "sha256": "3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552"
+      },
+      "paperdollBinding": {
+        "definition": "shirt",
+        "column": 1,
+        "baseCutouts": [
+          [
+            0,
+            0.18,
+            0.36,
+            0.33
+          ],
+          [
+            0.64,
+            0.18,
+            0.36,
+            0.33
+          ]
+        ]
+      },
+      "paperdollFrames": [
+        {
+          "column": 1,
+          "file": "upper-body.png",
+          "parts": [
+            {
+              "front": [
+                512,
+                80,
+                310,
+                400
+              ],
+              "back": [
+                512,
+                480,
+                310,
+                407
+              ],
+              "destination": [
+                0,
+                0.02,
+                1,
+                0.575
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/shirts/shirt/"
+    },
+    "boots": {
+      "url": "item-boots.html",
+      "category": "worn/clothing/shoes",
+      "capabilities": [
+        "wearable"
+      ],
+      "definition": {
+        "id": "boots",
+        "name": "Work shoes",
+        "widthMm": 160,
+        "lengthMm": 250,
+        "thicknessMm": 100,
+        "massGrams": 900,
+        "tags": [
+          "boots"
+        ],
+        "wearSlot": "footwear",
+        "handleMs": 1500,
+        "handleAp": 3,
+        "wear": {
+          "layer": 1,
+          "mounts": [
+            {
+              "slot": "footwear",
+              "coverage": [
+                "feet"
+              ]
+            }
+          ],
+          "fitProfile": "boots",
+          "fit": {
+            "family": "core:footwear",
+            "bulk": 4,
+            "maxUnderBulk": 3,
+            "fitsOver": [
+              "core:light-textile"
+            ]
+          }
+        }
+      },
+      "art": {
+        "url": "assets/items/eaeaa1643c9e42fec922555e30ecc04d857ec9fb83582a27b0eaa848eb257b38.png",
+        "source": "game/Assets/inventory-objects/boots.png",
+        "region": [
+          304,
+          103,
+          948,
+          823
+        ],
+        "sha256": "eaeaa1643c9e42fec922555e30ecc04d857ec9fb83582a27b0eaa848eb257b38"
+      },
+      "paperdollBinding": {
+        "definition": "boots",
+        "column": 7
+      },
+      "paperdollFrames": [
+        {
+          "column": 7,
+          "file": "lower-clothes-v1.png",
+          "parts": [
+            {
+              "front": [
+                1160,
+                390,
+                160,
+                185
+              ],
+              "back": [
+                1190,
+                815,
+                135,
+                185
+              ],
+              "destination": [
+                0.1,
+                0.865,
+                0.24,
+                0.12
+              ],
+              "backDestination": [
+                0.15,
+                0.865,
+                0.23,
+                0.12
+              ],
+              "frontWornCutouts": [
+                [
+                  [
+                    0.37,
+                    0
+                  ],
+                  [
+                    0.88,
+                    0
+                  ],
+                  [
+                    0.88,
+                    0.16
+                  ],
+                  [
+                    0.76,
+                    0.19
+                  ],
+                  [
+                    0.7,
+                    0.15
+                  ],
+                  [
+                    0.61,
+                    0.13
+                  ],
+                  [
+                    0.52,
+                    0.15
+                  ],
+                  [
+                    0.43,
+                    0.2
+                  ],
+                  [
+                    0.37,
+                    0.18
+                  ]
+                ]
+              ],
+              "backWornCutouts": [
+                [
+                  [
+                    0.1,
+                    0
+                  ],
+                  [
+                    0.88,
+                    0
+                  ],
+                  [
+                    0.88,
+                    0.24
+                  ],
+                  [
+                    0.79,
+                    0.27
+                  ],
+                  [
+                    0.67,
+                    0.29
+                  ],
+                  [
+                    0.33,
+                    0.29
+                  ],
+                  [
+                    0.18,
+                    0.27
+                  ],
+                  [
+                    0.1,
+                    0.24
+                  ]
+                ]
+              ]
+            },
+            {
+              "front": [
+                1370,
+                390,
+                160,
+                185
+              ],
+              "back": [
+                1380,
+                815,
+                150,
+                185
+              ],
+              "destination": [
+                0.65,
+                0.865,
+                0.24,
+                0.12
+              ],
+              "backDestination": [
+                0.65,
+                0.865,
+                0.23,
+                0.12
+              ],
+              "frontWornCutouts": [
+                [
+                  [
+                    0.63,
+                    0.18
+                  ],
+                  [
+                    0.5700000000000001,
+                    0.2
+                  ],
+                  [
+                    0.48,
+                    0.15
+                  ],
+                  [
+                    0.39,
+                    0.13
+                  ],
+                  [
+                    0.30000000000000004,
+                    0.15
+                  ],
+                  [
+                    0.24,
+                    0.19
+                  ],
+                  [
+                    0.12,
+                    0.16
+                  ],
+                  [
+                    0.12,
+                    0
+                  ],
+                  [
+                    0.63,
+                    0
+                  ]
+                ]
+              ],
+              "backWornCutouts": [
+                [
+                  [
+                    0.02,
+                    0
+                  ],
+                  [
+                    0.74,
+                    0
+                  ],
+                  [
+                    0.74,
+                    0.24
+                  ],
+                  [
+                    0.66,
+                    0.27
+                  ],
+                  [
+                    0.55,
+                    0.29
+                  ],
+                  [
+                    0.23,
+                    0.29
+                  ],
+                  [
+                    0.09,
+                    0.27
+                  ],
+                  [
+                    0.02,
+                    0.24
+                  ]
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/shoes/boots/"
+    }
+  }
+}

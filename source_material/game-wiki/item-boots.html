@@ -1,0 +1,267 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Work shoes — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Work shoes</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-clothing.html">Clothing</a> / <a href="items-worn-clothing-shoes.html">Shoes and boots</a></p><svg class="item-art" role="img" aria-label="Work shoes — loose source artwork" viewBox="304 103 948 823"><image href="assets/items/eaeaa1643c9e42fec922555e30ecc04d857ec9fb83582a27b0eaa848eb257b38.png" width="1536" height="1024"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>boots</code></dd><dt>Primary type</dt><dd>worn/clothing/shoes</dd><dt>Capability cross-references</dt><dd>wearable</dd><dt>Empty mass</dt><dd>900 g; contents are additional</dd><dt>Packed envelope</dt><dd>160 × 250 × 100 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1500 ms / 3 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>boots</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 1,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;footwear&quot;,
+      &quot;coverage&quot;: [
+        &quot;feet&quot;
+      ]
+    }
+  ],
+  &quot;fitProfile&quot;: &quot;boots&quot;,
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:footwear&quot;,
+    &quot;bulk&quot;: 4,
+    &quot;maxUnderBulk&quot;: 3,
+    &quot;fitsOver&quot;: [
+      &quot;core:light-textile&quot;
+    ]
+  }
+}</pre><h2>Artwork and authoring coverage</h2><p><a href="assets/items/eaeaa1643c9e42fec922555e30ecc04d857ec9fb83582a27b0eaa848eb257b38.png">Full original loose-art PNG</a>; registered source region <code>[304, 103, 948, 823]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/boots.png</code>. SHA-256: <code>eaeaa1643c9e42fec922555e30ecc04d857ec9fb83582a27b0eaa848eb257b38</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+  &quot;definition&quot;: &quot;boots&quot;,
+  &quot;column&quot;: 7
+}</pre><details><summary>Registered worn frames, views and masks</summary><pre>[
+  {
+    &quot;column&quot;: 7,
+    &quot;file&quot;: &quot;lower-clothes-v1.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          1160,
+          390,
+          160,
+          185
+        ],
+        &quot;back&quot;: [
+          1190,
+          815,
+          135,
+          185
+        ],
+        &quot;destination&quot;: [
+          0.1,
+          0.865,
+          0.24,
+          0.12
+        ],
+        &quot;backDestination&quot;: [
+          0.15,
+          0.865,
+          0.23,
+          0.12
+        ],
+        &quot;frontWornCutouts&quot;: [
+          [
+            [
+              0.37,
+              0
+            ],
+            [
+              0.88,
+              0
+            ],
+            [
+              0.88,
+              0.16
+            ],
+            [
+              0.76,
+              0.19
+            ],
+            [
+              0.7,
+              0.15
+            ],
+            [
+              0.61,
+              0.13
+            ],
+            [
+              0.52,
+              0.15
+            ],
+            [
+              0.43,
+              0.2
+            ],
+            [
+              0.37,
+              0.18
+            ]
+          ]
+        ],
+        &quot;backWornCutouts&quot;: [
+          [
+            [
+              0.1,
+              0
+            ],
+            [
+              0.88,
+              0
+            ],
+            [
+              0.88,
+              0.24
+            ],
+            [
+              0.79,
+              0.27
+            ],
+            [
+              0.67,
+              0.29
+            ],
+            [
+              0.33,
+              0.29
+            ],
+            [
+              0.18,
+              0.27
+            ],
+            [
+              0.1,
+              0.24
+            ]
+          ]
+        ]
+      },
+      {
+        &quot;front&quot;: [
+          1370,
+          390,
+          160,
+          185
+        ],
+        &quot;back&quot;: [
+          1380,
+          815,
+          150,
+          185
+        ],
+        &quot;destination&quot;: [
+          0.65,
+          0.865,
+          0.24,
+          0.12
+        ],
+        &quot;backDestination&quot;: [
+          0.65,
+          0.865,
+          0.23,
+          0.12
+        ],
+        &quot;frontWornCutouts&quot;: [
+          [
+            [
+              0.63,
+              0.18
+            ],
+            [
+              0.5700000000000001,
+              0.2
+            ],
+            [
+              0.48,
+              0.15
+            ],
+            [
+              0.39,
+              0.13
+            ],
+            [
+              0.30000000000000004,
+              0.15
+            ],
+            [
+              0.24,
+              0.19
+            ],
+            [
+              0.12,
+              0.16
+            ],
+            [
+              0.12,
+              0
+            ],
+            [
+              0.63,
+              0
+            ]
+          ]
+        ],
+        &quot;backWornCutouts&quot;: [
+          [
+            [
+              0.02,
+              0
+            ],
+            [
+              0.74,
+              0
+            ],
+            [
+              0.74,
+              0.24
+            ],
+            [
+              0.66,
+              0.27
+            ],
+            [
+              0.55,
+              0.29
+            ],
+            [
+              0.23,
+              0.29
+            ],
+            [
+              0.09,
+              0.27
+            ],
+            [
+              0.02,
+              0.24
+            ]
+          ]
+        ]
+      }
+    ]
+  }
+]</pre></details><p>Future bundle location: <code>game/Assets/items/worn/clothing/shoes/boots/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;boots&quot;,
+  &quot;name&quot;: &quot;Work shoes&quot;,
+  &quot;widthMm&quot;: 160,
+  &quot;lengthMm&quot;: 250,
+  &quot;thicknessMm&quot;: 100,
+  &quot;massGrams&quot;: 900,
+  &quot;tags&quot;: [
+    &quot;boots&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;footwear&quot;,
+  &quot;handleMs&quot;: 1500,
+  &quot;handleAp&quot;: 3,
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 1,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;footwear&quot;,
+        &quot;coverage&quot;: [
+          &quot;feet&quot;
+        ]
+      }
+    ],
+    &quot;fitProfile&quot;: &quot;boots&quot;,
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:footwear&quot;,
+      &quot;bulk&quot;: 4,
+      &quot;maxUnderBulk&quot;: 3,
+      &quot;fitsOver&quot;: [
+        &quot;core:light-textile&quot;
+      ]
+    }
+  }
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #boots</footer></main></div></body></html>

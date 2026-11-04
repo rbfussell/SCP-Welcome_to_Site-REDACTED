@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cotton boxer briefs — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Cotton boxer briefs</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-clothing.html">Clothing</a> / <a href="items-worn-clothing-underwear.html">Underwear</a></p><svg class="item-art" role="img" aria-label="Cotton boxer briefs — loose source artwork" viewBox="40 205 335 240"><image href="assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png" width="1536" height="1024"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>underwear</code></dd><dt>Primary type</dt><dd>worn/clothing/underwear</dd><dt>Capability cross-references</dt><dd>wearable</dd><dt>Empty mass</dt><dd>80 g; contents are additional</dd><dt>Packed envelope</dt><dd>100 × 100 × 15 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1000 ms / 2 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>underwear</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 0,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;underwear&quot;,
+      &quot;coverage&quot;: [
+        &quot;hips-front&quot;,
+        &quot;hips-back&quot;
+      ]
+    }
+  ],
+  &quot;fitProfile&quot;: &quot;underwear&quot;,
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:light-textile&quot;,
+    &quot;bulk&quot;: 1,
+    &quot;maxUnderBulk&quot;: 0,
+    &quot;fitsOver&quot;: []
+  }
+}</pre><h2>Artwork and authoring coverage</h2><p><a href="assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png">Full original loose-art PNG</a>; registered source region <code>[40, 205, 335, 240]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/paperdoll-proof/lower-clothes-v1.png</code>. SHA-256: <code>84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+  &quot;definition&quot;: &quot;underwear&quot;,
+  &quot;column&quot;: 4
+}</pre><details><summary>Registered worn frames, views and masks</summary><pre>[
+  {
+    &quot;column&quot;: 4,
+    &quot;file&quot;: &quot;lower-clothes-v1.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          40,
+          205,
+          335,
+          240
+        ],
+        &quot;back&quot;: [
+          40,
+          725,
+          335,
+          240
+        ],
+        &quot;destination&quot;: [
+          0.19,
+          0.465,
+          0.62,
+          0.19
+        ]
+      }
+    ]
+  }
+]</pre></details><p>Future bundle location: <code>game/Assets/items/worn/clothing/underwear/underwear/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;underwear&quot;,
+  &quot;name&quot;: &quot;Cotton boxer briefs&quot;,
+  &quot;widthMm&quot;: 100,
+  &quot;lengthMm&quot;: 100,
+  &quot;thicknessMm&quot;: 15,
+  &quot;massGrams&quot;: 80,
+  &quot;tags&quot;: [
+    &quot;underwear&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;underwear&quot;,
+  &quot;handleMs&quot;: 1000,
+  &quot;handleAp&quot;: 2,
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 0,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;underwear&quot;,
+        &quot;coverage&quot;: [
+          &quot;hips-front&quot;,
+          &quot;hips-back&quot;
+        ]
+      }
+    ],
+    &quot;fitProfile&quot;: &quot;underwear&quot;,
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:light-textile&quot;,
+      &quot;bulk&quot;: 1,
+      &quot;maxUnderBulk&quot;: 0,
+      &quot;fitsOver&quot;: []
+    }
+  }
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #underwear</footer></main></div></body></html>

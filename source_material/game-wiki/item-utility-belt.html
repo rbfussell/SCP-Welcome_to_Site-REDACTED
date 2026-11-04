@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Utility belt — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Utility belt</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-accessories.html">Straps and fittings</a> / <a href="items-worn-accessories-belts.html">Belts</a></p><svg class="item-art" role="img" aria-label="Utility belt — loose source artwork" viewBox="36 240 2100 230"><image href="assets/items/5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded.png" width="2172" height="724"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>utility-belt</code></dd><dt>Primary type</dt><dd>worn/accessories/belts</dd><dt>Capability cross-references</dt><dd>wearable, mount-provider</dd><dt>Empty mass</dt><dd>250 g; contents are additional</dd><dt>Packed envelope</dt><dd>150 × 75 × 35 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1000 ms / 2 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>belt</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 3,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;belt&quot;,
+      &quot;coverage&quot;: [
+        &quot;hips-front&quot;,
+        &quot;hips-back&quot;
+      ],
+      &quot;bodySurface&quot;: &quot;front&quot;
+    }
+  ],
+  &quot;coversAccess&quot;: false,
+  &quot;blocksRemoval&quot;: true,
+  &quot;overlapTags&quot;: [
+    &quot;belt&quot;
+  ],
+  &quot;fitProfile&quot;: &quot;belt&quot;,
+  &quot;removalRegions&quot;: [
+    &quot;hips-front&quot;,
+    &quot;hips-back&quot;,
+    &quot;torso-front&quot;,
+    &quot;torso-back&quot;
+  ],
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:strap&quot;,
+    &quot;bulk&quot;: 1,
+    &quot;maxUnderBulk&quot;: 20,
+    &quot;fitsOver&quot;: [
+      &quot;core:light-textile&quot;,
+      &quot;core:light-jacket&quot;,
+      &quot;core:bulky-coat&quot;,
+      &quot;core:flexible-armor&quot;,
+      &quot;core:sealed-suit&quot;,
+      &quot;core:strap&quot;
+    ]
+  },
+  &quot;overlayLimit&quot;: 3,
+  &quot;blocksFastenings&quot;: true
+}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Belt webbing</td><td>attachment surface</td><td>1 × 1 cells @ 25 mm; height 100 mm</td><td>2000 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded.png">Full original loose-art PNG</a>; registered source region <code>[36, 240, 2100, 230]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/utility-belt.png</code>. SHA-256: <code>5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded</code>.</p><p>Paperdoll: no qualified native worn-sprite binding. World outfit composition remains unimplemented.</p><p>Future bundle location: <code>game/Assets/items/worn/accessories/belts/utility-belt/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;utility-belt&quot;,
+  &quot;name&quot;: &quot;Utility belt&quot;,
+  &quot;widthMm&quot;: 150,
+  &quot;lengthMm&quot;: 75,
+  &quot;thicknessMm&quot;: 35,
+  &quot;massGrams&quot;: 250,
+  &quot;tags&quot;: [
+    &quot;belt&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;belt&quot;,
+  &quot;handleMs&quot;: 1000,
+  &quot;handleAp&quot;: 2,
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 3,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;belt&quot;,
+        &quot;coverage&quot;: [
+          &quot;hips-front&quot;,
+          &quot;hips-back&quot;
+        ],
+        &quot;bodySurface&quot;: &quot;front&quot;
+      }
+    ],
+    &quot;coversAccess&quot;: false,
+    &quot;blocksRemoval&quot;: true,
+    &quot;overlapTags&quot;: [
+      &quot;belt&quot;
+    ],
+    &quot;fitProfile&quot;: &quot;belt&quot;,
+    &quot;removalRegions&quot;: [
+      &quot;hips-front&quot;,
+      &quot;hips-back&quot;,
+      &quot;torso-front&quot;,
+      &quot;torso-back&quot;
+    ],
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:strap&quot;,
+      &quot;bulk&quot;: 1,
+      &quot;maxUnderBulk&quot;: 20,
+      &quot;fitsOver&quot;: [
+        &quot;core:light-textile&quot;,
+        &quot;core:light-jacket&quot;,
+        &quot;core:bulky-coat&quot;,
+        &quot;core:flexible-armor&quot;,
+        &quot;core:sealed-suit&quot;,
+        &quot;core:strap&quot;
+      ]
+    },
+    &quot;overlayLimit&quot;: 3,
+    &quot;blocksFastenings&quot;: true
+  },
+  &quot;regions&quot;: [
+    {
+      &quot;id&quot;: &quot;webbing&quot;,
+      &quot;name&quot;: &quot;Belt webbing&quot;,
+      &quot;columns&quot;: 1,
+      &quot;rows&quot;: 1,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 100,
+      &quot;maxMassGrams&quot;: 2000,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 250,
+      &quot;accessAp&quot;: 1,
+      &quot;attachment&quot;: {
+        &quot;interface&quot;: &quot;belt-loop&quot;,
+        &quot;cells&quot;: [
+          {
+            &quot;q&quot;: -2,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: 1,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: 2,
+            &quot;r&quot;: 0
+          }
+        ]
+      }
+    }
+  ]
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #utility-belt</footer></main></div></body></html>

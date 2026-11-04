@@ -1,0 +1,316 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Field coat — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Field coat</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-clothing.html">Clothing</a> / <a href="items-worn-clothing-coats.html">Coats and jackets</a></p><svg class="item-art" role="img" aria-label="Field coat — loose source artwork" viewBox="80 60 1074 1153"><image href="assets/items/a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016.png" width="1230" height="1278"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>coat</code></dd><dt>Primary type</dt><dd>worn/clothing/coats</dd><dt>Capability cross-references</dt><dd>wearable, storage</dd><dt>Empty mass</dt><dd>900 g; contents are additional</dd><dt>Packed envelope</dt><dd>400 × 350 × 60 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1500 ms / 3 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>coat</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 2,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;outerwear&quot;,
+      &quot;coverage&quot;: [
+        &quot;torso-front&quot;,
+        &quot;torso-back&quot;,
+        &quot;arms&quot;,
+        &quot;hips-front&quot;,
+        &quot;hips-back&quot;
+      ]
+    }
+  ],
+  &quot;openExposes&quot;: [
+    &quot;torso-front&quot;,
+    &quot;hips-front&quot;
+  ],
+  &quot;fastenMs&quot;: 700,
+  &quot;fastenAp&quot;: 2,
+  &quot;secureVerb&quot;: &quot;Zip&quot;,
+  &quot;openVerb&quot;: &quot;Unzip&quot;,
+  &quot;secureOnClose&quot;: false,
+  &quot;fitProfile&quot;: &quot;coat&quot;,
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:light-jacket&quot;,
+    &quot;bulk&quot;: 3,
+    &quot;maxUnderBulk&quot;: 6,
+    &quot;fitsOver&quot;: [
+      &quot;core:light-textile&quot;,
+      &quot;core:flexible-armor&quot;,
+      &quot;core:strap&quot;
+    ]
+  },
+  &quot;fasteningFootprint&quot;: [
+    {
+      &quot;surface&quot;: &quot;front&quot;,
+      &quot;cells&quot;: [
+        {
+          &quot;q&quot;: 0,
+          &quot;r&quot;: 0
+        },
+        {
+          &quot;q&quot;: -1,
+          &quot;r&quot;: 1
+        },
+        {
+          &quot;q&quot;: 0,
+          &quot;r&quot;: 1
+        },
+        {
+          &quot;q&quot;: -1,
+          &quot;r&quot;: 2
+        },
+        {
+          &quot;q&quot;: -2,
+          &quot;r&quot;: 3
+        },
+        {
+          &quot;q&quot;: -1,
+          &quot;r&quot;: 3
+        },
+        {
+          &quot;q&quot;: -2,
+          &quot;r&quot;: 4
+        },
+        {
+          &quot;q&quot;: -3,
+          &quot;r&quot;: 5
+        },
+        {
+          &quot;q&quot;: -2,
+          &quot;r&quot;: 5
+        },
+        {
+          &quot;q&quot;: -3,
+          &quot;r&quot;: 6
+        },
+        {
+          &quot;q&quot;: -4,
+          &quot;r&quot;: 7
+        },
+        {
+          &quot;q&quot;: -3,
+          &quot;r&quot;: 7
+        }
+      ]
+    }
+  ]
+}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Coat chest pocket</td><td>storage compartment</td><td>4 × 5 cells @ 25 mm; height 45 mm</td><td>1500 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016.png">Full original loose-art PNG</a>; registered source region <code>[80, 60, 1074, 1153]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/coat.png</code>. SHA-256: <code>a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+  &quot;definition&quot;: &quot;coat&quot;,
+  &quot;column&quot;: 2,
+  &quot;openColumn&quot;: 3,
+  &quot;baseCutouts&quot;: [
+    [
+      0,
+      0.18,
+      0.36,
+      0.33
+    ],
+    [
+      0.64,
+      0.18,
+      0.36,
+      0.33
+    ]
+  ]
+}</pre><details><summary>Registered worn frames, views and masks</summary><pre>[
+  {
+    &quot;column&quot;: 2,
+    &quot;file&quot;: &quot;upper-body.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          952,
+          80,
+          310,
+          400
+        ],
+        &quot;back&quot;: [
+          952,
+          480,
+          310,
+          407
+        ],
+        &quot;destination&quot;: [
+          0,
+          0.02,
+          1,
+          0.575
+        ]
+      }
+    ]
+  },
+  {
+    &quot;column&quot;: 3,
+    &quot;file&quot;: &quot;upper-body.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          1395,
+          80,
+          310,
+          400
+        ],
+        &quot;back&quot;: [
+          1395,
+          480,
+          310,
+          407
+        ],
+        &quot;destination&quot;: [
+          0,
+          0.02,
+          1,
+          0.575
+        ]
+      }
+    ]
+  }
+]</pre></details><p>Future bundle location: <code>game/Assets/items/worn/clothing/coats/coat/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;coat&quot;,
+  &quot;name&quot;: &quot;Field coat&quot;,
+  &quot;widthMm&quot;: 400,
+  &quot;lengthMm&quot;: 350,
+  &quot;thicknessMm&quot;: 60,
+  &quot;massGrams&quot;: 900,
+  &quot;tags&quot;: [
+    &quot;coat&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;outerwear&quot;,
+  &quot;handleMs&quot;: 1500,
+  &quot;handleAp&quot;: 3,
+  &quot;regions&quot;: [
+    {
+      &quot;id&quot;: &quot;chest&quot;,
+      &quot;name&quot;: &quot;Coat chest pocket&quot;,
+      &quot;columns&quot;: 4,
+      &quot;rows&quot;: 5,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 45,
+      &quot;maxMassGrams&quot;: 1500,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 350,
+      &quot;accessAp&quot;: 1,
+      &quot;mask&quot;: [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      &quot;accessBody&quot;: [
+        &quot;torso-front&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Button&quot;,
+      &quot;openVerb&quot;: &quot;Unbutton&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;front&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: 0,
+              &quot;r&quot;: 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 2,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;outerwear&quot;,
+        &quot;coverage&quot;: [
+          &quot;torso-front&quot;,
+          &quot;torso-back&quot;,
+          &quot;arms&quot;,
+          &quot;hips-front&quot;,
+          &quot;hips-back&quot;
+        ]
+      }
+    ],
+    &quot;openExposes&quot;: [
+      &quot;torso-front&quot;,
+      &quot;hips-front&quot;
+    ],
+    &quot;fastenMs&quot;: 700,
+    &quot;fastenAp&quot;: 2,
+    &quot;secureVerb&quot;: &quot;Zip&quot;,
+    &quot;openVerb&quot;: &quot;Unzip&quot;,
+    &quot;secureOnClose&quot;: false,
+    &quot;fitProfile&quot;: &quot;coat&quot;,
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:light-jacket&quot;,
+      &quot;bulk&quot;: 3,
+      &quot;maxUnderBulk&quot;: 6,
+      &quot;fitsOver&quot;: [
+        &quot;core:light-textile&quot;,
+        &quot;core:flexible-armor&quot;,
+        &quot;core:strap&quot;
+      ]
+    },
+    &quot;fasteningFootprint&quot;: [
+      {
+        &quot;surface&quot;: &quot;front&quot;,
+        &quot;cells&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 1
+          },
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 1
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 2
+          },
+          {
+            &quot;q&quot;: -2,
+            &quot;r&quot;: 3
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 3
+          },
+          {
+            &quot;q&quot;: -2,
+            &quot;r&quot;: 4
+          },
+          {
+            &quot;q&quot;: -3,
+            &quot;r&quot;: 5
+          },
+          {
+            &quot;q&quot;: -2,
+            &quot;r&quot;: 5
+          },
+          {
+            &quot;q&quot;: -3,
+            &quot;r&quot;: 6
+          },
+          {
+            &quot;q&quot;: -4,
+            &quot;r&quot;: 7
+          },
+          {
+            &quot;q&quot;: -3,
+            &quot;r&quot;: 7
+          }
+        ]
+      }
+    ]
+  }
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #coat</footer></main></div></body></html>

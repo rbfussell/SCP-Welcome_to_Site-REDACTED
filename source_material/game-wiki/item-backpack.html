@@ -1,0 +1,245 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Field backpack — item | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Item</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Field backpack</h1><p><a href="items.html">Item catalog</a> / <a href="items-worn.html">Worn equipment</a> / <a href="items-worn-containers.html">Wearable containers</a> / <a href="items-worn-containers-backpacks.html">Backpacks</a></p><svg class="item-art" role="img" aria-label="Field backpack — loose source artwork" viewBox="145 83 935 1093"><image href="assets/items/fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089.png" width="1270" height="1239"/></svg><p class="notice">Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.</p><dl><dt>Stable definition ID</dt><dd><code>backpack</code></dd><dt>Primary type</dt><dd>worn/containers/backpacks</dd><dt>Capability cross-references</dt><dd>wearable, storage</dd><dt>Empty mass</dt><dd>700 g; contents are additional</dd><dt>Packed envelope</dt><dd>250 × 300 × 160 mm; cell count depends on destination grid</dd><dt>Base handling (authored)</dt><dd>1500 ms / 3 AP; access and action costs apply separately</dd><dt>Tags</dt><dd>backpack</dd><dt>Materials / condition / combat balance</dt><dd>Not authored as native definition fields here; no effects inferred from the image or item name.</dd></dl><h2>Wear and fit metadata</h2><pre>{
+  &quot;layer&quot;: 5,
+  &quot;mounts&quot;: [
+    {
+      &quot;slot&quot;: &quot;back&quot;,
+      &quot;coverage&quot;: [
+        &quot;torso-back&quot;
+      ],
+      &quot;bodySurface&quot;: &quot;back&quot;
+    },
+    {
+      &quot;slot&quot;: &quot;front&quot;,
+      &quot;coverage&quot;: [
+        &quot;torso-front&quot;
+      ],
+      &quot;bodySurface&quot;: &quot;front&quot;
+    }
+  ],
+  &quot;outermost&quot;: true,
+  &quot;fitProfile&quot;: &quot;backpack&quot;,
+  &quot;fit&quot;: {
+    &quot;family&quot;: &quot;core:outer-pack&quot;,
+    &quot;bulk&quot;: 6,
+    &quot;maxUnderBulk&quot;: 20,
+    &quot;fitsOver&quot;: [
+      &quot;core:light-textile&quot;,
+      &quot;core:light-jacket&quot;,
+      &quot;core:bulky-coat&quot;,
+      &quot;core:flexible-armor&quot;,
+      &quot;core:sealed-suit&quot;,
+      &quot;core:strap&quot;
+    ]
+  }
+}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Backpack main section</td><td>storage compartment</td><td>8 × 10 cells @ 25 mm; height 140 mm</td><td>8000 g</td></tr><tr><td>Backpack side pocket</td><td>storage compartment</td><td>3 × 6 cells @ 25 mm; height 45 mm</td><td>1200 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089.png">Full original loose-art PNG</a>; registered source region <code>[145, 83, 935, 1093]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/backpack.png</code>. SHA-256: <code>fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+  &quot;definition&quot;: &quot;backpack&quot;,
+  &quot;column&quot;: 8,
+  &quot;mountColumns&quot;: {
+    &quot;back&quot;: 8,
+    &quot;front&quot;: 9
+  }
+}</pre><details><summary>Registered worn frames, views and masks</summary><pre>[
+  {
+    &quot;column&quot;: 8,
+    &quot;file&quot;: &quot;backpack-v1.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          104,
+          201,
+          561,
+          652
+        ],
+        &quot;back&quot;: [
+          104,
+          201,
+          561,
+          652
+        ],
+        &quot;destination&quot;: [
+          0.21,
+          0.195,
+          0.58,
+          0.31
+        ]
+      },
+      {
+        &quot;front&quot;: [
+          860,
+          83,
+          586,
+          840
+        ],
+        &quot;back&quot;: [
+          860,
+          83,
+          586,
+          840
+        ],
+        &quot;destination&quot;: [
+          0.22,
+          0.19,
+          0.56,
+          0.325
+        ],
+        &quot;side&quot;: &quot;back&quot;
+      }
+    ]
+  },
+  {
+    &quot;column&quot;: 9,
+    &quot;file&quot;: &quot;backpack-v1.png&quot;,
+    &quot;parts&quot;: [
+      {
+        &quot;front&quot;: [
+          104,
+          201,
+          561,
+          652
+        ],
+        &quot;back&quot;: [
+          104,
+          201,
+          561,
+          652
+        ],
+        &quot;destination&quot;: [
+          0.21,
+          0.195,
+          0.58,
+          0.31
+        ]
+      },
+      {
+        &quot;front&quot;: [
+          860,
+          83,
+          586,
+          840
+        ],
+        &quot;back&quot;: [
+          860,
+          83,
+          586,
+          840
+        ],
+        &quot;destination&quot;: [
+          0.22,
+          0.19,
+          0.56,
+          0.325
+        ],
+        &quot;side&quot;: &quot;front&quot;
+      }
+    ]
+  }
+]</pre></details><p>Future bundle location: <code>game/Assets/items/worn/containers/backpacks/backpack/</code>. This is a migration target, not an existing relocated runtime asset.</p><h2>Exact native definition</h2><pre>{
+  &quot;id&quot;: &quot;backpack&quot;,
+  &quot;name&quot;: &quot;Field backpack&quot;,
+  &quot;widthMm&quot;: 250,
+  &quot;lengthMm&quot;: 300,
+  &quot;thicknessMm&quot;: 160,
+  &quot;massGrams&quot;: 700,
+  &quot;tags&quot;: [
+    &quot;backpack&quot;
+  ],
+  &quot;wearSlot&quot;: &quot;back&quot;,
+  &quot;handleMs&quot;: 1500,
+  &quot;handleAp&quot;: 3,
+  &quot;regions&quot;: [
+    {
+      &quot;id&quot;: &quot;main&quot;,
+      &quot;name&quot;: &quot;Backpack main section&quot;,
+      &quot;columns&quot;: 8,
+      &quot;rows&quot;: 10,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 140,
+      &quot;maxMassGrams&quot;: 8000,
+      &quot;accessMs&quot;: 1000,
+      &quot;accessAp&quot;: 3,
+      &quot;accessBody&quot;: [
+        &quot;torso-back&quot;,
+        &quot;torso-front&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Zip&quot;,
+      &quot;openVerb&quot;: &quot;Unzip&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;mounted&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: -1,
+              &quot;r&quot;: 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;side&quot;,
+      &quot;name&quot;: &quot;Backpack side pocket&quot;,
+      &quot;columns&quot;: 3,
+      &quot;rows&quot;: 6,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 45,
+      &quot;maxMassGrams&quot;: 1200,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 500,
+      &quot;accessAp&quot;: 2,
+      &quot;accessBody&quot;: [
+        &quot;torso-back&quot;,
+        &quot;torso-front&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Buckle&quot;,
+      &quot;openVerb&quot;: &quot;Unbuckle&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;mounted&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: 0,
+              &quot;r&quot;: 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  &quot;wear&quot;: {
+    &quot;layer&quot;: 5,
+    &quot;mounts&quot;: [
+      {
+        &quot;slot&quot;: &quot;back&quot;,
+        &quot;coverage&quot;: [
+          &quot;torso-back&quot;
+        ],
+        &quot;bodySurface&quot;: &quot;back&quot;
+      },
+      {
+        &quot;slot&quot;: &quot;front&quot;,
+        &quot;coverage&quot;: [
+          &quot;torso-front&quot;
+        ],
+        &quot;bodySurface&quot;: &quot;front&quot;
+      }
+    ],
+    &quot;outermost&quot;: true,
+    &quot;fitProfile&quot;: &quot;backpack&quot;,
+    &quot;fit&quot;: {
+      &quot;family&quot;: &quot;core:outer-pack&quot;,
+      &quot;bulk&quot;: 6,
+      &quot;maxUnderBulk&quot;: 20,
+      &quot;fitsOver&quot;: [
+        &quot;core:light-textile&quot;,
+        &quot;core:light-jacket&quot;,
+        &quot;core:bulky-coat&quot;,
+        &quot;core:flexible-armor&quot;,
+        &quot;core:sealed-suit&quot;,
+        &quot;core:strap&quot;
+      ]
+    }
+  },
+  &quot;defaultDropRegion&quot;: &quot;main&quot;
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #backpack</footer></main></div></body></html>

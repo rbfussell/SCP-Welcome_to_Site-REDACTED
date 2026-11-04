@@ -1,0 +1,198 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/wiki_items.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>wiki_items.py</h1><pre>&quot;&quot;&quot;Read-only native-item art catalog; copy original PNG bytes and render source-region previews.&quot;&quot;&quot;
+from html import escape
+import hashlib
+import json
+from pathlib import Path
+import re
+import struct
+
+REGISTRY = &#x27;game/Assets/items/catalog.json&#x27;
+
+
+def page_id(value):
+    return re.sub(r&#x27;[^a-z0-9]+&#x27;, &#x27;-&#x27;, value.lower()).strip(&#x27;-&#x27;)
+
+
+def item_url(item):
+    return &#x27;item-&#x27; + page_id(item) + &#x27;.html&#x27;
+
+
+def category_url(category):
+    return &#x27;items-&#x27; + category.replace(&#x27;/&#x27;, &#x27;-&#x27;) + &#x27;.html&#x27;
+
+
+def load_catalog(root):
+    root = Path(root).resolve()
+
+    def path(name):
+        p = (root / name).resolve()
+        if not p.is_relative_to(root) or not p.is_file():
+            raise ValueError(&#x27;Missing or escaped item-catalog source: &#x27; + str(name))
+        return p
+
+    def read(name):
+        def unique(pairs):
+            result = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError(&#x27;Duplicate catalog JSON key: &#x27; + key)
+                result[key] = value
+            return result
+        return json.loads(path(name).read_text(), object_pairs_hook=unique)
+
+    registry = read(REGISTRY)
+    if registry.get(&#x27;version&#x27;) != 1 or registry.get(&#x27;status&#x27;) != &#x27;authoring-catalog&#x27;:
+        raise ValueError(&#x27;Unknown item catalog version/status&#x27;)
+    sources = [REGISTRY] + [registry[key] for key in (&#x27;definitionSource&#x27;, &#x27;inventoryArtSource&#x27;, &#x27;paperdollArtSource&#x27;)]
+    content, loose, worn = [read(name) for name in sources[1:]]
+    definitions = {d[&#x27;id&#x27;]: d for d in content[&#x27;definitions&#x27;]}
+    if len(definitions) != len(content[&#x27;definitions&#x27;]) or set(definitions) != set(registry[&#x27;items&#x27;]):
+        raise ValueError(&#x27;Catalog must classify every native definition exactly once; missing/extra/duplicate IDs&#x27;)
+    if len({item_url(i) for i in definitions}) != len(definitions):
+        raise ValueError(&#x27;Item URL collision&#x27;)
+    categories = {c[&#x27;path&#x27;]: c for c in registry[&#x27;categories&#x27;]}
+    if len(categories) != len(registry[&#x27;categories&#x27;]):
+        raise ValueError(&#x27;Duplicate item category&#x27;)
+    if len({category_url(c) for c in categories}) != len(categories):
+        raise ValueError(&#x27;Category URL collision&#x27;)
+    for key, category in categories.items():
+        if not re.fullmatch(r&#x27;[a-z0-9]+(?:[-/][a-z0-9]+)*&#x27;, key) or not category.get(&#x27;name&#x27;):
+            raise ValueError(&#x27;Invalid category path/name: &#x27; + key)
+        if &#x27;/&#x27; in key and key.rsplit(&#x27;/&#x27;, 1)[0] not in categories:
+            raise ValueError(&#x27;Missing category parent: &#x27; + key)
+        representative = category.get(&#x27;representativeItem&#x27;)
+        if representative is not None:
+            assigned = registry[&#x27;items&#x27;].get(representative, {}).get(&#x27;category&#x27;, &#x27;&#x27;)
+            if assigned != key and not assigned.startswith(key + &#x27;/&#x27;):
+                raise ValueError(&#x27;Category representative must be an item in its subtree: &#x27; + key)
+    for key, entry in registry[&#x27;items&#x27;].items():
+        if entry.get(&#x27;category&#x27;) not in categories:
+            raise ValueError(&#x27;Unknown item category: &#x27; + key)
+    assets = {a[&#x27;id&#x27;]: a for a in loose[&#x27;assets&#x27;]}
+    if len(assets) != len(loose[&#x27;assets&#x27;]) or set(definitions) - set(assets):
+        raise ValueError(&#x27;Missing/duplicate loose art binding&#x27;)
+    image_paths = {}
+    for key in definitions:
+        asset = assets[key]
+        source = path(str(Path(registry[&#x27;inventoryArtSource&#x27;]).parent / asset[&#x27;file&#x27;]))
+        if not source.is_relative_to(root / &#x27;game/Assets&#x27;) or source.suffix != &#x27;.png&#x27;:
+            raise ValueError(&#x27;Catalog image must be a project PNG&#x27;)
+        header = source.read_bytes()[:24]
+        if header[:8] != b&#x27;\x89PNG\r\n\x1a\n&#x27; or list(struct.unpack(&#x27;&gt;II&#x27;, header[16:24])) != asset[&#x27;size&#x27;]:
+            raise ValueError(&#x27;PNG dimensions differ: &#x27; + key)
+        r = asset[&#x27;region&#x27;]
+        if len(r) != 4 or any(type(n) is not int for n in r) or min(r[:2]) &lt; 0 or min(r[2:]) &lt;= 0 or r[0] + r[2] &gt; asset[&#x27;size&#x27;][0] or r[1] + r[3] &gt; asset[&#x27;size&#x27;][1]:
+            raise ValueError(&#x27;Invalid source region: &#x27; + key)
+        image_paths[key] = source
+    return registry, definitions, categories, assets, worn, image_paths, sources
+
+
+def build_items(root, out, add):
+    root, out = Path(root).resolve(), Path(out).resolve()
+    registry, definitions, categories, assets, worn, images, sources = load_catalog(root)
+    hashes = {}
+    directory = out / &#x27;assets/items&#x27;
+    directory.mkdir(parents=True, exist_ok=True)
+    urls = {}
+    for item, source in images.items():
+        data = source.read_bytes()
+        digest = hashlib.sha256(data).hexdigest()
+        name = digest + &#x27;.png&#x27;
+        target = directory / name
+        target.write_bytes(data)  # Byte-identical originals, never cropped/repainted/re-encoded.
+        hashes[source.relative_to(root).as_posix()] = digest
+        hashes[target.relative_to(root).as_posix()] = digest
+        urls[item] = &#x27;assets/items/&#x27; + name
+    wanted = {url.rsplit(&#x27;/&#x27;, 1)[1] for url in urls.values()}
+    for old in directory.glob(&#x27;*.png&#x27;):
+        if re.fullmatch(r&#x27;[a-f0-9]{64}\.png&#x27;, old.name) and old.name not in wanted:
+            old.unlink()
+
+    def link(url, text):
+        return &#x27;&lt;a href=&quot;&#x27; + escape(url, quote=True) + &#x27;&quot;&gt;&#x27; + escape(text) + &#x27;&lt;/a&gt;&#x27;
+
+    def art(item):
+        if item is None:
+            return &#x27;&lt;div class=&quot;item-art item-art-empty&quot;&gt;Category artwork not assigned&lt;/div&gt;&#x27;
+        asset = assets[item]
+        x, y, width, height = asset[&#x27;region&#x27;]
+        full_width, full_height = asset[&#x27;size&#x27;]
+        return (&#x27;&lt;svg class=&quot;item-art&quot; role=&quot;img&quot; aria-label=&quot;&#x27; + escape(definitions[item][&#x27;name&#x27;], quote=True)
+                + &#x27; — loose source artwork&quot; viewBox=&quot;&#x27; + f&#x27;{x} {y} {width} {height}&#x27;
+                + &#x27;&quot;&gt;&lt;image href=&quot;&#x27; + urls[item] + &#x27;&quot; width=&quot;&#x27; + str(full_width) + &#x27;&quot; height=&quot;&#x27; + str(full_height) + &#x27;&quot;/&gt;&lt;/svg&gt;&#x27;)
+
+    def card(url, title, item, note):
+        return &#x27;&lt;a class=&quot;item-card&quot; href=&quot;&#x27; + escape(url, quote=True) + &#x27;&quot;&gt;&#x27; + art(item) + &#x27;&lt;strong&gt;&#x27; + escape(title) + &#x27;&lt;/strong&gt;&lt;small&gt;&#x27; + escape(note) + &#x27;&lt;/small&gt;&lt;/a&gt;&#x27;
+
+    def matches(category):
+        return sorted((i for i, entry in registry[&#x27;items&#x27;].items() if entry[&#x27;category&#x27;] == category or entry[&#x27;category&#x27;].startswith(category + &#x27;/&#x27;)), key=lambda i: definitions[i][&#x27;name&#x27;])
+
+    def breadcrumbs(category):
+        pieces = category.split(&#x27;/&#x27;)
+        return link(&#x27;items.html&#x27;, &#x27;Item catalog&#x27;) + &#x27; / &#x27; + &#x27; / &#x27;.join(link(category_url(&#x27;/&#x27;.join(pieces[:n])), categories[&#x27;/&#x27;.join(pieces[:n])][&#x27;name&#x27;]) for n in range(1, len(pieces) + 1))
+
+    related = &#x27;&lt;p&gt;Related: &#x27; + &#x27; · &#x27;.join(link(url, title) for url, title in [
+        (&#x27;asset-library.html&#x27;, &#x27;Asset organization and item bundles&#x27;), (&#x27;system-inventory.html&#x27;, &#x27;Inventory&#x27;),
+        (&#x27;system-presentation.html&#x27;, &#x27;Presentation&#x27;), (&#x27;wearable-appearance.html&#x27;, &#x27;Wearable appearance&#x27;),
+        (&#x27;worn-alpha-masks.html&#x27;, &#x27;Worn-only masks&#x27;), (&#x27;doc-docs-29-gear-data-standard-md.html&#x27;, &#x27;Gear data standard&#x27;)]) + &#x27;.&lt;/p&gt;&#x27;
+    note = &#x27;&lt;p class=&quot;notice&quot;&gt;Authoring catalog of native prototype definitions, not actor knowledge or a finished content roster. Stats below are authored values; absent fields are not invented. Proposed example gear cards and SCP reference artwork are not native items.&lt;/p&gt;&#x27;
+    body = &#x27;&lt;h1&gt;Item catalog&lt;/h1&gt;&#x27; + note + &#x27;&lt;p&gt;Browse type → subtype → individual item. Representative category art is selected in the catalog registry. Empty types are reserved authoring categories.&lt;/p&gt;&lt;div class=&quot;item-cards&quot;&gt;&#x27;
+    for key in sorted(c for c in categories if &#x27;/&#x27; not in c):
+        c = categories[key]
+        body += card(category_url(key), c[&#x27;name&#x27;], c.get(&#x27;representativeItem&#x27;), str(len(matches(key))) + &#x27; native definitions&#x27;)
+    body += &#x27;&lt;/div&gt;&lt;h2&gt;All native items&lt;/h2&gt;&lt;div class=&quot;item-cards&quot;&gt;&#x27;
+    index = {&#x27;version&#x27;: 1, &#x27;definitionSource&#x27;: registry[&#x27;definitionSource&#x27;], &#x27;categories&#x27;: registry[&#x27;categories&#x27;], &#x27;items&#x27;: {}}
+    bindings = {b[&#x27;definition&#x27;]: b for b in worn[&#x27;bindings&#x27;]}
+    for item in sorted(definitions, key=lambda i: definitions[i][&#x27;name&#x27;]):
+        d = definitions[item]
+        category = registry[&#x27;items&#x27;][item][&#x27;category&#x27;]
+        body += card(item_url(item), d[&#x27;name&#x27;], item, categories[category][&#x27;name&#x27;])
+        storage = [r for r in d.get(&#x27;regions&#x27;, []) if not r.get(&#x27;attachment&#x27;)]
+        providers = [r for r in d.get(&#x27;regions&#x27;, []) if r.get(&#x27;attachment&#x27;)]
+        traits = [name for name, yes in [(&#x27;wearable&#x27;, bool(d.get(&#x27;wear&#x27;))), (&#x27;storage&#x27;, bool(storage)), (&#x27;attachment&#x27;, bool(d.get(&#x27;attachment&#x27;))), (&#x27;mount-provider&#x27;, bool(providers))] if yes]
+        binding = bindings.get(item)
+        detail = &#x27;&lt;h1&gt;&#x27; + escape(d[&#x27;name&#x27;]) + &#x27;&lt;/h1&gt;&lt;p&gt;&#x27; + breadcrumbs(category) + &#x27;&lt;/p&gt;&#x27; + art(item) + note
+        detail += &#x27;&lt;dl&gt;&lt;dt&gt;Stable definition ID&lt;/dt&gt;&lt;dd&gt;&lt;code&gt;&#x27; + escape(item) + &#x27;&lt;/code&gt;&lt;/dd&gt;&lt;dt&gt;Primary type&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(category) + &#x27;&lt;/dd&gt;&#x27;
+        detail += &#x27;&lt;dt&gt;Capability cross-references&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(&#x27;, &#x27;.join(traits) or &#x27;ordinary item&#x27;) + &#x27;&lt;/dd&gt;&#x27;
+        detail += &#x27;&lt;dt&gt;Empty mass&lt;/dt&gt;&lt;dd&gt;&#x27; + str(d[&#x27;massGrams&#x27;]) + &#x27; g; contents are additional&lt;/dd&gt;&lt;dt&gt;Packed envelope&lt;/dt&gt;&lt;dd&gt;&#x27; + &#x27; × &#x27;.join(str(d[k]) for k in [&#x27;widthMm&#x27;, &#x27;lengthMm&#x27;, &#x27;thicknessMm&#x27;]) + &#x27; mm; cell count depends on destination grid&lt;/dd&gt;&#x27;
+        detail += &#x27;&lt;dt&gt;Base handling (authored)&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(str(d.get(&#x27;handleMs&#x27;, &#x27;not authored; runtime default&#x27;)) + &#x27; ms / &#x27; + str(d.get(&#x27;handleAp&#x27;, &#x27;not authored; runtime default&#x27;)) + &#x27; AP&#x27;) + &#x27;; access and action costs apply separately&lt;/dd&gt;&#x27;
+        detail += &#x27;&lt;dt&gt;Tags&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(&#x27;, &#x27;.join(d.get(&#x27;tags&#x27;, []))) + &#x27;&lt;/dd&gt;&lt;dt&gt;Materials / condition / combat balance&lt;/dt&gt;&lt;dd&gt;Not authored as native definition fields here; no effects inferred from the image or item name.&lt;/dd&gt;&lt;/dl&gt;&#x27;
+        if d.get(&#x27;wear&#x27;):
+            detail += &#x27;&lt;h2&gt;Wear and fit metadata&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d[&#x27;wear&#x27;], indent=2)) + &#x27;&lt;/pre&gt;&#x27;
+        if d.get(&#x27;regions&#x27;):
+            detail += &#x27;&lt;h2&gt;Compartments and mount surfaces&lt;/h2&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Region&lt;/th&gt;&lt;th&gt;Kind&lt;/th&gt;&lt;th&gt;Declared geometry&lt;/th&gt;&lt;th&gt;Load limit&lt;/th&gt;&lt;/tr&gt;&#x27;
+            for r in d[&#x27;regions&#x27;]:
+                detail += &#x27;&lt;tr&gt;&lt;td&gt;&#x27; + escape(r[&#x27;name&#x27;]) + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + (&#x27;attachment surface&#x27; if r.get(&#x27;attachment&#x27;) else &#x27;storage compartment&#x27;) + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + escape(str(r[&#x27;columns&#x27;]) + &#x27; × &#x27; + str(r[&#x27;rows&#x27;]) + &#x27; cells @ &#x27; + str(r[&#x27;cellMm&#x27;]) + &#x27; mm; height &#x27; + str(r[&#x27;heightMm&#x27;]) + &#x27; mm&#x27;) + &#x27;&lt;/td&gt;&lt;td&gt;&#x27; + str(r[&#x27;maxMassGrams&#x27;]) + &#x27; g&lt;/td&gt;&lt;/tr&gt;&#x27;
+            detail += &#x27;&lt;/table&gt;&lt;p&gt;Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;h2&gt;Artwork and authoring coverage&lt;/h2&gt;&lt;p&gt;&#x27; + link(urls[item], &#x27;Full original loose-art PNG&#x27;) + &#x27;; registered source region &lt;code&gt;&#x27; + escape(str(assets[item][&#x27;region&#x27;])) + &#x27;&lt;/code&gt;. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;p&gt;Source: &lt;code&gt;&#x27; + escape(images[item].relative_to(root).as_posix()) + &#x27;&lt;/code&gt;. SHA-256: &lt;code&gt;&#x27; + hashes[images[item].relative_to(root).as_posix()] + &#x27;&lt;/code&gt;.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;p&gt;Paperdoll: &#x27; + (&#x27;registered for the bounded reference body/default pose; inspect binding below&#x27; if binding else &#x27;no qualified native worn-sprite binding&#x27;) + &#x27;. World outfit composition remains unimplemented.&lt;/p&gt;&#x27;
+        if binding:
+            detail += &#x27;&lt;pre&gt;&#x27; + escape(json.dumps(binding, indent=2)) + &#x27;&lt;/pre&gt;&#x27;
+        columns = {binding[&#x27;column&#x27;], binding.get(&#x27;openColumn&#x27;, binding[&#x27;column&#x27;]), *binding.get(&#x27;mountColumns&#x27;, {}).values()} if binding else set()
+        registered = [f for f in worn[&#x27;frames&#x27;] if f[&#x27;column&#x27;] in columns]
+        if binding:
+            detail += &#x27;&lt;details&gt;&lt;summary&gt;Registered worn frames, views and masks&lt;/summary&gt;&lt;pre&gt;&#x27; + escape(json.dumps(registered, indent=2)) + &#x27;&lt;/pre&gt;&lt;/details&gt;&#x27;
+        bundle = &#x27;game/Assets/items/&#x27; + category + &#x27;/&#x27; + item + &#x27;/&#x27;
+        detail += &#x27;&lt;p&gt;Future bundle location: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. This is a migration target, not an existing relocated runtime asset.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;h2&gt;Exact native definition&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d, indent=2)) + &#x27;&lt;/pre&gt;&lt;p&gt;&#x27; + link(&#x27;item-catalog.json&#x27;, &#x27;Machine-readable catalog and exact definitions&#x27;) + &#x27; · &#x27; + link(&#x27;doc-docs-46-item-asset-library-md.html&#x27;, &#x27;Naming and migration standard&#x27;) + &#x27;&lt;/p&gt;&#x27; + related
+        add(item_url(item), d[&#x27;name&#x27;] + &#x27; — item&#x27;, detail, &#x27;Item&#x27;, &#x27;Native prototype definition&#x27;, registry[&#x27;definitionSource&#x27;] + &#x27; #&#x27; + item)
+        index[&#x27;items&#x27;][item] = {&#x27;url&#x27;: item_url(item), &#x27;category&#x27;: category, &#x27;capabilities&#x27;: traits, &#x27;definition&#x27;: d,
+                                &#x27;art&#x27;: {&#x27;url&#x27;: urls[item], &#x27;source&#x27;: images[item].relative_to(root).as_posix(), &#x27;region&#x27;: assets[item][&#x27;region&#x27;], &#x27;sha256&#x27;: hashes[images[item].relative_to(root).as_posix()]}, &#x27;paperdollBinding&#x27;: binding, &#x27;paperdollFrames&#x27;: registered, &#x27;futureBundle&#x27;: bundle}
+    body += &#x27;&lt;/div&gt;&lt;h2&gt;Capability views&lt;/h2&gt;&#x27;
+    for trait in [&#x27;wearable&#x27;, &#x27;storage&#x27;, &#x27;attachment&#x27;, &#x27;mount-provider&#x27;]:
+        body += &#x27;&lt;h3&gt;&#x27; + escape(trait) + &#x27;&lt;/h3&gt;&lt;p&gt;&#x27; + &#x27; · &#x27;.join(link(v[&#x27;url&#x27;], definitions[i][&#x27;name&#x27;]) for i, v in index[&#x27;items&#x27;].items() if trait in v[&#x27;capabilities&#x27;]) + &#x27;&lt;/p&gt;&#x27;
+    add(&#x27;items.html&#x27;, &#x27;Item catalog&#x27;, body + related, &#x27;Directory&#x27;, str(len(definitions)) + &#x27; native definitions&#x27;)
+    for key, category in sorted(categories.items()):
+        children = [c for c in categories if c.rsplit(&#x27;/&#x27;, 1)[0] == key and c != key]
+        detail = &#x27;&lt;h1&gt;&#x27; + escape(category[&#x27;name&#x27;]) + &#x27;&lt;/h1&gt;&lt;p&gt;&#x27; + breadcrumbs(key) + &#x27;&lt;/p&gt;&lt;p&gt;Type: &lt;code&gt;&#x27; + escape(key) + &#x27;&lt;/code&gt;. &#x27; + str(len(matches(key))) + &#x27; native definitions in this subtree.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;p&gt;Representative artwork: &#x27; + (link(item_url(category[&#x27;representativeItem&#x27;]), definitions[category[&#x27;representativeItem&#x27;]][&#x27;name&#x27;]) if category.get(&#x27;representativeItem&#x27;) else &#x27;not assigned; no native items are implied&#x27;) + &#x27;.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;div class=&quot;item-cards&quot;&gt;&#x27; + &#x27;&#x27;.join(card(category_url(c), categories[c][&#x27;name&#x27;], categories[c].get(&#x27;representativeItem&#x27;), str(len(matches(c))) + &#x27; definitions&#x27;) for c in sorted(children)) + &#x27;&lt;/div&gt;&#x27;
+        direct = [i for i in matches(key) if registry[&#x27;items&#x27;][i][&#x27;category&#x27;] == key]
+        detail += &#x27;&lt;h2&gt;Items in this type&lt;/h2&gt;&lt;div class=&quot;item-cards&quot;&gt;&#x27; + &#x27;&#x27;.join(card(item_url(i), definitions[i][&#x27;name&#x27;], i, i) for i in direct) + &#x27;&lt;/div&gt;&#x27;
+        if not direct:
+            detail += &#x27;&lt;p&gt;No definitions assigned directly here. &#x27; + (&#x27;Choose a subtype above.&#x27; if children else &#x27;Reserved category; item content and artwork have not been authored.&#x27;) + &#x27;&lt;/p&gt;&#x27;
+        add(category_url(key), category[&#x27;name&#x27;] + &#x27; — item type&#x27;, detail + related, &#x27;Item category&#x27;, &#x27;Authoring taxonomy&#x27;)
+    (out / &#x27;item-catalog.json&#x27;).write_text(json.dumps(index, indent=2) + &#x27;\n&#x27;)
+    return [root / name for name in sources] + [Path(__file__).resolve()], hashes, len(definitions), len(categories)
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
