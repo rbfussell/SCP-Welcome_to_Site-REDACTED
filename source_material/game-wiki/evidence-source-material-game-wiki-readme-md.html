@@ -28,4 +28,12 @@ Call links are syntax-derived candidates, not a semantically resolved runtime gr
 Canon references use a standard Hosted ↗ / Local snapshot / JSON link group. See [Canon sources](canon-index.html). Local article views provide source provenance and backlinks to game pages. `canon-records/` contains exact single-record extractions, so browsing works under the existing server and offline without exposing or changing the clone. `canon-index.json` maps these copies to their original dataset shard, JSON pointer and archive revision. Validation compares each extraction to the original record.
 
 The wiki server also exposes the original JSON shards through a read-only `/scp-api/docs/data/scp/` route. Local snapshot pages link directly to the original shard as well as the extracted record; the original-shard links also work when opening the wiki through `file://`. A generic server restricted to the wiki directory still supports extracted snapshots, but cannot serve the sibling archive.
+
+## Public website
+
+Read the [published game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/) without signing in. GitHub Pages uses `.github/workflows/game-wiki-pages.yml`; pushes changing this wiki or that workflow on `prototype/m0-spatial-scene` deploy automatically, with manual dispatch also available on that branch. Repository Settings → Pages must select GitHub Actions.
+
+The workflow checks the committed source/evidence hashes and page presence, stages generated HTML, JSON, assets, canon extracts and `llms.txt`, then deploys. It deliberately publishes the locally rebuilt snapshot without downloading the independent bulk archive. Run both wiki commands above before committing; CI&#x27;s subset check is not a replacement for full local validation, canon comparison or semantic review. Files uploaded to Pages do not include the authored Markdown or the full archive.
+
+Local snapshot pages and extracted JSON work on the public website. Links to original multi-article archive shards still require the local checkout and wiki server; those bulk files are not hosted on Pages. Use the included single-record JSON or hosted SCP Wiki article on the public site. See the [development workflow](../../docs/12-development-workflow.md#public-wiki-publishing) for deployment and recovery context.
 </pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
