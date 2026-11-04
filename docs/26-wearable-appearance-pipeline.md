@@ -84,3 +84,5 @@ The [engine mosaic follow-up](43-paperdoll-mosaic.md) adds a visual overlay bene
 Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.
 
 Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.
+
+Current November 4 presentation follow-up: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.

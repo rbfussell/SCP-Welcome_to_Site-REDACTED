@@ -4,15 +4,15 @@ using System.Text.Json;
 
 namespace SitePresentation;
 
-internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null);
+internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null, PaperdollAttachmentPlane? AttachmentPlane = null);
 internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
-    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic);
-internal sealed record PaperdollLayer(string? ItemId, int Column);
+    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic, PaperdollAttachmentBinding[]? Attachments = null);
+internal sealed record PaperdollLayer(string? ItemId, int Column, PaperdollMountedArt? Mounted = null);
 
 /// <summary>Registered full-body art fixture. One source/destination transform serves drawing and alpha picking; pixels never grant physical access.</summary>
-internal sealed class InventoryPaperdollArt : IDisposable
+internal sealed partial class InventoryPaperdollArt : IDisposable
 {
     private readonly PaperdollManifest _manifest;
     private readonly Dictionary<string, Texture2D> _textures = [];
@@ -24,6 +24,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
         _manifest = JsonSerializer.Deserialize<PaperdollManifest>(Godot.FileAccess.GetFileAsString("res://Assets/paperdoll-proof/manifest.json"),
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? throw new InvalidOperationException("Missing paperdoll art manifest.");
         Validate(_manifest);
+        ValidateAttachments(_manifest);
         foreach (var (file, size) in _manifest.Images)
         {
             var texture = GD.Load<Texture2D>("res://Assets/paperdoll-proof/" + file);
@@ -37,7 +38,7 @@ internal sealed class InventoryPaperdollArt : IDisposable
             && r[2] > 0 && r[3] > 0 && r[0] + r[2] <= 1.001f && r[1] + r[3] <= 1.001f;
         if (m.Version != 2 || m.Actor != "avatar" || m.BodyFamily != "human-nine-shoulder"
             || m.CanvasSize is not { Length: 2 } || m.CanvasSize.Any(n => n <= 0) || m.Images is not { Count: > 0 }
-            || m.Images.Any(i => System.IO.Path.GetFileName(i.Key) != i.Key || !i.Key.EndsWith(".png", StringComparison.Ordinal)
+            || m.Images.Any(i => !AssetFile(i.Key)
                 || i.Value is not { Length: 2 } || i.Value.Any(n => n <= 0))
             || m.Frames is not { Length: > 0 and <= 128 } || m.Frames.Any(f => f.Column is < 0 or > 127)
             || m.Frames.Select(f => f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f => f.Column == 0)
@@ -78,19 +79,20 @@ internal sealed class InventoryPaperdollArt : IDisposable
                 if (!mounts.TryGetValue(slot, out column)) continue; // Unqualified mounts stay explicitly omitted.
             }
             result.Add(new(item.Id, column));
+            result.AddRange(AttachedLayers(sim, item, binding));
         }
         return result.ToArray();
     }
     internal string[] Omitted(SpatialSimulation sim)
     {
         var drawn = Layers(sim).Select(l => l.ItemId).OfType<string>().ToHashSet();
-        return sim.BodyFitItems.Where(i => i.Placement.RegionId != "hand" && !drawn.Contains(i.Id))
+        return OwnExterior(sim).Where(i => !drawn.Contains(i.Id))
             .Select(i => sim.Inventory.Definition(i.Id).Name).ToArray();
     }
     private PaperdollFrame Frame(PaperdollLayer layer) => _manifest.Frames.Single(f => f.Column == layer.Column);
     /// <summary>Side-specific overlays share one filter for rendering and alpha picking.</summary>
     private IEnumerable<PaperdollPart> Parts(PaperdollLayer layer, string side)
-        => Frame(layer).Parts.Where(p => p.Side is null || p.Side == side);
+        => Frame(layer).Parts.Where(p => (p.Side is null || p.Side == side) && (layer.Mounted is null || layer.Mounted.Surface == side));
     private static Rect2 Source(PaperdollPart part, string side)
     { var r = side == "back" ? part.Back : part.Front; return new(r[0], r[1], r[2], r[3]); }
     private static Rect2 Destination(PaperdollPart part, string side)
@@ -116,7 +118,8 @@ internal sealed class InventoryPaperdollArt : IDisposable
     {
         foreach (var part in Parts(layer, side))
         {
-            var dest = Destination(part, side); var local = (uv - dest.Position) / dest.Size;
+            var dest = Destination(part, side); var local = layer.Mounted is { } mounted
+                ? MountedLocal(mounted, dest, uv) : (uv - dest.Position) / dest.Size;
             if (local.X is < 0 or >= 1 || local.Y is < 0 or >= 1) continue;
             var raster = worn ? Raster(layer, part, side) : new PaperdollRaster(_textures[Frame(layer).File], _images[Frame(layer).File], Source(part, side));
             var pixel = raster.Source.Position + local * raster.Source.Size;
@@ -178,6 +181,8 @@ internal sealed class InventoryPaperdollArt : IDisposable
             foreach (var part in Parts(layer, side))
             {
                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
+                if (layer.Mounted is { } mounted)
+                { DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, tint); continue; }
                 foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })
                 {
                     var visible = dest.Intersection(clip); if (!visible.HasArea()) continue;

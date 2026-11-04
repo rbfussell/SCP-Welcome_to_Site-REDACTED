@@ -59,6 +59,25 @@ public partial class InventoryBrowser : HBoxContainer
                 cursor = state.DiagnosticItems.Single(i => i.Id == cursor.Placement.ParentId);
             }
         }
+        // A visible own-worn exterior item can be inspected directly from the sprite paperdoll.
+        // Trace attachment edges only; never open or search packed container contents.
+        if (item.Placement.AttachmentPose is not null)
+        {
+            var trail = new List<string>(); var cursor = item;
+            for (var depth = 0; depth < InventoryHierarchy.MaxDepth && cursor.Placement.AttachmentPose is not null; depth++)
+            {
+                if (!sim.InventoryInspectAccess(cursor.Id).Allowed) break;
+                trail.Add(cursor.Id);
+                cursor = state.DiagnosticItems.Single(i => i.Id == cursor.Placement.ParentId);
+            }
+            if (cursor.Placement.AttachmentPose is null && state.Content.Roots.Any(r => r.ActorId == sim.Player.Id && r.Id == cursor.Placement.ParentId)
+                && state.Region(cursor.Placement.ParentId, cursor.Placement.RegionId).MountSlot is { } slot
+                && InventoryWear.Accepts(state.Definition(cursor.Id), slot) && sim.InventoryInspectAccess(cursor.Id).Allowed)
+            {
+                StartGear(cursor.Id); trail.Reverse();
+                _gear.AddRange(trail.Select(next => new Gear(next, Placement(next)))); Build(); return true;
+            }
+        }
         if (_contents.LastOrDefault() is not { } containing || containing.Owner != item.Placement.ParentId || containing.Region != item.Placement.RegionId) return false;
         if (state.Definition(id).Regions is not { Length: > 0 } regions) { reason = "This item has no interior."; return false; }
         return OpenRegion(id, regions[0].Id, out reason);

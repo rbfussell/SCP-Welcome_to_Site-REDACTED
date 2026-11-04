@@ -22,6 +22,14 @@
     "backpack-v1.png": [
       1536,
       1024
+    ],
+    "../items/worn/accessories/belts/utility-belt/utility-belt.paperdoll-v1.png": [
+      2172,
+      724
+    ],
+    "../inventory-objects/utility-pouch.png": [
+      1254,
+      1254
     ]
   },
   "frames": [
@@ -542,6 +550,58 @@
           "side": "front"
         }
       ]
+    },
+    {
+      "column": 10,
+      "file": "../items/worn/accessories/belts/utility-belt/utility-belt.paperdoll-v1.png",
+      "parts": [
+        {
+          "front": [
+            390,
+            110,
+            1390,
+            215
+          ],
+          "back": [
+            390,
+            425,
+            1390,
+            195
+          ],
+          "destination": [
+            0.18,
+            0.503,
+            0.64,
+            0.035
+          ]
+        }
+      ]
+    },
+    {
+      "column": 11,
+      "file": "../inventory-objects/utility-pouch.png",
+      "parts": [
+        {
+          "front": [
+            120,
+            97,
+            1015,
+            1090
+          ],
+          "back": [
+            120,
+            97,
+            1015,
+            1090
+          ],
+          "destination": [
+            0,
+            0,
+            0.14,
+            0.075
+          ]
+        }
+      ]
     }
   ],
   "bindings": [
@@ -604,6 +664,17 @@
       "mountColumns": {
         "back": 8,
         "front": 9
+      }
+    },
+    {
+      "definition": "utility-belt",
+      "column": 10,
+      "attachmentPlane": {
+        "origin": [
+          0.5,
+          0.518
+        ],
+        "cellPixels": 34
       }
     }
   ],
@@ -699,5 +770,16 @@
       0.11
     ],
     "blockSize": 20
-  }
+  },
+  "attachments": [
+    {
+      "definition": "utility-pouch",
+      "column": 11,
+      "anchor": [
+        0.5,
+        0.12
+      ],
+      "surface": "front"
+    }
+  ]
 }

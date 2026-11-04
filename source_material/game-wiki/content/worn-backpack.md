@@ -14,8 +14,10 @@ Normal paid handling keeps source art until completion and carries a loaded pack
 
 [Native pack checks](file-game-presentation-spatialscene-paperdollbackpacksmoke-cs.html) exercise actual identity, both mount directions, independent main/side contents, paused/paid closures, loaded removal/restore, held omission and two distinct packs. [The parent paperdoll suite](file-game-presentation-spatialscene-paperdollsmoke-cs.html) retains clothing picking/closure assertions outside pack alpha. [Recorded results](doc-docs-reviews-inventory-runtime-checks-md.html) distinguish actual checks from requirements; wiki building does not run gameplay tests.
 
-The runtime guide links the untouched built-in-generated atlas and exact prompt/source/hash provenance. Worn bag art is static across lid states; existing menus/contents expose actual closure state. Direct small-body pocket segments, worn closure animations, general cloth fitting, arbitrary poses, body variants, belt/attachment body art and world wardrobe composition remain future work.
+The runtime guide links the untouched built-in-generated atlas and exact prompt/source/hash provenance. Worn bag art is static across lid states; existing menus/contents expose actual closure state. Direct small-body pocket segments, worn closure animations, general cloth fitting, arbitrary poses, body variants, nested attachment body art and world wardrobe composition remain future work.
 
 Related: [full-body paperdoll](full-body-paperdoll.html), [appearance](wearable-appearance.html), [inspection](body-inspection.html), [body fit](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [mounts](mount-points.html), [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [ledger](status.html), [design library](documents.html).
 
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
+
+[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.

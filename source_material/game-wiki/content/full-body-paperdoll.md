@@ -6,9 +6,11 @@
 
 [The appearance adapter](file-game-presentation-inventory-inventorypaperdollart-cs.html) selects actual own compatible worn mounts/default poses and committed fastening state. Stored, held, foreign and packed items are excluded. Manifest version 2 registers several PNGs, front/back source rectangles and destination parts on one canvas. A pair of socks or shoes has two independently positioned draw parts, with one physical item/parent/mass.
 
+The [normal waist belt/direct pouch](worn-belt-and-pouch.html) extends this to eight wearable bindings and one direct attachment binding; other strap poses and nested provider art remain unqualified.
+
 Source alpha, layering, optional per-part front/back selection and the same letterbox transform govern drawing, tint and picking. The backpack harness is drawn behind its mounted-side bag at the same shoulder scale as the opposite view. Transparent gaps/padding do not acquire cell fills or rectangular targets. The fixture's alpha cutoff stays 0.1; it is not a production material policy. Foreground head/neck or hair keeps collars behind the head. Qualified long sleeves use authored base-body cutouts to prevent stand-in arm/shoulder clipping. These suppress only the reference body, never real gear or physical cover, and are not a general transparent/torn-cloth solver.
 
-[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Sprite-drop equipping, direct body pocket segments, belt/attachment art, arbitrary poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
+[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Sprite-drop equipping, direct body pocket segments, nested attachment art, arbitrary strap poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
 
 ## Base garment and honest visual fallback
 
@@ -32,3 +34,5 @@ Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
+
+[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.

@@ -12,7 +12,7 @@ Sprite opacity is separate from fitting, access cover and removal restraint. A v
 
 ## Current evidence and limits
 
-The optional [full-body sprite proof](full-body-paperdoll.html) extends the [original upper-body fixture](paperdoll-sprite-proof.html) with actual underwear, trousers, socks, shoes and mount-aware backpack/harness art. Paired visual parts, committed closures/removal, alpha feedback, foreground head parts and authored base-arm cutouts are qualified for one default-pose reference body. Unsupported gear and painted modesty garments are explicitly disclosed. This remains a manually registered art fixture, not the finished character-matching/world wardrobe pipeline.
+The optional [full-body sprite proof](full-body-paperdoll.html) extends the [original upper-body fixture](paperdoll-sprite-proof.html) with actual underwear, trousers, socks, shoes, mount-aware backpack/harness art and a qualified waist belt/direct pouch. Paired visual parts, committed closures/removal, alpha feedback, foreground head parts and authored base-arm cutouts are qualified for one default-pose reference body. Unsupported gear and painted modesty garments are explicitly disclosed. This remains a manually registered art fixture, not the finished character-matching/world wardrobe pipeline.
 
 [Front/back body inspection/removal](body-inspection.html) now adds diagnostic exposed-material picking and paid drag sources, while final sprite-alpha picking remains future work. The [body-fit panel](file-game-presentation-inventory-inventorybodyfitpanel-cs.html) currently draws diagnostic hex cells/contacts. [Gear-view segments](file-game-presentation-inventory-inventorygearsurface-cs.html) and [inventory art](file-game-presentation-inventory-inventoryart-cs.html) already use source alpha for tint/picking; polygon outlines and diagnostic bodies are not the final clothing silhouette renderer. World human artwork remains baked, rather than dynamically composed from inventory.
 
@@ -27,3 +27,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
 
 [Asset organization and item bundles](asset-library.html) connect these authoring requirements to the [visual item catalog](items.html), current native definitions, source artwork and future representation-specific mask filenames.
+
+[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.

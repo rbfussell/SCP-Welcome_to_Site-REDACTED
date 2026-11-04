@@ -32,3 +32,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 November 4 footwear follow-up: [worn-only alpha masks](worn-alpha-masks.html) qualify source-preserving front/back shoe cutouts. Rendering and picking share derived worn alpha; packing/drag art and physical access remain independent.
 
 November 4 authoring follow-up: [the item catalog](items.html) indexes all 19 native definitions under 30 type categories with representative artwork, current stats, explicit missing-art coverage and raw data. [Asset bundle organization](asset-library.html) documents future per-item directories and view/state mask names; runtime atlases have not moved.
+
+November 4 belt follow-up: [waist belt/direct pouch sprites](worn-belt-and-pouch.html) add an eighth direct wearable binding and a bounded exterior attachment binding. Normal provider coordinates, six rotations, validated inspection and loaded paid removal remain authoritative; non-waist fits and nested hook art are still omitted. The item catalog now exposes qualified attachment art and worn source sheets.

@@ -25,3 +25,5 @@ The November 4 verification passed five catalog tests, full wiki build/check, pr
 No native inventory data, save identity/schema, wear/access behavior or runtime atlas path is changed by catalog classification. Moving current assets requires a separate qualified migration.
 
 Related: [item directory](items.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [wearable appearance](wearable-appearance.html), [worn masks](worn-alpha-masks.html), [implementation ledger](status.html), [design library](documents.html).
+
+[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.

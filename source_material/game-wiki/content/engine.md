@@ -49,3 +49,5 @@ The project baseline pins Godot .NET 4.7.1 and .NET SDK 8.0.128. These are repos
 Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.
 
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
+
+[Worn waist belt/direct pouch](worn-belt-and-pouch.html) extend the qualified sprite subset to eight wearable definitions and one exterior binding. They read the existing graph without changing physical fit, native content identity or schema.

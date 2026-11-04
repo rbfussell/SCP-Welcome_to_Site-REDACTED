@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "status": "paperdoll-fixture-bundle",
+  "definition": "utility-belt",
+  "runtimeRegistration": "game/Assets/paperdoll-proof/manifest.json # column 10",
+  "paperdoll": "utility-belt.paperdoll-v1.png",
+  "provenance": "provenance.md",
+  "note": "Bundle metadata is authoring evidence; existing paperdoll manifest remains the runtime loader."
+}

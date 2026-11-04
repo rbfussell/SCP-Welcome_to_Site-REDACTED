@@ -80,3 +80,5 @@ The remaining mismatch was authored geometry: `(0,0), (0,1)` forms a diagonal pa
 The regular hex projection, horizontal belt support, source registration and six exact 60° rotations are unchanged. Both body-local and gear-view occupancy read the same corrected definition. Adjacent upright pouches now collide across their lower cells; two support steps apart remain valid. No view-only footprint or extra rotation offset is introduced.
 
 Native checks compare the actual projected physical cells' centerline against the source illustration's hanging axis at every rotation, in addition to committing all six poses through paid drag/R/release. This catches the earlier diagonal footprint that a sprite-only rotation check missed. Physical content identity changes, requiring a fresh fixture save; schema remains 13.
+
+Current November 4 presentation follow-up: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.

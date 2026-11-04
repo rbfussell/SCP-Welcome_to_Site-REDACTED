@@ -14,7 +14,7 @@ The enlarged gear view retains its authored main and side pocket segments. Doubl
 
 The [appearance adapter](../game/Presentation/Inventory/InventoryPaperdollArt.cs) filters actual own worn items and orders them by committed dressing order. Foreign, stored and held packs are excluded. Both sides and all visual parts keep one physical item, parent, contents and recursive mass. Paid removal leaves the pack drawn until completion; moving it carries the loaded assembly normally. Pack/strap art does not add physical coverage, loosen restraints or grant access. Transparent visual regions are separate from body-fit and access masks.
 
-The [new atlas](../game/Assets/paperdoll-proof/backpack-v1.png) is copied unchanged from built-in imagegen. [Exact prompt, references, source identity, hash and registration](../game/Assets/paperdoll-proof/BACKPACK-PROVENANCE.md) are preserved. The enlarged gear illustration is unchanged. Worn zip/flap animation, general cloth deformation, arbitrary fitted poses, belt/attachment body art and world outfit composition remain future work. The drawn bag is static across lid states; the existing menus/contents report physical closures.
+The [new atlas](../game/Assets/paperdoll-proof/backpack-v1.png) is copied unchanged from built-in imagegen. [Exact prompt, references, source identity, hash and registration](../game/Assets/paperdoll-proof/BACKPACK-PROVENANCE.md) are preserved. The enlarged gear illustration is unchanged. Worn zip/flap animation, general cloth deformation, arbitrary fitted poses, nested attachment body art, other strap poses and world outfit composition remain future work. The drawn bag is static across lid states; the existing menus/contents report physical closures.
 
 ## Persistence and checks
 
@@ -31,3 +31,5 @@ python3 tools/build_game_wiki.py --check
 ```
 
 Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.
+
+Current November 4 presentation follow-up: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.

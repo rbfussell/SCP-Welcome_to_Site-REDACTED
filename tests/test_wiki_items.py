@@ -42,6 +42,12 @@ class ItemCatalogChecks(unittest.TestCase):
             self.assertIn('wearable', index['items']['coat']['capabilities'])
             self.assertNotIn('storage', index['items']['utility-hook']['capabilities'])
             self.assertTrue(index['items']['boots']['paperdollFrames'][0]['parts'][0]['frontWornCutouts'])
+            self.assertEqual(index['items']['utility-pouch']['paperdollAttachments'][0]['surface'], 'front')
+            self.assertEqual(index['items']['utility-belt']['bundleRegistration']['status'], 'paperdoll-fixture-bundle')
+            self.assertEqual(index['items']['utility-belt']['paperdollBinding']['attachmentPlane']['cellPixels'], 34)
+            for entry in index['items'].values():
+                for asset in entry['wornArt']:
+                    self.assertEqual((Path(directory) / asset['url']).read_bytes(), (ROOT / asset['source']).read_bytes())
             for item, entry in index['items'].items():
                 copied = (Path(directory) / entry['art']['url']).read_bytes()
                 self.assertEqual(copied, (ROOT / entry['art']['source']).read_bytes())
