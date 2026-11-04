@@ -42,6 +42,12 @@ class ItemCatalogChecks(unittest.TestCase):
             self.assertIn(&#x27;wearable&#x27;, index[&#x27;items&#x27;][&#x27;coat&#x27;][&#x27;capabilities&#x27;])
             self.assertNotIn(&#x27;storage&#x27;, index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;capabilities&#x27;])
             self.assertTrue(index[&#x27;items&#x27;][&#x27;boots&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;frontWornCutouts&#x27;])
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-pouch&#x27;][&#x27;paperdollAttachments&#x27;][0][&#x27;surface&#x27;], &#x27;front&#x27;)
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;bundleRegistration&#x27;][&#x27;status&#x27;], &#x27;paperdoll-fixture-bundle&#x27;)
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;paperdollBinding&#x27;][&#x27;attachmentPlane&#x27;][&#x27;cellPixels&#x27;], 34)
+            for entry in index[&#x27;items&#x27;].values():
+                for asset in entry[&#x27;wornArt&#x27;]:
+                    self.assertEqual((Path(directory) / asset[&#x27;url&#x27;]).read_bytes(), (ROOT / asset[&#x27;source&#x27;]).read_bytes())
             for item, entry in index[&#x27;items&#x27;].items():
                 copied = (Path(directory) / entry[&#x27;art&#x27;][&#x27;url&#x27;]).read_bytes()
                 self.assertEqual(copied, (ROOT / entry[&#x27;art&#x27;][&#x27;source&#x27;]).read_bytes())

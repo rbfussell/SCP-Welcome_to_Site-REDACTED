@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PaperdollBeltSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PaperdollBeltSmoke.cs</h1><p>game/Presentation/SpatialScene.PaperdollBeltSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-9c1901fca9b3022613b5.html">SpatialScene.RunPaperdollBeltSmoke</a> · line 10</li><li><a href="function-926beee41da933ddbbc1.html">SpatialScene.Check</a> · line 14</li><li><a href="function-af9ca49097e2d0ad0faf.html">SpatialScene.Click</a> · line 15</li><li><a href="function-9ed788cac0da48a76334.html">SpatialScene.Finish</a> · line 16</li><li><a href="function-03e5155ca121bc6ebaa8.html">SpatialScene.Act</a> · line 22</li><li><a href="function-429f2791b7464c66be29.html">SpatialScene.Target</a> · line 24</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     /// &lt;summary&gt;Actual waist belt and direct exterior pouch: shared transforms/picking, validated inspection and paid loaded continuation.&lt;/summary&gt;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private async Task RunPaperdollBeltSmoke()</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         var sim = _simulation; var panel = _hud.Inventory; var proof = panel.PaperdollProof; var surface = proof.Surface;</span>
+<span id="L13"><a class="line" href="#L13">13</a>         var original = sim.Save();</span>
+<span id="L14"><a class="line" href="#L14">14</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Paperdoll belt: &quot; + reason); }</span>
+<span id="L15"><a class="line" href="#L15">15</a>         void Click(Vector2 at, bool twice = false, MouseButton button = MouseButton.Left) { Input.WarpMouse(at); InventoryClick(at, twice, button); }</span>
+<span id="L16"><a class="line" href="#L16">16</a>         async Task Finish()</span>
+<span id="L17"><a class="line" href="#L17">17</a>         {</span>
+<span id="L18"><a class="line" href="#L18">18</a>             var deadline = Time.GetTicksMsec() + (ulong)(sim.Inventory.Pending?.RemainingMs ?? 0) + 5000;</span>
+<span id="L19"><a class="line" href="#L19">19</a>             while (sim.Inventory.Pending is not null &amp;&amp; Time.GetTicksMsec() &lt; deadline) await InventoryFrames(1);</span>
+<span id="L20"><a class="line" href="#L20">20</a>             Check(sim.Inventory.Pending is null, &quot;paid work did not finish&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         async Task Act(InventoryRequest request)</span>
+<span id="L23"><a class="line" href="#L23">23</a>         { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }</span>
+<span id="L24"><a class="line" href="#L24">24</a>         Vector2 Target(string id)</span>
+<span id="L25"><a class="line" href="#L25">25</a>         {</span>
+<span id="L26"><a class="line" href="#L26">26</a>             var b = proof.Art.Bounds(surface.Size);</span>
+<span id="L27"><a class="line" href="#L27">27</a>             for (var y = .45f; y &lt; .72f; y += .004f)</span>
+<span id="L28"><a class="line" href="#L28">28</a>             for (var x = .12f; x &lt; .89f; x += .004f)</span>
+<span id="L29"><a class="line" href="#L29">29</a>             {</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 var at = b.Position + new Vector2(x, y) * b.Size;</span>
+<span id="L31"><a class="line" href="#L31">31</a>                 if (surface.Pick(at) == id) return surface.GlobalPosition + at;</span>
+<span id="L32"><a class="line" href="#L32">32</a>             }</span>
+<span id="L33"><a class="line" href="#L33">33</a>             throw new InvalidOperationException(&quot;Paperdoll belt: missing visible target &quot; + id);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         }</span>
+<span id="L35"><a class="line" href="#L35">35</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId is &quot;utility-belt&quot; or &quot;utility-pouch&quot;), &quot;stored belt/pouch leaked into the outfit&quot;);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));</span>
+<span id="L37"><a class="line" href="#L37">37</a>         Check(proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;utility-belt&quot; &amp;&amp; l.Column == 10), &quot;actual default waist belt was omitted&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         Click(Target(&quot;utility-belt&quot;), true); await InventoryFrames();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         Check(panel.SelectedItem == &quot;utility-belt&quot; &amp;&amp; panel.Browser.CurrentGear == &quot;utility-belt&quot;, &quot;belt pixels selected a different item&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));</span>
+<span id="L41"><a class="line" href="#L41">41</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(-1, 0))));</span>
+<span id="L42"><a class="line" href="#L42">42</a>         var first = proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;utility-pouch&quot;).Mounted!;</span>
+<span id="L43"><a class="line" href="#L43">43</a>         Check(first.Surface == &quot;front&quot; &amp;&amp; first.Rotation == 0, &quot;direct attachment lost its surface/rotation&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>         panel.Inspect(&quot;avatar-shirt&quot;); await InventoryFrames(); var before = sim.Save();</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Click(Target(&quot;utility-pouch&quot;), true); await InventoryFrames();</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Check(panel.SelectedItem == &quot;utility-pouch&quot; &amp;&amp; panel.Browser.GearIds.SequenceEqual(new[] { &quot;utility-belt&quot;, &quot;utility-pouch&quot; })</span>
+<span id="L47"><a class="line" href="#L47">47</a>             &amp;&amp; panel.Browser.CurrentContents is null &amp;&amp; sim.Save() == before &amp;&amp; !sim.Inventory.IsOpen(&quot;utility-pouch&quot;, &quot;inside&quot;),</span>
+<span id="L48"><a class="line" href="#L48">48</a>             &quot;direct sprite inspection lost its provider trail, revealed contents or did free work&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         await InventoryCapture(&quot;-paperdoll-belt-front&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         Click(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L51"><a class="line" href="#L51">51</a>         Check(proof.Side == &quot;back&quot; &amp;&amp; !proof.Art.Opaque(proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;utility-pouch&quot;), &quot;back&quot;, first.Origin),</span>
+<span id="L52"><a class="line" href="#L52">52</a>             &quot;front-mounted pouch was painted through the rear view&quot;);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         Click(Target(&quot;utility-belt&quot;), true); await InventoryFrames();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         Check(panel.SelectedItem == &quot;utility-belt&quot;, &quot;rear belt did not retain its actual item identity&quot;);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         await InventoryCapture(&quot;-paperdoll-belt-back&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         Click(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L57"><a class="line" href="#L57">57</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(1, 0))));</span>
+<span id="L58"><a class="line" href="#L58">58</a>         var second = proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;utility-pouch&quot;).Mounted!;</span>
+<span id="L59"><a class="line" href="#L59">59</a>         Check(Math.Abs((second.Origin.X - first.Origin.X) * 360 - 68) &lt; .01f &amp;&amp; second.Origin.Y == first.Origin.Y,</span>
+<span id="L60"><a class="line" href="#L60">60</a>             &quot;pouch position did not follow two real provider-local hex steps&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         var old = surface.Size; surface.Size = new(300, 270);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         Check(surface.Pick(Target(&quot;utility-pouch&quot;) - surface.GlobalPosition) == &quot;utility-pouch&quot;, &quot;resized pouch picking differs from drawing transform&quot;); surface.Size = old;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         for (var rotation = 1; rotation &lt;= 6; rotation++)</span>
+<span id="L64"><a class="line" href="#L64">64</a>         {</span>
+<span id="L65"><a class="line" href="#L65">65</a>             await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(1, 0, rotation % 6))));</span>
+<span id="L66"><a class="line" href="#L66">66</a>             Check(proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;utility-pouch&quot;).Mounted!.Rotation == rotation % 6,</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 &quot;paperdoll skipped an actual sixth-turn orientation&quot;);</span>
+<span id="L68"><a class="line" href="#L68">68</a>             Click(Target(&quot;utility-pouch&quot;)); await InventoryFrames(); Check(panel.SelectedItem == &quot;utility-pouch&quot;, &quot;rotated alpha hit lost the real attachment&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         }</span>
+<span id="L70"><a class="line" href="#L70">70</a>         panel.Inspect(&quot;avatar-shirt&quot;); Click(Target(&quot;utility-pouch&quot;), true); await InventoryFrames();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         var gear = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L72"><a class="line" href="#L72">72</a>         before = sim.Save(); Click(gear.HotspotPosition(&quot;inside&quot;), true); await InventoryFrames();</span>
+<span id="L73"><a class="line" href="#L73">73</a>         Check(sim.Save() == before &amp;&amp; sim.Inventory.Pending is null, &quot;paused pouch flap supplied free opening&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         sim.ManualPause = false; Click(gear.HotspotPosition(&quot;inside&quot;), true);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open &amp;&amp; !sim.Inventory.IsOpen(&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;pouch flap did not retain paid commitment&quot;); await Finish();</span>
+<span id="L76"><a class="line" href="#L76">76</a>         Check(panel.Browser.CurrentContents == (&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;normal paid opening did not show its own contents&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         await Act(new(InventoryActionKind.AutoPlace, &quot;spare-dressing&quot;, new(&quot;utility-pouch&quot;, &quot;inside&quot;)));</span>
+<span id="L78"><a class="line" href="#L78">78</a>         await Act(new(InventoryActionKind.Close, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));</span>
+<span id="L79"><a class="line" href="#L79">79</a>         Check(sim.Inventory.Children(&quot;utility-pouch&quot;, &quot;inside&quot;).Single().Id == &quot;spare-dressing&quot;, &quot;pouch lost its loaded item&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         Click(Target(&quot;utility-pouch&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L81"><a class="line" href="#L81">81</a>         var menu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;();</span>
+<span id="L82"><a class="line" href="#L82">82</a>         Check(menu.Any(b =&gt; b.Text == &quot;Open&quot;) &amp;&amp; menu.Any(b =&gt; b.Text == &quot;Remove → hand&quot;), &quot;pouch sprite bypassed ordinary context actions&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         Click(new(600, 55)); await InventoryFrames();</span>
+<span id="L84"><a class="line" href="#L84">84</a>         before = sim.Save(); Check(!sim.HandleInventory(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))) &amp;&amp; sim.Save() == before,</span>
+<span id="L85"><a class="line" href="#L85">85</a>             &quot;paused loaded belt removal succeeded&quot;);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         sim.ManualPause = false; Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), sim.LastMessage);</span>
+<span id="L87"><a class="line" href="#L87">87</a>         Check(sim.Inventory.Pending is not null &amp;&amp; proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;utility-pouch&quot;), &quot;loaded outfit vanished before paid removal completed&quot;);</span>
+<span id="L88"><a class="line" href="#L88">88</a>         var pending = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L89"><a class="line" href="#L89">89</a>         clone.Restore(pending); Check(clone.Save() == pending, &quot;pending loaded assembly failed exact restore&quot;);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         Check(proof.Art.Layers(clone).Select(l =&gt; l.ItemId).SequenceEqual(proof.Art.Layers(sim).Select(l =&gt; l.ItemId)), &quot;restored outfit differs while work is pending&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         await Finish();</span>
+<span id="L92"><a class="line" href="#L92">92</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId is &quot;utility-belt&quot; or &quot;utility-pouch&quot;)</span>
+<span id="L93"><a class="line" href="#L93">93</a>             &amp;&amp; sim.Inventory.Children(&quot;utility-belt&quot;, &quot;webbing&quot;).Single().Id == &quot;utility-pouch&quot;</span>
+<span id="L94"><a class="line" href="#L94">94</a>             &amp;&amp; sim.Inventory.Children(&quot;utility-pouch&quot;, &quot;inside&quot;).Single().Id == &quot;spare-dressing&quot;, &quot;held provider remained worn or lost its descendants&quot;);</span>
+<span id="L95"><a class="line" href="#L95">95</a>         await InventoryCapture(&quot;-paperdoll-belt-removed&quot;);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));</span>
+<span id="L97"><a class="line" href="#L97">97</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8)));</span>
+<span id="L98"><a class="line" href="#L98">98</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;, BodyPose: new(-4, 10, 2))));</span>
+<span id="L99"><a class="line" href="#L99">99</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId is &quot;utility-belt&quot; or &quot;utility-pouch&quot;) &amp;&amp; proof.Art.Omitted(sim).Contains(&quot;Utility belt&quot;)</span>
+<span id="L100"><a class="line" href="#L100">100</a>             &amp;&amp; proof.Art.Omitted(sim).Contains(&quot;Utility pouch&quot;), &quot;unqualified non-waist fit silently borrowed waist artwork&quot;);</span>
+<span id="L101"><a class="line" href="#L101">101</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));</span>
+<span id="L102"><a class="line" href="#L102">102</a>         Click(Target(&quot;utility-pouch&quot;), true); await InventoryFrames(); await InventoryCapture(&quot;-paperdoll-belt-loaded&quot;);</span>
+<span id="L103"><a class="line" href="#L103">103</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect(&quot;avatar-shirt&quot;); await InventoryFrames();</span>
+<span id="L104"><a class="line" href="#L104">104</a>         Check(proof.Side == &quot;front&quot; &amp;&amp; sim.Save() == original, &quot;belt fixture failed to restore original physical state&quot;);</span>
+<span id="L105"><a class="line" href="#L105">105</a>         GD.Print(&quot;PAPERDOLL_BELT_SMOKE_PASS: real waist/front-back belt, direct pouch position/six rotations/alpha picking, own exterior inspection, paid flap, loaded source retention/removal and restore; unqualified poses omitted.&quot;);</span>
+<span id="L106"><a class="line" href="#L106">106</a>     }</span>
+<span id="L107"><a class="line" href="#L107">107</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

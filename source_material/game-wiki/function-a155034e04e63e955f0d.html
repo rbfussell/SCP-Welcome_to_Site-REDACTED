@@ -2,7 +2,7 @@
 Images.TryGetValue
 Images.Add
 texture.Atlas.GetImage
-image.GetPixel</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-025bc4c5cdfd10c1130e.html">InventoryGearSurface.PickMounted</a></li><li><a href="function-1e68f5e03dc561605d89.html">SpatialScene.RunPaperdollMaskSmoke</a></li><li><a href="function-22057eb1d6f524b4964e.html">InventoryGearSurface.Pick</a></li><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart.html">InventoryArt</a></li></ul><h2>Implementation</h2><pre><code>internal static bool Opaque(string id, Vector2 normalized)
+image.GetPixel</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-025bc4c5cdfd10c1130e.html">InventoryGearSurface.PickMounted</a></li><li><a href="function-1e68f5e03dc561605d89.html">SpatialScene.RunPaperdollMaskSmoke</a></li><li><a href="function-22057eb1d6f524b4964e.html">InventoryGearSurface.Pick</a></li><li><a href="function-9c1901fca9b3022613b5.html">SpatialScene.RunPaperdollBeltSmoke</a></li><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart.html">InventoryArt</a></li></ul><h2>Implementation</h2><pre><code>internal static bool Opaque(string id, Vector2 normalized)
     {
         if (normalized.X is &lt; 0 or &gt;= 1 || normalized.Y is &lt; 0 or &gt;= 1) return false;
         Load(); var texture = Textures[id];

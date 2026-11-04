@@ -84,17 +84,26 @@ def load_catalog(root):
         if len(r) != 4 or any(type(n) is not int for n in r) or min(r[:2]) &lt; 0 or min(r[2:]) &lt;= 0 or r[0] + r[2] &gt; asset[&#x27;size&#x27;][0] or r[1] + r[3] &gt; asset[&#x27;size&#x27;][1]:
             raise ValueError(&#x27;Invalid source region: &#x27; + key)
         image_paths[key] = source
-    return registry, definitions, categories, assets, worn, image_paths, sources
+    worn_paths = {}
+    for file, size in worn[&#x27;images&#x27;].items():
+        source = path(str(Path(registry[&#x27;paperdollArtSource&#x27;]).parent / file))
+        if not source.is_relative_to(root / &#x27;game/Assets&#x27;) or source.suffix != &#x27;.png&#x27;:
+            raise ValueError(&#x27;Worn catalog image must be a project PNG&#x27;)
+        header = source.read_bytes()[:24]
+        if header[:8] != b&#x27;\x89PNG\r\n\x1a\n&#x27; or list(struct.unpack(&#x27;&gt;II&#x27;, header[16:24])) != size:
+            raise ValueError(&#x27;Worn PNG dimensions differ: &#x27; + file)
+        worn_paths[file] = source
+    return registry, definitions, categories, assets, worn, image_paths, sources, worn_paths
 
 
 def build_items(root, out, add):
     root, out = Path(root).resolve(), Path(out).resolve()
-    registry, definitions, categories, assets, worn, images, sources = load_catalog(root)
+    registry, definitions, categories, assets, worn, images, sources, worn_images = load_catalog(root)
     hashes = {}
     directory = out / &#x27;assets/items&#x27;
     directory.mkdir(parents=True, exist_ok=True)
     urls = {}
-    for item, source in images.items():
+    for item, source in {**images, **{&#x27;worn:&#x27; + k: v for k, v in worn_images.items()}}.items():
         data = source.read_bytes()
         digest = hashlib.sha256(data).hexdigest()
         name = digest + &#x27;.png&#x27;
@@ -151,6 +160,7 @@ def build_items(root, out, add):
         providers = [r for r in d.get(&#x27;regions&#x27;, []) if r.get(&#x27;attachment&#x27;)]
         traits = [name for name, yes in [(&#x27;wearable&#x27;, bool(d.get(&#x27;wear&#x27;))), (&#x27;storage&#x27;, bool(storage)), (&#x27;attachment&#x27;, bool(d.get(&#x27;attachment&#x27;))), (&#x27;mount-provider&#x27;, bool(providers))] if yes]
         binding = bindings.get(item)
+        attachment_bindings = [b for b in worn.get(&#x27;attachments&#x27;, []) if b[&#x27;definition&#x27;] == item]
         detail = &#x27;&lt;h1&gt;&#x27; + escape(d[&#x27;name&#x27;]) + &#x27;&lt;/h1&gt;&lt;p&gt;&#x27; + breadcrumbs(category) + &#x27;&lt;/p&gt;&#x27; + art(item) + note
         detail += &#x27;&lt;dl&gt;&lt;dt&gt;Stable definition ID&lt;/dt&gt;&lt;dd&gt;&lt;code&gt;&#x27; + escape(item) + &#x27;&lt;/code&gt;&lt;/dd&gt;&lt;dt&gt;Primary type&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(category) + &#x27;&lt;/dd&gt;&#x27;
         detail += &#x27;&lt;dt&gt;Capability cross-references&lt;/dt&gt;&lt;dd&gt;&#x27; + escape(&#x27;, &#x27;.join(traits) or &#x27;ordinary item&#x27;) + &#x27;&lt;/dd&gt;&#x27;
@@ -166,19 +176,36 @@ def build_items(root, out, add):
             detail += &#x27;&lt;/table&gt;&lt;p&gt;Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.&lt;/p&gt;&#x27;
         detail += &#x27;&lt;h2&gt;Artwork and authoring coverage&lt;/h2&gt;&lt;p&gt;&#x27; + link(urls[item], &#x27;Full original loose-art PNG&#x27;) + &#x27;; registered source region &lt;code&gt;&#x27; + escape(str(assets[item][&#x27;region&#x27;])) + &#x27;&lt;/code&gt;. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.&lt;/p&gt;&#x27;
         detail += &#x27;&lt;p&gt;Source: &lt;code&gt;&#x27; + escape(images[item].relative_to(root).as_posix()) + &#x27;&lt;/code&gt;. SHA-256: &lt;code&gt;&#x27; + hashes[images[item].relative_to(root).as_posix()] + &#x27;&lt;/code&gt;.&lt;/p&gt;&#x27;
-        detail += &#x27;&lt;p&gt;Paperdoll: &#x27; + (&#x27;registered for the bounded reference body/default pose; inspect binding below&#x27; if binding else &#x27;no qualified native worn-sprite binding&#x27;) + &#x27;. World outfit composition remains unimplemented.&lt;/p&gt;&#x27;
+        detail += &#x27;&lt;p&gt;Paperdoll: &#x27; + (&#x27;registered for the bounded reference body/default pose; inspect binding below&#x27; if binding else &#x27;registered as a bounded direct exterior attachment; inspect supporting provider and surface below&#x27; if attachment_bindings else &#x27;no qualified native worn-sprite binding&#x27;) + &#x27;. World outfit composition remains unimplemented.&lt;/p&gt;&#x27;
         if binding:
             detail += &#x27;&lt;pre&gt;&#x27; + escape(json.dumps(binding, indent=2)) + &#x27;&lt;/pre&gt;&#x27;
         columns = {binding[&#x27;column&#x27;], binding.get(&#x27;openColumn&#x27;, binding[&#x27;column&#x27;]), *binding.get(&#x27;mountColumns&#x27;, {}).values()} if binding else set()
+        columns.update(b[&#x27;column&#x27;] for b in attachment_bindings)
         registered = [f for f in worn[&#x27;frames&#x27;] if f[&#x27;column&#x27;] in columns]
-        if binding:
+        worn_assets = [{&#x27;file&#x27;: f[&#x27;file&#x27;], &#x27;source&#x27;: worn_images[f[&#x27;file&#x27;]].relative_to(root).as_posix(), &#x27;url&#x27;: urls[&#x27;worn:&#x27; + f[&#x27;file&#x27;]]} for f in registered]
+        if attachment_bindings:
+            detail += &#x27;&lt;pre&gt;&#x27; + escape(json.dumps(attachment_bindings, indent=2)) + &#x27;&lt;/pre&gt;&#x27;
+        if worn_assets:
+            detail += &#x27;&lt;p&gt;Registered worn source sheets: &#x27; + &#x27; · &#x27;.join(link(a[&#x27;url&#x27;], a[&#x27;source&#x27;]) for a in worn_assets) + &#x27;.&lt;/p&gt;&#x27;
+        if binding or attachment_bindings:
             detail += &#x27;&lt;details&gt;&lt;summary&gt;Registered worn frames, views and masks&lt;/summary&gt;&lt;pre&gt;&#x27; + escape(json.dumps(registered, indent=2)) + &#x27;&lt;/pre&gt;&lt;/details&gt;&#x27;
         bundle = &#x27;game/Assets/items/&#x27; + category + &#x27;/&#x27; + item + &#x27;/&#x27;
-        detail += &#x27;&lt;p&gt;Future bundle location: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. This is a migration target, not an existing relocated runtime asset.&lt;/p&gt;&#x27;
+        bundle_file = (root / bundle / &#x27;item.art.json&#x27;).resolve()
+        bundle_registration = None
+        if bundle_file.is_relative_to(root / &#x27;game/Assets&#x27;) and bundle_file.is_file():
+            bundle_registration = json.loads(bundle_file.read_text())
+            if bundle_registration.get(&#x27;definition&#x27;) != item:
+                raise ValueError(&#x27;Item bundle identity differs: &#x27; + item)
+            sources.append(bundle_file.relative_to(root).as_posix())
+            provenance = bundle_file.parent / &#x27;provenance.md&#x27;
+            if provenance.is_file(): sources.append(provenance.relative_to(root).as_posix())
+            detail += &#x27;&lt;p&gt;Registered reference-art bundle: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. &#x27; + link(&#x27;evidence-&#x27; + page_id(bundle + &#x27;item.art.json&#x27;) + &#x27;.html&#x27;, &#x27;Bundle metadata and current runtime registration&#x27;) + &#x27;. Existing manifest loading remains authoritative.&lt;/p&gt;&#x27;
+        else:
+            detail += &#x27;&lt;p&gt;Future bundle location: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. This is a migration target, not an existing relocated runtime asset.&lt;/p&gt;&#x27;
         detail += &#x27;&lt;h2&gt;Exact native definition&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d, indent=2)) + &#x27;&lt;/pre&gt;&lt;p&gt;&#x27; + link(&#x27;item-catalog.json&#x27;, &#x27;Machine-readable catalog and exact definitions&#x27;) + &#x27; · &#x27; + link(&#x27;doc-docs-46-item-asset-library-md.html&#x27;, &#x27;Naming and migration standard&#x27;) + &#x27;&lt;/p&gt;&#x27; + related
         add(item_url(item), d[&#x27;name&#x27;] + &#x27; — item&#x27;, detail, &#x27;Item&#x27;, &#x27;Native prototype definition&#x27;, registry[&#x27;definitionSource&#x27;] + &#x27; #&#x27; + item)
         index[&#x27;items&#x27;][item] = {&#x27;url&#x27;: item_url(item), &#x27;category&#x27;: category, &#x27;capabilities&#x27;: traits, &#x27;definition&#x27;: d,
-                                &#x27;art&#x27;: {&#x27;url&#x27;: urls[item], &#x27;source&#x27;: images[item].relative_to(root).as_posix(), &#x27;region&#x27;: assets[item][&#x27;region&#x27;], &#x27;sha256&#x27;: hashes[images[item].relative_to(root).as_posix()]}, &#x27;paperdollBinding&#x27;: binding, &#x27;paperdollFrames&#x27;: registered, &#x27;futureBundle&#x27;: bundle}
+                                &#x27;art&#x27;: {&#x27;url&#x27;: urls[item], &#x27;source&#x27;: images[item].relative_to(root).as_posix(), &#x27;region&#x27;: assets[item][&#x27;region&#x27;], &#x27;sha256&#x27;: hashes[images[item].relative_to(root).as_posix()]}, &#x27;paperdollBinding&#x27;: binding, &#x27;paperdollFrames&#x27;: registered, &#x27;paperdollAttachments&#x27;: attachment_bindings, &#x27;wornArt&#x27;: worn_assets, &#x27;futureBundle&#x27;: bundle, &#x27;bundleRegistration&#x27;: bundle_registration}
     body += &#x27;&lt;/div&gt;&lt;h2&gt;Capability views&lt;/h2&gt;&#x27;
     for trait in [&#x27;wearable&#x27;, &#x27;storage&#x27;, &#x27;attachment&#x27;, &#x27;mount-provider&#x27;]:
         body += &#x27;&lt;h3&gt;&#x27; + escape(trait) + &#x27;&lt;/h3&gt;&lt;p&gt;&#x27; + &#x27; · &#x27;.join(link(v[&#x27;url&#x27;], definitions[i][&#x27;name&#x27;]) for i, v in index[&#x27;items&#x27;].items() if trait in v[&#x27;capabilities&#x27;]) + &#x27;&lt;/p&gt;&#x27;

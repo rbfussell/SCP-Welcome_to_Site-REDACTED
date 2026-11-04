@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryBrowser.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBrowser.cs</h1><p>game/Presentation/Inventory/InventoryBrowser.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorybrowser.html">InventoryBrowser</a></li><li><a href="type-inventorybrowser-gear.html">Gear</a></li><li><a href="type-inventorybrowser-interior.html">Interior</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-17d02c3b9138a72ad66d.html">InventoryBrowser.Panel</a> · line 9</li><li><a href="function-97de639d779749b1b5a1.html">InventoryBrowser.Panel.get</a> · line 9</li><li><a href="function-f81284a6c40f95112237.html">InventoryBrowser.Panel.set</a> · line 9</li><li><a href="function-2636834953f724d7cad1.html">InventoryBrowser.GearIds</a> · line 18</li><li><a href="function-539e1c6e9d4ab897b0b3.html">InventoryBrowser.ContainerIds</a> · line 19</li><li><a href="function-ae558b3b38d5638bdefd.html">InventoryBrowser.CurrentGear</a> · line 20</li><li><a href="function-d39afb39cf41f18edbb3.html">InventoryBrowser.CurrentContents</a> · line 21</li><li><a href="function-f93f928b6785ad075b9b.html">InventoryBrowser._Ready</a> · line 23</li><li><a href="function-c901c6e186650a485958.html">InventoryBrowser.Placement</a> · line 29</li><li><a href="function-c4bcb099863e173562ac.html">InventoryBrowser.Inspect</a> · line 30</li><li><a href="function-68479227cff2d8190acc.html">InventoryBrowser.StartGear</a> · line 66</li><li><a href="function-03f65fe43a567d507ce5.html">InventoryBrowser.OpenRegion</a> · line 71</li><li><a href="function-c2e492588b80b8f7574b.html">InventoryBrowser.Enter</a> · line 91</li><li><a href="function-b3924547267e9a4bbe63.html">InventoryBrowser.Descend</a> · line 100</li><li><a href="function-2747ef3e39256b9ba0f9.html">InventoryBrowser.Dismiss</a> · line 107</li><li><a href="function-a51ca3f995cec4976c35.html">InventoryBrowser.CloseView</a> · line 128</li><li><a href="function-ac107e6ffbf0ef0666de.html">InventoryBrowser.Back</a> · line 133</li><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a> · line 134</li><li><a href="function-4c30cd1cb2e9a532ba17.html">InventoryBrowser.Build</a> · line 136</li><li><a href="function-57f6283d3cae19314910.html">InventoryBrowser.ItemName</a> · line 143</li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a> · line 144</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryBrowser.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBrowser.cs</h1><p>game/Presentation/Inventory/InventoryBrowser.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorybrowser.html">InventoryBrowser</a></li><li><a href="type-inventorybrowser-gear.html">Gear</a></li><li><a href="type-inventorybrowser-interior.html">Interior</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-17d02c3b9138a72ad66d.html">InventoryBrowser.Panel</a> · line 9</li><li><a href="function-97de639d779749b1b5a1.html">InventoryBrowser.Panel.get</a> · line 9</li><li><a href="function-f81284a6c40f95112237.html">InventoryBrowser.Panel.set</a> · line 9</li><li><a href="function-2636834953f724d7cad1.html">InventoryBrowser.GearIds</a> · line 18</li><li><a href="function-539e1c6e9d4ab897b0b3.html">InventoryBrowser.ContainerIds</a> · line 19</li><li><a href="function-ae558b3b38d5638bdefd.html">InventoryBrowser.CurrentGear</a> · line 20</li><li><a href="function-d39afb39cf41f18edbb3.html">InventoryBrowser.CurrentContents</a> · line 21</li><li><a href="function-f93f928b6785ad075b9b.html">InventoryBrowser._Ready</a> · line 23</li><li><a href="function-c901c6e186650a485958.html">InventoryBrowser.Placement</a> · line 29</li><li><a href="function-c4bcb099863e173562ac.html">InventoryBrowser.Inspect</a> · line 30</li><li><a href="function-68479227cff2d8190acc.html">InventoryBrowser.StartGear</a> · line 85</li><li><a href="function-03f65fe43a567d507ce5.html">InventoryBrowser.OpenRegion</a> · line 90</li><li><a href="function-c2e492588b80b8f7574b.html">InventoryBrowser.Enter</a> · line 110</li><li><a href="function-b3924547267e9a4bbe63.html">InventoryBrowser.Descend</a> · line 119</li><li><a href="function-2747ef3e39256b9ba0f9.html">InventoryBrowser.Dismiss</a> · line 126</li><li><a href="function-a51ca3f995cec4976c35.html">InventoryBrowser.CloseView</a> · line 147</li><li><a href="function-ac107e6ffbf0ef0666de.html">InventoryBrowser.Back</a> · line 152</li><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a> · line 153</li><li><a href="function-4c30cd1cb2e9a532ba17.html">InventoryBrowser.Build</a> · line 155</li><li><a href="function-57f6283d3cae19314910.html">InventoryBrowser.ItemName</a> · line 162</li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a> · line 163</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
 <span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
 <span id="L3"><a class="line" href="#L3">3</a> </span>
 <span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
@@ -59,109 +59,128 @@
 <span id="L59"><a class="line" href="#L59">59</a>                 cursor = state.DiagnosticItems.Single(i =&gt; i.Id == cursor.Placement.ParentId);</span>
 <span id="L60"><a class="line" href="#L60">60</a>             }</span>
 <span id="L61"><a class="line" href="#L61">61</a>         }</span>
-<span id="L62"><a class="line" href="#L62">62</a>         if (_contents.LastOrDefault() is not { } containing || containing.Owner != item.Placement.ParentId || containing.Region != item.Placement.RegionId) return false;</span>
-<span id="L63"><a class="line" href="#L63">63</a>         if (state.Definition(id).Regions is not { Length: &gt; 0 } regions) { reason = &quot;This item has no interior.&quot;; return false; }</span>
-<span id="L64"><a class="line" href="#L64">64</a>         return OpenRegion(id, regions[0].Id, out reason);</span>
-<span id="L65"><a class="line" href="#L65">65</a>     }</span>
-<span id="L66"><a class="line" href="#L66">66</a>     private void StartGear(string id)</span>
-<span id="L67"><a class="line" href="#L67">67</a>     {</span>
-<span id="L68"><a class="line" href="#L68">68</a>         Panel.CancelDragPreview(); _context++; _opening = null;</span>
-<span id="L69"><a class="line" href="#L69">69</a>         _gear.Clear(); _contents.Clear(); _visited.Clear(); _gear.Add(new(id, Placement(id))); Build();</span>
-<span id="L70"><a class="line" href="#L70">70</a>     }</span>
-<span id="L71"><a class="line" href="#L71">71</a>     internal bool OpenRegion(string owner, string region, out string reason)</span>
-<span id="L72"><a class="line" href="#L72">72</a>     {</span>
-<span id="L73"><a class="line" href="#L73">73</a>         var sim = Panel.Simulation;</span>
-<span id="L74"><a class="line" href="#L74">74</a>         reason = &quot;Choose a compartment in the current gear or contents.&quot;;</span>
-<span id="L75"><a class="line" href="#L75">75</a>         if (sim.Inventory.Region(owner, region).Attachment is not null) { reason = &quot;This is an exterior mounting surface.&quot;; return false; }</span>
-<span id="L76"><a class="line" href="#L76">76</a>         var isGear = _gear.Any(g =&gt; g.Id == owner);</span>
-<span id="L77"><a class="line" href="#L77">77</a>         var item = sim.Inventory.DiagnosticItems.SingleOrDefault(i =&gt; i.Id == owner);</span>
-<span id="L78"><a class="line" href="#L78">78</a>         var nested = _contents.LastOrDefault() is { } parent &amp;&amp; item?.Placement.ParentId == parent.Owner &amp;&amp; item.Placement.RegionId == parent.Region;</span>
-<span id="L79"><a class="line" href="#L79">79</a>         if (!isGear &amp;&amp; !nested) return false;</span>
-<span id="L80"><a class="line" href="#L80">80</a>         var target = new Interior(owner, region, Placement(owner));</span>
-<span id="L81"><a class="line" href="#L81">81</a>         // Validate parent access and coverage even if the lid is closed; the action service owns that check.</span>
-<span id="L82"><a class="line" href="#L82">82</a>         var access = sim.InventoryAccess(owner, region);</span>
-<span id="L83"><a class="line" href="#L83">83</a>         if (!sim.Inventory.IsOpen(owner, region))</span>
-<span id="L84"><a class="line" href="#L84">84</a>         {</span>
-<span id="L85"><a class="line" href="#L85">85</a>             if (!sim.HandleInventory(new(InventoryActionKind.Open, owner, RegionId: region))) { reason = sim.LastMessage; return false; }</span>
-<span id="L86"><a class="line" href="#L86">86</a>             _opening = (target, _context); reason = sim.LastMessage; return true;</span>
-<span id="L87"><a class="line" href="#L87">87</a>         }</span>
-<span id="L88"><a class="line" href="#L88">88</a>         if (!access.Allowed) { reason = access.Reason; return false; }</span>
-<span id="L89"><a class="line" href="#L89">89</a>         Enter(target); reason = &quot;Inspecting &quot; + sim.Inventory.Region(owner, region).Name; return true;</span>
-<span id="L90"><a class="line" href="#L90">90</a>     }</span>
-<span id="L91"><a class="line" href="#L91">91</a>     private void Enter(Interior target)</span>
-<span id="L92"><a class="line" href="#L92">92</a>     {</span>
-<span id="L93"><a class="line" href="#L93">93</a>         Panel.CancelDragPreview();</span>
-<span id="L94"><a class="line" href="#L94">94</a>         if (_gear.Any(g =&gt; g.Id == target.Owner)) _contents.Clear();</span>
-<span id="L95"><a class="line" href="#L95">95</a>         var existing = _contents.FindIndex(c =&gt; c.Owner == target.Owner &amp;&amp; c.Region == target.Region);</span>
-<span id="L96"><a class="line" href="#L96">96</a>         if (existing &gt;= 0) _contents.RemoveRange(existing, _contents.Count - existing);</span>
-<span id="L97"><a class="line" href="#L97">97</a>         _contents.Add(target); Build();</span>
-<span id="L98"><a class="line" href="#L98">98</a>         if (!_visited.Any(c =&gt; c.Owner == target.Owner &amp;&amp; c.Region == target.Region)) _visited.Add(target);</span>
-<span id="L99"><a class="line" href="#L99">99</a>     }</span>
-<span id="L100"><a class="line" href="#L100">100</a>     internal void Descend(string id)</span>
-<span id="L101"><a class="line" href="#L101">101</a>     {</span>
-<span id="L102"><a class="line" href="#L102">102</a>         var sim = Panel.Simulation;</span>
-<span id="L103"><a class="line" href="#L103">103</a>         if (CurrentGear is not { } current || !sim.InventoryUnderlayers(current).Any(i =&gt; i.Id == id)) return;</span>
-<span id="L104"><a class="line" href="#L104">104</a>         Panel.CancelDragPreview(); _context++; _opening = null;</span>
-<span id="L105"><a class="line" href="#L105">105</a>         _gear.Add(new(id, Placement(id))); Build();</span>
-<span id="L106"><a class="line" href="#L106">106</a>     }</span>
-<span id="L107"><a class="line" href="#L107">107</a>     internal bool Dismiss(bool gear, bool entire)</span>
-<span id="L108"><a class="line" href="#L108">108</a>     {</span>
-<span id="L109"><a class="line" href="#L109">109</a>         if (gear ? _gear.Count == 0 : _contents.Count == 0) return false;</span>
-<span id="L110"><a class="line" href="#L110">110</a>         var removedGear = gear ? (entire ? _gear.ToArray() : [_gear[^1]]) : Array.Empty&lt;Gear&gt;();</span>
-<span id="L111"><a class="line" href="#L111">111</a>         var removedContents = !gear || _contents.Any(c =&gt; removedGear.Any(g =&gt; g.Id == c.Owner))</span>
-<span id="L112"><a class="line" href="#L112">112</a>             ? (entire || gear ? _contents.ToArray() : [_contents[^1]]) : Array.Empty&lt;Interior&gt;();</span>
-<span id="L113"><a class="line" href="#L113">113</a>         // Dismissing views has a physical default. A busy handler leaves the views in place with an explanation.</span>
-<span id="L114"><a class="line" href="#L114">114</a>         var interiors = gear &amp;&amp; entire ? _visited.Concat(removedGear.SelectMany(g =&gt; g.Placement is null ? Array.Empty&lt;Interior&gt;()</span>
-<span id="L115"><a class="line" href="#L115">115</a>             : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r =&gt; r.Attachment is null).Select(r =&gt; new Interior(g.Id, r.Id, g.Placement)))) : removedContents;</span>
-<span id="L116"><a class="line" href="#L116">116</a>         var requests = interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))</span>
-<span id="L117"><a class="line" href="#L117">117</a>             .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))</span>
-<span id="L118"><a class="line" href="#L118">118</a>             .Concat(removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })</span>
-<span id="L119"><a class="line" href="#L119">119</a>                 .Select(g =&gt; new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))</span>
-<span id="L120"><a class="line" href="#L120">120</a>             .Where(r =&gt; Placement(r.ItemId) is not null).ToArray();</span>
-<span id="L121"><a class="line" href="#L121">121</a>         var automatic = InventoryClosures.OnDismissal(Panel.Simulation.Inventory, requests);</span>
-<span id="L122"><a class="line" href="#L122">122</a>         if (automatic.Length != 0 &amp;&amp; !Panel.Simulation.SecureInventory(automatic, automatic: true)) { Panel.ShowReceipt(); return false; }</span>
+<span id="L62"><a class="line" href="#L62">62</a>         // A visible own-worn exterior item can be inspected directly from the sprite paperdoll.</span>
+<span id="L63"><a class="line" href="#L63">63</a>         // Trace attachment edges only; never open or search packed container contents.</span>
+<span id="L64"><a class="line" href="#L64">64</a>         if (item.Placement.AttachmentPose is not null)</span>
+<span id="L65"><a class="line" href="#L65">65</a>         {</span>
+<span id="L66"><a class="line" href="#L66">66</a>             var trail = new List&lt;string&gt;(); var cursor = item;</span>
+<span id="L67"><a class="line" href="#L67">67</a>             for (var depth = 0; depth &lt; InventoryHierarchy.MaxDepth &amp;&amp; cursor.Placement.AttachmentPose is not null; depth++)</span>
+<span id="L68"><a class="line" href="#L68">68</a>             {</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 if (!sim.InventoryInspectAccess(cursor.Id).Allowed) break;</span>
+<span id="L70"><a class="line" href="#L70">70</a>                 trail.Add(cursor.Id);</span>
+<span id="L71"><a class="line" href="#L71">71</a>                 cursor = state.DiagnosticItems.Single(i =&gt; i.Id == cursor.Placement.ParentId);</span>
+<span id="L72"><a class="line" href="#L72">72</a>             }</span>
+<span id="L73"><a class="line" href="#L73">73</a>             if (cursor.Placement.AttachmentPose is null &amp;&amp; state.Content.Roots.Any(r =&gt; r.ActorId == sim.Player.Id &amp;&amp; r.Id == cursor.Placement.ParentId)</span>
+<span id="L74"><a class="line" href="#L74">74</a>                 &amp;&amp; state.Region(cursor.Placement.ParentId, cursor.Placement.RegionId).MountSlot is { } slot</span>
+<span id="L75"><a class="line" href="#L75">75</a>                 &amp;&amp; InventoryWear.Accepts(state.Definition(cursor.Id), slot) &amp;&amp; sim.InventoryInspectAccess(cursor.Id).Allowed)</span>
+<span id="L76"><a class="line" href="#L76">76</a>             {</span>
+<span id="L77"><a class="line" href="#L77">77</a>                 StartGear(cursor.Id); trail.Reverse();</span>
+<span id="L78"><a class="line" href="#L78">78</a>                 _gear.AddRange(trail.Select(next =&gt; new Gear(next, Placement(next)))); Build(); return true;</span>
+<span id="L79"><a class="line" href="#L79">79</a>             }</span>
+<span id="L80"><a class="line" href="#L80">80</a>         }</span>
+<span id="L81"><a class="line" href="#L81">81</a>         if (_contents.LastOrDefault() is not { } containing || containing.Owner != item.Placement.ParentId || containing.Region != item.Placement.RegionId) return false;</span>
+<span id="L82"><a class="line" href="#L82">82</a>         if (state.Definition(id).Regions is not { Length: &gt; 0 } regions) { reason = &quot;This item has no interior.&quot;; return false; }</span>
+<span id="L83"><a class="line" href="#L83">83</a>         return OpenRegion(id, regions[0].Id, out reason);</span>
+<span id="L84"><a class="line" href="#L84">84</a>     }</span>
+<span id="L85"><a class="line" href="#L85">85</a>     private void StartGear(string id)</span>
+<span id="L86"><a class="line" href="#L86">86</a>     {</span>
+<span id="L87"><a class="line" href="#L87">87</a>         Panel.CancelDragPreview(); _context++; _opening = null;</span>
+<span id="L88"><a class="line" href="#L88">88</a>         _gear.Clear(); _contents.Clear(); _visited.Clear(); _gear.Add(new(id, Placement(id))); Build();</span>
+<span id="L89"><a class="line" href="#L89">89</a>     }</span>
+<span id="L90"><a class="line" href="#L90">90</a>     internal bool OpenRegion(string owner, string region, out string reason)</span>
+<span id="L91"><a class="line" href="#L91">91</a>     {</span>
+<span id="L92"><a class="line" href="#L92">92</a>         var sim = Panel.Simulation;</span>
+<span id="L93"><a class="line" href="#L93">93</a>         reason = &quot;Choose a compartment in the current gear or contents.&quot;;</span>
+<span id="L94"><a class="line" href="#L94">94</a>         if (sim.Inventory.Region(owner, region).Attachment is not null) { reason = &quot;This is an exterior mounting surface.&quot;; return false; }</span>
+<span id="L95"><a class="line" href="#L95">95</a>         var isGear = _gear.Any(g =&gt; g.Id == owner);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         var item = sim.Inventory.DiagnosticItems.SingleOrDefault(i =&gt; i.Id == owner);</span>
+<span id="L97"><a class="line" href="#L97">97</a>         var nested = _contents.LastOrDefault() is { } parent &amp;&amp; item?.Placement.ParentId == parent.Owner &amp;&amp; item.Placement.RegionId == parent.Region;</span>
+<span id="L98"><a class="line" href="#L98">98</a>         if (!isGear &amp;&amp; !nested) return false;</span>
+<span id="L99"><a class="line" href="#L99">99</a>         var target = new Interior(owner, region, Placement(owner));</span>
+<span id="L100"><a class="line" href="#L100">100</a>         // Validate parent access and coverage even if the lid is closed; the action service owns that check.</span>
+<span id="L101"><a class="line" href="#L101">101</a>         var access = sim.InventoryAccess(owner, region);</span>
+<span id="L102"><a class="line" href="#L102">102</a>         if (!sim.Inventory.IsOpen(owner, region))</span>
+<span id="L103"><a class="line" href="#L103">103</a>         {</span>
+<span id="L104"><a class="line" href="#L104">104</a>             if (!sim.HandleInventory(new(InventoryActionKind.Open, owner, RegionId: region))) { reason = sim.LastMessage; return false; }</span>
+<span id="L105"><a class="line" href="#L105">105</a>             _opening = (target, _context); reason = sim.LastMessage; return true;</span>
+<span id="L106"><a class="line" href="#L106">106</a>         }</span>
+<span id="L107"><a class="line" href="#L107">107</a>         if (!access.Allowed) { reason = access.Reason; return false; }</span>
+<span id="L108"><a class="line" href="#L108">108</a>         Enter(target); reason = &quot;Inspecting &quot; + sim.Inventory.Region(owner, region).Name; return true;</span>
+<span id="L109"><a class="line" href="#L109">109</a>     }</span>
+<span id="L110"><a class="line" href="#L110">110</a>     private void Enter(Interior target)</span>
+<span id="L111"><a class="line" href="#L111">111</a>     {</span>
+<span id="L112"><a class="line" href="#L112">112</a>         Panel.CancelDragPreview();</span>
+<span id="L113"><a class="line" href="#L113">113</a>         if (_gear.Any(g =&gt; g.Id == target.Owner)) _contents.Clear();</span>
+<span id="L114"><a class="line" href="#L114">114</a>         var existing = _contents.FindIndex(c =&gt; c.Owner == target.Owner &amp;&amp; c.Region == target.Region);</span>
+<span id="L115"><a class="line" href="#L115">115</a>         if (existing &gt;= 0) _contents.RemoveRange(existing, _contents.Count - existing);</span>
+<span id="L116"><a class="line" href="#L116">116</a>         _contents.Add(target); Build();</span>
+<span id="L117"><a class="line" href="#L117">117</a>         if (!_visited.Any(c =&gt; c.Owner == target.Owner &amp;&amp; c.Region == target.Region)) _visited.Add(target);</span>
+<span id="L118"><a class="line" href="#L118">118</a>     }</span>
+<span id="L119"><a class="line" href="#L119">119</a>     internal void Descend(string id)</span>
+<span id="L120"><a class="line" href="#L120">120</a>     {</span>
+<span id="L121"><a class="line" href="#L121">121</a>         var sim = Panel.Simulation;</span>
+<span id="L122"><a class="line" href="#L122">122</a>         if (CurrentGear is not { } current || !sim.InventoryUnderlayers(current).Any(i =&gt; i.Id == id)) return;</span>
 <span id="L123"><a class="line" href="#L123">123</a>         Panel.CancelDragPreview(); _context++; _opening = null;</span>
-<span id="L124"><a class="line" href="#L124">124</a>         if (gear) _gear.RemoveRange(entire ? 0 : _gear.Count - 1, entire ? _gear.Count : 1);</span>
-<span id="L125"><a class="line" href="#L125">125</a>         if (removedContents.Length != 0) _contents.RemoveRange(_contents.Count - removedContents.Length, removedContents.Length);</span>
-<span id="L126"><a class="line" href="#L126">126</a>         Build(); Panel.ShowReceipt(); return true;</span>
-<span id="L127"><a class="line" href="#L127">127</a>     }</span>
-<span id="L128"><a class="line" href="#L128">128</a>     internal void CloseView(string id)</span>
-<span id="L129"><a class="line" href="#L129">129</a>     {</span>
-<span id="L130"><a class="line" href="#L130">130</a>         if (_gear.Any(g =&gt; g.Id == id)) Dismiss(true, true);</span>
-<span id="L131"><a class="line" href="#L131">131</a>         else if (_contents.Any(c =&gt; c.Owner == id)) Dismiss(false, true);</span>
-<span id="L132"><a class="line" href="#L132">132</a>     }</span>
-<span id="L133"><a class="line" href="#L133">133</a>     internal bool Back() =&gt; _contents.Count != 0 ? Dismiss(false, false) : Dismiss(true, false);</span>
-<span id="L134"><a class="line" href="#L134">134</a>     internal void Clear()</span>
-<span id="L135"><a class="line" href="#L135">135</a>     { _context++; _opening = null; _gear.Clear(); _contents.Clear(); _visited.Clear(); if (IsNodeReady()) Build(); }</span>
-<span id="L136"><a class="line" href="#L136">136</a>     private void Build()</span>
-<span id="L137"><a class="line" href="#L137">137</a>     {</span>
-<span id="L138"><a class="line" href="#L138">138</a>         if (_gearView is null) return;</span>
-<span id="L139"><a class="line" href="#L139">139</a>         _gearView.Build(CurrentGear, null, string.Join(&quot; → &quot;, _gear.Select(g =&gt; ItemName(g.Id))));</span>
-<span id="L140"><a class="line" href="#L140">140</a>         var interior = _contents.LastOrDefault();</span>
-<span id="L141"><a class="line" href="#L141">141</a>         _contentsView.Build(interior?.Owner, interior?.Region, string.Join(&quot; → &quot;, _contents.Select(c =&gt; Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));</span>
-<span id="L142"><a class="line" href="#L142">142</a>     }</span>
-<span id="L143"><a class="line" href="#L143">143</a>     private string ItemName(string id) =&gt; Panel.Simulation.Inventory.Content!.Roots.SingleOrDefault(r =&gt; r.Id == id)?.Name ?? Panel.Simulation.Inventory.Definition(id).Name;</span>
-<span id="L144"><a class="line" href="#L144">144</a>     internal void Refresh()</span>
-<span id="L145"><a class="line" href="#L145">145</a>     {</span>
-<span id="L146"><a class="line" href="#L146">146</a>         var sim = Panel.Simulation;</span>
-<span id="L147"><a class="line" href="#L147">147</a>         var badGear = _gear.FindIndex(g =&gt; g.Placement != Placement(g.Id)</span>
-<span id="L148"><a class="line" href="#L148">148</a>             || g.Placement is not null &amp;&amp; !sim.InventoryInspectAccess(g.Id).Allowed</span>
-<span id="L149"><a class="line" href="#L149">149</a>             || g.Placement is null &amp;&amp; !sim.InventoryRoots.Any(r =&gt; r.Id == g.Id));</span>
-<span id="L150"><a class="line" href="#L150">150</a>         if (badGear &gt;= 0)</span>
-<span id="L151"><a class="line" href="#L151">151</a>         {</span>
-<span id="L152"><a class="line" href="#L152">152</a>             var removed = _gear.Skip(badGear).Select(g =&gt; g.Id).ToArray();</span>
-<span id="L153"><a class="line" href="#L153">153</a>             _gear.RemoveRange(badGear, _gear.Count - badGear);</span>
-<span id="L154"><a class="line" href="#L154">154</a>             if (_contents.Any(c =&gt; removed.Contains(c.Owner))) _contents.Clear();</span>
-<span id="L155"><a class="line" href="#L155">155</a>             _context++; _opening = null; Build();</span>
-<span id="L156"><a class="line" href="#L156">156</a>         }</span>
-<span id="L157"><a class="line" href="#L157">157</a>         var badContents = _contents.FindIndex(c =&gt; c.Placement != Placement(c.Owner) || !sim.InventoryAccess(c.Owner, c.Region).Allowed);</span>
-<span id="L158"><a class="line" href="#L158">158</a>         if (badContents &gt;= 0) { _contents.RemoveRange(badContents, _contents.Count - badContents); _context++; _opening = null; Build(); }</span>
-<span id="L159"><a class="line" href="#L159">159</a>         if (_opening is { } opening &amp;&amp; sim.Inventory.Pending is null)</span>
-<span id="L160"><a class="line" href="#L160">160</a>         {</span>
-<span id="L161"><a class="line" href="#L161">161</a>             _opening = null;</span>
-<span id="L162"><a class="line" href="#L162">162</a>             if (opening.Context == _context &amp;&amp; opening.Target.Placement == Placement(opening.Target.Owner)</span>
-<span id="L163"><a class="line" href="#L163">163</a>                 &amp;&amp; sim.InventoryAccess(opening.Target.Owner, opening.Target.Region).Allowed) Enter(opening.Target);</span>
-<span id="L164"><a class="line" href="#L164">164</a>         }</span>
-<span id="L165"><a class="line" href="#L165">165</a>         _gearView.Refresh(); _contentsView.Refresh();</span>
-<span id="L166"><a class="line" href="#L166">166</a>     }</span>
-<span id="L167"><a class="line" href="#L167">167</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L124"><a class="line" href="#L124">124</a>         _gear.Add(new(id, Placement(id))); Build();</span>
+<span id="L125"><a class="line" href="#L125">125</a>     }</span>
+<span id="L126"><a class="line" href="#L126">126</a>     internal bool Dismiss(bool gear, bool entire)</span>
+<span id="L127"><a class="line" href="#L127">127</a>     {</span>
+<span id="L128"><a class="line" href="#L128">128</a>         if (gear ? _gear.Count == 0 : _contents.Count == 0) return false;</span>
+<span id="L129"><a class="line" href="#L129">129</a>         var removedGear = gear ? (entire ? _gear.ToArray() : [_gear[^1]]) : Array.Empty&lt;Gear&gt;();</span>
+<span id="L130"><a class="line" href="#L130">130</a>         var removedContents = !gear || _contents.Any(c =&gt; removedGear.Any(g =&gt; g.Id == c.Owner))</span>
+<span id="L131"><a class="line" href="#L131">131</a>             ? (entire || gear ? _contents.ToArray() : [_contents[^1]]) : Array.Empty&lt;Interior&gt;();</span>
+<span id="L132"><a class="line" href="#L132">132</a>         // Dismissing views has a physical default. A busy handler leaves the views in place with an explanation.</span>
+<span id="L133"><a class="line" href="#L133">133</a>         var interiors = gear &amp;&amp; entire ? _visited.Concat(removedGear.SelectMany(g =&gt; g.Placement is null ? Array.Empty&lt;Interior&gt;()</span>
+<span id="L134"><a class="line" href="#L134">134</a>             : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r =&gt; r.Attachment is null).Select(r =&gt; new Interior(g.Id, r.Id, g.Placement)))) : removedContents;</span>
+<span id="L135"><a class="line" href="#L135">135</a>         var requests = interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))</span>
+<span id="L136"><a class="line" href="#L136">136</a>             .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))</span>
+<span id="L137"><a class="line" href="#L137">137</a>             .Concat(removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })</span>
+<span id="L138"><a class="line" href="#L138">138</a>                 .Select(g =&gt; new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))</span>
+<span id="L139"><a class="line" href="#L139">139</a>             .Where(r =&gt; Placement(r.ItemId) is not null).ToArray();</span>
+<span id="L140"><a class="line" href="#L140">140</a>         var automatic = InventoryClosures.OnDismissal(Panel.Simulation.Inventory, requests);</span>
+<span id="L141"><a class="line" href="#L141">141</a>         if (automatic.Length != 0 &amp;&amp; !Panel.Simulation.SecureInventory(automatic, automatic: true)) { Panel.ShowReceipt(); return false; }</span>
+<span id="L142"><a class="line" href="#L142">142</a>         Panel.CancelDragPreview(); _context++; _opening = null;</span>
+<span id="L143"><a class="line" href="#L143">143</a>         if (gear) _gear.RemoveRange(entire ? 0 : _gear.Count - 1, entire ? _gear.Count : 1);</span>
+<span id="L144"><a class="line" href="#L144">144</a>         if (removedContents.Length != 0) _contents.RemoveRange(_contents.Count - removedContents.Length, removedContents.Length);</span>
+<span id="L145"><a class="line" href="#L145">145</a>         Build(); Panel.ShowReceipt(); return true;</span>
+<span id="L146"><a class="line" href="#L146">146</a>     }</span>
+<span id="L147"><a class="line" href="#L147">147</a>     internal void CloseView(string id)</span>
+<span id="L148"><a class="line" href="#L148">148</a>     {</span>
+<span id="L149"><a class="line" href="#L149">149</a>         if (_gear.Any(g =&gt; g.Id == id)) Dismiss(true, true);</span>
+<span id="L150"><a class="line" href="#L150">150</a>         else if (_contents.Any(c =&gt; c.Owner == id)) Dismiss(false, true);</span>
+<span id="L151"><a class="line" href="#L151">151</a>     }</span>
+<span id="L152"><a class="line" href="#L152">152</a>     internal bool Back() =&gt; _contents.Count != 0 ? Dismiss(false, false) : Dismiss(true, false);</span>
+<span id="L153"><a class="line" href="#L153">153</a>     internal void Clear()</span>
+<span id="L154"><a class="line" href="#L154">154</a>     { _context++; _opening = null; _gear.Clear(); _contents.Clear(); _visited.Clear(); if (IsNodeReady()) Build(); }</span>
+<span id="L155"><a class="line" href="#L155">155</a>     private void Build()</span>
+<span id="L156"><a class="line" href="#L156">156</a>     {</span>
+<span id="L157"><a class="line" href="#L157">157</a>         if (_gearView is null) return;</span>
+<span id="L158"><a class="line" href="#L158">158</a>         _gearView.Build(CurrentGear, null, string.Join(&quot; → &quot;, _gear.Select(g =&gt; ItemName(g.Id))));</span>
+<span id="L159"><a class="line" href="#L159">159</a>         var interior = _contents.LastOrDefault();</span>
+<span id="L160"><a class="line" href="#L160">160</a>         _contentsView.Build(interior?.Owner, interior?.Region, string.Join(&quot; → &quot;, _contents.Select(c =&gt; Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));</span>
+<span id="L161"><a class="line" href="#L161">161</a>     }</span>
+<span id="L162"><a class="line" href="#L162">162</a>     private string ItemName(string id) =&gt; Panel.Simulation.Inventory.Content!.Roots.SingleOrDefault(r =&gt; r.Id == id)?.Name ?? Panel.Simulation.Inventory.Definition(id).Name;</span>
+<span id="L163"><a class="line" href="#L163">163</a>     internal void Refresh()</span>
+<span id="L164"><a class="line" href="#L164">164</a>     {</span>
+<span id="L165"><a class="line" href="#L165">165</a>         var sim = Panel.Simulation;</span>
+<span id="L166"><a class="line" href="#L166">166</a>         var badGear = _gear.FindIndex(g =&gt; g.Placement != Placement(g.Id)</span>
+<span id="L167"><a class="line" href="#L167">167</a>             || g.Placement is not null &amp;&amp; !sim.InventoryInspectAccess(g.Id).Allowed</span>
+<span id="L168"><a class="line" href="#L168">168</a>             || g.Placement is null &amp;&amp; !sim.InventoryRoots.Any(r =&gt; r.Id == g.Id));</span>
+<span id="L169"><a class="line" href="#L169">169</a>         if (badGear &gt;= 0)</span>
+<span id="L170"><a class="line" href="#L170">170</a>         {</span>
+<span id="L171"><a class="line" href="#L171">171</a>             var removed = _gear.Skip(badGear).Select(g =&gt; g.Id).ToArray();</span>
+<span id="L172"><a class="line" href="#L172">172</a>             _gear.RemoveRange(badGear, _gear.Count - badGear);</span>
+<span id="L173"><a class="line" href="#L173">173</a>             if (_contents.Any(c =&gt; removed.Contains(c.Owner))) _contents.Clear();</span>
+<span id="L174"><a class="line" href="#L174">174</a>             _context++; _opening = null; Build();</span>
+<span id="L175"><a class="line" href="#L175">175</a>         }</span>
+<span id="L176"><a class="line" href="#L176">176</a>         var badContents = _contents.FindIndex(c =&gt; c.Placement != Placement(c.Owner) || !sim.InventoryAccess(c.Owner, c.Region).Allowed);</span>
+<span id="L177"><a class="line" href="#L177">177</a>         if (badContents &gt;= 0) { _contents.RemoveRange(badContents, _contents.Count - badContents); _context++; _opening = null; Build(); }</span>
+<span id="L178"><a class="line" href="#L178">178</a>         if (_opening is { } opening &amp;&amp; sim.Inventory.Pending is null)</span>
+<span id="L179"><a class="line" href="#L179">179</a>         {</span>
+<span id="L180"><a class="line" href="#L180">180</a>             _opening = null;</span>
+<span id="L181"><a class="line" href="#L181">181</a>             if (opening.Context == _context &amp;&amp; opening.Target.Placement == Placement(opening.Target.Owner)</span>
+<span id="L182"><a class="line" href="#L182">182</a>                 &amp;&amp; sim.InventoryAccess(opening.Target.Owner, opening.Target.Region).Allowed) Enter(opening.Target);</span>
+<span id="L183"><a class="line" href="#L183">183</a>         }</span>
+<span id="L184"><a class="line" href="#L184">184</a>         _gearView.Refresh(); _contentsView.Refresh();</span>
+<span id="L185"><a class="line" href="#L185">185</a>     }</span>
+<span id="L186"><a class="line" href="#L186">186</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

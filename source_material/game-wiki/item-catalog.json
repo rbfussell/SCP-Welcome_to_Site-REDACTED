@@ -217,7 +217,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/worn/clothing/suits/chem-suit/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/worn/clothing/suits/chem-suit/",
+      "bundleRegistration": null
     },
     "underwear": {
       "url": "item-underwear.html",
@@ -301,7 +304,16 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/underwear/underwear/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "lower-clothes-v1.png",
+          "source": "game/Assets/paperdoll-proof/lower-clothes-v1.png",
+          "url": "assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/underwear/underwear/",
+      "bundleRegistration": null
     },
     "dressing": {
       "url": "item-dressing.html",
@@ -331,7 +343,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/medical/dressings/dressing/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/medical/dressings/dressing/",
+      "bundleRegistration": null
     },
     "backpack": {
       "url": "item-backpack.html",
@@ -565,7 +580,21 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/containers/backpacks/backpack/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "backpack-v1.png",
+          "source": "game/Assets/paperdoll-proof/backpack-v1.png",
+          "url": "assets/items/de4d13c25681160a72f853d3eb7ffa01699d02fa2667d946808f71f1dc4136be.png"
+        },
+        {
+          "file": "backpack-v1.png",
+          "source": "game/Assets/paperdoll-proof/backpack-v1.png",
+          "url": "assets/items/de4d13c25681160a72f853d3eb7ffa01699d02fa2667d946808f71f1dc4136be.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/containers/backpacks/backpack/",
+      "bundleRegistration": null
     },
     "coat": {
       "url": "item-coat.html",
@@ -814,7 +843,21 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/coats/coat/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "upper-body.png",
+          "source": "game/Assets/paperdoll-proof/upper-body.png",
+          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+        },
+        {
+          "file": "upper-body.png",
+          "source": "game/Assets/paperdoll-proof/upper-body.png",
+          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/coats/coat/",
+      "bundleRegistration": null
     },
     "torch": {
       "url": "item-torch.html",
@@ -845,7 +888,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/equipment/lighting/torch/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/equipment/lighting/torch/",
+      "bundleRegistration": null
     },
     "gum-pack": {
       "url": "item-gum-pack.html",
@@ -893,7 +939,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/consumables/food/gum-pack/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/consumables/food/gum-pack/",
+      "bundleRegistration": null
     },
     "gum": {
       "url": "item-gum.html",
@@ -924,7 +973,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/consumables/food/gum/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/consumables/food/gum/",
+      "bundleRegistration": null
     },
     "weight": {
       "url": "item-weight.html",
@@ -954,7 +1006,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/equipment/training/weight/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/equipment/training/weight/",
+      "bundleRegistration": null
     },
     "phone": {
       "url": "item-phone.html",
@@ -986,7 +1041,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/equipment/communications/phones/phone/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/equipment/communications/phones/phone/",
+      "bundleRegistration": null
     },
     "radio": {
       "url": "item-radio.html",
@@ -1018,7 +1076,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/equipment/communications/radios/radio/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/equipment/communications/radios/radio/",
+      "bundleRegistration": null
     },
     "utility-belt": {
       "url": "item-utility-belt.html",
@@ -1131,9 +1192,63 @@
         ],
         "sha256": "5960f9e59175a387ff5d4ad2e67ddcf3ca4bb243c337908003942944f51ddded"
       },
-      "paperdollBinding": null,
-      "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/worn/accessories/belts/utility-belt/"
+      "paperdollBinding": {
+        "definition": "utility-belt",
+        "column": 10,
+        "attachmentPlane": {
+          "origin": [
+            0.5,
+            0.518
+          ],
+          "cellPixels": 34
+        }
+      },
+      "paperdollFrames": [
+        {
+          "column": 10,
+          "file": "../items/worn/accessories/belts/utility-belt/utility-belt.paperdoll-v1.png",
+          "parts": [
+            {
+              "front": [
+                390,
+                110,
+                1390,
+                215
+              ],
+              "back": [
+                390,
+                425,
+                1390,
+                195
+              ],
+              "destination": [
+                0.18,
+                0.503,
+                0.64,
+                0.035
+              ]
+            }
+          ]
+        }
+      ],
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "../items/worn/accessories/belts/utility-belt/utility-belt.paperdoll-v1.png",
+          "source": "game/Assets/items/worn/accessories/belts/utility-belt/utility-belt.paperdoll-v1.png",
+          "url": "assets/items/194fc44b414eb516653646da1e707d7583a63e87df27c1b1f78bd413ec415dbd.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/accessories/belts/utility-belt/",
+      "bundleRegistration": {
+        "version": 1,
+        "status": "paperdoll-fixture-bundle",
+        "definition": "utility-belt",
+        "runtimeRegistration": "game/Assets/paperdoll-proof/manifest.json # column 10",
+        "paperdoll": "utility-belt.paperdoll-v1.png",
+        "provenance": "provenance.md",
+        "note": "Bundle metadata is authoring evidence; existing paperdoll manifest remains the runtime loader."
+      }
     },
     "case": {
       "url": "item-case.html",
@@ -1181,7 +1296,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/containers/cases/case/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/containers/cases/case/",
+      "bundleRegistration": null
     },
     "utility-hook": {
       "url": "item-utility-hook.html",
@@ -1268,7 +1386,10 @@
       },
       "paperdollBinding": null,
       "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/worn/accessories/hooks/utility-hook/"
+      "paperdollAttachments": [],
+      "wornArt": [],
+      "futureBundle": "game/Assets/items/worn/accessories/hooks/utility-hook/",
+      "bundleRegistration": null
     },
     "utility-pouch": {
       "url": "item-utility-pouch.html",
@@ -1343,8 +1464,54 @@
         "sha256": "8f9391dea799f33bd3d354f808ad43720e577620cea93ba7ebd43d963f5d360f"
       },
       "paperdollBinding": null,
-      "paperdollFrames": [],
-      "futureBundle": "game/Assets/items/worn/containers/pouches/utility-pouch/"
+      "paperdollFrames": [
+        {
+          "column": 11,
+          "file": "../inventory-objects/utility-pouch.png",
+          "parts": [
+            {
+              "front": [
+                120,
+                97,
+                1015,
+                1090
+              ],
+              "back": [
+                120,
+                97,
+                1015,
+                1090
+              ],
+              "destination": [
+                0,
+                0,
+                0.14,
+                0.075
+              ]
+            }
+          ]
+        }
+      ],
+      "paperdollAttachments": [
+        {
+          "definition": "utility-pouch",
+          "column": 11,
+          "anchor": [
+            0.5,
+            0.12
+          ],
+          "surface": "front"
+        }
+      ],
+      "wornArt": [
+        {
+          "file": "../inventory-objects/utility-pouch.png",
+          "source": "game/Assets/inventory-objects/utility-pouch.png",
+          "url": "assets/items/8f9391dea799f33bd3d354f808ad43720e577620cea93ba7ebd43d963f5d360f.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/containers/pouches/utility-pouch/",
+      "bundleRegistration": null
     },
     "trousers": {
       "url": "item-trousers.html",
@@ -1566,7 +1733,16 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/trousers/trousers/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "lower-clothes-v1.png",
+          "source": "game/Assets/paperdoll-proof/lower-clothes-v1.png",
+          "url": "assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/trousers/trousers/",
+      "bundleRegistration": null
     },
     "socks": {
       "url": "item-socks.html",
@@ -1681,7 +1857,16 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/socks/socks/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "lower-clothes-v1.png",
+          "source": "game/Assets/paperdoll-proof/lower-clothes-v1.png",
+          "url": "assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/socks/socks/",
+      "bundleRegistration": null
     },
     "shirt": {
       "url": "item-shirt.html",
@@ -1787,7 +1972,16 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/shirts/shirt/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "upper-body.png",
+          "source": "game/Assets/paperdoll-proof/upper-body.png",
+          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/shirts/shirt/",
+      "bundleRegistration": null
     },
     "boots": {
       "url": "item-boots.html",
@@ -2056,7 +2250,16 @@
           ]
         }
       ],
-      "futureBundle": "game/Assets/items/worn/clothing/shoes/boots/"
+      "paperdollAttachments": [],
+      "wornArt": [
+        {
+          "file": "lower-clothes-v1.png",
+          "source": "game/Assets/paperdoll-proof/lower-clothes-v1.png",
+          "url": "assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/clothing/shoes/boots/",
+      "bundleRegistration": null
     }
   }
 }
