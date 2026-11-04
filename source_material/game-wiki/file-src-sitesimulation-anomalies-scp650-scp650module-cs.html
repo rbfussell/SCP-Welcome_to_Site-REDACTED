@@ -1,0 +1,116 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Anomalies/Scp650/Scp650Module.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Scp650Module.cs</h1><p>src/SiteSimulation/Anomalies/Scp650/Scp650Module.cs</p><p><a href="system-anomalies.html">Anomaly host and SCP modules</a></p><h2>Types</h2><ul><li><a href="type-scp650module.html">Scp650Module</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-beccfb025d3631ea2f8e.html">Scp650Module.InstanceId</a> · line 12</li><li><a href="function-8e53e915f2d8dff51bde.html">Scp650Module.InstanceId.get</a> · line 12</li><li><a href="function-f2fb18c42ae9dfc956a7.html">Scp650Module.ModuleId</a> · line 13</li><li><a href="function-387fe13ac5f7e840c0df.html">Scp650Module.AllowsObservedTransport</a> · line 15</li><li><a href="function-ba81deffc372a7d5e6ca.html">Scp650Module.Scp650Module</a> · line 16</li><li><a href="function-2bd8e44f2484c1708aa2.html">Scp650Module.NextRandom</a> · line 23</li><li><a href="function-2a755eb44ed978caf9d3.html">Scp650Module.Evaluate</a> · line 29</li><li><a href="function-c4fe943c4cd81bef5da2.html">Scp650Module.Placement</a> · line 82</li><li><a href="function-90634d3f4da2bbc48237.html">Scp650Module.TrySetFlag</a> · line 86</li><li><a href="function-e96de535d569435021f6.html">Scp650Module.Inspect</a> · line 93</li><li><a href="function-4a470a7f2666b3adc10b.html">Scp650Module.Capture</a> · line 101</li><li><a href="function-553327117b7a641ba6b0.html">Scp650Module.Restore</a> · line 102</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> namespace SiteSimulation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> /// &lt;summary&gt;SCP-650 rules only: no renderer, pathfinding, mission trigger or attack AI.&lt;/summary&gt;</span>
+<span id="L6"><a class="line" href="#L6">6</a> internal sealed class Scp650Module : IAnomalyModule</span>
+<span id="L7"><a class="line" href="#L7">7</a> {</span>
+<span id="L8"><a class="line" href="#L8">8</a>     private const int RetryMs = 500;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private const int CooldownMs = 2000;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private readonly string _profile;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private Scp650State _state;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     public string InstanceId { get; }</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public string ModuleId =&gt; &quot;scp:650&quot;;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     // Explicit game adaptation: being watched prohibits self-relocation, not external transport.</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public bool AllowsObservedTransport =&gt; true;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public Scp650Module(AnomalyDefinition definition)</span>
+<span id="L17"><a class="line" href="#L17">17</a>     {</span>
+<span id="L18"><a class="line" href="#L18">18</a>         if (!ObservationService.ValidProfile(definition.ObserverProfile) || definition.Seed == 0)</span>
+<span id="L19"><a class="line" href="#L19">19</a>             throw new ArgumentException(&quot;SCP-650 requires a known observer profile and nonzero seed.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>         InstanceId = definition.Id; _profile = definition.ObserverProfile;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         _state = new() { RandomState = definition.Seed };</span>
+<span id="L22"><a class="line" href="#L22">22</a>     }</span>
+<span id="L23"><a class="line" href="#L23">23</a>     private uint NextRandom()</span>
+<span id="L24"><a class="line" href="#L24">24</a>     {</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var x = _state.RandomState;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         x ^= x &lt;&lt; 13; x ^= x &gt;&gt; 17; x ^= x &lt;&lt; 5;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         return _state.RandomState = x;</span>
+<span id="L28"><a class="line" href="#L28">28</a>     }</span>
+<span id="L29"><a class="line" href="#L29">29</a>     public void Evaluate(IAnomalyWorld world, string cause)</span>
+<span id="L30"><a class="line" href="#L30">30</a>     {</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var report = world.Observation(_profile);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         var observers = report.EligibleIds;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         if (!_state.LastObserverIds.SequenceEqual(observers))</span>
+<span id="L34"><a class="line" href="#L34">34</a>         {</span>
+<span id="L35"><a class="line" href="#L35">35</a>             world.Trace(observers.Length == 0 ? &quot;observation-lost&quot; : &quot;observation-acquired&quot;,</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 $&quot;{cause}; eligible [{string.Join(&quot;,&quot;, observers)}]; profile {_profile}&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>             _state.LastObserverIds = observers;</span>
+<span id="L38"><a class="line" href="#L38">38</a>         }</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (_state.Relocations &gt; 0)</span>
+<span id="L40"><a class="line" href="#L40">40</a>         foreach (var witness in report.Observers.Where(o =&gt; o.Detected &amp;&amp; o.Kind == &quot;human&quot;))</span>
+<span id="L41"><a class="line" href="#L41">41</a>         {</span>
+<span id="L42"><a class="line" href="#L42">42</a>             if (_state.LastWitnessEncounter.GetValueOrDefault(witness.ActorId) == _state.Relocations) continue;</span>
+<span id="L43"><a class="line" href="#L43">43</a>             _state.LastWitnessEncounter[witness.ActorId] = _state.Relocations;</span>
+<span id="L44"><a class="line" href="#L44">44</a>             world.Witnessed(witness.ActorId, _state.Relocations);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         }</span>
+<span id="L46"><a class="line" href="#L46">46</a>         if (report.Observed) { _state.LastReason = &quot;observed; self-relocation suppressed&quot;; return; }</span>
+<span id="L47"><a class="line" href="#L47">47</a>         if (world.LocalMs &lt; _state.NextEvaluationMs) return;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         // Complacency is explicitly authored for each person. Discovery alone never enables it.</span>
+<span id="L49"><a class="line" href="#L49">49</a>         // Threat poses appear close behind; relaxed poses use a wider, non-rear-only area.</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var candidates = report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)</span>
+<span id="L51"><a class="line" href="#L51">51</a>             .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))</span>
+<span id="L52"><a class="line" href="#L52">52</a>             .OrderBy(c =&gt; c.Cell.Q).ThenBy(c =&gt; c.Cell.R).ThenBy(c =&gt; c.NearActorId, StringComparer.Ordinal).ToArray();</span>
+<span id="L53"><a class="line" href="#L53">53</a>         _state.LastCandidateCount = candidates.Length;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         if (candidates.Length == 0)</span>
+<span id="L55"><a class="line" href="#L55">55</a>         {</span>
+<span id="L56"><a class="line" href="#L56">56</a>             _state.LastReason = &quot;no valid unobserved destination&quot;;</span>
+<span id="L57"><a class="line" href="#L57">57</a>             _state.NextEvaluationMs = world.LocalMs + RetryMs;</span>
+<span id="L58"><a class="line" href="#L58">58</a>             world.Trace(&quot;retry-scheduled&quot;, $&quot;{cause}; no candidate; retry at local {_state.NextEvaluationMs}ms&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             return;</span>
+<span id="L60"><a class="line" href="#L60">60</a>         }</span>
+<span id="L61"><a class="line" href="#L61">61</a>         var beforeRandom = _state.RandomState;</span>
+<span id="L62"><a class="line" href="#L62">62</a>         // Choose a person, then a position: more available cells do not bias the target toward that person.</span>
+<span id="L63"><a class="line" href="#L63">63</a>         var targets = candidates.Select(c =&gt; c.NearActorId).Distinct().Order(StringComparer.Ordinal).ToArray();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         var target = targets[(int)(NextRandom() % (uint)targets.Length)];</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var positions = candidates.Where(c =&gt; c.NearActorId == target).ToArray();</span>
+<span id="L66"><a class="line" href="#L66">66</a>         var choice = positions[(int)(NextRandom() % (uint)positions.Length)];</span>
+<span id="L67"><a class="line" href="#L67">67</a>         var complacent = _state.ComplacentActorIds.Contains(choice.NearActorId);</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var pose = complacent ? 3 + (int)(NextRandom() % 3u) : 1 + (int)(NextRandom() % 2u);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         if (!world.TryRelocate(world.Body.Revision, choice.Cell, pose, _profile, Placement(choice.NearActorId), out var reason))</span>
+<span id="L70"><a class="line" href="#L70">70</a>         {</span>
+<span id="L71"><a class="line" href="#L71">71</a>             _state.RandomState = beforeRandom;</span>
+<span id="L72"><a class="line" href="#L72">72</a>             _state.LastReason = &quot;commit rejected: &quot; + reason;</span>
+<span id="L73"><a class="line" href="#L73">73</a>             _state.NextEvaluationMs = world.LocalMs + RetryMs;</span>
+<span id="L74"><a class="line" href="#L74">74</a>             world.Trace(&quot;relocation-rejected&quot;, reason);</span>
+<span id="L75"><a class="line" href="#L75">75</a>             return;</span>
+<span id="L76"><a class="line" href="#L76">76</a>         }</span>
+<span id="L77"><a class="line" href="#L77">77</a>         _state.Relocations++;</span>
+<span id="L78"><a class="line" href="#L78">78</a>         _state.LastReason = $&quot;unobserved; relocated near {choice.NearActorId}&quot;;</span>
+<span id="L79"><a class="line" href="#L79">79</a>         _state.NextEvaluationMs = world.LocalMs + CooldownMs;</span>
+<span id="L80"><a class="line" href="#L80">80</a>         world.Trace(&quot;relocation-selected&quot;, $&quot;{candidates.Length} valid candidates; {(complacent ? &quot;relaxed&quot; : &quot;threat&quot;)} profile near {target}; {choice.DistanceHexes} hexes; encounter {_state.Relocations}; next evaluation {_state.NextEvaluationMs}ms&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>     }</span>
+<span id="L82"><a class="line" href="#L82">82</a>     private RelocationQuery Placement(string actorId) =&gt; _state.ComplacentActorIds.Contains(actorId)</span>
+<span id="L83"><a class="line" href="#L83">83</a>         ? new(2, 3, false, &quot;human&quot;, actorId, RequireClearLine: true)</span>
+<span id="L84"><a class="line" href="#L84">84</a>         : new(1, 1, true, &quot;human&quot;, actorId, RequireClearLine: true);</span>
+<span id="L85"><a class="line" href="#L85">85</a> </span>
+<span id="L86"><a class="line" href="#L86">86</a>     public bool TrySetFlag(string flag, string actorId, string actorKind, bool enabled, out string reason)</span>
+<span id="L87"><a class="line" href="#L87">87</a>     {</span>
+<span id="L88"><a class="line" href="#L88">88</a>         reason = flag != &quot;complacency&quot; ? &quot;unknown-module-flag&quot; : actorKind != &quot;human&quot; ? &quot;requires-human-target&quot; : &quot;accepted&quot;;</span>
+<span id="L89"><a class="line" href="#L89">89</a>         if (reason != &quot;accepted&quot;) return false;</span>
+<span id="L90"><a class="line" href="#L90">90</a>         if (enabled) _state.ComplacentActorIds.Add(actorId); else _state.ComplacentActorIds.Remove(actorId);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         return true;</span>
+<span id="L92"><a class="line" href="#L92">92</a>     }</span>
+<span id="L93"><a class="line" href="#L93">93</a>     public AnomalyDiagnostics Inspect(IAnomalyWorld world)</span>
+<span id="L94"><a class="line" href="#L94">94</a>     {</span>
+<span id="L95"><a class="line" href="#L95">95</a>         var report = world.Observation(_profile);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         return new(InstanceId, report.Observed ? &quot;OBSERVED / frozen&quot; : _state.LastReason, world.Body.Pose,</span>
+<span id="L97"><a class="line" href="#L97">97</a>             _state.Relocations, _state.LastCandidateCount, _state.NextEvaluationMs, report,</span>
+<span id="L98"><a class="line" href="#L98">98</a>             _state.LastWitnessEncounter.Where(p =&gt; p.Value == _state.Relocations).Select(p =&gt; p.Key).Order().ToArray(),</span>
+<span id="L99"><a class="line" href="#L99">99</a>             _state.ComplacentActorIds.Order(StringComparer.Ordinal).Select(id =&gt; new ModuleFlag(&quot;complacency&quot;, id, true)).ToArray());</span>
+<span id="L100"><a class="line" href="#L100">100</a>     }</span>
+<span id="L101"><a class="line" href="#L101">101</a>     public ModuleSnapshot Capture() =&gt; new(InstanceId, ModuleId, 2, JsonSerializer.Serialize(_state));</span>
+<span id="L102"><a class="line" href="#L102">102</a>     public void Restore(ModuleSnapshot snapshot, long localMs, IReadOnlyDictionary&lt;string, string&gt; actorKinds)</span>
+<span id="L103"><a class="line" href="#L103">103</a>     {</span>
+<span id="L104"><a class="line" href="#L104">104</a>         if (snapshot.Version != 2) throw new ArgumentException(&quot;SCP-650 save requires module schema 2 (explicit complacency); earlier prototype saves are not migrated.&quot;);</span>
+<span id="L105"><a class="line" href="#L105">105</a>         var state = JsonSerializer.Deserialize&lt;Scp650State&gt;(snapshot.Json) ?? throw new ArgumentException(&quot;Empty SCP state.&quot;);</span>
+<span id="L106"><a class="line" href="#L106">106</a>         if (snapshot.InstanceId != InstanceId || snapshot.ModuleId != ModuleId || snapshot.Version != 2 || state.RandomState == 0</span>
+<span id="L107"><a class="line" href="#L107">107</a>             || state.Relocations &lt; 0 || state.LastCandidateCount &lt; 0 || state.LastCandidateCount &gt; 16384</span>
+<span id="L108"><a class="line" href="#L108">108</a>             || state.NextEvaluationMs &lt; 0 || state.NextEvaluationMs &gt; localMs + CooldownMs</span>
+<span id="L109"><a class="line" href="#L109">109</a>             || state.LastObserverIds is null || state.LastWitnessEncounter is null || state.LastReason is null || state.ComplacentActorIds is null</span>
+<span id="L110"><a class="line" href="#L110">110</a>             || state.ComplacentActorIds.Any(id =&gt; !actorKinds.TryGetValue(id, out var kind) || kind != &quot;human&quot;)</span>
+<span id="L111"><a class="line" href="#L111">111</a>             || state.LastObserverIds.Any(id =&gt; !actorKinds.ContainsKey(id))</span>
+<span id="L112"><a class="line" href="#L112">112</a>             || state.LastWitnessEncounter.Any(p =&gt; !actorKinds.ContainsKey(p.Key) || p.Value &lt; 1 || p.Value &gt; state.Relocations))</span>
+<span id="L113"><a class="line" href="#L113">113</a>             throw new ArgumentException(&quot;Invalid SCP-650 continuation state.&quot;);</span>
+<span id="L114"><a class="line" href="#L114">114</a>         _state = state;</span>
+<span id="L115"><a class="line" href="#L115">115</a>     }</span>
+<span id="L116"><a class="line" href="#L116">116</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

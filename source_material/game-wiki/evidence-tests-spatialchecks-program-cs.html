@@ -1,0 +1,157 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/Program.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Program.cs</h1><pre>using SiteSimulation;
+using SitePresentation;
+using System.Text.Json;
+
+var mapPath = args.Length &gt; 0 ? args[0] : &quot;game/Content/spatial-facility.json&quot;;
+var json = File.ReadAllText(mapPath);
+var passed = 0;
+void Check(bool ok, string message)
+{
+    if (!ok) throw new Exception(message);
+    passed++;
+}
+void Near(Point2 a, Point2 b, string message) =&gt; Check(Point2.Distance(a, b) &lt; 1e-8, message);
+SpatialSimulation Sim() =&gt; new(json);
+
+// Independent source-derived reference vectors: do not merely test one function against its inverse.
+Near(ReferenceProjection.Project(new(1, 0)), new(48, -12), &quot;Floor U must match reference skew.&quot;);
+Near(ReferenceProjection.Project(new(0, 1)), new(32, 24), &quot;Floor V must match reference skew.&quot;);
+Near(ReferenceProjection.Project(new Hex(1, 0).World), new(32, 0), &quot;Hex Q center spacing.&quot;);
+Near(ReferenceProjection.Project(new Hex(0, 1).World), new(16, 12), &quot;Hex R center spacing.&quot;);
+Near(ReferenceProjection.Project(new Hex(1, -1).World), new(16, -12), &quot;Hex diagonal spacing.&quot;);
+Check(ReferenceProjection.HexCorners.Max(p =&gt; p.X) - ReferenceProjection.HexCorners.Min(p =&gt; p.X) == 32
+    &amp;&amp; ReferenceProjection.HexCorners.Max(p =&gt; p.Y) - ReferenceProjection.HexCorners.Min(p =&gt; p.Y) == 16, &quot;32×16 reference hex envelope.&quot;);
+for (var q = -25; q &lt; 25; q++)
+for (var r = -25; r &lt; 25; r++)
+{
+    var h = new Hex(q, r);
+    var picked = ReferenceProjection.Unproject(ReferenceProjection.Project(h.World));
+    Check(Hex.FromWorld(picked) == h, &quot;Picking must round-trip negative and positive hexes.&quot;);
+    // Interior points near every reference polygon vertex must remain in this hex.
+    foreach (var c in ReferenceProjection.HexCorners)
+    {
+        var p = ReferenceProjection.Project(h.World) + c * 0.95;
+        Check(Hex.FromWorld(ReferenceProjection.Unproject(p)) == h, &quot;Visual hex polygon and input picking disagree.&quot;);
+    }
+}
+
+var map = Sim().Map;
+var start = new Hex(9, 2); // corridor, just below lab doorway
+var end = new Hex(9, 1); // lab, just above the same doorway
+Check(map.FindPath(start, end).Count == 0, &quot;Closed lab door must isolate the room.&quot;);
+Check(!map.ClearSight(start.World, end.World), &quot;Closed lab door must occlude sight.&quot;);
+map.OpenDoors.Add(&quot;door-4-3-u&quot;);
+var route = map.FindPath(start, end);
+Check(route.Count &gt; 0, &quot;Open lab door must admit a route.&quot;);
+Check(map.ClearSight(start.World, end.World), &quot;Open doorway must restore sight.&quot;);
+var previous = start;
+foreach (var h in route)
+{
+    Check(map.CanTraverse(previous, h), &quot;Path contains a wall crossing.&quot;); previous = h;
+}
+// Every allowed step on the whole map must avoid every solid footprint (including corners).
+foreach (var a in map.Cells)
+foreach (var direction in Enumerable.Range(0, 6))
+{
+    var b = a.Neighbor(direction);
+    if (map.CanTraverse(a, b)) Check(!map.SolidWalls.Any(w =&gt; Geometry.Intersects(a.World, b.World, w.Start, w.End)), &quot;Allowed movement crosses a solid wall.&quot;);
+}
+
+var sim = Sim();
+Check(sim.RequestMove(new(12, 3)), &quot;Player needs a clear corridor route.&quot;);
+sim.Tick(); sim.Tick();
+Check(sim.Player.SegmentMs == 100 &amp;&amp; sim.Player.Position != sim.Player.Cell.World, &quot;Authoritative position must advance mid-hex.&quot;);
+var partial = sim.Save();
+var clone = Sim(); clone.Restore(partial);
+Near(sim.Player.Position, clone.Player.Position, &quot;Save lost fractional movement.&quot;);
+for (var i = 0; i &lt; 100; i++) { sim.Tick(); clone.Tick(); }
+Check(sim.Save() == clone.Save(), &quot;Restored execution diverged, including NPC route/counters.&quot;);
+var held = Sim(); held.RequestMove(new(12, 3)); held.Tick();
+held.LocalHold = true;
+var position = held.Player.Position;
+var localTime = held.LocalMs;
+var timer = held.LocalCountdownMs;
+for (var i = 0; i &lt; 240; i++) held.Tick();
+Check(held.WorldMs == 12050 &amp;&amp; held.OffsiteUpdates == 12, &quot;Other-area/world scheduling must continue during a local hold.&quot;);
+Check(held.LocalMs == localTime &amp;&amp; held.LocalCountdownMs == timer &amp;&amp; held.Player.Position == position, &quot;All local progress must remain held.&quot;);
+Check(!held.RequestMove(new(10, 4)) &amp;&amp; !held.ToggleNearestDoor(), &quot;Held UI must not perform local world actions.&quot;);
+var heldSave = held.Save();
+var restoredHold = Sim(); restoredHold.Restore(heldSave);
+Check(restoredHold.Save() == heldSave, &quot;Held state failed to restore exactly.&quot;);
+held.LocalHold = false; held.Tick();
+Check(held.LocalMs == localTime + 50 &amp;&amp; held.WorldMs == 12100, &quot;Resume must not bulk catch up or double-charge world time.&quot;);
+held.ManualPause = true;
+var beforePause = held.Save();
+for (var i = 0; i &lt; 100; i++) held.Tick();
+Check(held.Save() == beforePause, &quot;Manual pause must stop all participating state.&quot;);
+
+var facing = Sim();
+facing.Face(new(1, 4));
+var attention = facing.Player.Facing;
+Check(facing.RequestMove(new(12, 3), true), &quot;Backward/attention-preserving movement needs a route.&quot;);
+for (var i = 0; i &lt; 18; i++) facing.Tick();
+Check(facing.Player.Facing == attention, &quot;Movement must not forcibly turn an attention-preserving actor.&quot;);
+var doorSim = Sim(); doorSim.RequestMove(start);
+for (var i = 0; i &lt; 200; i++) doorSim.Tick();
+Check(doorSim.ToggleNearestDoor(), &quot;Door use should succeed at interaction range.&quot;);
+Check(doorSim.Map.OpenDoors.Contains(&quot;door-4-3-u&quot;), &quot;Wrong door toggled.&quot;);
+Check(doorSim.RequestMove(end), &quot;Door opening must enable player movement through it.&quot;);
+for (var i = 0; i &lt; 12; i++) doorSim.Tick();
+Check(doorSim.Player.Cell == end, &quot;Player did not cross doorway.&quot;);
+
+// Tampering with map identity must fail without touching the running simulation.
+var unchanged = sim.Save();
+try
+{
+    var wrongVersion = System.Text.Json.Nodes.JsonNode.Parse(unchanged)!;
+    wrongVersion[&quot;Version&quot;] = 99;
+    sim.Restore(wrongVersion.ToJsonString());
+    throw new Exception(&quot;Invalid save accepted.&quot;);
+}
+catch (ArgumentException) { Check(sim.Save() == unchanged, &quot;Invalid save partially mutated state.&quot;); }
+// A future route can legitimately become blocked before the actor reaches it.
+var changed = Sim();
+changed.Map.OpenDoors.Add(&quot;door-4-3-u&quot;);
+Check(changed.RequestMove(end), &quot;Need an initially open route.&quot;);
+changed.Map.OpenDoors.Remove(&quot;door-4-3-u&quot;);
+var changedClone = Sim(); changedClone.Restore(changed.Save());
+for (var i = 0; i &lt; 150; i++) { changed.Tick(); changedClone.Tick(); }
+Check(changed.Save() == changedClone.Save(), &quot;A newly blocked future route must revalidate identically after restore.&quot;);
+var invalid = System.Text.Json.Nodes.JsonNode.Parse(unchanged)!;
+invalid[&quot;Actors&quot;]![0]![&quot;Kind&quot;] = &quot;npc&quot;;
+try { sim.Restore(invalid.ToJsonString()); throw new Exception(&quot;Changed avatar kind accepted.&quot;); }
+catch (ArgumentException) { Check(sim.Save() == unchanged, &quot;Invalid actor identity partially committed.&quot;); }
+invalid = System.Text.Json.Nodes.JsonNode.Parse(unchanged)!;
+invalid[&quot;Actors&quot;]![0] = null;
+try { sim.Restore(invalid.ToJsonString()); throw new Exception(&quot;Null actor accepted.&quot;); }
+catch (ArgumentException) { Check(sim.Save() == unchanged, &quot;Invalid actor array partially committed.&quot;); }
+passed += Scp650Checks.Run(json);
+passed += ComplacencyChecks.Run(json);
+passed += FieldPresentationChecks.Run(json);
+passed += AwarenessChecks.Run(json);
+passed += LookChecks.Run(json);
+passed += PathfindingChecks.Run(json);
+passed += OperationChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += EventLogChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += CombatChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += OscpChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)), File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;oscp-apps.json&quot;)));
+passed += EmploymentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += InventoryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)), Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;../Assets/inventory-objects/manifest.json&quot;));
+passed += InventoryPackingChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += InventorySecuringChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += InventoryClosureChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += AttachmentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += CoverageChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += BodyFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += BodySymmetryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += BodyDropChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += BodyInspectionChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += UnderwearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += WearChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += WearFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += WornOrderChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += OverlayChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += HookChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;scp650-operation.json&quot;)));
+passed += SpriteArtChecks.Run(json, Path.Combine(Path.GetDirectoryName(mapPath)!, &quot;../Assets/facility-standins/manifest.json&quot;));
+Console.WriteLine($&quot;SPATIAL_CHECKS_PASS: {passed} assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.&quot;);
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

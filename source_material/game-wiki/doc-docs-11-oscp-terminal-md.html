@@ -1,0 +1,148 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OSCP terminal and Foundation communications | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/11-oscp-terminal.md.</aside><h1 id="oscp-terminal-and-foundation-communications">OSCP terminal and Foundation communications</h1>
+<p>Status: Design baseline with a bounded runtime proof, revision 0.8, October 25, 2026. An OSCP-inspired terminal for facility/network management and outside-anomaly reports is confirmed direction. App names, layouts, command vocabulary and milestone bounds below are proposals. The references inform the interface; they do not add two more complete SCP implementations to M1.</p>
+<h2 id="1-what-the-references-establish">1. What the references establish</h2>
+<p><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-245" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-245 by Doctor Cimmerian</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-245.html">Local snapshot</a> · <a href="canon-records/scp-245.json">JSON</a>]</span></span>, CC BY-SA 3.0, names OSCP as a compatible system and describes isolated computers used to contain and monitor anomalous software. It does not supply a complete OS specification. Its download is not needed or executed for this design pass. Air-gapped research hardware is distinct from ordinary management workstations.</p>
+<p><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-5810" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-5810 by Lt Flops</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-5810.html">Local snapshot</a> · <a href="canon-records/scp-5810.json">JSON</a>]</span></span>, CC BY-SA 3.0, depicts OSCP startup and a named session, dossier entry/editing, brightness adjustment, an idle inoculation check, personal storage and evidence upload/preview. Those are useful interface anchors. The story is an account of an anomaly and a user's experience, not a comprehensive description of reliable system behavior.</p>
+<p>The shell, management applications, order receipts and communication workflow below are original game design extrapolations. There is no claim that these exact screens, network architecture, menus or commands are canonical. Interface terminology can be adapted without importing the articles' full plots or anomalous effects.</p>
+<p>The user's follow-up adds SCiPnet, AICs/AIAD and Technical Services as required lore research. <a href="doc-docs-13-lore-and-digital-operations-md.html">The lore register</a> separates verified references from pending canon/department decisions. Ask about unresolved design ambiguities before committing to their behavior.</p>
+<p>Proposed layering: OSCP is the local platform/shell; SCiPnet provides intranet records/mail/alerts; an assigned AIC is a digital colleague operating authorized services; technical personnel handle their actual responsibilities and physical faults. The starting site is confirmed to have a resident autonomous AIC with physically located computing infrastructure and bounded monitoring/reporting/assistance duties. Exact authority, identity and Technical Services portrayal remain open. Do not import a named canon AIC or treat the interface itself as performing every complex task.</p>
+<h2 id="2-device-session-and-service-access">2. Device, session and service access</h2>
+<p>An OSCP session is attached to an actual terminal/device and acting character. Track device ID/location, installed app capabilities, power, local storage, connection routes, authenticated identity, clearance/department scope, active attention, current branch and session lifetime.</p>
+<p>Effective access is the intersection of character authority, device capability, reachable services and current world conditions. A director's badge does not power a dead workstation. An employee using a director's desk does not inherit their session. Remote services revalidate authority at command commitment, including reassignment, revoked access and succession.</p>
+<table>
+<thead>
+<tr>
+<th>Device profile</th>
+<th>Proposed use</th>
+<th>Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full fixed OSCP workstation</td>
+<td>CRT-framed strategic management, construction, mission planning, intelligence, equipment/materials and network operations</td>
+<td>Full interface accessed at an actual fixed facility workstation; character authority, device capability, power and network still apply</td>
+</tr>
+<tr>
+<td>Secure Foundation phone / limited OSCP field client</td>
+<td>Current-location maps, current mission information, communications and authorized mission/team commands</td>
+<td>Requires carried accessible device, battery, credentials and an available route for live services; future applications remain extensible</td>
+</tr>
+<tr>
+<td>Laptop/other portable computer (future profile, not an approved full-terminal substitute)</td>
+<td>Any additional role remains to be designed</td>
+<td>Cannot bypass the confirmed fixed-location full OSCP access rule; capability exceptions require an explicit design decision</td>
+</tr>
+<tr>
+<td>Security console</td>
+<td>Authorized surveillance, doors, alarms and staffing</td>
+<td>Restricted scope; watching a feed is an explicit attention task</td>
+</tr>
+<tr>
+<td>Air-gapped research terminal</td>
+<td>Isolated software/records and specialist tasks</td>
+<td>No network control or automatic external report delivery while isolated</td>
+</tr>
+</tbody>
+</table>
+<p>The same shell adapts to installed functions. Offline, isolated, expired-session and unpowered are distinct states. A powered offline laptop can show cached files; an unpowered desktop cannot keep working merely because its screen was already open. Approved in-world media transfer may later bridge isolated records through explicit procedures, not an implicit network exception.</p>
+<h2 id="3-shell-and-applications">3. Shell and applications</h2>
+<p>October 24 presentation clarification: the Pip-Boy comparison describes opening a dedicated interface, not wearing an arm-mounted device. Full OSCP terminals are a substantial strategic gameplay workspace alongside the Fallout 2-style bottom field HUD. They support facility construction/build planning, mission preparation, SCP investigation and recovery planning, intelligence assessment, equipment/material allocation, logistics and wider regional/network operations. The command/document approach carries forward as part of this interactive management workspace. Exact layout and access bindings remain open.</p>
+<p>These workflows act on the shared world: intelligence supports an investigation, personnel and equipment are assigned to a plan, and submitted orders lead to actual work and received reports. Building plans create construction/logistics work through the relevant simulation services. The terminal exposes the broader management/4X layer within character authority and available information. These are staged long-term capabilities; the current OSCP proof remains the bounded command/document panel, and this clarification adds no implementation milestone.</p>
+<p>The user now specifies two OSCP device/presentation profiles: the complete fixed facility workstation and a less capable secure phone. The phone focuses on mapping within the current location, current mission information and communications, using actual acquired records and permitted network services. The user confirms mission/team commands as well, including backup requests and direction of assigned teams, subject to actual authority and delivery. Full construction and network management stay with fixed workstations. Both profiles bind to the same validated command/query services, with actor authority and device capabilities checked independently. Engineering/debug panels remain suitable until production UI work begins.</p>
+<h3 id="crt-framing-and-source-styling">CRT framing and source styling</h3>
+<p>The full workstation view includes the visible monitor housing/bezel framing a recessed active screen. The monitor is part of the interface composition, rather than a CRT filter applied to an otherwise borderless application. Proposed visual treatment can include glass depth, mild curvature/glow, wear and a power indicator, while keeping text readable and visual effects adjustable. Exact cabinet artwork and effects remain to be designed.</p>
+<p>SCP-5810 supplies the aged-terminal interaction reference and a muted-red/dark-red OSCP boot-panel treatment. The physical CRT surround is the user's adaptation; its page does not establish a universal monitor specification or palette for every application. <a href="doc-docs-reviews-oscp-device-source-checks-md.html">The device source check</a> records the article CSS reference values, phone/network precedents, credits and adaptation boundaries.</p>
+<p>The phone has its own compact handset presentation and focused navigation. It shares underlying records and services with the workstation, while its available functions remain limited by the field-device profile. The proposed OSCP mode bootstrap should support either profile against a declared standalone device/scenario context; in combined play the character must use the corresponding real device. Subviewport/panel sizing, input coordinate mapping and terminal art belong to presentation, while access validation, knowledge, accepted orders and timers stay in the simulation.</p>
+<p>Propose a restrained workstation interface: sharp readable text, compact navigation, document-oriented panels, status strip and command/search field. It may evoke old institutional systems without pixel fonts, compulsory scanlines, flicker or tiny unreadable type. Brightness, font size and reduced visual effects are accessibility settings, not a new survival minigame.</p>
+<p>The strip shows OSCP, device/site, session identity and role, connection scope, last synchronization and world time/speed. When relevant, show the local tactical hold, active turn and AP separately, so a held area is not mistaken for a stopped world calendar. Clearance is descriptive; the service authorization still enforces it. A minimal login/boot transition can establish identity without delaying every routine interaction.</p>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Main content</th>
+<th>World-backed actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operations</td>
+<td>Incidents, priorities, outstanding orders, acknowledgement failures</td>
+<td>Assign/recall response, request assessment, escalate to command</td>
+</tr>
+<tr>
+<td>Containment and surveillance</td>
+<td>Procedure compliance, actual qualified observation, feed state, reported locations</td>
+<td>Assign coverage/relief, watch feed, request stabilization/receiving</td>
+</tr>
+<tr>
+<td>Personnel</td>
+<td>Employment, shifts, posts, location evidence, qualification, readiness</td>
+<td>Schedule duty/relief, issue authorized orders, request replacements</td>
+</tr>
+<tr>
+<td>Logistics</td>
+<td>Located stock, filters, accessible/reserved quantities and delivery records</td>
+<td>Haul, consolidate, issue equipment and order supplies</td>
+</tr>
+<tr>
+<td>Facilities</td>
+<td>Known circuits, load/backup state, measured versus target room conditions, stale sensors, alarms and work progress</td>
+<td>Authorized device controls/isolation and setpoint changes; validated repair, conversion and fixture-installation work</td>
+</tr>
+<tr>
+<td>Records</td>
+<td>Dossiers, procedures, research notes, evidence, revisions and case links</td>
+<td>Read, draft, attach evidence, submit and authorize appropriate revisions</td>
+</tr>
+<tr>
+<td>Communications</td>
+<td>Messages, outside reports, command directives and delivery status</td>
+<td>Acknowledge, reply within the simulated network, refer/escalate and request information</td>
+</tr>
+<tr>
+<td>Research/personal storage</td>
+<td>Authorized experiments and personal/digital files</td>
+<td>Select available records/equipment, prepare permitted tests and capture results</td>
+</tr>
+<tr>
+<td>AIAD/AIC and technical support</td>
+<td>Assigned digital personnel, service incidents, technical requests and escalation receipts</td>
+<td>Request an authorized conscript task or dispatch actual technical staff; show missing/offline support honestly</td>
+</tr>
+</tbody>
+</table>
+<p>Facilities reads <a href="doc-docs-17-facility-infrastructure-md.html">the shared infrastructure services</a>. A target temperature is not a measured temperature, an accepted repair is not restored service, and a stale reading cannot establish safe containment. AIC access uses the same reachable sensors, controls and permissions.</p>
+<p>These are application domains, not eight mandatory independent desktop programs. M1 can group them into a small navigation set: Operations, Personnel, Stores, Records, Communications and Systems. Research expansion follows SCP-1499. The graphical workspace and command view call identical services; typing a command grants no extra power.</p>
+<h3 id="application-registration-and-device-profiles">Application registration and device profiles</h3>
+<p>The user confirms extensible applications for both full workstations and phones. Register applications through a shared catalog rather than embedding a permanent list of buttons in each scene. Proposed registration fields include a stable namespaced app ID/version, display label, optional icon, menu/command aliases, view entry point, applicable device profiles, required simulation services and requested capability/permission checks. Schema, implementation language and third-party extension loading remain to be qualified.</p>
+<p>Icons, a command/menu terminal and mixed navigation are alternative presentations of the same registered actions; the final shell navigation is undecided. Application availability depends on installed functions, the device's granted capabilities, reachable services and the acting character's authority. A registered icon or a typed command cannot grant clearance or bypass fixed-workstation requirements. New field applications can expand the approved phone profile without redesigning the shell; current full construction/network-management functions remain workstation features.</p>
+<p>Applications submit typed intents and read acquired projections through existing services. They may request host navigation to another gameplay mode by IDs/context, without requiring its scene to be loaded. UI code does not own personnel, map truth, inventory or mission execution. Registration is not authorization to execute arbitrary host programs or unvalidated mod scripts; future scripted extensions still require the existing module-host validation/capability boundary. Installed apps and authoritative app/domain state are distinct from disposable panel layout and scroll state.</p>
+<h3 id="phoneinventory-character-menu">Phone/inventory character menu</h3>
+<p>The phone opens through a character-menu-style screen. The planned expanded layout places inventory on the right and the phone in a companion pane; exact phone placement, proportions, navigation and input bindings remain open. Phone-only development can precede inventory integration. Both panes use the same acting character/session and actual carried items/device, so inventory transfers, equipment access and communications retain their simulation costs and checks.</p>
+<p>The user confirms on October 25 that opening the phone automatically pauses single-player. Closing it resumes only the pause that the phone itself introduced; an existing manual pause remains. Orders entered on a paused phone remain drafts until the phone closes, when actual device, route and authority checks run. A pre-existing manual pause keeps accepted intents pending without staff movement. The fixed workstation retains real-time operation. This phone-specific choice does not grant free local equipment or personnel work, change tactical input waiting, or establish multiplayer pause behavior.</p>
+<h2 id="4-orders-receipts-and-attention">4. Orders, receipts and attention</h2>
+<p>A button or supported command submits an intent with actor/session, target IDs, expected revisions, branch, parameters and idempotency key. Receipt states distinguish draft, queued locally, delivered to service, accepted/rejected, acknowledged by personnel, executing, completed, blocked, cancelled and expired. Do not mark staff coverage restored at “accepted.” Staff must travel, qualify and perform the handoff.</p>
+<p>Opening a fixed OSCP workstation does not pause real-time exploration. The secure phone automatically pauses single-player as confirmed above. During tactical input waiting, all local simulation remains held: inspecting a record or drafting an intent cannot grant free equipment work, attention changes or completed local orders. Remote running areas and SCiPnet services can continue according to their own execution policy; effects entering a held area follow the declared boundary policy. AIC actions use the same gates. See <a href="doc-docs-08-player-controls-time-and-continuation-md.html">time controls</a>.</p>
+<p>Keep worker acknowledgement and communications delay meaningful. Retries cannot duplicate supply purchases, staff assignments or repairs. If a terminal closes, accepted world orders persist. If a link fails, queued drafts remain visibly pending; resynchronization revalidates authority, capacity and expiry before delivery. A command requiring fresh state cannot execute against an old cached view silently.</p>
+<p>Using OSCP is an ordinary timed/attention activity. Fixed terminal screens do not pause automatically; the confirmed phone exception pauses single-player. Inventory timing remains separate. Typing or opening a dossier can change the avatar's attention according to the interaction definition. A live surveillance task qualifies as observation only while the module's device/feed/operator predicate holds; a background tab does not count indefinitely. An assigned autonomous operator can maintain a feed independently of the player browsing another app.</p>
+<p>For SCP-650 show distinct rows for safety-procedure staffing and current qualifying observers. Understaffing can be an alert while one observer still suppresses relocation. A remembered sighting or external report cannot substitute for live observation. Display the effective module/scenario observer profile; the baseline requires humans, including a qualified human attending a live feed. AIC monitoring can report conditions without counting toward that profile. Neither merely leaving a feed open nor switching decision providers changes eligibility.</p>
+<h2 id="5-off-facility-anomaly-reports">5. Off-facility anomaly reports</h2>
+<p>An incoming case contains immutable case/message IDs, sender/contact route, received time, claimed event time, location description/uncertainty, observations, attachments, claimed casualties/property changes, confidence/source reliability, handling restrictions and a delivery chain. Do not assign an SCP number just because someone reports an unusual event.</p>
+<p>Proposed workflow: receive → triage → correlate evidence → request clarification/remote assessment → authorize an operation if permitted → assign resources/route → receive observations → update the case → close, monitor or escalate. Incorrect reports, false leads, late messages and uncertain locations remain legitimate states. The dossier distinguishes observed facts, claims and hypotheses.</p>
+<p>M1 receives a bounded synthetic off-facility report through normal simulated message events. The director can read, acknowledge, attach an existing in-world record and refer/request assessment from command. This does not require a playable town or spawn an imaginary field team. Real generated-world investigation/deployment is qualified with the bounded network in M4. M1 fixtures identify their simulated external source in test evidence, not through developer jargon in the product's normal workflow.</p>
+<p>Reports from actual later operations use the same records and receipts. Communications cannot infer hidden entity positions directly from the global simulation. A group's deception or an observer's altered perception can generate a misleading report, while developer causal traces retain what happened.</p>
+<p>SCiPnet delivery identifies sender, route, local/remote scope and authorization independently of OSCP chrome. An AIC may triage/correlate reports within its assigned knowledge and authority, but an assessment remains an attributed assessment. Technical Services incidents use separate tickets/work orders; acknowledging a ticket cannot restore a broken network or repair physical equipment instantly.</p>
+<h2 id="6-dossiers-evidence-and-hazardous-information">6. Dossiers, evidence and hazardous information</h2>
+<p>Use structured records with item/case identity, classification, containment procedures, description, discovery/history, experiments and attachments. Support drafts, submitter, revisions, authorizations, redactions/compartment scope and links to relevant people, places, equipment and incidents. Editing narrative text does not itself change an entity's containment or physical state.</p>
+<p>Evidence selection uses game-world files/photos/records and permitted device storage. An “upload” transfers a simulated record along an available route; it is not a host-computer file picker or an actual internet upload. Carryable digital media and portable equipment can supply sources when their game actions permit it. Preserve attachment identity, provenance and permissions rather than copying a thumbnail into an untracked blob.</p>
+<p>The SCP-5810-inspired inoculation/check state is an interface hook: it can expose a module/role-dependent prerequisite and clear status. It does not automatically neutralize every information hazard. Opening a record, viewing an attachment, holding attention and transmitting content emit scoped exposure events for a future authorized module. M1 needs the hook and inert test fixture, not a full SCP-5810 predator or universal memetics system.</p>
+<p>SCP-245-like software can later live on an isolated game-world machine with assigned monitoring duties. It runs as authored game content under host capabilities, not by executing downloaded native files. An anomaly may distort the character's terminal view through the existing perception contract; a misleading display does not gain actual authority or mutate host files.</p>
+<h2 id="7-engine-integration-and-persistence">7. Engine integration and persistence</h2>
+<p>The proposed Godot front end renders OSCP with UI controls and binds to query projections/command endpoints in the custom simulation core. UI state, device records and narrative exposure are separate. The core owns command validation, deadlines, staff work, inventories, messages and world effects. The renderer cannot bypass those boundaries through a hidden button or developer command string.</p>
+<p>Persist devices, digital records/revisions/attachments, sessions according to authentication policy, queued message/order IDs, delivery receipts, permissions, observed timestamps and current attention tasks. Store local window arrangement separately from authoritative simulation state. A save/load or day restart cannot deliver the same request twice or retain a session from an invalid branch/identity.</p>
+<p>The interactive design preview uses illustrative local state only. It demonstrates navigation, uncertainty, role restrictions and order receipts; it is not connected to a game kernel, real communications or host operating-system controls.</p>
+<p>Show resident AIC assignment as confirmed; its personal identity and detailed authority profile remain undecided. Expose the actor's host status, reachable systems, workload and attributed reports through the support view. Initial deterministic duties and a later optional local-model JSON provider share validated services; see <a href="doc-docs-13-lore-and-digital-operations-md.html">digital operations</a>. The preview's sample host/status values illustrate a design, not a fixed hardware count or a live game service.</p>
+<h2 id="8-first-implementation-boundary">8. First implementation boundary</h2>
+<p>M0 proves one terminal query/command bridge with duplicate-request handling and role validation. M1 qualifies operations/coverage, personnel, logistics, structured records/evidence, one outside report chain and offline/isolation behavior. Other applications can share projections or remain unavailable until their actual systems exist.</p>
+<p>The full CRT-framed fixed workstation and limited secure-phone presentation now have a bounded <a href="doc-docs-21-oscp-runtime-prototype-md.html">runnable shell</a>, including native app registration, real commands/reports, offline acquisition and standalone launch. The phone automatically pauses single-player. Complete strategic applications, attention tasks, inventory-backed devices and full acceptance remain unimplemented. TERM-01 through TERM-09 in <a href="doc-docs-04-scope-and-acceptance-md.html">scope and acceptance</a> define the proposed gate.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/11-oscp-terminal.md</footer></main></div></body></html>

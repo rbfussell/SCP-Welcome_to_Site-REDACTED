@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpScene.RunSmoke | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpScene.RunSmoke</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscpscene-smoke-cs.html#L38">game/Presentation/Oscp/OscpScene.Smoke.cs:38</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async void RunSmoke()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a></li><li><a href="function-13466eeb084032b68d05.html">PlayerLogPanel.Refresh</a></li><li><a href="function-15df43c72b0c3ad941c4.html">SpatialSimulation.Restore</a></li><li><a href="function-163ab890ac230eb06416.html">InventoryPanel.Open</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a></li><li><a href="function-2e79309f79492b9b8f99.html">OscpScene.KeyInput</a></li><li><a href="function-39be252f6ed553406ed8.html">InventoryPaperdollProof.Refresh</a></li><li><a href="function-3ec3b1f1125d97e46430.html">CombatPanel.Refresh</a></li><li><a href="function-440aad2c464713a54351.html">SimulationRuntime.ResetAccumulator</a></li><li><a href="function-44bdd90eaa2a9670d508.html">PlayerAwareness.Restore</a></li><li><a href="function-45287ffbe1449be91515.html">PlayerEventLog.Restore</a></li><li><a href="function-480ce0f230cd10ef79fd.html">EmploymentSaveCodec.Restore</a></li><li><a href="function-4891d0623a7b234a9e2c.html">OscpScene.EnterCommand</a></li><li><a href="function-51bafa83ec7d74a84e09.html">CombatSaveCodec.Restore</a></li><li><a href="function-553327117b7a641ba6b0.html">Scp650Module.Restore</a></li><li><a href="function-5ed8f259fbd4a06a821f.html">SpatialHud.Refresh</a></li><li><a href="function-6469798b617ec9f67b98.html">IAnomalyModule.Restore</a></li><li><a href="function-66579bf629d43cf4e789.html">OscpWorkspace.Execute</a></li><li><a href="function-7a81a7111b08b76a6563.html">OscpScene.Frames</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li><li><a href="function-90877b5fc9b9d4a29c81.html">GroundView.Refresh</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-94f20583fb59e35a8ded.html">OscpWorkspace.Refresh</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-9e9afc764b5fe0c61555.html">OscpWorkspace.ClearPhoneDrafts</a></li><li><a href="function-a6ebd31703377952cb79.html">OscpWorkspace.SelectApp</a></li><li><a href="function-a8888e0ee272be7d2c40.html">InventorySaveCodec.Restore</a></li><li><a href="function-b754b5cade752b4a47cc.html">OperationSaveCodec.Restore</a></li><li><a href="function-bbace76372b20138bb4e.html">InventoryContainerView.Refresh</a></li><li><a href="function-bd62e3a4b356b439e096.html">OperationsPanel.Refresh</a></li><li><a href="function-c1026920ebdf3062f84d.html">OscpScene.Capture</a></li><li><a href="function-c512448836d100d75671.html">OscpWorkspace.Open</a></li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a></li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a></li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a></li><li><a href="function-dce8f999453504b52b87.html">SimulationTrace.Restore</a></li><li><a href="function-e7c935f0a41156f95825.html">InventoryGearSurface.Open</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_workspace.Open
+sim.Save
+Frames
+_workspace.Close
+_workspace.SelectApp
+EnterCommand
+sim.Operations.OrderHistory.Last
+_workspace.Receipt.Contains
+sim.OscpRecords.Any
+r.Text.Contains
+r.Author.Contains
+sim.Employment.DiagnosticDuties.Single
+sim.Employment.DeliveredReports.Single
+_workspace.Refresh
+_workspace.DocumentText.Contains
+Capture
+sim.OscpRecords.ToArray
+_workspace.Execute
+sim.OscpRecords.SequenceEqual
+sim.Restore
+_runtime.ResetAccumulator
+GetViewport().GuiGetFocusOwner
+GetViewport
+Godot.FileAccess.GetFileAsString
+clone.Restore
+clone.Save
+sim.Tick
+_workspace.CommandLine.GrabFocus
+KeyInput
+_workspace.ClearPhoneDrafts
+GD.Print
+GetTree().Quit
+GetTree
+GD.PushError
+ex.ToString</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-12f1a5568687a2d2a06a.html">OscpScene._Process</a></li></ul><h2>Related types</h2><ul><li><a href="type-dutyphase.html">DutyPhase</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-oscpdevice.html">OscpDevice</a></li><li><a href="type-oscpscene.html">OscpScene</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>private async void RunSmoke()
+    {
+        try
+        {
+            var sim = _runtime.Simulation;
+            if (!_workspace.Open(OscpDevice.Workstation)) throw new InvalidOperationException(&quot;Standalone workstation must have a valid physical context.&quot;);
+            _workspace.Open(OscpDevice.Phone);
+            if (!sim.ManualPause) throw new InvalidOperationException(&quot;Opening the phone must automatically pause single-player.&quot;);
+            var paused = sim.Save(); await Frames();
+            if (sim.Save() != paused) throw new InvalidOperationException(&quot;Phone pause must hold all simulation clocks.&quot;);
+            _workspace.Close();
+            if (sim.ManualPause) throw new InvalidOperationException(&quot;Closing an automatically paused phone must resume.&quot;);
+            sim.ManualPause = true; _workspace.Open(OscpDevice.Phone); _workspace.Close();
+            if (!sim.ManualPause) throw new InvalidOperationException(&quot;Closing the phone must preserve a pre-existing manual pause.&quot;);
+            sim.ManualPause = false; _workspace.Open(OscpDevice.Workstation);
+            var local = sim.LocalMs; var world = sim.WorldMs;
+            _workspace.SelectApp(&quot;team&quot;);
+            await EnterCommand(&quot;order tech post 8 4&quot;);
+            if (sim.Operations.OrderHistory.Last().Channel != &quot;terminal&quot; || ! _workspace.Receipt.Contains(&quot;submitted&quot;))
+                throw new InvalidOperationException(&quot;Actual command-line Enter must submit the validated workstation order.&quot;);
+            for (var i = 0; i &lt; 240 &amp;&amp; !sim.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)); i++) await Frames(1);
+            if (!sim.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)) || sim.LocalMs &lt;= local || sim.WorldMs &lt;= world)
+                throw new InvalidOperationException(&quot;Open OSCP must receive real acknowledgement while simulation time continues.&quot;);
+            for (var i = 0; i &lt; 240 &amp;&amp; !sim.OscpRecords.Any(r =&gt; r.Author.Contains(&quot;R-017&quot;)); i++) await Frames(1);
+            if (!sim.OscpRecords.Any(r =&gt; r.Author.Contains(&quot;R-017&quot;))) throw new InvalidOperationException(&quot;Regional intake must arrive through actual network/report acquisition.&quot;);
+            if (sim.Employment.DiagnosticDuties.Single(d =&gt; d.ActorId == &quot;tech&quot;).Phase != DutyPhase.Interrupted)
+                throw new InvalidOperationException(&quot;Delivered OSCP order must suspend actual employment.&quot;);
+            await EnterCommand(&quot;order tech duty&quot;);
+            for (var i = 0; i &lt; 240 &amp;&amp; sim.Employment.DeliveredReports.Single(r =&gt; r.ActorId == &quot;tech&quot;).Phase != DutyPhase.OnDuty; i++) await Frames(1);
+            if (sim.Employment.DeliveredReports.Single(r =&gt; r.ActorId == &quot;tech&quot;).Phase != DutyPhase.OnDuty
+                || sim.Operations.OrderHistory.Last().Status != OrderStatus.Complete)
+                throw new InvalidOperationException(&quot;Return-to-duty command must release the order and restore physical employment.&quot;);
+            sim.ManualPause = true;
+            _workspace.SelectApp(&quot;team&quot;); _workspace.Refresh();
+            if (!_workspace.DocumentText.Contains(&quot;Observation technician&quot;) || !_workspace.DocumentText.Contains(&quot;POST COVERAGE / REPORTED&quot;))
+                throw new InvalidOperationException(&quot;Personnel app must show appointments and acquired employment reports.&quot;);
+            await Capture(&quot;-personnel&quot;);
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;); await Capture(&quot;-phone-personnel&quot;);
+            _workspace.Open(OscpDevice.Workstation);
+            var saved = sim.Save();
+            _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;&quot;);
+            if (sim.Save() != saved) throw new InvalidOperationException(&quot;Drawing and application navigation cannot mutate a held world.&quot;);
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;map&quot;);
+            if (sim.Save() != saved) throw new InvalidOperationException(&quot;Switching devices must retain the same simulation without new ticks or commands.&quot;);
+            await Capture(&quot;-phone-map&quot;);
+            _workspace.SelectApp(&quot;systems&quot;);
+            if (_workspace.CurrentApp == &quot;foundation:systems&quot;) throw new InvalidOperationException(&quot;Phone cannot open workstation-only applications.&quot;);
+            var records = sim.OscpRecords.ToArray();
+            sim.Operations.NetworkOnline = false;
+            var offline = sim.Save();
+            _workspace.Execute(&quot;order tech follow&quot;);
+            if (sim.Save() != offline || !sim.OscpRecords.SequenceEqual(records))
+                throw new InvalidOperationException(&quot;Offline phone must retain acquired records and reject new commands without mutation.&quot;);
+            _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;-phone-offline&quot;);
+            sim.Restore(saved); _runtime.ResetAccumulator();
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;);
+            await Frames();
+            sim.ManualPause = false;
+            await EnterCommand(&quot;order tech post 12 2&quot;);
+            var pending = sim.Operations.OrderHistory.Last();
+            if (pending.Channel != &quot;phone&quot; || pending.Status != OrderStatus.Pending)
+                throw new InvalidOperationException($&quot;Phone Enter must submit a separate pending intent: channel={pending.Channel}, status={pending.Status}, receipt={_workspace.Receipt}, message={sim.LastMessage}, open={_workspace.IsOpen}, focus={GetViewport().GuiGetFocusOwner()?.Name}.&quot;);
+            var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;),
+                Godot.FileAccess.GetFileAsString(&quot;res://Content/oscp-terminal-operation.json&quot;));
+            clone.Restore(sim.Save());
+            if (clone.Save() != sim.Save()) throw new InvalidOperationException(&quot;Handset, acquired reports and pending command must restore exactly.&quot;);
+            sim.Operations.Phone = sim.Operations.Phone! with { Powered = false };
+            sim.Tick(); sim.Tick();
+            if (sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)
+                throw new InvalidOperationException(&quot;A lost handset link must prevent pending command delivery.&quot;);
+            _workspace.Refresh();
+            if (_workspace.IsOpen) throw new InvalidOperationException(&quot;Unpowered phone must close the usable session.&quot;);
+            sim.Operations.Phone = sim.Operations.Phone! with { Powered = true };
+            for (var i = 0; i &lt; 20 &amp;&amp; sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending; i++) sim.Tick();
+            if (sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending) throw new InvalidOperationException(&quot;Restored handset link must deliver once.&quot;);
+            sim.ManualPause = true;
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;-phone&quot;);
+            _workspace.CommandLine.GrabFocus(); KeyInput(Key.Escape);
+            if (_workspace.IsOpen) throw new InvalidOperationException(&quot;Escape must close the modal phone.&quot;);
+            sim.ManualPause = false;
+            _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;);
+            var beforeDraft = sim.Save();
+            await EnterCommand(&quot;order observer follow&quot;);
+            if (sim.Save() != beforeDraft || _workspace.PhoneDraftCount != 1)
+                throw new InvalidOperationException(&quot;Paused phone order must remain an unsubmitted local draft.&quot;);
+            await Capture(&quot;-phone-draft&quot;);
+            _workspace.ClearPhoneDrafts();
+            if (_workspace.PhoneDraftCount != 0 || sim.Save() != beforeDraft) throw new InvalidOperationException(&quot;Discarding a prepared order cannot affect the world.&quot;);
+            await EnterCommand(&quot;order observer follow&quot;);
+            _workspace.CommandLine.GrabFocus(); KeyInput(Key.Escape);
+            if (sim.ManualPause || sim.Operations.OrderHistory.Last().Channel != &quot;phone&quot; || sim.Operations.OrderHistory.Last().Task != PersonnelTask.Follow
+                || sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)
+                throw new InvalidOperationException(&quot;Phone close must release its pause and submit the prepared intent, without immediate acknowledgement.&quot;);
+            _workspace.Open(OscpDevice.Phone); await EnterCommand(&quot;order tech follow&quot;);
+            var beforeLostLink = sim.Operations.OrderHistory.Count;
+            sim.Operations.NetworkOnline = false; _workspace.Close();
+            if (sim.Operations.OrderHistory.Count != beforeLostLink || sim.ManualPause)
+                throw new InvalidOperationException(&quot;Closing must reject a draft whose link failed and still release the phone-owned pause.&quot;);
+            sim.Operations.NetworkOnline = true;
+            sim.ManualPause = true;
+            _workspace.Open(OscpDevice.Phone); await EnterCommand(&quot;order tech follow&quot;);
+            _workspace.Close();
+            if (!sim.ManualPause || sim.Operations.OrderHistory.Last().Task != PersonnelTask.Follow || sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)
+                throw new InvalidOperationException(&quot;Sending a prepared intent must preserve a pre-existing manual pause and pending physical delivery.&quot;);
+            GD.Print(&quot;OSCP_SMOKE_PASS: phone automatic pause/ownership, unsubmitted drafts and validated submission on close, standalone real runtime; Enter command/acknowledgement, continuing clocks, no mutation on app/device swaps, profile gating, offline cache/rejection, save/restore, handset loss/recovery, Escape, CRT/phone/map captures.&quot;);
+            GetTree().Quit();
+        }
+        catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpScene.Smoke.cs:38</footer></main></div></body></html>

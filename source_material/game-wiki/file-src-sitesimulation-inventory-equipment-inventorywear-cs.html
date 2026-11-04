@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryWear.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryWear.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryWear.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorywear.html">InventoryWear</a></li><li><a href="type-inventorywear-obstruction.html">Obstruction</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-e56b03b5d93150b61b5c.html">InventoryWear.Accepts</a> · line 10</li><li><a href="function-a2254aa09cd593684694.html">InventoryWear.Mount</a> · line 13</li><li><a href="function-68447bef808131457eb1.html">InventoryWear.Worn</a> · line 17</li><li><a href="function-acb2130e119be593ead7.html">InventoryWear.Covered</a> · line 20</li><li><a href="function-c8096731450b756e6dd3.html">InventoryWear.Blocker</a> · line 31</li><li><a href="function-b31c1f5c7a1f9833ab57.html">InventoryWear.Interferes</a> · line 45</li><li><a href="function-28dc163b513fcd795827.html">InventoryWear.Visible</a> · line 56</li><li><a href="function-bd5e7aea55c07256682e.html">InventoryWear.Compartment</a> · line 69</li><li><a href="function-d73b5f397f361bc83362.html">InventoryWear.ValidateAction</a> · line 80</li><li><a href="function-bec675c0b1aeae3d2c12.html">InventoryWear.ValidateGraph</a> · line 99</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Physical worn coverage and dressing dependencies, independent of paperdoll camera and storage packing.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public static class InventoryWear</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     private enum Obstruction { Visual, Access, Removal }</span>
+<span id="L7"><a class="line" href="#L7">7</a>     public static readonly IReadOnlySet&lt;string&gt; BodyRegions = new HashSet&lt;string&gt;(StringComparer.Ordinal)</span>
+<span id="L8"><a class="line" href="#L8">8</a>         { &quot;head&quot;, &quot;face&quot;, &quot;torso-front&quot;, &quot;torso-back&quot;, &quot;arms&quot;, &quot;hands&quot;, &quot;hips-front&quot;, &quot;hips-back&quot;, &quot;legs&quot;, &quot;feet&quot; };</span>
+<span id="L9"><a class="line" href="#L9">9</a> </span>
+<span id="L10"><a class="line" href="#L10">10</a>     public static bool Accepts(ItemDefinition definition, string mount) =&gt; definition.Wear is { } wear</span>
+<span id="L11"><a class="line" href="#L11">11</a>         ? wear.Mounts.Any(m =&gt; m.Slot == mount) : definition.WearSlot == mount;</span>
+<span id="L12"><a class="line" href="#L12">12</a> </span>
+<span id="L13"><a class="line" href="#L13">13</a>     internal static WearMount? Mount(InventoryState state, InventoryItem item, ItemPlacement placement)</span>
+<span id="L14"><a class="line" href="#L14">14</a>         =&gt; state.Content!.Roots.Any(r =&gt; r.ActorId is not null &amp;&amp; r.Id == placement.ParentId)</span>
+<span id="L15"><a class="line" href="#L15">15</a>             ? state.Definition(item.Id).Wear?.Mounts.SingleOrDefault(m =&gt; m.Slot == state.Region(placement.ParentId, placement.RegionId).MountSlot) : null;</span>
+<span id="L16"><a class="line" href="#L16">16</a> </span>
+<span id="L17"><a class="line" href="#L17">17</a>     internal static IEnumerable&lt;InventoryItem&gt; Worn(InventoryState state, string root)</span>
+<span id="L18"><a class="line" href="#L18">18</a>         =&gt; state.Items.Values.Where(i =&gt; i.Placement.ParentId == root &amp;&amp; Mount(state, i, i.Placement) is not null);</span>
+<span id="L19"><a class="line" href="#L19">19</a> </span>
+<span id="L20"><a class="line" href="#L20">20</a>     internal static IEnumerable&lt;string&gt; Covered(InventoryState state, InventoryItem item)</span>
+<span id="L21"><a class="line" href="#L21">21</a>     {</span>
+<span id="L22"><a class="line" href="#L22">22</a>         if (state.Definition(item.Id).Wear!.OverlayLimit is not null)</span>
+<span id="L23"><a class="line" href="#L23">23</a>         {</span>
+<span id="L24"><a class="line" href="#L24">24</a>             var root = state.Content!.Roots.Single(r =&gt; r.Id == item.Placement.ParentId);</span>
+<span id="L25"><a class="line" href="#L25">25</a>             return InventoryWornStack.Cells(state, item, true).Select(c =&gt; InventoryWornStack.Region(state.BodyFits!.Body(root.BodyFamily!), c)).Distinct();</span>
+<span id="L26"><a class="line" href="#L26">26</a>         }</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var coverage = Mount(state, item, item.Placement)!.Coverage;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         return item.GarmentOpen ? coverage.Except(state.Definition(item.Id).Wear!.OpenExposes ?? []) : coverage;</span>
+<span id="L29"><a class="line" href="#L29">29</a>     }</span>
+<span id="L30"><a class="line" href="#L30">30</a> </span>
+<span id="L31"><a class="line" href="#L31">31</a>     private static InventoryItem? Blocker(InventoryState state, InventoryItem item, ItemPlacement placement, IEnumerable&lt;string&gt; regions,</span>
+<span id="L32"><a class="line" href="#L32">32</a>         Obstruction purpose)</span>
+<span id="L33"><a class="line" href="#L33">33</a>     {</span>
+<span id="L34"><a class="line" href="#L34">34</a>         var order = placement.WornOrder ?? InventoryWornOrder.Order(item);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         return Worn(state, placement.ParentId).Where(other =&gt; other.Id != item.Id &amp;&amp; InventoryWornOrder.Order(other) &gt; order)</span>
+<span id="L36"><a class="line" href="#L36">36</a>             .Where(other =&gt; purpose switch</span>
+<span id="L37"><a class="line" href="#L37">37</a>             {</span>
+<span id="L38"><a class="line" href="#L38">38</a>                 Obstruction.Access =&gt; state.Definition(other.Id).Wear!.CoversAccess,</span>
+<span id="L39"><a class="line" href="#L39">39</a>                 Obstruction.Removal =&gt; state.Definition(other.Id).Wear!.BlocksRemoval,</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 _ =&gt; true</span>
+<span id="L41"><a class="line" href="#L41">41</a>             })</span>
+<span id="L42"><a class="line" href="#L42">42</a>             .OrderByDescending(InventoryWornOrder.Order).ThenBy(other =&gt; other.Id, StringComparer.Ordinal)</span>
+<span id="L43"><a class="line" href="#L43">43</a>             .FirstOrDefault(other =&gt; Interferes(state, other, item, regions, purpose));</span>
+<span id="L44"><a class="line" href="#L44">44</a>     }</span>
+<span id="L45"><a class="line" href="#L45">45</a>     private static bool Interferes(InventoryState state, InventoryItem outer, InventoryItem inner, IEnumerable&lt;string&gt; regions, Obstruction purpose)</span>
+<span id="L46"><a class="line" href="#L46">46</a>     {</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var wear = state.Definition(inner.Id).Wear!;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         if (wear.OverlayLimit is not null) return InventoryWornStack.OverlayIntersects(state, outer, inner, purpose != Obstruction.Removal);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         if (wear.Outermost &amp;&amp; !InventoryWornStack.OverlayIntersects(state, outer, inner, purpose != Obstruction.Removal)) return false;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var blockedRegions = purpose == Obstruction.Removal</span>
+<span id="L51"><a class="line" href="#L51">51</a>             ? state.Definition(outer.Id).Wear!.RemovalRegions ?? Mount(state, outer, outer.Placement)!.Coverage : Covered(state, outer);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         return blockedRegions.Intersect(regions).Any();</span>
+<span id="L53"><a class="line" href="#L53">53</a>     }</span>
+<span id="L54"><a class="line" href="#L54">54</a> </span>
+<span id="L55"><a class="line" href="#L55">55</a>     /// &lt;summary&gt;Partial exposure is enough to draw a garment; manipulating it can still require removing outer layers.&lt;/summary&gt;</span>
+<span id="L56"><a class="line" href="#L56">56</a>     public static bool Visible(InventoryState state, InventoryItem item)</span>
+<span id="L57"><a class="line" href="#L57">57</a>     {</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (Mount(state, item, item.Placement) is not { } mount) return true;</span>
+<span id="L59"><a class="line" href="#L59">59</a>         var cells = InventoryWornStack.Cells(state, item);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         if (cells.Length &gt; 0)</span>
+<span id="L61"><a class="line" href="#L61">61</a>         {</span>
+<span id="L62"><a class="line" href="#L62">62</a>             var occluded = Worn(state, item.Placement.ParentId).Where(i =&gt; InventoryWornOrder.Order(i) &gt; InventoryWornOrder.Order(item))</span>
+<span id="L63"><a class="line" href="#L63">63</a>                 .SelectMany(i =&gt; InventoryWornStack.Cells(state, i, true)).ToHashSet();</span>
+<span id="L64"><a class="line" href="#L64">64</a>             return cells.Any(c =&gt; !occluded.Contains(c));</span>
+<span id="L65"><a class="line" href="#L65">65</a>         }</span>
+<span id="L66"><a class="line" href="#L66">66</a>         return mount.Coverage.Any(region =&gt; Blocker(state, item, item.Placement, [region], Obstruction.Visual) is null);</span>
+<span id="L67"><a class="line" href="#L67">67</a>     }</span>
+<span id="L68"><a class="line" href="#L68">68</a> </span>
+<span id="L69"><a class="line" href="#L69">69</a>     internal static InventoryAccess Compartment(InventoryState state, string itemId, StorageRegion region)</span>
+<span id="L70"><a class="line" href="#L70">70</a>     {</span>
+<span id="L71"><a class="line" href="#L71">71</a>         if (!state.Items.TryGetValue(itemId, out var item) || Mount(state, item, item.Placement) is not { } mount)</span>
+<span id="L72"><a class="line" href="#L72">72</a>             return new(true, &quot;Accessible&quot;);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         if (region.Attachment is not null) return new(true, &quot;Exterior contacts validate individually.&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         if (InventoryCoverage.Evaluate(state, item, region) is { } geometric)</span>
+<span id="L75"><a class="line" href="#L75">75</a>             return new(!geometric.Covered, geometric.Reason);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         var blocker = Blocker(state, item, item.Placement, region.AccessBody ?? mount.Coverage, Obstruction.Access);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         return blocker is null ? new(true, &quot;Accessible&quot;) : new(false, region.Name + &quot; is covered by &quot; + state.Definition(blocker.Id).Name + &quot;; expose it first&quot;);</span>
+<span id="L78"><a class="line" href="#L78">78</a>     }</span>
+<span id="L79"><a class="line" href="#L79">79</a> </span>
+<span id="L80"><a class="line" href="#L80">80</a>     internal static void ValidateAction(InventoryState state, InventoryItem item, ItemPlacement placement,</span>
+<span id="L81"><a class="line" href="#L81">81</a>         IEnumerable&lt;string&gt;? accessRegions = null, bool fastening = false)</span>
+<span id="L82"><a class="line" href="#L82">82</a>     {</span>
+<span id="L83"><a class="line" href="#L83">83</a>         item = item with { Placement = placement };</span>
+<span id="L84"><a class="line" href="#L84">84</a>         if (Mount(state, item, placement) is not { } mount) return;</span>
+<span id="L85"><a class="line" href="#L85">85</a>         var regions = accessRegions ?? (state.Definition(item.Id).Wear!.OverlayLimit is not null ? Covered(state, item) : mount.Coverage);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         if (fastening &amp;&amp; state.Definition(item.Id).Wear!.FasteningFootprint is { } masks)</span>
+<span id="L87"><a class="line" href="#L87">87</a>         {</span>
+<span id="L88"><a class="line" href="#L88">88</a>             var zipper = InventoryCoverage.Project(masks, InventoryBodyFit.Pose(state, item)!, mount).ToHashSet();</span>
+<span id="L89"><a class="line" href="#L89">89</a>             var strap = Worn(state, placement.ParentId).Where(i =&gt; InventoryWornOrder.Order(i) &gt; InventoryWornOrder.Order(item)</span>
+<span id="L90"><a class="line" href="#L90">90</a>                 &amp;&amp; state.Definition(i.Id).Wear!.BlocksFastenings).FirstOrDefault(i =&gt; InventoryWornStack.Cells(state, i).Any(zipper.Contains));</span>
+<span id="L91"><a class="line" href="#L91">91</a>             if (strap is not null) throw new ArgumentException(&quot;Remove &quot; + state.Definition(strap.Id).Name + &quot; before operating this fastening.&quot;);</span>
+<span id="L92"><a class="line" href="#L92">92</a>         }</span>
+<span id="L93"><a class="line" href="#L93">93</a>         if (Blocker(state, item, placement, regions, Obstruction.Access) is { } cover)</span>
+<span id="L94"><a class="line" href="#L94">94</a>             throw new ArgumentException(&quot;Open or remove &quot; + state.Definition(cover.Id).Name + &quot; before accessing &quot; + state.Definition(item.Id).Name);</span>
+<span id="L95"><a class="line" href="#L95">95</a>         if (!fastening &amp;&amp; Blocker(state, item, placement, regions, Obstruction.Removal) is { } blocker)</span>
+<span id="L96"><a class="line" href="#L96">96</a>             throw new ArgumentException(&quot;Remove &quot; + state.Definition(blocker.Id).Name + &quot; before changing &quot; + state.Definition(item.Id).Name);</span>
+<span id="L97"><a class="line" href="#L97">97</a>     }</span>
+<span id="L98"><a class="line" href="#L98">98</a> </span>
+<span id="L99"><a class="line" href="#L99">99</a>     internal static void ValidateGraph(InventoryState state)</span>
+<span id="L100"><a class="line" href="#L100">100</a>     {</span>
+<span id="L101"><a class="line" href="#L101">101</a>         foreach (var root in state.Content!.Roots.Where(r =&gt; r.ActorId is not null))</span>
+<span id="L102"><a class="line" href="#L102">102</a>         {</span>
+<span id="L103"><a class="line" href="#L103">103</a>             var worn = Worn(state, root.Id).OrderBy(i =&gt; i.Id, StringComparer.Ordinal).ToArray();</span>
+<span id="L104"><a class="line" href="#L104">104</a>             for (var a = 0; a &lt; worn.Length; a++)</span>
+<span id="L105"><a class="line" href="#L105">105</a>             for (var b = a + 1; b &lt; worn.Length; b++)</span>
+<span id="L106"><a class="line" href="#L106">106</a>             {</span>
+<span id="L107"><a class="line" href="#L107">107</a>                 var left = worn[a]; var right = worn[b];</span>
+<span id="L108"><a class="line" href="#L108">108</a>                 if (!InventoryWornStack.Overlaps(state, left, right)) continue;</span>
+<span id="L109"><a class="line" href="#L109">109</a>                 var inner = InventoryWornOrder.Order(left) &lt; InventoryWornOrder.Order(right) ? left : right;</span>
+<span id="L110"><a class="line" href="#L110">110</a>                 if (state.Definition(inner.Id).Wear!.Outermost)</span>
+<span id="L111"><a class="line" href="#L111">111</a>                     throw new ArgumentException(&quot;Nothing can cover outermost &quot; + state.Definition(inner.Id).Name + &quot;; remove it first&quot;);</span>
+<span id="L112"><a class="line" href="#L112">112</a>             }</span>
+<span id="L113"><a class="line" href="#L113">113</a>             _ = InventoryWornStack.Build(state, root.Id);</span>
+<span id="L114"><a class="line" href="#L114">114</a>             InventoryWearFit.ValidateWorn(state, worn);</span>
+<span id="L115"><a class="line" href="#L115">115</a>         }</span>
+<span id="L116"><a class="line" href="#L116">116</a>     }</span>
+<span id="L117"><a class="line" href="#L117">117</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

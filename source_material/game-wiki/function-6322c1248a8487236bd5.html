@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryBodyFitSurface._Draw | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitSurface._Draw</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorybodyfitpanel-cs.html#L166">game/Presentation/Inventory/InventoryBodyFitPanel.cs:166</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Draw()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-26a3dd8f1e37ccc8f03a.html">InventoryAttachments.Occupancy</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-7fd4bf0aecb110daf099.html">InventoryBodyFitSurface.DrawOutfit</a></li><li><a href="function-909815f23f75d4ae6e59.html">BodyFitGeometry.Cells</a></li><li><a href="function-9541678bf20eee3a9815.html">InventoryBodyFitSurface.Polygon</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c059bac8d60b94dda194.html">InventoryBodyFitSurface.Center</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-e0317321b81ba431d1d8.html">InventoryBodyFitSurface.Edge</a></li><li><a href="function-e1e9440f5056eb30c415.html">SpatialSimulation.InventoryAttachmentsOn</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>BodyFitGeometry.Cells
+Polygon
+DrawColoredPolygon
+DrawPolyline
+polygon.Append(polygon[0]).ToArray
+polygon.Append
+DrawOutfit
+Fit.Panel.Simulation.InventoryWornCells.Where(c =&gt; c.Cell.Surface == (Fit.InspectWorn ? Fit.ViewSurface : &quot;front&quot;)
+            &amp;&amp; Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray
+Fit.Panel.Simulation.InventoryWornCells.Where
+Fit.Panel.Simulation.Inventory.Definition
+straps.Select(c =&gt; c.Cell.Cell).Distinct
+straps.Select
+preview.Geometry.Outside.ToHashSet
+outside.Contains
+Fit.Panel.Simulation.InventoryAttachmentsOn
+InventoryAttachments.Occupancy
+BodyFitGeometry.Transform
+Edge
+Center
+DrawLine
+preview.Geometry.FailedContacts.Contains
+straps.GroupBy(c =&gt; c.Cell.Cell).Where
+straps.GroupBy
+g.Count
+DrawString
+cross.Max(c =&gt; c.SubLayer).ToString
+cross.Max
+pocket.Blocked.Contains
+DrawCircle
+DrawArc</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-bodypose.html">BodyPose</a></li><li><a href="type-geometry.html">Geometry</a></li><li><a href="type-inventoryattachments.html">InventoryAttachments</a></li><li><a href="type-inventorybodyfitsurface.html">InventoryBodyFitSurface</a></li></ul><h2>Implementation</h2><pre><code>public override void _Draw()
+    {
+        var cells = BodyFitGeometry.Cells(Fit.Body.Rows);
+        foreach (var cell in cells)
+        {
+            var polygon = Polygon(cell);
+            DrawColoredPolygon(polygon, new(&quot;34433e&quot;)); DrawPolyline(polygon.Append(polygon[0]).ToArray(), new(&quot;60746a&quot;), 1);
+        }
+        if (Fit.InspectWorn) DrawOutfit();
+        var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c =&gt; c.Cell.Surface == (Fit.InspectWorn ? Fit.ViewSurface : &quot;front&quot;)
+            &amp;&amp; Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray();
+        if (!Fit.InspectWorn) foreach (var cell in straps.Select(c =&gt; c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color(&quot;d1ad68&quot;, .5f));
+        var activePreview = Fit.Panel.DragItemId is null ? Fit.InspectWorn ? null : Fit.Preview : DropPreview;
+        if (activePreview is { } preview)
+        {
+            var outside = preview.Geometry.Outside.ToHashSet();
+            foreach (var cell in preview.Geometry.Cells)
+                DrawColoredPolygon(Polygon(cell), outside.Contains(cell) || Fit.Panel.DragItemId is not null &amp;&amp; !preview.Handling.Allowed
+                    ? new Color(&quot;d06258&quot;, .85f) : new Color(&quot;62baa2&quot;, .65f));
+            if (preview.Request.ItemId is { } selected)
+                foreach (var region in Fit.Panel.Simulation.Inventory.Definition(selected).Regions ?? [])
+                    if (region.Attachment is not null)
+                        foreach (var child in Fit.Panel.Simulation.InventoryAttachmentsOn(selected, region.Id))
+                            foreach (var local in InventoryAttachments.Occupancy(Fit.Panel.Simulation.Inventory, child))
+                                DrawColoredPolygon(Polygon(BodyFitGeometry.Transform(local, preview.Request.Destination!.BodyPose!)), new Color(&quot;d1ad68&quot;, .85f));
+            foreach (var contact in preview.Geometry.Contacts)
+            {
+                var edge = Edge(Center(contact.Cell), contact.Direction);
+                DrawLine(edge.A, edge.B, preview.Geometry.FailedContacts.Contains(contact) ? new(&quot;ff786d&quot;) : new(&quot;e3e5d3&quot;), 2);
+            }
+        }
+        // These marks show actual worn access, not the uncommitted fit draft.
+        foreach (var cross in straps.GroupBy(c =&gt; c.Cell.Cell).Where(g =&gt; g.Count() &gt; 1))
+            DrawString(ThemeDB.FallbackFont, Center(cross.Key) + new Vector2(-3, 3), cross.Max(c =&gt; c.SubLayer).ToString(), fontSize: 9, modulate: new(&quot;ffdc86&quot;));
+        foreach (var pocket in Fit.Pockets)
+        foreach (var cell in pocket.Mouth)
+        {
+            if (Fit.InspectWorn &amp;&amp; cell.Surface != Fit.ViewSurface) continue;
+            var position = Center(cell.Cell);
+            var obstructed = pocket.CoarseFallback || pocket.Blocked.Contains(cell);
+            DrawCircle(position, 3.2f, obstructed ? new(&quot;ff8979&quot;) : new(&quot;8ee5ce&quot;));
+            if (obstructed) DrawLine(position + new Vector2(-3, 3), position + new Vector2(3, -3), new(&quot;242b26&quot;), 1.5f);
+        }
+        if (activePreview is not null || !Fit.InspectWorn)
+        {
+            var activePose = activePreview?.Request.Destination?.BodyPose ?? Fit.Draft;
+            var anchor = Center(new(activePose.Q, activePose.R));
+            DrawCircle(anchor, 3, new(&quot;f1ca7a&quot;)); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new(&quot;f1ca7a&quot;), 1);
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryBodyFitPanel.cs:166</footer></main></div></body></html>

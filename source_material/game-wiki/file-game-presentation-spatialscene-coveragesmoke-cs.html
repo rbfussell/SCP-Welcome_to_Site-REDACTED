@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.CoverageSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.CoverageSmoke.cs</h1><p>game/Presentation/SpatialScene.CoverageSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-e329ddad01189dd0d8a2.html">SpatialScene.RunCoverageSmoke</a> · line 9</li><li><a href="function-3868faea977bd33b4c3f.html">SpatialScene.Check</a> · line 13</li><li><a href="function-26febcdb0b596301a36b.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-14c1d608530c598240e1.html">SpatialScene.Surface</a> · line 19</li><li><a href="function-9ef78b2dccedfe268340.html">SpatialScene.Hover</a> · line 20</li><li><a href="function-8c8b9d929699c2fe4716.html">SpatialScene.ToggleCoat</a> · line 26</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunCoverageSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Coverage UI: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             for (var i = 0; i &lt; 800 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             Check(sim.Inventory.Pending is null, &quot;work failed to finish&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         InventoryGearSurface Surface() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L20"><a class="line" href="#L20">20</a>         async Task Hover(InventoryGearSurface surface, string region)</span>
+<span id="L21"><a class="line" href="#L21">21</a>         {</span>
+<span id="L22"><a class="line" href="#L22">22</a>             var position = surface.HotspotPosition(region);</span>
+<span id="L23"><a class="line" href="#L23">23</a>             using var motion = new InputEventMouseMotion { Position = position, GlobalPosition = position };</span>
+<span id="L24"><a class="line" href="#L24">24</a>             GetViewport().PushInput(motion); await InventoryFrames();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         }</span>
+<span id="L26"><a class="line" href="#L26">26</a>         async Task ToggleCoat()</span>
+<span id="L27"><a class="line" href="#L27">27</a>         {</span>
+<span id="L28"><a class="line" href="#L28">28</a>             // Keep the current contents trail while changing the actual garment via its ordinary control.</span>
+<span id="L29"><a class="line" href="#L29">29</a>             var coat = panel.FindGrid(&quot;person:avatar&quot;, &quot;outerwear&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>             ((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible(coat); await InventoryFrames();</span>
+<span id="L31"><a class="line" href="#L31">31</a>             InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();</span>
+<span id="L32"><a class="line" href="#L32">32</a>             sim.ManualPause = false; InventoryClick(panel.GarmentToggle.GetGlobalRect().GetCenter());</span>
+<span id="L33"><a class="line" href="#L33">33</a>             Check(sim.Inventory.Pending is not null, &quot;native zipper control failed to start paid work&quot;); await Finish();</span>
+<span id="L34"><a class="line" href="#L34">34</a>         }</span>
+<span id="L35"><a class="line" href="#L35">35</a>         sim.ManualPause = false;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;flashlight&quot;, new(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;))), &quot;prepare real cargo contents&quot;); await Finish();</span>
+<span id="L37"><a class="line" href="#L37">37</a>         panel.Inspect(&quot;avatar-trousers&quot;); await InventoryFrames();</span>
+<span id="L38"><a class="line" href="#L38">38</a>         foreach (var region in new[] { &quot;left&quot;, &quot;right&quot;, &quot;cargo-left&quot;, &quot;cargo-right&quot; })</span>
+<span id="L39"><a class="line" href="#L39">39</a>         {</span>
+<span id="L40"><a class="line" href="#L40">40</a>             await Hover(Surface(), region);</span>
+<span id="L41"><a class="line" href="#L41">41</a>             Check(Surface().HoveredRegion == region &amp;&amp; !Surface().HoverCovered, &quot;four sprite segments did not map to separate accessible regions&quot;);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         }</span>
+<span id="L43"><a class="line" href="#L43">43</a>         var hipBefore = sim.Save();</span>
+<span id="L44"><a class="line" href="#L44">44</a>         InventoryClick(Surface().HotspotPosition(&quot;left&quot;), true); await InventoryFrames();</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;) &amp;&amp; sim.Save() == hipBefore, &quot;unsealable hip inspection bought physical opening work&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         InventoryClick(Surface().HotspotPosition(&quot;left&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var hipMenu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last().GetChild&lt;VBoxContainer&gt;(0);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         Check(!hipMenu.GetChildren().OfType&lt;CheckButton&gt;().Any() &amp;&amp; !hipMenu.GetChildren().OfType&lt;Button&gt;().Any(b =&gt; b.Text is &quot;Button&quot; or &quot;Unbutton&quot; or &quot;Close&quot;),</span>
+<span id="L49"><a class="line" href="#L49">49</a>             &quot;unsealable hip menu invented a fastening action or preference&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         InventoryClick(new Vector2(600, 55)); await InventoryFrames();</span>
+<span id="L51"><a class="line" href="#L51">51</a>         await InventoryCapture(&quot;-unsealable-hip&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         InventoryClick(Surface().HotspotPosition(&quot;cargo-left&quot;), true); await InventoryFrames();</span>
+<span id="L53"><a class="line" href="#L53">53</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;cargo-left&quot;), &quot;cargo pouch did not open its own grid&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         await ToggleCoat();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;cargo-left&quot;) &amp;&amp; sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).Allowed,</span>
+<span id="L56"><a class="line" href="#L56">56</a>             &quot;closing coat incorrectly dismissed an accessible lower pocket&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         await Hover(Surface(), &quot;left&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         Check(Surface().HoverCovered &amp;&amp; Surface().TooltipText.Contains(&quot;Field coat&quot;), &quot;blocked hip segment lacks its actual blocker reason&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         await InventoryCapture(&quot;-hip-covered&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         var held = sim.Save(); InventoryClick(Surface().HotspotPosition(&quot;left&quot;), true); await InventoryFrames();</span>
+<span id="L61"><a class="line" href="#L61">61</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;cargo-left&quot;) &amp;&amp; sim.Save() == held,</span>
+<span id="L62"><a class="line" href="#L62">62</a>             &quot;clicking a covered hip pocket exposed its contents or spent free work&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         await Hover(Surface(), &quot;cargo-left&quot;);</span>
+<span id="L64"><a class="line" href="#L64">64</a>         Check(!Surface().HoverCovered &amp;&amp; panel.FindGrid(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).DisplayedItems.Single().Id == &quot;flashlight&quot;,</span>
+<span id="L65"><a class="line" href="#L65">65</a>             &quot;uncovered cargo contents were hidden by the coat&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         await InventoryCapture(&quot;-cargo-accessible&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         // Body diagnostics use exactly the same authoritative mouth/cover intersection.</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var legs = panel.FindGrid(&quot;person:avatar&quot;, &quot;legs&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         ((ScrollContainer)legs.GetParent().GetParent()).EnsureControlVisible(legs); await InventoryFrames();</span>
+<span id="L70"><a class="line" href="#L70">70</a>         InventoryClick(legs.GlobalPosition + new Vector2(30, 80));</span>
+<span id="L71"><a class="line" href="#L71">71</a>         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(panel.BodyFit.Pockets.Length == 4 &amp;&amp; panel.BodyFit.Pockets.Count(p =&gt; p.Covered) == 2,</span>
+<span id="L73"><a class="line" href="#L73">73</a>             &quot;body marks disagree with actual hip/cargo access&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         var diagnosticSave = sim.Save(); await InventoryCapture(&quot;-pocket-overlap&quot;);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(sim.Save() == diagnosticSave, &quot;coverage rendering changed state&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L77"><a class="line" href="#L77">77</a>         await ToggleCoat();</span>
+<span id="L78"><a class="line" href="#L78">78</a>         await Hover(Surface(), &quot;left&quot;);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         Check(!Surface().HoverCovered, &quot;opening jacket did not refresh an existing gear surface&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         InventoryClick(Surface().HotspotPosition(&quot;left&quot;), true); await InventoryFrames();</span>
+<span id="L81"><a class="line" href="#L81">81</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;), &quot;exposed hip pocket did not become available&quot;);</span>
+<span id="L82"><a class="line" href="#L82">82</a>         await InventoryCapture(&quot;-hip-exposed&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         await ToggleCoat();</span>
+<span id="L84"><a class="line" href="#L84">84</a>         Check(panel.Browser.CurrentContents is null &amp;&amp; panel.Browser.CurrentGear == &quot;avatar-trousers&quot;,</span>
+<span id="L85"><a class="line" href="#L85">85</a>             &quot;newly covered hip contents did not dismiss while retaining the accessible parent gear&quot;);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         var snapshot = sim.Save(); var copy = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L87"><a class="line" href="#L87">87</a>         copy.Restore(snapshot); Check(copy.Save() == snapshot &amp;&amp; copy.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;left&quot;)!.Covered,</span>
+<span id="L88"><a class="line" href="#L88">88</a>             &quot;coverage changed through save/restore&quot;);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L90"><a class="line" href="#L90">90</a>         GD.Print(&quot;COVERAGE_SMOKE_PASS: four native pouch segments, actual closed/open jacket access, retained cargo/invalidated hip trails, body overlap marks and persistence.&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>     }</span>
+<span id="L92"><a class="line" href="#L92">92</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

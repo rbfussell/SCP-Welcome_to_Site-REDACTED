@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPlacement.Validate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPlacement.Validate</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-placement-inventoryplacement-cs.html#L9">src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs:9</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal static void Validate(InventoryState state)</code></pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-11abfa8796964d4e1f20.html">InventoryState.Region</a></li><li><a href="function-2e8c7905f814ef355775.html">InventoryAttachments.Validate</a></li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a></li><li><a href="function-3f78cbb71e13f42c1c53.html">InventoryHierarchy.CarriedMass</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-62596e81cc0e1b0deab8.html">InventoryHierarchy.Root</a></li><li><a href="function-717d7178937d1aaae313.html">InventoryPlacement.Footprint</a></li><li><a href="function-7274b193a9a8b15b673e.html">InventoryGrid.Region</a></li><li><a href="function-807d74d056c911a8ca84.html">InventoryHierarchy.Mass</a></li><li><a href="function-91f463fa8046959b4b81.html">PaperdollMosaic.Region</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-ac4a976a08b87b75d122.html">InventoryBodyFit.Validate</a></li><li><a href="function-b78e67390773ac9694af.html">InventoryState.Children</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-bec675c0b1aeae3d2c12.html">InventoryWear.ValidateGraph</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-e56b03b5d93150b61b5c.html">InventoryWear.Accepts</a></li><li><a href="function-f8e7dbcdb5454adaa117.html">InventoryWornOrder.Validate</a></li><li><a href="function-fe034cf09639fe8f2790.html">InventoryAttachmentClearance.Validate</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>InventoryWornOrder.Validate
+InventoryHierarchy.Root
+state.Definition
+state.Region
+InventoryWear.Accepts
+definition.Tags.Any
+InventoryBodyFit.Validate
+InventoryAttachments.Validate
+Footprint
+Enumerable.Range(p.Y, height).SelectMany(y =&gt; Enumerable.Range(p.X, width).Select(x =&gt; y * region.Columns + x)).ToArray
+Enumerable.Range(p.Y, height).SelectMany
+Enumerable.Range
+Enumerable.Range(p.X, width).Select
+cells.Any
+mask.Contains
+state.Items.Values.Where
+state.Children(p.ParentId, p.RegionId).Sum
+state.Children
+InventoryHierarchy.Mass
+InventoryHierarchy.CarriedMass
+InventoryWear.ValidateGraph
+InventoryAttachmentClearance.Validate</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-2695dde9447911e1a213.html">InventorySaveCodec.ValidateGraph</a></li><li><a href="function-aa4026be631dc71dbf02.html">InventoryActions.Validate</a></li><li><a href="function-c1ccc815724de2e1aa1b.html">InventoryPacking.Plan</a></li><li><a href="function-e5a702e895e56dc96c05.html">InventoryPacking.Build</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryattachmentclearance.html">InventoryAttachmentClearance</a></li><li><a href="type-inventoryattachments.html">InventoryAttachments</a></li><li><a href="type-inventorybodyfit.html">InventoryBodyFit</a></li><li><a href="type-inventoryhierarchy.html">InventoryHierarchy</a></li><li><a href="type-inventoryplacement.html">InventoryPlacement</a></li><li><a href="type-inventorystate.html">InventoryState</a></li><li><a href="type-inventorywear.html">InventoryWear</a></li><li><a href="type-inventorywornorder.html">InventoryWornOrder</a></li></ul><h2>Implementation</h2><pre><code>internal static void Validate(InventoryState state)
+    {
+        if (!state.Enabled) return;
+        InventoryWornOrder.Validate(state);
+        foreach (var item in state.Items.Values)
+        {
+            _ = InventoryHierarchy.Root(state, item.Id); // Cycle/depth validation precedes recursive mass.
+            var definition = state.Definition(item.Id);
+            var p = item.Placement;
+            var region = state.Region(p.ParentId, p.RegionId);
+            if (region.MountSlot is { } mount &amp;&amp; mount != &quot;hand&quot; &amp;&amp; !InventoryWear.Accepts(definition, mount))
+                throw new ArgumentException(region.Name + &quot; accepts only matching wearable equipment&quot;);
+            if (region.AcceptTags is { Length: &gt; 0 } tags &amp;&amp; !definition.Tags.Any(tags.Contains))
+                throw new ArgumentException(region.Name + &quot; rejects this item category&quot;);
+            InventoryBodyFit.Validate(state, item);
+            InventoryAttachments.Validate(state, item);
+            if (region.Attachment is null)
+            {
+                var (width, height) = Footprint(definition, region, p.Rotated);
+                if (p.X &lt; 0 || p.Y &lt; 0 || p.X + width &gt; region.Columns || p.Y + height &gt; region.Rows
+                    || region.MountSlot is null &amp;&amp; definition.ThicknessMm &gt; region.HeightMm)
+                    throw new ArgumentException(definition.Name + &quot; does not physically fit in &quot; + region.Name);
+                var cells = Enumerable.Range(p.Y, height).SelectMany(y =&gt; Enumerable.Range(p.X, width).Select(x =&gt; y * region.Columns + x)).ToArray();
+                if (region.Mask is { } mask &amp;&amp; cells.Any(c =&gt; !mask.Contains(c))) throw new ArgumentException(&quot;Item overlaps the compartment&#x27;s unusable area&quot;);
+                foreach (var other in state.Items.Values.Where(i =&gt; i.Id != item.Id &amp;&amp; i.Placement.ParentId == p.ParentId &amp;&amp; i.Placement.RegionId == p.RegionId))
+                {
+                    if (region.MountSlot is not null &amp;&amp; definition.Wear?.OverlayLimit is not null &amp;&amp; state.Definition(other.Id).Wear?.OverlayLimit is not null)
+                        continue; // Physical bands govern shared strap mounts, not their temporary 1×1 widget.
+                    var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);
+                    if (p.X &lt; other.Placement.X + w &amp;&amp; p.X + width &gt; other.Placement.X &amp;&amp; p.Y &lt; other.Placement.Y + h &amp;&amp; p.Y + height &gt; other.Placement.Y)
+                        throw new ArgumentException(&quot;Packing footprint overlaps another item&quot;);
+                }
+            }
+            if (state.Children(p.ParentId, p.RegionId).Sum(i =&gt; InventoryHierarchy.Mass(state, i.Id)) &gt; region.MaxMassGrams)
+                throw new ArgumentException(region.Name + &quot; exceeds its load limit&quot;);
+        }
+        foreach (var root in state.Content!.Roots)
+            if (InventoryHierarchy.CarriedMass(state, root.Id) &gt; root.MaxMassGrams) throw new ArgumentException(root.Name + &quot; exceeds its total load limit&quot;);
+        InventoryWear.ValidateGraph(state);
+        InventoryAttachmentClearance.Validate(state);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs:9</footer></main></div></body></html>

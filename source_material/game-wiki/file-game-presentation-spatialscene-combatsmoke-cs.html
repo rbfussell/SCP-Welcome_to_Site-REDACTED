@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.CombatSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.CombatSmoke.cs</h1><p>game/Presentation/SpatialScene.CombatSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-ed52cbde94e2c1e9fbd8.html">SpatialScene.CombatSmokeStep</a> · line 12</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> using System.Text.Json.Nodes;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> namespace SitePresentation;</span>
+<span id="L7"><a class="line" href="#L7">7</a> </span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class SpatialScene</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private long _combatHeldLocal, _combatHeldWorld;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private int _combatWait;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private async void CombatSmokeStep()</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (++_smokeFrame != 12) return;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         try</span>
+<span id="L16"><a class="line" href="#L16">16</a>         {</span>
+<span id="L17"><a class="line" href="#L17">17</a>             switch (_smokeStage)</span>
+<span id="L18"><a class="line" href="#L18">18</a>             {</span>
+<span id="L19"><a class="line" href="#L19">19</a>                 case 0:</span>
+<span id="L20"><a class="line" href="#L20">20</a>                     foreach (var actor in _simulation.Actors)</span>
+<span id="L21"><a class="line" href="#L21">21</a>                     { actor.Route.Clear(); actor.SegmentMs = 0; actor.StoppedStep = null; actor.MoveGoal = null; actor.BumpedCells.Clear(); }</span>
+<span id="L22"><a class="line" href="#L22">22</a>                     _simulation.Player.Cell = new(8, 3); _simulation.Player.Facing = 1;</span>
+<span id="L23"><a class="line" href="#L23">23</a>                     var opponent = _simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;); opponent.Cell = new(11, 3); opponent.Facing = 4;</span>
+<span id="L24"><a class="line" href="#L24">24</a>                     _simulation.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = new(5, 5);</span>
+<span id="L25"><a class="line" href="#L25">25</a>                     _simulation.Awareness.StopOnDirectSight = _simulation.Awareness.StopOnReports = false;</span>
+<span id="L26"><a class="line" href="#L26">26</a>                     _audio.Muted = true; _audio.Reset();</span>
+<span id="L27"><a class="line" href="#L27">27</a>                     if (!_simulation.ArmTraining()) throw new InvalidOperationException(&quot;Could not arm drill.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>                     // A saved fixture starts the player input check before the opponent&#x27;s turn; Chen has already left the drill.</span>
+<span id="L29"><a class="line" href="#L29">29</a>                     var setup = JsonNode.Parse(_simulation.Save())!;</span>
+<span id="L30"><a class="line" href="#L30">30</a>                     var roster = setup[&quot;Combat&quot;]![&quot;Participants&quot;]!.AsArray();</span>
+<span id="L31"><a class="line" href="#L31">31</a>                     for (var i = 0; i &lt; roster.Count; i++)</span>
+<span id="L32"><a class="line" href="#L32">32</a>                     {</span>
+<span id="L33"><a class="line" href="#L33">33</a>                         var id = roster[i]![&quot;ActorId&quot;]!.GetValue&lt;string&gt;();</span>
+<span id="L34"><a class="line" href="#L34">34</a>                         roster[i]![&quot;Ap&quot;] = id == _simulation.Player.Id ? 10 : 0;</span>
+<span id="L35"><a class="line" href="#L35">35</a>                         if (id == _simulation.Player.Id) setup[&quot;Combat&quot;]![&quot;Cursor&quot;] = i;</span>
+<span id="L36"><a class="line" href="#L36">36</a>                         if (id == &quot;observer&quot;) roster[i]![&quot;Points&quot;] = 0;</span>
+<span id="L37"><a class="line" href="#L37">37</a>                     }</span>
+<span id="L38"><a class="line" href="#L38">38</a>                     _simulation.Restore(setup.ToJsonString());</span>
+<span id="L39"><a class="line" href="#L39">39</a>                     break;</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 case 1:</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     if (_simulation.Combat.CurrentActorId != _simulation.Player.Id || _simulation.Combat.Pending is not null)</span>
+<span id="L42"><a class="line" href="#L42">42</a>                     {</span>
+<span id="L43"><a class="line" href="#L43">43</a>                         if (++_combatWait &gt; 400) throw new InvalidOperationException(&quot;Training AI did not return player input.&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>                         _smokeFrame = 0; return;</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     }</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     _combatHeldLocal = _simulation.LocalMs; _combatHeldWorld = _simulation.WorldMs;</span>
+<span id="L47"><a class="line" href="#L47">47</a>                     break;</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 case 2:</span>
+<span id="L49"><a class="line" href="#L49">49</a>                     if (_simulation.LocalMs != _combatHeldLocal || _simulation.WorldMs &lt;= _combatHeldWorld)</span>
+<span id="L50"><a class="line" href="#L50">50</a>                         throw new InvalidOperationException(&quot;Player input did not hold only local time.&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     SmokeKey(Key.V);</span>
+<span id="L52"><a class="line" href="#L52">52</a>                     break;</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 case 3:</span>
+<span id="L54"><a class="line" href="#L54">54</a>                     if (_simulation.Combat.Pending is not null) { _smokeFrame = 0; return; }</span>
+<span id="L55"><a class="line" href="#L55">55</a>                     if (!_simulation.Combat.For(_simulation.Player.Id)!.WeaponReady) throw new InvalidOperationException(&quot;V failed to ready training sidearm.&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>                     var victim = _simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>                     if (!_simulation.VisibleToPlayer(victim.Position)) throw new InvalidOperationException(&quot;Training target not visible.&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>                     RefreshCamera();</span>
+<span id="L59"><a class="line" href="#L59">59</a>                     var click = _world.GetGlobalTransform() * (WorldView.Screen(victim.Position) + new Vector2(0, -34));</span>
+<span id="L60"><a class="line" href="#L60">60</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, Pressed = true });</span>
+<span id="L61"><a class="line" href="#L61">61</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, Pressed = false });</span>
+<span id="L62"><a class="line" href="#L62">62</a>                     break;</span>
+<span id="L63"><a class="line" href="#L63">63</a>                 case 4:</span>
+<span id="L64"><a class="line" href="#L64">64</a>                     if (_simulation.Combat.Pending is not null) { _smokeFrame = 0; return; }</span>
+<span id="L65"><a class="line" href="#L65">65</a>                     if (!_simulation.Events.Entries.Any(e =&gt; e.Kind == MessageKind.Combat &amp;&amp; e.Text.StartsWith(&quot;You fire&quot;))</span>
+<span id="L66"><a class="line" href="#L66">66</a>                         || _simulation.Combat.For(_simulation.Player.Id)!.Ap != 4 || _simulation.Combat.For(_simulation.Player.Id)!.Ammo != 5)</span>
+<span id="L67"><a class="line" href="#L67">67</a>                         throw new InvalidOperationException(&quot;Click attack did not produce AP/ammunition/result feedback.&quot;);</span>
+<span id="L68"><a class="line" href="#L68">68</a>                     var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;));</span>
+<span id="L69"><a class="line" href="#L69">69</a>                     clone.Restore(_simulation.Save());</span>
+<span id="L70"><a class="line" href="#L70">70</a>                     if (clone.Save() != _simulation.Save()) throw new InvalidOperationException(&quot;Tactical rendered save did not round-trip.&quot;);</span>
+<span id="L71"><a class="line" href="#L71">71</a>                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;TACTICAL TRAINING · input waits locally; world calendar continues&quot;);</span>
+<span id="L72"><a class="line" href="#L72">72</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L73"><a class="line" href="#L73">73</a>                     using (var texture = GetViewport().GetTexture())</span>
+<span id="L74"><a class="line" href="#L74">74</a>                     using (var image = texture.GetImage())</span>
+<span id="L75"><a class="line" href="#L75">75</a>                         if (image.SavePng(_capturePath!) != Error.Ok) throw new IOException(&quot;Combat screenshot failed.&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>                     SmokeKey(Key.Enter); _combatWait = 0;</span>
+<span id="L77"><a class="line" href="#L77">77</a>                     break;</span>
+<span id="L78"><a class="line" href="#L78">78</a>                 case 5:</span>
+<span id="L79"><a class="line" href="#L79">79</a>                     if (!_simulation.Combat.Active) throw new InvalidOperationException(&quot;Drill unexpectedly ended before the return turn.&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>                     if (_simulation.Combat.CurrentActorId != _simulation.Player.Id || _simulation.Combat.Pending is not null)</span>
+<span id="L81"><a class="line" href="#L81">81</a>                     {</span>
+<span id="L82"><a class="line" href="#L82">82</a>                         if (++_combatWait &gt; 400) throw new InvalidOperationException(&quot;Autonomous round did not return input.&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>                         _smokeFrame = 0; return;</span>
+<span id="L84"><a class="line" href="#L84">84</a>                     }</span>
+<span id="L85"><a class="line" href="#L85">85</a>                     if (!_simulation.Events.Entries.Any(e =&gt; e.Kind == MessageKind.Combat &amp;&amp; e.Text.Contains(&quot;fires&quot;)))</span>
+<span id="L86"><a class="line" href="#L86">86</a>                         throw new InvalidOperationException(&quot;Autonomous attack missing from acquired log.&quot;);</span>
+<span id="L87"><a class="line" href="#L87">87</a>                     GD.Print(&quot;COMBAT_SMOKE_PASS: visible contact, initiative, local input hold with world progress, V ready, actual click shot, AP/ammo/result journal, save round-trip, Enter and autonomous turns.&quot;);</span>
+<span id="L88"><a class="line" href="#L88">88</a>                     GetTree().Quit(); return;</span>
+<span id="L89"><a class="line" href="#L89">89</a>             }</span>
+<span id="L90"><a class="line" href="#L90">90</a>             _smokeStage++; _smokeFrame = 0;</span>
+<span id="L91"><a class="line" href="#L91">91</a>         }</span>
+<span id="L92"><a class="line" href="#L92">92</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
+<span id="L93"><a class="line" href="#L93">93</a>     }</span>
+<span id="L94"><a class="line" href="#L94">94</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

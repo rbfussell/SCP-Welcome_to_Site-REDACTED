@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lore baseline and digital operations | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/13-lore-and-digital-operations.md.</aside><h1 id="lore-baseline-and-digital-operations">Lore baseline and digital operations</h1>
+<p>Status: Revision 0.6 design pass. The user requires lore-favored terminology and behavior, with questions for unresolved design ambiguities. Source-backed facts, chosen adaptations and pending decisions must remain visibly distinct. A resident AIC at the starting facility is confirmed; its exact authority profile, identity and canon/timeline remain open.</p>
+<h2 id="source-register">Source register</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Verified relevance</th>
+<th>Adaptation boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-245" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-245</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-245.html">Local snapshot</a> · <a href="canon-records/scp-245.json">JSON</a>]</span></span></td>
+<td>OSCP reference and isolated software containment</td>
+<td>Does not define every OS feature; no need to execute the attached software</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-5810" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-5810</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-5810.html">Local snapshot</a> · <a href="canon-records/scp-5810.json">JSON</a>]</span></span></td>
+<td>Terminal login, records/evidence interaction and user-facing checks</td>
+<td>Its narrative is not a complete operating-system manual</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/aiad-homescreen" data-canon-hosted="true" title="Hosted SCP Wiki; external site">AIAD Homescreen</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-aiad-homescreen.html">Local snapshot</a> · <a href="canon-records/aiad-homescreen.json">JSON</a>]</span></span></td>
+<td>AIC assignments, clearance, principles and specific historical portrayals</td>
+<td>Named AICs are not interchangeable generic assistants or automatically resident at every site</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/ai-classification-guide" data-canon-hosted="true" title="Hosted SCP Wiki; external site">AI Classification Guide</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-ai-classification-guide.html">Local snapshot</a> · <a href="canon-records/ai-classification-guide.json">JSON</a>]</span></span></td>
+<td>Different AI capabilities/classifications</td>
+<td>Do not assume every automated tool is a sentient AIC</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/site-87-faq" data-canon-hosted="true" title="Hosted SCP Wiki; external site">Site-87 Orientation: FAQ</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-site-87-faq.html">Local snapshot</a> · <a href="canon-records/site-87-faq.json">JSON</a>]</span></span></td>
+<td>A site portrayal explicitly lacking an assigned AIC</td>
+<td>Universal resident-AIC coverage is not established by these sources</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/cimmerian-sends-650-pms" data-canon-hosted="true" title="Hosted SCP Wiki; external site">Dr. Cimmerian Hits Reply All</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-cimmerian-sends-650-pms.html">Local snapshot</a> · <a href="canon-records/cimmerian-sends-650-pms.json">JSON</a>]</span></span></td>
+<td>SCiPnet mail and RAISA involvement</td>
+<td>Use the communication concepts, not the tale's exceptional mail volume as a normal operating target</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-5098" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-5098</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-5098.html">Local snapshot</a> · <a href="canon-records/scp-5098.json">JSON</a>]</span></span></td>
+<td>Foundation-issued smartphone associated with SCiPNET access</td>
+<td>No universal handset/security specification is established</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-5457" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-5457</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-5457.html">Local snapshot</a> · <a href="canon-records/scp-5457.json">JSON</a>]</span></span></td>
+<td>Mission agent reads SCiPNET messages on a phone</td>
+<td>Field communications precedent, not full OSCP workstation functionality</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/that-s-the-spirit" data-canon-hosted="true" title="Hosted SCP Wiki; external site">That's the Spirit!</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-that-s-the-spirit.html">Local snapshot</a> · <a href="canon-records/that-s-the-spirit.json">JSON</a>]</span></span></td>
+<td>Phone mission report with coordinate/recording/file attachments</td>
+<td>Gulf-canon prank narrative; interface precedent does not make report contents reliable</td>
+</tr>
+<tr>
+<td><span class="canon-link"><a  href="https://scp-wiki.wikidot.com/secure-facilities-locations" data-canon-hosted="true" title="Hosted SCP Wiki; external site">Foundation Facilities: Site-15</a> <span class="canon-link-options">[Hosted ↗ · <span title="No matching record in this archive snapshot">Local copy unavailable</span>]</span></span></td>
+<td>IT/AIAD, electronic containment and databases/communications</td>
+<td>Does not make all proposed Technical Services responsibilities universally canonical</td>
+</tr>
+</tbody>
+</table>
+<p>These references are SCP Wiki works under their linked attribution/license notices. Preserve individual article credits when adapting content. Existing character art is not imported by this pass.</p>
+<p>The user has supplied a <a href="doc-source-material-readme-md.html">local JSON reference archive</a>. Its indexes and targeted content shards support offline lookups, including SCP-650 and the AIAD hub. The archive guide records the inspected revision, actual key/path format and candidate technical-support tales. Archive presence does not establish a single canon or grant all source information to in-world actors. The exact Technical Services hub/title remains unresolved; the inspected “Technical Orientation” tale calls its department “Tech Support.”</p>
+<h2 id="proposed-division-of-responsibility">Proposed division of responsibility</h2>
+<p><strong>OSCP</strong> is the workstation/device platform and user interface. It supplies sessions, windows/commands, local files and access to installed services. It is not presumed to be an all-knowing sentient operating system.</p>
+<p><strong>SCiPnet</strong> is the Foundation-facing intranet/service layer for authorized records, internal mail, alerts and communications. Local replicas, site services and routes determine reachability; a connection does not grant clearance or reveal all current world state.</p>
+<p><strong>AICs</strong> are in-world software personnel assigned particular work and privileges. An assigned AIC can interpret technical requests, monitor systems, investigate eligible digital incidents and operate authorized frameworks through world-backed services. It retains identity, knowledge, duties, constraints and an auditable action history. Ordinary automated tasks can still run without an AIC.</p>
+<p><strong>Technical Services / site IT</strong> is the human operational responsibility for relevant equipment and technical work. Repairs can require technicians, tools, parts, access and time. The exact department title, reporting structure and claimed auxiliary hub remain pending a specific source/owner choice; do not invent a verified hub URL. Records/clearance governance and AIAD responsibilities must not disappear into an undefined all-purpose department.</p>
+<h2 id="confirmed-resident-aic">Confirmed resident AIC</h2>
+<p>The starting facility has a resident AIC. This is an autonomous entity in the shared simulation, with identity, knowledge, authority, responsibilities and physically located computing infrastructure. Hardware, power, connectivity, permissions and available information bound its capabilities. It accesses OSCP, surveillance, communications, facility systems and personnel through normal validated services. Residency does not grant omniscience or unrestricted authority.</p>
+<p>Initial implemented duties are bounded monitoring, reporting, operational assistance and authorized automated tasks. Advanced planning, conversation and independent behavior can expand later. Exact standing orders, escalation rights and hazardous-action permissions still need the user's authority decision; “autonomous entity” does not settle every permission.</p>
+<p>Deterministic logic must provide a functional AIC without a language model. Keep a versioned JSON provider interface for an optional local model. Regional AIC support over SCiPnet follows later, so a scenario can support resident staff, remote support or both without conflating identities or privileges.</p>
+<h2 id="aic-mechanics-to-qualify">AIC mechanics to qualify</h2>
+<p>Represent a conscript as a digital actor with a designated instance/identity, host or authorized deployment, reachable systems, task capacity, clearance, knowledge, doctrine/principles and assigned supervisor. Its requests use the same validated command boundary. Network/power loss or a failed service can prevent action; it cannot physically repair a disconnected cable remotely.</p>
+<p>In-world sapience does not require a real language model. Deterministic behaviors, authored dialogue and task logic run without one. An optional LLM can later supply permitted dialogue/intents without increasing authority or replacing validated actions. Sentient presentation and reliable game-state execution are separate concerns.</p>
+<h3 id="proposed-local-model-json-boundary">Proposed local-model JSON boundary</h3>
+<p>The AIC actor exists independently of its decision provider. A deterministic provider is the initial implementation. A future optional host adapter may exchange JSON with a configured local model; the transport/vendor and exact schema are not selected by this design pass. Public SCP scripts do not receive arbitrary HTTP or host process access through this feature.</p>
+<p>Requests carry a protocol version, request ID, AIC/instance identity, branch and simulation tick, applicable doctrine/authorized action descriptions, a bounded knowledge snapshot with evidence timestamps, and relevant target revisions. Information is filtered through the AIC's actual services and knowledge, rather than serializing the authoritative whole world.</p>
+<p>Responses contain typed proposed intents and optional attributed dialogue. Validate schema, size, actor, branch, freshness, target IDs, permissions and world preconditions through the normal command services. A provider cannot grant itself abilities, execute a shell command or rewrite arbitrary state. Hazardous content remains subject to authored exposure rules; it cannot become a trusted instruction merely by appearing in a dossier or model response.</p>
+<p>Provider work is asynchronous and must not halt simulation time while inference runs. Timeout, failure, invalid output and stale replies fall back to deterministic duties or explicit escalation. Cancel obsolete requests on branch changes; record committed decisions so save/load or replay does not depend on generating the same model response again. Deadlines, call budgets and model context limits are proposed tuning to qualify later. M1 proves the provider boundary with a deterministic/mock provider, not a real model dependency.</p>
+<p>Backups, migration, concurrent instances and identity replication need an explicit policy before implementation; copying an <code>.aic</code> game-world file must not silently create unlimited staff.</p>
+<p>Observer eligibility is resolved as a module/scenario choice: human, AI or any eligible observing actor, with medium/attention requirements evaluated separately. An AIC processing video may gain evidence and report it without suppressing an observation-dependent anomaly. SCP-650's baseline uses human observers, including qualified emergency live-camera observation. Its article does not address AICs or test AI-only observation; human-only is the chosen conservative game adaptation, not an explicit universal prohibition in the fiction. See <a href="doc-docs-09-first-playable-scp-650-md.html">SCP-650</a> and <a href="doc-docs-03-scp-module-contract-md.html#observer-eligibility-profiles">profile contract</a>.</p>
+<h2 id="pending-questions-and-decision-process">Pending questions and decision process</h2>
+<p>Questions already presented to the user:</p>
+<ol>
+<li><strong>Resolved:</strong> resident AIC at the starting site, with later regional support and an optional local-model JSON interface as described above.</li>
+<li>Advisory, standing-order technical work with escalation, or broad authorized autonomy?</li>
+<li>Which Technical Services hub/page and which canon/timeline should anchor the portrayal?</li>
+<li><strong>Resolved:</strong> module/scenario-configurable observer eligibility; SCP-650 defaults to humans and human-attended live feeds. AIC monitoring/reporting alone does not freeze it under that profile.</li>
+</ol>
+<p>Additional decisions before implementing affected behavior: original conscript versus a specific established character; source/adaptation evidence for other SCPs' observer profiles; backup/instance policy; exact authority of records governance and technical staff. Keep these as questions, not hidden defaults.</p>
+<p>When ambiguity affects behavior, identify the conflict and source, ask the user, and record their decision and adaptation notes. While awaiting an answer, progress on independent platform/UI/engine work and label alternatives as proposals. Do not promote proposed limits, schedules or a source-specific timeline into universal lore.</p>
+<p>Use the local archive for cross-wiki design research: search article bodies beyond the subject's own page and its outgoing/backlinked references. Relevant details may appear in other SCP descriptions, tales, incident logs, hubs or organizational material. Distinguish “not specified by this article” from “not found in the wider corpus,” record supporting passages and their canon context, and ask before resolving incompatible portrayals into a game rule. See the <a href="doc-source-material-readme-md.html#lookup-method">archive research workflow</a>.</p>
+<h2 id="october-24-workstationphone-clarification">October 24 workstation/phone clarification</h2>
+<p>The full OSCP interface is accessed at fixed facility workstations and visually framed by a faux CRT monitor body. A secure Foundation phone provides limited current-location maps, mission information and communications. The device split and security/capability profile are the game adaptation; mission/team commands are included, and future functions use an extensible application catalog; navigation remains extensible, and opening the phone automatically pauses single-player. <a href="doc-docs-reviews-oscp-device-source-checks-md.html">The device source check</a> records local cross-wiki research, live verification, creators and the distinction between SCP-5810 screen styling and the user-selected CRT casing.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/13-lore-and-digital-operations.md</footer></main></div></body></html>

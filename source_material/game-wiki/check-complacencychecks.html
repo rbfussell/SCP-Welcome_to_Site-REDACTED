@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ComplacencyChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>ComplacencyChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class ComplacencyChecks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool condition, string detail)
+        { if (!condition) throw new Exception(&quot;Complacency: &quot; + detail); passed++; }
+        var sim = new SpatialSimulation(json);
+        var body = sim.Anomalies.Bodies.Single();
+        var cell = body.Cell; var pose = body.Pose;
+        Check(sim.SetModuleFlag(body.Id, &quot;complacency&quot;, sim.Player.Id, true), &quot;registered module flag must accept a real human&quot;);
+        Check(sim.InspectAnomalies().Single().FlaggedActors(&quot;complacency&quot;).SequenceEqual(new[] { sim.Player.Id }), &quot;flag is scoped to a person&quot;);
+        Check(body.Cell == cell &amp;&amp; body.Pose == pose &amp;&amp; body.Revision == 0, &quot;flag cannot move/re-pose an observed statue&quot;);
+        var saved = sim.Save();
+        var restored = new SpatialSimulation(json); restored.Restore(saved);
+        Check(restored.Save() == saved, &quot;module flag must persist exactly&quot;);
+        var beforeReject = sim.Save();
+        Check(!sim.SetModuleFlag(body.Id, &quot;made-up&quot;, sim.Player.Id, true), &quot;module must reject unknown flags&quot;);
+        Check(!sim.SetModuleFlag(body.Id, &quot;complacency&quot;, &quot;missing&quot;, true), &quot;host must reject unknown target&quot;);
+        Check(!sim.SetModuleFlag(&quot;missing&quot;, &quot;complacency&quot;, sim.Player.Id, true), &quot;host must reject unknown instance&quot;);
+        Check(sim.Save() == beforeReject, &quot;rejected flags cannot mutate authoritative state&quot;);
+        sim.LocalHold = true;
+        Check(!sim.SetModuleFlag(body.Id, &quot;complacency&quot;, sim.Player.Id, false), &quot;held local simulation cannot change the flag&quot;);
+        Check(sim.InspectAnomalies().Single().FlaggedActors(&quot;complacency&quot;).Length == 1, &quot;rejected held change retains flag&quot;);
+        sim.LocalHold = false;
+        Check(sim.SetModuleFlag(body.Id, &quot;complacency&quot;, sim.Player.Id, false), &quot;flag must be reversible&quot;);
+        Check(sim.InspectAnomalies().Single().FlaggedActors(&quot;complacency&quot;).Length == 0, &quot;clearing removes the selected person&quot;);
+
+        var nonRear = false;
+        for (var seed = 1; seed &lt;= 32; seed++)
+        {
+            var config = JsonNode.Parse(json)!;
+            config[&quot;anomalies&quot;]![0]![&quot;seed&quot;] = seed;
+            var variant = config.ToJsonString();
+            var threat = new SpatialSimulation(variant); threat.ToggleObserverAttention();
+            var t = threat.Anomalies.Bodies.Single();
+            Check(t.Revision == 1 &amp;&amp; t.Pose is 1 or 2, &quot;threat profile must produce a threatening discrete pose&quot;);
+            Check(threat.Actors.Any(a =&gt; a.Cell.Distance(t.Cell) == 1 &amp;&amp; Behind(a, t.Cell)
+                &amp;&amp; threat.Map.ClearSight(a.Position, t.Cell.World)), &quot;threat placement must be immediately behind a person without a wall between them&quot;);
+            Check(threat.InspectAnomalies().Single().FlaggedActors(&quot;complacency&quot;).Length == 0, &quot;encounters cannot invent the future complacency metric&quot;);
+
+            var relaxed = new SpatialSimulation(variant);
+            foreach (var actor in relaxed.Actors) relaxed.SetModuleFlag(t.Id, &quot;complacency&quot;, actor.Id, true);
+            // Everyone else is occupied: front/side destinations can be genuinely unobserved too.
+            foreach (var actor in relaxed.Actors.Where(a =&gt; a.Id != &quot;observer&quot;)) actor.Attending = false;
+            relaxed.ToggleObserverAttention();
+            var r = relaxed.Anomalies.Bodies.Single();
+            Check(r.Revision == 1 &amp;&amp; r.Pose is &gt;= 3 and &lt;= 5, &quot;relaxed profile must select from quieter poses only&quot;);
+            Check(relaxed.Actors.Any(a =&gt; a.Cell.Distance(r.Cell) is &gt;= 2 and &lt;= 3
+                &amp;&amp; relaxed.Map.ClearSight(a.Position, r.Cell.World)), &quot;relaxed profile must use a comfortable distance in connected space&quot;);
+            Check(!relaxed.InspectAnomalies().Single().Observation.Observed, &quot;relaxed placement still requires an unobserved destination&quot;);
+            var selected = relaxed.Trace.Entries.Last(e =&gt; e.Event == &quot;relocation-selected&quot;).Detail;
+            nonRear |= relaxed.Actors.Any(a =&gt; selected.Contains($&quot;profile near {a.Id};&quot;) &amp;&amp; a.Cell.Distance(r.Cell) is &gt;= 2 and &lt;= 3
+                &amp;&amp; !Behind(a, r.Cell) &amp;&amp; relaxed.Map.ClearSight(a.Position, r.Cell.World));
+        }
+        Check(nonRear, &quot;relaxed placement must genuinely permit other positions rather than just change a pose behind someone&quot;);
+
+        var aiConfig = JsonNode.Parse(json)!;
+        aiConfig[&quot;actors&quot;]![1]![&quot;observerKind&quot;] = &quot;ai&quot;;
+        var ai = new SpatialSimulation(aiConfig.ToJsonString());
+        var aiSave = ai.Save();
+        Check(!ai.SetModuleFlag(&quot;scp-650&quot;, &quot;complacency&quot;, &quot;observer&quot;, true), &quot;SCP module must reject an ineligible flag target kind&quot;);
+        Check(ai.Save() == aiSave, &quot;invalid kind cannot mutate the world or module&quot;);
+        var aiBad = JsonNode.Parse(aiSave)!;
+        var aiModule = JsonNode.Parse(aiBad[&quot;Modules&quot;]![0]![&quot;Json&quot;]!.GetValue&lt;string&gt;())!;
+        aiModule[&quot;ComplacentActorIds&quot;] = new JsonArray(&quot;observer&quot;);
+        aiBad[&quot;Modules&quot;]![0]![&quot;Json&quot;] = aiModule.ToJsonString();
+        try { ai.Restore(aiBad.ToJsonString()); throw new Exception(&quot;Ineligible saved flag target accepted.&quot;); }
+        catch (ArgumentException) { Check(ai.Save() == aiSave, &quot;restore rechecks module target kinds without partial mutation&quot;); }
+
+        var invalid = JsonNode.Parse(saved)!;
+        var module = JsonNode.Parse(invalid[&quot;Modules&quot;]![0]![&quot;Json&quot;]!.GetValue&lt;string&gt;())!;
+        module[&quot;ComplacentActorIds&quot;] = new JsonArray(&quot;unknown-person&quot;);
+        invalid[&quot;Modules&quot;]![0]![&quot;Json&quot;] = module.ToJsonString();
+        var beforeLoad = restored.Save();
+        try { restored.Restore(invalid.ToJsonString()); throw new Exception(&quot;Invalid flag target accepted.&quot;); }
+        catch (ArgumentException) { Check(restored.Save() == beforeLoad, &quot;bad flag restore cannot partially alter the world&quot;); }
+        invalid = JsonNode.Parse(saved)!; invalid[&quot;Modules&quot;]![0]![&quot;Version&quot;] = 1;
+        try { restored.Restore(invalid.ToJsonString()); throw new Exception(&quot;Old implicit-familiarity module state accepted.&quot;); }
+        catch (ArgumentException) { Check(restored.Save() == beforeLoad, &quot;older module saves must fail intact rather than invent flags&quot;); }
+        Console.WriteLine($&quot;COMPLACENCY_CHECKS_PASS: {passed} assertions; per-person flags, module placement/pose policy, host attachment and persistence.&quot;);
+        return passed;
+    }
+    private static bool Behind(ActorState actor, Hex cell)
+    {
+        var delta = cell.World - actor.Position;
+        var facing = actor.Cell.Neighbor(actor.Facing).World - actor.Cell.World;
+        return delta.X * facing.X + delta.Y * facing.Y &lt; -0.01;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/ComplacencyChecks.cs</footer></main></div></body></html>

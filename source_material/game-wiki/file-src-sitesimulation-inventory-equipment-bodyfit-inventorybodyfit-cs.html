@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/BodyFit/InventoryBodyFit.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFit.cs</h1><p>src/SiteSimulation/Inventory/Equipment/BodyFit/InventoryBodyFit.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorybodyfit.html">InventoryBodyFit</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-d79640f531815bbb772d.html">InventoryBodyFit.Shape</a> · line 6</li><li><a href="function-92ddae75da250d533f3d.html">InventoryBodyFit.Pose</a> · line 8</li><li><a href="function-4a46c248560304a6158a.html">InventoryBodyFit.SamePlace</a> · line 9</li><li><a href="function-ac4a976a08b87b75d122.html">InventoryBodyFit.Validate</a> · line 12</li><li><a href="function-3ec21308ddf298ac038c.html">SpatialSimulation.BodyFitItems</a> · line 37</li><li><a href="function-5ebd2fc177c7f4e78bca.html">SpatialSimulation.BodyFitItems.get</a> · line 39</li><li><a href="function-5ee50db13cb004b70354.html">SpatialSimulation.PreviewBodyFit</a> · line 46</li><li><a href="function-31b6086b3fc38a81d269.html">SpatialSimulation.PreviewBodyFitDrop</a> · line 52</li><li><a href="function-dca85e838206cd42cf30.html">SpatialSimulation.BuildBodyFitPreview</a> · line 58</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Bridge from geometric fit to the existing equipment graph. No manipulation is performed by previews.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public static class InventoryBodyFit</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static BodyFitShape? Shape(InventoryState state, string itemId) =&gt; state.Definition(itemId).Wear?.FitProfile is { } id</span>
+<span id="L7"><a class="line" href="#L7">7</a>         ? state.BodyFits!.Shape(id) : null;</span>
+<span id="L8"><a class="line" href="#L8">8</a>     public static BodyPose? Pose(InventoryState state, InventoryItem item) =&gt; item.Placement.BodyPose ?? Shape(state, item.Id)?.DefaultPose;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     internal static bool SamePlace(InventoryState state, InventoryItem item, ItemPlacement destination)</span>
+<span id="L10"><a class="line" href="#L10">10</a>         =&gt; item.Placement with { BodyPose = null, WornOrder = null } == destination with { BodyPose = null, WornOrder = null }</span>
+<span id="L11"><a class="line" href="#L11">11</a>             &amp;&amp; (item.Placement.BodyPose ?? Shape(state, item.Id)?.DefaultPose) == (destination.BodyPose ?? Shape(state, item.Id)?.DefaultPose);</span>
+<span id="L12"><a class="line" href="#L12">12</a>     internal static void Validate(InventoryState state, InventoryItem item)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         var p = item.Placement;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         var root = state.Content!.Roots.SingleOrDefault(r =&gt; r.Id == p.ParentId &amp;&amp; r.ActorId is not null);</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var mount = state.Region(p.ParentId, p.RegionId).MountSlot;</span>
+<span id="L17"><a class="line" href="#L17">17</a>         if (root is null || mount is null or &quot;hand&quot;)</span>
+<span id="L18"><a class="line" href="#L18">18</a>         {</span>
+<span id="L19"><a class="line" href="#L19">19</a>             if (p.BodyPose is not null) throw new ArgumentException(&quot;Body placement is valid only on worn equipment.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>             return;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         var shape = Shape(state, item.Id);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (shape is null)</span>
+<span id="L24"><a class="line" href="#L24">24</a>         {</span>
+<span id="L25"><a class="line" href="#L25">25</a>             if (p.BodyPose is not null) throw new ArgumentException(&quot;This equipment has no authored body fit.&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>             return;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         }</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (p.BodyPose is not null &amp;&amp; p.Rotated) throw new ArgumentException(&quot;Body rotation is separate from storage rotation.&quot;);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (root.BodyFamily != shape.BodyFamily) throw new ArgumentException(&quot;Equipment does not match this person&#x27;s body family.&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var result = BodyFitGeometry.Evaluate(state.BodyFits!.Body(root.BodyFamily), shape, p.BodyPose ?? shape.DefaultPose);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         if (!result.Fits) throw new ArgumentException(state.Definition(item.Id).Name + &quot;: &quot; + result.Reason);</span>
+<span id="L32"><a class="line" href="#L32">32</a>     }</span>
+<span id="L33"><a class="line" href="#L33">33</a> }</span>
+<span id="L34"><a class="line" href="#L34">34</a> </span>
+<span id="L35"><a class="line" href="#L35">35</a> public sealed partial class SpatialSimulation</span>
+<span id="L36"><a class="line" href="#L36">36</a> {</span>
+<span id="L37"><a class="line" href="#L37">37</a>     public IReadOnlyList&lt;InventoryItem&gt; BodyFitItems</span>
+<span id="L38"><a class="line" href="#L38">38</a>     {</span>
+<span id="L39"><a class="line" href="#L39">39</a>         get</span>
+<span id="L40"><a class="line" href="#L40">40</a>         {</span>
+<span id="L41"><a class="line" href="#L41">41</a>             var root = Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id);</span>
+<span id="L42"><a class="line" href="#L42">42</a>             return root is null ? [] : Inventory.DiagnosticItems.Where(i =&gt; i.Placement.ParentId == root.Id</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 &amp;&amp; Inventory.Definition(i.Id).Wear?.FitProfile is not null).ToArray();</span>
+<span id="L44"><a class="line" href="#L44">44</a>         }</span>
+<span id="L45"><a class="line" href="#L45">45</a>     }</span>
+<span id="L46"><a class="line" href="#L46">46</a>     public BodyFitPreview? PreviewBodyFit(string itemId, BodyPose pose, string? mount = null)</span>
+<span id="L47"><a class="line" href="#L47">47</a>     {</span>
+<span id="L48"><a class="line" href="#L48">48</a>         if (!BodyFitItems.Any(i =&gt; i.Id == itemId) || InventoryBodyFit.Shape(Inventory, itemId) is not { } shape) return null;</span>
+<span id="L49"><a class="line" href="#L49">49</a>         return BuildBodyFitPreview(Inventory.Items[itemId], shape, pose, mount);</span>
+<span id="L50"><a class="line" href="#L50">50</a>     }</span>
+<span id="L51"><a class="line" href="#L51">51</a>     /// &lt;summary&gt;One explicitly addressed, currently inspectable item. Never expands the own-equipment selector or scans hidden storage.&lt;/summary&gt;</span>
+<span id="L52"><a class="line" href="#L52">52</a>     public BodyFitPreview? PreviewBodyFitDrop(string itemId, BodyPose pose, string? mount = null)</span>
+<span id="L53"><a class="line" href="#L53">53</a>     {</span>
+<span id="L54"><a class="line" href="#L54">54</a>         if (!Inventory.Items.TryGetValue(itemId, out var item) || !InventoryInspectAccess(itemId).Allowed</span>
+<span id="L55"><a class="line" href="#L55">55</a>             || InventoryBodyFit.Shape(Inventory, itemId) is not { } shape) return null;</span>
+<span id="L56"><a class="line" href="#L56">56</a>         return BuildBodyFitPreview(item, shape, pose, mount);</span>
+<span id="L57"><a class="line" href="#L57">57</a>     }</span>
+<span id="L58"><a class="line" href="#L58">58</a>     private BodyFitPreview? BuildBodyFitPreview(InventoryItem item, BodyFitShape shape, BodyPose pose, string? mount)</span>
+<span id="L59"><a class="line" href="#L59">59</a>     {</span>
+<span id="L60"><a class="line" href="#L60">60</a>         var root = Inventory.Content!.Roots.Single(r =&gt; r.ActorId == Player.Id);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         if (root.BodyFamily is null) return null;</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var currentMount = item.Placement.ParentId == root.Id ? Inventory.Region(root.Id, item.Placement.RegionId).MountSlot : null;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         var target = mount ?? (currentMount is not null &amp;&amp; InventoryWear.Accepts(Inventory.Definition(item.Id), currentMount)</span>
+<span id="L64"><a class="line" href="#L64">64</a>             ? item.Placement.RegionId : Inventory.Definition(item.Id).WearSlot!);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var request = new InventoryRequest(InventoryActionKind.Move, item.Id, new(root.Id, target, BodyPose: pose));</span>
+<span id="L66"><a class="line" href="#L66">66</a>         return new(BodyFitGeometry.Evaluate(Inventory.BodyFits!.Body(root.BodyFamily), shape, pose), QuoteInventory(request), request);</span>
+<span id="L67"><a class="line" href="#L67">67</a>     }</span>
+<span id="L68"><a class="line" href="#L68">68</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

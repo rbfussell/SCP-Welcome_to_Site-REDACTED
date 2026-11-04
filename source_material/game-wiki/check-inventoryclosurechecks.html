@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryClosureChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryClosureChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class InventoryClosureChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Closure policy: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryRequest Pocket(string id, string region) =&gt; new(InventoryActionKind.Close, id, RegionId: region);
+        void Finish(SpatialSimulation sim)
+        {
+            for (var i = 0; i &lt; 400 &amp;&amp; (sim.Inventory.Pending is not null || sim.Inventory.SecuringRemaining &gt; 0); i++) sim.Tick();
+            Check(sim.Inventory.Pending is null &amp;&amp; sim.Inventory.SecuringRemaining == 0, &quot;work finishes under normal scheduler&quot;);
+        }
+        var sim = Sim(); var state = sim.Inventory;
+        foreach (var hip in new[] { &quot;left&quot;, &quot;right&quot; })
+        {
+            var r = state.Region(&quot;avatar-trousers&quot;, hip);
+            Check(!r.Sealable &amp;&amp; r.Snug &amp;&amp; !InventoryClosures.SecureOnClose(state, &quot;avatar-trousers&quot;, hip), &quot;hip opening is snug and has no fastening policy&quot;);
+            var safeHip = sim.Save();
+            foreach (var kind in new[] { InventoryActionKind.Open, InventoryActionKind.Close })
+                Check(!sim.HandleInventory(new(kind, &quot;avatar-trousers&quot;, RegionId: hip)) &amp;&amp; sim.Save() == safeHip, &quot;no invented opening/closing work for an unsealable pocket&quot;);
+            Check(!sim.SetInventorySecureOnClose(&quot;avatar-trousers&quot;, hip, true) &amp;&amp; sim.Save() == safeHip, &quot;player cannot invent a fastening with a preference&quot;);
+            Check(InventoryClosures.OnDismissal(state, [Pocket(&quot;avatar-trousers&quot;, hip)]).Length == 0, &quot;dismissal never queues a closure on an unsealable mouth&quot;);
+        }
+        Check(state.Region(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).Sealable, &quot;cargo flap retains its independent closure&quot;);
+        var forgedHip = JsonNode.Parse(sim.Save())!;
+        forgedHip[&quot;Inventory&quot;]![&quot;Regions&quot;]!.AsArray().First(r =&gt; r![&quot;ItemId&quot;]!.GetValue&lt;string&gt;() == &quot;avatar-trousers&quot; &amp;&amp; r[&quot;RegionId&quot;]!.GetValue&lt;string&gt;() == &quot;left&quot;)![&quot;Open&quot;] = false;
+        var validHip = sim.Save();
+        try { sim.Restore(forgedHip.ToJsonString()); throw new Exception(&quot;Sealed unsealable pocket accepted&quot;); }
+        catch (ArgumentException) { Check(sim.Save() == validHip, &quot;forged sealed hip state rejects without changing live state&quot;); }
+        var jacket = new InventoryRequest(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;);
+        var chest = Pocket(&quot;avatar-coat&quot;, &quot;chest&quot;); var pack = Pocket(&quot;avatar-backpack&quot;, &quot;main&quot;);
+        Check(!InventoryClosures.SecureOnClose(state, &quot;avatar-coat&quot;) &amp;&amp; InventoryClosures.SecureOnClose(state, &quot;avatar-coat&quot;, &quot;chest&quot;),
+            &quot;jacket front stays open by default while its independent buttoned pocket auto-secures&quot;);
+        Check(InventoryClosures.SecureOnClose(state, &quot;avatar-backpack&quot;, &quot;main&quot;), &quot;backpack main closure keeps its own authored default&quot;);
+        Check(InventoryClosures.OnDismissal(state, [jacket, chest, pack]).SequenceEqual(new[] { chest, pack }), &quot;dismissal filters each fastening independently&quot;);
+        var unchanged = sim.Save();
+        Check(sim.SecureInventory([jacket], automatic: true) &amp;&amp; sim.Save() == unchanged &amp;&amp; state.SecuringRemaining == 0,
+            &quot;automatic service callers also honor defaults without requiring the UI to filter targets&quot;);
+        Check(InventoryClosures.Toggle(state, &quot;avatar-coat&quot;).Verb == &quot;Zip&quot;, &quot;open jacket offers Zip&quot;);
+        sim.HandleInventory(jacket); Finish(sim);
+        var unzip = InventoryClosures.Toggle(state, &quot;avatar-coat&quot;);
+        Check(unzip.Verb == &quot;Unzip&quot; &amp;&amp; unzip.Request.Kind == InventoryActionKind.OpenGarment, &quot;secured jacket offers Unzip from its actual boolean state&quot;);
+        sim.HandleInventory(unzip.Request); Finish(sim);
+        Check(InventoryClosures.Toggle(state, &quot;avatar-coat&quot;).Verb == &quot;Zip&quot;, &quot;opening returns the opposite physical action&quot;);
+        var beforeRevision = state.Revision;
+        sim.ManualPause = true;
+        Check(sim.SetInventorySecureOnClose(&quot;avatar-coat&quot;, null, true), &quot;player may opt this jacket front into auto-securing even while paused&quot;);
+        Check(InventoryClosures.OnDismissal(state, [jacket]).Length == 1 &amp;&amp; state.Items[&quot;avatar-coat&quot;].GarmentOpen &amp;&amp; state.Revision == beforeRevision &amp;&amp; state.Pending is null,
+            &quot;preference changes do not zip the jacket, buy AP/time or invalidate paid work&quot;);
+        Check(!InventoryClosures.SecureOnClose(state, &quot;observer-coat&quot;), &quot;another jacket instance retains its independent authored default&quot;);
+        Check(sim.SetInventorySecureOnClose(&quot;avatar-coat&quot;, &quot;chest&quot;, false) &amp;&amp; InventoryClosures.SecureOnClose(state, &quot;avatar-coat&quot;)
+            &amp;&amp; !InventoryClosures.SecureOnClose(state, &quot;avatar-coat&quot;, &quot;chest&quot;), &quot;pocket preference is independent of the garment front&quot;);
+        Check(sim.SetInventorySecureOnClose(&quot;avatar-backpack&quot;, &quot;main&quot;, false) &amp;&amp; InventoryClosures.SecureOnClose(state, &quot;avatar-backpack&quot;, &quot;side&quot;),
+            &quot;one compartment preference does not affect another compartment of the same bag&quot;);
+        var saved = sim.Save(); var clone = Sim(); clone.Restore(saved);
+        Check(clone.Save() == saved &amp;&amp; InventoryClosures.SecureOnClose(clone.Inventory, &quot;avatar-coat&quot;) &amp;&amp; !InventoryClosures.SecureOnClose(clone.Inventory, &quot;avatar-coat&quot;, &quot;chest&quot;),
+            &quot;instance and compartment overrides persist exactly&quot;);
+        var before = sim.Save();
+        Check(!sim.SetInventorySecureOnClose(&quot;tech-coat&quot;, null, true) &amp;&amp; sim.Save() == before, &quot;cannot configure another employee&#x27;s clothing&quot;);
+        Check(!sim.SetInventorySecureOnClose(&quot;avatar-coat&quot;, &quot;unknown&quot;, false) &amp;&amp; sim.Save() == before, &quot;invalid compartment rejects without changing any state&quot;);
+        Check(!sim.SetInventorySecureOnClose(&quot;flashlight&quot;, null, false) &amp;&amp; sim.Save() == before, &quot;an ordinary item has no invented fastening&quot;);
+        sim.ManualPause = false;
+        Check(sim.SecureInventory([pack]), &quot;explicit securing still works with automatic behavior disabled&quot;); Finish(sim);
+        Check(!state.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; InventoryClosures.Toggle(state, &quot;avatar-backpack&quot;, &quot;main&quot;).Verb == &quot;Unzip&quot;,
+            &quot;explicit closure commits and exposes the opposite menu verb&quot;);
+        var unbutton = InventoryClosures.Toggle(state, &quot;avatar-coat&quot;, &quot;chest&quot;);
+        Check(unbutton.Verb == &quot;Button&quot;, &quot;open pocket offers Button&quot;);
+        sim.HandleInventory(unbutton.Request); Finish(sim);
+        Check(InventoryClosures.Toggle(state, &quot;avatar-coat&quot;, &quot;chest&quot;).Verb == &quot;Unbutton&quot;, &quot;secured pocket offers Unbutton independently of its auto-close preference&quot;);
+        var canceled = Sim(); canceled.SecureInventory([chest, pack], automatic: true);
+        Check(canceled.SetInventorySecureOnClose(&quot;avatar-coat&quot;, &quot;chest&quot;, false) &amp;&amp; canceled.Inventory.SecuringRemaining == 1,
+            &quot;turning off one fastening removes only its unstarted automatic closure&quot;);
+        var explicitPlan = Sim(); explicitPlan.SecureInventory([chest]);
+        Check(explicitPlan.SetInventorySecureOnClose(&quot;avatar-coat&quot;, &quot;chest&quot;, false) &amp;&amp; explicitPlan.Inventory.SecuringRemaining == 1,
+            &quot;per-gear convenience changes do not cancel an explicitly ordered closure&quot;);
+        var paid = Sim(); paid.SecureInventory([pack]); paid.Tick();
+        Check(paid.Inventory.Pending is not null &amp;&amp; paid.SetInventorySecureOnClose(&quot;avatar-backpack&quot;, &quot;main&quot;, false), &quot;preference can change while paid work resolves&quot;);
+        Finish(paid);
+        Check(!paid.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;already committed work still completes without a free refund or revision failure&quot;);
+        // Explicitly unmapped regions retain the existing coarse compatibility fallback.
+        var world = new SimulationWorld(map, config); var definitions = world.Inventory.Content!.Definitions;
+        var index = Array.FindIndex(definitions, d =&gt; d.Id == &quot;trousers&quot;); var trousers = definitions[index];
+        definitions[index] = trousers with { Regions = trousers.Regions!.Select(r =&gt; r with { AccessBody = r.Id == &quot;left&quot; ? [&quot;hips-front&quot;] : [&quot;legs&quot;], AccessFootprint = null }).ToArray() };
+        world.Inventory.Items[&quot;avatar-coat&quot;] = world.Inventory.Items[&quot;avatar-coat&quot;] with { GarmentOpen = false };
+        Check(!InventoryAccessService.Placement(world, &quot;avatar&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;)).Allowed
+            &amp;&amp; InventoryAccessService.Placement(world, &quot;avatar&quot;, new(&quot;avatar-trousers&quot;, &quot;right&quot;)).Allowed,
+            &quot;jacket over hips covers the hip pocket but leaves the independently located leg pocket accessible&quot;);
+        var corrupt = JsonNode.Parse(saved)!;
+        corrupt[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().Single(n =&gt; n![&quot;Id&quot;]!.GetValue&lt;string&gt;() == &quot;flashlight&quot;)![&quot;SecureOnClose&quot;] = false;
+        var safe = clone.Save();
+        try { clone.Restore(corrupt.ToJsonString()); throw new Exception(&quot;Unsupported item closure override accepted&quot;); }
+        catch (ArgumentException) { Check(clone.Save() == safe, &quot;unsupported closure metadata rejects atomically on restore&quot;); }
+        var legacy = JsonNode.Parse(new SpatialSimulation(map, config).Save())!; legacy[&quot;Version&quot;] = 9;
+        foreach (var item in legacy[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray()) item!.AsObject().Remove(&quot;SecureOnClose&quot;);
+        foreach (var region in legacy[&quot;Inventory&quot;]![&quot;Regions&quot;]!.AsArray()) region!.AsObject().Remove(&quot;SecureOnClose&quot;);
+        try { clone.Restore(legacy.ToJsonString()); throw new Exception(&quot;Pre-order closure save accepted&quot;); }
+        catch (ArgumentException) { Check(clone.Save() == safe, &quot;older inventory schemas cannot invent actual dressing order or mutate the current world&quot;); }
+        Console.WriteLine($&quot;INVENTORY_CLOSURE_CHECKS_PASS: {passed} assertions; state verbs, per-fastening defaults/overrides, pocket coverage, paid work and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/InventoryClosureChecks.cs</footer></main></div></body></html>

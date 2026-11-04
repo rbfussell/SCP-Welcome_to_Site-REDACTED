@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GroundView._Ready | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>GroundView._Ready</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-groundview-cs.html#L22">game/Presentation/GroundView.cs:22</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Ready()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-3e362d9e34e5e362eaf2.html">WorldView.Screen</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Enumerable.Range
+Math.Abs
+tiles.GroupBy
+Textures[group.Key].GetSize
+WorldView.Screen
+vertices.Add
+uvs.Add
+planar.Add
+ground.Add
+tints.Add
+indices.AddRange
+_batches.Add
+vertices.ToArray
+uvs.ToArray
+planar.ToArray
+indices.ToArray
+ground.ToArray
+tints.ToArray</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-groundview.html">GroundView</a></li><li><a href="type-point2.html">Point2</a></li><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Implementation</h2><pre><code>public override void _Ready()
+    {
+        ShowBehindParent = true;
+        TextureFilter = TextureFilterEnum.Nearest;
+        var map = Simulation.Map.Definition;
+        var tiles = from y in Enumerable.Range(-2, map.Height + 4)
+                    from x in Enumerable.Range(-2, map.Width + 4)
+                    let indoor = x &gt;= 0 &amp;&amp; y &gt;= 0 &amp;&amp; x &lt; map.Width &amp;&amp; y &lt; map.Height
+                    let key = $&quot;{(indoor ? &quot;floor&quot; : &quot;land&quot;)}-{Math.Abs((x * 17 + y * 31) % 6)}&quot;
+                    select (x, y, indoor, key);
+        foreach (var group in tiles.GroupBy(t =&gt; t.key))
+        {
+            var vertices = new List&lt;Vector2&gt;(); var uvs = new List&lt;Vector2&gt;(); var indices = new List&lt;int&gt;();
+            var planar = new List&lt;Vector2&gt;();
+            var ground = new List&lt;Point2&gt;(); var tints = new List&lt;Color&gt;();
+            var size = Textures[group.Key].GetSize();
+            foreach (var tile in group)
+            {
+                var first = vertices.Count;
+                var tint = tile.indoor &amp;&amp; tile.y is &gt;= 3 and &lt; 5 ? new Color(1.09f, 1.03f, 0.86f) : Colors.White;
+                for (var v = 0; v &lt;= Subdivisions; v++)
+                for (var u = 0; u &lt;= Subdivisions; u++)
+                {
+                    var offset = new Point2(u / (double)Subdivisions, v / (double)Subdivisions);
+                    var point = new Point2(tile.x + offset.X, tile.y + offset.Y);
+                    var uv = WorldView.Screen(offset) + new Vector2(0, 12);
+                    vertices.Add(WorldView.Screen(point)); uvs.Add(uv / size);
+                    planar.Add(new((float)offset.X, (float)offset.Y));
+                    ground.Add(point); tints.Add(tint);
+                }
+                for (var v = 0; v &lt; Subdivisions; v++)
+                for (var u = 0; u &lt; Subdivisions; u++)
+                {
+                    var a = first + v * (Subdivisions + 1) + u;
+                    var b = a + 1; var c = a + Subdivisions + 1; var d = c + 1;
+                    indices.AddRange([a, b, c, b, d, c]);
+                }
+            }
+            _batches.Add(new(new ArrayMesh(), group.Key, Textures[group.Key], vertices.ToArray(), uvs.ToArray(), planar.ToArray(),
+                indices.ToArray(), ground.ToArray(), tints.ToArray()));
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/GroundView.cs:22</footer></main></div></body></html>

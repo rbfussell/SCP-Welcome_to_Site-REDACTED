@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodyFitGeometry.Evaluate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyFitGeometry.Evaluate</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-equipment-bodyfit-bodyfitgeometry-cs.html#L13">src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitGeometry.cs:13</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static BodyFitResult Evaluate(BodyMask body, BodyFitShape shape, BodyPose pose)</code></pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-249b024b91e4a3edcd54.html">BodyHex.Neighbor</a></li><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-3cf39b056266adefe31f.html">Hex.Neighbor</a></li><li><a href="function-909815f23f75d4ae6e59.html">BodyFitGeometry.Cells</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>shape.Rotations.Contains
+Cells(body.Rows).ToHashSet
+Cells
+Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToArray
+Cells(shape.Rows).Select
+localCells.Min
+localCells.Max
+bodyCells.Contains
+Transform
+Enumerable.Range(low, high - low + 1).Select(q =&gt; new BodyHex(q, 0)).ToArray
+Enumerable.Range(low, high - low + 1).Select
+Enumerable.Range
+localCells.Select(c =&gt; Transform(c, pose)).ToArray
+localCells.Select
+cells.Where(c =&gt; !bodyCells.Contains(c)).ToArray
+cells.Where
+localContacts.Select(edge =&gt; new BodyContact(Transform(edge.Cell, pose), (edge.Direction + pose.Rotation) % 6)).ToArray
+localContacts.Select
+contacts.Where(edge =&gt; !bodyCells.Contains(edge.Cell) || bodyCells.Contains(edge.Cell.Neighbor(edge.Direction))).ToArray
+contacts.Where
+edge.Cell.Neighbor</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-020e99df0cfd6ab83adc.html">AnomalySystem.Evaluate</a></li><li><a href="function-20f1fad32cdc51271fbd.html">TacticalCombatSystem.Fire</a></li><li><a href="function-250efffdba763cf6f6bc.html">SpatialSimulation.SpatialSimulation</a></li><li><a href="function-32803b36e1225b1ba782.html">TacticalCombatSystem.ResolveTick</a></li><li><a href="function-56f2b6e8ab99c10e20c7.html">InventoryWornStack.Cells</a></li><li><a href="function-7734ca017a3b4f421080.html">MovementSystem.Advance</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li><li><a href="function-ac4a976a08b87b75d122.html">InventoryBodyFit.Validate</a></li><li><a href="function-dca85e838206cd42cf30.html">SpatialSimulation.BuildBodyFitPreview</a></li><li><a href="function-e79cf90892bf9dafd048.html">SpatialSimulation.Changed</a></li><li><a href="function-f4fe8ddda11b86d6e8d4.html">TacticalCombatSystem.Face</a></li><li><a href="function-f63dee9368b588964d15.html">BodyFitCatalog.Validate</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodycontact.html">BodyContact</a></li><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-bodyfitresult.html">BodyFitResult</a></li><li><a href="type-bodyfitshape.html">BodyFitShape</a></li><li><a href="type-bodyhex.html">BodyHex</a></li><li><a href="type-bodymask.html">BodyMask</a></li><li><a href="type-bodypose.html">BodyPose</a></li></ul><h2>Implementation</h2><pre><code>public static BodyFitResult Evaluate(BodyMask body, BodyFitShape shape, BodyPose pose)
+    {
+        if (pose.Q is &lt; -64 or &gt; 64 || pose.R is &lt; -64 or &gt; 64 || pose.Rotation is &lt; 0 or &gt; 5 || !shape.Rotations.Contains(pose.Rotation))
+            return new(false, &quot;Unsupported body position or orientation.&quot;, [], [], [], []);
+        if (body.Id != shape.BodyFamily) return new(false, &quot;Equipment was authored for a different body family.&quot;, [], [], [], []);
+        var bodyCells = Cells(body.Rows).ToHashSet();
+        var localCells = Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToArray();
+        var localContacts = shape.Contacts;
+        if (shape.LinearSpan is { } span)
+        {
+            // Find the first exterior cell on each end. Independent extents allow a chest diagonal
+            // without shifting its chosen anchor. Never bridge a gap, shrink the core or exceed the authored range.
+            var low = localCells.Min(c =&gt; c.Q); var high = localCells.Max(c =&gt; c.Q);
+            while (high - low + 1 &lt;= span.MaxCells &amp;&amp; bodyCells.Contains(Transform(new(low - 1, 0), pose))) low--;
+            while (high - low + 1 &lt;= span.MaxCells &amp;&amp; bodyCells.Contains(Transform(new(high + 1, 0), pose))) high++;
+            if (high - low + 1 &gt;= span.MinCells &amp;&amp; high - low + 1 &lt;= span.MaxCells)
+            {
+                localCells = Enumerable.Range(low, high - low + 1).Select(q =&gt; new BodyHex(q, 0)).ToArray();
+                localContacts = [new(new(low, 0), 4), new(new(high, 0), 1)];
+            }
+        }
+        var cells = localCells.Select(c =&gt; Transform(c, pose)).ToArray();
+        var outside = cells.Where(c =&gt; !bodyCells.Contains(c)).ToArray();
+        var contacts = localContacts.Select(edge =&gt; new BodyContact(Transform(edge.Cell, pose), (edge.Direction + pose.Rotation) % 6)).ToArray();
+        var failed = contacts.Where(edge =&gt; !bodyCells.Contains(edge.Cell) || bodyCells.Contains(edge.Cell.Neighbor(edge.Direction))).ToArray();
+        var fits = outside.Length == 0 &amp;&amp; failed.Length == 0;
+        return new(fits, fits ? shape.LinearSpan is null ? &quot;Shape and boundary contacts fit.&quot; : $&quot;Strap fitted to {cells.Length} cells within authored {shape.LinearSpan.MinCells}–{shape.LinearSpan.MaxCells}; both ends contact.&quot;
+            : outside.Length &gt; 0 ? $&quot;{outside.Length} worn cells fall outside the body.&quot;
+            : $&quot;{failed.Length} closed edges fail body contact; body continues through them.&quot;, cells, outside, contacts, failed);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitGeometry.cs:13</footer></main></div></body></html>

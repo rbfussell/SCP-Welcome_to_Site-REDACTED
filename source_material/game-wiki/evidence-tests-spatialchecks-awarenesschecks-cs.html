@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/AwarenessChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>AwarenessChecks.cs</h1><pre>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class AwarenessChecks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Awareness: &quot; + detail); passed++; }
+        var policy = new PlayerAwareness();
+        var unknownModule = new PerceivedContact(&quot;fixture:unfamiliar-object&quot;, 0, new(1, 2), 0, &quot;direct&quot;, &quot;avatar&quot;);
+        Check(policy.StopOnDirectSight &amp;&amp; policy.StopOnReports, &quot;both interruption settings default on&quot;);
+        Check(policy.Receive(unknownModule), &quot;generic anomalous subject must trigger without an SCP-specific reaction&quot;);
+        Check(!policy.Receive(unknownModule), &quot;continuous sight must not repeatedly interrupt&quot;);
+        Check(!policy.Receive(unknownModule with { Source = &quot;voice&quot;, ObserverId = &quot;colleague&quot; }), &quot;duplicate report is the same encounter&quot;);
+        Check(policy.Receive(unknownModule with { Encounter = 1 }), &quot;a new appearance is a fresh encounter&quot;);
+        Check(!policy.Receive(unknownModule), &quot;stale reports must not replace newer evidence or retrigger it&quot;);
+        policy.StopOnDirectSight = false;
+        Check(!policy.Receive(unknownModule with { SubjectId = &quot;fixture:second-object&quot; }), &quot;self sightings can be disabled independently&quot;);
+        Check(policy.Receive(unknownModule with { SubjectId = &quot;fixture:second-object&quot;, Source = &quot;voice&quot;, ObserverId = &quot;colleague&quot; }),
+            &quot;communicated sighting can still interrupt with self sightings disabled&quot;);
+        policy.StopOnReports = false;
+        Check(!policy.Receive(unknownModule with { SubjectId = &quot;fixture:third-object&quot;, Source = &quot;voice&quot;, ObserverId = &quot;colleague&quot; }), &quot;reports can also be disabled&quot;);
+        Check(!policy.Receive(unknownModule with { SubjectId = &quot;sound:unidentified&quot;, Source = &quot;sound&quot;, Classification = &quot;unknown&quot;, UncertaintyRadius = 2 }),
+            &quot;an unidentified sound carries uncertain evidence without identifying an anomaly or forcing combat&quot;);
+        Check(policy.Evidence.Single(e =&gt; e.SubjectId == &quot;sound:unidentified&quot;).UncertaintyRadius == 2,
+            &quot;direction cues must retain uncertainty rather than looking up a hidden emitter&quot;);
+        var heard = new SpatialSimulation(json);
+        heard.Awareness.Receive(new(&quot;sound:unidentified&quot;, 0, new(3, 4), heard.LocalMs, &quot;sound&quot;, heard.Player.Id, &quot;unknown&quot;, 2));
+        var heardClone = new SpatialSimulation(json); heardClone.Restore(heard.Save());
+        Check(heardClone.Save() == heard.Save(), &quot;an uncertain sound contact must persist without inventing an authoritative source entity&quot;);
+
+        void DiscoverWhileWalking(SpatialSimulation sim)
+        {
+            // Sensor fixture: change attention without issuing the player&#x27;s stop-and-look command.
+            sim.Player.Facing = ObservationService.FacingToward(sim.Player.Position, sim.Anomalies.Bodies.Single().Cell.World, sim.Player.Facing);
+            sim.Player.KeepFacing = true;
+            sim.Tick();
+        }
+        SpatialSimulation Setup(int ticks, bool trigger = true)
+        {
+            var sim = new SpatialSimulation(json);
+            sim.Awareness.StopOnReports = false;
+            sim.Player.Cell = new(12, -2);
+            sim.Face(new(8, 3));
+            Check(sim.RequestMove(new(14, -2), true), &quot;fixture needs an ordinary multi-step route away from the anomaly&quot;);
+            for (var i = 0; i &lt; ticks; i++) sim.Tick();
+            Check(sim.Player.Moving &amp;&amp; sim.Player.SegmentMs == ticks * SpatialSimulation.TickMs, &quot;walking setup must reach its expected fractional progress&quot;);
+            if (trigger) DiscoverWhileWalking(sim);
+            return sim;
+        }
+        var sim = Setup(2, false);
+        var position = sim.Player.Position;
+        DiscoverWhileWalking(sim);
+        var local = sim.LocalMs; var world = sim.WorldMs;
+        Check(!sim.Player.Moving &amp;&amp; sim.Player.Route.Count == 0 &amp;&amp; sim.Player.SegmentMs == 0, &quot;sighting must clear path and active destination immediately&quot;);
+        Check(sim.Player.Position == position &amp;&amp; sim.Player.StoppedStep?.ProgressMs == 100, &quot;stop must retain exact fractional position without snapping or finishing a step&quot;);
+        Check(!sim.ManualPause &amp;&amp; !sim.LocalHold, &quot;a movement interruption cannot pause the game or local area&quot;);
+        Check(sim.Trace.Entries.Any(e =&gt; e.Event == &quot;awareness-stop&quot;), &quot;shared movement stop needs causal evidence&quot;);
+        var saved = sim.Save(); var clone = new SpatialSimulation(json); clone.Restore(saved);
+        Check(clone.Save() == saved, &quot;fractional stop, settings and acknowledged evidence must restore exactly&quot;);
+        for (var i = 0; i &lt; 100; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Player.Position == position &amp;&amp; sim.WorldMs == world + 5000 &amp;&amp; sim.LocalMs == local + 5000, &quot;world, NPCs and local timers continue while player stays put&quot;);
+        Check(sim.Save() == clone.Save(), &quot;restored stopped execution must match without repeating the interruption&quot;);
+        Check(sim.RequestMove(new(14, -2), true) &amp;&amp; sim.Player.Position == position, &quot;a deliberate new click must resume continuously&quot;);
+        for (var i = 0; i &lt; 20; i++) sim.Tick();
+        Check(sim.Player.Cell == new Hex(14, -2) &amp;&amp; !sim.Player.Moving, &quot;same observed encounter must allow deliberate movement after stopping&quot;);
+        var reverse = Setup(2); var reversePosition = reverse.Player.Position;
+        Check(reverse.RequestMove(new(12, -2), true) &amp;&amp; reverse.Player.Position == reversePosition, &quot;reverse from a stopped edge cannot snap position&quot;);
+        for (var i = 0; i &lt; 2; i++) reverse.Tick();
+        Check(reverse.Player.Cell == new Hex(12, -2) &amp;&amp; reverse.Player.StoppedStep is null &amp;&amp; !reverse.Player.Moving, &quot;returning to the original center must complete normally&quot;);
+        var boundary = Setup(0);
+        Check(!boundary.Player.Moving &amp;&amp; boundary.Player.StoppedStep is null &amp;&amp; boundary.Player.Position == boundary.Player.Cell.World,
+            &quot;sighting at a hex center stops immediately without fabricating an unfinished step&quot;);
+        var report = Setup(2, false);
+        report.Awareness.StopOnDirectSight = false; report.Awareness.StopOnReports = true;
+        var reportPosition = report.Player.Position; report.Tick();
+        Check(!report.Player.Moving &amp;&amp; report.Player.Position == reportPosition
+            &amp;&amp; report.Awareness.Evidence.Single().Source == &quot;voice&quot;, &quot;a delivered nearby human report must use the same exact movement interruption&quot;);
+        var blocked = new SpatialSimulation(json); blocked.Awareness.StopOnDirectSight = false;
+        Check(blocked.RequestMove(new(12, 3)), &quot;closed-room communication fixture needs a clear corridor route&quot;);
+        blocked.Tick(); blocked.Tick();
+        Check(blocked.Player.Moving &amp;&amp; blocked.Awareness.Evidence.Count == 0, &quot;someone observing in a disconnected room cannot telepathically interrupt the player&quot;);
+        var before = clone.Save();
+        void Reject(Action&lt;JsonNode&gt; mutate)
+        {
+            var bad = JsonNode.Parse(before)!; mutate(bad);
+            try { clone.Restore(bad.ToJsonString()); throw new Exception(&quot;Corrupt stopped awareness accepted.&quot;); }
+            catch (ArgumentException) { Check(clone.Save() == before, &quot;invalid restore must leave live position, settings and evidence intact&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Actors&quot;]![0]![&quot;StoppedStep&quot;]![&quot;ProgressMs&quot;] = 999);
+        Reject(n =&gt; n[&quot;Awareness&quot;]![&quot;Evidence&quot;]![0]![&quot;SubjectId&quot;] = &quot;missing&quot;);
+        var legacy = JsonNode.Parse(new SpatialSimulation(json).Save())!;
+        legacy[&quot;Version&quot;] = 2; legacy.AsObject().Remove(&quot;Awareness&quot;);
+        foreach (var actor in legacy[&quot;Actors&quot;]!.AsArray()) actor!.AsObject().Remove(&quot;StoppedStep&quot;);
+        var migrated = new SpatialSimulation(json); migrated.Restore(legacy.ToJsonString());
+        Check(JsonNode.Parse(migrated.Save())![&quot;Version&quot;]!.GetValue&lt;int&gt;() == 14 &amp;&amp; migrated.Awareness.StopOnDirectSight &amp;&amp; migrated.Awareness.StopOnReports,
+            &quot;compatible schema-2 prototype saves must upgrade with both safety settings enabled&quot;);
+        var patrolWorld = new SimulationWorld(json);
+        var patrol = patrolWorld.Actors.Single(a =&gt; a.Id == &quot;tech&quot;);
+        patrol.Route = patrolWorld.Map.FindPath(patrol.Cell, new(13, 7), MovementSystem.Occupied(patrolWorld, patrol)).ToList();
+        patrol.SegmentMs = 100;
+        var patrolPosition = patrol.Position;
+        MovementSystem.StopInPlace(patrol); patrolWorld.LocalMs = 1000;
+        MovementSystem.Advance(patrolWorld);
+        Check(patrol.StoppedStep is null &amp;&amp; patrol.Moving &amp;&amp; patrol.Position == patrolPosition,
+            &quot;an autonomous patrol must also replan from a stopped edge without snapping or retaining a stale stop&quot;);
+        Console.WriteLine($&quot;AWARENESS_CHECKS_PASS: {passed} assertions; generic contacts, settings, delivered reports, exact stops/resume/reversal and persistence.&quot;);
+        return passed;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

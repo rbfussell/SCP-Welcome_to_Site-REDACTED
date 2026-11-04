@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-0001: One persistent simulation with multiple interfaces | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/adr/0001-shared-simulation.md.</aside><h1 id="adr-0001-one-persistent-simulation-with-multiple-interfaces">ADR-0001: One persistent simulation with multiple interfaces</h1>
+<p><strong>Status:</strong> Proposed<br />
+<strong>Date:</strong> October 21, 2026<br />
+<strong>Decision owner:</strong> Project owner; not yet assigned</p>
+<h2 id="context">Context</h2>
+<p>The game combines personal RPG play, a management terminal, facility planning, and background events. The user's clarified reference is X4: Foundations translated into top-down SCP play: the initial regional director inhabits a persistent Foundation network with Groups of Interest. Later employee starts use the same simulation without automatic management authority. SCP behavior must remain meaningful while the player is elsewhere. Procedural maps, teams, inventories, containment, shipments, and organization plans cannot diverge when the interface changes.</p>
+<h2 id="drivers">Drivers</h2>
+<p>Persistent consequences, meaningful delegation, reusable procedural templates, mod extensibility, observable failure causes, and a bounded first deliverable.</p>
+<h2 id="options-considered">Options considered</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Benefit</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate simulation per mode</td>
+<td>Each UI can be built independently</td>
+<td>Duplicate state, invented mission outcomes, difficult handoffs and saves</td>
+</tr>
+<tr>
+<td>Fully detailed simulation everywhere</td>
+<td>Fewer abstraction boundaries</td>
+<td>Unbounded processing/storage, especially in expandable domains</td>
+</tr>
+<tr>
+<td>Shared kernel with certified detail levels</td>
+<td>Shared rules and identity with bounded processing</td>
+<td>Requires explicit transitions, fidelity contracts, and diagnostics</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proposed-decision">Proposed decision</h2>
+<p>Use one authoritative kernel with persistent entity IDs, validated commands, typed effects, explicit spatial domains, versioned saves, and detail levels chosen by causal relevance. Each interface projects this state. Personal and unattended operations use shared action/hazard semantics. Modules declare when lower detail is safe.</p>
+<p>Represent the network as persistent organization/node/route records over physical places. Site managers and group planners issue bounded orders through shared services. Direct player control stays with one avatar; remote management does not transfer embodiment. Network-scale simulation is a core product requirement, with a separate bounded prototype after the local and anomaly gates.</p>
+<p>Begin as one local process with a headless-capable kernel. Choose the presentation engine and sandbox runtime after M0 measures observation timing, persistence, domain transfer, and script isolation.</p>
+<h2 id="consequences">Consequences</h2>
+<p>The terminal and facility UI can share the same orders and records used by personal play. New SCPs can compose published capabilities. Debugging can follow causes across modes.</p>
+<p>The kernel and authoring tools require early investment. Some offscreen anomalies remain expensive. Exact cross-platform engine-physics replay and universal SCP compatibility are excluded. Lower detail requires evidence; lack of that evidence keeps the affected domain at sufficient fidelity.</p>
+<h2 id="validation-and-related-documents">Validation and related documents</h2>
+<p>Prove SIM-01 through SIM-04, OPS-01, SAVE-01, MOD-04, and NET-01 through NET-05 in <a href="doc-docs-04-scope-and-acceptance-md.html">scope and acceptance</a>. State and temporal rules are in <a href="doc-docs-02-simulation-and-world-md.html">simulation and world</a>. Extension boundaries are in <a href="doc-docs-03-scp-module-contract-md.html">the module contract</a>.</p>
+<p>Accept this decision only when the project owner adopts the baseline; later changes should supersede it with a new ADR.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/adr/0001-shared-simulation.md</footer></main></div></body></html>

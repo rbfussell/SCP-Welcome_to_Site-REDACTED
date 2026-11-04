@@ -1,0 +1,147 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Oscp/OscpScene.Smoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpScene.Smoke.cs</h1><p>game/Presentation/Oscp/OscpScene.Smoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-oscpscene.html">OscpScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-7a81a7111b08b76a6563.html">OscpScene.Frames</a> · line 10</li><li><a href="function-2e79309f79492b9b8f99.html">OscpScene.KeyInput</a> · line 12</li><li><a href="function-4891d0623a7b234a9e2c.html">OscpScene.EnterCommand</a> · line 17</li><li><a href="function-c1026920ebdf3062f84d.html">OscpScene.Capture</a> · line 28</li><li><a href="function-a76a747c2b5ca5039f22.html">OscpScene.RunSmoke</a> · line 38</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> using System.Threading.Tasks;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> namespace SitePresentation;</span>
+<span id="L7"><a class="line" href="#L7">7</a> </span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class OscpScene</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private async Task Frames(int count = 2)</span>
+<span id="L11"><a class="line" href="#L11">11</a>     { for (var i = 0; i &lt; count; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); }</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private void KeyInput(Key key)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         GetViewport().PushInput(new InputEventKey { Keycode = key, Pressed = true });</span>
+<span id="L15"><a class="line" href="#L15">15</a>         GetViewport().PushInput(new InputEventKey { Keycode = key, Pressed = false });</span>
+<span id="L16"><a class="line" href="#L16">16</a>     }</span>
+<span id="L17"><a class="line" href="#L17">17</a>     private async Task EnterCommand(string text)</span>
+<span id="L18"><a class="line" href="#L18">18</a>     {</span>
+<span id="L19"><a class="line" href="#L19">19</a>         var completed = new TaskCompletionSource();</span>
+<span id="L20"><a class="line" href="#L20">20</a>         _smokeInput = () =&gt;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         {</span>
+<span id="L22"><a class="line" href="#L22">22</a>             _workspace.CommandLine.Text = text; _workspace.CommandLine.GrabFocus();</span>
+<span id="L23"><a class="line" href="#L23">23</a>             KeyInput(Key.Enter);</span>
+<span id="L24"><a class="line" href="#L24">24</a>             completed.SetResult();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         };</span>
+<span id="L26"><a class="line" href="#L26">26</a>         await completed.Task;</span>
+<span id="L27"><a class="line" href="#L27">27</a>     }</span>
+<span id="L28"><a class="line" href="#L28">28</a>     private async Task Capture(string suffix)</span>
+<span id="L29"><a class="line" href="#L29">29</a>     {</span>
+<span id="L30"><a class="line" href="#L30">30</a>         _workspace.Refresh();</span>
+<span id="L31"><a class="line" href="#L31">31</a>         await Frames();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         if (_workspace.HeaderHeight &gt; 64) throw new InvalidOperationException(&quot;OSCP header wrapped vertically and obscured the workspace.&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         var path = Path.Combine(Path.GetDirectoryName(_capture!)!, Path.GetFileNameWithoutExtension(_capture!) + suffix + &quot;.png&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         using var image = GetViewport().GetTexture().GetImage();</span>
+<span id="L36"><a class="line" href="#L36">36</a>         if (image.SavePng(path) != Error.Ok) throw new IOException(&quot;OSCP capture failed.&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>     }</span>
+<span id="L38"><a class="line" href="#L38">38</a>     private async void RunSmoke()</span>
+<span id="L39"><a class="line" href="#L39">39</a>     {</span>
+<span id="L40"><a class="line" href="#L40">40</a>         try</span>
+<span id="L41"><a class="line" href="#L41">41</a>         {</span>
+<span id="L42"><a class="line" href="#L42">42</a>             var sim = _runtime.Simulation;</span>
+<span id="L43"><a class="line" href="#L43">43</a>             if (!_workspace.Open(OscpDevice.Workstation)) throw new InvalidOperationException(&quot;Standalone workstation must have a valid physical context.&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>             _workspace.Open(OscpDevice.Phone);</span>
+<span id="L45"><a class="line" href="#L45">45</a>             if (!sim.ManualPause) throw new InvalidOperationException(&quot;Opening the phone must automatically pause single-player.&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>             var paused = sim.Save(); await Frames();</span>
+<span id="L47"><a class="line" href="#L47">47</a>             if (sim.Save() != paused) throw new InvalidOperationException(&quot;Phone pause must hold all simulation clocks.&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>             _workspace.Close();</span>
+<span id="L49"><a class="line" href="#L49">49</a>             if (sim.ManualPause) throw new InvalidOperationException(&quot;Closing an automatically paused phone must resume.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>             sim.ManualPause = true; _workspace.Open(OscpDevice.Phone); _workspace.Close();</span>
+<span id="L51"><a class="line" href="#L51">51</a>             if (!sim.ManualPause) throw new InvalidOperationException(&quot;Closing the phone must preserve a pre-existing manual pause.&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>             sim.ManualPause = false; _workspace.Open(OscpDevice.Workstation);</span>
+<span id="L53"><a class="line" href="#L53">53</a>             var local = sim.LocalMs; var world = sim.WorldMs;</span>
+<span id="L54"><a class="line" href="#L54">54</a>             _workspace.SelectApp(&quot;team&quot;);</span>
+<span id="L55"><a class="line" href="#L55">55</a>             await EnterCommand(&quot;order tech post 8 4&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>             if (sim.Operations.OrderHistory.Last().Channel != &quot;terminal&quot; || ! _workspace.Receipt.Contains(&quot;submitted&quot;))</span>
+<span id="L57"><a class="line" href="#L57">57</a>                 throw new InvalidOperationException(&quot;Actual command-line Enter must submit the validated workstation order.&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>             for (var i = 0; i &lt; 240 &amp;&amp; !sim.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)); i++) await Frames(1);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             if (!sim.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)) || sim.LocalMs &lt;= local || sim.WorldMs &lt;= world)</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 throw new InvalidOperationException(&quot;Open OSCP must receive real acknowledgement while simulation time continues.&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>             for (var i = 0; i &lt; 240 &amp;&amp; !sim.OscpRecords.Any(r =&gt; r.Author.Contains(&quot;R-017&quot;)); i++) await Frames(1);</span>
+<span id="L62"><a class="line" href="#L62">62</a>             if (!sim.OscpRecords.Any(r =&gt; r.Author.Contains(&quot;R-017&quot;))) throw new InvalidOperationException(&quot;Regional intake must arrive through actual network/report acquisition.&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>             if (sim.Employment.DiagnosticDuties.Single(d =&gt; d.ActorId == &quot;tech&quot;).Phase != DutyPhase.Interrupted)</span>
+<span id="L64"><a class="line" href="#L64">64</a>                 throw new InvalidOperationException(&quot;Delivered OSCP order must suspend actual employment.&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>             await EnterCommand(&quot;order tech duty&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>             for (var i = 0; i &lt; 240 &amp;&amp; sim.Employment.DeliveredReports.Single(r =&gt; r.ActorId == &quot;tech&quot;).Phase != DutyPhase.OnDuty; i++) await Frames(1);</span>
+<span id="L67"><a class="line" href="#L67">67</a>             if (sim.Employment.DeliveredReports.Single(r =&gt; r.ActorId == &quot;tech&quot;).Phase != DutyPhase.OnDuty</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 || sim.Operations.OrderHistory.Last().Status != OrderStatus.Complete)</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 throw new InvalidOperationException(&quot;Return-to-duty command must release the order and restore physical employment.&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>             sim.ManualPause = true;</span>
+<span id="L71"><a class="line" href="#L71">71</a>             _workspace.SelectApp(&quot;team&quot;); _workspace.Refresh();</span>
+<span id="L72"><a class="line" href="#L72">72</a>             if (!_workspace.DocumentText.Contains(&quot;Observation technician&quot;) || !_workspace.DocumentText.Contains(&quot;POST COVERAGE / REPORTED&quot;))</span>
+<span id="L73"><a class="line" href="#L73">73</a>                 throw new InvalidOperationException(&quot;Personnel app must show appointments and acquired employment reports.&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>             await Capture(&quot;-personnel&quot;);</span>
+<span id="L75"><a class="line" href="#L75">75</a>             _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;); await Capture(&quot;-phone-personnel&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>             _workspace.Open(OscpDevice.Workstation);</span>
+<span id="L77"><a class="line" href="#L77">77</a>             var saved = sim.Save();</span>
+<span id="L78"><a class="line" href="#L78">78</a>             _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;&quot;);</span>
+<span id="L79"><a class="line" href="#L79">79</a>             if (sim.Save() != saved) throw new InvalidOperationException(&quot;Drawing and application navigation cannot mutate a held world.&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>             _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;map&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>             if (sim.Save() != saved) throw new InvalidOperationException(&quot;Switching devices must retain the same simulation without new ticks or commands.&quot;);</span>
+<span id="L82"><a class="line" href="#L82">82</a>             await Capture(&quot;-phone-map&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>             _workspace.SelectApp(&quot;systems&quot;);</span>
+<span id="L84"><a class="line" href="#L84">84</a>             if (_workspace.CurrentApp == &quot;foundation:systems&quot;) throw new InvalidOperationException(&quot;Phone cannot open workstation-only applications.&quot;);</span>
+<span id="L85"><a class="line" href="#L85">85</a>             var records = sim.OscpRecords.ToArray();</span>
+<span id="L86"><a class="line" href="#L86">86</a>             sim.Operations.NetworkOnline = false;</span>
+<span id="L87"><a class="line" href="#L87">87</a>             var offline = sim.Save();</span>
+<span id="L88"><a class="line" href="#L88">88</a>             _workspace.Execute(&quot;order tech follow&quot;);</span>
+<span id="L89"><a class="line" href="#L89">89</a>             if (sim.Save() != offline || !sim.OscpRecords.SequenceEqual(records))</span>
+<span id="L90"><a class="line" href="#L90">90</a>                 throw new InvalidOperationException(&quot;Offline phone must retain acquired records and reject new commands without mutation.&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>             _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;-phone-offline&quot;);</span>
+<span id="L92"><a class="line" href="#L92">92</a>             sim.Restore(saved); _runtime.ResetAccumulator();</span>
+<span id="L93"><a class="line" href="#L93">93</a>             _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;);</span>
+<span id="L94"><a class="line" href="#L94">94</a>             await Frames();</span>
+<span id="L95"><a class="line" href="#L95">95</a>             sim.ManualPause = false;</span>
+<span id="L96"><a class="line" href="#L96">96</a>             await EnterCommand(&quot;order tech post 12 2&quot;);</span>
+<span id="L97"><a class="line" href="#L97">97</a>             var pending = sim.Operations.OrderHistory.Last();</span>
+<span id="L98"><a class="line" href="#L98">98</a>             if (pending.Channel != &quot;phone&quot; || pending.Status != OrderStatus.Pending)</span>
+<span id="L99"><a class="line" href="#L99">99</a>                 throw new InvalidOperationException($&quot;Phone Enter must submit a separate pending intent: channel={pending.Channel}, status={pending.Status}, receipt={_workspace.Receipt}, message={sim.LastMessage}, open={_workspace.IsOpen}, focus={GetViewport().GuiGetFocusOwner()?.Name}.&quot;);</span>
+<span id="L100"><a class="line" href="#L100">100</a>             var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;),</span>
+<span id="L101"><a class="line" href="#L101">101</a>                 Godot.FileAccess.GetFileAsString(&quot;res://Content/oscp-terminal-operation.json&quot;));</span>
+<span id="L102"><a class="line" href="#L102">102</a>             clone.Restore(sim.Save());</span>
+<span id="L103"><a class="line" href="#L103">103</a>             if (clone.Save() != sim.Save()) throw new InvalidOperationException(&quot;Handset, acquired reports and pending command must restore exactly.&quot;);</span>
+<span id="L104"><a class="line" href="#L104">104</a>             sim.Operations.Phone = sim.Operations.Phone! with { Powered = false };</span>
+<span id="L105"><a class="line" href="#L105">105</a>             sim.Tick(); sim.Tick();</span>
+<span id="L106"><a class="line" href="#L106">106</a>             if (sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)</span>
+<span id="L107"><a class="line" href="#L107">107</a>                 throw new InvalidOperationException(&quot;A lost handset link must prevent pending command delivery.&quot;);</span>
+<span id="L108"><a class="line" href="#L108">108</a>             _workspace.Refresh();</span>
+<span id="L109"><a class="line" href="#L109">109</a>             if (_workspace.IsOpen) throw new InvalidOperationException(&quot;Unpowered phone must close the usable session.&quot;);</span>
+<span id="L110"><a class="line" href="#L110">110</a>             sim.Operations.Phone = sim.Operations.Phone! with { Powered = true };</span>
+<span id="L111"><a class="line" href="#L111">111</a>             for (var i = 0; i &lt; 20 &amp;&amp; sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending; i++) sim.Tick();</span>
+<span id="L112"><a class="line" href="#L112">112</a>             if (sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending) throw new InvalidOperationException(&quot;Restored handset link must deliver once.&quot;);</span>
+<span id="L113"><a class="line" href="#L113">113</a>             sim.ManualPause = true;</span>
+<span id="L114"><a class="line" href="#L114">114</a>             _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;mail&quot;); await Capture(&quot;-phone&quot;);</span>
+<span id="L115"><a class="line" href="#L115">115</a>             _workspace.CommandLine.GrabFocus(); KeyInput(Key.Escape);</span>
+<span id="L116"><a class="line" href="#L116">116</a>             if (_workspace.IsOpen) throw new InvalidOperationException(&quot;Escape must close the modal phone.&quot;);</span>
+<span id="L117"><a class="line" href="#L117">117</a>             sim.ManualPause = false;</span>
+<span id="L118"><a class="line" href="#L118">118</a>             _workspace.Open(OscpDevice.Phone); _workspace.SelectApp(&quot;team&quot;);</span>
+<span id="L119"><a class="line" href="#L119">119</a>             var beforeDraft = sim.Save();</span>
+<span id="L120"><a class="line" href="#L120">120</a>             await EnterCommand(&quot;order observer follow&quot;);</span>
+<span id="L121"><a class="line" href="#L121">121</a>             if (sim.Save() != beforeDraft || _workspace.PhoneDraftCount != 1)</span>
+<span id="L122"><a class="line" href="#L122">122</a>                 throw new InvalidOperationException(&quot;Paused phone order must remain an unsubmitted local draft.&quot;);</span>
+<span id="L123"><a class="line" href="#L123">123</a>             await Capture(&quot;-phone-draft&quot;);</span>
+<span id="L124"><a class="line" href="#L124">124</a>             _workspace.ClearPhoneDrafts();</span>
+<span id="L125"><a class="line" href="#L125">125</a>             if (_workspace.PhoneDraftCount != 0 || sim.Save() != beforeDraft) throw new InvalidOperationException(&quot;Discarding a prepared order cannot affect the world.&quot;);</span>
+<span id="L126"><a class="line" href="#L126">126</a>             await EnterCommand(&quot;order observer follow&quot;);</span>
+<span id="L127"><a class="line" href="#L127">127</a>             _workspace.CommandLine.GrabFocus(); KeyInput(Key.Escape);</span>
+<span id="L128"><a class="line" href="#L128">128</a>             if (sim.ManualPause || sim.Operations.OrderHistory.Last().Channel != &quot;phone&quot; || sim.Operations.OrderHistory.Last().Task != PersonnelTask.Follow</span>
+<span id="L129"><a class="line" href="#L129">129</a>                 || sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)</span>
+<span id="L130"><a class="line" href="#L130">130</a>                 throw new InvalidOperationException(&quot;Phone close must release its pause and submit the prepared intent, without immediate acknowledgement.&quot;);</span>
+<span id="L131"><a class="line" href="#L131">131</a>             _workspace.Open(OscpDevice.Phone); await EnterCommand(&quot;order tech follow&quot;);</span>
+<span id="L132"><a class="line" href="#L132">132</a>             var beforeLostLink = sim.Operations.OrderHistory.Count;</span>
+<span id="L133"><a class="line" href="#L133">133</a>             sim.Operations.NetworkOnline = false; _workspace.Close();</span>
+<span id="L134"><a class="line" href="#L134">134</a>             if (sim.Operations.OrderHistory.Count != beforeLostLink || sim.ManualPause)</span>
+<span id="L135"><a class="line" href="#L135">135</a>                 throw new InvalidOperationException(&quot;Closing must reject a draft whose link failed and still release the phone-owned pause.&quot;);</span>
+<span id="L136"><a class="line" href="#L136">136</a>             sim.Operations.NetworkOnline = true;</span>
+<span id="L137"><a class="line" href="#L137">137</a>             sim.ManualPause = true;</span>
+<span id="L138"><a class="line" href="#L138">138</a>             _workspace.Open(OscpDevice.Phone); await EnterCommand(&quot;order tech follow&quot;);</span>
+<span id="L139"><a class="line" href="#L139">139</a>             _workspace.Close();</span>
+<span id="L140"><a class="line" href="#L140">140</a>             if (!sim.ManualPause || sim.Operations.OrderHistory.Last().Task != PersonnelTask.Follow || sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending)</span>
+<span id="L141"><a class="line" href="#L141">141</a>                 throw new InvalidOperationException(&quot;Sending a prepared intent must preserve a pre-existing manual pause and pending physical delivery.&quot;);</span>
+<span id="L142"><a class="line" href="#L142">142</a>             GD.Print(&quot;OSCP_SMOKE_PASS: phone automatic pause/ownership, unsubmitted drafts and validated submission on close, standalone real runtime; Enter command/acknowledgement, continuing clocks, no mutation on app/device swaps, profile gating, offline cache/rejection, save/restore, handset loss/recovery, Escape, CRT/phone/map captures.&quot;);</span>
+<span id="L143"><a class="line" href="#L143">143</a>             GetTree().Quit();</span>
+<span id="L144"><a class="line" href="#L144">144</a>         }</span>
+<span id="L145"><a class="line" href="#L145">145</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
+<span id="L146"><a class="line" href="#L146">146</a>     }</span>
+<span id="L147"><a class="line" href="#L147">147</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

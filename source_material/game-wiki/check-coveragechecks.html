@@ -1,0 +1,131 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CoverageChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>CoverageChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class CoverageChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Coverage: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        void Finish(SpatialSimulation sim)
+        {
+            for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) sim.Tick();
+            Check(sim.Inventory.Pending is null, &quot;handling finishes in bounded local time&quot;);
+        }
+        void Act(SpatialSimulation sim, InventoryRequest request) { Check(sim.HandleInventory(request), sim.LastMessage); Finish(sim); }
+        InventoryRequest Move(string id, string owner, string region) =&gt; new(InventoryActionKind.Move, id, new(owner, region));
+        InventoryRequest Coat(bool open) =&gt; new(open ? InventoryActionKind.OpenGarment : InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;);
+        var sim = Sim();
+        var pockets = new[] { &quot;left&quot;, &quot;right&quot;, &quot;cargo-left&quot;, &quot;cargo-right&quot; };
+        Check(sim.Inventory.Definition(&quot;avatar-trousers&quot;).Regions!.Select(r =&gt; r.Id).SequenceEqual(pockets), &quot;four distinct regions belong to one trouser item&quot;);
+        foreach (var id in pockets)
+        {
+            var coverage = sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, id)!;
+            Check(!coverage.Covered &amp;&amp; coverage.Mouth.Length == 2 &amp;&amp; coverage.Blocked.Length == 0 &amp;&amp; !coverage.CoarseFallback,
+                &quot;open jacket clears each authored front mouth: &quot; + id);
+            Check(sim.InventoryAccess(&quot;avatar-trousers&quot;, id).Allowed, &quot;uncovered open compartment is reachable: &quot; + id);
+        }
+        var before = sim.Save();
+        Check(sim.InventoryPocketCoverage(&quot;observer-trousers&quot;, &quot;left&quot;) is null &amp;&amp; sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;absent&quot;) is null
+            &amp;&amp; sim.Save() == before, &quot;coverage inspection neither reveals other people&#x27;s pockets nor changes state&quot;);
+        Check(sim.HandleInventory(Coat(false)), &quot;begin closing coat&quot;); sim.Tick();
+        Check(sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed, &quot;coverage waits until physical zipper work completes&quot;);
+        var mid = sim.Save(); var copy = Sim(); copy.Restore(mid); Finish(sim); Finish(copy);
+        Check(sim.Save() == copy.Save(), &quot;pending closure resumes with identical coverage and clocks&quot;);
+        foreach (var id in pockets)
+        {
+            var coverage = sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, id)!;
+            var hip = id is &quot;left&quot; or &quot;right&quot;;
+            Check(coverage.Covered == hip &amp;&amp; sim.InventoryAccess(&quot;avatar-trousers&quot;, id).Allowed != hip, &quot;geometric cover distinguishes hip from cargo: &quot; + id);
+            Check(coverage.Blocked.Length == (hip ? 1 : 0), &quot;one covered cell of a two-cell mouth blocks access, without covering the whole garment&quot;);
+            Check(coverage.Blockers.SequenceEqual(hip ? [&quot;avatar-coat&quot;] : Array.Empty&lt;string&gt;()), &quot;blocker identity comes from actual intersecting outer gear&quot;);
+        }
+        Check(sim.InventoryContents(&quot;avatar-trousers&quot;, &quot;left&quot;).Count == 0 &amp;&amp; sim.InventoryContents(&quot;gum-packet&quot;, &quot;pieces&quot;).Count == 0,
+            &quot;cover applies through the complete nested access path&quot;);
+        Check(!sim.OscpAccess(OscpDevice.Phone).Available, &quot;ready equipment still requires its real pocket mouth to be accessible&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;gum-packet&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)).Allowed
+            &amp;&amp; !sim.QuoteInventory(new(InventoryActionKind.Arrange, &quot;avatar-trousers&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;))).Allowed,
+            &quot;manual movement and automatic packing share geometric access gates&quot;);
+        Check(!sim.QuoteInventory(new(InventoryActionKind.Close, &quot;avatar-trousers&quot;, RegionId: &quot;left&quot;)).Allowed,
+            &quot;closing a covered pocket cannot bypass the same access gate&quot;);
+        var child = sim.Inventory.Items[&quot;gum-1&quot;].Placement;
+        Act(sim, Move(&quot;flashlight&quot;, &quot;avatar-trousers&quot;, &quot;cargo-left&quot;));
+        Check(sim.InventoryContents(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).Single().Id == &quot;flashlight&quot; &amp;&amp; sim.Inventory.Items[&quot;gum-1&quot;].Placement == child,
+            &quot;cargo storage functions under the closed coat without disturbing hidden nested contents&quot;);
+        Act(sim, new(InventoryActionKind.Close, &quot;avatar-trousers&quot;, RegionId: &quot;cargo-left&quot;));
+        Check(!sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).Allowed &amp;&amp; !sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;)!.Covered,
+            &quot;own closed flap and outer coverage are independent reasons for inaccessibility&quot;);
+        Check(sim.Inventory.IsOpen(&quot;avatar-trousers&quot;, &quot;right&quot;), &quot;outer cover never changes the underlying pocket&#x27;s own closure state&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;avatar-trousers&quot;, RegionId: &quot;cargo-left&quot;));
+        Act(sim, Coat(true));
+        Check(pockets.All(id =&gt; sim.InventoryAccess(&quot;avatar-trousers&quot;, id).Allowed) &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-trousers&quot;).Allowed,
+            &quot;opening exposes mouths while retaining independent removal restraints&quot;);
+        var restored = Sim(); restored.Restore(sim.Save());
+        Check(restored.Save() == sim.Save() &amp;&amp; pockets.All(id =&gt; !restored.InventoryPocketCoverage(&quot;avatar-trousers&quot;, id)!.Covered), &quot;all compartment states and effective cover persist&quot;);
+        Act(sim, Move(&quot;field-phone&quot;, &quot;avatar-trousers&quot;, &quot;cargo-right&quot;)); Act(sim, Coat(false));
+        Check(sim.OscpAccess(OscpDevice.Phone).Available, &quot;the same handset in an uncovered ready cargo pocket remains usable&quot;);
+        Act(sim, Coat(true));
+        Check(sim.HandleInventory(Move(&quot;gum-packet&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)), &quot;begin extraction before unexpected cover change&quot;);
+        sim.Inventory.Items[&quot;avatar-coat&quot;] = sim.Inventory.Items[&quot;avatar-coat&quot;] with { GarmentOpen = false };
+        Finish(sim);
+        Check(sim.Inventory.Items[&quot;gum-packet&quot;].Placement.ParentId == &quot;avatar-trousers&quot;, &quot;completion rechecks actual coverage and aborts without relocating a newly blocked source&quot;);
+
+        // Independent source vectors: rotate the same local mouth and cover, and resolve mounted front/back surfaces.
+        var masks = new[] { new BodySurfaceMask(&quot;mounted&quot;, [new(1, 0)]) };
+        var projected = InventoryCoverage.Project(masks, new(2, 3, 1), new(&quot;back&quot;, [&quot;torso-back&quot;], &quot;back&quot;));
+        Check(projected.Single() == new BodySurfaceCell(&quot;back&quot;, new(2, 4)), &quot;surface and position use the worn pose, including sixth-turn rotation&quot;);
+        Check(InventoryCoverage.Project(masks, new(2, 3, 1), new(&quot;front&quot;, [&quot;torso-front&quot;], &quot;front&quot;)).Single().Surface == &quot;front&quot;,
+            &quot;the same attachment/pack geometry can resolve on the opposite body surface&quot;);
+        var world = new SimulationWorld(map, config); var state = world.Inventory;
+        state.Items[&quot;avatar-coat&quot;] = state.Items[&quot;avatar-coat&quot;] with { GarmentOpen = false };
+        var shapes = state.BodyFits!.Content.Shapes; var coatIndex = Array.FindIndex(shapes, s =&gt; s.Id == &quot;coat&quot;);
+        var original = shapes[coatIndex];
+        shapes[coatIndex] = original with { Coverage = new(original.Coverage!.Closed.Where(m =&gt; m.Surface == &quot;back&quot;).ToArray(), original.Coverage.Open.Where(m =&gt; m.Surface == &quot;back&quot;).ToArray()) };
+        Check(InventoryAccessService.Placement(world, &quot;avatar&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;)).Allowed,
+            &quot;matching hex coordinates on the back cannot block a front pocket; mapped gear does not fall back to coarse labels&quot;);
+        shapes[coatIndex] = original;
+        var defs = state.Content!.Definitions; var trouserIndex = Array.FindIndex(defs, d =&gt; d.Id == &quot;trousers&quot;); var trousers = defs[trouserIndex];
+        defs[trouserIndex] = trousers with { Regions = trousers.Regions!.Select(r =&gt; r.Id == &quot;left&quot; ? r with
+            { AccessFootprint = r.AccessFootprint!.Select(m =&gt; m with { Surface = &quot;back&quot; }).ToArray() } : r).ToArray() };
+        state.Items[&quot;avatar-coat&quot;] = state.Items[&quot;avatar-coat&quot;] with { GarmentOpen = true };
+        Check(!InventoryAccessService.Placement(world, &quot;avatar&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;)).Allowed,
+            &quot;opening the front leaves the authored back cover in place&quot;);
+        defs[trouserIndex] = trousers;
+        shapes[coatIndex] = original with { Coverage = null };
+        state.Items[&quot;avatar-coat&quot;] = state.Items[&quot;avatar-coat&quot;] with { GarmentOpen = false };
+        var fallback = InventoryCoverage.Evaluate(state, state.Items[&quot;avatar-trousers&quot;], state.Region(&quot;avatar-trousers&quot;, &quot;left&quot;))!;
+        Check(fallback.Covered &amp;&amp; fallback.CoarseFallback &amp;&amp; fallback.Blocked.Length == 0, &quot;unmapped outer gear conservatively keeps the old coverage rule without fabricating overlap cells&quot;);
+        shapes[coatIndex] = original;
+        var ci = Array.FindIndex(defs, d =&gt; d.Id == &quot;coat&quot;); var coat = defs[ci];
+        defs[ci] = coat with { Wear = coat.Wear! with { CoversAccess = false, BlocksRemoval = true } };
+        Check(InventoryAccessService.Placement(world, &quot;avatar&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;)).Allowed
+            &amp;&amp; !InventoryActions.Validate(world, &quot;avatar&quot;, Move(&quot;avatar-trousers&quot;, &quot;person:avatar&quot;, &quot;hand&quot;), out _, out _, out _),
+            &quot;non-covering removal restraints retain the confirmed independent flag behavior&quot;);
+        var pack = Sim(); pack.Player.Cell = new(13, 6);
+        Check(!pack.InventoryPocketCoverage(&quot;avatar-coat&quot;, &quot;chest&quot;)!.Covered, &quot;back-worn pack does not occlude the front chest pocket&quot;);
+        Act(pack, Move(&quot;spare-backpack&quot;, &quot;person:avatar&quot;, &quot;front&quot;));
+        var chest = pack.InventoryPocketCoverage(&quot;avatar-coat&quot;, &quot;chest&quot;)!;
+        Check(chest.Covered &amp;&amp; chest.Blockers.SequenceEqual([&quot;spare-backpack&quot;]), &quot;front-worn pack blocks the chest mouth by actual same-surface overlap&quot;);
+        Act(pack, Move(&quot;spare-backpack&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(!pack.InventoryPocketCoverage(&quot;avatar-coat&quot;, &quot;chest&quot;)!.Covered, &quot;carried gear does not project worn coverage&quot;);
+
+        void RejectShape(BodyFitShape shape)
+        {
+            var content = state.BodyFits.Content;
+            try { BodyFitCatalog.Validate(content with { Shapes = [shape] }); throw new Exception(&quot;Invalid cover metadata accepted&quot;); }
+            catch (ArgumentException) { passed++; }
+        }
+        RejectShape(original with { Coverage = new([new(&quot;sideways&quot;, [new(0, 0)])], []) });
+        RejectShape(original with { Coverage = new([new(&quot;front&quot;, [new(999, 999)])], []) });
+        RejectShape(original with { Coverage = new([], original.Coverage!.Closed) });
+        RejectShape(original with { Coverage = new([original.Coverage!.Closed[0], original.Coverage.Closed[0]], []) });
+        var malformed = new SimulationWorld(map, config); var md = malformed.Inventory.Content!.Definitions;
+        var mi = Array.FindIndex(md, d =&gt; d.Id == &quot;trousers&quot;); var mt = md[mi];
+        md[mi] = mt with { Regions = mt.Regions!.Select(r =&gt; r.Id == &quot;left&quot; ? r with { AccessFootprint = [new(&quot;front&quot;, [new(999, 999)])] } : r).ToArray() };
+        try { InventoryContentValidation.Validate(malformed); throw new Exception(&quot;Invalid pocket footprint accepted&quot;); }
+        catch (ArgumentException) { Check(true, &quot;pocket footprints must be registered on their owner&#x27;s worn shape&quot;); }
+        Console.WriteLine($&quot;COVERAGE_CHECKS_PASS: {passed} assertions; geometric mouths, surfaces, paid access, nested gates, compatibility and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/CoverageChecks.cs</footer></main></div></body></html>

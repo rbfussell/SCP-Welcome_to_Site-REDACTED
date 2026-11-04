@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dragging stored clothing onto the body | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/39-body-drag-fitting.md.</aside><h1 id="dragging-stored-clothing-onto-the-body">Dragging stored clothing onto the body</h1>
+<p>Implemented October 30, 2026. This adds direct fitting drops to the <a href="doc-docs-38-body-fit-cleanup-md.html">symmetric body fixture</a>, <a href="doc-docs-27-three-view-inventory-and-body-fit-md.html">three inventory views</a> and existing paid equipment commands. The <a href="body-drag-fitting.html">game-wiki article</a> connects mechanics, source and evidence. This is still engineering geometry, not final anatomical artwork.</p>
+<h2 id="controls">Controls</h2>
+<p>Final presentation requirement: <a href="doc-docs-26-wearable-appearance-pipeline-md.html#confirmed-paperdoll-presentation-october-30">character-matched clothing and silhouette highlights</a> will hide the fit grid in normal use and clip feedback to worn garment cutouts. The cells and contacts in this slice are engineering diagnostics, with unchanged physical rules.</p>
+<ol>
+<li>Open <strong>I</strong>, inspect an accessible container with wearable gear, and open its compartment. The supply crate holds belts; use its contents scrollbars to reach them.</li>
+<li>Switch the left view to <strong>Body fit · hex view</strong>. Gear/contents views remain available.</li>
+<li>Drag the actual item from its visible grid onto a body hex. That hex is the authored fitting anchor. The complete worn mask/contact preview appears in its exact proposed position. Green permits fitting; red explains a geometric or physical refusal. Blank margins and spaces between limbs do not snap to another anchor.</li>
+<li>During a drag, <strong>R over the body</strong> cycles six orientations. <strong>R over square storage</strong> toggles two, even while body mode is visible. Exterior support retains six attachment turns. These independent drafts do not alter the stored item or the click/Apply fit draft.</li>
+<li>Release on a valid fit to begin normal timed handling and source-dependent combat AP. Invalid release leaves the item in its exact source position. It never searches another position, rotates, repacks, swaps clothing, removes blockers or opens closures.</li>
+</ol>
+<p>The panel reports the dragged item, anchor, angle, time/AP and adjustable strap span/range. The packed ghost is suppressed over the body because that surface draws the exact worn footprint. Apply is disabled during dragging; release submits the drag. Existing click/Default/Apply fitting for own worn/held gear remains available outside a drag.</p>
+<p>Manual pause allows inspection/preview but rejects physical fitting on release. <strong>Esc</strong> closes the interface and cancels the drag without securing gear or submitting delayed work. Leaving the body clears its drop overlay. Once handling has started, hiding the interface follows ordinary paid continuation rules.</p>
+<h2 id="authority-and-knowledge">Authority and knowledge</h2>
+<p><code>PreviewBodyFitDrop</code> addresses one specific item and requires current inspection access. It can preview clothing in an open, reachable container; closed/inaccessible ancestors, another employee's gear, unknown items and non-wearables expose no geometry. It does not enumerate stored clothing or broaden <code>BodyFitItems</code>. The selector still lists only own worn/held equipment.</p>
+<p>Both preview entry points share one request builder. An existing front-worn pack keeps its mount when refitted; incoming stored clothing uses its authored default mount. This slice adds no automatic front/back choice or anatomical default-mount selection. Named mounts, family/bulk fit, boundary contacts, cover, outermost gear, restraints, overlay bands, occupied support contacts, shared clearance and recursive loads still validate the whole proposed graph.</p>
+<p>The source stays in its container until paid completion. The request carries the exact previewed pose through the existing <code>Move</code> transaction; cost includes the actual source access path. Start and commitment revalidate access and graph constraints. Access lost after preview/start can reject or abort the move rather than transfer through a closed ancestor. Tactical work spends normal AP once.</p>
+<p>No immutable inventory content, save schema or mutable item field changed. Schema stays <strong>14</strong>; saves matching the preceding body-cleanup content remain compatible. Drag/draft UI state is transient. Accepted paid work saves and resumes through the existing inventory codec.</p>
+<h2 id="source-and-verification">Source and verification</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="file-src-sitesimulation-inventory-equipment-bodyfit-inventorybodyfit-cs.html">InventoryBodyFit</a></td>
+<td>Explicit access-bounded drop query and shared ordinary request builder</td>
+</tr>
+<tr>
+<td><a href="file-game-presentation-inventory-inventorybodyfitsurface-drop-cs.html">InventoryBodyFitSurface.Drop</a></td>
+<td>Shared click/drop picking, read-only preview and release submission</td>
+</tr>
+<tr>
+<td><a href="file-game-presentation-inventory-inventorybodyfitpanel-cs.html">InventoryBodyFitPanel</a></td>
+<td>Mask/contact feedback, drop status, selector and paid-result selection</td>
+</tr>
+<tr>
+<td><a href="file-game-presentation-inventory-inventorypanel-cs.html">InventoryPanel</a></td>
+<td>Drag lifecycle and separate body/storage/attachment rotation contexts</td>
+</tr>
+<tr>
+<td><a href="file-game-presentation-inventory-inventorygrid-cs.html">InventoryGrid</a></td>
+<td>Existing accessible drag sources and square placement; duplicate-ghost suppression</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-sh">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --body-drop-smoke work/preview/spatial-scene/body-drop.png
+python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/body-drop-full.png
+python3 tools/author_body_fit_fixture.py --check
+python3 tools/check_gear_data.py
+python3 tools/build_game_wiki.py
+python3 tools/build_game_wiki.py --check
+</code></pre>
+<p><a href="evidence-tests-spatialchecks-bodydropchecks-cs.html">BodyDropChecks</a> exercise explicit visible sources, unchanged selector bounds, exact requests/costs, invalid geometry, worn-pack interference, invalid hand targeting, pause, source retention, pending continuation, ancestor access loss, front-mount preservation and tactical AP. <a href="file-game-presentation-spatialscene-bodydropsmoke-cs.html">Native checks</a> use real grid drags, anchor hover/release, R, Esc and reopening. Valid/invalid/blank targets, rotation isolation, paused refusal, source retention and saved pending work are checked. The focused launcher mode runs this fixture alone; full inventory mode includes it alongside existing suites. See <a href="doc-docs-reviews-inventory-runtime-checks-md.html">recorded results</a> for actual evidence.</p>
+<p>The <a href="doc-docs-40-body-inspection-and-removal-md.html">body-inspection follow-up</a> now adds exposed front/back inspection and worn-item drag sources. Clicking composited garments, final sprite front/back views, body/provider target arbitration and world outfit composition remain future work. Existing <a href="doc-docs-37-placement-extenders-and-mount-points-md.html">gear-view mount drops</a> and container-target packing retain their interactions. No SCP canon or anomaly behavior changed.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/39-body-drag-fitting.md</footer></main></div></body></html>

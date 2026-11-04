@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryWornStack.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryWornStack.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryWornStack.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-worncelllayer.html">WornCellLayer</a></li><li><a href="type-inventorywornstack.html">InventoryWornStack</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-56f2b6e8ab99c10e20c7.html">InventoryWornStack.Cells</a> · line 8</li><li><a href="function-67288a8f80f87a924f6a.html">InventoryWornStack.Build</a> · line 29</li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a> · line 52</li><li><a href="function-ee1a4e9bedd681552f96.html">InventoryWornStack.Overlaps</a> · line 54</li><li><a href="function-ca21a6934b91f5488b25.html">InventoryWornStack.OverlayIntersects</a> · line 56</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> public sealed record WornCellLayer(string ItemId, BodySurfaceCell Cell, int Layer, int SubLayer, int BandCount);</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> /// &lt;summary&gt;One physical projection for bands, strap limits and attachment exposure. No sprite pixels determine fit.&lt;/summary&gt;</span>
+<span id="L6"><a class="line" href="#L6">6</a> public static class InventoryWornStack</span>
+<span id="L7"><a class="line" href="#L7">7</a> {</span>
+<span id="L8"><a class="line" href="#L8">8</a>     public static BodySurfaceCell[] Cells(InventoryState state, InventoryItem item, bool open = false)</span>
+<span id="L9"><a class="line" href="#L9">9</a>     {</span>
+<span id="L10"><a class="line" href="#L10">10</a>         var mount = InventoryWear.Mount(state, item, item.Placement);</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var shape = InventoryBodyFit.Shape(state, item.Id);</span>
+<span id="L12"><a class="line" href="#L12">12</a>         if (mount is null || shape is null) return [];</span>
+<span id="L13"><a class="line" href="#L13">13</a>         if (shape.LinearSpan is not null)</span>
+<span id="L14"><a class="line" href="#L14">14</a>         {</span>
+<span id="L15"><a class="line" href="#L15">15</a>             var pose = InventoryBodyFit.Pose(state, item)!;</span>
+<span id="L16"><a class="line" href="#L16">16</a>             var fitted = BodyFitGeometry.Evaluate(state.BodyFits!.Body(shape.BodyFamily), shape, pose).Cells;</span>
+<span id="L17"><a class="line" href="#L17">17</a>             var masks = shape.Coverage is { } strapCoverage ? open &amp;&amp; item.GarmentOpen ? strapCoverage.Open : strapCoverage.Closed : null;</span>
+<span id="L18"><a class="line" href="#L18">18</a>             var sides = masks?.Select(m =&gt; m.Surface == &quot;mounted&quot; ? mount.BodySurface! : m.Surface).ToArray()</span>
+<span id="L19"><a class="line" href="#L19">19</a>                 ?? (mount.BodySurface is { } side ? [side] : new[] { &quot;front&quot;, &quot;back&quot; });</span>
+<span id="L20"><a class="line" href="#L20">20</a>             return fitted.SelectMany(c =&gt; sides.Select(s =&gt; new BodySurfaceCell(s, c))).ToArray();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         if (shape.Coverage is { } coverage)</span>
+<span id="L23"><a class="line" href="#L23">23</a>             return InventoryCoverage.Project(open &amp;&amp; item.GarmentOpen ? coverage.Open : coverage.Closed, InventoryBodyFit.Pose(state, item)!, mount);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         // Legacy unmapped artwork still has a physical fitted shape. A mounted pack uses only its specified surface.</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var surfaces = mount.BodySurface is { } surface ? new[] { surface } : new[] { &quot;front&quot;, &quot;back&quot; };</span>
+<span id="L26"><a class="line" href="#L26">26</a>         return BodyFitGeometry.Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R))</span>
+<span id="L27"><a class="line" href="#L27">27</a>             .SelectMany(c =&gt; surfaces.Select(s =&gt; new BodySurfaceCell(s, BodyFitGeometry.Transform(c, InventoryBodyFit.Pose(state, item)!)))).ToArray();</span>
+<span id="L28"><a class="line" href="#L28">28</a>     }</span>
+<span id="L29"><a class="line" href="#L29">29</a>     public static IReadOnlyList&lt;WornCellLayer&gt; Build(InventoryState state, string root)</span>
+<span id="L30"><a class="line" href="#L30">30</a>     {</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var worn = InventoryWear.Worn(state, root).OrderBy(InventoryWornOrder.Order).ToArray();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         var positions = worn.SelectMany(i =&gt; Cells(state, i).Select(c =&gt; (Item: i, Cell: c))).GroupBy(p =&gt; p.Cell);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var result = new List&lt;WornCellLayer&gt;();</span>
+<span id="L34"><a class="line" href="#L34">34</a>         foreach (var position in positions.OrderBy(g =&gt; g.Key.Surface, StringComparer.Ordinal).ThenBy(g =&gt; g.Key.Cell.R).ThenBy(g =&gt; g.Key.Cell.Q))</span>
+<span id="L35"><a class="line" href="#L35">35</a>         {</span>
+<span id="L36"><a class="line" href="#L36">36</a>             var layer = -1; var count = 0; var limits = new List&lt;int&gt;();</span>
+<span id="L37"><a class="line" href="#L37">37</a>             foreach (var (item, cell) in position)</span>
+<span id="L38"><a class="line" href="#L38">38</a>             {</span>
+<span id="L39"><a class="line" href="#L39">39</a>                 if (state.Definition(item.Id).Wear!.OverlayLimit is { } limit)</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 {</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     if (layer &lt; 0) layer = 0;</span>
+<span id="L42"><a class="line" href="#L42">42</a>                     count++; limits.Add(limit);</span>
+<span id="L43"><a class="line" href="#L43">43</a>                     if (limits.Any(max =&gt; count &gt; max))</span>
+<span id="L44"><a class="line" href="#L44">44</a>                         throw new ArgumentException($&quot;Overlay limit at {cell.Surface} {cell.Cell.Q},{cell.Cell.R}: {count} items in this band; move a strap or remove it first.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 }</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 else { layer++; count = 1; limits.Clear(); }</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 result.Add(new(item.Id, cell, layer, count - 1, count));</span>
+<span id="L48"><a class="line" href="#L48">48</a>             }</span>
+<span id="L49"><a class="line" href="#L49">49</a>         }</span>
+<span id="L50"><a class="line" href="#L50">50</a>         return result;</span>
+<span id="L51"><a class="line" href="#L51">51</a>     }</span>
+<span id="L52"><a class="line" href="#L52">52</a>     internal static string Region(BodyMask body, BodySurfaceCell cell) =&gt; body.Zones?.SingleOrDefault(z =&gt; z.Surface == cell.Surface</span>
+<span id="L53"><a class="line" href="#L53">53</a>         &amp;&amp; cell.Cell.R &gt;= z.FirstRow &amp;&amp; cell.Cell.R &lt;= z.LastRow)?.Region ?? throw new ArgumentException(&quot;Body surface cell has no anatomical zone.&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>     internal static bool Overlaps(InventoryState state, InventoryItem first, InventoryItem second)</span>
+<span id="L55"><a class="line" href="#L55">55</a>         =&gt; Cells(state, first).Intersect(Cells(state, second)).Any();</span>
+<span id="L56"><a class="line" href="#L56">56</a>     internal static bool OverlayIntersects(InventoryState state, InventoryItem outer, InventoryItem inner, bool open = false)</span>
+<span id="L57"><a class="line" href="#L57">57</a>         =&gt; Cells(state, outer, open).Intersect(Cells(state, inner)).Any();</span>
+<span id="L58"><a class="line" href="#L58">58</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

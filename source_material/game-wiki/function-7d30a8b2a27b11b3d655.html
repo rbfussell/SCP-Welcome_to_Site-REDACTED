@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EmploymentSystem.Initialize | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>EmploymentSystem.Initialize</h1><p><a href="system-employment.html">Employment and relief</a> / <a href="file-src-sitesimulation-employment-employmentsystem-cs.html#L10">src/SiteSimulation/Employment/EmploymentSystem.cs:10</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Initialize(SimulationWorld world)</code></pre><h2>Role in the engine</h2><p>Owns scheduled appointments, physical observation posts, relief, bounded overtime, delivered staffing reports and saved continuation.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-13c5a9ae4d883c613d0c.html">FacilityMap.Inside</a></li><li><a href="function-4152c13f64c4e71ee74e.html">EmploymentSystem.Scheduled</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>d.Posts.Any
+string.IsNullOrWhiteSpace
+world.Map.Inside
+d.Posts.Select(p =&gt; p.Id).Distinct().Count
+d.Posts.Select(p =&gt; p.Id).Distinct
+d.Posts.Select
+d.Appointments.Any
+world.Actors.Any
+world.Map.Walkable
+new[] { a.CycleMs, a.StartMs, a.DurationMs, a.MaxOvertimeMs }.Any
+d.Appointments.Select(a =&gt; a.ActorId).Distinct().Count
+d.Appointments.Select(a =&gt; a.ActorId).Distinct
+d.Appointments.Select
+d.Appointments.Select(a =&gt; a.Station).Distinct().Count
+d.Appointments.Select(a =&gt; a.Station).Distinct
+state.Duties.AddRange
+Scheduled</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-718b2bacfd27f8176d9a.html">OscpScene._Ready</a></li><li><a href="function-cca00ec29dbf08139b4e.html">SpatialScene._Ready</a></li><li><a href="function-d7d18d159ff26c340221.html">SimulationWorld.SimulationWorld</a></li><li><a href="function-f903653729ecd946ab9f.html">SpatialHud.Initialize</a></li></ul><h2>Related types</h2><ul><li><a href="type-dutyphase.html">DutyPhase</a></li><li><a href="type-dutyrelease.html">DutyRelease</a></li><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li><li><a href="type-staffduty.html">StaffDuty</a></li></ul><h2>Implementation</h2><pre><code>public static void Initialize(SimulationWorld world)
+    {
+        var state = world.Employment;
+        if (state.Definition is not { } d) return;
+        if (d.Posts is null || d.Appointments is null || d.Posts.Length == 0 || d.Appointments.Length == 0
+            || d.Posts.Any(p =&gt; p is null || string.IsNullOrWhiteSpace(p.Id) || p.Id.Length &gt; 80 || string.IsNullOrWhiteSpace(p.Name)
+                || p.Name.Length &gt; 100 || !world.Map.Inside(p.LookAt) || p.MinimumStaff is &lt; 1 or &gt; 16)
+            || d.Posts.Select(p =&gt; p.Id).Distinct().Count() != d.Posts.Length
+            || d.Appointments.Any(a =&gt; a is null || a.ActorId == world.Player.Id || !world.Actors.Any(actor =&gt; actor.Id == a.ActorId &amp;&amp; actor.ObserverKind == &quot;human&quot;)
+                || a.SupervisorId != world.Operations.Definition?.CommanderId || !d.Posts.Any(p =&gt; p.Id == a.PostId)
+                || string.IsNullOrWhiteSpace(a.Role) || a.Role.Length &gt; 100 || !world.Map.Walkable(a.Station) || !world.Map.Walkable(a.Rest)
+                || a.Rest == a.Station || a.RestFacing is &lt; 0 or &gt; 5 || a.CycleMs is &lt; 1000 or &gt; 86400000
+                || a.StartMs &lt; 0 || a.StartMs &gt;= a.CycleMs || a.DurationMs &lt;= 0 || a.DurationMs &gt;= a.CycleMs
+                || a.MaxOvertimeMs &lt; 0 || a.MaxOvertimeMs &gt; a.CycleMs - a.DurationMs
+                || new[] { a.CycleMs, a.StartMs, a.DurationMs, a.MaxOvertimeMs }.Any(ms =&gt; ms % SpatialSimulation.TickMs != 0))
+            || d.Appointments.Select(a =&gt; a.ActorId).Distinct().Count() != d.Appointments.Length
+            || d.Appointments.Select(a =&gt; a.Station).Distinct().Count() != d.Appointments.Length)
+            throw new ArgumentException(&quot;Invalid employment definitions or appointment.&quot;);
+        state.Duties.AddRange(d.Appointments.Select(a =&gt; Scheduled(a, 0)
+            ? new StaffDuty(a.ActorId, DutyPhase.Reporting, &quot;Reporting for assigned duty&quot;, 0)
+            : new StaffDuty(a.ActorId, DutyPhase.OffShift, &quot;Off shift at scenario start&quot;, 0, Release: DutyRelease.OffShift)));
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Employment/EmploymentSystem.cs:10</footer></main></div></body></html>

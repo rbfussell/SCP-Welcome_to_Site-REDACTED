@@ -1,0 +1,508 @@
+{
+  "ai-classification-guide": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/ai-classification-guide",
+    "local_page": "canon-ai-classification-guide.html",
+    "local_json": "canon-records/ai-classification-guide.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2020.json",
+    "collection": "tales",
+    "record_key": "ai-classification-guide",
+    "dataset_path": "docs/data/scp/tales/content_2020.json",
+    "json_pointer": "/ai-classification-guide",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "f70706ce87351df3d048237dae22d0e44f721deccb549237f6005529563fc281",
+    "record_sha256": "600cd2fff622356b2f32a7f08c36c98187fd270880162017c0ec25fb944432b4",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html"
+    ]
+  },
+  "aiad-homescreen": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/aiad-homescreen",
+    "local_page": "canon-aiad-homescreen.html",
+    "local_json": "canon-records/aiad-homescreen.json",
+    "original_json": "../scp-api/docs/data/scp/hubs/index.json",
+    "collection": "hubs",
+    "record_key": "aiad-homescreen",
+    "dataset_path": "docs/data/scp/hubs/index.json",
+    "json_pointer": "/aiad-homescreen",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "4f6314217c1f8287a1aaa2c10bf6933b6672ecac19be8a8836dce5a3b092204b",
+    "record_sha256": "8128952aeb180341eb8b94da1cd2264f34af2359f8f186ebf90423fb9672705f",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html"
+    ]
+  },
+  "and-then-i-died": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/and-then-i-died",
+    "local_page": "canon-and-then-i-died.html",
+    "local_json": "canon-records/and-then-i-died.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2011.json",
+    "collection": "tales",
+    "record_key": "and-then-i-died",
+    "dataset_path": "docs/data/scp/tales/content_2011.json",
+    "json_pointer": "/and-then-i-died",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "d6dc4ca1c4f7ddfd68927b27b33737a74fd5d513ebd542b8265d91ad2cb91fb7",
+    "record_sha256": "6329054daf7a8ee2eb2f8190fcc9b4f8f077a252f5e3acdca4532245ce321eab",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "audio-adaptations": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/audio-adaptations",
+    "local_page": "canon-audio-adaptations.html",
+    "local_json": "canon-records/audio-adaptations.json",
+    "original_json": "../scp-api/docs/data/scp/hubs/index.json",
+    "collection": "hubs",
+    "record_key": "audio-adaptations",
+    "dataset_path": "docs/data/scp/hubs/index.json",
+    "json_pointer": "/audio-adaptations",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "4f6314217c1f8287a1aaa2c10bf6933b6672ecac19be8a8836dce5a3b092204b",
+    "record_sha256": "7dfe64f77202a3b26ef5b85091d2aed1612b1fbb3e6f1c1d6a5e3b30581167a4",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "cimmerian-sends-650-pms": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/cimmerian-sends-650-pms",
+    "local_page": "canon-cimmerian-sends-650-pms.html",
+    "local_json": "canon-records/cimmerian-sends-650-pms.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2020.json",
+    "collection": "tales",
+    "record_key": "cimmerian-sends-650-pms",
+    "dataset_path": "docs/data/scp/tales/content_2020.json",
+    "json_pointer": "/cimmerian-sends-650-pms",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "f70706ce87351df3d048237dae22d0e44f721deccb549237f6005529563fc281",
+    "record_sha256": "132911468db4a89eed68740e7c51477ef56223cb8a3573f6d72d3f1e601422e8",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html"
+    ]
+  },
+  "incursion": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/incursion",
+    "local_page": "canon-incursion.html",
+    "local_json": "canon-records/incursion.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2012.json",
+    "collection": "tales",
+    "record_key": "incursion",
+    "dataset_path": "docs/data/scp/tales/content_2012.json",
+    "json_pointer": "/incursion",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "e7eb3beacdad42f0b4cb1c4d26ac2f1c1f726a2965feddaa8c198bd48b39a3e7",
+    "record_sha256": "57cf497c2519570b8026210762da6d03cb39a044f38e98a9531e81edc5009177",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "licensing-guide": {
+    "hosted": "https://scp-wiki.wikidot.com/licensing-guide",
+    "available": false,
+    "reason": "No matching record in the indexed local collections."
+  },
+  "scp-019": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-019",
+    "local_page": "canon-scp-019.html",
+    "local_json": "canon-records/scp-019.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-019",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-019",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "312f8f62f549e5a405313d1ef0ad923eddf45637b5a3b1f59d5c9d7a32fecf62",
+    "backlinks": [
+      "doc-docs-17-facility-infrastructure-md.html",
+      "scp-019.html"
+    ]
+  },
+  "scp-087": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-087",
+    "local_page": "canon-scp-087.html",
+    "local_json": "canon-records/scp-087.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-087",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-087",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "d821ff6f2756d5bc3c856828c0d9cc0068bef810388163a6ca46cd6bfabf0f4f",
+    "backlinks": [
+      "doc-docs-03-scp-module-contract-md.html",
+      "scp-087.html"
+    ]
+  },
+  "scp-096": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-096",
+    "local_page": "canon-scp-096.html",
+    "local_json": "canon-records/scp-096.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-096",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-096",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "47cf138f7ee5d8bf4c2a0ea31cd844697297f48ef5280a81a30d9e7022121b30",
+    "backlinks": [
+      "doc-docs-18-awareness-and-encounter-entry-md.html",
+      "scp-096.html"
+    ]
+  },
+  "scp-127": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-127",
+    "local_page": "canon-scp-127.html",
+    "local_json": "canon-records/scp-127.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-127",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-127",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "1edf0dc1e3690e0bb89b9643040a9ad12f4386ab03a88a4e4139a5006e6ac921",
+    "backlinks": [
+      "scp-127.html"
+    ]
+  },
+  "scp-1498": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-1498",
+    "local_page": "canon-scp-1498.html",
+    "local_json": "canon-records/scp-1498.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-2.json",
+    "collection": "items",
+    "record_key": "SCP-1498",
+    "dataset_path": "docs/data/scp/items/content_series-2.json",
+    "json_pointer": "/SCP-1498",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "05627f415c9f08dd7b0994d701110fed48d6c5e8c80e95d6aa3cf661b1e4202b",
+    "record_sha256": "060835951a63edf0867ea8a4a81d35ccf35d717d29ba1612d0271e88be1cee08",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-1499": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-1499",
+    "local_page": "canon-scp-1499.html",
+    "local_json": "canon-records/scp-1499.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-2.json",
+    "collection": "items",
+    "record_key": "SCP-1499",
+    "dataset_path": "docs/data/scp/items/content_series-2.json",
+    "json_pointer": "/SCP-1499",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "05627f415c9f08dd7b0994d701110fed48d6c5e8c80e95d6aa3cf661b1e4202b",
+    "record_sha256": "f9a90650784fede9cba3e60d248d9aff0aebacd900af0d3590b7ac533a54a3de",
+    "backlinks": [
+      "doc-docs-03-scp-module-contract-md.html",
+      "doc-docs-10-world-perception-and-scp-1499-md.html",
+      "scp-1499.html"
+    ]
+  },
+  "scp-1500": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-1500",
+    "local_page": "canon-scp-1500.html",
+    "local_json": "canon-records/scp-1500.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-2.json",
+    "collection": "items",
+    "record_key": "SCP-1500",
+    "dataset_path": "docs/data/scp/items/content_series-2.json",
+    "json_pointer": "/SCP-1500",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "05627f415c9f08dd7b0994d701110fed48d6c5e8c80e95d6aa3cf661b1e4202b",
+    "record_sha256": "0b563fd3526da29d36524e6255ab49f9635c4aaa842ca3302d23063c9fccd6b1",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-173": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-173",
+    "local_page": "canon-scp-173.html",
+    "local_json": "canon-records/scp-173.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-173",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-173",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "656070d0c5d5cf1efe8ec52afb6c2dda9685a6405620df109917b498cacaaabd",
+    "backlinks": [
+      "doc-docs-03-scp-module-contract-md.html",
+      "doc-docs-18-awareness-and-encounter-entry-md.html",
+      "scp-173.html"
+    ]
+  },
+  "scp-245": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-245",
+    "local_page": "canon-scp-245.html",
+    "local_json": "canon-records/scp-245.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-245",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-245",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "403765112d3212fd9148b3910113b9450e00de98099c5d067ddf6ad0b305e542",
+    "backlinks": [
+      "doc-docs-11-oscp-terminal-md.html",
+      "doc-docs-13-lore-and-digital-operations-md.html",
+      "scp-245.html"
+    ]
+  },
+  "scp-3008": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-3008",
+    "local_page": "canon-scp-3008.html",
+    "local_json": "canon-records/scp-3008.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-4.json",
+    "collection": "items",
+    "record_key": "SCP-3008",
+    "dataset_path": "docs/data/scp/items/content_series-4.json",
+    "json_pointer": "/SCP-3008",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "fef3fbb546b137e53b22560a9d3a5023ac2cca787bf1d13b3d473abc553d70f3",
+    "record_sha256": "b6e7ed418a02e3dcd028831649738ca7cc25016c7fd3216df35d7ef91dd8cbb2",
+    "backlinks": [
+      "doc-docs-03-scp-module-contract-md.html",
+      "scp-3008.html"
+    ]
+  },
+  "scp-5098": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-5098",
+    "local_page": "canon-scp-5098.html",
+    "local_json": "canon-records/scp-5098.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-6.0.json",
+    "collection": "items",
+    "record_key": "SCP-5098",
+    "dataset_path": "docs/data/scp/items/content_series-6.0.json",
+    "json_pointer": "/SCP-5098",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "25eb1033ce05f02e03e240a397a2ee82519512a0254d600fdac4e599af5a9f79",
+    "record_sha256": "e1d58eff0eafaa648f5b73d119897efeee66fdcb4e4856f64c953a0ad8b3a680",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html",
+      "doc-docs-reviews-oscp-device-source-checks-md.html",
+      "scp-5098.html"
+    ]
+  },
+  "scp-5457": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-5457",
+    "local_page": "canon-scp-5457.html",
+    "local_json": "canon-records/scp-5457.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-6.0.json",
+    "collection": "items",
+    "record_key": "SCP-5457",
+    "dataset_path": "docs/data/scp/items/content_series-6.0.json",
+    "json_pointer": "/SCP-5457",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "25eb1033ce05f02e03e240a397a2ee82519512a0254d600fdac4e599af5a9f79",
+    "record_sha256": "dbf17a20d13abbce4314906fb0665d5ae254ec03162607ca2aad06cce6910c19",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html",
+      "doc-docs-reviews-oscp-device-source-checks-md.html",
+      "scp-5457.html"
+    ]
+  },
+  "scp-5810": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-5810",
+    "local_page": "canon-scp-5810.html",
+    "local_json": "canon-records/scp-5810.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-6.5.json",
+    "collection": "items",
+    "record_key": "SCP-5810",
+    "dataset_path": "docs/data/scp/items/content_series-6.5.json",
+    "json_pointer": "/SCP-5810",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "65d871c148b784e5e7f86fbbcfc8859682de9bd8bcc41050d276816d3fc47f2e",
+    "record_sha256": "1725ffc349d43a03234d0612bf98f46ed937497b30a1d96dd2f373bc0154723e",
+    "backlinks": [
+      "doc-docs-11-oscp-terminal-md.html",
+      "doc-docs-13-lore-and-digital-operations-md.html",
+      "doc-docs-reviews-oscp-device-source-checks-md.html",
+      "scp-5810.html"
+    ]
+  },
+  "scp-649": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-649",
+    "local_page": "canon-scp-649.html",
+    "local_json": "canon-records/scp-649.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-649",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-649",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "58baccab4d19d5f2de07755293cdf212e6b1825bb2ec40613ee0002c445499f7",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-650": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-650",
+    "local_page": "canon-scp-650.html",
+    "local_json": "canon-records/scp-650.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-650",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-650",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "2d10f6ce02076cee5b4ac7e0bf807c43e9e6ee82ca29cde745ff5f947ee5a6d9",
+    "backlinks": [
+      "doc-docs-09-first-playable-scp-650-md.html",
+      "scp-650.html"
+    ]
+  },
+  "scp-651": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-651",
+    "local_page": "canon-scp-651.html",
+    "local_json": "canon-records/scp-651.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-651",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-651",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "0a1208fdd9992ae4880e6f09e6fcd5f5cefd4953c65a7e0515933b558c4e2151",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-914": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-914",
+    "local_page": "canon-scp-914.html",
+    "local_json": "canon-records/scp-914.json",
+    "original_json": "../scp-api/docs/data/scp/items/content_series-1.json",
+    "collection": "items",
+    "record_key": "SCP-914",
+    "dataset_path": "docs/data/scp/items/content_series-1.json",
+    "json_pointer": "/SCP-914",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "06fa971f7d9fd83ec7177bbe2dd57319408ff1001c5ddb4658be374b1be98c90",
+    "record_sha256": "cd9142071fbaca33af6d46c1580028b617a9b6b5cf306c7a9cd8a97628a7a7ae",
+    "backlinks": [
+      "doc-docs-03-scp-module-contract-md.html",
+      "scp-914.html"
+    ]
+  },
+  "scp-international": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-international",
+    "local_page": "canon-scp-international.html",
+    "local_json": "canon-records/scp-international.json",
+    "original_json": "../scp-api/docs/data/scp/hubs/index.json",
+    "collection": "hubs",
+    "record_key": "scp-international",
+    "dataset_path": "docs/data/scp/hubs/index.json",
+    "json_pointer": "/scp-international",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "4f6314217c1f8287a1aaa2c10bf6933b6672ecac19be8a8836dce5a3b092204b",
+    "record_sha256": "76a17236b2fdabbf18a2416536cba9624bbadf1b40ef9d8d0220216ccefd4199",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-series": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-series",
+    "local_page": "canon-scp-series.html",
+    "local_json": "canon-records/scp-series.json",
+    "original_json": "../scp-api/docs/data/scp/hubs/index.json",
+    "collection": "hubs",
+    "record_key": "scp-series",
+    "dataset_path": "docs/data/scp/hubs/index.json",
+    "json_pointer": "/scp-series",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "4f6314217c1f8287a1aaa2c10bf6933b6672ecac19be8a8836dce5a3b092204b",
+    "record_sha256": "2965b3c3aeb2a45bb0842e1f7588bc958012f9b95e283af4b5232c4339c5d572",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "scp-series-2": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/scp-series-2",
+    "local_page": "canon-scp-series-2.html",
+    "local_json": "canon-records/scp-series-2.json",
+    "original_json": "../scp-api/docs/data/scp/hubs/index.json",
+    "collection": "hubs",
+    "record_key": "scp-series-2",
+    "dataset_path": "docs/data/scp/hubs/index.json",
+    "json_pointer": "/scp-series-2",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "4f6314217c1f8287a1aaa2c10bf6933b6672ecac19be8a8836dce5a3b092204b",
+    "record_sha256": "665238b75dbf54eae4f2a762cf1f8b38fecf99d8102e6ba0b1c08ee73f789474",
+    "backlinks": [
+      "archive-research.html"
+    ]
+  },
+  "secure-facilities-locations": {
+    "hosted": "https://scp-wiki.wikidot.com/secure-facilities-locations",
+    "available": false,
+    "reason": "No matching record in the indexed local collections."
+  },
+  "site-87-faq": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/site-87-faq",
+    "local_page": "canon-site-87-faq.html",
+    "local_json": "canon-records/site-87-faq.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2024.json",
+    "collection": "tales",
+    "record_key": "site-87-faq",
+    "dataset_path": "docs/data/scp/tales/content_2024.json",
+    "json_pointer": "/site-87-faq",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "a265642a59a9b057bc5b66130184c88a1ba46964e3236667ce6eeb931f16b422",
+    "record_sha256": "50bd0a10ef1a71415839478f19540ffd1ed970f2a841a8984b4c7b5cef23761b",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html"
+    ]
+  },
+  "that-s-the-spirit": {
+    "available": true,
+    "hosted": "https://scp-wiki.wikidot.com/that-s-the-spirit",
+    "local_page": "canon-that-s-the-spirit.html",
+    "local_json": "canon-records/that-s-the-spirit.json",
+    "original_json": "../scp-api/docs/data/scp/tales/content_2014.json",
+    "collection": "tales",
+    "record_key": "that-s-the-spirit",
+    "dataset_path": "docs/data/scp/tales/content_2014.json",
+    "json_pointer": "/that-s-the-spirit",
+    "archive_revision": "278a69a68e4b85ac7135d061b9fbd6f1027e1a96",
+    "shard_sha256": "50767d894b29dc728b072ab091e3db28850af85e73f43815b2ae6130453f6a84",
+    "record_sha256": "fc6ad1f5a676ab47ec0588d956459b96e244d69a8f14cdbccb0ceed23f82737b",
+    "backlinks": [
+      "doc-docs-13-lore-and-digital-operations-md.html",
+      "doc-docs-reviews-oscp-device-source-checks-md.html"
+    ]
+  }
+}

@@ -1,0 +1,293 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SCP module contract | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/03-scp-module-contract.md.</aside><h1 id="scp-module-contract">SCP module contract</h1>
+<p>Status: Proposed public API design, revision 0.6. A native C# SCP-650 observation/relocation proof now runs through an instance-bound host seam; SCP-1499 remains the second module target. Names below describe intended public semantics. The compiled proof is not a metered script runtime, published mod API, authoring application or compatibility guarantee. See <a href="doc-src-sitesimulation-readme-md.html">the implementation code map</a> and <a href="doc-docs-15-spatial-prototype-md.html">prototype guide</a>.</p>
+<h2 id="1-extensibility-promise">1. Extensibility promise</h2>
+<p>A module combines descriptive data, reusable components, sandboxed behavior, procedures for staff, and acceptance scenarios. A form captures the declaration. Scripts express behavior that cannot be represented by fields alone.</p>
+<p>The development commitment is support for published capability families, with fixtures proving representative cases. It cannot be “every SCP, fully simulated, with every other SCP.” A host-managed whole-world checkpoint restart is a staged capability; unrestricted time travel, new physical laws, fourth-wall interaction or contradictory effects may require another engine extension and API version.</p>
+<p>For each SCP, distinguish narrative facts, required gameplay behavior, chosen adaptation, unknown behavior, and deliberately unsupported interactions. “Faithful” means passing that module's agreed behavioral scenarios. It does not promise a literal implementation of every interpretation of the fiction.</p>
+<p>Content tiers:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Author supplies</th>
+<th>Engine promise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Form/data, assets, existing components</td>
+<td>Validated composition within existing capabilities</td>
+</tr>
+<tr>
+<td>Script</td>
+<td>State machine, event handlers, procedures</td>
+<td>Sandboxed execution through declared capabilities</td>
+</tr>
+<tr>
+<td>Engine extension</td>
+<td>New capability and technical implementation</td>
+<td>Separate versioned engine work with its own acceptance gate</td>
+</tr>
+</tbody>
+</table>
+<p>A script cannot acquire an engine extension by editing an arbitrary global variable. The host validates every state-changing request.</p>
+<h2 id="2-standard-package">2. Standard package</h2>
+<pre><code class="language-text">module/
+  manifest.json       identity, versions, dependencies, capabilities, credits
+  definition.json     descriptions, components, spawn and containment definitions
+  behavior.*          sandboxed behavior, language chosen during M0
+  generation.json     optional environmental templates and deterministic population rules
+  perception.json     optional perceived-context and target-binding declarations
+  procedures.json     investigation, testing, containment and withdrawal steps
+  state-schema.json   serializable module-owned persistent state
+  assets/             declared presentation resources
+  tests/              deterministic behavioral fixtures and expected outcomes
+  migrations/         explicit save-state migrations where supported
+</code></pre>
+<p>Use namespaced immutable IDs, semantic package/API versions, pinned dependency hashes in saves, dependency-cycle detection, and explicit incompatibilities. The loader checks schemas, references, capability grants, entry points, state schema, and assets before creating an instance. Cosmetic-only packages declare that they cannot change simulation state.</p>
+<p>Definitions/assets may include entity and equipment types, pose/state sprites, generated environments, independent NPC behavior graphs, audio/atmosphere, world/perception effects and staff procedures. Optional package sections use the same versioned reference validation as other data. Loading a module does not load an independently authoritative game subsystem.</p>
+<p>The authoring form in <a href="doc-templates-scp-module-form-md.html">the template</a> is the human-readable source for this declaration. A later editor may generate package data from it. The initial milestone requires a text workflow and validator, not a complete visual scripting IDE.</p>
+<h2 id="3-required-declaration">3. Required declaration</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Required information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>Namespace/ID, title, package version, API compatibility, dependencies</td>
+</tr>
+<tr>
+<td>Sources</td>
+<td>Author, article URL, adaptation notes, license and asset provenance</td>
+</tr>
+<tr>
+<td>Classification</td>
+<td>In-world containment class plus independent gameplay hazard tags</td>
+</tr>
+<tr>
+<td>Existence</td>
+<td>Unique/multiple instances, entity/object/area/distributed phenomenon, spawning rules</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Named states, fields, invariants, transitions, timers, migration version</td>
+</tr>
+<tr>
+<td>Perception</td>
+<td>Observer-kind eligibility profile, module default/scenario overrides, senses, media, lighting/occlusion/attention policy</td>
+</tr>
+<tr>
+<td>Context mappings</td>
+<td>Physical/perceived relation, target bindings, sensory/identity changes and cross-context consequences</td>
+</tr>
+<tr>
+<td>Effects</td>
+<td>Trigger, target, range/domain, duration, stacking, reversible/irreversible changes</td>
+</tr>
+<tr>
+<td>Environmental containment</td>
+<td>Required supported quantities/services, affected spaces, units, ranges/boundaries, rates/exposure, equipment/utility dependencies, sensor knowledge and fail/recovery rules</td>
+</tr>
+<tr>
+<td>Space/time</td>
+<td>Domain creation, connections, world-calendar versus local-progress timer bases, zone-wait behavior, anchors, persistence</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Allowed actions, costs, guards, results, rejection reasons</td>
+</tr>
+<tr>
+<td>Engagement/reaction</td>
+<td>Tactical-entry eligibility, evidence requirements, movement/effect timing, interruption points and zero-response outcomes; no universal warning or guaranteed player turn</td>
+</tr>
+<tr>
+<td>Staff procedures</td>
+<td>Discover, investigate, contain/mitigate, transport if possible, maintain, abort</td>
+</tr>
+<tr>
+<td>Organization interactions</td>
+<td>Who can learn about, own, use, trade, transport or target the anomaly; knowledge and access prerequisites</td>
+</tr>
+<tr>
+<td>Fidelity</td>
+<td>Minimum simulation tier, safe aggregation conditions, coarse-resolver tests</td>
+</tr>
+<tr>
+<td>Presentation</td>
+<td>Required status cues, animation/audio, terminal reports, accessibility equivalents</td>
+</tr>
+<tr>
+<td>Staff duties</td>
+<td>Role qualifications, work-handler tasks, coverage/readiness and authoritative-order/override interactions</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Script fault policy, incompatible-save policy, interrupted-action outcomes</td>
+</tr>
+<tr>
+<td>Continuation</td>
+<td>Optional checkpoint/restart grants, activation/cost and retention policy, branch compatibility</td>
+</tr>
+<tr>
+<td>Acceptance</td>
+<td>Direct, unattended, transfer, conflict, persistence, and budget scenarios</td>
+</tr>
+</tbody>
+</table>
+<p>Containment class is descriptive metadata. It must not automatically set combat strength, aggression, or a generic success chance.</p>
+<p>Environmental containment uses <a href="doc-docs-17-facility-infrastructure-md.html">shared infrastructure</a>, not SCP-specific room-temperature booleans. Modules declare required quantities and supported host capabilities; unsupported pressure/humidity/etc. must fail validation rather than default to safety. Distinguish procedure compliance, actual hazard conditions and measured/reported evidence. Declare local clock ownership, threshold/rate/exposure semantics, permitted heat/device effects and unattended fidelity. Room fit-out or a working cooler alone never grants automatic containment.</p>
+<h3 id="observer-eligibility-profiles">Observer eligibility profiles</h3>
+<p>Confirmed direction: observer eligibility belongs to the SCP module or scenario, not a global assumption that human and artificial observation are equivalent. Supply named profiles for <strong>human observers</strong>, <strong>AI observers</strong> and <strong>any eligible observer</strong>. Modules select a default and may define more specific actor-kind/trait predicates where needed. Scenario configuration can explicitly select an alternate compatible profile; record it as an adaptation variant when it differs from the module's source-aligned default.</p>
+<p>Observer kind and observation medium are separate dimensions. Each profile still declares eligible senses/media, attention, live-feed requirements, lighting, occlusion and other applicable conditions. “Any eligible observer” means an actual observing actor satisfying those conditions; it does not make an unattended camera, recording, database entry or overhead viewport an observer. An AI actor's identity/capabilities determine eligibility, independently of whether deterministic logic or an optional language model supplies its decisions. Unknown actor kinds need an explicit eligibility rule rather than being silently treated as human or AI.</p>
+<p>Persist the effective profile ID/version and scenario selection with module state. Resolve eligibility through shared sensory services and expose rejection reasons in diagnostics. An authorized profile change, host/feed outage or attention transition invalidates affected observer sets at the simulation event boundary. Test human-only, AI-only and any-eligible profiles against the same observation fixture without changing kernel source. SCP-650 defaults to human observers, including its qualified emergency live-camera chain; AI-only eligibility is not established by its source article.</p>
+<h2 id="4-capability-families">4. Capability families</h2>
+<p>Capabilities are versioned host services with queries and validated commands. A grant is scoped to an instance, domain, actor set, or campaign as declared.</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Examples</th>
+<th>First proof</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entity/condition</td>
+<td>Spawn, damage, status, ownership, inventories</td>
+<td>Basic hazard fixture</td>
+</tr>
+<tr>
+<td>Storage/access</td>
+<td>Container layouts, placement, ancestor access, stack blockers, validated pickup/place</td>
+<td>Cabinet/pallet fixtures</td>
+</tr>
+<tr>
+<td>Senses/observation</td>
+<td>Observer eligibility, direct/live-feed sight, attention, occlusion, blink events</td>
+<td>SCP-650</td>
+</tr>
+<tr>
+<td>Spatial domains</td>
+<td>Create instance, generate chunk, connect/disconnect, transfer</td>
+<td>Domain fixtures</td>
+</tr>
+<tr>
+<td>Perceived contexts</td>
+<td>Per-observer environment/identity, target mappings, mapped physical effects</td>
+<td>SCP-1499 profiles</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>Scoped physical conditions, heat sources/sinks, threshold events and validated utility effects; actual state separate from measurements</td>
+<td>M1 power/thermal fixtures; M3 bounded environmental hazard</td>
+</tr>
+<tr>
+<td>Transformations</td>
+<td>Reserve inputs, choose a recipe, replace atomically, retain provenance</td>
+<td>Refinement fixture</td>
+</tr>
+<tr>
+<td>Scoped rules</td>
+<td>Movement, damage, interaction, perception, death policy</td>
+<td>Conflict fixture</td>
+</tr>
+<tr>
+<td>Knowledge/communication</td>
+<td>Actor evidence, messages, dossier discoveries, media exposure</td>
+<td>Investigation fixture</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>Procedure graphs, preconditions, staff roles, abort transitions</td>
+<td>Delegated containment</td>
+</tr>
+<tr>
+<td>Scheduling</td>
+<td>Persisted timers, domain-local rates, event subscriptions</td>
+<td>Save/resume fixture</td>
+</tr>
+<tr>
+<td>Continuation/checkpoint</td>
+<td>Request compatible whole-world branch restoration with validated retention/cost</td>
+<td>M3 synthetic restart fixture</td>
+</tr>
+</tbody>
+</table>
+<p>Some families are staged after the first playable slice. A manifest cannot declare a capability as available before its prototype gate passes. Cognitohazards, distributed identities, possession, resurrection, and spatially recursive effects are extension candidates, not free consequences of having an event bus.</p>
+<p>Grants can authorize ordinary-world changes outside the module's generated environment: entity relocation, physical conditions, inventories, NPC behavior or observer contexts in explicitly named scopes. A module is not limited to mutating only its own private map. The host still owns identity, location, occupancy, authority, transactions and persistence, and rejects undeclared scopes/capabilities. Indirect effects on another SCP flow through those shared services.</p>
+<h2 id="5-runtime-and-lifecycle">5. Runtime and lifecycle</h2>
+<p>Use a restricted, embeddable script runtime with metering and serializable state. Lua or WebAssembly are candidates to evaluate during M0; no language is selected here. Ordinary native DLL plugins are outside the public gameplay-mod contract.</p>
+<p>The host provides deterministic RNG streams, simulation time, read-only state views, capability handles, transaction builders, and scheduling. It does not expose the filesystem, network, process creation, wall clock, arbitrary engine objects, reflection, or unseeded randomness. Runtime selection must demonstrate these restrictions; naming a language is insufficient.</p>
+<p>Tactical input waiting holds all engaged-area simulation, including local anomaly timers, while the world calendar and other areas continue. Modules declare timer ownership, clock bases and cross-zone scopes. Preserve remaining local countdowns/progress through the hold; do not expire them merely because the calendar advanced. World-scoped effects continue, with local application gated by the host's qualified boundary policy. Preserve critical queued observation/effect transitions. An anomaly is not forced into an ordinary actor turn merely because combat UI is active. See <a href="doc-docs-adr-0006-real-time-exploration-and-tactical-turns-md.html">the time decision</a>.</p>
+<p>Before a tactical input hold exists, an unperceived anomaly can complete validated lethal movement/effects without warning or a guaranteed response turn. Acquired evidence, due effects and interruption points determine whether a response window exists; proximity or hidden attack intent alone cannot create one. Mode entry cannot reset an attack deadline, manufacture observer knowledge or move a due lethal outcome behind player input. During permitted tactical action resolution, module constraints still apply at their authored event boundaries. Post-death scene revelation is presentation-only and cannot supply evidence to living actors. See <a href="doc-docs-18-awareness-and-encounter-entry-md.html">awareness and encounter entry</a>.</p>
+<p>Lifecycle callbacks: validate definition, create instance, handle subscribed event, respond to interaction, advance procedure, save state, restore state, migrate state, and dispose instance. Restoration reattaches persisted registrations idempotently; it does not replay creation rewards or re-roll initialized state.</p>
+<p>Scripts store data, IDs, finite numbers, bounded strings, and declared collections. Engine object references, live coroutine stacks, and closures are not save data. Timers and continuation states are explicit persisted records. Schema checks reject invalid values, oversized collections, and unresolved required references.</p>
+<p>Meter instruction/fuel use, memory, created entities, queued events, recursion, and spatial generation. Exact limits are set from M0 measurements and published by capability version. A quota breach aborts the current uncommitted transaction, records a reproducible fault, and puts the affected instance/domain into the declared recovery state. It must not quietly neutralize an SCP or invent mission success. Offer reload or a separate recovery save if safe continuation is impossible.</p>
+<p>This contract constrains supported packages. It is not a security certification of an untested host/runtime integration.</p>
+<h2 id="6-commands-queries-and-events">6. Commands, queries, and events</h2>
+<p>Queries read committed state and declare their information scope. Commands carry requester, branch/context identity, target or perceived-target binding, expected state revision, parameters, and an idempotency key. The host resolves/validates authorized mappings and ordinary preconditions before committing. Accepted commands return a committed result or scheduled action ID; rejected commands return a stable reason code. Force-target input is not elevated authority.</p>
+<p>Events carry ID, time, cause, domain, subject IDs, and versioned payload. Handlers see a stable snapshot and propose commands. They cannot recursively mutate another handler's in-progress state. Resulting events are queued in declared phases with bounded causality depth. Same-time cycles produce a diagnostic and a defined fault, rather than an infinite loop.</p>
+<p>Illustrative pseudocode, not executable API:</p>
+<pre><code class="language-text">on ObservationSetChanged(event):
+    observers = senses.eligible_observers(instance, declared_policy)
+    rules.set_constraint(instance, &quot;self_motion&quot;, allowed = observers.is_empty)
+
+on ProcedureStepRequested(event):
+    validate roles, equipment, knowledge, location and current hazard state
+    submit ordinary actions through the host
+    schedule the next checkpoint or take the procedure's failure branch
+</code></pre>
+<p>A procedure describes how agents attempt to act; it cannot assert that the anomaly is contained simply because its progress bar reached 100%.</p>
+<p>Procedure execution participates in the employment/order arbiter. Employment-specific maintenance, observation and research duties remain primary work regardless of optional action preferences. Modules declare required roles, qualifications, team acknowledgements, coverage and interruption predicates. Anomalous fear or compulsion can impose declared overrides; scripts cannot silently release a guard from duty or ignore an existing order. Their observable effect and loss of coverage are committed and reported.</p>
+<p>Foundation and Group of Interest procedures can differ in intent, doctrine, resources, and knowledge, while sharing the same underlying anomaly rules. A hostile organization cannot bypass a hazard because it uses another planner. Transport between sites is an operation with a source release procedure, transit conditions, and destination acceptance predicate. Organization-specific behavior is declared data or capability-based scripting; it must not hardcode the player as the only meaningful actor.</p>
+<p>Container-related modules declare exterior footprint/mount compatibility separately from interior layout, closure/access conditions, mass behavior, and content-effect propagation. Changing capacity or transforming a loaded box requires an explicit final placement policy and a transaction covering affected descendants. Ordinary packing, nesting, offscreen storage and console hauling do not suspend anomaly rules. Use <a href="doc-docs-05-storage-and-logistics-md.html">the storage contract</a> rather than implementing a separate inventory inside each SCP script.</p>
+<h2 id="7-rule-composition-and-conflicts">7. Rule composition and conflicts</h2>
+<p>Effects register typed policies with owner, target scope, applicability conditions, lifetime, combination rule, and provenance. Global scope requires an explicitly granted capability. No effect can override host integrity rules such as unique identity, valid storage ownership, and atomic transactions.</p>
+<p>Policies combine according to the service contract:</p>
+<ul>
+<li>Numeric additions/multipliers apply in a published order with declared bounds.</li>
+<li>Ordinary action constraints combine by intersection: every applicable constraint must permit the action.</li>
+<li>Replacements, redirects, or exceptions require an explicit composition strategy; priority alone cannot resolve incompatible semantics.</li>
+<li>Multiple exclusive replacements for the same target require a declared compatibility adapter or fail validation when known in advance.</li>
+<li>Runtime-discovered incompatibilities preserve the last committed state, pause affected resolution, and report the competing policies. They do not choose a winner by package load order.</li>
+</ul>
+<p>For example, an unobserved entity may be permitted to move while a separate binding effect prohibits movement. Both constraints yield no movement. A phenomenon intended to bypass that binding must declare an explicit supported override relationship. A teleport redirect conflicting with another world-transfer redirect requires an authored composition policy.</p>
+<p>If two modules compose through published rules, they need no pair-specific code. Cross-effects outside those rules require compatibility tests. Publish supported pairs and known exclusions; never advertise universal mod compatibility.</p>
+<h2 id="8-architecture-tests-from-the-requested-scps">8. Architecture tests from the requested SCPs</h2>
+<p>The source facts below come from the linked Foundation articles. The proposed mechanics and edge policies are game-design choices. Full module adaptation requires its own approved form.</p>
+<h3 id="scp-650-first-playable-facility-module">SCP-650: first playable facility module</h3>
+<p>Qualify shared observation, silent relocation, discrete poses, staff reactions and real recontainment procedures in M1. Procedural staffing compliance and current eligible sight are separate predicates. Both observed external transport and controlled relocation are accepted game approaches; their details remain authored procedures. The module reacts to ordinary sensory/location events rather than mission-owned teleport calls. Explicit per-person complacency selects its threat/relaxed placement and pose profiles; witness history is separate and the future automatic metric is undecided. The native host supplies generic flag dispatch and spatial validation rather than interpreting that SCP-specific flag. See <a href="doc-docs-09-first-playable-scp-650-md.html">the complete first-playable specification</a>, including its article source and adaptation notes.</p>
+<h3 id="scp-3008-expandable-retail-domain">SCP-3008: expandable retail domain</h3>
+<p>The article describes an interior far larger than the building, trapped inhabitants, and hostile entities; infinity is speculative. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-3008" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-3008</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-3008.html">Local snapshot</a> · <a href="canon-records/scp-3008.json">JSON</a>]</span></span>.</p>
+<p>Prove demand-generated retail chunks, persistent camps/items, explicit entry/exit conditions, local environmental cycles, and ongoing activity while the player is elsewhere. Determine entrance anchoring, lost exits, radio behavior, and mission abort rules in the module specification. A team's objective can be perimeter control or rescue; it cannot assume the whole interior is cleared.</p>
+<p>Acceptance fixture: modify a distant chunk, leave, save/reload, and return to identical authoritative modifications. A delegated rescue uses the same entry/exit predicates as personal traversal. Resource limits cannot delete occupants.</p>
+<h3 id="scp-087-descending-domain">SCP-087: descending domain</h3>
+<p>The article describes a staircase of unknown endpoint, restricted visibility, unusual light behavior, and a distant sound that descent does not bring closer. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-087" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-087</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-087.html">Local snapshot</a> · <a href="canon-records/scp-087.json">JSON</a>]</span></span>.</p>
+<p>Prove persistent logical depth independent of the host building, streamed landings, module-specific light and sound policies, return navigation, and psychological/encounter events. Do not make a confirmed bottom a universal engine rule. Exploratory steps can consume time and supplies without generating every deeper landing.</p>
+<p>Acceptance fixture: traverse and unload many landings, reverse direction, and recover the correct entry without depth reset. Save/resume preserves depth, equipment, encounter state, and scheduled events.</p>
+<h3 id="scp-173-observer-dependent-movement">SCP-173: observer-dependent movement</h3>
+<p>The article specifies immobility under direct sight and coordinated blinking during personnel entry. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-173" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-173</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-173.html">Local snapshot</a> · <a href="canon-records/scp-173.json">JSON</a>]</span></span>.</p>
+<p>Prove an observer set derived from actual actors: eligible eyes open, attention/facing, range, obstruction, and the adaptation's lighting policy. NPC eyes count. Management cameras and the player's overhead viewport do not count under the initial adaptation. Mirrors, recorded footage, nonhuman senses, darkness, and remote video are explicitly excluded until authored.</p>
+<p>These are the SCP-173 fixture's media rules, not a global camera prohibition. SCP-650 has its own emergency live-feed qualification policy over the same service.</p>
+<p>Acceptance fixtures: one observer blinks while another watches; all observers blink; a door blocks the last observer; an observer loses consciousness; a guard resumes sight mid-action; the terminal opens while the avatar watches; a remote team's shift changes during accelerated time. Resolve the constraint at the actual event boundary and validate the whole movement path. No moving through walls or killing during an interval when movement is forbidden.</p>
+<p>Also prove an unseen approach that reaches and kills the avatar without a combat warning/input hold, and an approach interrupted by actual eligible sight before impact. Exact speed/attack duration belongs to the authored fixture. Neither the overhead camera nor tactical entry creates an observer or guarantees a surviving turn. Persist pending movement/effect timing so save/load cannot manufacture that turn. Reveal the scene only after committed death under the shared aftermath policy; this is not pre-death actor evidence.</p>
+<h3 id="scp-914-atomic-transformation">SCP-914: atomic transformation</h3>
+<p>The article describes an intake/output device with multiple settings that refines placed objects. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-914" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-914</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-914.html">Local snapshot</a> · <a href="canon-records/scp-914.json">JSON</a>]</span></span>.</p>
+<p>Prove transactionally reserved inputs, setting-dependent rules, persisted processing, deterministic recipe selection, and output creation exactly once. Recipe matching order: exact item rule, tag/category rule, then an explicit fallback. The initial fallback rejects before consuming inputs. Arbitrary objects and living subjects require authored behavior rather than an implied universal recipe generator.</p>
+<p>Acceptance fixtures: process an equipped container, submit overlapping jobs, fill the output area, interrupt a job, and save/reload before completion. Each case must preserve ownership and the declared result. Input conservation may be intentionally broken by a recipe; identity and transaction integrity may not.</p>
+<h3 id="scp-1499-second-module-physical-and-perceived-contexts">SCP-1499: second module, physical and perceived contexts</h3>
+<p>The article describes a different experienced environment, return and communication, with later evidence complicating a simple separate-world interpretation. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-1499" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-1499</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-1499.html">Local snapshot</a> · <a href="canon-records/scp-1499.json">JSON</a>]</span></span>.</p>
+<p>Prove module-owned equipment triggers, procedural terrain/structures/populations, timed physical transfer, per-observer contexts, return anchors and cross-context effects/communication. Define carried-item and injury propagation, loss/death, mask ownership, blocked return and re-entry. One profile qualifies real transfer; another qualifies explicit perceived-target mapping to an ordinary-world consequence. Both are labeled test adaptations rather than competing claims about a settled reality.</p>
+<p>Acceptance fixtures: equip, generate/visit, affect an entity/environment, save/reload, remove and re-enter with persistent results; perform a mapped action with one physical consequence; alter a SCP-650 observer through these shared services. No duplicate wearer/mask/item, stale observer or double-resolved action may exist. <a href="doc-docs-10-world-perception-and-scp-1499-md.html">The full second-module/context contract</a> specifies the two bounded profiles and source interpretation.</p>
+<h2 id="9-authoring-and-validation-tools">9. Authoring and validation tools</h2>
+<p>The first toolkit needs package validation, a headless scenario runner, seed/event tracing, observation visualization, procedure debugging, and a state inspector. These are smaller and more useful initially than an all-purpose visual editor.</p>
+<p>Visual definitions declare illustration/animation states, directions, frame counts and semantic progress bindings. The development generator supplies conspicuous category/state/facing/frame placeholders while art is absent. Production sprites replace presentation bindings; gameplay callbacks cannot depend on an artist preserving a particular frame index. The <a href="doc-docs-06-sprites-and-placeholders-md.html">sprite contract</a> governs this separation.</p>
+<p>A package is certified against an API version only after it passes loader/state validation, direct and unattended scenarios, save/load at critical states, budget limits, and its declared interactions. Certification covers the declared scenario set, not every possible campaign state.</p>
+<h2 id="10-source-and-release-metadata">10. Source and release metadata</h2>
+<p>Capture article title, credited author, source URL, adaptation changes, and separate asset provenance at authoring time. The Foundation's guide describes attribution and share-alike requirements for derivative works and has a game-specific section. Its SCP-173 section treats the former sculpture image separately and recommends an original or suitable redesign. Release licensing and asset choices must be resolved before distribution. <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/licensing-guide" data-canon-hosted="true" title="Hosted SCP Wiki; external site">Official licensing guide</a> <span class="canon-link-options">[Hosted ↗ · <span title="No matching record in this archive snapshot">Local copy unavailable</span>]</span></span>.</p>
+<p>This specification does not assign a software license or certify legal enforceability. In particular, modular packaging alone does not establish a licensing exemption for the engine or game.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/03-scp-module-contract.md</footer></main></div></body></html>

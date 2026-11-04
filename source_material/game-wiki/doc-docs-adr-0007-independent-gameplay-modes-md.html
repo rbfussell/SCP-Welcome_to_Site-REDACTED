@@ -1,0 +1,111 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-0007: Independently launchable gameplay modes over one simulation | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/adr/0007-independent-gameplay-modes.md.</aside><h1 id="adr-0007-independently-launchable-gameplay-modes-over-one-simulation">ADR-0007: Independently launchable gameplay modes over one simulation</h1>
+<p><strong>Status:</strong> Direction accepted by the user; runtime composition and mode contracts below proposed pending qualification</p>
+<p><strong>Date:</strong> October 24, 2026</p>
+<h2 id="context">Context</h2>
+<p>The user wants OSCP, the world map, local character gameplay and facility management to load independently into the engine, each usable like a separate game, while ultimately working together. Their screens, assets, controls and development fixtures differ. Their personnel, stock, buildings, intelligence, missions and consequences belong to the same persistent world.</p>
+<p>The Godot presentation/plain C# simulation split supports this direction. The October 25 prototype now has a standalone OSCP entry scene and the existing local-play entry, with the same attachable workstation/phone shell and fixed-tick adapter. World-map and facility-management entry modes remain unimplemented.</p>
+<h2 id="options">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Benefit</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One scene with every mode permanently loaded</td>
+<td>Simple access to shared nodes initially</td>
+<td>Hidden dependencies make standalone launch, testing and replacement difficult</td>
+</tr>
+<tr>
+<td>Four games with separate simulation implementations, connected later</td>
+<td>Each can develop freely at first</td>
+<td>Rules, identities, persistence and timing diverge; integration needs reconciliation</td>
+</tr>
+<tr>
+<td>Independent mode entry scenes using shared simulation services</td>
+<td>Separate development/play flows and one set of authoritative rules</td>
+<td>Requires explicit runtime composition, dependencies and lifecycle tests</td>
+</tr>
+</tbody>
+</table>
+<h2 id="decision">Decision</h2>
+<p>Adopt independently launchable modes backed by shared simulation contracts from the start. Each has an entry scene, its own presentation/workflow controllers, declared service/content dependencies and a small runnable scenario. Initially keep these within the same Godot project and process. Separate exported executables or a network server are packaging decisions for later.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Standalone experience</th>
+<th>Shared simulation dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSCP</td>
+<td>Command/document workspace, investigations, intelligence, mission planning and strategic management</td>
+<td>Character/device authority, acquired records, communications, personnel, orders, resources and relevant planning services</td>
+</tr>
+<tr>
+<td>World map</td>
+<td>Region/network navigation, travel, known incidents and wider operations</td>
+<td>Places/routes, knowledge, coarse scheduling, teams/shipments and encounter handoffs</td>
+</tr>
+<tr>
+<td>Local character play</td>
+<td>Isometric movement, perception, equipment, interactions and tactical combat</td>
+<td>Actors, local domains, navigation, observation, inventory, actions and anomaly host</td>
+</tr>
+<tr>
+<td>Facility management</td>
+<td>Layout/section views, construction/fit-out, storage, utilities, staffing and maintenance</td>
+<td>The same spatial footprints, stock, personnel, work orders and infrastructure</td>
+</tr>
+</tbody>
+</table>
+<p>A mode owns its UI flow and uncommitted drafts. Accepted plans, jobs, allocations and their consequences are simulation state. Modes communicate through validated commands, acquired query projections, events and explicit navigation requests. They do not require another mode's scene nodes, widget callbacks or renderer to make work happen.</p>
+<h2 id="proposed-runtime-composition">Proposed runtime composition</h2>
+<p>The application bootstrap owns the session, simulation service registry, authoritative scheduler and persistence. A mode receives a bounded runtime context containing its acting character, authorized device/context where applicable, available services and read subscriptions. Concrete C# interface names will be chosen during implementation.</p>
+<ul>
+<li>A standalone launch composes the real required services and a small authored/seeded test world. OSCP can therefore issue orders to simulated staff without loading local sprites; facility work can progress without the world-map renderer.</li>
+<li>Test-only fakes can support narrow UI checks, but a qualifying standalone scenario exercises real simulation rules. Missing optional services are shown as unavailable; required missing services produce a clear startup diagnostic.</li>
+<li>Combined play attaches modes to the same session, entity IDs, content versions, knowledge and save. Attaching a mode never creates another economy, player character or simulation tick loop.</li>
+<li>The shared scheduler advances all enabled simulation services once. Opening, hiding or unloading a view does not reset time, AP, action progress, resources or incident state. The existing local tactical hold/world-calendar rules still apply.</li>
+<li>View exit releases UI subscriptions and input ownership. Any in-world attention task, session access or feed observation is ended/retained through its explicit validated lifecycle; a hidden panel cannot accidentally remain an observer.</li>
+<li>Mode navigation carries session/place/entity/context IDs. Opening local play from a map or construction view selects the existing place; opening OSCP retains the acting character and actual device-access checks.</li>
+<li>One save transaction covers authoritative state. Each standalone scenario has a separate explicit save/session identity; importing or merging unrelated test saves into a campaign is outside this decision.</li>
+</ul>
+<p>For example, OSCP submits an authorized equipment/construction plan. Personnel and logistics services reserve and perform real work. Facility management displays the plan and completed placement, while local play shows the same rack and carried materials. Switching screens neither completes the work nor copies the objects. Intelligence and mission reports likewise appear only after their normal delivery/knowledge rules allow it.</p>
+<h2 id="qualification-and-staging">Qualification and staging</h2>
+<table>
+<thead>
+<tr>
+<th>Proof</th>
+<th>Required evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standalone launch</td>
+<td>Each implemented mode boots without sibling presentation scenes and can exercise a meaningful scenario using its declared services</td>
+</tr>
+<tr>
+<td>Early integration</td>
+<td>As soon as two modes are implemented, an action in one has the same identity/outcome in the other; integrate incrementally rather than waiting for all four</td>
+</tr>
+<tr>
+<td>Lifecycle/time</td>
+<td>Repeated attach/detach does not duplicate commands, subscriptions, ticks, resources or observers; local tactical waiting and outside scheduling remain correct</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>Save during a cross-mode order/action, reload through a supported entry mode and attach another; progress, reservations, permissions and outcomes restore once</td>
+</tr>
+</tbody>
+</table>
+<p>The shared bootstrap/adapter seam belongs to M0 qualification. OSCP/local/facility proofs follow the bounded M1 features as they are implemented; world-map/network standalone qualification follows its existing later milestone. This adds an architectural requirement, not four complete games to the first slice. Current debug panels remain valid during the transition. Do not add empty mode implementations simply to claim isolation.</p>
+<h2 id="consequences">Consequences</h2>
+<p>Modes can be developed, debugged and presented independently, and the production HUD/OSCP can replace engineering panels through the same contracts. Simulation rules remain reusable in headless scenarios and future combined play.</p>
+<p>The cost is explicit dependency composition, lifecycle cleanup and both standalone/integration checks. A standalone mode still needs the simulation services that make its gameplay meaningful. Keeping service contracts shared from the start reduces the risk of four incompatible implementations requiring a late rewrite.</p>
+<p>Related: <a href="doc-docs-adr-0001-shared-simulation-md.html">shared simulation</a>, <a href="doc-docs-adr-0004-godot-and-simulation-core-md.html">Godot/core selection</a>, <a href="doc-docs-adr-0006-real-time-exploration-and-tactical-turns-md.html">continuing world/local turns</a>, <a href="doc-docs-11-oscp-terminal-md.html">OSCP</a>, <a href="doc-docs-04-scope-and-acceptance-md.html">scope</a>, <a href="doc-src-sitesimulation-readme-md.html">current code map</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/adr/0007-independent-gameplay-modes.md</footer></main></div></body></html>

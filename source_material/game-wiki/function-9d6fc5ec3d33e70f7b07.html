@@ -1,0 +1,128 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.RunHookSmoke | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.RunHookSmoke</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-hooksmoke-cs.html#L9">game/Presentation/SpatialScene.HookSmoke.cs:9</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async Task RunHookSmoke()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-016b38302207c8ccd929.html">SpatialScene.Finish</a></li><li><a href="function-02d793a21dba830161dd.html">SpatialScene.Finish</a></li><li><a href="function-07477c1b6ec950067700.html">SpatialScene.Finish</a></li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a></li><li><a href="function-10c607deb234c2acc029.html">SpatialScene.Act</a></li><li><a href="function-1443472b35854bba8dbd.html">SpatialScene.Finish</a></li><li><a href="function-14c1d608530c598240e1.html">SpatialScene.Surface</a></li><li><a href="function-15df43c72b0c3ad941c4.html">SpatialSimulation.Restore</a></li><li><a href="function-163ab890ac230eb06416.html">InventoryPanel.Open</a></li><li><a href="function-1d92fcde6351e1941d20.html">IAnomalyModule.Inspect</a></li><li><a href="function-1e9b5994be7b5532664f.html">SpatialScene.Act</a></li><li><a href="function-234b6468ec60f82967c3.html">SpatialScene.Act</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-26febcdb0b596301a36b.html">SpatialScene.Finish</a></li><li><a href="function-27e4634901b893bd127a.html">SpatialScene.Finish</a></li><li><a href="function-27fc66abf19922bfa212.html">SpatialScene.Check</a></li><li><a href="function-3385d60b84bdead3e7b5.html">TacticalCombatSystem.HandleInventory</a></li><li><a href="function-37831e2ab5125b39ef21.html">SpatialScene.Check</a></li><li><a href="function-3868faea977bd33b4c3f.html">SpatialScene.Check</a></li><li><a href="function-3ad315fa7a49f27489ee.html">SpatialScene.Check</a></li><li><a href="function-437bdfff80409077a5f4.html">SpatialScene.Finish</a></li><li><a href="function-440aad2c464713a54351.html">SimulationRuntime.ResetAccumulator</a></li><li><a href="function-44bdd90eaa2a9670d508.html">PlayerAwareness.Restore</a></li><li><a href="function-45287ffbe1449be91515.html">PlayerEventLog.Restore</a></li><li><a href="function-45eb2318b34d5fab2dc8.html">SpatialScene.Finish</a></li><li><a href="function-46d63be056f4a1d60761.html">InventoryPanel.IsOpen</a></li><li><a href="function-480ce0f230cd10ef79fd.html">EmploymentSaveCodec.Restore</a></li><li><a href="function-51bafa83ec7d74a84e09.html">CombatSaveCodec.Restore</a></li><li><a href="function-553327117b7a641ba6b0.html">Scp650Module.Restore</a></li><li><a href="function-5a9c6b22f6561d957cb3.html">SpatialScene.Hand</a></li><li><a href="function-5b8fa93adaa9fb6e2ab4.html">SpatialScene.Hand</a></li><li><a href="function-5d38d45e7793a12775f1.html">SpatialScene.Act</a></li><li><a href="function-61f1fbe997de6c840a62.html">SpatialScene.Check</a></li><li><a href="function-6469798b617ec9f67b98.html">IAnomalyModule.Restore</a></li><li><a href="function-6ca2ee0a15dfe92e27ca.html">SpatialScene.Check</a></li><li><a href="function-738bc47c82c149139857.html">ObservationService.Inspect</a></li><li><a href="function-73c7971d370ba0862882.html">AnomalySystem.Inspect</a></li><li><a href="function-786fcd16dc8fcd90f1da.html">SpatialScene.Check</a></li><li><a href="function-7eb300265d6bd70b5e8f.html">SpatialScene.Finish</a></li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a></li><li><a href="function-867e89ea5cb27cd7f3b5.html">InventoryGearSurface.MountPosition</a></li><li><a href="function-86f2f183b127184ec81d.html">InventoryGearSurface.HotspotPosition</a></li><li><a href="function-8bbc3d6440840ec4667d.html">InventoryPanel.FindGrid</a></li><li><a href="function-8d6ca7964d6a1d5f9859.html">SpatialScene.Check</a></li><li><a href="function-918554009bb5efb6c491.html">SpatialScene.InventoryClick</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-972f51d2c02986945d58.html">SpatialScene.InventoryFrames</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-9ce48cd98d897a7a08ac.html">SpatialScene.Finish</a></li><li><a href="function-a11f08e3562603d96c8a.html">InventoryState.IsOpen</a></li><li><a href="function-a3f6deda586c7d6b6df9.html">SpatialScene.Finish</a></li><li><a href="function-a8888e0ee272be7d2c40.html">InventorySaveCodec.Restore</a></li><li><a href="function-aa69254c64f3fd01f3f4.html">SpatialScene.Check</a></li><li><a href="function-abefa2f77652b6d17366.html">SpatialScene.Act</a></li><li><a href="function-af05502a64ec07f2c712.html">SpatialScene.Surface</a></li><li><a href="function-b754b5cade752b4a47cc.html">OperationSaveCodec.Restore</a></li><li><a href="function-bb5785b62bfeca595711.html">SpatialScene.Surface</a></li><li><a href="function-c253bc3b21e8fbc8e45f.html">SpatialScene.InventoryDrag</a></li><li><a href="function-c4bcb099863e173562ac.html">InventoryBrowser.Inspect</a></li><li><a href="function-c512448836d100d75671.html">OscpWorkspace.Open</a></li><li><a href="function-c909cbeba4a18ec02f2e.html">SpatialScene.Surface</a></li><li><a href="function-cc35f8918cea051c0622.html">InventoryGearSurface.MountedAt</a></li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a></li><li><a href="function-d30e0eaa1bbedc457820.html">InventoryAttachmentFrames.RelativePose</a></li><li><a href="function-d6d33fb4a9df7ea50d42.html">OscpWorkspace.IsOpen</a></li><li><a href="function-da774cec6925c72b0f06.html">SpatialSimulation.HandleInventory</a></li><li><a href="function-dbf5f416a067cab43a27.html">SpatialScene.Check</a></li><li><a href="function-dce8f999453504b52b87.html">SimulationTrace.Restore</a></li><li><a href="function-e7c935f0a41156f95825.html">InventoryGearSurface.Open</a></li><li><a href="function-e7cd2df4d6ce8536b165.html">SpatialScene.Check</a></li><li><a href="function-e96de535d569435021f6.html">Scp650Module.Inspect</a></li><li><a href="function-ee446cd5fa045be5e4be.html">SpatialScene.Up</a></li><li><a href="function-f36c6460ad3b70ce1167.html">SpatialScene.InventoryKey</a></li><li><a href="function-f48ca0a4023d40c726bb.html">SpatialScene.Finish</a></li><li><a href="function-fa224abb4116b9fed83b.html">SpatialScene.Check</a></li><li><a href="function-fd0cfb7bfdf3350f39cb.html">SpatialScene.Surface</a></li><li><a href="function-fe39d4526dbfad08ec88.html">SpatialScene.Act</a></li><li><a href="function-ffa766790c150f860154.html">InventoryGearSurface.MountedImagePoint</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>sim.Save
+InventoryFrames
+Check
+sim.HandleInventory
+Finish
+panel.FindGrid
+((ScrollContainer)grid.GetParent().GetParent()).EnsureControlVisible
+grid.GetParent().GetParent
+grid.GetParent
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren
+panel.Browser.GetChild&lt;InventoryContainerView&gt;
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().First
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;(0).GetChildren
+panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;
+Act
+panel.Inspect
+Hand
+InventoryDrag
+Surface().MountPosition
+Surface
+InventoryCapture
+InventoryClick
+Surface().MountedImagePoint
+panel.Browser.GearIds.SequenceEqual
+Surface().HotspotPosition
+Up().GetGlobalRect().GetCenter
+Up().GetGlobalRect
+Up
+sim.Inventory.IsOpen
+sim.Inventory.DiagnosticItems.Single
+Surface().MountedAt
+InventoryKey
+InventoryAttachmentFrames.RelativePose
+Godot.FileAccess.GetFileAsString
+clone.Restore
+clone.Save
+sim.Restore
+_runtime.ResetAccumulator
+panel.Close
+panel.Open
+GD.Print</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodypose.html">BodyPose</a></li><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li><li><a href="type-inventorycontainerview.html">InventoryContainerView</a></li><li><a href="type-inventorygearsurface.html">InventoryGearSurface</a></li><li><a href="type-inventorygrid.html">InventoryGrid</a></li><li><a href="type-inventoryrequest.html">InventoryRequest</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>private async Task RunHookSmoke()
+    {
+        var sim = _simulation; var panel = _hud.Inventory;
+        sim.ManualPause = true; var original = sim.Save(); sim.Player.Cell = new(13, 6);
+        void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Hook UI: &quot; + reason); }
+        async Task Finish()
+        {
+            for (var i = 0; i &lt; 1000 &amp;&amp; (sim.Inventory.Pending is not null || sim.Inventory.SecuringRemaining != 0); i++) await InventoryFrames(1);
+            Check(sim.Inventory.Pending is null &amp;&amp; sim.Inventory.SecuringRemaining == 0, &quot;paid work did not finish&quot;);
+            sim.ManualPause = true; await InventoryFrames();
+        }
+        async Task Act(InventoryRequest request)
+        { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }
+        async Task&lt;InventoryGrid&gt; Hand()
+        {
+            var grid = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);
+            ((ScrollContainer)grid.GetParent().GetParent()).EnsureControlVisible(grid); await InventoryFrames(); return grid;
+        }
+        InventoryGearSurface Surface() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();
+        Button Up() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().First();
+        await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));
+        await Act(new(InventoryActionKind.Move, &quot;utility-hook&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+        panel.Inspect(&quot;utility-belt&quot;); await InventoryFrames(); var hand = await Hand(); var before = sim.Save();
+        await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(0, 0)), async () =&gt;
+        {
+            Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.ParentId == &quot;utility-belt&quot;, &quot;hook did not preview on the belt&quot;);
+            Check(sim.Save() == before, &quot;hook preview moved the source&quot;);
+            await InventoryCapture(&quot;-hook-mount-preview&quot;); sim.ManualPause = false;
+        });
+        Check(sim.Inventory.Pending?.Request.ItemId == &quot;utility-hook&quot;, &quot;hook release skipped paid handling&quot;); await Finish();
+        await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))); hand = await Hand(); before = sim.Save();
+        await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(-1, 2)), async () =&gt;
+        {
+            Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.ParentId == &quot;utility-hook&quot;
+                &amp;&amp; p.Request.Destination.AttachmentPose == new BodyPose(-1, 2), &quot;root view did not target the hook&#x27;s lower mount&quot;);
+            Check(sim.Save() == before, &quot;nested mount preview changed physical state&quot;);
+            await InventoryCapture(&quot;-hook-pouch-preview&quot;); sim.ManualPause = false;
+        });
+        Check(sim.Inventory.Pending?.Request.Destination?.ParentId == &quot;utility-hook&quot;, &quot;pouch release addressed the belt instead of the extender&quot;); await Finish();
+        await InventoryCapture(&quot;-hook-assembly&quot;);
+        InventoryClick(Surface().MountedImagePoint(&quot;utility-pouch&quot;, new(-1, 2), new(.5f, .6f)), true); await InventoryFrames();
+        Check(panel.Browser.GearIds.SequenceEqual(new[] { &quot;utility-belt&quot;, &quot;utility-hook&quot;, &quot;utility-pouch&quot; }) &amp;&amp; panel.Browser.CurrentContents is null,
+            &quot;direct descendant inspection did not preserve the provider trail&quot;);
+        sim.ManualPause = false; InventoryClick(Surface().HotspotPosition(&quot;inside&quot;), true);
+        Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open, &quot;hooked pouch flap opened without paid work&quot;); await Finish();
+        await Act(new(InventoryActionKind.Move, &quot;spare-dressing&quot;, new(&quot;utility-pouch&quot;, &quot;inside&quot;)));
+        Check(panel.Browser.CurrentContents == (&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;pouch contents left the right-hand trail&quot;);
+        await InventoryCapture(&quot;-hook-pouch-contents&quot;);
+        sim.ManualPause = false; InventoryClick(Up().GetGlobalRect().GetCenter()); await Finish();
+        Check(panel.Browser.CurrentGear == &quot;utility-hook&quot; &amp;&amp; !sim.Inventory.IsOpen(&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;up did not return to the hook and secure the pouch&quot;);
+        await InventoryCapture(&quot;-hook-provider-view&quot;);
+        InventoryClick(Up().GetGlobalRect().GetCenter()); await InventoryFrames();
+        Check(panel.Browser.CurrentGear == &quot;utility-belt&quot;, &quot;hook up did not return to belt&quot;);
+        var child = sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement;
+        before = sim.Save();
+        Check(Surface().MountedAt(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(0, 0), new(.36f, .3f))) == &quot;utility-hook&quot;, &quot;loaded hook source is not alpha-picked at its clip&quot;);
+        await InventoryDrag(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(0, 0), new(.36f, .3f)), Surface().MountPosition(new(2, 0)), async () =&gt;
+        {
+            InventoryKey(Key.R); await InventoryFrames();
+            Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.AttachmentPose == new BodyPose(2, 0, 1),
+                &quot;loaded hook did not preview a single sixth-turn with its assembly: drag=&quot; + panel.DragItemId + &quot; angle=&quot; + panel.AttachmentRotation + &quot; preview=&quot; + Surface().MountPreview);
+            Check(sim.Save() == before, &quot;loaded provider drag changed child placement&quot;);
+            await InventoryCapture(&quot;-hook-loaded-rotation&quot;); sim.ManualPause = false;
+        });
+        await Finish();
+        Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement == child
+            &amp;&amp; InventoryAttachmentFrames.RelativePose(sim.Inventory, &quot;utility-pouch&quot;, &quot;utility-belt&quot;) == new BodyPose(0, 1, 1), &quot;paid provider movement lost the nested transform&quot;);
+        await Act(new(InventoryActionKind.Move, &quot;utility-pouch-2&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))); hand = await Hand(); before = sim.Save();
+        await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(0, 1)), async () =&gt;
+        {
+            Check(Surface().MountPreview is { Handling.Allowed: false }, &quot;occupied lower hook accepted another pouch&quot;);
+            Check(sim.Save() == before, &quot;refused occupied-hook preview changed the assembly&quot;); await InventoryCapture(&quot;-hook-occupied-mount&quot;);
+        });
+        Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch-2&quot;).Placement.RegionId == &quot;hand&quot;, &quot;refused mount moved the source&quot;);
+        await Act(new(InventoryActionKind.Move, &quot;utility-pouch-2&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 3, 4)));
+        hand = await Hand(); sim.ManualPause = false;
+        await InventoryDrag(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(2, 0, 1), new(.36f, .3f)), hand.GlobalPosition + new Vector2(12, 55)); await Finish();
+        Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-hook&quot;).Placement.RegionId == &quot;hand&quot;
+            &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement == child
+            &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;spare-dressing&quot;).Placement.ParentId == &quot;utility-pouch&quot;, &quot;loaded hook detachment lost children&quot;);
+        var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));
+        clone.Restore(saved); Check(clone.Save() == saved, &quot;loaded hook hierarchy did not restore exactly&quot;);
+        sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;
+        GD.Print(&quot;HOOK_SMOKE_PASS: native hook/pouch dragging, extended target, recursive preview/rotation, provider trails, closure, blocked mount, loaded detachment and persistence.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.HookSmoke.cs:9</footer></main></div></body></html>

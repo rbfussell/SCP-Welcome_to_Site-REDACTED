@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UnderwearChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>UnderwearChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+/// &lt;summary&gt;The new base garment is real equipment: coverage, paid removal and continuation use ordinary inventory rules.&lt;/summary&gt;
+internal static class UnderwearChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Underwear: &quot; + reason); passed++; }
+        SpatialSimulation Sim() { var s = new SpatialSimulation(map, config); s.Player.Cell = new(13, 6); return s; }
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 1000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;paid handling resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest request) { Check(s.HandleInventory(request), s.LastMessage); Finish(s); }
+        var sim = Sim(); var inv = sim.Inventory; var id = &quot;avatar-underwear&quot;; var waist = new BodyHex(-6, 12);
+        var definition = inv.Definition(id); var underwear = inv.Items[id];
+        Check(definition.Id == &quot;underwear&quot; &amp;&amp; definition.MassGrams == 80 &amp;&amp; definition.Regions is null, &quot;base garment has physical identity/mass without invented storage&quot;);
+        Check(underwear.Placement is { ParentId: &quot;person:avatar&quot;, RegionId: &quot;underwear&quot; }
+            &amp;&amp; InventoryWornOrder.Order(underwear) &lt; InventoryWornOrder.Order(inv.Items[&quot;avatar-trousers&quot;]), &quot;briefs are worn before trousers in the real order&quot;);
+        var shape = inv.BodyFits!.Shape(&quot;underwear&quot;); var fit = BodyFitGeometry.Evaluate(inv.BodyFits.Body(shape.BodyFamily), shape, shape.DefaultPose);
+        Check(fit.Fits &amp;&amp; fit.Cells.All(c =&gt; c.R is &gt;= 11 and &lt;= 13), &quot;authored briefs fit the pelvis/upper thigh rather than the whole trouser leg&quot;);
+        Check(InventoryWornStack.Cells(inv, underwear).Select(c =&gt; c.Surface).Distinct().Order().SequenceEqual(new[] { &quot;back&quot;, &quot;front&quot; }), &quot;one garment wraps both sides&quot;);
+        Check(InventoryWornOrder.Layers(inv, id).All(l =&gt; l.Layer == 0)
+            &amp;&amp; sim.InventoryWornCells.Single(c =&gt; c.ItemId == &quot;avatar-trousers&quot; &amp;&amp; c.Cell == new BodySurfaceCell(&quot;front&quot;, waist)).Layer == 1,
+            &quot;briefs add the physical base layer beneath trousers&quot;);
+        Check(!InventoryWear.Visible(inv, underwear) &amp;&amp; !sim.InventoryMoveAccess(id).Allowed, &quot;covered briefs cannot be seen or removed through trousers&quot;);
+        var before = sim.Save(); var remove = new InventoryRequest(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(!sim.HandleInventory(remove) &amp;&amp; sim.Save() == before, &quot;covered removal rejects atomically&quot;);
+        // A valid prepared staging fixture: helpers hold the removed outer gear.
+        // This is test setup, not a new player handoff feature or enlarged game crate.
+        inv.Items[&quot;avatar-backpack&quot;] = inv.Items[&quot;avatar-backpack&quot;] with { Placement = new(&quot;person:observer&quot;, &quot;hand&quot;) };
+        inv.Items[&quot;avatar-coat&quot;] = inv.Items[&quot;avatar-coat&quot;] with { Placement = new(&quot;person:tech&quot;, &quot;hand&quot;) };
+        InventoryPlacement.Validate(inv);
+        Act(sim, new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));
+        var phone = inv.Items[&quot;field-phone&quot;].Placement;
+        Act(sim, new(InventoryActionKind.AutoPlace, &quot;avatar-trousers&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;)));
+        Check(inv.Items[&quot;field-phone&quot;].Placement == phone, &quot;loaded trousers retain their real pocket descendants&quot;);
+        Check(sim.InventoryBodyPick(&quot;front&quot;, waist)?.ItemId == id &amp;&amp; sim.InventoryBodyPick(&quot;back&quot;, waist)?.ItemId == id
+            &amp;&amp; sim.InventoryMoveAccess(id).Allowed, &quot;clearing the real outer layers exposes the same briefs on both sides&quot;);
+        sim.ManualPause = true; before = sim.Save(); Check(!sim.HandleInventory(remove) &amp;&amp; sim.Save() == before, &quot;pause supplies no free removal&quot;);
+        sim.ManualPause = false; var mass = InventoryHierarchy.CarriedMass(inv, &quot;person:avatar&quot;);
+        Check(sim.HandleInventory(remove) &amp;&amp; inv.Items[id].Placement == underwear.Placement &amp;&amp; inv.Pending is { TotalMs: &gt; 0, CostAp: &gt; 0 },
+            &quot;paid work retains the source and ordinary costs until commitment&quot;);
+        var pending = sim.Save(); var clone = Sim(); clone.Restore(pending); Check(clone.Save() == pending, &quot;new loadout pending work restores exactly&quot;);
+        Finish(sim); Finish(clone);
+        Check(sim.Save() == clone.Save(), &quot;restored removal resolves identically&quot;);
+        Check(inv.Items[id].Placement is { RegionId: &quot;hand&quot;, WornOrder: null, BodyPose: null }
+            &amp;&amp; sim.InventoryBodyPick(&quot;front&quot;, waist) is null &amp;&amp; InventoryHierarchy.CarriedMass(inv, &quot;person:avatar&quot;) == mass,
+            &quot;completion clears worn state and counts the same garment mass once in hand&quot;);
+        var corrupt = JsonNode.Parse(sim.Save())!;
+        var items = corrupt[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray(); items.Remove(items.Single(n =&gt; n![&quot;Id&quot;]!.GetValue&lt;string&gt;() == id));
+        before = sim.Save();
+        try { sim.Restore(corrupt.ToJsonString()); throw new Exception(&quot;Missing underwear was accepted&quot;); }
+        catch (ArgumentException) { Check(sim.Save() == before, &quot;new content still requires its exact item set on atomic restore&quot;); }
+        Console.WriteLine($&quot;UNDERWEAR_CHECKS_PASS: {passed} assertions; real base layer, coverage, loaded clothing, paid removal, mass and continuation.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/UnderwearChecks.cs</footer></main></div></body></html>

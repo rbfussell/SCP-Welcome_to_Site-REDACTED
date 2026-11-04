@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpDeviceFrame._Draw | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpDeviceFrame._Draw</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscpdeviceframe-cs.html#L19">game/Presentation/Oscp/OscpDeviceFrame.cs:19</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Draw()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-c891180531477173366a.html">OscpDeviceFrame.Box</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Box
+screen.Grow
+DrawRect
+DrawString
+DrawLine
+DrawCircle</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-oscpdevice.html">OscpDevice</a></li><li><a href="type-oscpdeviceframe.html">OscpDeviceFrame</a></li></ul><h2>Implementation</h2><pre><code>public override void _Draw()
+    {
+        var phone = Device == OscpDevice.Phone;
+        Box(new(new Vector2(7, 10), Size), &quot;050606&quot;, phone ? 34 : 25);
+        Box(new(Vector2.Zero, Size), phone ? &quot;272e31&quot; : &quot;3b3e3b&quot;, phone ? 30 : 22, &quot;666b63&quot;, 2);
+        Box(new(new Vector2(8, 8), Size - new Vector2(16, 16)), phone ? &quot;171f23&quot; : &quot;2c302e&quot;, phone ? 24 : 17, &quot;1b211e&quot;, 3);
+        var screen = ScreenArea;
+        Box(screen.Grow(11), &quot;111615&quot;, phone ? 16 : 20, &quot;62675d&quot;, 2);
+        Box(screen.Grow(4), &quot;040a09&quot;, 8);
+        DrawRect(screen, new Color(&quot;0b1312&quot;) * new Color(Brightness, Brightness, Brightness));
+        var font = ThemeDB.FallbackFont;
+        DrawString(font, new(phone ? 32 : 33, phone ? 34 : Size.Y - 51), phone ? &quot;FOUNDATION  /  SECURE FIELD CLIENT&quot; : &quot;FOUNDATION     INFORMATION SYSTEMS&quot;,
+            HorizontalAlignment.Left, -1, phone ? 11 : 13, new Color(&quot;bec1ad&quot;));
+        if (phone)
+        {
+            Box(new(Size.X / 2 - 25, 43, 50, 4), &quot;070a09&quot;, 2);
+            Box(new(Size.X / 2 - 30, Size.Y - 25, 60, 4), &quot;718278&quot;, 2);
+        }
+        else
+        {
+            for (var x = 34; x &lt; 175; x += 7) DrawLine(new(x, Size.Y - 36), new(x + 2, Size.Y - 21), new Color(&quot;171d19&quot;), 3);
+            DrawCircle(new(Size.X - 44, Size.Y - 41), 13, new Color(&quot;151b17&quot;));
+            DrawCircle(new(Size.X - 44, Size.Y - 41), 9, new Color(&quot;6c7168&quot;));
+            DrawCircle(new(Size.X - 83, Size.Y - 41), 3, new Color(&quot;a8c78a&quot;));
+            DrawString(font, new(Size.X - 184, Size.Y - 20), &quot;OSCP  /  SITE-OPS&quot;, HorizontalAlignment.Left, -1, 10, new Color(&quot;929c8e&quot;));
+        }
+        DrawLine(screen.Position + new Vector2(7, 2), new(screen.End.X - 7, screen.Position.Y + 2), new Color(0.8f, 0.9f, 0.8f, 0.09f), 2);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpDeviceFrame.cs:19</footer></main></div></body></html>

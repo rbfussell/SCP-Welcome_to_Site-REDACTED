@@ -1,0 +1,140 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WearFitChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>WearFitChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class WearFitChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Wear fit: &quot; + detail); passed++; }
+        var content = new SpatialSimulation(map, config).Inventory;
+        var shirt = content.Content!.Definitions.Single(d =&gt; d.Id == &quot;shirt&quot;);
+        var jacket = content.Content.Definitions.Single(d =&gt; d.Id == &quot;coat&quot;);
+        var pack = content.Content.Definitions.Single(d =&gt; d.Id == &quot;backpack&quot;);
+        var parka = jacket with { Id = &quot;test-parka&quot;, Name = &quot;Bulky parka&quot;, Wear = jacket.Wear! with
+            { Fit = jacket.Wear.Fit! with { Family = &quot;core:bulky-coat&quot;, Bulk = 8 } } };
+        var armor = shirt with { Id = &quot;test-armor&quot;, Name = &quot;Flexible body armor&quot;, Wear = shirt.Wear! with
+            { Fit = new(&quot;core:flexible-armor&quot;, 2, 6, [&quot;core:light-textile&quot;, &quot;core:light-jacket&quot;]) } };
+        Check(InventoryWearFit.Evaluate(shirt, [jacket]).Fits &amp;&amp; InventoryWearFit.Evaluate(jacket, [shirt]).Fits,
+            &quot;a roomy shirt and light jacket admit either proposed order without consulting their authored layers&quot;);
+        Check(!InventoryWearFit.Evaluate(shirt, [parka]).Fits, &quot;a shirt cannot fit over a bulky parka&quot;);
+        Check(InventoryWearFit.Evaluate(armor, [jacket]).Fits &amp;&amp; InventoryWearFit.Evaluate(jacket, [armor]).Fits,
+            &quot;flexible armor and light jacket can fit in either order&quot;);
+        var exact = InventoryWearFit.Evaluate(shirt, [jacket, armor]);
+        Check(exact is { Fits: true, UnderBulk: 5, Capacity: 5 }, &quot;combined underlying bulk can exactly consume clearance&quot;);
+        var over = InventoryWearFit.Evaluate(shirt, [jacket, armor, shirt]);
+        Check(over is { Fits: false, UnderBulk: 6, Capacity: 5 } &amp;&amp; over.Reason.Contains(&quot;clearance&quot;),
+            &quot;individually compatible garments still fail when their combined bulk exceeds capacity&quot;);
+        Check(InventoryWearFit.Evaluate(shirt, [shirt, shirt, shirt, shirt, shirt]).Fits
+            &amp;&amp; !InventoryWearFit.Evaluate(shirt, [shirt, shirt, shirt, shirt, shirt, shirt]).Fits,
+            &quot;repeated definitions are distinct garments and each counts, rather than being deduplicated&quot;);
+        Check(InventoryWearFit.Evaluate(shirt, [armor, jacket]) == exact, &quot;bulk evaluation is stable under input enumeration order&quot;);
+        Check(InventoryWearFit.Evaluate(shirt with { Wear = shirt.Wear! with { Layer = 9 } }, [parka]).Fits == false
+            &amp;&amp; InventoryWearFit.Evaluate(shirt with { Wear = shirt.Wear! with { Layer = 0 } }, [jacket]).Fits,
+            &quot;changing legacy layer numbers cannot manufacture or remove compatibility&quot;);
+        Check(InventoryWearFit.Evaluate(shirt with { MassGrams = 100000 }, [jacket]) == InventoryWearFit.Evaluate(shirt, [jacket]),
+            &quot;fit bulk does not reinterpret mass or storage size&quot;);
+        var shell = jacket with { Tags = [&quot;core:rigid-shell&quot;] };
+        Check(!InventoryWearFit.Evaluate(shirt, [shell]).Fits &amp;&amp; InventoryWearFit.Evaluate(jacket, [shirt]).Fits,
+            &quot;explicit exclusions override an otherwise accepted family and are directional&quot;);
+        Check(!InventoryWearFit.Evaluate(pack, [pack]).Fits &amp;&amp; InventoryWearFit.Evaluate(pack, [pack]).Reason.Contains(&quot;outermost&quot;),
+            &quot;an extra fit budget cannot authorize covering an outermost pack&quot;);
+        var unknown = shirt with { Wear = shirt.Wear! with { Fit = shirt.Wear.Fit! with { Family = &quot;mod:unknown-family&quot; } } };
+        Check(!InventoryWearFit.Evaluate(jacket, [unknown]).Fits, &quot;unlisted families fail closed&quot;);
+        Check(!InventoryWearFit.Evaluate(shirt, [jacket with { Wear = jacket.Wear! with { Fit = null } }]).Fits,
+            &quot;missing underlying fit metadata is not treated as zero bulk&quot;);
+        Check(!InventoryWearFit.Evaluate(shirt, [jacket with { Tags = null! }]).Fits,
+            &quot;missing underlying trait data fails safely instead of bypassing exclusions&quot;);
+        var fit = shirt.Wear!.Fit!;
+        foreach (var invalid in new[] { fit with { Family = &quot;&quot; }, fit with { Family = null! }, fit with { Bulk = 0 },
+            fit with { Bulk = 1001 }, fit with { MaxUnderBulk = -1 }, fit with { MaxUnderBulk = 1001 },
+            fit with { FitsOver = null! }, fit with { FitsOver = [&quot;core:light-textile&quot;, &quot;core:light-textile&quot;] },
+            fit with { FitsOver = [null!] }, fit with { ExcludesUnderTags = [&quot;bad token&quot;] } })
+        {
+            Check(!InventoryWearFit.ProfileValid(invalid), &quot;malformed fit profile rejected&quot;);
+            Check(!InventoryWearFit.Evaluate(shirt with { Wear = shirt.Wear with { Fit = invalid } }, []).Fits,
+                &quot;pure fit query cannot bypass authored metadata validation&quot;);
+        }
+        Check(InventoryWearFit.Evaluate(shirt with { Wear = shirt.Wear with { Fit = fit with { MaxUnderBulk = 0, FitsOver = [] } } }, []).Fits,
+            &quot;zero under-clearance still allows a garment against bare skin&quot;);
+
+        // The bridge exercises the actual inventory graph; no UI or item-definition special cases choose fit.
+        var world = new SimulationWorld(map, config); var state = world.Inventory;
+        void Change(string id, Func&lt;ItemDefinition, ItemDefinition&gt; change)
+        { var index = Array.FindIndex(state.Content!.Definitions, d =&gt; d.Id == id); state.Content.Definitions[index] = change(state.Content.Definitions[index]); }
+        state.Items[&quot;avatar-backpack&quot;] = state.Items[&quot;avatar-backpack&quot;] with { Placement = new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8) };
+        state.Items[&quot;avatar-shirt&quot;] = state.Items[&quot;avatar-shirt&quot;] with { Placement = state.Items[&quot;avatar-shirt&quot;].Placement with { WornOrder = 7 } };
+        InventoryPlacement.Validate(state);
+        Check(true, &quot;graph bridge accepts a compatible shirt above the light jacket in a proposed ordering&quot;);
+        Change(&quot;coat&quot;, d =&gt; d with { Name = parka.Name, Wear = parka.Wear });
+        try { InventoryPlacement.Validate(state); throw new Exception(&quot;Incompatible graph accepted&quot;); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains(&quot;parka&quot;), &quot;graph validation rejects the incompatible reversed combination with a named reason&quot;); }
+
+        world = new SimulationWorld(map, config); state = world.Inventory;
+        Change(&quot;backpack&quot;, d =&gt; d with { Wear = d.Wear! with { Fit = d.Wear.Fit! with { MaxUnderBulk = 4 } } });
+        Change(&quot;boots&quot;, d =&gt; d with { Wear = d.Wear! with { Fit = d.Wear.Fit! with { Bulk = 1000 } } });
+        InventoryPlacement.Validate(state);
+        Check(true, &quot;per-region graph check counts jacket plus shirt once, and ignores bulky footwear on a separate region&quot;);
+        Change(&quot;backpack&quot;, d =&gt; d with { Wear = d.Wear! with { Fit = d.Wear.Fit! with { MaxUnderBulk = 3 } } });
+        try { InventorySaveCodec.ValidateGraph(state); throw new Exception(&quot;Overfilled fit graph accepted&quot;); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains(&quot;clearance&quot;), &quot;save-graph boundary also enforces cumulative fit even with the jacket open&quot;); }
+
+        world = new SimulationWorld(map, config); state = world.Inventory;
+        Change(&quot;shirt&quot;, d =&gt; d with { Wear = d.Wear! with { Fit = null } });
+        try { InventoryContentValidation.Validate(world); throw new Exception(&quot;Missing fit content accepted&quot;); }
+        catch (ArgumentException) { Check(true, &quot;native wearable content requires fit metadata independently of current worn membership&quot;); }
+
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryRequest Shoes(string region) =&gt; new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, region));
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 1000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;paid handling resolves&quot;); }
+        var sim = Sim();
+        Check(sim.HandleInventory(Shoes(&quot;hand&quot;)), sim.LastMessage); Finish(sim);
+        var held = sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement;
+        var index = Array.FindIndex(sim.Inventory.Content!.Definitions, d =&gt; d.Id == &quot;boots&quot;);
+        var boots = sim.Inventory.Content.Definitions[index];
+        sim.Inventory.Content.Definitions[index] = boots with { Wear = boots.Wear! with { Fit = boots.Wear.Fit! with { MaxUnderBulk = 0 } } };
+        var safe = sim.Save();
+        Check(!sim.QuoteInventory(Shoes(&quot;footwear&quot;)).Allowed &amp;&amp; !sim.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; sim.Save() == safe,
+            &quot;ordinary move quotes and starts reject insufficient fit atomically&quot;);
+        sim.Inventory.Content.Definitions[index] = boots;
+        var quote = sim.QuoteInventory(Shoes(&quot;footwear&quot;));
+        Check(quote is { Allowed: true, DurationMs: &gt; 0, Ap: &gt; 0 }, &quot;compatible fit retains normal handling cost&quot;);
+        sim.ManualPause = true; safe = sim.Save();
+        Check(!sim.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; sim.Save() == safe, &quot;compatibility grants no free handling while paused&quot;);
+        sim.ManualPause = false;
+        Check(sim.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement == held,
+            &quot;compatible equipment stays at its source while handling runs&quot;);
+        sim.Tick(); var middle = sim.Save(); var clone = Sim(); clone.Restore(middle);
+        Check(clone.Save() == middle, &quot;fit-qualified pending work restores exactly with immutable profiles&quot;);
+        Finish(sim); Finish(clone);
+        Check(sim.Save() == clone.Save() &amp;&amp; sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement.RegionId == &quot;footwear&quot;,
+            &quot;fit-qualified handling resumes identically and commits once&quot;);
+
+        // Revalidation must apply the new fit contract as well as the old access/placement checks.
+        sim = Sim(); Check(sim.HandleInventory(Shoes(&quot;hand&quot;)), sim.LastMessage); Finish(sim);
+        Check(sim.HandleInventory(Shoes(&quot;footwear&quot;)), sim.LastMessage);
+        sim.Inventory.Content!.Definitions[index] = boots with { Wear = boots.Wear! with { Fit = boots.Wear.Fit! with { MaxUnderBulk = 0 } } };
+        Finish(sim);
+        Check(sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement.RegionId == &quot;hand&quot;, &quot;a destination that no longer fits cannot commit stale work&quot;);
+
+        var tactical = Sim(); Check(tactical.HandleInventory(Shoes(&quot;hand&quot;)), tactical.LastMessage); Finish(tactical);
+        tactical.Player.Facing = 1; Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;fit/AP fixture starts real tactical combat&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var turn = tactical.Combat.Cursor;
+        quote = tactical.QuoteInventory(Shoes(&quot;footwear&quot;));
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = quote.Ap - 1 }; safe = tactical.Save();
+        Check(!tactical.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; tactical.Save() == safe, &quot;a valid fit still needs sufficient combat AP&quot;);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        tactical.Inventory.Content!.Definitions[index] = boots with { Wear = boots.Wear! with { Fit = boots.Wear.Fit! with { MaxUnderBulk = 0 } } };
+        safe = tactical.Save();
+        Check(!tactical.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; tactical.Save() == safe, &quot;an invalid fit spends no AP or tactical time&quot;);
+        tactical.Inventory.Content.Definitions[index] = boots;
+        Check(tactical.HandleInventory(Shoes(&quot;footwear&quot;)) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - quote.Ap,
+            &quot;fit-qualified work consumes quoted combat AP exactly once&quot;);
+        Finish(tactical);
+        Check(tactical.Inventory.Items[&quot;avatar-shoes&quot;].Placement.RegionId == &quot;footwear&quot;, &quot;fit-qualified combat work commits through normal resolution&quot;);
+        Console.WriteLine($&quot;WEAR_FIT_CHECKS_PASS: {passed} assertions; directional compatibility, cumulative bulk, exclusions, region isolation, validated work and continuation.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/WearFitChecks.cs</footer></main></div></body></html>

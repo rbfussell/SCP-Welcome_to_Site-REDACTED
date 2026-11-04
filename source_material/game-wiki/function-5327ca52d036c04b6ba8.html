@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPanel.Context | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPanel.Context</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypanel-cs.html#L292">game/Presentation/Inventory/InventoryPanel.cs:292</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal void Context(string id, string? region, Vector2 position, bool fastening = false)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-10d3cf9e4510e8c3c119.html">SpatialSimulation.InventoryCost</a></li><li><a href="function-11abfa8796964d4e1f20.html">InventoryState.Region</a></li><li><a href="function-1484e0f1ff3ac68797ce.html">InventoryPanel.MoveSelectedTo</a></li><li><a href="function-2965afdd61228aa974a4.html">InventoryPanel.BeginContext</a></li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a></li><li><a href="function-3db0958d9183d75b0bf7.html">InventoryPanel.ShowReceipt</a></li><li><a href="function-53df1ca84cdeaa2439da.html">InventoryPanel.Entry</a></li><li><a href="function-55d804e682a391f43ecb.html">InventoryClosures.Toggle</a></li><li><a href="function-5b456df7ad3c9d657ceb.html">InventoryPanel.ToggleClosure</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-7274b193a9a8b15b673e.html">InventoryGrid.Region</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a></li><li><a href="function-815df44ccf2c84be9982.html">InventoryPanel.OpenCompartment</a></li><li><a href="function-87994f38de40fe8506cd.html">InventoryPanel.UpdateClosure</a></li><li><a href="function-8a48982dd2c0f592f5ef.html">InventoryPanel.PositionContext</a></li><li><a href="function-91f463fa8046959b4b81.html">PaperdollMosaic.Region</a></li><li><a href="function-99d061f2c6e3664fa63e.html">InventoryPanel.HideContext</a></li><li><a href="function-9f6e065bef1294992bfd.html">InventoryPanel.Arrange</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-cb75546e3369f8fc33d1.html">InventoryClosures.SecureOnClose</a></li><li><a href="function-e3e447513aae2cc4125a.html">SpatialSimulation.QuoteInventory</a></li><li><a href="function-f00cfdd919b2f4bc220d.html">SpatialSimulation.SetInventorySecureOnClose</a></li><li><a href="function-f7d9ce1a9ef5a584806c.html">InventoryPanel.Button</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Select
+BeginContext
+Simulation.Inventory.Definition
+Button
+HideContext
+action
+Simulation.Inventory.Region
+Entry
+OpenCompartment
+Inspect
+ToggleClosure
+list.AddChild
+Simulation.SetInventorySecureOnClose
+ShowReceipt
+automatic.SetPressedNoSignal
+InventoryClosures.SecureOnClose
+InventoryClosures.Toggle
+Simulation.QuoteInventory
+Simulation.InventoryCost
+_contextUpdates.Add
+UpdateClosure
+Arrange
+(definition.Regions ?? []).Where
+Simulation.Inventory.DiagnosticItems.Single
+MoveSelectedTo
+PositionContext</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-0038529ef7a7351c141e.html">InventoryPaperdollSurface._GuiInput</a></li><li><a href="function-53d386bf8d63dc175b52.html">InventoryGearSurface._GuiInput</a></li><li><a href="function-5d83895d2150d0046faf.html">InventoryBodyFitSurface.InspectInput</a></li><li><a href="function-a74ea59cdf2b7d174505.html">InventoryEquipmentList._Ready</a></li><li><a href="function-af4a0efef6d8ab44256d.html">InventoryGrid._GuiInput</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryclosures.html">InventoryClosures</a></li><li><a href="type-inventorypanel.html">InventoryPanel</a></li></ul><h2>Implementation</h2><pre><code>internal void Context(string id, string? region, Vector2 position, bool fastening = false)
+    {
+        Select(id); var list = BeginContext();
+        var definition = Simulation.Inventory.Definition(id);
+        void Entry(string name, Action action) =&gt; Button(list, name, () =&gt; { HideContext(); action(); });
+        if (!fastening &amp;&amp; (region is null || !Simulation.Inventory.Region(id, region).Sealable)) Entry(&quot;Open&quot;, () =&gt; { if (region is not null) OpenCompartment(id, region); else Inspect(id); });
+        var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: &gt; 0 } &amp;&amp; definition.Regions is { Length: 1 } regions &amp;&amp; regions[0].Attachment is null ? regions[0].Id : null);
+        if (closureRegion is not null &amp;&amp; !Simulation.Inventory.Region(id, closureRegion).Sealable) closureRegion = null;
+        if (closureRegion is not null || region is null &amp;&amp; definition.Wear?.OpenExposes is { Length: &gt; 0 })
+        {
+            var closure = Button(list, &quot;&quot;, () =&gt;
+            {
+                HideContext(); ToggleClosure(id, closureRegion);
+            });
+            var automatic = new CheckButton { Text = &quot;Secure on view close&quot;, FocusMode = FocusModeEnum.None,
+                TooltipText = &quot;Only this fastening. Changing this preference does not physically open or secure it.&quot; }; list.AddChild(automatic);
+            automatic.Toggled += value =&gt;
+            {
+                Simulation.SetInventorySecureOnClose(id, closureRegion, value); ShowReceipt();
+                automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));
+            };
+            void UpdateClosure()
+            {
+                var action = InventoryClosures.Toggle(Simulation.Inventory, id, closureRegion);
+                closure.Text = action.Verb;
+                closure.Disabled = Simulation.Inventory.Pending is not null || !Simulation.QuoteInventory(action.Request).Allowed;
+                closure.TooltipText = Simulation.InventoryCost(action.Request);
+                automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));
+            }
+            _contextUpdates.Add(UpdateClosure); UpdateClosure();
+        }
+        if (region is not null) Entry(&quot;Arrange &quot; + Simulation.Inventory.Region(id, region).Name, () =&gt; Arrange(id, region));
+        else foreach (var interior in (definition.Regions ?? []).Where(r =&gt; r.Attachment is null))
+            Entry(&quot;Arrange &quot; + interior.Name, () =&gt; Arrange(id, interior.Id));
+        var location = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;
+        var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);
+        if (enclosing.MountSlot is null &amp;&amp; enclosing.Attachment is null) Entry(&quot;Arrange &quot; + enclosing.Name, () =&gt; Arrange(location.ParentId, location.RegionId));
+        Entry(&quot;Remove → hand&quot;, () =&gt; { Select(id); MoveSelectedTo(&quot;hand&quot;); });
+        PositionContext(position);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPanel.cs:292</footer></main></div></body></html>

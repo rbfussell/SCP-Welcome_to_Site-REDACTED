@@ -1,0 +1,131 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Facility infrastructure and environmental containment | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/17-facility-infrastructure.md.</aside><h1 id="facility-infrastructure-and-environmental-containment">Facility infrastructure and environmental containment</h1>
+<p>Status: Required product direction, October 22, 2026. The user requires Dwarf Fortress/RimWorld-style infrastructure, including electricity, heating and cooling, because physical operating conditions are part of containment. The contracts and milestone bounds below are proposed. This is a design extension, not an implemented utility system: the current spatial prototype has a debug lighting boolean, with no circuits, heat model or HVAC.</p>
+<h2 id="physical-services-shared-by-every-interface">Physical services, shared by every interface</h2>
+<p>A room designation does not supply power, a stable temperature or containment. Sources, routes, distribution equipment, consumers, controls and maintenance must actually provide the required conditions. Field interaction, facility overlays, OSCP orders and AIC actions all operate on these same installed objects and validated services.</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Required behavior</th>
+<th>Staged detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Electrical</td>
+<td>Sources, circuits, switches/breakers, distribution capacity, loads, backup supply and faults</td>
+<td>First power proof in M1; richer generation and distribution later</td>
+</tr>
+<tr>
+<td>Heating/cooling</td>
+<td>Room temperature, thermal inertia, heat exchange, equipment output, setpoints and capacity</td>
+<td>First two-room thermal proof in M1</td>
+</tr>
+<tr>
+<td>Ventilation</td>
+<td>Air connections, fans, isolation dampers and declared filter behavior</td>
+<td>Bounded environmental-containment fixture in M3; no general fluid dynamics</td>
+</tr>
+<tr>
+<td>Water/service fluids</td>
+<td>Typed supply and return/drain connections, pumps, stored quantities and device requirements</td>
+<td>Later bounded fixtures; pressure/chemistry detail needs a separate scope decision</td>
+</tr>
+<tr>
+<td>Control/data</td>
+<td>Sensors, controllers, actuator links, alarms and reachable monitoring services</td>
+<td>M1 minimum power/thermal controls; SCiPnet connectivity remains a separate service</td>
+</tr>
+</tbody>
+</table>
+<p>Electricity, ventilation and data connectivity are distinct networks. Sharing a route or room does not make one a substitute for another. A disconnected workstation may still have power; a powered controller may have lost its sensor or actuator link.</p>
+<p>Construction uses the square building grid, wall/service sockets and explicit inter-floor connections, independently of hex actor navigation. Installed segments and devices have stable IDs, condition, capacity and maintenance access. Crossing drawn lines do not connect networks without a compatible junction. Their visual overlay is a view of authoritative topology, not a separate layout.</p>
+<p><strong>Pending player choice:</strong> manual routing on utility overlays, optionally assisted by automatic route planning, versus room-level automatic connections. Neither option permits service without a valid installed connection and adequate capacity. Until resolved, author the small proof networks explicitly; do not commit a final construction UI. Proposed automatic routing produces a reviewable blueprint and physical work orders, using the same costs and access rules as manual routing.</p>
+<h2 id="electrical-operation">Electrical operation</h2>
+<p>Track requested demand, delivered power, connection limits, available generation and stored energy separately. A lamp's configured state, commanded state and actual illumination are distinct. Doors declare loss-of-power behavior such as fail-open, fail-locked or a mechanical release; one global default cannot decide every security door. Rated output and actual delivery can differ through condition, shortages or faults.</p>
+<p>Proposed first resolver: deterministic capacity-limited circuits with explicit switches and protective devices. A consumer receives its declared minimum operating supply or enters a declared degraded/off state; selected consumers may support continuous output. Consumer priorities and stable tie rules determine load shedding. An overload trips the declared protection or follows an authored fault rule; it cannot silently create unlimited power. Redundant feeds need valid switching and source accounting, rather than duplicating supply through a graph cycle.</p>
+<p>Backup power transfers only through installed, operational equipment. Batteries lose stored energy in proportion to delivered load and elapsed simulation time; generators require their declared fuel and startup conditions. A working backup can prevent an interruption, while transfer delay can still interrupt a sensitive load. No random outage is required to make maintenance relevant: damage, exhaustion, isolation and overload provide causal faults. Exact ratings, loss models and repair durations are tuning, not established requirements.</p>
+<h2 id="room-environment-and-hvac">Room environment and HVAC</h2>
+<p>Use a bounded room/connected-area model rather than simulating every air molecule. Each thermal space records physical volume, effective thermal capacity, temperature and boundary connections. Geometry and material definitions supply insulation/conductance; doors, openings and outdoor boundaries affect heat exchange. These are physical boundaries, not the shape or apparent height of a sprite.</p>
+<p>Heating adds energy. Cooling removes it and rejects it to an explicit destination such as an outdoor boundary or a connected heat-rejection unit. Equipment has finite output and supply dependencies. A cooler in a sealed room cannot remove arbitrary heat without somewhere for that heat to go. Electrical draw and waste heat use declared device data; efficiencies and simplified external reservoirs must be explicit.</p>
+<p>At each environmental integration boundary, compute heat sources/sinks and exchange over the elapsed <strong>local simulation</strong> interval. Keep authoritative units explicit: temperature in degrees Celsius, power/heat flow in watts, stored energy in joules and thermal capacity in joules per degree. Use deterministic numeric rules and published rounding. Choose or subdivide the integration step so heat exchange cannot overshoot equilibrium or skip a containment threshold. Render frames never advance temperature.</p>
+<p>The first fixture needs two rooms, a door/opening, one outdoor-temperature boundary, one powered heater/cooler and one controllable heat source. It must demonstrate:</p>
+<ul>
+<li>A setpoint is a control request; the actual temperature approaches it according to capacity, losses and thermal inertia.</li>
+<li>Removing power stops dependent output, while the room warms or cools over time. It does not instantly become outdoor temperature.</li>
+<li>Opening a door changes exchange and may exceed the plant's capacity without any equipment being broken.</li>
+<li>A hot process can overpower cooling. Oversized cooling or a failed controller can also violate a lower temperature bound.</li>
+<li>Restoring power does not instantly restore safe conditions. Recovery and stabilization remain work in progress.</li>
+</ul>
+<p>Ventilation later extends this with declared air transfer and bounded contaminant/filtration fields. Pressure, humidity, oxygen, radiation, cleanliness and other environmental quantities are capability candidates, <strong>not implicitly working simulations</strong>. A module requiring an unsupported quantity fails validation with an actionable message; it cannot quietly assume a safe value. Each new quantity needs units, transport/exposure semantics, clock ownership, persistence and a qualified resolver before certification.</p>
+<h2 id="sensors-automation-and-staff">Sensors, automation and staff</h2>
+<p>Separate actual environmental state, measured values and personnel knowledge. A sensor reports its own reading, sample time, calibration/fault state and reachable recipients. A lost or stale sensor is not a reading of zero and is not proof of safe containment. Threshold alarms use the declared range, delay/hysteresis and sensor evidence; independently, an anomaly can react to actual conditions whether staff notice or not.</p>
+<p>Controllers execute configured local policies using available inputs. A thermostat can keep operating while SCiPnet is unavailable if its own hardware, power and sensor/actuator path survive. The AIC may monitor, report or request authorized adjustments through these services; it cannot read an uninstrumented room's true temperature or repair a broken cable by issuing a command. Loss of its host does not automatically disable an independent hardwired safety controller.</p>
+<p>OSCP Facilities shows known circuits, load/capacity, measured room conditions, target ranges, backup state, fault evidence and work status. Show commanded versus actual operation and stale readings distinctly. Commands can isolate circuits, change authorized setpoints, shed loads or request repair, but still require a reachable actuator or physical worker. A development-only inspector can show true topology, energy balance, actual conditions and the cause of each transition.</p>
+<p>Maintenance requires qualified people, access, tools, parts, time and any isolation/authorization step. It participates in employment and order arbitration; a cafeteria employee does not become an electrician through an optional repair toggle. The M1 proof can assign a bounded maintenance qualification and authorized repair duty to one of the existing 16 staff. This does not qualify every technical profession or expand the population. Broader engineering employment and procedures are to be scoped with their content.</p>
+<h2 id="module-facing-conditions-and-effects">Module-facing conditions and effects</h2>
+<p>The host owns utility topology and environmental state. A module declares required services and quantities, affected spaces, units, safe/unsafe ranges with inclusive/exclusive boundaries, rate-of-change sensitivity, exposure durations, control dependencies and permitted effects. It receives scoped queries/events and requests validated effects such as a heat source, a device fault or changed material conductance. Overrides retain provenance and composition rules; a module cannot bypass energy/item accounting accidentally through an unrestricted state write.</p>
+<p>Keep procedure compliance distinct from the actual hazard rule. Losing backup capacity can violate a procedure before temperature leaves the safe range. Conversely, having every checklist box ticked does not suppress a hazard if a sensor lies or the actual condition has changed. Triggers need event ordering and threshold-crossing times, not periodic frame checks or a generic containment score.</p>
+<p>Direct and unattended resolution use the same environment, conditions, resource use and causal outcomes. A certified coarse resolver may advance long stable intervals analytically, stopping at the next supply depletion, threshold or other dependency event. If aggregation cannot preserve a module's environmental trigger, retain sufficient fidelity instead of rolling a generic breach probability.</p>
+<h2 id="scp-019-as-a-design-check">SCP-019 as a design check</h2>
+<p>Primary reference: <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-019" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-019 — Sophia Light</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-019.html">Local snapshot</a> · <a href="canon-records/scp-019.json">JSON</a>]</span></span>, read from the <a href="doc-source-material-readme-md.html">local archive</a>, snapshot <code>278a69a68e4b85ac7135d061b9fbd6f1027e1a96</code>. Article text is CC BY-SA 3.0; no article artwork is imported. This is a main-article infrastructure check, not a complete adaptation or cross-wiki canon review.</p>
+<p>The article specifies a vertical vase above a grate in a reinforced room with an incinerator, constant observation through glass and a temperature of <strong>0°C when the incinerator is inactive</strong>. Even at 0°C and at rest, approximately one SCP-019-2 emerges per hour. Movement, threats, extreme temperatures, abrupt environmental changes and insertion of objects/organisms affect emergence; insertion can provoke a flood. Cooling is therefore one operating condition in an active containment process, not an off switch.</p>
+<p>A future module would exercise these chains:</p>
+<table>
+<thead>
+<tr>
+<th>Physical event</th>
+<th>Shared consequence</th>
+<th>Module/procedure concern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cooling loses supply or capacity</td>
+<td>Room temperature changes over time</td>
+<td>Evaluate authored temperature response and escalation; a fault is not automatically an immediate escape</td>
+</tr>
+<tr>
+<td>A controller overcools, or the environment changes suddenly</td>
+<td>Lower-bound or rate-of-change event</td>
+<td>Lower temperature is not universally safer</td>
+</tr>
+<tr>
+<td>An entity is detected</td>
+<td>Qualified observation creates evidence and an authorized response</td>
+<td>Activate the installed incinerator; it needs its declared utilities and operational capability</td>
+</tr>
+<tr>
+<td>Incinerator operates</td>
+<td>Heat enters the room and uses supplies</td>
+<td>The 0°C idle requirement does not prohibit the treatment cycle; controlled recovery matters</td>
+</tr>
+<tr>
+<td>Monitoring or treatment fails</td>
+<td>An entity can remain alive and damage the room</td>
+<td>Actual entities, damage, exits and response determine the outcome</td>
+</tr>
+</tbody>
+</table>
+<p>The source gives no exact per-degree spawn multiplier, HVAC power rating or numerical disturbance curve. Those must be labeled game tuning and reviewed before implementing SCP-019. Its addendum also describes missed partially transparent entities and increasing resistance to incineration; a cold room plus an infallible fire button would not represent that account completely. Treatment alternatives and the article's uncertain explanations need a separate adaptation decision. No full SCP-019 campaign or combat population is added by this design pass.</p>
+<h2 id="time-persistence-and-diagnostics">Time, persistence and diagnostics</h2>
+<p>Temperature, local supply consumption, equipment cycles, faults, exposure timers and maintenance work belong to the local execution clock. All wait during that zone's tactical input hold, as already agreed. Global manual pause stops all clocks. World-calendar timestamps can continue to label reports without consuming held local fuel or expiring local hazards.</p>
+<p>A utility spanning a held and a running zone is a real causal boundary: neither side can assume unlimited supply, double-spend a shared battery or silently apply backlog on release. M1 qualifies networks within one execution zone. Before accepting cross-zone utility links, qualify an explicit boundary/interrupt or merged-execution policy under <a href="doc-docs-adr-0006-real-time-exploration-and-tactical-turns-md.html">the time contract</a>. Unsupported cross-zone topology must be rejected visibly; a future network game cannot treat that rejection as its final solution.</p>
+<p>Save topology/revisions, isolation and faults, device condition, source stores, room thermal state, controller modes, sensor readings/sample times, remaining local timers, pending events and maintenance reservations together. Save/resume must preserve the same next threshold/failure event, without free backup charge, restored safe temperature or repeated resource consumption. Traces connect the original cause through service loss, environmental change, detection, alarm and response.</p>
+<h2 id="readable-implementation-boundaries">Readable implementation boundaries</h2>
+<p>Proposed future code layout, not directories already implemented:</p>
+<pre><code class="language-text">Infrastructure/
+  Topology/       ports, routes, junctions, connected services
+  Electrical/    supply, demand, protection, backup stores
+  Thermal/       spaces, boundaries, heat sources and integration
+  Ventilation/   later bounded transfer/filter/isolation resolver
+  Devices/       installed equipment and operating modes
+  Controls/      sensors, controllers, actuator requests
+  Maintenance/  faults and work prerequisites/continuations
+</code></pre>
+<p>Inventory owns portable parts, fuel and physical transfers; employment owns worker availability/authority; infrastructure owns installed service behavior. Installation/removal uses shared transactions rather than duplicating an item as both stored stock and an active device. OSCP and facility overlays query these systems and submit commands. SCP modules consume scoped conditions/events and request effects; they do not become alternate power or HVAC engines. Diagnostics should expose a device's dependency chain from source through route and controls to output, with the first unmet prerequisite and its cause.</p>
+<h2 id="implementation-boundaries-and-acceptance">Implementation boundaries and acceptance</h2>
+<p>The immediate scene remains the spatial/observation proof. Its F8 lighting switch is useful for debugging SCP-650 and does not satisfy the infrastructure requirements.</p>
+<p>Proposed M1 extension: one authored electrical fixture with a protected branch, limited backup, light/door consumers and a bounded heater/cooler; the two-room thermal fixture above; a sensor/controller/alarm path; one qualified repair procedure. Reuse slice rooms/staff, generated device sprites and existing room conversion. No structural expansion, complete fluid simulation or new named SCP module is required.</p>
+<p>M3 adds one bounded ventilation/isolation fixture and an <strong>SCP-019-informed environmental hazard test</strong>, including idle production, a hot treatment cycle and controlled thermal recovery. This can use diagnostic entities and explicitly labeled tuning. Full SCP-019 adaptation, water/service-fluid content and wider engineering jobs remain separately scoped. Electrical and thermal infrastructure are required foundations, rather than optional release decorations.</p>
+<p>Acceptance requirements are tracked as FAC-02 through FAC-09 in <a href="doc-docs-04-scope-and-acceptance-md.html">scope and acceptance</a>. Numeric capacities, routing UX, supported environmental quantities and cross-zone network policy must be resolved or bounded explicitly before their affected implementations are certified.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/17-facility-infrastructure.md</footer></main></div></body></html>

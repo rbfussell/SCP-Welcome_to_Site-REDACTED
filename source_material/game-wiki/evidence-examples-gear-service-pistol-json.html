@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>examples/gear/service-pistol.json | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>service-pistol.json</h1><pre>{
+  &quot;schemaVersion&quot;: 1,
+  &quot;status&quot;: &quot;design-contract&quot;,
+  &quot;id&quot;: &quot;example:service-pistol&quot;,
+  &quot;name&quot;: &quot;Assembled training pistol&quot;,
+  &quot;description&quot;: &quot;Authoring example; not registered in the native field-kit profile.&quot;,
+  &quot;massGrams&quot;: 700,
+  &quot;materials&quot;: [
+    {
+      &quot;id&quot;: &quot;core:steel&quot;,
+      &quot;massFraction&quot;: 0.6
+    },
+    {
+      &quot;id&quot;: &quot;core:polymer&quot;,
+      &quot;massFraction&quot;: 0.4
+    }
+  ],
+  &quot;traits&quot;: [
+    &quot;core:assembled-equipment&quot;
+  ],
+  &quot;forms&quot;: [
+    {
+      &quot;id&quot;: &quot;packed&quot;,
+      &quot;envelopeMm&quot;: [
+        200,
+        200,
+        40
+      ],
+      &quot;referenceCellMm&quot;: 100,
+      &quot;squareShape&quot;: {
+        &quot;columns&quot;: 2,
+        &quot;rows&quot;: 2
+      },
+      &quot;orientations&quot;: [
+        0,
+        90
+      ],
+      &quot;sprite&quot;: &quot;example:packed&quot;
+    }
+  ],
+  &quot;defaultForm&quot;: &quot;packed&quot;,
+  &quot;appearance&quot;: {
+    &quot;inventory&quot;: &quot;example:service-pistol&quot;
+  },
+  &quot;condition&quot;: {
+    &quot;maximum&quot;: 100,
+    &quot;default&quot;: 100,
+    &quot;responses&quot;: [
+      &quot;core:use-wear&quot;,
+      &quot;core:material-damage&quot;
+    ]
+  },
+  &quot;crafting&quot;: {
+    &quot;deconstructable&quot;: false,
+    &quot;crafted&quot;: false,
+    &quot;compositionPolicy&quot;: &quot;sealed-work-record&quot;
+  },
+  &quot;stateDefaults&quot;: {},
+  &quot;sources&quot;: [
+    &quot;Original game design example; no SCP article claim.&quot;
+  ],
+  &quot;compartments&quot;: [
+    {
+      &quot;id&quot;: &quot;magazine-well&quot;,
+      &quot;name&quot;: &quot;Magazine well&quot;,
+      &quot;kind&quot;: &quot;service-slot&quot;,
+      &quot;slot&quot;: {
+        &quot;interface&quot;: &quot;example:magazine-interface&quot;,
+        &quot;count&quot;: 1,
+        &quot;maxMassGrams&quot;: 1500
+      },
+      &quot;snug&quot;: true,
+      &quot;defaultOpen&quot;: true,
+      &quot;accessMs&quot;: 700,
+      &quot;accessAp&quot;: 3,
+      &quot;accessFunction&quot;: &quot;core:reload-magazine&quot;
+    }
+  ],
+  &quot;functions&quot;: [
+    {
+      &quot;id&quot;: &quot;core:fire&quot;,
+      &quot;handler&quot;: &quot;example:fictional-firearm&quot;,
+      &quot;capabilities&quot;: [
+        &quot;inventory:consume-feed&quot;,
+        &quot;world:apply-effect&quot;,
+        &quot;inventory:spawn-remnant&quot;
+      ],
+      &quot;parameters&quot;: {
+        &quot;acceptedRoundClass&quot;: &quot;example:training-round&quot;,
+        &quot;incompatibleRoundEvaluator&quot;: &quot;example:game-fault-policy&quot;,
+        &quot;deriveEffectsFromActualRound&quot;: true
+      }
+    }
+  ]
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,78 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodySymmetryChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodySymmetryChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class BodySymmetryChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Body cleanup: &quot; + reason); passed++; }
+        var sim = new SpatialSimulation(map, config); sim.Player.Cell = new(13, 6);
+        var state = sim.Inventory; var catalog = state.BodyFits!; var body = catalog.Body(&quot;human-nine-shoulder&quot;);
+        static BodyHex Mirror(BodyHex c) =&gt; new(-c.Q - c.R, c.R);
+        var bodyCells = BodyFitGeometry.Cells(body.Rows).ToHashSet();
+        Check(bodyCells.All(c =&gt; bodyCells.Contains(Mirror(c))), &quot;every body cell has a vertical mirror, including odd rows&quot;);
+        var visited = new HashSet&lt;BodyHex&gt;(); var pending = new Queue&lt;BodyHex&gt;(); pending.Enqueue(bodyCells.First());
+        while (pending.TryDequeue(out var cell))
+            if (visited.Add(cell)) foreach (var next in Enumerable.Range(0, 6).Select(cell.Neighbor).Where(bodyCells.Contains).Where(c =&gt; !visited.Contains(c))) pending.Enqueue(next);
+        Check(visited.SetEquals(bodyCells), &quot;head, torso, arms and legs remain one connected body&quot;);
+        foreach (var shape in catalog.Content.Shapes)
+        {
+            var fit = BodyFitGeometry.Evaluate(body, shape, shape.DefaultPose);
+            Check(fit.Cells.All(c =&gt; fit.Cells.Contains(Mirror(c))), &quot;default worn mask mirrors: &quot; + shape.Id);
+            Check(fit.Contacts.All(c =&gt; fit.Contacts.Contains(new(Mirror(c.Cell), 5 - c.Direction))),
+                &quot;boundary edges mirror with the silhouette: &quot; + shape.Id);
+        }
+        var left = sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;left&quot;)!.Mouth;
+        var right = sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;right&quot;)!.Mouth;
+        Check(left.Select(c =&gt; c with { Cell = Mirror(c.Cell) }).ToHashSet().SetEquals(right), &quot;hip mouths are exact mirrors&quot;);
+        Check(sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;)!.Mouth.Select(c =&gt; c with { Cell = Mirror(c.Cell) }).ToHashSet()
+            .SetEquals(sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, &quot;cargo-right&quot;)!.Mouth), &quot;cargo mouths are exact mirrors&quot;);
+        var belt = catalog.Shape(&quot;belt&quot;); var anchor = new BodyPose(-4, 8);
+        var one = BodyFitGeometry.Evaluate(body, belt, anchor with { Rotation = 1 });
+        var two = BodyFitGeometry.Evaluate(body, belt, anchor with { Rotation = 2 });
+        Check(one.Fits &amp;&amp; two.Fits &amp;&amp; one.Cells.Length == 10 &amp;&amp; two.Cells.Length == 10, &quot;native chest X uses authored ten-cell span&quot;);
+        Check(one.Cells.ToHashSet().SetEquals(new[] { new BodyHex(-4, 4), new(-4, 5), new(-4, 6), new(-4, 7), new(-4, 8),
+            new(-4, 9), new(-4, 10), new(-4, 11), new(-4, 12), new(-4, 13) }), &quot;independent first diagonal endpoints and full run&quot;);
+        Check(one.Cells.Select(Mirror).ToHashSet().SetEquals(two.Cells), &quot;second diagonal mirrors the first instead of a shifted V&quot;);
+        Check(one.Cells.Intersect(two.Cells).SequenceEqual(new[] { new BodyHex(-4, 8) }), &quot;diagonals cross once at the chosen chest anchor&quot;);
+        Check(!BodyFitGeometry.Evaluate(body, belt with { LinearSpan = new(5, 9) }, anchor with { Rotation = 1 }).Fits,
+            &quot;insufficient authored length cannot fasten, even when its core is inside the body&quot;);
+        Check(!BodyFitGeometry.Evaluate(body, belt, new(-6, 12, 1)).Fits, &quot;adjustment cannot bridge the gap between legs&quot;);
+        for (var rotation = 0; rotation &lt; 6; rotation++)
+        {
+            var result = BodyFitGeometry.Evaluate(body, belt, anchor with { Rotation = rotation });
+            Check(result.Fits &amp;&amp; result.FailedContacts.Length == 0 &amp;&amp; result.Cells.All(bodyCells.Contains), &quot;all six axes/orientations have real boundary contacts&quot;);
+        }
+        void Finish(SpatialSimulation s) { for (var i = 0; i &lt; 2000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;normal paid work resolves&quot;); }
+        void Act(InventoryRequest request) { Check(sim.HandleInventory(request), sim.LastMessage); Finish(sim); }
+        InventoryRequest Fit(string id, int rotation) =&gt; new(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, &quot;belt&quot;, BodyPose: anchor with { Rotation = rotation }));
+        Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8)));
+        Act(Fit(&quot;utility-belt&quot;, 1));
+        Check(state.Items[&quot;utility-belt&quot;].Placement.BodyPose == anchor with { Rotation = 1 }, &quot;paid placement retains chosen anchor&quot;);
+        foreach (var side in new[] { &quot;front&quot;, &quot;back&quot; })
+            Check(InventoryWornStack.Cells(state, state.Items[&quot;utility-belt&quot;]).Where(c =&gt; c.Surface == side).Select(c =&gt; c.Cell).ToHashSet().SetEquals(one.Cells),
+                &quot;wear bands and exposure use extended geometry on &quot; + side);
+        Check(sim.HandleInventory(Fit(&quot;utility-belt-2&quot;, 2)), sim.LastMessage); sim.Tick();
+        var saved = sim.Save(); var clone = new SpatialSimulation(map, config); clone.Restore(saved);
+        Check(clone.Save() == saved, &quot;pending adjustable fit restores exactly without a second length state&quot;);
+        Finish(sim); Finish(clone); Check(sim.Save() == clone.Save(), &quot;adjustable X resumes identically&quot;);
+        foreach (var side in new[] { &quot;front&quot;, &quot;back&quot; })
+            Check(sim.InventoryWornCells.Last(c =&gt; c.Cell == new BodySurfaceCell(side, new(-4, 8))) is { SubLayer: 2, BandCount: 3 },
+                &quot;native X counts one base and two straps on &quot; + side);
+        var before = sim.Save();
+        Check(!sim.HandleInventory(Fit(&quot;utility-belt-3&quot;, 0)) &amp;&amp; sim.Save() == before &amp;&amp; sim.LastMessage.Contains(&quot;Overlay limit&quot;),
+            &quot;third strap at clothed X intersection fails atomically&quot;);
+        Check(!sim.QuoteInventory(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)))).Allowed,
+            &quot;other diagonal covers central attachment contact using fitted cells&quot;);
+        foreach (var span in new[] { new BodyLinearSpan(0, 10), new(5, 4), new(5, 34), new(4, 10) })
+        {
+            try { BodyFitCatalog.Validate(catalog.Content with { Shapes = [belt with { LinearSpan = span }] }); throw new Exception(&quot;Invalid span accepted&quot;); }
+            catch (ArgumentException) { Check(true, &quot;invalid authored range is rejected&quot;); }
+        }
+        try { BodyFitCatalog.Validate(catalog.Content with { Shapes = [catalog.Shape(&quot;shirt&quot;) with { LinearSpan = new(5, 10) }] }); throw new Exception(&quot;Nonlinear shirt accepted&quot;); }
+        catch (ArgumentException) { Check(true, &quot;span authoring is limited to straight, fully covered strips&quot;); }
+        Console.WriteLine($&quot;BODY_SYMMETRY_CHECKS_PASS: {passed} assertions; mirrored masks/mouths, connected body, bounded spans, native X, paid work and continuation.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/BodySymmetryChecks.cs</footer></main></div></body></html>

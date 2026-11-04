@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpWorkspace.Refresh | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpWorkspace.Refresh</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscpworkspace-cs.html#L193">game/Presentation/Oscp/OscpWorkspace.cs:193</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public void Refresh()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-06f850c46d1fabeca250.html">OscpApplications.Find</a></li><li><a href="function-1e1b9f610e8fd19521d3.html">SpatialSimulation.OscpAccess</a></li><li><a href="function-4453fb8113e5c570299a.html">SpatialScene.Find</a></li><li><a href="function-5b8eed37e653cca46980.html">OscpWorkspace.DraftDescription</a></li><li><a href="function-a5099bc32e947ae11587.html">OscpWorkspace.CloseSession</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-ed32affef484d15bff9c.html">OscpWorkspace.PersonnelDocument</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_sim.OscpAccess
+CloseSession
+GetViewportRect
+Math.Min
+_frame.QueueRedraw
+_body.AddThemeConstantOverride
+TimeSpan.FromHours
+TimeSpan.FromMilliseconds
+_apps.Find
+_actions.GetChildren().SelectMany(n =&gt; n.GetChildren()).OfType&lt;Button&gt;
+_actions.GetChildren().SelectMany
+_actions.GetChildren
+n.GetChildren
+_map.QueueRedraw
+_sim.OscpRecords.Reverse().Select
+_sim.OscpRecords.Reverse
+r.Source.ToUpperInvariant
+_sim.Operations.OrderHistory.Where(o =&gt; o.Issuer == _sim.Player.Id &amp;&amp; (o.IssuedMs &gt; 0 || o.Channel is &quot;phone&quot; or &quot;terminal&quot;)).TakeLast(6).Reverse()
+            .Select
+_sim.Operations.OrderHistory.Where(o =&gt; o.Issuer == _sim.Player.Id &amp;&amp; (o.IssuedMs &gt; 0 || o.Channel is &quot;phone&quot; or &quot;terminal&quot;)).TakeLast(6).Reverse
+_sim.Operations.OrderHistory.Where(o =&gt; o.Issuer == _sim.Player.Id &amp;&amp; (o.IssuedMs &gt; 0 || o.Channel is &quot;phone&quot; or &quot;terminal&quot;)).TakeLast
+_sim.Operations.OrderHistory.Where
+_sim.OscpRecords.LastOrDefault
+r.Text.StartsWith
+own.Any
+string.Join
+PersonnelDocument
+DraftDescription
+reports.Any</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-0618ca4a7ef87bf0a62d.html">InventoryPanel.TogglePaperdollProof</a></li><li><a href="function-12f1a5568687a2d2a06a.html">OscpScene._Process</a></li><li><a href="function-23e6db1bfb7b83bcccb3.html">OscpWorkspace.Send</a></li><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a></li><li><a href="function-3bc6f391ee5a01cb7eea.html">WorldView._Process</a></li><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li><li><a href="function-5ae9576e6493b79a50f6.html">SpatialScene.CheckPlayerCutaway</a></li><li><a href="function-5ed8f259fbd4a06a821f.html">SpatialHud.Refresh</a></li><li><a href="function-7650ee2a92c12deb1e5b.html">InventoryPanel.SetBodyFit</a></li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a></li><li><a href="function-9e9afc764b5fe0c61555.html">OscpWorkspace.ClearPhoneDrafts</a></li><li><a href="function-a6ebd31703377952cb79.html">OscpWorkspace.SelectApp</a></li><li><a href="function-a76a747c2b5ca5039f22.html">OscpScene.RunSmoke</a></li><li><a href="function-c1026920ebdf3062f84d.html">OscpScene.Capture</a></li><li><a href="function-c512448836d100d75671.html">OscpWorkspace.Open</a></li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a></li><li><a href="function-eb11a93a7c0734cc4877.html">SpatialScene.OperationSmokeStep</a></li><li><a href="function-ed52cbde94e2c1e9fbd8.html">SpatialScene.CombatSmokeStep</a></li></ul><h2>Related types</h2><ul><li><a href="type-oscpaccess.html">OscpAccess</a></li><li><a href="type-oscpdevice.html">OscpDevice</a></li><li><a href="type-oscpworkspace.html">OscpWorkspace</a></li></ul><h2>Implementation</h2><pre><code>public void Refresh()
+    {
+        if (!Visible) return;
+        var access = _sim.OscpAccess(Device);
+        if (!access.Available) { CloseSession(false); return; }
+        var phone = Device == OscpDevice.Phone;
+        var viewport = GetViewportRect().Size;
+        _frame.Size = phone ? new(Math.Min(490, viewport.X - 30), Math.Min(820, viewport.Y - 32))
+            : new(Math.Min(1320, viewport.X - 28), Math.Min(860, viewport.Y - 28));
+        _frame.Position = (viewport - _frame.Size) / 2;
+        var area = _frame.ScreenArea; _screen.Position = area.Position; _screen.Size = area.Size;
+        _frame.QueueRedraw();
+        _nav.CustomMinimumSize = new(phone ? 95 : 164, 0);
+        _body.AddThemeConstantOverride(&quot;separation&quot;, phone ? 10 : 20);
+        _subtitle.Text = phone ? &quot;&quot; : &quot;INFORMATION &amp; OPERATIONS&quot;;
+        _session.Text = $&quot;{access.DeviceId} / {access.Identity} / {access.Role}&quot;;
+        _link.Text = access.Status;
+        var time = TimeSpan.FromHours(8) + TimeSpan.FromMilliseconds(_sim.WorldMs);
+        _clock.Text = $&quot;{time:hh\\:mm\\:ss}  {_sim.Speed}×  · &quot; + (_sim.ManualPause ? _ownsPhonePause ? &quot;PHONE PAUSE&quot; : &quot;MANUAL PAUSE&quot; : _sim.LocalProgressHeld ? &quot;LOCAL WAIT · calendar continues&quot; : &quot;REAL TIME · site continues&quot;);
+        var view = _apps.Find(_app, Device)?.View;
+        _toolbar.Visible = _actions.Visible = view == &quot;personnel&quot;;
+        foreach (var button in _actions.GetChildren().SelectMany(n =&gt; n.GetChildren()).OfType&lt;Button&gt;()) button.Disabled = !(Device == OscpDevice.Phone ? access.CanPlan : access.CanCommand);
+        _clearDrafts.Visible = Device == OscpDevice.Phone &amp;&amp; _phoneDrafts.Count &gt; 0;
+        _map.Visible = view == &quot;map&quot;;
+        _map.QueueRedraw();
+        _scope.Text = view == &quot;personnel&quot; ? &quot;Assigned site personnel · acknowledgement and travel remain separate&quot; : view == &quot;map&quot; ? &quot;Known plan · your position · recorded contacts; no live tracking&quot; : access.Connected ? &quot;Received information / current session&quot; : &quot;Offline / last acquired information&quot;;
+        var reports = _sim.OscpRecords.Reverse().Select(r =&gt; $&quot;L {r.LocalMs / 1000.0:0.0}s  /  {r.Author}  /  {r.Source.ToUpperInvariant()}\n{r.Text}&quot;);
+        var own = _sim.Operations.OrderHistory.Where(o =&gt; o.Issuer == _sim.Player.Id &amp;&amp; (o.IssuedMs &gt; 0 || o.Channel is &quot;phone&quot; or &quot;terminal&quot;)).TakeLast(6).Reverse()
+            .Select(o =&gt; $&quot;SUBMITTED #{o.Id}  {o.ActorId} / {o.Task} / {o.Channel}&quot;);
+        var text = view switch
+        {
+            &quot;operations&quot; =&gt; &quot;OBSERVATION SHIFT / INCIDENT 650\n\n&quot; + (_sim.OscpRecords.LastOrDefault(r =&gt; r.Text.StartsWith(&quot;Containment assessment:&quot;) || r.Text.StartsWith(&quot;Receiving footprint empty&quot;))?.Text ?? &quot;Awaiting a received containment assessment.&quot;)
+                + &quot;\n\nCOMMAND REGISTER\n&quot; + (own.Any() ? string.Join(&quot;\n&quot;, own) : &quot;No new orders submitted.&quot;) + &quot;\n\nOpen PERSONNEL to direct assigned staff. COMMUNICATIONS carries delivered acknowledgements and field reports.&quot;,
+            &quot;personnel&quot; =&gt; PersonnelDocument()
+                + &quot;\n\n&quot; + string.Join(&quot;\n&quot;, own) + DraftDescription() + &quot;\n\nAn accepted command does not establish coverage. Wait for the employee&#x27;s acknowledgement and subsequent report.&quot;,
+            &quot;records&quot; =&gt; &quot;SCP-650 / CONTAINMENT BRIEF\n\nMaintain a lit, secured receiving room and continuous human observation. Site procedure calls for three personnel. A single qualifying observer may prevent self-relocation while staffing remains inadequate.\n\nIf found outside containment, establish observation and coordinate recovery. The current procedure uses an open trolley with separate observers. The entity has no demonstrated attack routine.\n\nOld reports and unattended recordings do not establish current observation.\n\nPROCEDURE NOTE\nReport an empty receiving area as an absence. Do not infer the subject&#x27;s new location.\n\nSource: SCP-650 by Dr Talson / SCP Wiki, CC BY-SA 3.0. This operational brief includes the game&#x27;s transport adaptation.&quot;,
+            &quot;communications&quot; =&gt; &quot;RECEIVED RECORDS\n\n&quot; + (reports.Any() ? string.Join(&quot;\n\n&quot;, reports) : &quot;No acquired messages.&quot;),
+            &quot;map&quot; =&gt; &quot;Contacts mark recorded positions. They can become stale. Door markings identify planned access points, not current open/closed status.&quot;,
+            &quot;systems&quot; =&gt; $&quot;LOCAL WORKSTATION\n\nPower: {(_sim.Operations.TerminalPowered ? &quot;available&quot; : &quot;unavailable&quot;)}\nSite connection: {(access.Connected ? &quot;connected&quot; : &quot;offline&quot;)}\n\nSESSION\n{access.Identity}\n{access.Role}\n\nACCESS\nThis workstation&#x27;s operations service validates authority and delivery for every command.\n\nDISPLAY\nUse the brightness control above to adjust the screen.\n\nOSCP interface inspiration: SCP-245 (Doctor Cimmerian) and SCP-5810 (Lt Flops), SCP Wiki / CC BY-SA 3.0. Hardware surround and applications are original game adaptations.&quot;,
+            _ =&gt; &quot;This application has no installed view handler.&quot;
+        };
+        if (_document.Text != text) _document.Text = text;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpWorkspace.cs:193</footer></main></div></body></html>

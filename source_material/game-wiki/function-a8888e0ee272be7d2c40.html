@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventorySaveCodec.Restore | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventorySaveCodec.Restore</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-inventorysavecodec-cs.html#L23">src/SiteSimulation/Inventory/InventorySaveCodec.cs:23</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal static void Restore(SimulationWorld world, InventorySnapshot? saved)</code></pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a></li><li><a href="function-2695dde9447911e1a213.html">InventorySaveCodec.ValidateGraph</a></li><li><a href="function-36f6ada684f5332e2401.html">InventoryWornOrder.Resolve</a></li><li><a href="function-51c207f4e4cb4acd8a8f.html">InventorySecuring.IsSecure</a></li><li><a href="function-618b4d7c61076db9de17.html">InventoryPackingActions.Same</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-aa4026be631dc71dbf02.html">InventoryActions.Validate</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-f7528c8783a695ebc7ac.html">InventoryActions.Validate</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>saved.Items.Any
+saved.Items.Select(i =&gt; i.Id).Distinct().Count
+saved.Items.Select(i =&gt; i.Id).Distinct
+saved.Items.Select
+state.Items.Clear
+state.Items.Add
+state.Regions.Clear
+state.Regions.AddRange
+ValidateGraph
+InventoryActions.Validate
+InventoryPackingActions.Same
+InventoryWornOrder.Resolve
+queue.Any
+InventorySecuring.IsSecure
+state.Items.TryGetValue
+queue.Select(s =&gt; s.Request).Distinct().Count
+queue.Select(s =&gt; s.Request).Distinct
+queue.Select
+state.SecureQueue.Clear
+state.SecureQueue.AddRange</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-0587fb81855352c26851.html">SpatialScene.RunBodyInspectionSmoke</a></li><li><a href="function-1e02f2cf76c9d57a4e26.html">SpatialScene.RunAttachmentSmoke</a></li><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li><li><a href="function-44f78a6897368e41e985.html">SpatialScene.RunPaperdollUnderwearSmoke</a></li><li><a href="function-636936daab561e47bbb5.html">SpatialScene.RunPackingSmoke</a></li><li><a href="function-7dc3091239d038860ec1.html">SpatialScene.RunPaperdollBackpackSmoke</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-8b329c86d66532851768.html">SpatialScene.RunBodyDropSmoke</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-93a6407d70acd2672df5.html">SpatialScene.RunWearSmoke</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-9d6fc5ec3d33e70f7b07.html">SpatialScene.RunHookSmoke</a></li><li><a href="function-a76a747c2b5ca5039f22.html">OscpScene.RunSmoke</a></li><li><a href="function-cf154c80b9ad8ab44959.html">SpatialScene.RunBodyFitSmoke</a></li><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a></li><li><a href="function-e329ddad01189dd0d8a2.html">SpatialScene.RunCoverageSmoke</a></li><li><a href="function-e573f894f6639244d8ed.html">SpatialScene.RunOverlaySmoke</a></li><li><a href="function-eb11a93a7c0734cc4877.html">SpatialScene.OperationSmokeStep</a></li><li><a href="function-ed52cbde94e2c1e9fbd8.html">SpatialScene.CombatSmokeStep</a></li><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-combatactionkind.html">CombatActionKind</a></li><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-inventoryactions.html">InventoryActions</a></li><li><a href="type-inventorypackingactions.html">InventoryPackingActions</a></li><li><a href="type-inventorysavecodec.html">InventorySaveCodec</a></li><li><a href="type-inventorysecuring.html">InventorySecuring</a></li><li><a href="type-inventorysnapshot.html">InventorySnapshot</a></li><li><a href="type-inventorywornorder.html">InventoryWornOrder</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>internal static void Restore(SimulationWorld world, InventorySnapshot? saved)
+    {
+        var state = world.Inventory;
+        if (!state.Enabled)
+        {
+            if (saved is not null) throw new ArgumentException(&quot;Inventory state has no matching scenario.&quot;);
+            return;
+        }
+        if (saved is null || saved.Items is null || saved.Regions is null || saved.Items.Any(i =&gt; i is null)
+            || saved.Items.Select(i =&gt; i.Id).Distinct().Count() != saved.Items.Length || saved.Revision &lt; 0)
+            throw new ArgumentException(&quot;Invalid inventory snapshot.&quot;);
+        state.Items.Clear(); foreach (var item in saved.Items) state.Items.Add(item.Id, item);
+        state.Regions.Clear(); state.Regions.AddRange(saved.Regions); state.Revision = saved.Revision;
+        ValidateGraph(state);
+        if (saved.Pending is { } work)
+        {
+            if (work.ActorId != world.Player.Id || work.Request is null || work.Revision != saved.Revision
+                || work.RemainingMs &lt;= 0 || work.RemainingMs &gt; work.TotalMs || work.RemainingMs % SpatialSimulation.TickMs != 0
+                || work.TotalMs &lt;= 0 || work.TotalMs &gt; 100000 || work.TotalMs % SpatialSimulation.TickMs != 0
+                || work.CostAp &lt; 1 || work.AbortReason is { Length: &gt; 250 } || work.Position != world.Player.Position || world.Player.Moving)
+                throw new ArgumentException(&quot;Invalid inventory handling continuation.&quot;);
+            // An interrupted action can remain paid while resolving; its original physical request must still be structurally valid.
+            if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)
+                || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))
+                throw new ArgumentException(&quot;Invalid inventory request or declared cost.&quot;);
+            if (InventoryWornOrder.Resolve(state, work.Request) != work.Request)
+                throw new ArgumentException(&quot;Saved handling is missing its resolved dressing order.&quot;);
+            var tactical = world.Combat.Pending;
+            if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)
+                || work.Tactical &amp;&amp; (tactical!.ActorId != work.ActorId || tactical.RemainingMs != work.RemainingMs
+                    || tactical.TotalMs != work.TotalMs || tactical.Cost != work.CostAp))
+                throw new ArgumentException(&quot;Inventory and tactical schedules disagree.&quot;);
+        }
+        else if (world.Combat.Pending?.Kind == CombatActionKind.Inventory) throw new ArgumentException(&quot;Missing paid inventory continuation.&quot;);
+        state.Pending = saved.Pending;
+        var queue = saved.SecureQueue ?? [];
+        if (queue.Length &gt; InventorySecuring.MaxSteps || queue.Any(s =&gt; s is null || s.Request is null || s.Placement is null
+            || !InventorySecuring.IsSecure(s.Request) || s.Request.Destination is not null
+            || !state.Items.TryGetValue(s.Request.ItemId, out var item) || item.Placement != s.Placement
+            || (s.Request.Kind == InventoryActionKind.Close) != (s.Request.RegionId is not null))
+            || queue.Select(s =&gt; s.Request).Distinct().Count() != queue.Length)
+            throw new ArgumentException(&quot;Invalid inventory securing continuation.&quot;);
+        foreach (var step in queue)
+            if (!InventoryActions.Validate(world, world.Player.Id, step.Request, out var reason, out _, out _)
+                &amp;&amp; reason is not (&quot;Compartment is already in that state&quot; or &quot;Garment is already in that state&quot;))
+                throw new ArgumentException(&quot;Invalid inventory securing target: &quot; + reason);
+        state.SecureQueue.Clear(); state.SecureQueue.AddRange(queue);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/InventorySaveCodec.cs:23</footer></main></div></body></html>

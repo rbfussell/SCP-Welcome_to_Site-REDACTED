@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Employment, optional actions, and command authority | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/07-employment-and-orders.md.</aside><h1 id="employment-optional-actions-and-command-authority">Employment, optional actions, and command authority</h1>
+<p>Status: Proposed contract, revision 0.6. Autonomous pawns, shift-based employment above optional action preferences, role-specific behavior and higher-rank orders with meaningful overrides are confirmed direction. Later employee starts reuse these records. Exact schedules, staffing numbers and doctrines remain proposed.</p>
+<p>The October 25 <a href="doc-docs-22-employment-prototype-md.html">employment prototype</a> now implements one observation routine, two appointments, short local test shifts, physical relief/overtime, order interruption/return and delivered staffing reports. The broader profession, calendar, needs and authority contracts below remain proposed.</p>
+<h2 id="1-separate-employment-from-optional-tasks">1. Separate employment from optional tasks</h2>
+<p>An employee has an appointment to a role and workplace, scheduled shifts, qualifications, reporting line and explicit responsibilities. The <strong>work handler</strong> owns their scheduled duty. The <strong>action-job handler</strong> assigns discretionary work only when the work handler releases capacity. Both execute through the same low-level movement/interaction/action services; employment is a different assignment system, not duplicate game physics.</p>
+<p>Later player starts can inhabit these same employee roles without gaining director permissions. Appointments still define obligations and access, but direct player control remains the action source for the avatar rather than the NPC work handler silently replacing input. Any optional auto-duty assistance needs an explicit control mode. See <a href="doc-docs-08-player-controls-time-and-continuation-md.html">player roles and controls</a>.</p>
+<p>Turning off general hauling does not prevent a cafeteria worker from carrying ingredients as part of their job. Turning off general cleaning does not prevent a janitor from cleaning their assigned area. An employed worker must not abandon a duty because another optional action has a better utility score.</p>
+<p>Distinguish role duties, optional action preferences, construction/haul work requests, and low-level actions. The word “job” on a work order does not by itself make it primary employment. The scheduler checks the worker's actual assignment and availability.</p>
+<h2 id="2-employment-records-and-work-handling">2. Employment records and work handling</h2>
+<p>Persist employee ID, role definition, workplace/area, post/slot, supervisor, shift calendar, breaks, qualifications, permitted duties, coverage requirements, current duty, relief requirements and employment status. Support vacancies and unfilled shifts; a room existing does not create employees.</p>
+<p>The work handler progresses through off-shift → reporting/preparing → on duty → scheduled break/relief → handover → off-shift. It travels, checks equipment and access, claims the relevant post, and runs a role-specific duty graph. Clocking in remotely must not make someone physically present at a counter or guard post.</p>
+<p>Blocked duty is an explicit state with reason and escalation. A cafeteria worker without ingredients requests supplies or performs another cafeteria duty, then waits/reports if nothing is possible. They do not become a general-purpose hauler merely because preparation is blocked. Temporary reassignment requires an authorized order or a declared role policy.</p>
+<p>Shifts include breaks and coverage rather than assuming endless labor. Critical posts require explicit relief/overlap policies. If relief fails, report the uncovered post, apply a bounded overtime/fallback policy, and retain real consequences. A staffing guarantee must not create an invisible guard or an immortal employee. Incapacity, severe exhaustion, or panic can still make coverage fail.</p>
+<h2 id="3-role-specific-behavior">3. Role-specific behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Employment</th>
+<th>Example primary duties</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Security/guard</td>
+<td>Equip, take post, check authorization, patrol route, communicate sightings, coordinate response, escort and hand over observation/coverage</td>
+</tr>
+<tr>
+<td>Cafeteria worker</td>
+<td>Receive/replenish role supplies, prepare food, serve, maintain the work area and close/handover</td>
+</tr>
+<tr>
+<td>Janitor</td>
+<td>Follow assigned cleaning rounds, restock equipment, handle permitted waste, report restricted/hazardous areas</td>
+</tr>
+<tr>
+<td>Scientist</td>
+<td>Execute authorized research plans, inspect evidence, request controlled tests and record findings</td>
+</tr>
+<tr>
+<td>Lab technician</td>
+<td>Prepare equipment/samples, support tests, calibrate/check supplies and follow cleanup/storage procedures</td>
+</tr>
+<tr>
+<td>Logistics worker</td>
+<td>Receive, reserve, haul, stage, consolidate and issue stock within storage policies</td>
+</tr>
+</tbody>
+</table>
+<p>These are reusable role graphs with parameters, not a single “protect” or “work” action. Qualifications and clearance gate substeps. Neither a scientist nor a janitor automatically understands an unknown SCP. The module's containment/testing rules still determine what is possible.</p>
+<p>Additional roles such as medical, engineering and site management can follow the same contract. M1 proves the six roles above with bounded routines and shared primitives; it does not require a complete profession simulation for each.</p>
+<h2 id="4-orders-and-interruption-policy">4. Orders and interruption policy</h2>
+<p>An order records issuer, recipient/team, authority scope, objective, urgency, parameters, expiry, acknowledgement, assignment effects and completion/failure predicates. Higher rank must include applicable command authority: departmental scope, delegated command, clearance and current incident leadership determine whether an order is valid.</p>
+<p>Proposed arbitration:</p>
+<ol>
+<li>Resolve physical incapacity, mandatory anomaly constraints and other actions the pawn cannot perform.</li>
+<li>Apply acute emergency/panic/critical-need responses under the pawn's role and current procedure. Mild discomfort or ordinary fear is not automatic abandonment.</li>
+<li>Consider valid direct orders. An order can interrupt employment only when its issuer and order type authorize reassignment or emergency command. Otherwise queue it, reject it, or escalate the conflict explicitly.</li>
+<li>Execute current shift duties and approved breaks/handoffs through the work handler.</li>
+<li>Allow discretionary action jobs when eligible, or ordinary off-duty activity.</li>
+</ol>
+<p>This is a policy boundary, not a rule that every frightened guard always flees. Training, doctrine, stress, injury, perceived danger and team support determine response through deterministic game logic. Strong panic may override an order; the resulting lost coverage or failed mission is real and reported. The optional LLM cannot bypass the arbiter or redefine qualifications/authority.</p>
+<p>Long actions define safe interruption points and emergency interruption outcomes. An urgent order can stop preparation immediately where safe; interrupting a medical action, loaded-container carry or guarded transfer must retain its actual partial state. Cancelling a duty does not complete it or restore carried items automatically.</p>
+<p>Employment uses the area's execution state. Tactical input waiting holds all local work, including noncombat personnel, while other areas and the world calendar continue. Preserve duty/reservation and remaining progress; releasing a hold cannot replay missed labor or treat an unperformed relief as completed. Calendar-based shift changes and external orders entering the held area need the qualified boundary policy, rather than silently moving a held employee. See <a href="doc-docs-08-player-controls-time-and-continuation-md.html">time controls</a>.</p>
+<h2 id="5-security-teamwork-and-acknowledgement">5. Security teamwork and acknowledgement</h2>
+<p>Team commands can allocate leader, observer, mover, escort, cover and relief roles. Agreement means participants acknowledge their role and reserve required resources/posts before a coordinated action begins. A guard reports ready, unable, delayed or refusing with a reason. Issuing a team order does not imply unanimous compliance.</p>
+<p>Containment procedures define minimum coverage, blink/observation handoff where relevant, communications, deadlines, readiness and abort predicates. An observer stays assigned until actual relief is established, unless a documented override forces failure. Missing acknowledgement or a failed radio link blocks/aborts the dependent step; do not let the planner assume a watching guard exists.</p>
+<p>In the SCP-650 scenario, procedural three-person staffing and current sight are separate facts. A delayed relief guard can cause an understaffing alert while one actual observer still prevents relocation. Its module can relocate only when all qualifying sight is lost. This distinction must remain visible in roster, procedure and observation diagnostics.</p>
+<p>Ordinary response doctrine can select cover, hold, flank, escort, call support or withdraw using shared action primitives. The initial slice only needs hold/observe, cover/escort and withdraw with a coordinated readiness/handoff gate. Expanded tactics require separate content and acceptance.</p>
+<h2 id="6-optional-work-and-capacity">6. Optional work and capacity</h2>
+<p>The action-job handler sees only unreserved availability. Off-shift availability depends on scenario policy, willingness, rest and authorization; it is not automatically unpaid unlimited labor. An employed logistics worker receives hauling as a primary role duty. A guard can move a supply item if ordered or if that move is part of a security procedure, without becoming generally available for every haul request.</p>
+<p>Dispatching a team removes its members from on-site duty coverage for the operation interval. Warn about uncovered posts and allow an authorized manager to accept the consequence or assign relief. Do not double-book one person at a gate, cafeteria and field mission. Reservations cover actual staff capacity as well as equipment.</p>
+<h2 id="7-visibility-persistence-and-scope">7. Visibility, persistence and scope</h2>
+<p>Local inspection and terminal rosters show employment, workplace, shift, current duty, next handoff, accepted order, coverage and any blocking/override reason. A useful explanation is “on cafeteria shift; optional hauling disabled; replenishing ingredients as a role duty,” or “guard post uncovered: assigned guard incapacitated; relief requested.”</p>
+<p>Save appointments, clocks, current duty graph and continuation, orders/acknowledgements, role/post reservations, coverage, team agreements and override state. Offscreen work uses the same obligations and interruption rules. Resuming must not reset a shift, free a reserved employee, or assume an unperformed handover succeeded.</p>
+<p>M1 exercises one scheduled shift with breaks/relief and six role definitions using the existing staff ceiling. Vacancies, blocked work and reassignment are test cases, not a promise that 16 staff fully cover every service at all hours. See EMP-01 through EMP-08 in <a href="doc-docs-04-scope-and-acceptance-md.html">scope and acceptance</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/07-employment-and-orders.md</footer></main></div></body></html>

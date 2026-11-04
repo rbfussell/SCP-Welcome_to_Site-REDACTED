@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class OscpChecks
+{
+    public static int Run(string map, string operation, string applications)
+    {
+        var passed = 0;
+        void Check(bool ok, string message) { if (!ok) throw new Exception(&quot;OSCP: &quot; + message); passed++; }
+        var apps = new OscpApplications(applications);
+        Check(apps.Find(&quot;mail&quot;, OscpDevice.Phone)?.Id == &quot;foundation:communications&quot;, &quot;aliases resolve registered field apps&quot;);
+        Check(apps.Find(&quot;systems&quot;, OscpDevice.Phone) is null &amp;&amp; apps.Find(&quot;systems&quot;, OscpDevice.Workstation) is not null,
+            &quot;phone profile cannot inherit workstation-only applications&quot;);
+        var badApps = JsonNode.Parse(applications)!;
+        badApps[&quot;applications&quot;]![1]![&quot;aliases&quot;]![0] = &quot;status&quot;;
+        try { _ = new OscpApplications(badApps.ToJsonString()); throw new Exception(&quot;duplicate app alias accepted&quot;); }
+        catch (ArgumentException) { Check(true, &quot;ambiguous application aliases reject&quot;); }
+        var sim = new SpatialSimulation(map, operation);
+        Check(sim.OscpAccess(OscpDevice.Phone).Available &amp;&amp; !sim.OscpAccess(OscpDevice.Workstation).Available,
+            &quot;issued phone is available while full terminal still requires physical access&quot;);
+        var before = sim.Save();
+        Check(!sim.IssueOscpOrder(OscpDevice.Workstation, &quot;tech&quot;, PersonnelTask.Post, new(8, 4)) &amp;&amp; sim.Save() == before,
+            &quot;selecting a workstation profile remotely grants no access&quot;);
+        Check(sim.IssueOscpOrder(OscpDevice.Phone, &quot;tech&quot;, PersonnelTask.Post, new(8, 4))
+            &amp;&amp; sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending &amp;&amp; sim.Operations.OrderHistory.Last().Channel == &quot;phone&quot;,
+            &quot;handset submits an ordinary pending intent through its own channel&quot;);
+        var pending = sim.Save(); var clone = new SpatialSimulation(map, operation); clone.Restore(pending);
+        Check(clone.Save() == pending, &quot;handset/cache and pending phone order persist together&quot;);
+        sim.Operations.NetworkOnline = false; clone.Operations.NetworkOnline = false;
+        for (var i = 0; i &lt; 4; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Operations.OrderHistory.Last().Status == OrderStatus.Pending &amp;&amp; sim.Save() == clone.Save(),
+            &quot;offline pending order cannot relieve staff and its restored execution stays equivalent&quot;);
+        sim.Operations.NetworkOnline = true; sim.Tick();
+        Check(sim.Operations.OrderHistory.Last().Status != OrderStatus.Pending &amp;&amp; sim.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)),
+            &quot;restoring the site link produces actual acknowledgement and acquired records&quot;);
+        var cached = sim.OscpRecords.ToArray(); sim.Operations.NetworkOnline = false;
+        before = sim.Save();
+        Check(sim.OscpAccess(OscpDevice.Phone).Available &amp;&amp; !sim.OscpAccess(OscpDevice.Phone).Connected,
+            &quot;powered offline handset can open cached views&quot;);
+        Check(!sim.IssueOscpOrder(OscpDevice.Phone, &quot;tech&quot;, PersonnelTask.Follow, sim.Player.Cell)
+            &amp;&amp; sim.Save() == before &amp;&amp; cached.SequenceEqual(sim.OscpRecords), &quot;offline rejection cannot submit or erase cached knowledge&quot;);
+        sim.Operations.NetworkOnline = true;
+        sim.Operations.Phone = sim.Operations.Phone! with { Powered = false };
+        before = sim.Save();
+        Check(!sim.OscpAccess(OscpDevice.Phone).Available &amp;&amp; !sim.IssueOscpOrder(OscpDevice.Phone, &quot;tech&quot;, PersonnelTask.Follow, sim.Player.Cell)
+            &amp;&amp; sim.Save() == before, &quot;unpowered handset provides no control&quot;);
+        sim.Operations.Phone = sim.Operations.Phone with { Powered = true, Accessible = false };
+        Check(!sim.OscpAccess(OscpDevice.Phone).Available, &quot;inaccessible handset provides no control&quot;);
+        sim.Operations.Phone = sim.Operations.Phone with { Accessible = true };
+        sim.LocalHold = true; before = sim.Save();
+        Check(!sim.IssueOscpOrder(OscpDevice.Phone, &quot;tech&quot;, PersonnelTask.Follow, sim.Player.Cell) &amp;&amp; sim.Save() == before,
+            &quot;phone cannot bypass local action holds&quot;);
+        sim.LocalHold = false;
+        before = sim.Save();
+        for (var i = 0; i &lt; 5; i++) { _ = sim.OscpAccess(OscpDevice.Phone); _ = sim.OscpRecords; }
+        Check(sim.Save() == before, &quot;device and acquired-record queries consume no ticks or world mutations&quot;);
+        var planned = new SpatialSimulation(map, operation); planned.ManualPause = true;
+        var points = planned.Actors.Select(a =&gt; a.Position).ToArray(); var time = planned.WorldMs;
+        Check(planned.SubmitPreparedPhoneOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4))
+            &amp;&amp; planned.Operations.OrderHistory.Last().Status == OrderStatus.Pending, &quot;prepared phone close can record a pending intent during a pre-existing manual pause&quot;);
+        planned.Tick();
+        Check(planned.WorldMs == time &amp;&amp; points.SequenceEqual(planned.Actors.Select(a =&gt; a.Position))
+            &amp;&amp; planned.Operations.OrderHistory.Last().Status == OrderStatus.Pending, &quot;prepared intent advances neither clocks nor staff while paused&quot;);
+        planned.LocalHold = true; var heldPlan = planned.Save();
+        Check(!planned.SubmitPreparedPhoneOrder(&quot;tech&quot;, PersonnelTask.Follow, planned.Player.Cell) &amp;&amp; planned.Save() == heldPlan,
+            &quot;prepared intent cannot bypass local tactical/diagnostic holds&quot;);
+        var invalid = JsonNode.Parse(before)!;
+        invalid[&quot;Operations&quot;]![&quot;Phone&quot;]![&quot;ActorId&quot;] = &quot;tech&quot;;
+        try { sim.Restore(invalid.ToJsonString()); throw new Exception(&quot;wrong device owner accepted&quot;); }
+        catch (ArgumentException) { Check(sim.Save() == before, &quot;invalid device restore is atomic&quot;); }
+        invalid = JsonNode.Parse(before)!; invalid[&quot;Operations&quot;]![&quot;AcquiredReports&quot;] = new JsonArray(999999);
+        try { sim.Restore(invalid.ToJsonString()); throw new Exception(&quot;unknown cached record accepted&quot;); }
+        catch (ArgumentException) { Check(sim.Save() == before, &quot;invalid acquired-record references reject atomically&quot;); }
+        var legacy = JsonNode.Parse(before)!;
+        legacy[&quot;Operations&quot;]!.AsObject().Remove(&quot;Phone&quot;); legacy[&quot;Operations&quot;]!.AsObject().Remove(&quot;AcquiredReports&quot;);
+        clone.Restore(legacy.ToJsonString());
+        Check(!clone.OscpAccess(OscpDevice.Phone).Available, &quot;matching older saves do not invent an issued handset&quot;);
+        // A disconnected, unpowered reader cannot acquire a newly delivered server-side report.
+        var world = new SimulationWorld(map, operation);
+        world.Player.Cell = new(5, 8); world.Operations.Phone = world.Operations.Phone! with { Powered = false };
+        world.Operations.Report(world, &quot;RELAY&quot;, &quot;Unverified off-facility observation; no SCP designation assigned.&quot;, source: &quot;radio&quot;);
+        var report = world.Operations.ReceivedReports.Last();
+        OscpService.Acquire(world);
+        Check(!OscpService.Records(world).Any(r =&gt; r.Id == report.Id), &quot;radio collector is not automatic player knowledge&quot;);
+        world.Operations.Phone = world.Operations.Phone with { Powered = true };
+        OscpService.Acquire(world);
+        Check(OscpService.Records(world).Any(r =&gt; r.Id == report.Id), &quot;live phone acquires actual received report&quot;);
+        world.Operations.NetworkOnline = false;
+        Check(OscpService.Records(world).Any(r =&gt; r.Id == report.Id), &quot;link loss retains previously acquired report&quot;);
+        for (var i = 0; i &lt; 50; i++) world.Operations.Report(world, &quot;RELAY&quot;, &quot;later message &quot; + i, source: &quot;radio&quot;);
+        var heldSave = PrototypeSaveCodec.Capture(world, &quot;cache-eviction-fixture&quot;);
+        var restored = PrototypeSaveCodec.Restore(heldSave, map, &quot;cache-eviction-fixture&quot;, operation);
+        Check(!restored.Operations.AcquiredReports.Contains(report.Id), &quot;bounded collector evicts cache references without corrupting saves&quot;);
+        var regionalConfig = JsonNode.Parse(operation)!; regionalConfig[&quot;regionalIntakeEnabled&quot;] = true;
+        var regional = new SpatialSimulation(map, regionalConfig.ToJsonString());
+        regional.Operations.NetworkOnline = false; regional.LocalHold = true;
+        for (var i = 0; i &lt; 30; i++) regional.Tick();
+        Check(!regional.Operations.ReceivedReports.Any(r =&gt; r.Author.Contains(&quot;R-017&quot;)), &quot;regional fixture waits for an available network route&quot;);
+        regional.Operations.NetworkOnline = true; regional.Tick();
+        Check(regional.LocalMs == 0 &amp;&amp; regional.Operations.ReceivedReports.Count(r =&gt; r.Author.Contains(&quot;R-017&quot;)) == 1,
+            &quot;remote collector progresses on world time while local actions remain held&quot;);
+        var regionalClone = new SpatialSimulation(map, regionalConfig.ToJsonString()); regionalClone.Restore(regional.Save());
+        regional.LocalHold = regionalClone.LocalHold = false;
+        for (var i = 0; i &lt; 20; i++) { regional.Tick(); regionalClone.Tick(); }
+        Check(regional.Save() == regionalClone.Save() &amp;&amp; regional.OscpRecords.Count(r =&gt; r.Author.Contains(&quot;R-017&quot;)) == 1,
+            &quot;regional report persists, becomes acquired over a real link and cannot repeat after restore&quot;);
+        Check(regional.Anomalies.Bodies.Count == 1, &quot;unverified report cannot spawn an anomaly or field team&quot;);
+        Console.WriteLine($&quot;OSCP_CHECKS_PASS: {passed} assertions; application/device authority, phone delivery, offline acquisition/cache, holds, persistence and detached restore.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/OscpChecks.cs</footer></main></div></body></html>

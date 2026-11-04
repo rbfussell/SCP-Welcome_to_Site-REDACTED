@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scp650Module.Evaluate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Scp650Module.Evaluate</h1><p><a href="system-anomalies.html">Anomaly host and SCP modules</a> / <a href="file-src-sitesimulation-anomalies-scp650-scp650module-cs.html#L29">src/SiteSimulation/Anomalies/Scp650/Scp650Module.cs:29</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public void Evaluate(IAnomalyWorld world, string cause)</code></pre><h2>Behavior</h2><p>Reads qualified observation and records changes. After a relocation it emits one witness reaction per human per encounter. Observation suppresses self-relocation. When the local deadline permits, it builds sorted legal candidates, chooses a person before a position, selects a pose, and requests a host-validated move. No destination schedules retry; rejected commitment restores RNG; success increments the encounter and schedules cooldown.</p><h2>Role in the engine</h2><p>Owns native module registration, evaluation, state binding, scoped world queries and validated effects. SCP-650 owns its own rule, target/pose selection, RNG, retry and witness state.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-06ffdf8f804bc94cfec1.html">SpatialSimulation.Trace</a></li><li><a href="function-2616f9d4143adcd989df.html">IAnomalyWorld.Candidates</a></li><li><a href="function-2674ebc4f15481027064.html">InventoryWornOrder.Order</a></li><li><a href="function-2bd8e44f2484c1708aa2.html">Scp650Module.NextRandom</a></li><li><a href="function-39d02f8e62e957681e96.html">IAnomalyWorld.Trace</a></li><li><a href="function-9066d1e86178feb58641.html">AnomalyWorldAccess.Witnessed</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-ac82d806ac8a133b5d04.html">IAnomalyWorld.TryRelocate</a></li><li><a href="function-ba57cbb0e2308fac0426.html">AnomalyWorldAccess.Candidates</a></li><li><a href="function-bf4913d37b0273598d0e.html">SimulationWorld.Trace</a></li><li><a href="function-c0601de90478169ff185.html">AnomalyWorldAccess.Observation</a></li><li><a href="function-c4fe943c4cd81bef5da2.html">Scp650Module.Placement</a></li><li><a href="function-cd7c4490372c62bd319b.html">AnomalyWorldAccess.TryRelocate</a></li><li><a href="function-d9abd282ba87b13529ac.html">IAnomalyWorld.Witnessed</a></li><li><a href="function-f442c4fdf6a424e7a86d.html">IAnomalyWorld.Observation</a></li><li><a href="function-f9bb851ce3eeec4bc899.html">AnomalyWorldAccess.Trace</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>world.Observation
+_state.LastObserverIds.SequenceEqual
+world.Trace
+string.Join
+report.Observers.Where
+_state.LastWitnessEncounter.GetValueOrDefault
+world.Witnessed
+report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy(c =&gt; c.Cell.Q).ThenBy(c =&gt; c.Cell.R).ThenBy(c =&gt; c.NearActorId, StringComparer.Ordinal).ToArray
+report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy(c =&gt; c.Cell.Q).ThenBy(c =&gt; c.Cell.R).ThenBy
+report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy(c =&gt; c.Cell.Q).ThenBy
+report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy
+report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany
+world.Candidates
+Placement
+candidates.Select(c =&gt; c.NearActorId).Distinct().Order(StringComparer.Ordinal).ToArray
+candidates.Select(c =&gt; c.NearActorId).Distinct().Order
+candidates.Select(c =&gt; c.NearActorId).Distinct
+candidates.Select
+NextRandom
+candidates.Where(c =&gt; c.NearActorId == target).ToArray
+candidates.Where
+_state.ComplacentActorIds.Contains
+world.TryRelocate</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-020e99df0cfd6ab83adc.html">AnomalySystem.Evaluate</a></li><li><a href="function-20f1fad32cdc51271fbd.html">TacticalCombatSystem.Fire</a></li><li><a href="function-250efffdba763cf6f6bc.html">SpatialSimulation.SpatialSimulation</a></li><li><a href="function-32803b36e1225b1ba782.html">TacticalCombatSystem.ResolveTick</a></li><li><a href="function-7734ca017a3b4f421080.html">MovementSystem.Advance</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li><li><a href="function-e79cf90892bf9dafd048.html">SpatialSimulation.Changed</a></li><li><a href="function-f4fe8ddda11b86d6e8d4.html">TacticalCombatSystem.Face</a></li></ul><h2>Related types</h2><ul><li><a href="type-ianomalyworld.html">IAnomalyWorld</a></li><li><a href="type-scp650module.html">Scp650Module</a></li></ul><h2>Implementation</h2><pre><code>public void Evaluate(IAnomalyWorld world, string cause)
+    {
+        var report = world.Observation(_profile);
+        var observers = report.EligibleIds;
+        if (!_state.LastObserverIds.SequenceEqual(observers))
+        {
+            world.Trace(observers.Length == 0 ? &quot;observation-lost&quot; : &quot;observation-acquired&quot;,
+                $&quot;{cause}; eligible [{string.Join(&quot;,&quot;, observers)}]; profile {_profile}&quot;);
+            _state.LastObserverIds = observers;
+        }
+        if (_state.Relocations &gt; 0)
+        foreach (var witness in report.Observers.Where(o =&gt; o.Detected &amp;&amp; o.Kind == &quot;human&quot;))
+        {
+            if (_state.LastWitnessEncounter.GetValueOrDefault(witness.ActorId) == _state.Relocations) continue;
+            _state.LastWitnessEncounter[witness.ActorId] = _state.Relocations;
+            world.Witnessed(witness.ActorId, _state.Relocations);
+        }
+        if (report.Observed) { _state.LastReason = &quot;observed; self-relocation suppressed&quot;; return; }
+        if (world.LocalMs &lt; _state.NextEvaluationMs) return;
+        // Complacency is explicitly authored for each person. Discovery alone never enables it.
+        // Threat poses appear close behind; relaxed poses use a wider, non-rear-only area.
+        var candidates = report.Observers.Where(o =&gt; o.Kind == &quot;human&quot;)
+            .SelectMany(o =&gt; world.Candidates(_profile, Placement(o.ActorId)))
+            .OrderBy(c =&gt; c.Cell.Q).ThenBy(c =&gt; c.Cell.R).ThenBy(c =&gt; c.NearActorId, StringComparer.Ordinal).ToArray();
+        _state.LastCandidateCount = candidates.Length;
+        if (candidates.Length == 0)
+        {
+            _state.LastReason = &quot;no valid unobserved destination&quot;;
+            _state.NextEvaluationMs = world.LocalMs + RetryMs;
+            world.Trace(&quot;retry-scheduled&quot;, $&quot;{cause}; no candidate; retry at local {_state.NextEvaluationMs}ms&quot;);
+            return;
+        }
+        var beforeRandom = _state.RandomState;
+        // Choose a person, then a position: more available cells do not bias the target toward that person.
+        var targets = candidates.Select(c =&gt; c.NearActorId).Distinct().Order(StringComparer.Ordinal).ToArray();
+        var target = targets[(int)(NextRandom() % (uint)targets.Length)];
+        var positions = candidates.Where(c =&gt; c.NearActorId == target).ToArray();
+        var choice = positions[(int)(NextRandom() % (uint)positions.Length)];
+        var complacent = _state.ComplacentActorIds.Contains(choice.NearActorId);
+        var pose = complacent ? 3 + (int)(NextRandom() % 3u) : 1 + (int)(NextRandom() % 2u);
+        if (!world.TryRelocate(world.Body.Revision, choice.Cell, pose, _profile, Placement(choice.NearActorId), out var reason))
+        {
+            _state.RandomState = beforeRandom;
+            _state.LastReason = &quot;commit rejected: &quot; + reason;
+            _state.NextEvaluationMs = world.LocalMs + RetryMs;
+            world.Trace(&quot;relocation-rejected&quot;, reason);
+            return;
+        }
+        _state.Relocations++;
+        _state.LastReason = $&quot;unobserved; relocated near {choice.NearActorId}&quot;;
+        _state.NextEvaluationMs = world.LocalMs + CooldownMs;
+        world.Trace(&quot;relocation-selected&quot;, $&quot;{candidates.Length} valid candidates; {(complacent ? &quot;relaxed&quot; : &quot;threat&quot;)} profile near {target}; {choice.DistanceHexes} hexes; encounter {_state.Relocations}; next evaluation {_state.NextEvaluationMs}ms&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Anomalies/Scp650/Scp650Module.cs:29</footer></main></div></body></html>

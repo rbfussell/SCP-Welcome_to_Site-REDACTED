@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/BodyFit/InventoryCoverage.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryCoverage.cs</h1><p>src/SiteSimulation/Inventory/Equipment/BodyFit/InventoryCoverage.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorycoverage.html">InventoryCoverage</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-328b4a91f2629f796c62.html">InventoryCoverage.Project</a> · line 6</li><li><a href="function-ff90ce80dab5b82447d4.html">InventoryCoverage.Evaluate</a> · line 10</li><li><a href="function-2425e1c9446baa264ad6.html">SpatialSimulation.InventoryPocketCoverage</a> · line 49</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Body-surface overlap for one compartment mouth. Physical lids and removal restraints are separate.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public static class InventoryCoverage</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     internal static BodySurfaceCell[] Project(BodySurfaceMask[] masks, BodyPose pose, WearMount mount)</span>
+<span id="L7"><a class="line" href="#L7">7</a>         =&gt; masks.SelectMany(mask =&gt; mask.Cells.Select(cell =&gt; new BodySurfaceCell(</span>
+<span id="L8"><a class="line" href="#L8">8</a>             mask.Surface == &quot;mounted&quot; ? mount.BodySurface! : mask.Surface, BodyFitGeometry.Transform(cell, pose)))).ToArray();</span>
+<span id="L9"><a class="line" href="#L9">9</a> </span>
+<span id="L10"><a class="line" href="#L10">10</a>     internal static PocketCoverage? Evaluate(InventoryState state, InventoryItem item, StorageRegion region)</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         var mount = InventoryWear.Mount(state, item, item.Placement);</span>
+<span id="L13"><a class="line" href="#L13">13</a>         var shape = InventoryBodyFit.Shape(state, item.Id);</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (mount is null || shape is null || region.AccessFootprint is null) return null;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         var mouth = Project(region.AccessFootprint, InventoryBodyFit.Pose(state, item)!, mount);</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var blockers = new List&lt;string&gt;(); var blocked = new HashSet&lt;BodySurfaceCell&gt;();</span>
+<span id="L17"><a class="line" href="#L17">17</a>         var fallback = false;</span>
+<span id="L18"><a class="line" href="#L18">18</a>         foreach (var outer in InventoryWear.Worn(state, item.Placement.ParentId)</span>
+<span id="L19"><a class="line" href="#L19">19</a>             .Where(other =&gt; other.Id != item.Id &amp;&amp; state.Definition(other.Id).Wear is { CoversAccess: true } wear</span>
+<span id="L20"><a class="line" href="#L20">20</a>                 &amp;&amp; InventoryWornOrder.Order(other) &gt; InventoryWornOrder.Order(item))</span>
+<span id="L21"><a class="line" href="#L21">21</a>             .OrderByDescending(InventoryWornOrder.Order).ThenBy(other =&gt; other.Id, StringComparer.Ordinal))</span>
+<span id="L22"><a class="line" href="#L22">22</a>         {</span>
+<span id="L23"><a class="line" href="#L23">23</a>             var coverShape = InventoryBodyFit.Shape(state, outer.Id);</span>
+<span id="L24"><a class="line" href="#L24">24</a>             if (coverShape?.Coverage is not null)</span>
+<span id="L25"><a class="line" href="#L25">25</a>             {</span>
+<span id="L26"><a class="line" href="#L26">26</a>                 var cover = InventoryWornStack.Cells(state, outer, open: true).ToHashSet();</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 var intersection = mouth.Where(cover.Contains).ToArray();</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 if (intersection.Length == 0) continue;</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 blocked.UnionWith(intersection);</span>
+<span id="L30"><a class="line" href="#L30">30</a>             }</span>
+<span id="L31"><a class="line" href="#L31">31</a>             else</span>
+<span id="L32"><a class="line" href="#L32">32</a>             {</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 // Unmapped outer gear retains the conservative, existing region rule.</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 if (!InventoryWear.Covered(state, outer).Intersect(region.AccessBody ?? mount.Coverage).Any()) continue;</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 fallback = true;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             }</span>
+<span id="L37"><a class="line" href="#L37">37</a>             blockers.Add(outer.Id);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         }</span>
+<span id="L39"><a class="line" href="#L39">39</a>         var reason = blockers.Count == 0 ? &quot;Access footprint is uncovered.&quot;</span>
+<span id="L40"><a class="line" href="#L40">40</a>             : region.Name + &quot; is covered by &quot; + string.Join(&quot;, &quot;, blockers.Select(id =&gt; state.Definition(id).Name)) + &quot;; expose it first&quot;;</span>
+<span id="L41"><a class="line" href="#L41">41</a>         return new(item.Id, region.Id, blockers.Count &gt; 0, reason, mouth, blocked.OrderBy(c =&gt; c.Surface, StringComparer.Ordinal)</span>
+<span id="L42"><a class="line" href="#L42">42</a>             .ThenBy(c =&gt; c.Cell.R).ThenBy(c =&gt; c.Cell.Q).ToArray(), blockers.ToArray(), fallback);</span>
+<span id="L43"><a class="line" href="#L43">43</a>     }</span>
+<span id="L44"><a class="line" href="#L44">44</a> }</span>
+<span id="L45"><a class="line" href="#L45">45</a> </span>
+<span id="L46"><a class="line" href="#L46">46</a> public sealed partial class SpatialSimulation</span>
+<span id="L47"><a class="line" href="#L47">47</a> {</span>
+<span id="L48"><a class="line" href="#L48">48</a>     /// &lt;summary&gt;Known own worn pockets only. Returns coverage geometry, never container contents.&lt;/summary&gt;</span>
+<span id="L49"><a class="line" href="#L49">49</a>     public PocketCoverage? InventoryPocketCoverage(string itemId, string regionId)</span>
+<span id="L50"><a class="line" href="#L50">50</a>     {</span>
+<span id="L51"><a class="line" href="#L51">51</a>         var item = Inventory.DiagnosticItems.SingleOrDefault(i =&gt; i.Id == itemId);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var root = Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         if (item is null || root is null || item.Placement.ParentId != root.Id) return null;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var region = Inventory.Definition(itemId).Regions?.SingleOrDefault(r =&gt; r.Id == regionId);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         return region is null ? null : InventoryCoverage.Evaluate(Inventory, item, region);</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

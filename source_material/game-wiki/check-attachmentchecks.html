@@ -1,0 +1,188 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AttachmentChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>AttachmentChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class AttachmentChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Attachments: &quot; + reason); passed++; }
+        SpatialSimulation Sim() { var s = new SpatialSimulation(map, config); s.Player.Cell = new(13, 6); return s; }
+        void Finish(SpatialSimulation s) { for (var i = 0; i &lt; 1000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;paid work resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest request) { Check(s.HandleInventory(request), &quot;request rejected: &quot; + s.LastMessage); Finish(s); }
+        InventoryRequest Move(string id, string parent, string region) =&gt; new(InventoryActionKind.Move, id, new(parent, region));
+        InventoryRequest Mount(SpatialSimulation s, int q = 0, int r = 0, int angle = 0) =&gt; s.PreviewAttachment(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, &quot;webbing&quot;, new(q, r, angle)).Request;
+        var sim = Sim(); var state = sim.Inventory;
+        Check(state.Region(&quot;utility-belt&quot;, &quot;webbing&quot;).Attachment is not null &amp;&amp; state.IsOpen(&quot;utility-belt&quot;, &quot;webbing&quot;), &quot;support is an always-accessible exterior, not a closable pocket&quot;);
+        Check(!state.Regions.Any(r =&gt; r.ItemId == &quot;utility-belt&quot;), &quot;no fictitious belt-lid state&quot;);
+        var shape = state.BodyFits!.Shape(&quot;belt&quot;); var body = state.BodyFits.Body(shape.BodyFamily);
+        Check(BodyFitGeometry.Evaluate(body, shape, shape.DefaultPose).Fits, &quot;belt ends fit waist&quot;);
+        Check(BodyFitGeometry.Evaluate(body, shape, new(-4, 10, 2)).Fits, &quot;transformed end contacts also admit a diagonal torso fit&quot;);
+        Check(!BodyFitGeometry.Evaluate(body, shape, new(-5, 9)).Fits, &quot;interior endpoints are not allowed to float without body-edge contact&quot;);
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        for (var angle = 0; angle &lt; 6; angle++)
+            Check(sim.QuoteInventory(Mount(sim, angle: angle)).Allowed, &quot;six mounting directions are independent of square-storage rotation&quot;);
+        var unchangedDrop = sim.Save();
+        var automatic = sim.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, 2);
+        Check(automatic.Handling.Allowed &amp;&amp; automatic.Request.Destination?.AttachmentPose == new BodyPose(0, 0, 2) &amp;&amp; sim.Save() == unchangedDrop,
+            &quot;whole-provider drop chooses deterministic free support and preserves the requested orientation without mutating state&quot;);
+        Check(!sim.PreviewAttachmentDrop(&quot;field-phone&quot;, &quot;utility-belt&quot;).Handling.Allowed
+            &amp;&amp; !sim.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, 6).Handling.Allowed, &quot;whole-provider drop rejects incompatible items and invalid directions&quot;);
+        var source = state.Items[&quot;utility-pouch&quot;].Placement; var quote = sim.QuoteInventory(Mount(sim));
+        Check(quote.DurationMs &gt; 0 &amp;&amp; quote.Ap &gt; 0, &quot;mounting quotes real handling time and AP&quot;);
+        sim.ManualPause = true; var safe = sim.Save();
+        Check(!sim.HandleInventory(Mount(sim)) &amp;&amp; sim.Save() == safe, &quot;pause cannot grant a free attachment&quot;); sim.ManualPause = false;
+        Check(sim.HandleInventory(Mount(sim)) &amp;&amp; state.Items[&quot;utility-pouch&quot;].Placement == source, &quot;mount begins without teleporting the item&quot;); sim.Tick();
+        var mid = sim.Save(); var copy = Sim(); copy.Restore(mid); Check(copy.Save() == mid, &quot;mid-attachment continuation restores exactly&quot;);
+        Finish(sim); Finish(copy); Check(sim.Save() == copy.Save(), &quot;resumption matches uninterrupted attachment&quot;);
+        var attached = state.Items[&quot;utility-pouch&quot;].Placement;
+        unchangedDrop = sim.Save();
+        Check(!sim.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;).Handling.Allowed &amp;&amp; sim.Save() == unchangedDrop,
+            &quot;dropping onto the existing provider does not relocate or rearrange its mounted child&quot;);
+        Check(attached.ParentId == &quot;utility-belt&quot; &amp;&amp; attached.AttachmentPose == new BodyPose(0, 0), &quot;single physical parent plus local mount pose&quot;);
+        Check(InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) == shape.DefaultPose, &quot;mount anchor resolves through worn support&quot;);
+        Check(sim.InventoryContents(&quot;utility-pouch&quot;, &quot;inside&quot;).Count == 0 &amp;&amp; !sim.InventoryAccess(&quot;utility-pouch&quot;, &quot;inside&quot;).Allowed,
+            &quot;mounting does not open the pouch or disclose contents&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));
+        Act(sim, Move(&quot;spare-dressing&quot;, &quot;utility-pouch&quot;, &quot;inside&quot;));
+        var dressing = state.Items[&quot;spare-dressing&quot;].Placement;
+        Check(InventoryHierarchy.Mass(state, &quot;utility-belt&quot;) == 390, &quot;loaded parent mass counts belt, pouch and dressing once&quot;);
+        Check(InventoryHierarchy.Breadcrumb(state, &quot;spare-dressing&quot;).EndsWith(&quot;Utility belt / Utility pouch / Dressing packet&quot;), &quot;attachment ownership shares the ordinary hierarchy&quot;);
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(state.Items[&quot;utility-pouch&quot;].Placement == attached &amp;&amp; state.Items[&quot;spare-dressing&quot;].Placement == dressing
+            &amp;&amp; InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) is null, &quot;taking belt off carries its loaded attachment without rewriting children&quot;);
+        Act(sim, Move(&quot;avatar-backpack&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;) with { Destination = new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8) });
+        var fit = new InventoryRequest(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;, BodyPose: new(-4, 10, 2)));
+        Act(sim, fit);
+        Check(InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) == new BodyPose(-4, 10, 2), &quot;rotating/translating belt composes child&#x27;s body pose&quot;);
+        Act(sim, Mount(sim, 1, 0, 4));
+        Check(InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) == new BodyPose(-5, 11, 0), &quot;independent axial reference: parent 120 plus child 240 equals full turn&quot;);
+        Check(sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed &amp;&amp; sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;).Allowed,
+            &quot;belt leaves ordinary pockets accessible&quot;);
+        Check(!sim.InventoryMoveAccess(&quot;avatar-trousers&quot;).Allowed &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-shirt&quot;).Allowed,
+            &quot;belt restrains removal independently of access&quot;);
+        var invalid = new[] {
+            Mount(sim, 9), Mount(sim, angle: 6), Mount(sim, angle: -1), Mount(sim, r: int.MaxValue),
+            new InventoryRequest(InventoryActionKind.Move, &quot;field-phone&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0))),
+            new InventoryRequest(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;)),
+            Mount(sim) with { Destination = new(&quot;utility-belt&quot;, &quot;webbing&quot;, Rotated: true, AttachmentPose: new(0, 0)) },
+            Mount(sim) with { Destination = new(&quot;utility-belt&quot;, &quot;webbing&quot;, X: 1, AttachmentPose: new(0, 0)) },
+            Move(&quot;utility-pouch&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;) with { Destination = new(&quot;avatar-backpack&quot;, &quot;main&quot;, AttachmentPose: new(0, 0)) },
+            new InventoryRequest(InventoryActionKind.Arrange, &quot;utility-belt&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;)),
+            new InventoryRequest(InventoryActionKind.AutoPlace, &quot;field-phone&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;)),
+            new InventoryRequest(InventoryActionKind.Close, &quot;utility-belt&quot;, RegionId: &quot;webbing&quot;),
+            Move(&quot;utility-belt&quot;, &quot;utility-pouch&quot;, &quot;inside&quot;)
+        };
+        foreach (var request in invalid)
+        { safe = sim.Save(); Check(!sim.QuoteInventory(request).Allowed &amp;&amp; !sim.HandleInventory(request) &amp;&amp; sim.Save() == safe, &quot;invalid mount/packing/cycle leaves graph and clocks untouched: &quot; + request); }
+        Act(sim, new(InventoryActionKind.Close, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));
+        Check(!sim.QuoteInventory(Move(&quot;spare-dressing&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)).Allowed, &quot;pouch closure gates child access on belt&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));
+        var loadedMass = InventoryHierarchy.CarriedMass(state, &quot;person:avatar&quot;);
+        Act(sim, Move(&quot;utility-pouch&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(state.Items[&quot;utility-pouch&quot;].Placement.AttachmentPose is null &amp;&amp; state.Items[&quot;spare-dressing&quot;].Placement == dressing
+            &amp;&amp; InventoryHierarchy.CarriedMass(state, &quot;person:avatar&quot;) == loadedMass, &quot;detaching keeps contents and total carried mass&quot;);
+        Act(sim, Mount(sim));
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;) with { Destination = new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 10, 13) });
+        sim.Player.Cell = new(9, 2);
+        Check(!sim.InventoryAccess(&quot;utility-pouch&quot;, &quot;inside&quot;).Allowed &amp;&amp; sim.InventoryAttachmentsOn(&quot;utility-belt&quot;, &quot;webbing&quot;).Count == 0, &quot;remote belt does not expose attached contents&quot;);
+
+        // Validate independently malformed authored interfaces, overlap and recursive load limits.
+        var world = new SimulationWorld(map, config); world.Player.Cell = new(13, 6); var s = world.Inventory;
+        s.Items[&quot;utility-pouch&quot;] = s.Items[&quot;utility-pouch&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)) };
+        InventoryPlacement.Validate(s);
+        var defs = s.Content!.Definitions; var pi = Array.FindIndex(defs, d =&gt; d.Id == &quot;utility-pouch&quot;); var pouch = defs[pi];
+        void RejectGraph(string reason) { try { InventoryPlacement.Validate(s); throw new Exception(&quot;Accepted: &quot; + reason); } catch (ArgumentException) { Check(true, reason); } }
+        defs[pi] = pouch with { Attachment = pouch.Attachment! with { Interface = &quot;other-interface&quot; } }; RejectGraph(&quot;wrong connector refused&quot;); defs[pi] = pouch;
+        s.Items[&quot;spare-dressing&quot;] = s.Items[&quot;spare-dressing&quot;] with { DefinitionId = &quot;utility-pouch&quot;, Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0, 3)) };
+        RejectGraph(&quot;occupied anchor cannot accept an overlapping attachment&quot;);
+        s.Items[&quot;spare-dressing&quot;] = s.Items[&quot;spare-dressing&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(1, 0)) };
+        RejectGraph(&quot;upright pouch width occupies both lower neighbors, preventing side-by-side silhouette overlap&quot;);
+        s.Items[&quot;spare-dressing&quot;] = s.Items[&quot;spare-dressing&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(2, 0)) };
+        InventoryPlacement.Validate(s); Check(true, &quot;separate support positions do not overlap&quot;);
+        var bi = Array.FindIndex(defs, d =&gt; d.Id == &quot;utility-belt&quot;); var belt = defs[bi];
+        defs[bi] = belt with { Regions = belt.Regions!.Select(r =&gt; r with { MaxMassGrams = 150 }).ToArray() }; RejectGraph(&quot;support sums all loaded attachments&quot;); defs[bi] = belt;
+        Check(!InventoryAttachments.ProfileValid(pouch.Attachment! with { Contacts = [new(99, 99)] })
+            &amp;&amp; !InventoryAttachments.ProfileValid(pouch.Attachment! with { Occupancy = [new(0, 0), new(0, 0)] }), &quot;malformed authored footprints rejected&quot;);
+
+        var blockedDrop = Sim();
+        blockedDrop.Inventory.Items[&quot;utility-belt&quot;] = blockedDrop.Inventory.Items[&quot;utility-belt&quot;] with { Placement = new(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 4) };
+        var closedIndex = blockedDrop.Inventory.Regions.FindIndex(r =&gt; r.ItemId == &quot;avatar-backpack&quot; &amp;&amp; r.RegionId == &quot;main&quot;);
+        blockedDrop.Inventory.Regions[closedIndex] = blockedDrop.Inventory.Regions[closedIndex] with { Open = false };
+        unchangedDrop = blockedDrop.Save();
+        Check(!blockedDrop.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;).Handling.Allowed &amp;&amp; blockedDrop.Save() == unchangedDrop,
+            &quot;whole-provider shortcut respects closed ancestors and performs no hidden opening&quot;);
+        var drop = Sim(); Act(drop, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        var dropRequest = drop.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, 5).Request;
+        Act(drop, dropRequest);
+        Check(drop.Inventory.Items[&quot;utility-pouch&quot;].Placement.AttachmentPose == new BodyPose(0, 0, 5), &quot;provider drop commits the quoted sixth-turn pose through paid work&quot;);
+
+        var offset = Sim(); var offsetDefs = offset.Inventory.Content!.Definitions;
+        var offsetBelt = Array.FindIndex(offsetDefs, d =&gt; d.Id == &quot;utility-belt&quot;);
+        offsetDefs[offsetBelt] = offsetDefs[offsetBelt] with { Regions = offsetDefs[offsetBelt].Regions!.Select(r =&gt; r with
+            { Attachment = r.Attachment! with { Cells = [new(0, 0)] } }).ToArray() };
+        var offsetPouch = Array.FindIndex(offsetDefs, d =&gt; d.Id == &quot;utility-pouch&quot;);
+        offsetDefs[offsetPouch] = offsetDefs[offsetPouch] with { Attachment = new(&quot;belt-loop&quot;, [new(1, 0), new(1, 1)], [new(1, 0)]) };
+        var offsetPreview = offset.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, 2);
+        Check(offsetPreview.Handling.Allowed &amp;&amp; offsetPreview.Request.Destination?.AttachmentPose == new BodyPose(1, -1, 2),
+            &quot;non-origin contacts align with support at the requested direction instead of requiring the item&#x27;s origin on a support cell&quot;);
+        var dd = Array.FindIndex(offsetDefs, d =&gt; d.Id == &quot;dressing&quot;);
+        offsetDefs[dd] = offsetDefs[dd] with { Attachment = new(&quot;belt-loop&quot;, [new(0, 0)], [new(0, 0)]) };
+        offset.Inventory.Items[&quot;spare-dressing&quot;] = offset.Inventory.Items[&quot;spare-dressing&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)) };
+        unchangedDrop = offset.Save();
+        Check(!offset.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-belt&quot;, 2).Handling.Allowed &amp;&amp; offset.Save() == unchangedDrop,
+            &quot;a full exterior support never rearranges or rotates existing mounted equipment&quot;);
+
+        var accessWorld = new SimulationWorld(map, config); accessWorld.Player.Cell = new(13, 6); var aw = accessWorld.Inventory;
+        aw.Items[&quot;utility-belt&quot;] = aw.Items[&quot;utility-belt&quot;] with { Placement = new(&quot;person:avatar&quot;, &quot;belt&quot;, WornOrder: 7) };
+        foreach (var id in new[] { &quot;coat&quot;, &quot;backpack&quot; })
+        {
+            var index = Array.FindIndex(aw.Content!.Definitions, d =&gt; d.Id == id); var def = aw.Content.Definitions[index];
+            aw.Content.Definitions[index] = def with { Wear = def.Wear! with { CoversAccess = false, BlocksRemoval = false } };
+        }
+        Check(!InventoryActions.Validate(accessWorld, &quot;avatar&quot;, Move(&quot;avatar-shirt&quot;, &quot;person:avatar&quot;, &quot;hand&quot;), out var restraint, out _, out _)
+            &amp;&amp; restraint.Contains(&quot;Utility belt&quot;), &quot;belt alone restrains shirt removal without relying on coat or backpack&quot;);
+        aw.Items[&quot;utility-belt&quot;] = aw.Items[&quot;utility-belt&quot;] with { Placement = new(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 4) };
+        aw.Items[&quot;utility-pouch&quot;] = aw.Items[&quot;utility-pouch&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)) };
+        var mainIndex = aw.Regions.FindIndex(r =&gt; r.ItemId == &quot;avatar-backpack&quot; &amp;&amp; r.RegionId == &quot;main&quot;);
+        aw.Regions[mainIndex] = aw.Regions[mainIndex] with { Open = false };
+        Check(!InventoryAccessService.Placement(accessWorld, &quot;avatar&quot;, aw.Items[&quot;utility-pouch&quot;].Placement).Allowed,
+            &quot;closed enclosing storage gates an attachment even though its support has no lid&quot;);
+        Check(InventoryActions.Validate(accessWorld, &quot;avatar&quot;, Move(&quot;avatar-shirt&quot;, &quot;person:avatar&quot;, &quot;hand&quot;), out _, out _, out _),
+            &quot;packed belt no longer restrains worn clothing&quot;);
+        var changing = Sim(); Check(changing.HandleInventory(Mount(changing)), &quot;begin before support becomes inaccessible&quot;);
+        changing.Inventory.Items[&quot;utility-belt&quot;] = changing.Inventory.Items[&quot;utility-belt&quot;] with { Placement = new(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 4) };
+        var changingMain = changing.Inventory.Regions.FindIndex(r =&gt; r.ItemId == &quot;avatar-backpack&quot; &amp;&amp; r.RegionId == &quot;main&quot;);
+        changing.Inventory.Regions[changingMain] = changing.Inventory.Regions[changingMain] with { Open = false }; Finish(changing);
+        Check(changing.Inventory.Items[&quot;utility-pouch&quot;].Placement.ParentId == &quot;fixture:crate-a&quot;, &quot;completion revalidates support ancestry and preserves the source on access loss&quot;);
+
+        var cancel = Sim(); Check(cancel.HandleInventory(Mount(cancel)), &quot;begin attach for cancellation&quot;); cancel.CancelInventoryHandling();
+        Check(cancel.Inventory.Items[&quot;utility-pouch&quot;].Placement.ParentId == &quot;fixture:crate-a&quot;, &quot;cancellation never commits attachment&quot;);
+        var tactical = Sim(); Act(tactical, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        Act(tactical, Move(&quot;utility-pouch&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        tactical.Player.Cell = new(9, 2); tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(10, 2);
+        tactical.Face(new Hex(10, 2).World); Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;tactical fixture starts actual contact&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var turn = tactical.Combat.Cursor; tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        var cost = tactical.QuoteInventory(Mount(tactical));
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = cost.Ap - 1 }; safe = tactical.Save();
+        Check(!tactical.HandleInventory(Mount(tactical)) &amp;&amp; tactical.Save() == safe, &quot;insufficient AP does not buy partial mounting&quot;);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        var committed = tactical.HandleInventory(Mount(tactical));
+        Check(committed &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - cost.Ap, &quot;mount consumes quoted AP in tactical combat: &quot; + tactical.LastMessage); Finish(tactical);
+        var time = tactical.LocalMs; tactical.Tick(); Check(tactical.LocalMs == time, &quot;attachment returns to tactical decision hold&quot;);
+
+        void RejectSave(Action&lt;JsonNode&gt; mutate)
+        {
+            var victim = Sim(); var before = victim.Save(); var bad = JsonNode.Parse(mid)!; mutate(bad);
+            try { victim.Restore(bad.ToJsonString()); throw new Exception(&quot;Forged attachment save accepted&quot;); }
+            catch (ArgumentException) { Check(victim.Save() == before, &quot;restore rejection preserves live world&quot;); }
+        }
+        RejectSave(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;AttachmentPose&quot;]![&quot;Rotation&quot;] = 6);
+        RejectSave(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;CostAp&quot;] = 0);
+        RejectSave(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().First(i =&gt; i![&quot;Id&quot;]!.GetValue&lt;string&gt;() == &quot;field-phone&quot;)![&quot;Placement&quot;]![&quot;AttachmentPose&quot;] = new JsonObject { [&quot;Q&quot;] = 0, [&quot;R&quot;] = 0, [&quot;Rotation&quot;] = 0 });
+        Console.WriteLine($&quot;ATTACHMENT_CHECKS_PASS: {passed} assertions; local hex mounts, interfaces, collision, recursive loads, paid actions, restraints and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/AttachmentChecks.cs</footer></main></div></body></html>

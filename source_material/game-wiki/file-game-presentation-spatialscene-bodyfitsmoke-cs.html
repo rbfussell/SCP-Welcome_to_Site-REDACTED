@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.BodyFitSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.BodyFitSmoke.cs</h1><p>game/Presentation/SpatialScene.BodyFitSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-cf154c80b9ad8ab44959.html">SpatialScene.RunBodyFitSmoke</a> · line 9</li><li><a href="function-37831e2ab5125b39ef21.html">SpatialScene.Check</a> · line 13</li><li><a href="function-437bdfff80409077a5f4.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-5d38d45e7793a12775f1.html">SpatialScene.Act</a> · line 53</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunBodyFitSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var panel = _hud.Inventory; var sim = _simulation;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Body fit UI: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             for (var i = 0; i &lt; 600 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             Check(sim.Inventory.Pending is null, &quot;fitting did not finish&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         sim.ManualPause = false;</span>
+<span id="L20"><a class="line" href="#L20">20</a>         Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), &quot;prepare real held boots&quot;); await Finish();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         ((ScrollContainer)hand.GetParent().GetParent()).EnsureControlVisible(hand); await InventoryFrames();</span>
+<span id="L23"><a class="line" href="#L23">23</a>         InventoryClick(hand.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();</span>
+<span id="L24"><a class="line" href="#L24">24</a>         Check(panel.SelectedItem == &quot;avatar-shoes&quot;, &quot;native item selection failed&quot;);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var safe = sim.Save(); InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var fit = panel.BodyFit;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         Check(fit.Visible &amp;&amp; fit.Preview is { Geometry.Fits: true, Handling.Allowed: true }, &quot;body fit view failed to use selected clothing&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         Check(sim.Save() == safe, &quot;opening body mode changed physical state&quot;);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var defaultPose = fit.Draft;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         await InventoryCapture(&quot;-body-fit-valid&quot;);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         InventoryClick(fit.Surface.CellPosition(new(0, 1))); await InventoryFrames();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         Check(fit.Preview is { Geometry.Fits: false } &amp;&amp; fit.ApplyButton.Disabled &amp;&amp; sim.Save() == safe, &quot;invalid anchor was accepted or altered state&quot;);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         await InventoryCapture(&quot;-body-fit-invalid&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         var startRotation = fit.Draft.Rotation;</span>
+<span id="L35"><a class="line" href="#L35">35</a>         for (var i = 0; i &lt; 6; i++) { InventoryKey(Key.R); await InventoryFrames(1); }</span>
+<span id="L36"><a class="line" href="#L36">36</a>         Check(fit.Draft.Rotation == startRotation &amp;&amp; !panel.Rotated &amp;&amp; sim.Save() == safe, &quot;six body rotations affected storage orientation or gameplay&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         var defaults = fit.GetChildren().OfType&lt;HBoxContainer&gt;().SelectMany(r =&gt; r.GetChildren().OfType&lt;Button&gt;()).Single(b =&gt; b.Text == &quot;Default&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         InventoryClick(defaults.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         Check(fit.Draft == defaultPose &amp;&amp; !fit.ApplyButton.Disabled, &quot;Default did not restore the valid body anchor&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         InventoryClick(fit.ApplyButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L41"><a class="line" href="#L41">41</a>         Check(sim.Save() == safe &amp;&amp; sim.Inventory.Pending is null, &quot;paused apply supplied free fitting&quot;);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         sim.ManualPause = false; InventoryClick(fit.ApplyButton.GetGlobalRect().GetCenter());</span>
+<span id="L43"><a class="line" href="#L43">43</a>         Check(sim.Inventory.Pending is { Request.Destination.BodyPose: not null }</span>
+<span id="L44"><a class="line" href="#L44">44</a>             &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-shoes&quot;).Placement.RegionId == &quot;hand&quot;, &quot;Apply failed to begin paid equipment work&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         await Finish();</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-shoes&quot;).Placement.BodyPose == defaultPose, &quot;paid fit did not commit body coordinates&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         await InventoryCapture(&quot;-body-fit-applied&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Check(!fit.Visible &amp;&amp; panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;).IsVisibleInTree(), &quot;returning to slots lost existing paperdoll controls&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L51"><a class="line" href="#L51">51</a>         clone.Restore(saved); Check(clone.Save() == saved, &quot;body-fitted equipment failed to restore with the ordinary save&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.Player.Cell = new(13, 6);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         async Task Act(InventoryRequest request)</span>
+<span id="L54"><a class="line" href="#L54">54</a>         {</span>
+<span id="L55"><a class="line" href="#L55">55</a>             sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish();</span>
+<span id="L56"><a class="line" href="#L56">56</a>         }</span>
+<span id="L57"><a class="line" href="#L57">57</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8)));</span>
+<span id="L58"><a class="line" href="#L58">58</a>         for (var belt = 1; belt &lt;= 2; belt++)</span>
+<span id="L59"><a class="line" href="#L59">59</a>         {</span>
+<span id="L60"><a class="line" href="#L60">60</a>             var id = belt == 1 ? &quot;utility-belt&quot; : &quot;utility-belt-2&quot;;</span>
+<span id="L61"><a class="line" href="#L61">61</a>             await Act(new(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, &quot;hand&quot;)));</span>
+<span id="L62"><a class="line" href="#L62">62</a>             panel.Select(id);</span>
+<span id="L63"><a class="line" href="#L63">63</a>             if (!fit.Visible) { InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames(); }</span>
+<span id="L64"><a class="line" href="#L64">64</a>             fit.Choose(id); await InventoryFrames();</span>
+<span id="L65"><a class="line" href="#L65">65</a>             for (var step = 0; step &lt; belt; step++) { InventoryKey(Key.R); await InventoryFrames(1); }</span>
+<span id="L66"><a class="line" href="#L66">66</a>             InventoryClick(fit.Surface.CellPosition(new(-4, 8))); await InventoryFrames();</span>
+<span id="L67"><a class="line" href="#L67">67</a>             Check(fit.Preview is { Geometry.Fits: true, Handling.Allowed: true } span &amp;&amp; span.Geometry.Cells.Length == 10,</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 &quot;native diagonal failed to adjust within its authored range&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>             safe = sim.Save();</span>
+<span id="L70"><a class="line" href="#L70">70</a>             await InventoryCapture(belt == 1 ? &quot;-symmetric-left-preview&quot; : &quot;-symmetric-x-preview&quot;);</span>
+<span id="L71"><a class="line" href="#L71">71</a>             Check(sim.Save() == safe, &quot;adjustable preview changed physical state&quot;);</span>
+<span id="L72"><a class="line" href="#L72">72</a>             sim.ManualPause = false; InventoryClick(fit.ApplyButton.GetGlobalRect().GetCenter());</span>
+<span id="L73"><a class="line" href="#L73">73</a>             Check(sim.Inventory.Pending is not null, &quot;diagonal did not purchase normal fitting work&quot;); await Finish();</span>
+<span id="L74"><a class="line" href="#L74">74</a>         }</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(sim.InventoryWornCells.Last(c =&gt; c.Cell == new BodySurfaceCell(&quot;front&quot;, new(-4, 8))) is { SubLayer: 2, BandCount: 3 },</span>
+<span id="L76"><a class="line" href="#L76">76</a>             &quot;native X crossing has the wrong band count&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         await InventoryCapture(&quot;-symmetric-x-applied&quot;);</span>
+<span id="L78"><a class="line" href="#L78">78</a>         saved = sim.Save(); clone.Restore(saved); Check(clone.Save() == saved, &quot;adjusted native outfit failed exact restore&quot;);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L80"><a class="line" href="#L80">80</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L81"><a class="line" href="#L81">81</a>         GD.Print(&quot;BODY_FIT_SMOKE_PASS: native body-mode toggle, real item selection, mask/contact preview, invalid click, six rotations, default reset, paused rejection, paid fitting/save and symmetric adjustable chest X.&quot;);</span>
+<span id="L82"><a class="line" href="#L82">82</a>     }</span>
+<span id="L83"><a class="line" href="#L83">83</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

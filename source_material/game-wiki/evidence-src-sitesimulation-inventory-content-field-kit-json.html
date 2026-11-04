@@ -1,0 +1,2056 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Content/field-kit.json | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>field-kit.json</h1><pre>{
+  &quot;definitions&quot;: [
+    {
+      &quot;id&quot;: &quot;trousers&quot;,
+      &quot;name&quot;: &quot;Utility trousers&quot;,
+      &quot;widthMm&quot;: 400,
+      &quot;lengthMm&quot;: 300,
+      &quot;thicknessMm&quot;: 45,
+      &quot;massGrams&quot;: 600,
+      &quot;tags&quot;: [
+        &quot;trousers&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;legs&quot;,
+      &quot;handleMs&quot;: 2000,
+      &quot;handleAp&quot;: 4,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;left&quot;,
+          &quot;name&quot;: &quot;Left hip pocket&quot;,
+          &quot;columns&quot;: 4,
+          &quot;rows&quot;: 6,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 40,
+          &quot;maxMassGrams&quot;: 1200,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 250,
+          &quot;accessAp&quot;: 1,
+          &quot;accessBody&quot;: [
+            &quot;hips-front&quot;
+          ],
+          &quot;secureOnClose&quot;: false,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: -1,
+                  &quot;r&quot;: -1
+                },
+                {
+                  &quot;q&quot;: -1,
+                  &quot;r&quot;: 0
+                }
+              ]
+            }
+          ],
+          &quot;sealable&quot;: false,
+          &quot;snug&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;right&quot;,
+          &quot;name&quot;: &quot;Right hip pocket&quot;,
+          &quot;columns&quot;: 4,
+          &quot;rows&quot;: 6,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 40,
+          &quot;maxMassGrams&quot;: 1200,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 250,
+          &quot;accessAp&quot;: 1,
+          &quot;accessBody&quot;: [
+            &quot;hips-front&quot;
+          ],
+          &quot;secureOnClose&quot;: false,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: 2,
+                  &quot;r&quot;: -1
+                },
+                {
+                  &quot;q&quot;: 1,
+                  &quot;r&quot;: 0
+                }
+              ]
+            }
+          ],
+          &quot;sealable&quot;: false,
+          &quot;snug&quot;: true
+        },
+        {
+          &quot;id&quot;: &quot;cargo-left&quot;,
+          &quot;name&quot;: &quot;Left cargo pocket&quot;,
+          &quot;columns&quot;: 4,
+          &quot;rows&quot;: 5,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 45,
+          &quot;maxMassGrams&quot;: 1500,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 350,
+          &quot;accessAp&quot;: 2,
+          &quot;accessBody&quot;: [
+            &quot;legs&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Button&quot;,
+          &quot;openVerb&quot;: &quot;Unbutton&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: -2,
+                  &quot;r&quot;: 2
+                },
+                {
+                  &quot;q&quot;: -3,
+                  &quot;r&quot;: 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          &quot;id&quot;: &quot;cargo-right&quot;,
+          &quot;name&quot;: &quot;Right cargo pocket&quot;,
+          &quot;columns&quot;: 4,
+          &quot;rows&quot;: 5,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 45,
+          &quot;maxMassGrams&quot;: 1500,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 350,
+          &quot;accessAp&quot;: 2,
+          &quot;accessBody&quot;: [
+            &quot;legs&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Button&quot;,
+          &quot;openVerb&quot;: &quot;Unbutton&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: 0,
+                  &quot;r&quot;: 2
+                },
+                {
+                  &quot;q&quot;: 0,
+                  &quot;r&quot;: 3
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 1,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;legs&quot;,
+            &quot;coverage&quot;: [
+              &quot;hips-front&quot;,
+              &quot;hips-back&quot;,
+              &quot;legs&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;trousers&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:light-textile&quot;,
+          &quot;bulk&quot;: 2,
+          &quot;maxUnderBulk&quot;: 3,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;
+          ]
+        }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;coat&quot;,
+      &quot;name&quot;: &quot;Field coat&quot;,
+      &quot;widthMm&quot;: 400,
+      &quot;lengthMm&quot;: 350,
+      &quot;thicknessMm&quot;: 60,
+      &quot;massGrams&quot;: 900,
+      &quot;tags&quot;: [
+        &quot;coat&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;outerwear&quot;,
+      &quot;handleMs&quot;: 1500,
+      &quot;handleAp&quot;: 3,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;chest&quot;,
+          &quot;name&quot;: &quot;Coat chest pocket&quot;,
+          &quot;columns&quot;: 4,
+          &quot;rows&quot;: 5,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 45,
+          &quot;maxMassGrams&quot;: 1500,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 350,
+          &quot;accessAp&quot;: 1,
+          &quot;mask&quot;: [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          &quot;accessBody&quot;: [
+            &quot;torso-front&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Button&quot;,
+          &quot;openVerb&quot;: &quot;Unbutton&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: 0,
+                  &quot;r&quot;: 2
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 2,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;outerwear&quot;,
+            &quot;coverage&quot;: [
+              &quot;torso-front&quot;,
+              &quot;torso-back&quot;,
+              &quot;arms&quot;,
+              &quot;hips-front&quot;,
+              &quot;hips-back&quot;
+            ]
+          }
+        ],
+        &quot;openExposes&quot;: [
+          &quot;torso-front&quot;,
+          &quot;hips-front&quot;
+        ],
+        &quot;fastenMs&quot;: 700,
+        &quot;fastenAp&quot;: 2,
+        &quot;secureVerb&quot;: &quot;Zip&quot;,
+        &quot;openVerb&quot;: &quot;Unzip&quot;,
+        &quot;secureOnClose&quot;: false,
+        &quot;fitProfile&quot;: &quot;coat&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:light-jacket&quot;,
+          &quot;bulk&quot;: 3,
+          &quot;maxUnderBulk&quot;: 6,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;,
+            &quot;core:flexible-armor&quot;,
+            &quot;core:strap&quot;
+          ]
+        },
+        &quot;fasteningFootprint&quot;: [
+          {
+            &quot;surface&quot;: &quot;front&quot;,
+            &quot;cells&quot;: [
+              {
+                &quot;q&quot;: 0,
+                &quot;r&quot;: 0
+              },
+              {
+                &quot;q&quot;: -1,
+                &quot;r&quot;: 1
+              },
+              {
+                &quot;q&quot;: 0,
+                &quot;r&quot;: 1
+              },
+              {
+                &quot;q&quot;: -1,
+                &quot;r&quot;: 2
+              },
+              {
+                &quot;q&quot;: -2,
+                &quot;r&quot;: 3
+              },
+              {
+                &quot;q&quot;: -1,
+                &quot;r&quot;: 3
+              },
+              {
+                &quot;q&quot;: -2,
+                &quot;r&quot;: 4
+              },
+              {
+                &quot;q&quot;: -3,
+                &quot;r&quot;: 5
+              },
+              {
+                &quot;q&quot;: -2,
+                &quot;r&quot;: 5
+              },
+              {
+                &quot;q&quot;: -3,
+                &quot;r&quot;: 6
+              },
+              {
+                &quot;q&quot;: -4,
+                &quot;r&quot;: 7
+              },
+              {
+                &quot;q&quot;: -3,
+                &quot;r&quot;: 7
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      &quot;id&quot;: &quot;backpack&quot;,
+      &quot;name&quot;: &quot;Field backpack&quot;,
+      &quot;widthMm&quot;: 250,
+      &quot;lengthMm&quot;: 300,
+      &quot;thicknessMm&quot;: 160,
+      &quot;massGrams&quot;: 700,
+      &quot;tags&quot;: [
+        &quot;backpack&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;back&quot;,
+      &quot;handleMs&quot;: 1500,
+      &quot;handleAp&quot;: 3,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;main&quot;,
+          &quot;name&quot;: &quot;Backpack main section&quot;,
+          &quot;columns&quot;: 8,
+          &quot;rows&quot;: 10,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 140,
+          &quot;maxMassGrams&quot;: 8000,
+          &quot;accessMs&quot;: 1000,
+          &quot;accessAp&quot;: 3,
+          &quot;accessBody&quot;: [
+            &quot;torso-back&quot;,
+            &quot;torso-front&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Zip&quot;,
+          &quot;openVerb&quot;: &quot;Unzip&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;mounted&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: -1,
+                  &quot;r&quot;: 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          &quot;id&quot;: &quot;side&quot;,
+          &quot;name&quot;: &quot;Backpack side pocket&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 6,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 45,
+          &quot;maxMassGrams&quot;: 1200,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 500,
+          &quot;accessAp&quot;: 2,
+          &quot;accessBody&quot;: [
+            &quot;torso-back&quot;,
+            &quot;torso-front&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Buckle&quot;,
+          &quot;openVerb&quot;: &quot;Unbuckle&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;mounted&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: 0,
+                  &quot;r&quot;: 4
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 5,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;back&quot;,
+            &quot;coverage&quot;: [
+              &quot;torso-back&quot;
+            ],
+            &quot;bodySurface&quot;: &quot;back&quot;
+          },
+          {
+            &quot;slot&quot;: &quot;front&quot;,
+            &quot;coverage&quot;: [
+              &quot;torso-front&quot;
+            ],
+            &quot;bodySurface&quot;: &quot;front&quot;
+          }
+        ],
+        &quot;outermost&quot;: true,
+        &quot;fitProfile&quot;: &quot;backpack&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:outer-pack&quot;,
+          &quot;bulk&quot;: 6,
+          &quot;maxUnderBulk&quot;: 20,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;,
+            &quot;core:light-jacket&quot;,
+            &quot;core:bulky-coat&quot;,
+            &quot;core:flexible-armor&quot;,
+            &quot;core:sealed-suit&quot;,
+            &quot;core:strap&quot;
+          ]
+        }
+      },
+      &quot;defaultDropRegion&quot;: &quot;main&quot;
+    },
+    {
+      &quot;id&quot;: &quot;phone&quot;,
+      &quot;name&quot;: &quot;Secure field phone&quot;,
+      &quot;widthMm&quot;: 60,
+      &quot;lengthMm&quot;: 120,
+      &quot;thicknessMm&quot;: 15,
+      &quot;massGrams&quot;: 180,
+      &quot;tags&quot;: [
+        &quot;phone&quot;
+      ],
+      &quot;capability&quot;: &quot;field-phone&quot;,
+      &quot;handleMs&quot;: 250
+    },
+    {
+      &quot;id&quot;: &quot;radio&quot;,
+      &quot;name&quot;: &quot;Site radio&quot;,
+      &quot;widthMm&quot;: 50,
+      &quot;lengthMm&quot;: 100,
+      &quot;thicknessMm&quot;: 35,
+      &quot;massGrams&quot;: 350,
+      &quot;tags&quot;: [
+        &quot;radio&quot;
+      ],
+      &quot;capability&quot;: &quot;site-radio&quot;,
+      &quot;handleMs&quot;: 250
+    },
+    {
+      &quot;id&quot;: &quot;torch&quot;,
+      &quot;name&quot;: &quot;Flashlight&quot;,
+      &quot;widthMm&quot;: 25,
+      &quot;lengthMm&quot;: 100,
+      &quot;thicknessMm&quot;: 25,
+      &quot;massGrams&quot;: 180,
+      &quot;tags&quot;: [
+        &quot;torch&quot;
+      ],
+      &quot;handleMs&quot;: 250
+    },
+    {
+      &quot;id&quot;: &quot;dressing&quot;,
+      &quot;name&quot;: &quot;Dressing packet&quot;,
+      &quot;widthMm&quot;: 50,
+      &quot;lengthMm&quot;: 50,
+      &quot;thicknessMm&quot;: 15,
+      &quot;massGrams&quot;: 40,
+      &quot;tags&quot;: [
+        &quot;dressing&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;case&quot;,
+      &quot;name&quot;: &quot;Utility case&quot;,
+      &quot;widthMm&quot;: 100,
+      &quot;lengthMm&quot;: 75,
+      &quot;thicknessMm&quot;: 50,
+      &quot;massGrams&quot;: 150,
+      &quot;tags&quot;: [
+        &quot;case&quot;
+      ],
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;inside&quot;,
+          &quot;name&quot;: &quot;Case interior&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 2,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 40,
+          &quot;maxMassGrams&quot;: 1200,
+          &quot;accessMs&quot;: 400,
+          &quot;accessAp&quot;: 1,
+          &quot;secureVerb&quot;: &quot;Latch&quot;,
+          &quot;openVerb&quot;: &quot;Unlatch&quot;,
+          &quot;secureOnClose&quot;: true
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;gum-pack&quot;,
+      &quot;name&quot;: &quot;Gum packet&quot;,
+      &quot;widthMm&quot;: 50,
+      &quot;lengthMm&quot;: 25,
+      &quot;thicknessMm&quot;: 12,
+      &quot;massGrams&quot;: 3,
+      &quot;tags&quot;: [
+        &quot;gum-pack&quot;
+      ],
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;pieces&quot;,
+          &quot;name&quot;: &quot;Six-piece packet&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 2,
+          &quot;cellMm&quot;: 5,
+          &quot;heightMm&quot;: 5,
+          &quot;maxMassGrams&quot;: 30,
+          &quot;accessMs&quot;: 150,
+          &quot;accessAp&quot;: 0,
+          &quot;secureVerb&quot;: &quot;Fold&quot;,
+          &quot;openVerb&quot;: &quot;Unfold&quot;,
+          &quot;secureOnClose&quot;: true
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;gum&quot;,
+      &quot;name&quot;: &quot;Gum piece&quot;,
+      &quot;widthMm&quot;: 5,
+      &quot;lengthMm&quot;: 5,
+      &quot;thicknessMm&quot;: 3,
+      &quot;massGrams&quot;: 2,
+      &quot;tags&quot;: [
+        &quot;gum&quot;
+      ],
+      &quot;handleMs&quot;: 150
+    },
+    {
+      &quot;id&quot;: &quot;weight&quot;,
+      &quot;name&quot;: &quot;Inert training weight&quot;,
+      &quot;widthMm&quot;: 60,
+      &quot;lengthMm&quot;: 60,
+      &quot;thicknessMm&quot;: 60,
+      &quot;massGrams&quot;: 1000,
+      &quot;tags&quot;: [
+        &quot;weight&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;shirt&quot;,
+      &quot;name&quot;: &quot;Work shirt&quot;,
+      &quot;widthMm&quot;: 150,
+      &quot;lengthMm&quot;: 200,
+      &quot;thicknessMm&quot;: 25,
+      &quot;massGrams&quot;: 300,
+      &quot;tags&quot;: [
+        &quot;shirt&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;torso&quot;,
+      &quot;handleMs&quot;: 1500,
+      &quot;handleAp&quot;: 3,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 1,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;torso&quot;,
+            &quot;coverage&quot;: [
+              &quot;torso-front&quot;,
+              &quot;torso-back&quot;,
+              &quot;arms&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;shirt&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:light-textile&quot;,
+          &quot;bulk&quot;: 1,
+          &quot;maxUnderBulk&quot;: 5,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;,
+            &quot;core:light-jacket&quot;,
+            &quot;core:flexible-armor&quot;
+          ],
+          &quot;excludesUnderTags&quot;: [
+            &quot;core:rigid-shell&quot;
+          ]
+        }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;socks&quot;,
+      &quot;name&quot;: &quot;Wool socks&quot;,
+      &quot;widthMm&quot;: 50,
+      &quot;lengthMm&quot;: 75,
+      &quot;thicknessMm&quot;: 20,
+      &quot;massGrams&quot;: 100,
+      &quot;tags&quot;: [
+        &quot;socks&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;socks&quot;,
+      &quot;handleMs&quot;: 1500,
+      &quot;handleAp&quot;: 3,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 0,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;socks&quot;,
+            &quot;coverage&quot;: [
+              &quot;feet&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;socks&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:light-textile&quot;,
+          &quot;bulk&quot;: 1,
+          &quot;maxUnderBulk&quot;: 0,
+          &quot;fitsOver&quot;: []
+        }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;boots&quot;,
+      &quot;name&quot;: &quot;Work shoes&quot;,
+      &quot;widthMm&quot;: 160,
+      &quot;lengthMm&quot;: 250,
+      &quot;thicknessMm&quot;: 100,
+      &quot;massGrams&quot;: 900,
+      &quot;tags&quot;: [
+        &quot;boots&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;footwear&quot;,
+      &quot;handleMs&quot;: 1500,
+      &quot;handleAp&quot;: 3,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 1,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;footwear&quot;,
+            &quot;coverage&quot;: [
+              &quot;feet&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;boots&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:footwear&quot;,
+          &quot;bulk&quot;: 4,
+          &quot;maxUnderBulk&quot;: 3,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;
+          ]
+        }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;chem-suit&quot;,
+      &quot;name&quot;: &quot;Chemical coverall&quot;,
+      &quot;widthMm&quot;: 150,
+      &quot;lengthMm&quot;: 200,
+      &quot;thicknessMm&quot;: 100,
+      &quot;massGrams&quot;: 1800,
+      &quot;tags&quot;: [
+        &quot;chem-suit&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;suit&quot;,
+      &quot;handleMs&quot;: 3000,
+      &quot;handleAp&quot;: 5,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 4,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;suit&quot;,
+            &quot;coverage&quot;: [
+              &quot;head&quot;,
+              &quot;face&quot;,
+              &quot;torso-front&quot;,
+              &quot;torso-back&quot;,
+              &quot;arms&quot;,
+              &quot;hands&quot;,
+              &quot;hips-front&quot;,
+              &quot;hips-back&quot;,
+              &quot;legs&quot;,
+              &quot;feet&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;chem-suit&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:sealed-suit&quot;,
+          &quot;bulk&quot;: 3,
+          &quot;maxUnderBulk&quot;: 10,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;,
+            &quot;core:light-jacket&quot;,
+            &quot;core:flexible-armor&quot;,
+            &quot;core:footwear&quot;,
+            &quot;core:strap&quot;
+          ]
+        }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-belt&quot;,
+      &quot;name&quot;: &quot;Utility belt&quot;,
+      &quot;widthMm&quot;: 150,
+      &quot;lengthMm&quot;: 75,
+      &quot;thicknessMm&quot;: 35,
+      &quot;massGrams&quot;: 250,
+      &quot;tags&quot;: [
+        &quot;belt&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;belt&quot;,
+      &quot;handleMs&quot;: 1000,
+      &quot;handleAp&quot;: 2,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 3,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;belt&quot;,
+            &quot;coverage&quot;: [
+              &quot;hips-front&quot;,
+              &quot;hips-back&quot;
+            ],
+            &quot;bodySurface&quot;: &quot;front&quot;
+          }
+        ],
+        &quot;coversAccess&quot;: false,
+        &quot;blocksRemoval&quot;: true,
+        &quot;overlapTags&quot;: [
+          &quot;belt&quot;
+        ],
+        &quot;fitProfile&quot;: &quot;belt&quot;,
+        &quot;removalRegions&quot;: [
+          &quot;hips-front&quot;,
+          &quot;hips-back&quot;,
+          &quot;torso-front&quot;,
+          &quot;torso-back&quot;
+        ],
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:strap&quot;,
+          &quot;bulk&quot;: 1,
+          &quot;maxUnderBulk&quot;: 20,
+          &quot;fitsOver&quot;: [
+            &quot;core:light-textile&quot;,
+            &quot;core:light-jacket&quot;,
+            &quot;core:bulky-coat&quot;,
+            &quot;core:flexible-armor&quot;,
+            &quot;core:sealed-suit&quot;,
+            &quot;core:strap&quot;
+          ]
+        },
+        &quot;overlayLimit&quot;: 3,
+        &quot;blocksFastenings&quot;: true
+      },
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;webbing&quot;,
+          &quot;name&quot;: &quot;Belt webbing&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 100,
+          &quot;maxMassGrams&quot;: 2000,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 250,
+          &quot;accessAp&quot;: 1,
+          &quot;attachment&quot;: {
+            &quot;interface&quot;: &quot;belt-loop&quot;,
+            &quot;cells&quot;: [
+              {
+                &quot;q&quot;: -2,
+                &quot;r&quot;: 0
+              },
+              {
+                &quot;q&quot;: -1,
+                &quot;r&quot;: 0
+              },
+              {
+                &quot;q&quot;: 0,
+                &quot;r&quot;: 0
+              },
+              {
+                &quot;q&quot;: 1,
+                &quot;r&quot;: 0
+              },
+              {
+                &quot;q&quot;: 2,
+                &quot;r&quot;: 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;utility-pouch&quot;,
+      &quot;name&quot;: &quot;Utility pouch&quot;,
+      &quot;widthMm&quot;: 75,
+      &quot;lengthMm&quot;: 100,
+      &quot;thicknessMm&quot;: 50,
+      &quot;massGrams&quot;: 100,
+      &quot;tags&quot;: [
+        &quot;utility-pouch&quot;
+      ],
+      &quot;handleMs&quot;: 500,
+      &quot;handleAp&quot;: 1,
+      &quot;attachment&quot;: {
+        &quot;interface&quot;: &quot;belt-loop&quot;,
+        &quot;occupancy&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 1
+          },
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 1
+          }
+        ],
+        &quot;contacts&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          }
+        ]
+      },
+      &quot;defaultDropRegion&quot;: &quot;inside&quot;,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;inside&quot;,
+          &quot;name&quot;: &quot;Utility pouch interior&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 4,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 45,
+          &quot;maxMassGrams&quot;: 1000,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 300,
+          &quot;accessAp&quot;: 1,
+          &quot;secureVerb&quot;: &quot;Snap&quot;,
+          &quot;openVerb&quot;: &quot;Unsnap&quot;,
+          &quot;secureOnClose&quot;: true
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;utility-hook&quot;,
+      &quot;name&quot;: &quot;Utility hook&quot;,
+      &quot;widthMm&quot;: 40,
+      &quot;lengthMm&quot;: 90,
+      &quot;thicknessMm&quot;: 15,
+      &quot;massGrams&quot;: 80,
+      &quot;tags&quot;: [
+        &quot;placement-extender&quot;
+      ],
+      &quot;handleMs&quot;: 400,
+      &quot;handleAp&quot;: 1,
+      &quot;attachment&quot;: {
+        &quot;interface&quot;: &quot;belt-loop&quot;,
+        &quot;occupancy&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 1
+          },
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 1
+          },
+          {
+            &quot;q&quot;: -1,
+            &quot;r&quot;: 2
+          }
+        ],
+        &quot;contacts&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          }
+        ]
+      },
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;hook&quot;,
+          &quot;name&quot;: &quot;Lower hook mount&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 100,
+          &quot;maxMassGrams&quot;: 500,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 200,
+          &quot;accessAp&quot;: 1,
+          &quot;sealable&quot;: false,
+          &quot;secureOnClose&quot;: false,
+          &quot;attachment&quot;: {
+            &quot;interface&quot;: &quot;belt-loop&quot;,
+            &quot;cells&quot;: [
+              {
+                &quot;q&quot;: -1,
+                &quot;r&quot;: 2
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;underwear&quot;,
+      &quot;name&quot;: &quot;Cotton boxer briefs&quot;,
+      &quot;widthMm&quot;: 100,
+      &quot;lengthMm&quot;: 100,
+      &quot;thicknessMm&quot;: 15,
+      &quot;massGrams&quot;: 80,
+      &quot;tags&quot;: [
+        &quot;underwear&quot;
+      ],
+      &quot;wearSlot&quot;: &quot;underwear&quot;,
+      &quot;handleMs&quot;: 1000,
+      &quot;handleAp&quot;: 2,
+      &quot;wear&quot;: {
+        &quot;layer&quot;: 0,
+        &quot;mounts&quot;: [
+          {
+            &quot;slot&quot;: &quot;underwear&quot;,
+            &quot;coverage&quot;: [
+              &quot;hips-front&quot;,
+              &quot;hips-back&quot;
+            ]
+          }
+        ],
+        &quot;fitProfile&quot;: &quot;underwear&quot;,
+        &quot;fit&quot;: {
+          &quot;family&quot;: &quot;core:light-textile&quot;,
+          &quot;bulk&quot;: 1,
+          &quot;maxUnderBulk&quot;: 0,
+          &quot;fitsOver&quot;: []
+        }
+      }
+    }
+  ],
+  &quot;roots&quot;: [
+    {
+      &quot;id&quot;: &quot;person:avatar&quot;,
+      &quot;name&quot;: &quot;Director equipment&quot;,
+      &quot;actorId&quot;: &quot;avatar&quot;,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;underwear&quot;,
+          &quot;name&quot;: &quot;Underwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;underwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;socks&quot;,
+          &quot;name&quot;: &quot;Socks&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;socks&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;footwear&quot;,
+          &quot;name&quot;: &quot;Footwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;footwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;legs&quot;,
+          &quot;name&quot;: &quot;Legs&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;legs&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;torso&quot;,
+          &quot;name&quot;: &quot;Torso&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;torso&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;outerwear&quot;,
+          &quot;name&quot;: &quot;Outerwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;outerwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;belt&quot;,
+          &quot;name&quot;: &quot;Belt&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;belt&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;face&quot;,
+          &quot;name&quot;: &quot;Face&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;face&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;back&quot;,
+          &quot;name&quot;: &quot;Back&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;back&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;hand&quot;,
+          &quot;name&quot;: &quot;Hand&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;hand&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;front&quot;,
+          &quot;name&quot;: &quot;Front pack&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;front&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;suit&quot;,
+          &quot;name&quot;: &quot;Full-body suit&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;suit&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        }
+      ],
+      &quot;maxMassGrams&quot;: 20000,
+      &quot;bodyFamily&quot;: &quot;human-nine-shoulder&quot;
+    },
+    {
+      &quot;id&quot;: &quot;person:observer&quot;,
+      &quot;name&quot;: &quot;Chen equipment&quot;,
+      &quot;actorId&quot;: &quot;observer&quot;,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;underwear&quot;,
+          &quot;name&quot;: &quot;Underwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;underwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;socks&quot;,
+          &quot;name&quot;: &quot;Socks&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;socks&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;footwear&quot;,
+          &quot;name&quot;: &quot;Footwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;footwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;legs&quot;,
+          &quot;name&quot;: &quot;Legs&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;legs&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;torso&quot;,
+          &quot;name&quot;: &quot;Torso&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;torso&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;outerwear&quot;,
+          &quot;name&quot;: &quot;Outerwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;outerwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;belt&quot;,
+          &quot;name&quot;: &quot;Belt&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;belt&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;face&quot;,
+          &quot;name&quot;: &quot;Face&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;face&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;back&quot;,
+          &quot;name&quot;: &quot;Back&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;back&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;hand&quot;,
+          &quot;name&quot;: &quot;Hand&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;hand&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;front&quot;,
+          &quot;name&quot;: &quot;Front pack&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;front&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;suit&quot;,
+          &quot;name&quot;: &quot;Full-body suit&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;suit&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        }
+      ],
+      &quot;maxMassGrams&quot;: 20000,
+      &quot;bodyFamily&quot;: &quot;human-nine-shoulder&quot;
+    },
+    {
+      &quot;id&quot;: &quot;person:tech&quot;,
+      &quot;name&quot;: &quot;Ortiz equipment&quot;,
+      &quot;actorId&quot;: &quot;tech&quot;,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;underwear&quot;,
+          &quot;name&quot;: &quot;Underwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;underwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;socks&quot;,
+          &quot;name&quot;: &quot;Socks&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;socks&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;footwear&quot;,
+          &quot;name&quot;: &quot;Footwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;footwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;legs&quot;,
+          &quot;name&quot;: &quot;Legs&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;legs&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;torso&quot;,
+          &quot;name&quot;: &quot;Torso&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;torso&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;outerwear&quot;,
+          &quot;name&quot;: &quot;Outerwear&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;outerwear&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;belt&quot;,
+          &quot;name&quot;: &quot;Belt&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;belt&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;face&quot;,
+          &quot;name&quot;: &quot;Face&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;face&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;back&quot;,
+          &quot;name&quot;: &quot;Back&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;back&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;hand&quot;,
+          &quot;name&quot;: &quot;Hand&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;hand&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;front&quot;,
+          &quot;name&quot;: &quot;Front pack&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;front&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        },
+        {
+          &quot;id&quot;: &quot;suit&quot;,
+          &quot;name&quot;: &quot;Full-body suit&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 500,
+          &quot;heightMm&quot;: 500,
+          &quot;maxMassGrams&quot;: 20000,
+          &quot;mountSlot&quot;: &quot;suit&quot;,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 0,
+          &quot;accessAp&quot;: 0
+        }
+      ],
+      &quot;maxMassGrams&quot;: 20000,
+      &quot;bodyFamily&quot;: &quot;human-nine-shoulder&quot;
+    },
+    {
+      &quot;id&quot;: &quot;fixture:crate-a&quot;,
+      &quot;name&quot;: &quot;Supply crate&quot;,
+      &quot;propId&quot;: &quot;crate-a&quot;,
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;store&quot;,
+          &quot;name&quot;: &quot;Crate interior&quot;,
+          &quot;columns&quot;: 24,
+          &quot;rows&quot;: 20,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 250,
+          &quot;maxMassGrams&quot;: 25000,
+          &quot;accessMs&quot;: 600,
+          &quot;accessAp&quot;: 2
+        }
+      ],
+      &quot;maxMassGrams&quot;: 25000
+    }
+  ],
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: &quot;avatar-trousers&quot;,
+      &quot;definitionId&quot;: &quot;trousers&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;legs&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 3
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-coat&quot;,
+      &quot;definitionId&quot;: &quot;coat&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;outerwear&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 6
+      },
+      &quot;garmentOpen&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;avatar-backpack&quot;,
+      &quot;definitionId&quot;: &quot;backpack&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;back&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 7
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-radio&quot;,
+      &quot;definitionId&quot;: &quot;radio&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;avatar-coat&quot;,
+        &quot;regionId&quot;: &quot;chest&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;observer-trousers&quot;,
+      &quot;definitionId&quot;: &quot;trousers&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:observer&quot;,
+        &quot;regionId&quot;: &quot;legs&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 1
+      }
+    },
+    {
+      &quot;id&quot;: &quot;observer-coat&quot;,
+      &quot;definitionId&quot;: &quot;coat&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:observer&quot;,
+        &quot;regionId&quot;: &quot;outerwear&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 2
+      },
+      &quot;garmentOpen&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;observer-backpack&quot;,
+      &quot;definitionId&quot;: &quot;backpack&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:observer&quot;,
+        &quot;regionId&quot;: &quot;back&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 3
+      }
+    },
+    {
+      &quot;id&quot;: &quot;observer-radio&quot;,
+      &quot;definitionId&quot;: &quot;radio&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;observer-coat&quot;,
+        &quot;regionId&quot;: &quot;chest&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;tech-trousers&quot;,
+      &quot;definitionId&quot;: &quot;trousers&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:tech&quot;,
+        &quot;regionId&quot;: &quot;legs&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 1
+      }
+    },
+    {
+      &quot;id&quot;: &quot;tech-coat&quot;,
+      &quot;definitionId&quot;: &quot;coat&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:tech&quot;,
+        &quot;regionId&quot;: &quot;outerwear&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 2
+      },
+      &quot;garmentOpen&quot;: true
+    },
+    {
+      &quot;id&quot;: &quot;tech-backpack&quot;,
+      &quot;definitionId&quot;: &quot;backpack&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:tech&quot;,
+        &quot;regionId&quot;: &quot;back&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 3
+      }
+    },
+    {
+      &quot;id&quot;: &quot;tech-radio&quot;,
+      &quot;definitionId&quot;: &quot;radio&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;tech-coat&quot;,
+        &quot;regionId&quot;: &quot;chest&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;field-phone&quot;,
+      &quot;definitionId&quot;: &quot;phone&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;avatar-trousers&quot;,
+        &quot;regionId&quot;: &quot;right&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;flashlight&quot;,
+      &quot;definitionId&quot;: &quot;torch&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;avatar-backpack&quot;,
+        &quot;regionId&quot;: &quot;side&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;medical-case&quot;,
+      &quot;definitionId&quot;: &quot;case&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;avatar-backpack&quot;,
+        &quot;regionId&quot;: &quot;main&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;dressing-a&quot;,
+      &quot;definitionId&quot;: &quot;dressing&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;medical-case&quot;,
+        &quot;regionId&quot;: &quot;inside&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-packet&quot;,
+      &quot;definitionId&quot;: &quot;gum-pack&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;avatar-trousers&quot;,
+        &quot;regionId&quot;: &quot;left&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-1&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-2&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 1,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-3&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 2,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-4&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 1,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-5&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 1,
+        &quot;y&quot;: 1,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;gum-6&quot;,
+      &quot;definitionId&quot;: &quot;gum&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;gum-packet&quot;,
+        &quot;regionId&quot;: &quot;pieces&quot;,
+        &quot;x&quot;: 2,
+        &quot;y&quot;: 1,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;spare-dressing&quot;,
+      &quot;definitionId&quot;: &quot;dressing&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;training-weight&quot;,
+      &quot;definitionId&quot;: &quot;weight&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 2,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-shirt&quot;,
+      &quot;definitionId&quot;: &quot;shirt&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;torso&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 4
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-socks&quot;,
+      &quot;definitionId&quot;: &quot;socks&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;socks&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 2
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-shoes&quot;,
+      &quot;definitionId&quot;: &quot;boots&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;footwear&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false,
+        &quot;wornOrder&quot;: 5
+      }
+    },
+    {
+      &quot;id&quot;: &quot;chemical-suit&quot;,
+      &quot;definitionId&quot;: &quot;chem-suit&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 6,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;spare-backpack&quot;,
+      &quot;definitionId&quot;: &quot;backpack&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 13,
+        &quot;y&quot;: 0,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;spare-socks&quot;,
+      &quot;definitionId&quot;: &quot;socks&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 5,
+        &quot;rotated&quot;: false
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-belt&quot;,
+      &quot;definitionId&quot;: &quot;utility-belt&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 10,
+        &quot;y&quot;: 13
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-pouch&quot;,
+      &quot;definitionId&quot;: &quot;utility-pouch&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 10,
+        &quot;y&quot;: 9
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-belt-2&quot;,
+      &quot;definitionId&quot;: &quot;utility-belt&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 16,
+        &quot;y&quot;: 13
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-belt-3&quot;,
+      &quot;definitionId&quot;: &quot;utility-belt&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 10,
+        &quot;y&quot;: 17
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-belt-4&quot;,
+      &quot;definitionId&quot;: &quot;utility-belt&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 16,
+        &quot;y&quot;: 17
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-hook&quot;,
+      &quot;definitionId&quot;: &quot;utility-hook&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 22,
+        &quot;y&quot;: 13
+      }
+    },
+    {
+      &quot;id&quot;: &quot;utility-pouch-2&quot;,
+      &quot;definitionId&quot;: &quot;utility-pouch&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;fixture:crate-a&quot;,
+        &quot;regionId&quot;: &quot;store&quot;,
+        &quot;x&quot;: 3,
+        &quot;y&quot;: 4
+      }
+    },
+    {
+      &quot;id&quot;: &quot;avatar-underwear&quot;,
+      &quot;definitionId&quot;: &quot;underwear&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;person:avatar&quot;,
+        &quot;regionId&quot;: &quot;underwear&quot;,
+        &quot;wornOrder&quot;: 1
+      }
+    }
+  ],
+  &quot;regions&quot;: [
+    {
+      &quot;itemId&quot;: &quot;avatar-trousers&quot;,
+      &quot;regionId&quot;: &quot;left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-trousers&quot;,
+      &quot;regionId&quot;: &quot;right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-coat&quot;,
+      &quot;regionId&quot;: &quot;chest&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-backpack&quot;,
+      &quot;regionId&quot;: &quot;main&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-backpack&quot;,
+      &quot;regionId&quot;: &quot;side&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-trousers&quot;,
+      &quot;regionId&quot;: &quot;left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-trousers&quot;,
+      &quot;regionId&quot;: &quot;right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-coat&quot;,
+      &quot;regionId&quot;: &quot;chest&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-backpack&quot;,
+      &quot;regionId&quot;: &quot;main&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-backpack&quot;,
+      &quot;regionId&quot;: &quot;side&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-trousers&quot;,
+      &quot;regionId&quot;: &quot;left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-trousers&quot;,
+      &quot;regionId&quot;: &quot;right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-coat&quot;,
+      &quot;regionId&quot;: &quot;chest&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-backpack&quot;,
+      &quot;regionId&quot;: &quot;main&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-backpack&quot;,
+      &quot;regionId&quot;: &quot;side&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;medical-case&quot;,
+      &quot;regionId&quot;: &quot;inside&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;gum-packet&quot;,
+      &quot;regionId&quot;: &quot;pieces&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;spare-backpack&quot;,
+      &quot;regionId&quot;: &quot;main&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;spare-backpack&quot;,
+      &quot;regionId&quot;: &quot;side&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;observer-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-left&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;tech-trousers&quot;,
+      &quot;regionId&quot;: &quot;cargo-right&quot;,
+      &quot;open&quot;: true
+    },
+    {
+      &quot;itemId&quot;: &quot;utility-pouch&quot;,
+      &quot;regionId&quot;: &quot;inside&quot;,
+      &quot;open&quot;: false
+    },
+    {
+      &quot;itemId&quot;: &quot;utility-pouch-2&quot;,
+      &quot;regionId&quot;: &quot;inside&quot;,
+      &quot;open&quot;: false
+    }
+  ]
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,403 @@
+{
+  "created_at": "2010-03-17T18:46:00",
+  "creator": "Dr Dan",
+  "domain": "scp-wiki.wikidot.com",
+  "history": [
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-03-17T18:46:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-03-17T18:47:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-03-17T19:04:00"
+    },
+    {
+      "author": "Kimura Okagawa",
+      "author_href": "https://www.wikidot.com/user:info/kimura-okagawa",
+      "comment": "removing unneeded line break",
+      "date": "2010-03-17T19:14:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "Minor editing",
+      "date": "2010-03-17T20:25:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "Added Doc 096-1",
+      "date": "2010-03-18T02:29:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-03-18T17:36:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Slightly reworded containment, measurement formatting, verb tense, punctuation, capitalization.",
+      "date": "2010-03-20T03:11:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Added tags: scp, euclid.",
+      "date": "2010-03-20T03:12:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-03-21T02:19:00"
+    },
+    {
+      "author": "Pig_catapult",
+      "author_href": "https://www.wikidot.com/user:info/pig-catapult",
+      "comment": "If it can tell if it is being looked at, it is, by definition, sentient. Sentience (ability to sense) does not imply sapience (ability to reason).",
+      "date": "2010-06-05T23:45:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-10-18T07:23:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2010-10-18T08:02:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "April Fools",
+      "date": "2011-04-01T04:01:00"
+    },
+    {
+      "author": "EchoFourDelta",
+      "author_href": "https://www.wikidot.com/user:info/echofourdelta",
+      "comment": "Not a \"gun\", and typo in the name",
+      "date": "2011-04-01T15:15:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "You successfully reverted the page to revision number 12",
+      "date": "2011-04-02T05:45:00"
+    },
+    {
+      "author": "Voct",
+      "author_href": "https://www.wikidot.com/user:info/voct",
+      "comment": "Added tags: humanoid, infohazard. ",
+      "date": "2012-03-23T19:26:00"
+    },
+    {
+      "author": "Aelanna",
+      "author_href": "https://www.wikidot.com/user:info/aelanna",
+      "comment": "Added tags: alive, cognitohazard. Removed tags: infohazard. ",
+      "date": "2012-04-17T18:05:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "No more \"unrecognizable language.\" Good catch guys.",
+      "date": "2012-06-04T08:26:00"
+    },
+    {
+      "author": "Dr Dan",
+      "author_href": "https://www.wikidot.com/user:info/dr-dan",
+      "comment": "",
+      "date": "2012-06-04T08:53:00"
+    },
+    {
+      "author": "Dr Schogliss",
+      "author_href": "https://www.wikidot.com/user:info/dr-schogliss",
+      "comment": "Bloody Hell",
+      "date": "2013-02-11T23:21:00"
+    },
+    {
+      "author": "Jekeled",
+      "author_href": "https://www.wikidot.com/user:info/jekeled",
+      "comment": "You successfully reverted the page to revision number 19",
+      "date": "2013-03-04T04:12:00"
+    },
+    {
+      "author": "DrEverettMann",
+      "author_href": "https://www.wikidot.com/user:info/dreverettmann",
+      "comment": "",
+      "date": "2013-04-01T03:31:00"
+    },
+    {
+      "author": "DrKens",
+      "author_href": "https://www.wikidot.com/user:info/drkens",
+      "comment": "You successfully reverted the page to revision number 21",
+      "date": "2013-04-02T04:36:00"
+    },
+    {
+      "author": "Dr Anson",
+      "author_href": "https://www.wikidot.com/user:info/dr-anson",
+      "comment": "",
+      "date": "2013-09-01T19:43:00"
+    },
+    {
+      "author": "Dr Hossain",
+      "author_href": "https://www.wikidot.com/user:info/dr-hossain",
+      "comment": "",
+      "date": "2013-10-03T12:44:00"
+    },
+    {
+      "author": "Dr Hossain",
+      "author_href": "https://www.wikidot.com/user:info/dr-hossain",
+      "comment": "",
+      "date": "2013-10-03T12:44:00"
+    },
+    {
+      "author": "Dr Hossain",
+      "author_href": "https://www.wikidot.com/user:info/dr-hossain",
+      "comment": "",
+      "date": "2013-10-03T12:45:00"
+    },
+    {
+      "author": "DrEverettMann",
+      "author_href": "https://www.wikidot.com/user:info/dreverettmann",
+      "comment": "You successfully reverted the page to revision number 24",
+      "date": "2013-10-03T12:47:00"
+    },
+    {
+      "author": "Akumeoy",
+      "author_href": "https://www.wikidot.com/user:info/akumeoy",
+      "comment": "interview log bolding",
+      "date": "2013-10-07T01:02:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "",
+      "date": "2013-12-03T22:31:00"
+    },
+    {
+      "author": "tapnek",
+      "author_href": "https://www.wikidot.com/user:info/tapnek",
+      "comment": "You successfully reverted the page to revision number 29",
+      "date": "2013-12-04T00:42:00"
+    },
+    {
+      "author": "Hullox53",
+      "author_href": "https://www.wikidot.com/user:info/hullox53",
+      "comment": "",
+      "date": "2014-09-15T03:38:00"
+    },
+    {
+      "author": "Zyn",
+      "author_href": "https://www.wikidot.com/user:info/zyn",
+      "comment": "You successfully reverted the page to revision number 31",
+      "date": "2014-09-15T04:35:00"
+    },
+    {
+      "author": "O5-4",
+      "author_href": "https://www.wikidot.com/user:info/o5-4",
+      "comment": "added a picture for effect.",
+      "date": "2014-10-24T18:43:00"
+    },
+    {
+      "author": "O5-4",
+      "author_href": "https://www.wikidot.com/user:info/o5-4",
+      "comment": "A link to pictures of SCP-096",
+      "date": "2014-10-24T18:46:00"
+    },
+    {
+      "author": "Accelerando",
+      "author_href": "https://www.wikidot.com/user:info/accelerando",
+      "comment": "You successfully reverted the page to revision number 33",
+      "date": "2014-10-24T19:50:00"
+    },
+    {
+      "author": "dayday246",
+      "author_href": "https://www.wikidot.com/user:info/dayday246",
+      "comment": "Added O-5 note",
+      "date": "2015-10-24T21:00:00"
+    },
+    {
+      "author": "dayday246",
+      "author_href": "https://www.wikidot.com/user:info/dayday246",
+      "comment": "Removed unnecessary note",
+      "date": "2015-10-24T21:06:00"
+    },
+    {
+      "author": "Wogglebug",
+      "author_href": "https://www.wikidot.com/user:info/wogglebug",
+      "comment": "You successfully reverted the page to revision number 36",
+      "date": "2015-10-25T02:28:00"
+    },
+    {
+      "author": "anqxyr",
+      "author_href": "https://www.wikidot.com/user:info/anqxyr",
+      "comment": "add navigation links",
+      "date": "2017-06-06T15:16:00"
+    },
+    {
+      "author": "Zyn",
+      "author_href": "https://www.wikidot.com/user:info/zyn",
+      "comment": "Removed extra space before a period",
+      "date": "2018-05-16T23:53:00"
+    },
+    {
+      "author": "Elenee FishTruck",
+      "author_href": "https://www.wikidot.com/user:info/elenee-fishtruck",
+      "comment": "April Fools!",
+      "date": "2020-04-01T04:12:00"
+    },
+    {
+      "author": "Elenee FishTruck",
+      "author_href": "https://www.wikidot.com/user:info/elenee-fishtruck",
+      "comment": "You successfully reverted the page to revision number 41",
+      "date": "2020-04-02T03:43:00"
+    },
+    {
+      "author": "aismallard",
+      "author_href": "https://www.wikidot.com/user:info/aismallard",
+      "comment": "Added tags: visual. ",
+      "date": "2020-07-14T21:32:00"
+    },
+    {
+      "author": "UraniumEmpire",
+      "author_href": "https://www.wikidot.com/user:info/uraniumempire",
+      "comment": "Added tags: doctor-dan. ",
+      "date": "2020-11-12T20:44:00"
+    },
+    {
+      "author": "Hexick",
+      "author_href": "https://www.wikidot.com/user:info/hexick",
+      "comment": "Added tags: _licensebox. ",
+      "date": "2021-01-15T18:47:00"
+    },
+    {
+      "author": "Hexick",
+      "author_href": "https://www.wikidot.com/user:info/hexick",
+      "comment": "Added license box.",
+      "date": "2021-01-15T18:47:00"
+    },
+    {
+      "author": "TSATPWTCOTTTADC",
+      "author_href": "https://www.wikidot.com/user:info/tsatpwtcotttadc",
+      "comment": "2021 April Fools",
+      "date": "2021-04-01T04:13:00"
+    },
+    {
+      "author": "TSATPWTCOTTTADC",
+      "author_href": "https://www.wikidot.com/user:info/tsatpwtcotttadc",
+      "comment": "You successfully reverted the page to revision number 47",
+      "date": "2021-04-02T03:44:00"
+    },
+    {
+      "author": "stormbreath",
+      "author_href": "https://www.wikidot.com/user:info/stormbreath",
+      "comment": "Added tags: shy-guy. ",
+      "date": "2022-05-06T02:17:00"
+    },
+    {
+      "author": "psychicprogrammer",
+      "author_href": "https://www.wikidot.com/user:info/psychicprogrammer",
+      "comment": "Typolice log-> Log",
+      "date": "2024-01-22T22:22:00"
+    },
+    {
+      "author": "Erminustay",
+      "author_href": "https://www.wikidot.com/user:info/erminustay",
+      "comment": "Added tags: observational. ",
+      "date": "2024-05-12T12:22:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Added tags: correspondence. ",
+      "date": "2024-10-01T18:24:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Removed tags: correspondence. ",
+      "date": "2024-10-01T18:25:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Added tags: murder-monster. ",
+      "date": "2024-10-01T18:25:00"
+    },
+    {
+      "author": "ParallelPotatoes",
+      "author_href": "https://www.wikidot.com/user:info/parallelpotatoes",
+      "comment": "April fools edit",
+      "date": "2025-04-01T15:46:00"
+    },
+    {
+      "author": "ParallelPotatoes",
+      "author_href": "https://www.wikidot.com/user:info/parallelpotatoes",
+      "comment": "You successfully reverted the page to revision number 55",
+      "date": "2025-04-02T12:17:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Added tags: horror, military-fiction. ",
+      "date": "2025-09-06T16:53:00"
+    }
+  ],
+  "hubs": [
+    "art-contest-hub-series-1",
+    "april-fools-2021",
+    "april-fools-2020",
+    "algorithm-curated-recommendations",
+    "audio-adaptations",
+    "scp-series"
+  ],
+  "images": [],
+  "link": "scp-096",
+  "page_id": "4711778",
+  "rating": 5003,
+  "raw_content": "<html><body><div id=\"page-content\">\n\n<p><strong>Item #:</strong> SCP-096</p>\n<p><strong>Object Class:</strong> Euclid</p>\n<p><strong>Special Containment Procedures:</strong> SCP-096 is to be contained in its cell, a 5 m x 5 m x 5 m airtight steel cube, at all times. Weekly checks for any cracks or holes are mandatory. There are to be absolutely no video surveillance or optical tools of any kind inside SCP-096's cell. Security personnel will use pre-installed pressure sensors and laser detectors to ensure SCP-096's presence inside the cell.</p>\n<p>Any and all photos, video, or recordings of SCP-096's likeness are strictly forbidden without approval from Dr. ███ and O5-█.</p>\n<p><strong>Description:</strong> SCP-096 is a humanoid creature measuring approximately 2.38 meters in height. Subject shows very little muscle mass, with preliminary analysis of body mass suggesting mild malnutrition. Arms are grossly out of proportion with the rest of the subject's body, with an approximate length of 1.5 meters each. Skin is mostly devoid of pigmentation, with no sign of any body hair.</p>\n<p>SCP-096's jaw can open to four (4) times the norm of an average human. Other facial features remain similar to an average human, with the exception of the eyes, which are also devoid of pigmentation. It is not yet known whether SCP-096 is blind or not. It shows no signs of any higher brain functions, and is not considered to be sapient.</p>\n<p>SCP-096 is normally extremely docile, with pressure sensors inside its cell indicating it spends most of the day pacing by the eastern wall. However, when someone views SCP-096's face, whether it be directly, via video recording, or even a photograph, it will enter a stage of considerable emotional distress. SCP-096 will cover its face with its hands and begin screaming, crying, and babbling incoherently. Approximately one (1) to two (2) minutes after the first viewing, SCP-096 will begin running to the person who viewed its face (who will from this point on be referred to as SCP-096-1).</p>\n<p>Documented speeds have varied from thirty-five (35) km/h to ███ km/h, and seems to depend on distance from SCP-096-1. At this point, no known material or method can impede SCP-096's progress. The actual position of SCP-096-1 does not seem to affect SCP-096's response; it seems to have an innate sense of SCP-096-1's location. Note: This reaction does not occur when viewing artistic depictions (see <a href=\"/document-096-1\">Document 096-1</a>).</p>\n<p>Upon arriving at SCP-096-1's location, SCP-096 will proceed to kill and [DATA EXPUNGED] SCP-096-1. 100% of cases have left no traces of SCP-096-1. SCP-096 will then sit down for several minutes before regaining its composure and becoming docile once again. It will then attempt to make its way back to its natural habitat, [DATA REDACTED]</p>\n<p>Due to the possibility of a mass chain reaction, including breach of Foundation secrecy and large civilian loss of life, retrieval of subject should be considered Alpha priority.</p>\n<p>Dr. ███ has also petitioned for immediate termination of SCP-096 (see Interview 096-1). <span style=\"text-decoration: line-through;\">Order is awaiting approval.</span> Termination order has been approved, and is to be carried out by Dr. ███ on [DATA REDACTED]. See <a href=\"/incident-096-1-a\">Incident-096-1-A</a>.</p>\n<hr/>\n<p><strong>Audio log from Interview 096-1:</strong></p>\n<p><strong>Interviewer: Dr. ███</strong><br/>\n<strong>Interviewed: Captain (Ret.) █████████, former commander of retrieval team Zulu 9-A</strong><br/>\n<strong>Retrieval Incident #096-1-A</strong></p>\n<blockquote>\n<p><strong>&lt;Begin Log&gt;</strong></p>\n<p>[████████ ████████ Time, Research Area ██]</p>\n<p><strong>Capt. █████████:</strong> It always sucks ass to get Initial Retrieval duty. You have no idea what the damn thing is capable of besides what jacked up information the field techies can scrape up, and you're lucky if they even tell you the whole story. They told us to \"bag and tag.\" Didn't tell us jackshit about not looking at the damn thing.</p>\n<p><strong>Dr. ███:</strong> Could you describe the mission, please?</p>\n<p><strong>Capt. █████████:</strong> Yeah, sorry. We had two choppers, one with my team and one on backup with Zulu 9-B and Dr. ██████. We spotted the target about two clicks north of our patrol path. I'm guessing he wasn't facing our direction, else he would have taken us out then and there.</p>\n<p><strong>Dr. ███:</strong> Your report says SCP-096 didn't react to the cold? It was -██<sup>o</sup> C.</p>\n<p><strong>Capt. █████████:</strong> Actually, it was -██. And yes, it was butt naked and didn't so much as shiver. Anyway, we landed, approached the target, and Corporal ██ got ready to bag it. That's when Dr. ██████ called. I turned to answer it, and that's what saved me. The target must have turned and my whole squad saw it.</p>\n<p><strong>Dr. ███:</strong> That's when SCP-096 entered an agitated emotional state?</p>\n<p><strong>Capt. █████████:</strong> Yep. [Interviewed now pauses for a second before continuing] Sorry. Got the willies for a second.</p>\n<p><strong>Dr. ███:</strong> That's all right.</p>\n<p><strong>Capt. █████████:</strong> Yeah. Well, I never saw its face. My squad did, and they paid for it up the ass.</p>\n<p><strong>Dr. ███:</strong> Could you describe it a little more, please?</p>\n<p><strong>Capt. █████████:</strong> [Pauses] Yeah, yeah. It started screaming at us, and crying. Not animal roaring though, sounded exactly like a person. Really fucking creepy. [Pauses again] We started firing when it picked up Corporal ██ and ripped off his leg. God, he was screaming for our help… fuckin 'A… anyway, we were blowing chunks out of the target, round after round. Didn't do jackshit. I almost lost it when it started [DATA EXPUNGED] him.<br/>\n<br/>\n<strong>Dr. ███:</strong> That's when you ordered the use of an [Papers are heard moving] AT-4 HEDT launcher?</p>\n<p><strong>Capt. █████████:</strong> An anti-tank gun. Started carrying it ever since SCP-███ got loose. I've seen those tear through tanks like tissue paper. Did the same thing to the target.</p>\n<p><strong>Dr. ███:</strong> There was significant damage to SCP-096?</p>\n<p><strong>Capt. █████████:</strong> It didn't even fucking flinch. It kept tearing apart my squad, but with half of its torso gone. [He draws a large half-circle across his torso]</p>\n<p><strong>Dr. ███:</strong> But it was taking damage?</p>\n<p><strong>Capt. █████████:</strong> If it was, it wasn't showing it. It must have lost all its organs, all its blood, but it didn't acknowledge any of it. Its bone structure wasn't hurt at all, though. It kept tearing my squad apart.</p>\n<p><strong>Dr. ███:</strong> So no actual structural damage. How many rounds would you say were fired at SCP-096?<br/>\n<br/>\n<strong>Capt. █████████:</strong> At the least? A thousand. Our door gunner kept his GAU-19 on it for at least twenty seconds. Twenty fucking seconds. That's six hundred .50 caliber rounds pumped into the thing. Might as well been spitting at it.</p>\n<p><strong>Dr. ███:</strong> This is when Zulu 9-B arrived?</p>\n<p><strong>Capt. █████████:</strong> Yeah, and my squad was gone. Zulu 9-B managed to get the bag over its head, and it just sat down. We got it into the chopper and got it here. I don't know how I never saw its face. Maybe God or Buddha or whoever thought I should live. The jackass.</p>\n<p><strong>Dr. ███:</strong> We have obtained an artist's depiction of SCP-096's face. Would you like to view it?</p>\n<p><strong>Capt. █████████:</strong> [Pauses] You know, after hearing that thing's screams, and the screams of my men, I don't think I want to put a face to what I heard. No. Just… no.</p>\n<p><strong>Dr. ███:</strong> All right, I believe we are done here. Thank you, Captain.</p>\n<p>[Chairs are heard moving, and footsteps leave the room. Captain (Ret.) █████████ is confirmed to have left Interview Room 22.]</p>\n<p><strong>Dr. ███:</strong> Let this be on record that I am formally requesting SCP-096 be terminated as soon as possible.</p>\n<p><strong>&lt;End Log&gt;</strong></p>\n</blockquote>\n\n<div class=\"licensebox\">\n<div class=\"collapsible-block\">\n<div class=\"collapsible-block-folded\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Licensing / Citation</a></div>\n<div class=\"collapsible-block-unfolded\" style=\"display:none\">\n<div class=\"collapsible-block-unfolded-link\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Hide Licensing / Citation</a></div>\n<div class=\"collapsible-block-content\">\n<p>Cite this page as:</p>\n<div class=\"list-pages-box\"> <div class=\"list-pages-item\">\n<blockquote>\n<p>\"<a href=\"/scp-096\">SCP-096</a>\" by Dr Dan, from the <a href=\"https://scpwiki.com\">SCP Wiki</a>. Source: <a href=\"https://scpwiki.com/scp-096\">https://scpwiki.com/scp-096</a>. Licensed under <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA</a>.</p>\n</blockquote>\n</div>\n</div>\n<p>For information on how to use this component, see the <a href=\"/component:license-box\">License Box component</a>. To read about licensing policy, see the <a href=\"/licensing-guide\">Licensing Guide</a>.</p>\n</div>\n</div>\n</div>\n</div>\n</div></body></html>",
+  "raw_source": "\n\t[[>]]\n\n[[module Rate]]\n\n[[/>]]\n\n \n\n**Item #:** SCP-096\n\n \n\n**Object Class:** Euclid\n\n \n\n**Special Containment Procedures:** SCP-096 is to be contained in its cell, a 5 m x 5 m x 5 m airtight steel cube, at all times. Weekly checks for any cracks or holes are mandatory. There are to be absolutely no video surveillance or optical tools of any kind inside SCP-096's cell. Security personnel will use pre-installed pressure sensors and laser detectors to ensure SCP-096's presence inside the cell.\n\n \n\nAny and all photos, video, or recordings of SCP-096's likeness are strictly forbidden without approval from Dr. ███ and O5-█.\n\n \n\n**Description:** SCP-096 is a humanoid creature measuring approximately 2.38 meters in height. Subject shows very little muscle mass, with preliminary analysis of body mass suggesting mild malnutrition. Arms are grossly out of proportion with the rest of the subject's body, with an approximate length of 1.5 meters each. Skin is mostly devoid of pigmentation, with no sign of any body hair.\n\n \n\nSCP-096's jaw can open to four (4) times the norm of an average human. Other facial features remain similar to an average human, with the exception of the eyes, which are also devoid of pigmentation. It is not yet known whether SCP-096 is blind or not. It shows no signs of any higher brain functions, and is not considered to be sapient.\n\n \n\nSCP-096 is normally extremely docile, with pressure sensors inside its cell indicating it spends most of the day pacing by the eastern wall. However, when someone views SCP-096's face, whether it be directly, via video recording, or even a photograph, it will enter a stage of considerable emotional distress. SCP-096 will cover its face with its hands and begin screaming, crying, and babbling incoherently. Approximately one (1) to two (2) minutes after the first viewing, SCP-096 will begin running to the person who viewed its face (who will from this point on be referred to as SCP-096-1). \n\n\n\nDocumented speeds have varied from thirty-five (35) km/h to ███ km/h, and seems to depend on distance from SCP-096-1. At this point, no known material or method can impede SCP-096's progress. The actual position of SCP-096-1 does not seem to affect SCP-096's response; it seems to have an innate sense of SCP-096-1's location. Note: This reaction does not occur when viewing artistic depictions (see [[[Document 096-1]]]).\n\n \n\nUpon arriving at SCP-096-1's location, SCP-096 will proceed to kill and [DATA EXPUNGED] SCP-096-1. 100% of cases have left no traces of SCP-096-1. SCP-096 will then sit down for several minutes before regaining its composure and becoming docile once again. It will then attempt to make its way back to its natural habitat, [DATA REDACTED]\n\n \n\nDue to the possibility of a mass chain reaction, including breach of Foundation secrecy and large civilian loss of life, retrieval of subject should be considered Alpha priority.\n\n \n\nDr. ███ has also petitioned for immediate termination of SCP-096 (see Interview 096-1). --Order is awaiting approval.-- Termination order has been approved, and is to be carried out by Dr. ███ on [DATA REDACTED]. See [[[Incident-096-1-A]]].\n\n\n\n----\n\n\n\n**Audio log from Interview 096-1:**\n\n\n\n**Interviewer: Dr. ███**\n\n**Interviewed: Captain (Ret.) █████████, former commander of retrieval team Zulu 9-A**\n\n**Retrieval Incident #096-1-A**\n\n\n\n> **<Begin Log>**\n\n> \n\n> [[09:14 ████████ ████████ Time, Research Area ██]]\n\n> \n\n> **Capt. █████████:** It always sucks ass to get Initial Retrieval duty. You have no idea what the damn thing is capable of besides what jacked up information the field techies can scrape up, and you're lucky if they even tell you the whole story. They told us to \"bag and tag.\" Didn't tell us jackshit about not looking at the damn thing.\n\n> \n\n> **Dr. ███:** Could you describe the mission, please?\n\n> \n\n> **Capt. █████████:** Yeah, sorry. We had two choppers, one with my team and one on backup with Zulu 9-B and Dr. ██████. We spotted the target about two clicks north of our patrol path. I'm guessing he wasn't facing our direction, else he would have taken us out then and there.\n\n> \n\n> **Dr. ███:** Your report says SCP-096 didn't react to the cold? It was -██^^o^^ C.\n\n> \n\n> **Capt. █████████:** Actually, it was -██. And yes, it was butt naked and didn't so much as shiver. Anyway, we landed, approached the target, and Corporal ██ got ready to bag it. That's when Dr. ██████ called. I turned to answer it, and that's what saved me. The target must have turned and my whole squad saw it.\n\n> \n\n> **Dr. ███:** That's when SCP-096 entered an agitated emotional state?\n\n> \n\n> **Capt. █████████:** Yep. [Interviewed now pauses for a second before continuing] Sorry. Got the willies for a second.\n\n> \n\n> **Dr. ███:** That's all right.\n\n> \n\n> **Capt. █████████:** Yeah. Well, I never saw its face. My squad did, and they paid for it up the ass.\n\n> \n\n> **Dr. ███:** Could you describe it a little more, please?\n\n> \n\n> **Capt. █████████:** [Pauses] Yeah, yeah. It started screaming at us, and crying. Not animal roaring though, sounded exactly like a person. Really fucking creepy. [Pauses again] We started firing when it picked up Corporal ██ and ripped off his leg. God, he was screaming for our help... fuckin 'A... anyway, we were blowing chunks out of the target, round after round. Didn't do jackshit. I almost lost it when it started [DATA EXPUNGED] him.\n\n>  \n\n> **Dr. ███:** That's when you ordered the use of an [Papers are heard moving] AT-4 HEDT launcher?\n\n> \n\n> **Capt. █████████:** An anti-tank gun. Started carrying it ever since SCP-███ got loose. I've seen those tear through tanks like tissue paper. Did the same thing to the target.\n\n> \n\n> **Dr. ███:** There was significant damage to SCP-096?\n\n> \n\n> **Capt. █████████:** It didn't even fucking flinch. It kept tearing apart my squad, but with half of its torso gone. [He draws a large half-circle across his torso]\n\n> \n\n> **Dr. ███:** But it was taking damage?\n\n> \n\n> **Capt. █████████:** If it was, it wasn't showing it. It must have lost all its organs, all its blood, but it didn't acknowledge any of it. Its bone structure wasn't hurt at all, though. It kept tearing my squad apart.\n\n> \n\n> **Dr. ███:** So no actual structural damage. How many rounds would you say were fired at SCP-096?\n\n>  \n\n> **Capt. █████████:** At the least? A thousand. Our door gunner kept his GAU-19 on it for at least twenty seconds. Twenty fucking seconds. That's six hundred .50 caliber rounds pumped into the thing. Might as well been spitting at it.\n\n> \n\n> **Dr. ███:** This is when Zulu 9-B arrived?\n\n> \n\n> **Capt. █████████:** Yeah, and my squad was gone. Zulu 9-B managed to get the bag over its head, and it just sat down. We got it into the chopper and got it here. I don't know how I never saw its face. Maybe God or Buddha or whoever thought I should live. The jackass.\n\n> \n\n> **Dr. ███:** We have obtained an artist's depiction of SCP-096's face. Would you like to view it?\n\n> \n\n> **Capt. █████████:** [Pauses] You know, after hearing that thing's screams, and the screams of my men, I don't think I want to put a face to what I heard. No. Just... no.\n\n> \n\n> **Dr. ███:** All right, I believe we are done here. Thank you, Captain.\n\n> \n\n> [Chairs are heard moving, and footsteps leave the room. Captain (Ret.) █████████ is confirmed to have left Interview Room 22.]\n\n> \n\n> **Dr. ███:** Let this be on record that I am formally requesting SCP-096 be terminated as soon as possible.\n\n> \n\n> **<End Log>**\n\n\n\n[[footnoteblock]]\n\n\n\n[[div class=\"footer-wikiwalk-nav\"]]\n\n[[=]]\n\n<< [[[SCP-095]]] | SCP-096 | [[[SCP-097]]] >>\n\n[[/=]]\n\n[[/div]]\n\n\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box\">:scp-wiki:component:license-box</a>]]\n\n[!-- N/A (No Images)  --]\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box-end\">:scp-wiki:component:license-box-end</a>]]\n",
+  "references": [
+    "document-096-1",
+    "incident-096-1-a",
+    "scp-095",
+    "scp-097",
+    "component:license-box",
+    "licensing-guide"
+  ],
+  "scp": "SCP-096",
+  "scp_number": 96,
+  "series": "series-1",
+  "tags": [
+    "_licensebox",
+    "alive",
+    "cognitohazard",
+    "doctor-dan",
+    "euclid",
+    "horror",
+    "humanoid",
+    "military-fiction",
+    "murder-monster",
+    "observational",
+    "scp",
+    "shy-guy",
+    "visual"
+  ],
+  "title": "SCP-096",
+  "url": "https://scp-wiki.wikidot.com/scp-096"
+}

@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WornOrderChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>WornOrderChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class WornOrderChecks
+{
+    public static int Run(string map, string config)
+    {
+        var count = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Worn order: &quot; + reason); count++; }
+        SpatialSimulation Sim() { var s = new SpatialSimulation(map, config); s.Player.Cell = new(13, 6); return s; }
+        InventoryRequest Move(string id, string region, string parent = &quot;person:avatar&quot;, int x = 0, int y = 0)
+            =&gt; new(InventoryActionKind.Move, id, new(parent, region, x, y));
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 2000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;paid work resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest request) { Check(s.HandleInventory(request), s.LastMessage); Finish(s); }
+        var sim = Sim(); var inv = sim.Inventory;
+        var shirt = inv.Items[&quot;avatar-shirt&quot;]; var pack = inv.Items[&quot;avatar-backpack&quot;];
+        Check(InventoryWornOrder.Layers(inv, shirt.Id).All(l =&gt; l.Layer == 0), &quot;shirt is on skin despite authored layer 1&quot;);
+        Check(InventoryWornOrder.Layers(inv, pack.Id).Max(l =&gt; l.Layer) == 2, &quot;pack is third on the chest, independent of its authored 5&quot;);
+        Check(InventoryWornOrder.Layers(inv, &quot;avatar-shoes&quot;).All(l =&gt; l.Layer is 1 or 2), &quot;local foot layers include physical trouser overlap while ignoring chest clothing&quot;);
+        var before = sim.Save();
+        var row = sim.InventoryEquipment.Single(e =&gt; e.ItemId == shirt.Id &amp;&amp; e.Group == &quot;Chest&quot;);
+        Check(row.Layers.All(l =&gt; l.Layer == 0) &amp;&amp; !row.Access.Allowed &amp;&amp; sim.Save() == before,
+            &quot;own known equipment projection gives actual layers without granting manipulation or changing state&quot;);
+        Check(!sim.InventoryEquipment.Any(e =&gt; e.ItemId == &quot;gum-packet&quot;), &quot;equipment list cannot reveal nested contents&quot;);
+        // Put the pack aside, undress the jacket and re-dress in the opposite valid order through normal paid actions.
+        Act(sim, Move(pack.Id, &quot;store&quot;, &quot;fixture:crate-a&quot;, 0, 8));
+        Act(sim, Move(&quot;avatar-coat&quot;, &quot;hand&quot;));
+        Act(sim, new(InventoryActionKind.AutoPlace, shirt.Id, new(&quot;fixture:crate-a&quot;, &quot;store&quot;)));
+        Check(inv.Items[shirt.Id].Placement.WornOrder is null, &quot;taking gear off clears its worn-only order&quot;);
+        Act(sim, Move(&quot;avatar-coat&quot;, &quot;outerwear&quot;));
+        Check(sim.HandleInventory(Move(shirt.Id, &quot;torso&quot;)), sim.LastMessage);
+        var pending = sim.Save(); var held = inv.Items[shirt.Id].Placement;
+        Check(held.ParentId == &quot;fixture:crate-a&quot; &amp;&amp; sim.Inventory.Pending!.Request.Destination!.WornOrder is &gt; 0,
+            &quot;a paid dress action records its resolved order but leaves the source unchanged&quot;);
+        var clone = Sim(); clone.Restore(pending); Check(clone.Save() == pending, &quot;pending dressing restores exactly&quot;);
+        Finish(sim); Finish(clone); Check(sim.Save() == clone.Save(), &quot;restored dressing commits identical order and timing&quot;);
+        Check(InventoryWornOrder.Order(inv.Items[shirt.Id]) &gt; InventoryWornOrder.Order(inv.Items[&quot;avatar-coat&quot;])
+            &amp;&amp; InventoryWornOrder.Layers(inv, shirt.Id).All(l =&gt; l.Layer == 1), &quot;shirt can now be worn above the light jacket&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;avatar-coat&quot;, &quot;hand&quot;)).Allowed
+            &amp;&amp; !sim.QuoteInventory(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;)).Allowed,
+            &quot;the real outer shirt blocks jacket removal and access to its fastening&quot;);
+        Check(sim.InventoryPocketCoverage(&quot;avatar-coat&quot;, &quot;chest&quot;)?.Covered == true, &quot;pocket cover follows the reversed actual order&quot;);
+        before = sim.Save();
+        var forged = Move(shirt.Id, &quot;torso&quot;) with { Destination = inv.Items[shirt.Id].Placement with { WornOrder = 1 } };
+        Check(!sim.HandleInventory(forged) &amp;&amp; sim.Save() == before, &quot;an explicit request cannot reorder a worn garment for free&quot;);
+        var coatIndex = Array.FindIndex(inv.Content!.Definitions, d =&gt; d.Id == &quot;coat&quot;);
+        inv.Content.Definitions[coatIndex] = inv.Content.Definitions[coatIndex] with { Wear = inv.Content.Definitions[coatIndex].Wear! with { Layer = 9 } };
+        Check(InventoryWornOrder.Layers(inv, shirt.Id).All(l =&gt; l.Layer == 1) &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-coat&quot;).Allowed,
+            &quot;editing a legacy authored rank cannot change actual order, display or removal restrictions&quot;);
+        Act(sim, Move(shirt.Id, &quot;hand&quot;));
+        Check(InventoryWornOrder.Layers(inv, &quot;avatar-coat&quot;).Where(l =&gt; l.Region.StartsWith(&quot;torso&quot;)).All(l =&gt; l.Layer == 0),
+            &quot;removing the outer garment leaves no gaps in local layers&quot;);
+        // A pack over just a shirt has depth 1, and an attempted insertion underneath it is not an equip shortcut.
+        sim = Sim(); inv = sim.Inventory;
+        Act(sim, Move(&quot;avatar-backpack&quot;, &quot;store&quot;, &quot;fixture:crate-a&quot;, 0, 8));
+        Act(sim, Move(&quot;avatar-coat&quot;, &quot;hand&quot;));
+        Act(sim, Move(&quot;avatar-backpack&quot;, &quot;back&quot;));
+        Check(InventoryWornOrder.Layers(inv, &quot;avatar-backpack&quot;).Max(l =&gt; l.Layer) == 1, &quot;outer pack fits at actual depth 1 over one shirt&quot;);
+        before = sim.Save();
+        Check(!sim.HandleInventory(Move(&quot;avatar-coat&quot;, &quot;outerwear&quot;)) &amp;&amp; sim.Save() == before,
+            &quot;a pack must be removed before dressing another overlapping garment&quot;);
+        void Reject(string saved, Action&lt;JsonNode&gt; change)
+        {
+            var victim = Sim(); var safe = victim.Save(); var json = JsonNode.Parse(saved)!; change(json);
+            try { victim.Restore(json.ToJsonString()); throw new Exception(&quot;Invalid worn save accepted&quot;); }
+            catch (ArgumentException) { Check(victim.Save() == safe, &quot;invalid worn save rejects atomically&quot;); }
+        }
+        JsonNode Item(JsonNode n, string id) =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().Single(i =&gt; i![&quot;Id&quot;]!.GetValue&lt;string&gt;() == id)!;
+        Reject(before, n =&gt; Item(n, &quot;avatar-shirt&quot;)[&quot;Placement&quot;]![&quot;WornOrder&quot;] = null);
+        Reject(before, n =&gt; Item(n, &quot;avatar-backpack&quot;)[&quot;Placement&quot;]![&quot;WornOrder&quot;] = Item(n, &quot;avatar-shirt&quot;)[&quot;Placement&quot;]![&quot;WornOrder&quot;]!.DeepClone());
+        Reject(before, n =&gt; Item(n, &quot;avatar-shirt&quot;)[&quot;Placement&quot;]![&quot;WornOrder&quot;] = -1);
+        Reject(before, n =&gt; Item(n, &quot;flashlight&quot;)[&quot;Placement&quot;]![&quot;WornOrder&quot;] = 7);
+        Reject(before, n =&gt; n[&quot;Version&quot;] = 13);
+        Reject(pending, n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;WornOrder&quot;] = null);
+        Reject(pending, n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;WornOrder&quot;] = 1);
+        Console.WriteLine($&quot;WORN_ORDER_CHECKS_PASS: {count} assertions; actual dressing, local primary layers, reversed cover, canonical work and atomic persistence.&quot;);
+        return count;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/WornOrderChecks.cs</footer></main></div></body></html>

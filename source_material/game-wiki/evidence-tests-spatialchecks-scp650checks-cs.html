@@ -1,0 +1,168 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/Scp650Checks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>Scp650Checks.cs</h1><pre>using SiteSimulation;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+internal static class Scp650Checks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool condition, string detail)
+        { if (!condition) throw new Exception(&quot;SCP650: &quot; + detail); passed++; }
+        SpatialSimulation Sim() =&gt; new(json);
+        var observed = Sim();
+        var origin = observed.Anomalies.Bodies.Single().Cell;
+        for (var i = 0; i &lt; 400; i++) observed.Tick();
+        var report = observed.InspectAnomalies().Single();
+        Check(report.Observation.EligibleIds.SequenceEqual(new[] { &quot;observer&quot; }), &quot;one human observer should hold the statue&quot;);
+        Check(report.Relocations == 0 &amp;&amp; observed.Anomalies.Bodies.Single().Cell == origin &amp;&amp; report.Pose == 0,
+            &quot;understaffing is not observation loss; pose/location must stay fixed&quot;);
+
+        var redundant = Sim();
+        redundant.Player.Cell = new(9, -2);
+        redundant.Face(redundant.Anomalies.Bodies.Single().Cell.World);
+        Check(redundant.InspectAnomalies().Single().Observation.EligibleIds.Length == 2, &quot;two real observers must share coverage&quot;);
+        redundant.BlinkPlayer();
+        Check(redundant.InspectAnomalies().Single().Relocations == 0, &quot;a second human must preserve observation through avatar blink&quot;);
+        for (var i = 0; i &lt; 3; i++) redundant.Tick();
+        redundant.ToggleObserverAttention();
+        Check(redundant.InspectAnomalies().Single().Relocations == 0, &quot;the avatar alone must preserve observation after guard distraction&quot;);
+        redundant.BlinkPlayer();
+        Check(redundant.InspectAnomalies().Single().Relocations == 1, &quot;last-human blink must release relocation immediately&quot;);
+        Check(redundant.Anomalies.Bodies.Single().Pose is 1 or 2, &quot;unfamiliar witness should receive a threatening pose&quot;);
+
+        var sim = Sim();
+        sim.ToggleObserverAttention();
+        Check(sim.InspectAnomalies().Single().Relocations == 1, &quot;last-observer loss must resolve at the command boundary&quot;);
+        var relocated = sim.Anomalies.Bodies.Single();
+        Check(relocated.Cell != origin &amp;&amp; relocated.Pose is &gt;= 0 and &lt; 6, &quot;relocation must choose valid location and discrete pose&quot;);
+        Check(sim.Map.DynamicBlockers.Contains(relocated.Cell) &amp;&amp; !sim.Map.DynamicBlockers.Contains(origin), &quot;location/collision update must be atomic&quot;);
+        Check(!sim.InspectAnomalies().Single().Observation.Observed, &quot;destination must not already be observed&quot;);
+        Check(sim.Actors.All(a =&gt; a.Cell != relocated.Cell &amp;&amp; (!a.Moving || a.Route[0] != relocated.Cell)), &quot;no body/reservation overlap&quot;);
+        Check(sim.Trace.Entries.Any(e =&gt; e.Event == &quot;observation-lost&quot;) &amp;&amp; sim.Trace.Entries.Any(e =&gt; e.Event == &quot;relocated&quot;), &quot;causal transition must be inspectable&quot;);
+        Check(!sim.Trace.Entries.Any(e =&gt; e.Event is &quot;sound&quot; or &quot;attack&quot;), &quot;relocation must not emit sound or attacks&quot;);
+        var saved = sim.Save();
+        for (var i = 0; i &lt; 20; i++) sim.InspectAnomalies();
+        Check(sim.Save() == saved, &quot;inspector cannot mutate RNG, pose, cooldown or trace&quot;);
+        var clone = Sim(); clone.Restore(saved);
+        Check(clone.Save() == saved, &quot;save after relocation must restore all module/host state&quot;);
+        for (var i = 0; i &lt; 200; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Save() == clone.Save(), &quot;continued relocation/reaction RNG must match after restore&quot;);
+
+        var held = Sim(); held.ToggleObserverAttention(); held.LocalHold = true;
+        var stateBeforeHold = JsonNode.Parse(held.Save())!;
+        held.ToggleObserverAttention(); held.ToggleLighting(); held.BlinkPlayer();
+        for (var i = 0; i &lt; 200; i++) held.Tick();
+        var stateAfterHold = JsonNode.Parse(held.Save())!;
+        Check(stateBeforeHold[&quot;Modules&quot;]!.ToJsonString() == stateAfterHold[&quot;Modules&quot;]!.ToJsonString()
+            &amp;&amp; stateBeforeHold[&quot;Bodies&quot;]!.ToJsonString() == stateAfterHold[&quot;Bodies&quot;]!.ToJsonString(), &quot;local hold must freeze module state and bodies&quot;);
+        Check(held.LocalMs == 0 &amp;&amp; held.WorldMs == 10000 &amp;&amp; held.OffsiteUpdates == 10, &quot;world must continue while local SCP progress waits&quot;);
+        var heldClone = Sim(); heldClone.Restore(held.Save());
+        Check(heldClone.Save() == held.Save(), &quot;save during local hold must not reroll the anomaly&quot;);
+        held.LocalHold = false; held.Tick();
+        Check(held.InspectAnomalies().Single().Relocations == 1, &quot;world time must not instantly expire the local cooldown on release&quot;);
+
+        var lighting = Sim(); lighting.ToggleLighting();
+        Check(lighting.InspectAnomalies().Single().Relocations == 1
+            &amp;&amp; lighting.InspectAnomalies().Single().Observation.Observers.All(o =&gt; o.Reason == &quot;unlit&quot;), &quot;real lighting changes affect observation&quot;);
+        var perception = Sim().Map;
+        var watcher = new ActorState { Id = &quot;test&quot;, Kind = &quot;npc&quot;, ObserverKind = &quot;human&quot;, Cell = new(9, 2), Facing = 5 };
+        var target = new Hex(9, 1).World;
+        Check(ObservationService.Inspect(perception, watcher, target, 0).Reason == &quot;occluded&quot;, &quot;closed door must block actual perception&quot;);
+        perception.OpenDoors.Add(&quot;door-4-3-u&quot;);
+        Check(ObservationService.Inspect(perception, watcher, target, 0).Detected, &quot;opening door restores actual sight&quot;);
+        watcher.EyesClosedUntilMs = 150;
+        Check(ObservationService.Inspect(perception, watcher, target, 0).Reason == &quot;eyes-closed&quot;, &quot;blink participates in observation&quot;);
+        Check(ObservationService.Inspect(perception, watcher, target, 150).Detected, &quot;blink ends at its local boundary&quot;);
+        watcher.ObserverKind = &quot;ai&quot;;
+        var artificial = ObservationService.Inspect(perception, watcher, target, 150, &quot;human&quot;);
+        Check(artificial.Detected &amp;&amp; !artificial.Eligible, &quot;AI can detect/report without counting as a human observer&quot;);
+        Check(ObservationService.Inspect(perception, watcher, target, 150, &quot;ai&quot;).Eligible
+            &amp;&amp; ObservationService.Inspect(perception, watcher, target, 150, &quot;any&quot;).Eligible, &quot;module-selectable AI/any profiles&quot;);
+
+        foreach (var profile in new[] { &quot;human&quot;, &quot;ai&quot;, &quot;any&quot; })
+        {
+            var config = JsonNode.Parse(json)!;
+            config[&quot;actors&quot;]![1]![&quot;observerKind&quot;] = &quot;ai&quot;;
+            config[&quot;anomalies&quot;]![0]![&quot;observerProfile&quot;] = profile;
+            var variantJson = config.ToJsonString();
+            var variant = new SpatialSimulation(variantJson);
+            var status = variant.InspectAnomalies().Single();
+            Check(status.Observation.Observed == (profile != &quot;human&quot;), &quot;effective profile must be selected by content/scenario&quot;);
+            var variantClone = new SpatialSimulation(variantJson); variantClone.Restore(variant.Save());
+            Check(variant.Save() == variantClone.Save(), &quot;effective profile must survive save/load&quot;);
+        }
+        var gap = Sim(); gap.ToggleObserverAttention(); gap.ToggleObserverAttention();
+        Check(gap.LocalMs == 0 &amp;&amp; gap.InspectAnomalies().Single().Relocations == 1,
+            &quot;same-time loss/regain commands cannot erase an observation gap before the next tick&quot;);
+
+        watcher.ObserverKind = &quot;camera&quot;;
+        Check(!ObservationService.Inspect(perception, watcher, target, 150, &quot;any&quot;).Eligible,
+            &quot;an unregistered observer kind cannot turn an unattended camera into an eligible actor&quot;);
+
+        // Verify commit validation independently from the module&#x27;s proposed selection.
+        var world = new SimulationWorld(json);
+        var body = world.Anomalies.Bodies.Single();
+        var host = new AnomalyWorldAccess(world, body);
+        var query = new RelocationQuery(1, 3, true, &quot;human&quot;);
+        var choices = host.Candidates(&quot;human&quot;, query);
+        Check(choices.Count &gt; 0, &quot;fixture needs unobserved candidate cells&quot;);
+        Check(!host.TryRelocate(body.Revision, choices[0].Cell, 0, &quot;human&quot;, query, out var reason) &amp;&amp; reason == &quot;origin-observed&quot;,
+            &quot;host must recheck origin observation at commit&quot;);
+        world.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Attending = false;
+        var destination = host.Candidates(&quot;human&quot;, query).First(c =&gt; c.NearActorId == &quot;avatar&quot; &amp;&amp; c.Cell.World.Y &gt; 3 &amp;&amp; c.Cell.World.Y &lt; 5).Cell;
+        world.Player.Facing = ObservationService.FacingToward(world.Player.Position, destination.World, world.Player.Facing);
+        Check(!host.TryRelocate(body.Revision, destination, 0, &quot;human&quot;, query, out reason) &amp;&amp; reason == &quot;destination-observed&quot;, &quot;host must recheck destination observation&quot;);
+        world.Player.Attending = false; world.Player.Facing = 1;
+        Check(!world.Map.ClearSight(body.Cell.World, destination.World), &quot;fixture must put a closed ordinary wall/door between endpoints&quot;);
+        Check(host.TryRelocate(body.Revision, destination, 2, &quot;human&quot;, query, out _), &quot;self-relocation may cross a closed door; it is not pathfinding&quot;);
+        Check(!host.TryRelocate(0, choices[0].Cell, 1, &quot;human&quot;, query, out reason) &amp;&amp; reason == &quot;stale-body-revision&quot;, &quot;stale request must be rejected&quot;);
+        Check(!host.TryRelocate(body.Revision, choices[0].Cell, 1, &quot;ai&quot;, query, out reason) &amp;&amp; reason == &quot;observer-profile-mismatch&quot;, &quot;module cannot bypass the effective observer profile&quot;);
+        world.LocalHold = true;
+        Check(!host.TryRelocate(body.Revision, choices[0].Cell, 1, &quot;human&quot;, query, out reason) &amp;&amp; reason == &quot;local-held&quot;, &quot;host must enforce execution gate&quot;);
+
+        var retryWorld = new SimulationWorld(json);
+        retryWorld.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Attending = false;
+        var occupiedActors = retryWorld.Actors.Select(a =&gt; a.Cell).ToHashSet();
+        retryWorld.Map.DynamicBlockers.UnionWith(retryWorld.Map.Cells.Where(c =&gt; !occupiedActors.Contains(c)));
+        retryWorld.Anomalies.Evaluate(retryWorld, &quot;no-candidate-test&quot;);
+        var retry = retryWorld.Anomalies.Inspect(retryWorld).Single();
+        var retrySave = retryWorld.Anomalies.CaptureModules().Single().Json;
+        retryWorld.Anomalies.Evaluate(retryWorld, &quot;same-local-boundary&quot;);
+        Check(retry.Relocations == 0 &amp;&amp; retry.Candidates == 0 &amp;&amp; retry.NextEvaluationMs == 500, &quot;no-candidate policy must schedule bounded local retry&quot;);
+        Check(retryWorld.Anomalies.CaptureModules().Single().Json == retrySave &amp;&amp; retryWorld.Trace.Entries.Count == 1,
+            &quot;same-time retry must not loop, reroll or spam traces&quot;);
+
+        var discovery = Sim(); discovery.ToggleObserverAttention();
+        var statue = discovery.Anomalies.Bodies.Single();
+        var neighbor = Enumerable.Range(0, 6).Select(statue.Cell.Neighbor).First(c =&gt; discovery.Map.Walkable(c)
+            &amp;&amp; !discovery.Actors.Any(a =&gt; a.Cell == c) &amp;&amp; discovery.Map.ClearSight(c.World, statue.Cell.World));
+        discovery.Player.Cell = neighbor; discovery.Player.Route.Clear(); discovery.Player.SegmentMs = 0;
+        discovery.Face(statue.Cell.World);
+        var reactionCount = discovery.Trace.Entries.Count(e =&gt; e.Event == &quot;startled&quot; &amp;&amp; e.Subject == &quot;avatar&quot;);
+        Check(reactionCount == 1 &amp;&amp; discovery.Player.StartledUntilMs == discovery.LocalMs + 400, &quot;first discovery produces a witness-specific local interruption&quot;);
+        discovery.Face(statue.Cell.World); discovery.Face(statue.Cell.World);
+        Check(discovery.Trace.Entries.Count(e =&gt; e.Event == &quot;startled&quot; &amp;&amp; e.Subject == &quot;avatar&quot;) == 1, &quot;same encounter must not repeatedly startle a witness&quot;);
+        var pose = statue.Pose; var cellBefore = statue.Cell;
+        for (var i = 0; i &lt; 80; i++) discovery.Tick();
+        Check(statue.Cell == cellBefore &amp;&amp; statue.Pose == pose, &quot;establishing observation stabilizes position and pose&quot;);
+
+        var baseSave = discovery.Save();
+        void Reject(Action&lt;JsonNode&gt; corrupt)
+        {
+            var bad = JsonNode.Parse(baseSave)!; corrupt(bad);
+            try { discovery.Restore(bad.ToJsonString()); throw new Exception(&quot;Corrupt module save accepted.&quot;); }
+            catch (ArgumentException) { Check(discovery.Save() == baseSave, &quot;failed restore must leave every live system intact&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Bodies&quot;]![0]![&quot;Pose&quot;] = 99);
+        Reject(n =&gt; n[&quot;Bodies&quot;]![0]![&quot;Cell&quot;] = JsonSerializer.SerializeToNode(discovery.Player.Cell));
+        Reject(n =&gt;
+        {
+            var module = JsonNode.Parse(n[&quot;Modules&quot;]![0]![&quot;Json&quot;]!.GetValue&lt;string&gt;())!;
+            module[&quot;RandomState&quot;] = 0; n[&quot;Modules&quot;]![0]![&quot;Json&quot;] = module.ToJsonString();
+        });
+        Console.WriteLine($&quot;SCP650_CHECKS_PASS: {passed} assertions; observation, host validation, relocation, discovery, holds and module saves.&quot;);
+        return passed;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

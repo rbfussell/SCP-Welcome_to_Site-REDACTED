@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.CheckPlayerCutaway | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.CheckPlayerCutaway</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-cutawaysmoke-cs.html#L10">game/Presentation/SpatialScene.CutawaySmoke.cs:10</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async Task CheckPlayerCutaway()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-02f945823908ec349f6d.html">SpatialScene.SmokeKey</a></li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-13466eeb084032b68d05.html">PlayerLogPanel.Refresh</a></li><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a></li><li><a href="function-39be252f6ed553406ed8.html">InventoryPaperdollProof.Refresh</a></li><li><a href="function-3e362d9e34e5e362eaf2.html">WorldView.Screen</a></li><li><a href="function-3ec3b1f1125d97e46430.html">CombatPanel.Refresh</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-5c5375315cb38e87abc1.html">SpatialScene.RefreshCamera</a></li><li><a href="function-5ed8f259fbd4a06a821f.html">SpatialHud.Refresh</a></li><li><a href="function-6edf60e779cf0c0972c1.html">Hex.Distance</a></li><li><a href="function-7a17a78d60d2e193b978.html">FacilityMap.CanTraverse</a></li><li><a href="function-7fba12ee0d56ed3c707e.html">FieldPresentation.ShowActor</a></li><li><a href="function-90877b5fc9b9d4a29c81.html">GroundView.Refresh</a></li><li><a href="function-94f20583fb59e35a8ded.html">OscpWorkspace.Refresh</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-b077e0b23e612c329eda.html">SpatialScene.ResetCamera</a></li><li><a href="function-bbace76372b20138bb4e.html">InventoryContainerView.Refresh</a></li><li><a href="function-bd62e3a4b356b439e096.html">OperationsPanel.Refresh</a></li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a></li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a></li><li><a href="function-e30006ef22b1f95781ac.html">Point2.Length</a></li><li><a href="function-e6812d62c98b56c865d7.html">FieldPresentation.ShowAnomaly</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>player.Route.Clear
+_simulation.Map.Cells.Where(c =&gt; _simulation.Map.Walkable(c)
+            &amp;&amp; !_simulation.Actors.Any(a =&gt; a != player &amp;&amp; a.Cell == c))
+            .OrderBy(c =&gt; c.Distance(new(10, 10))).First
+_simulation.Map.Cells.Where(c =&gt; _simulation.Map.Walkable(c)
+            &amp;&amp; !_simulation.Actors.Any(a =&gt; a != player &amp;&amp; a.Cell == c))
+            .OrderBy
+_simulation.Map.Cells.Where
+_simulation.Map.Walkable
+_simulation.Actors.Any
+c.Distance
+_simulation.Map.SolidWalls.Any
+WorldView.Screen
+Geometry2D.IsPointInPolygon
+ResetCamera
+RefreshCamera
+_simulation.Save
+_simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))
+            .Concat(_simulation.Anomalies.Bodies.Select(a =&gt; FieldPresentation.ShowAnomaly(_simulation, a, false))).ToArray
+_simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))
+            .Concat
+_simulation.Actors.Select
+FieldPresentation.ShowActor
+_simulation.Anomalies.Bodies.Select
+FieldPresentation.ShowAnomaly
+_hud.Refresh
+_world.QueueRedraw
+ToSignal
+_world.GetGlobalTransform
+GetViewport().GetTexture().GetImage
+GetViewport().GetTexture
+GetViewport
+Path.Combine
+Path.GetDirectoryName
+Path.GetFileNameWithoutExtension
+opened.SavePng
+SmokeKey
+Input.FlushBufferedEvents
+closed.SavePng
+opened.GetWidth
+opened.GetHeight
+opened.GetPixel
+closed.GetPixel
+Math.Abs
+known.SequenceEqual
+_simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))
+                .Concat
+Enumerable.Range(0, 6).Select(player.Cell.Neighbor).First
+Enumerable.Range(0, 6).Select
+Enumerable.Range
+_simulation.Map.CanTraverse
+(_world.CutawayCenter - before - expected).Length
+GD.Print</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li></ul><h2>Related types</h2><ul><li><a href="type-fieldpresentation.html">FieldPresentation</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li><li><a href="type-stoppedstep.html">StoppedStep</a></li><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Implementation</h2><pre><code>private async Task CheckPlayerCutaway()
+    {
+        // Held authoring fixture: stand where a foreground wall covers the avatar&#x27;s torso.
+        _simulation.ManualPause = true;
+        var player = _simulation.Player;
+        player.Route.Clear(); player.SegmentMs = 0; player.StoppedStep = null; player.MoveGoal = null;
+        var cell = _simulation.Map.Cells.Where(c =&gt; _simulation.Map.Walkable(c)
+            &amp;&amp; !_simulation.Actors.Any(a =&gt; a != player &amp;&amp; a.Cell == c))
+            .OrderBy(c =&gt; c.Distance(new(10, 10))).First(c =&gt; _simulation.Map.SolidWalls.Any(w =&gt;
+            {
+                var feet = WorldView.Screen(c.World); var start = WorldView.Screen(w.Start); var end = WorldView.Screen(w.End);
+                return !w.Door &amp;&amp; WorldView.Screen(w.Center).Y &gt;= feet.Y &amp;&amp; Geometry2D.IsPointInPolygon(feet - new Vector2(0, 30),
+                    [start, end, end - new Vector2(0, 68), start - new Vector2(0, 68)]);
+            }));
+        player.Cell = cell; player.Facing = 1;
+        _world.FieldView = true; _world.Cutaway = true; _world.DiagnosticSprites = false;
+        ResetCamera(); RefreshCamera();
+        var baseline = _simulation.Save();
+        var known = _simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))
+            .Concat(_simulation.Anomalies.Bodies.Select(a =&gt; FieldPresentation.ShowAnomaly(_simulation, a, false))).ToArray();
+        _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;SOFT WALL CUTAWAY · HELD PRESENTATION FIXTURE&quot;);
+        _world.QueueRedraw();
+        await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+        if (_world.FeatheredWallFaces == 0 || _simulation.Save() != baseline)
+            throw new InvalidOperationException(&quot;Foreground-wall fixture must draw a cosmetic opening without changing world state.&quot;);
+        var center = _world.GetGlobalTransform() * _world.CutawayCenter;
+        var radius = _world.CutawayRadius * _zoom;
+        using var opened = GetViewport().GetTexture().GetImage();
+        var prefix = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath!));
+        if (opened.SavePng(prefix + &quot;-cutaway.png&quot;) != Error.Ok) throw new IOException(&quot;Cutaway capture failed.&quot;);
+        SmokeKey(Key.H); Input.FlushBufferedEvents(); _world.QueueRedraw();
+        await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+        if (_world.Cutaway || _world.FeatheredWallFaces != 0 || _simulation.Save() != baseline)
+            throw new InvalidOperationException(&quot;H must disable only the visual opening.&quot;);
+        using var closed = GetViewport().GetTexture().GetImage();
+        if (closed.SavePng(prefix + &quot;-cutaway-off.png&quot;) != Error.Ok) throw new IOException(&quot;Uncut wall capture failed.&quot;);
+        var changed = 0;
+        for (var y = (int)(center.Y - radius); y &lt; center.Y + radius; y += 2)
+        for (var x = (int)(center.X - radius); x &lt; center.X + radius; x += 2)
+        {
+            if (x &lt; 0 || y &lt; 0 || x &gt;= opened.GetWidth() || y &gt;= opened.GetHeight()) continue;
+            var a = opened.GetPixel(x, y); var b = closed.GetPixel(x, y);
+            if (Math.Abs(a.R - b.R) + Math.Abs(a.G - b.G) + Math.Abs(a.B - b.B) &gt; 0.04f) changed++;
+        }
+        if (changed &lt; 50) throw new InvalidOperationException(&quot;Opening must visibly clear the foreground wall around the avatar.&quot;);
+        SmokeKey(Key.H); Input.FlushBufferedEvents(); _world.QueueRedraw();
+        await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+        if (!_world.Cutaway || _world.FeatheredWallFaces == 0 || _simulation.Save() != baseline
+            || !known.SequenceEqual(_simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))
+                .Concat(_simulation.Anomalies.Bodies.Select(a =&gt; FieldPresentation.ShowAnomaly(_simulation, a, false)))))
+            throw new InvalidOperationException(&quot;Restoring cutaway must leave world state and permitted entities unchanged.&quot;);
+        // Move within an edge without advancing held simulation; the visual center must follow the exact position.
+        var before = _world.CutawayCenter;
+        var next = Enumerable.Range(0, 6).Select(player.Cell.Neighbor).First(c =&gt; _simulation.Map.CanTraverse(player.Cell, c));
+        player.Route = [next]; player.SegmentMs = 100; player.KeepFacing = true;
+        var expected = WorldView.Screen(player.Position) - WorldView.Screen(player.Cell.World);
+        _world.QueueRedraw();
+        await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+        if ((_world.CutawayCenter - before - expected).Length() &gt; 0.01f)
+            throw new InvalidOperationException(&quot;Cutaway center must follow fractional movement rather than hex centers.&quot;);
+        GD.Print($&quot;CUTAWAY_SMOKE_PASS: visible foreground opening ({changed} changed samples), H round-trip, unchanged world/sight and fractional following.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.CutawaySmoke.cs:10</footer></main></div></body></html>

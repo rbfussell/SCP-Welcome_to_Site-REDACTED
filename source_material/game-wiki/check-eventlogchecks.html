@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EventLogChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>EventLogChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class EventLogChecks
+{
+    public static int Run(string map, string operation)
+    {
+        var count = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Event log: &quot; + detail); count++; }
+        var log = new PlayerEventLog();
+        for (var i = 0; i &lt; 130; i++) log.Add(i * 50, i * 50, (MessageKind)(i % 7), &quot;message &quot; + i);
+        Check(log.Entries.Count == 100 &amp;&amp; log.Entries[0].Id == 31 &amp;&amp; log.Entries[^1].Id == 130, &quot;journal bounds history to newest 100 messages&quot;);
+        Check(log.Window().Length == 5 &amp;&amp; log.Window()[0].Id == 126, &quot;default view shows newest five&quot;);
+        Check(log.Window(40)[0].Id == 40 &amp;&amp; log.Window(40)[^1].Id == 44, &quot;history window anchors by stable message ID&quot;);
+        Check(log.Window(1)[0].Id == 31 &amp;&amp; log.Window(999)[0].Id == 126, &quot;evicted or future anchors clamp to available history&quot;);
+        var world = new SimulationWorld(map, operation);
+        world.Player.Cell = new(8, 3); world.Player.Facing = 1;
+        var opponent = world.Actors.Single(a =&gt; a.Id == &quot;tech&quot;); opponent.Cell = new(11, 3); opponent.Facing = 4;
+        world.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = new(5, 5);
+        PlayerFeedback.Sense(world);
+        Check(world.Events.Entries.Count(e =&gt; e.Text == opponent.Name + &quot; comes into view.&quot;) == 1, &quot;newly seen character is noted&quot;);
+        var initialCount = world.Events.Entries.Count;
+        opponent.Cell = new(12, 3); PlayerFeedback.Sense(world); PlayerFeedback.Sense(world);
+        Check(world.Events.Entries.Count == initialCount, &quot;ordinary continuously visible movement creates no spam&quot;);
+        world.Player.EyesClosedUntilMs = 150; PlayerFeedback.Sense(world);
+        world.LocalMs = world.WorldMs = 150; PlayerFeedback.Sense(world);
+        Check(world.Events.Entries.Count == initialCount, &quot;brief blink does not manufacture another arrival&quot;);
+        world.Player.Facing = 4; PlayerFeedback.Sense(world);
+        var hiddenCount = world.Events.Entries.Count;
+        world.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = new(14, 3);
+        PlayerFeedback.Equipment(world, opponent, &quot;uses a special fixture.&quot;);
+        PlayerFeedback.Attack(world, opponent, world.Actors.Single(a =&gt; a.Id == &quot;observer&quot;), true, 2);
+        Check(world.Events.Entries.Count == hiddenCount, &quot;hidden action outside player knowledge cannot leak into journal&quot;);
+        PlayerFeedback.Attack(world, opponent, world.Player, true, 2);
+        Check(world.Events.Entries[^1].Text.StartsWith(&quot;An unseen attacker&quot;) &amp;&amp; !world.Events.Entries[^1].Text.Contains(opponent.Name), &quot;attack on self is relevant without identifying hidden source&quot;);
+        world.Player.Facing = 1; PlayerFeedback.Sense(world);
+        Check(world.Events.Entries.Count(e =&gt; e.Text == opponent.Name + &quot; comes into view.&quot;) == 2, &quot;returning to genuine sight creates a new arrival episode&quot;);
+        PlayerFeedback.Equipment(world, opponent, &quot;uses a special fixture.&quot;);
+        Check(world.Events.Entries[^1].Kind == MessageKind.Equipment, &quot;visible relevant equipment action has its own category&quot;);
+        world.Player.Cell = new(5, 8);
+        world.Operations.Phone = world.Operations.Phone! with { Powered = false };
+        world.Operations.Report(world, opponent.Name, &quot;REMOTE SECRET REPORT&quot;, source: &quot;radio&quot;);
+        PlayerFeedback.Sense(world);
+        Check(!world.Events.Entries.Any(e =&gt; e.Text.Contains(&quot;REMOTE SECRET&quot;)), &quot;unaccessed terminal report is not player knowledge&quot;);
+        var terminal = world.Operations.Definition!.Terminal;
+        world.Player.Cell = Enumerable.Range(0, 6).Select(terminal.Neighbor).First(c =&gt; world.Map.Walkable(c)
+            &amp;&amp; !MovementSystem.Occupied(world, world.Player).Contains(c) &amp;&amp; world.Map.ClearSight(c.World, terminal.World));
+        PlayerFeedback.Sense(world); PlayerFeedback.Sense(world);
+        Check(world.Events.Entries.Count(e =&gt; e.Text.Contains(&quot;REMOTE SECRET&quot;)) == 1, &quot;reachable terminal acquires stored report only once&quot;);
+        var snapshot = world.Events.Capture();
+        var restored = new PlayerEventLog(); restored.Restore(snapshot, world.WorldMs, world.LocalMs,
+            world.Actors.Select(a =&gt; a.Id).Concat(world.Anomalies.Bodies.Select(b =&gt; b.Id)).ToHashSet());
+        Check(restored.Entries.SequenceEqual(world.Events.Entries), &quot;journal preserves categories, texts and ordering&quot;);
+        Check(!restored.Once(&quot;report:&quot; + world.Operations.ReceivedReports.Last().Id), &quot;saved delivery dedup prevents old report replay&quot;);
+        for (var i = 0; i &lt; 5000; i++) log.Once(&quot;test:&quot; + i);
+        Check(log.Capture().Consumed.Length == 4096, &quot;message dedup metadata is also bounded&quot;);
+        Console.WriteLine($&quot;EVENT_LOG_CHECKS_PASS: {count} assertions; bounded history, acquired reports, categories, visibility episodes and hidden-action filtering.&quot;);
+        return count;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/EventLogChecks.cs</footer></main></div></body></html>

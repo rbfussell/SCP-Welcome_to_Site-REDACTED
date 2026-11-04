@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Transactions/InventoryClosures.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryClosures.cs</h1><p>src/SiteSimulation/Inventory/Transactions/InventoryClosures.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryclosures.html">InventoryClosures</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-55d804e682a391f43ecb.html">InventoryClosures.Toggle</a> · line 6</li><li><a href="function-cb75546e3369f8fc33d1.html">InventoryClosures.SecureOnClose</a> · line 24</li><li><a href="function-ef65cf7c43c0f8f68b94.html">InventoryClosures.OnDismissal</a> · line 30</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Per-fastening presentation verbs and opt-in dismissal policy; neither performs physical work.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public static class InventoryClosures</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static InventoryClosureAction Toggle(InventoryState state, string itemId, string? regionId = null)</span>
+<span id="L7"><a class="line" href="#L7">7</a>     {</span>
+<span id="L8"><a class="line" href="#L8">8</a>         var item = state.DiagnosticItems.Single(i =&gt; i.Id == itemId);</span>
+<span id="L9"><a class="line" href="#L9">9</a>         if (regionId is not null)</span>
+<span id="L10"><a class="line" href="#L10">10</a>         {</span>
+<span id="L11"><a class="line" href="#L11">11</a>             var region = state.Region(itemId, regionId);</span>
+<span id="L12"><a class="line" href="#L12">12</a>             if (region.Attachment is not null || !region.Sealable) throw new ArgumentException(&quot;This region has no fastening.&quot;);</span>
+<span id="L13"><a class="line" href="#L13">13</a>             var open = state.IsOpen(itemId, regionId);</span>
+<span id="L14"><a class="line" href="#L14">14</a>             return new(open ? region.SecureVerb : region.OpenVerb,</span>
+<span id="L15"><a class="line" href="#L15">15</a>                 new(open ? InventoryActionKind.Close : InventoryActionKind.Open, itemId, RegionId: regionId));</span>
+<span id="L16"><a class="line" href="#L16">16</a>         }</span>
+<span id="L17"><a class="line" href="#L17">17</a>         var wear = state.Definition(itemId).Wear;</span>
+<span id="L18"><a class="line" href="#L18">18</a>         if (wear?.OpenExposes is not { Length: &gt; 0 }) throw new ArgumentException(&quot;This garment has no supported fastening.&quot;);</span>
+<span id="L19"><a class="line" href="#L19">19</a>         return new(item.GarmentOpen ? wear.SecureVerb : wear.OpenVerb,</span>
+<span id="L20"><a class="line" href="#L20">20</a>             new(item.GarmentOpen ? InventoryActionKind.CloseGarment : InventoryActionKind.OpenGarment, itemId));</span>
+<span id="L21"><a class="line" href="#L21">21</a>     }</span>
+<span id="L22"><a class="line" href="#L22">22</a> </span>
+<span id="L23"><a class="line" href="#L23">23</a>     /// &lt;summary&gt;UI dismissal requests only. Explicit securing ignores this convenience preference.&lt;/summary&gt;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     public static bool SecureOnClose(InventoryState state, string itemId, string? regionId = null)</span>
+<span id="L25"><a class="line" href="#L25">25</a>     {</span>
+<span id="L26"><a class="line" href="#L26">26</a>         if (regionId is not null)</span>
+<span id="L27"><a class="line" href="#L27">27</a>             return state.Region(itemId, regionId) is { Attachment: null, Sealable: true } &amp;&amp; (state.Regions.Single(r =&gt; r.ItemId == itemId &amp;&amp; r.RegionId == regionId).SecureOnClose ?? state.Region(itemId, regionId).SecureOnClose);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         return state.Items[itemId].SecureOnClose ?? state.Definition(itemId).Wear!.SecureOnClose;</span>
+<span id="L29"><a class="line" href="#L29">29</a>     }</span>
+<span id="L30"><a class="line" href="#L30">30</a>     public static InventoryRequest[] OnDismissal(InventoryState state, IEnumerable&lt;InventoryRequest&gt; candidates)</span>
+<span id="L31"><a class="line" href="#L31">31</a>     {</span>
+<span id="L32"><a class="line" href="#L32">32</a>         return candidates.Where(r =&gt; r.Kind switch</span>
+<span id="L33"><a class="line" href="#L33">33</a>         {</span>
+<span id="L34"><a class="line" href="#L34">34</a>             InventoryActionKind.Close when r.RegionId is not null &amp;&amp; r.Destination is null =&gt; SecureOnClose(state, r.ItemId, r.RegionId),</span>
+<span id="L35"><a class="line" href="#L35">35</a>             InventoryActionKind.CloseGarment when r.RegionId is null &amp;&amp; r.Destination is null</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 =&gt; state.Definition(r.ItemId).Wear?.OpenExposes is { Length: &gt; 0 } &amp;&amp; SecureOnClose(state, r.ItemId),</span>
+<span id="L37"><a class="line" href="#L37">37</a>             _ =&gt; throw new ArgumentException(&quot;Dismissal can only propose closing a compartment or garment fastening.&quot;)</span>
+<span id="L38"><a class="line" href="#L38">38</a>         }).Distinct().ToArray();</span>
+<span id="L39"><a class="line" href="#L39">39</a>     }</span>
+<span id="L40"><a class="line" href="#L40">40</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

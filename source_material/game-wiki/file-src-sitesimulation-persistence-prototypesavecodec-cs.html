@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Persistence/PrototypeSaveCodec.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PrototypeSaveCodec.cs</h1><p>src/SiteSimulation/Persistence/PrototypeSaveCodec.cs</p><p><a href="system-persistence.html">Persistence and continuation</a></p><h2>Types</h2><ul><li><a href="type-spatialsnapshot.html">SpatialSnapshot</a></li><li><a href="type-prototypesavecodec.html">PrototypeSaveCodec</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-50184dd5c86c8495ff16.html">PrototypeSaveCodec.Capture</a> · line 13</li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a> · line 17</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> namespace SiteSimulation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> internal sealed record SpatialSnapshot(int Version, string MapIdentity, long WorldMs, long LocalMs, bool LocalHold, bool ManualPause,</span>
+<span id="L6"><a class="line" href="#L6">6</a>     int Speed, string[] OpenDoors, ActorState[] Actors, int PatrolIndex, bool LightsOn,</span>
+<span id="L7"><a class="line" href="#L7">7</a>     AnomalyBodySnapshot[] Bodies, ModuleSnapshot[] Modules, TraceSnapshot Trace, AwarenessSnapshot? Awareness = null, OperationSnapshot? Operations = null,</span>
+<span id="L8"><a class="line" href="#L8">8</a>     EventLogSnapshot? Events = null, CombatSnapshot? Combat = null, EmploymentSnapshot? Employment = null, InventorySnapshot? Inventory = null);</span>
+<span id="L9"><a class="line" href="#L9">9</a> </span>
+<span id="L10"><a class="line" href="#L10">10</a> /// &lt;summary&gt;Explicit schema and detached restore transaction. Earlier prototype saves are rejected.&lt;/summary&gt;</span>
+<span id="L11"><a class="line" href="#L11">11</a> internal static class PrototypeSaveCodec</span>
+<span id="L12"><a class="line" href="#L12">12</a> {</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public static string Capture(SimulationWorld world, string identity) =&gt; JsonSerializer.Serialize(new SpatialSnapshot(14, identity,</span>
+<span id="L14"><a class="line" href="#L14">14</a>         world.WorldMs, world.LocalMs, world.LocalHold, world.ManualPause, world.Speed, world.Map.OpenDoors.Order().ToArray(),</span>
+<span id="L15"><a class="line" href="#L15">15</a>         world.Actors.ToArray(), world.PatrolIndex, world.Map.LightsOn, world.Anomalies.CaptureBodies(), world.Anomalies.CaptureModules(), world.Trace.Capture(), world.Awareness.Capture(), world.Operations.Definition is null ? null : world.Operations.Capture(), world.Events.Capture(), world.Combat.Capture(), world.Employment.Definition is null ? null : world.Employment.Capture(), world.Inventory.Enabled ? world.Inventory.Capture() : null));</span>
+<span id="L16"><a class="line" href="#L16">16</a> </span>
+<span id="L17"><a class="line" href="#L17">17</a>     public static SimulationWorld Restore(string json, string mapJson, string identity, string? operationJson = null)</span>
+<span id="L18"><a class="line" href="#L18">18</a>     {</span>
+<span id="L19"><a class="line" href="#L19">19</a>         var s = JsonSerializer.Deserialize&lt;SpatialSnapshot&gt;(json) ?? throw new ArgumentException(&quot;Empty prototype save.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (s.Version is not (2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14) || s.Version &gt;= 3 &amp;&amp; s.Awareness is null || s.Version &gt;= 5 &amp;&amp; (s.Events is null || s.Combat is null)</span>
+<span id="L21"><a class="line" href="#L21">21</a>             || operationJson is not null &amp;&amp; s.Version &lt; 4 || s.MapIdentity != identity || s.WorldMs &lt; 0 || s.LocalMs &lt; 0 || s.LocalMs &gt; s.WorldMs</span>
+<span id="L22"><a class="line" href="#L22">22</a>             || s.WorldMs % SpatialSimulation.TickMs != 0 || s.LocalMs % SpatialSimulation.TickMs != 0</span>
+<span id="L23"><a class="line" href="#L23">23</a>             || s.Speed is not (1 or 2 or 4) || s.PatrolIndex &lt; 0 || s.Actors is null || s.OpenDoors is null || s.Actors.Any(a =&gt; a is null))</span>
+<span id="L24"><a class="line" href="#L24">24</a>             throw new ArgumentException(&quot;Incompatible or invalid prototype save (requires schema 2/3/4/5/6/7/8/9/10/11/12/13/14 and matching content).&quot;);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var candidate = new SimulationWorld(mapJson, operationJson);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         if (!s.Actors.Select(a =&gt; a.Id).Order().SequenceEqual(candidate.Actors.Select(a =&gt; a.Id).Order())</span>
+<span id="L27"><a class="line" href="#L27">27</a>             || s.OpenDoors.Any(id =&gt; !candidate.Map.Definition.Walls.Any(w =&gt; w.Id == id &amp;&amp; w.Door))</span>
+<span id="L28"><a class="line" href="#L28">28</a>             || s.Actors.Any(a =&gt; a.Route is null || a.BumpedCells is null || a.WalkMs &lt; 0 || a.SegmentMs &lt; 0 || a.SegmentMs &gt;= SpatialSimulation.StepDurationMs</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 || a.SegmentMs % SpatialSimulation.TickMs != 0 || a.Facing is &lt; 0 or &gt; 5</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 || a.EyesClosedUntilMs &lt; 0 || a.EyesClosedUntilMs &gt; s.LocalMs + 150</span>
+<span id="L31"><a class="line" href="#L31">31</a>                 || a.StartledUntilMs &lt; 0 || a.StartledUntilMs &gt; s.LocalMs + 400</span>
+<span id="L32"><a class="line" href="#L32">32</a>                 || !candidate.Map.Definition.Actors.Any(d =&gt; d.Id == a.Id &amp;&amp; d.Kind == a.Kind &amp;&amp; d.Name == a.Name &amp;&amp; d.ObserverKind == a.ObserverKind)))</span>
+<span id="L33"><a class="line" href="#L33">33</a>             throw new ArgumentException(&quot;Invalid saved actor, door or continuation.&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         candidate.Actors = s.Actors.ToList();</span>
+<span id="L35"><a class="line" href="#L35">35</a>         candidate.WorldMs = s.WorldMs; candidate.LocalMs = s.LocalMs; candidate.Speed = s.Speed;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         candidate.LocalHold = s.LocalHold; candidate.ManualPause = s.ManualPause; candidate.PatrolIndex = s.PatrolIndex;</span>
+<span id="L37"><a class="line" href="#L37">37</a>         candidate.Map.OpenDoors.UnionWith(s.OpenDoors); candidate.Map.LightsOn = s.LightsOn;</span>
+<span id="L38"><a class="line" href="#L38">38</a>         candidate.Anomalies.Restore(s.Bodies, s.Modules, candidate);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         OperationSaveCodec.Restore(candidate, s.Operations);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         EmploymentSaveCodec.Restore(candidate, s.Employment);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         foreach (var actor in candidate.Actors)</span>
+<span id="L42"><a class="line" href="#L42">42</a>         {</span>
+<span id="L43"><a class="line" href="#L43">43</a>             if (actor.MoveGoal is { } goal &amp;&amp; (actor != candidate.Player || !actor.Moving || !candidate.Map.Inside(goal.World))</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 || actor.BumpedCells.Count &gt; candidate.Map.Cells.Length || actor.BumpedCells.Distinct().Count() != actor.BumpedCells.Count</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 || actor.BumpedCells.Any(c =&gt; !candidate.Map.Inside(c.World)) || actor.BumpedCells.Count &gt; 0 &amp;&amp; actor.MoveGoal is null)</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 throw new ArgumentException(&quot;Invalid navigation intent or encountered obstructions.&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>             if (!candidate.Map.Walkable(actor.Cell) || actor.Route.Count == 0 &amp;&amp; actor.SegmentMs != 0)</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 throw new ArgumentException(&quot;Save overlaps an actor or loses movement continuation.&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>             if (actor.SegmentMs &gt; 0 &amp;&amp; !candidate.Map.CanTraverse(actor.Cell, actor.Route[0]))</span>
+<span id="L50"><a class="line" href="#L50">50</a>                 throw new ArgumentException(&quot;Saved in-progress step crosses blocked geometry.&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>             if (actor.StoppedStep is { } stopped &amp;&amp; (s.Version &lt; 3 || actor.Moving || actor.SegmentMs != 0</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 || stopped.ProgressMs is &lt;= 0 or &gt;= SpatialSimulation.StepDurationMs || stopped.ProgressMs % SpatialSimulation.TickMs != 0</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 || !candidate.Map.CanTraverse(actor.Cell, stopped.Next)</span>
+<span id="L54"><a class="line" href="#L54">54</a>                 || MovementSystem.Occupied(candidate, actor).Contains(stopped.Next)))</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 throw new ArgumentException(&quot;Invalid stopped fractional movement state.&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>             var previous = actor.Cell;</span>
+<span id="L57"><a class="line" href="#L57">57</a>             foreach (var next in actor.Route)</span>
+<span id="L58"><a class="line" href="#L58">58</a>             {</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 if (previous.Distance(next) != 1 || !candidate.Map.Inside(next.World)) throw new ArgumentException(&quot;Invalid saved path.&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 previous = next;</span>
+<span id="L61"><a class="line" href="#L61">61</a>             }</span>
+<span id="L62"><a class="line" href="#L62">62</a>         }</span>
+<span id="L63"><a class="line" href="#L63">63</a>         if (candidate.Actors.Select(a =&gt; a.Cell).Distinct().Count() != candidate.Actors.Count)</span>
+<span id="L64"><a class="line" href="#L64">64</a>             throw new ArgumentException(&quot;Save overlaps actors.&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         candidate.Trace.Restore(s.Trace, s.WorldMs, s.LocalMs);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         var awareness = s.Version == 2 ? new AwarenessSnapshot(true, true, [], []) : s.Awareness!;</span>
+<span id="L67"><a class="line" href="#L67">67</a>         if (awareness.Evidence is not null &amp;&amp; awareness.Evidence.Any(e =&gt; e is not null &amp;&amp; (!candidate.Map.Inside(e.Position)</span>
+<span id="L68"><a class="line" href="#L68">68</a>             || e.Source == &quot;direct&quot; &amp;&amp; e.ObserverId != candidate.Player.Id)))</span>
+<span id="L69"><a class="line" href="#L69">69</a>             throw new ArgumentException(&quot;Invalid local contact position or direct observer.&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         candidate.Awareness.Restore(awareness, candidate.Anomalies.Bodies.ToDictionary(b =&gt; b.Id, b =&gt; b.Revision),</span>
+<span id="L71"><a class="line" href="#L71">71</a>             candidate.Actors.Select(a =&gt; a.Id).ToHashSet(), candidate.LocalMs);</span>
+<span id="L72"><a class="line" href="#L72">72</a>         if (s.Version &gt;= 5)</span>
+<span id="L73"><a class="line" href="#L73">73</a>         {</span>
+<span id="L74"><a class="line" href="#L74">74</a>             candidate.Events.Restore(s.Events!, s.WorldMs, s.LocalMs,</span>
+<span id="L75"><a class="line" href="#L75">75</a>                 candidate.Actors.Select(a =&gt; a.Id).Concat(candidate.Anomalies.Bodies.Select(b =&gt; b.Id)).ToHashSet());</span>
+<span id="L76"><a class="line" href="#L76">76</a>             CombatSaveCodec.Restore(candidate, s.Combat!);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         }</span>
+<span id="L78"><a class="line" href="#L78">78</a>         else foreach (var report in candidate.Operations.ReceivedReports) candidate.Events.Once(&quot;report:&quot; + report.Id);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         if (candidate.Inventory.Enabled &amp;&amp; s.Version &lt; 14) throw new ArgumentException(&quot;Inventory saves require schema 14 and a fresh field-kit scene for worn order.&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         InventorySaveCodec.Restore(candidate, s.Inventory);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         return candidate;</span>
+<span id="L82"><a class="line" href="#L82">82</a>     }</span>
+<span id="L83"><a class="line" href="#L83">83</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

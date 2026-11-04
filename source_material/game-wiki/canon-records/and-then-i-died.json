@@ -1,0 +1,616 @@
+{
+  "created_at": "2011-03-30T20:30:00",
+  "creator": "TroyL",
+  "domain": "scp-wiki.wikidot.com",
+  "history": [
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-03-30T20:30:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-03-30T21:14:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-03-30T22:33:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-01T13:55:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-01T13:58:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "Spelling and formatting.",
+      "date": "2011-04-01T16:57:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-09T21:06:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-10T00:13:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Punctuation and typoes in Part 7.",
+      "date": "2011-04-10T17:42:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-04-10T20:33:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-04-10T21:23:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-11T04:28:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-11T04:34:00"
+    },
+    {
+      "author": "redswift",
+      "author_href": "https://www.wikidot.com/user:info/redswift",
+      "comment": "",
+      "date": "2011-04-11T04:53:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-04-11T19:29:00"
+    },
+    {
+      "author": "A Fat Ghost",
+      "author_href": "https://www.wikidot.com/user:info/a-fat-ghost",
+      "comment": "kiwi is both a fruit and a bird.",
+      "date": "2011-04-13T08:28:00"
+    },
+    {
+      "author": "evictedSaint",
+      "author_href": "https://www.wikidot.com/user:info/evictedsaint",
+      "comment": "Noticed that Part 6 had been solved and linked, but was still labeled \"unsolved\"",
+      "date": "2011-04-13T18:34:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "You successfully reverted the page to revision number 15",
+      "date": "2011-04-13T18:46:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-04-14T01:32:00"
+    },
+    {
+      "author": "Sorts",
+      "author_href": "https://www.wikidot.com/user:info/sorts",
+      "comment": "Part 11",
+      "date": "2011-04-14T02:01:00"
+    },
+    {
+      "author": "Sorts",
+      "author_href": "https://www.wikidot.com/user:info/sorts",
+      "comment": "Okay lost already!",
+      "date": "2011-04-14T02:06:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-04-29T04:26:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-04-30T07:32:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "OCD consistency fixing",
+      "date": "2011-05-01T02:01:00"
+    },
+    {
+      "author": "Felgraf",
+      "author_href": "https://www.wikidot.com/user:info/felgraf",
+      "comment": "",
+      "date": "2011-05-02T17:08:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "Well done, sir.",
+      "date": "2011-05-03T22:26:00"
+    },
+    {
+      "author": "Dr_Adams",
+      "author_href": "https://www.wikidot.com/user:info/dr-adams",
+      "comment": "",
+      "date": "2011-05-04T04:15:00"
+    },
+    {
+      "author": "RhettSarlin",
+      "author_href": "https://www.wikidot.com/user:info/rhettsarlin",
+      "comment": "",
+      "date": "2011-05-08T19:27:00"
+    },
+    {
+      "author": "RhettSarlin",
+      "author_href": "https://www.wikidot.com/user:info/rhettsarlin",
+      "comment": "",
+      "date": "2011-05-09T02:23:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-05-09T02:33:00"
+    },
+    {
+      "author": "RhettSarlin",
+      "author_href": "https://www.wikidot.com/user:info/rhettsarlin",
+      "comment": "",
+      "date": "2011-05-09T04:17:00"
+    },
+    {
+      "author": "RhettSarlin",
+      "author_href": "https://www.wikidot.com/user:info/rhettsarlin",
+      "comment": "",
+      "date": "2011-05-15T19:40:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-05-16T05:12:00"
+    },
+    {
+      "author": "Dr_Adams",
+      "author_href": "https://www.wikidot.com/user:info/dr-adams",
+      "comment": "",
+      "date": "2011-05-16T05:28:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "more OCD",
+      "date": "2011-05-16T18:27:00"
+    },
+    {
+      "author": "Dr_Adams",
+      "author_href": "https://www.wikidot.com/user:info/dr-adams",
+      "comment": "",
+      "date": "2011-05-22T07:33:00"
+    },
+    {
+      "author": "Tyber",
+      "author_href": "https://www.wikidot.com/user:info/tyber",
+      "comment": "",
+      "date": "2011-05-22T19:39:00"
+    },
+    {
+      "author": "Tyber",
+      "author_href": "https://www.wikidot.com/user:info/tyber",
+      "comment": "",
+      "date": "2011-05-22T20:47:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-22T22:27:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-22T22:32:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T22:52:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T22:55:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T22:56:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T22:59:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-22T23:02:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T23:07:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-05-22T23:11:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-23T18:23:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-23T20:47:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-26T16:13:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "Changing the latest entry to be a bit more obvious.",
+      "date": "2011-05-30T19:58:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "You successfully reverted the page to revision number 49",
+      "date": "2011-05-30T21:40:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-05-30T21:42:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-06-16T06:08:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-06-16T06:09:00"
+    },
+    {
+      "author": "Akumeoy",
+      "author_href": "https://www.wikidot.com/user:info/akumeoy",
+      "comment": "new",
+      "date": "2011-06-16T07:55:00"
+    },
+    {
+      "author": "Akumeoy",
+      "author_href": "https://www.wikidot.com/user:info/akumeoy",
+      "comment": "some edits make my entry better",
+      "date": "2011-06-17T10:26:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-06-18T14:28:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-06-29T07:48:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-06-29T07:48:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-06-30T01:45:00"
+    },
+    {
+      "author": "Tabbyclaw",
+      "author_href": "https://www.wikidot.com/user:info/tabbyclaw",
+      "comment": "Format fix.",
+      "date": "2011-06-30T03:42:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-06-30T14:50:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2011-07-01T16:42:00"
+    },
+    {
+      "author": "Drewbear",
+      "author_href": "https://www.wikidot.com/user:info/drewbear",
+      "comment": "grammar fix: \"Is sigh\" -> \"I sigh\"",
+      "date": "2011-07-07T16:58:00"
+    },
+    {
+      "author": "Voct",
+      "author_href": "https://www.wikidot.com/user:info/voct",
+      "comment": "another entry",
+      "date": "2011-07-08T18:24:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-07-08T18:32:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "dammit, that one involved an SCP that got deleted",
+      "date": "2011-07-08T18:39:00"
+    },
+    {
+      "author": "Voct",
+      "author_href": "https://www.wikidot.com/user:info/voct",
+      "comment": "a new one",
+      "date": "2011-07-10T18:58:00"
+    },
+    {
+      "author": "Exun Yannah",
+      "author_href": "https://www.wikidot.com/user:info/exun-yannah",
+      "comment": "Fixed slight format error",
+      "date": "2011-07-11T16:29:00"
+    },
+    {
+      "author": "Voct",
+      "author_href": "https://www.wikidot.com/user:info/voct",
+      "comment": "solved",
+      "date": "2011-07-11T16:39:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-07-11T20:10:00"
+    },
+    {
+      "author": "Dexanote",
+      "author_href": "https://www.wikidot.com/user:info/dexanote",
+      "comment": "",
+      "date": "2011-07-13T04:50:00"
+    },
+    {
+      "author": "AdminBright",
+      "author_href": "https://www.wikidot.com/user:info/adminbright",
+      "comment": "",
+      "date": "2011-07-31T17:28:00"
+    },
+    {
+      "author": "AdminBright",
+      "author_href": "https://www.wikidot.com/user:info/adminbright",
+      "comment": "",
+      "date": "2011-07-31T17:36:00"
+    },
+    {
+      "author": "Ragazzo",
+      "author_href": "https://www.wikidot.com/user:info/ragazzo",
+      "comment": "",
+      "date": "2011-07-31T22:19:00"
+    },
+    {
+      "author": "Drewbear",
+      "author_href": "https://www.wikidot.com/user:info/drewbear",
+      "comment": "div -> dive",
+      "date": "2011-08-01T15:09:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-10-04T20:41:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-10-04T20:51:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-10-04T23:25:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-10-04T23:52:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2011-10-05T00:15:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "Added tags: collaboration. ",
+      "date": "2012-01-22T17:06:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2012-01-25T17:57:00"
+    },
+    {
+      "author": "CondorTalon",
+      "author_href": "https://www.wikidot.com/user:info/condortalon",
+      "comment": "",
+      "date": "2012-01-25T23:06:00"
+    },
+    {
+      "author": "Aelanna",
+      "author_href": "https://www.wikidot.com/user:info/aelanna",
+      "comment": "Added tags: tale. ",
+      "date": "2012-03-26T15:10:00"
+    },
+    {
+      "author": "anqxyr",
+      "author_href": "https://www.wikidot.com/user:info/anqxyr",
+      "comment": "Added tags: _t. ",
+      "date": "2014-12-11T08:25:00"
+    },
+    {
+      "author": "Voct",
+      "author_href": "https://www.wikidot.com/user:info/voct",
+      "comment": "fixed old glitch in my own entry",
+      "date": "2015-06-24T13:37:00"
+    },
+    {
+      "author": "jarvis-bot",
+      "author_href": "https://www.wikidot.com/user:info/jarvis-bot",
+      "comment": "Removed tags: _t. ",
+      "date": "2016-04-22T15:41:00"
+    },
+    {
+      "author": "Ralliston",
+      "author_href": "https://www.wikidot.com/user:info/ralliston",
+      "comment": "Added tags: _licensebox. ",
+      "date": "2022-11-13T17:27:00"
+    },
+    {
+      "author": "Ralliston",
+      "author_href": "https://www.wikidot.com/user:info/ralliston",
+      "comment": "",
+      "date": "2022-11-13T17:27:00"
+    },
+    {
+      "author": "radian628",
+      "author_href": "https://www.wikidot.com/user:info/radian628",
+      "comment": "",
+      "date": "2026-04-07T06:25:00"
+    },
+    {
+      "author": "Sinking_Otter",
+      "author_href": "https://www.wikidot.com/user:info/sinking-otter",
+      "comment": "This work has been edited as part of the Bright Works Project with the authors permission to remove a reference to SCP-963 and Bright aka TheDuckMan.",
+      "date": "2026-08-03T11:27:00"
+    },
+    {
+      "author": "ObsoleteCorpse",
+      "author_href": "https://www.wikidot.com/user:info/obsoletecorpse",
+      "comment": "Added tags: missing-number. ",
+      "date": "2026-09-03T06:38:00"
+    }
+  ],
+  "hubs": [
+    "archived:archived-news"
+  ],
+  "images": [],
+  "link": "and-then-i-died",
+  "page_id": "8905386",
+  "rating": 0,
+  "raw_content": "<html><body><div id=\"page-content\">\n<blockquote>\n<p><em>Below are the previous entries for <a href=\"http://scp-wiki.wikidot.com/and-then-i-died2\">the game</a>. Read and enjoy! The answer are in links at the end of each one.</em></p>\n</blockquote>\n<p><strong>Round 1: TroyL</strong></p>\n<p>I never really cared much for my brother.</p>\n<p>We had at best a strained relationship. Our parents just muttered “boys” and went about their business, but it was different. It wasn’t sibling rivalry. It wasn’t even rivalry. We just… didn’t want to be around each other. Ever. We were like the same end of a magnet, always pushing away from each other, always bowing to the invisible force that kept us surely separated. And, in a way, we were happy like that.</p>\n<p>I went into the military; he went to college. I got out and started working with computers; he finished his degree and started designing them. I eventually managed a private companies IT department; he worked at development in a rival company. From my graduation on, I never saw him for more than an hour at most. Since our mother’s funeral—the official cessation of all family gatherings—I hadn’t seen him at all.</p>\n<p>It made his sudden appearance, haggard, carrying a briefcase and a shotgun, that so surprised me. It was early in the morning, and when I opened the door, the light was carrying blinded me. He talked for a few moments at the door, still holding the light aloft, before he turned it off, apologizing. He came in, apologizing for the late hour, and asked for a cup of coffee. I agreed, sitting with him at the table silently. He didn’t speak. I didn’t ask.</p>\n<p>As he was about to leave, he looked at me, tilting his head sideways for a moment. “Do you have any shells for a 20 gauge?”</p>\n<p>I nodded somewhat, fetching them from my study at the end of the hall and handing them to him. He thanked me and left the building. I should have wondered what he’d gotten himself into, what sort of espionage he’d managed, but I didn’t. I just didn’t care.</p>\n<p>The next morning, I found myself unable to think. Everything looked like a gray haze, and even when I tried to concentrate, I couldn’t. I remember turning the knob, and the bullet hitting my chest, but after that, everything starting shifting—going from gray to black.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-316\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 2: Dexanote</strong></p>\n<p>I’ve always had a pretty decent life. I was an only child, growing up in upstate New York with my mother and father. Mom was a real estate agent, Dad was an engineer. They both had emigrated from England before I was born, and we still had family back there. We visited sometimes, in the summers. I never liked English Summers. It would always rain.</p>\n<p>I always got good grades in school, played sports, did my chores, and so on. Never caused any trouble, but never really looked for any. I was a model, if fairly average, teenager.</p>\n<p>When I was 24 I decided to go travel abroad in Europe. Mom and Dad had retired together the year before, and didn’t seem to mind. I wish they had stopped me.</p>\n<p>I went to Italy first, then Austria, Germany, Switzerland, France… It was wonderful. I slept in hostels and under the stars, I loved this freedom. It was… beautiful. The countries, the places, the cities, the people, the art. It was all breathtaking.</p>\n<p>One day, a few months into my travels, I called home to see how everyone was doing. I found that my widowed Aunt Helen back in England had passed, and left everything to me, her only nephew. I was told to make my way to Britain and find her lawyers, who would sort everything out in the mean time.</p>\n<p>When I arrived, the lawyers had already sorted out the transfer of ownership and related documentation. I now owned my Aunt’s entire estate.</p>\n<p>I went “home” to my new domain.</p>\n<p>It was June, and the sky was grey. The estate was a large house in the countryside, with a greenhouse and a large garden out back. The entire building was covered in a purplish ivy, and an entire wing of the place contained a collection of strange, curious gadgets - a chessboard, an ugly green statue, a bunch of freakish dolls, a fortune-teller machine, records, phonographs, a wardrobe, a dartboard… Nothing in the rooms seemed to have any coherent theme. I just shrugged; I’d sort through all the bullshit when I had time.</p>\n<p>I had decided to sleep on a sofa in the living room until I was more comfortable with the house. The huge conservatory window behind me let in a bit of light, the rain <em>plit plit plitting</em> off the panes. It hadn’t stopped raining since I arrived.</p>\n<p>I left one of the lower windows open to let in a nice breeze. At least I wasn’t sweating, I thought. If I was back in New York I’d be quite uncomfortable.</p>\n<p>It wasn’t so bad here. The rain was relaxing, the ivy shivered quietly in the breeze. I guess I could get used to this…</p>\n<p>I felt something brush against my arm. I became very still.</p>\n<p>Something burned. I screamed.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-749\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 3: Ragazzo</strong></p>\n<p>In a Miami apartment's bathroom.</p>\n<p><em>Ahhhhhh…damn…this…this is a really shitty hangover…fuck, man, what did I have last night…I'm here in my god damn apartment throwing up in my fucking apartment while that bastard Jode must be waking up next to some hot piece of a-ah f-fuck…</em> The sounds of vomiting echo off the bile, and blood splattered linoleum of the bathroom floor, interspersed with the odd dry heave here and there. \"Wait…fuckin' hang on…I partied with Jode last week, the fuck…is that my fuckin' hair?! The hell am I sitting in? Shit, fuck, my hands…what happened to my fuckin' hands?!\" And then I passed out.</p>\n<p><strong>Several hours later…</strong></p>\n<p>\"F-fuck…oh…g-god…I feel like…fuckin' shit…what'd I…drink last night…fuck, it must have been that old ass boo-\" A heave, a retching sound. A thin stream of bile dribbles out of my mouth, around the sickly pale orb of flesh that has swollen up from the roof of my mouth. I fall forward, and my face splashes into the toilet bowl, breaking through the thin crusty shell of bodily fluids into the rancid slop below.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-420\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 4: RhettSarlin</strong></p>\n<p>Almost ready. We've been waiting for this excursion for a while now. Just us and the desert, looking up at the stars, snuggled close. Sophie smiles at me as she finishes packing food into the cooler. I smile back and take our sleeping bags out to the truck. I love her more than she knows. We've been going on random playful excursions for nearly 2 years now, and ever since that day at the camel farm where she came out soaked but laughing I've known she was the one for me.</p>\n<p>I may propose to her soon.</p>\n<p>But not this trip. Watching the Perseids and looking at cacti are the order of the weekend this time. We've got everything packed up now. House is locked up, dogs have food and water, alarm's on. We already made sure things were good with her apartment, so she gives me a quick peck on the cheek and we're on our way.</p>\n<p>Country music blaring from the radio as we head down I-8. I shake my head internally at her for that one, but hey, nobody's perfect. Exit coming up. Heading south now. She's chattering about her plans for a painting of the meteor shower. I love her art. I tend to appreciate the realistic more than the abstract, and her stuff from a distance looks almost like a photograph…at first glance anyway.</p>\n<p>Quick stop in Why for gas and a restroom break, then head down to the campgrounds. Or near enough. Sun's going down and we want to get set up out in the desert rather than the official spots. We go offroad a ways, drive past a hill and park where the truck won't be seen. Hiking time. We grab our packs, bags, and the cooler and head out. A mile or so we deem sufficient. We find a nice clear flat area that's to our liking and set up camp.</p>\n<p>Night now. Smores and hotdogs are sufficient for us. Playful makeouts, with an eye toward the sky. There it is! First meteor of the night. A kiss for every one we see. Soon there's too many for us to keep up, so we just lay in each other's arms and enjoy the show.</p>\n<p>Starting to feel a bit sleepy. Wouldn't be my first time sleeping in the open, and Sophie doesn't seem to mind. My body tingles a bit, then starts to go numb. I drift away and darkness takes me.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-165\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 5: TroyL</strong></p>\n<p>He’s standing there. He’s standing there, rooted to the spot, looking at me. He’s going to kill me. He didn’t realize it when he walked in the room—and he doesn’t even realize it now—but it’s going to happen. They’re going to make him.</p>\n<p>“Richard,” I whisper, putting my hand on the glass separating the two of us. “Richard, please don’t do this.”</p>\n<p>His eyes look almost pained as he takes a step back, his face contorting as his teeth clench abnormally hard. I can feel it as they grind, enamel on enamel, the sound practically boring a hole into my head.</p>\n<p>“Please,” I beg, my voice a pained whisper. “Please don’t do this. I… I’ll do anything. I’ll do whatever you want. Just…don’t do what they say. Don’t kill me, Richard.”</p>\n<p>He looks at me, gagging suddenly, as the intercom clicks: “Follow your orders, 18765. Proceed with the experiment.”</p>\n<p>I pound my fists on the glass, screaming, “They don’t even know your name! Please! I know you! I’m your friend, Richard! Please. <em>Please</em>. Don’t let them kill me.”</p>\n<p>I’m sobbing, and so is he. The intercom sounds again, and he closes his eyes. I watch as he backs away from me, his face streaming with sweat and tears. I pound on the glass again, and again, and again, to no avail. “RICHARD!”</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-919\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 6: Redswift</strong></p>\n<p>\"August 14, 1981</p>\n<p>I'm so sorry. It's all my fault. I was weak and this will be my very last entry. Even now I can hear him, pounding and screaming. His pain is real and actions justified but I could fight back if not for the screaming. Damn his screaming! It's his pain reverberating through my ears and my eyes and my bones and lending him my strength. There is no doubt I would already be dead if not for the heavy dresser which is slowing him down but will not stop him. He will never stop kill he kills the one responsible for taking her from him. I never had a ''her''. All I have is my farm and this journal. My last hope is that someone else will find use for them so at least some small good will have come of my existence. I can see the field right now from out my bedroom window.</p>\n<p>The corn has seen better days but the sight of it is calming.</p>\n<p>Well nevermind about that first part. I don't know what came over me. I'm sure I'll be just fine. I don't know why I'm still writing. It seems kind of silly and so does this barricade…I'll go say hello.\"</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-820\">(Unsolved)</a></p>\n<hr/>\n<p><strong>Round 7: Redswift</strong></p>\n<p>Finally I spot him walking toward the house. He is late for the first time today. Why does he look so shaken? I hope he is ok. The young man who brings me the mail is my only neighbor for miles. My driveway is too long and I am too weak to get it myself. His smiling face is the only reason for these old bones to get out of bed anymore. Yesterday's paper said there has been a series of strange break-ins but hell if I can remember any details.</p>\n<p>I turn to walk toward the door so I can greet him when suddenly there it is. Soundless, still and black as the devil's heart, its featureless face just inches from mine. The strain is too much and I drop to my knees from the pain. My eyes remain locked on the intruder. The pills on my dresser are far out of reach but all I can hope for is one last smile, even from this fiend. The young man knocks as he finally reaches my door. Thankfully it doesn't react. I clutch my chest as the world fades. In a blink it's gone.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-650\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 8: CondorTalon</strong></p>\n<p>I've been sick just about my whole life. Chicken pox, mumps, the flu, mono, E. coli; you name it, I've had it. At first, it was really frightening, not knowing when the next strike was, but now, it's just annoying. I think I've been held back a grade about 3 times when I was younger. Thankfully, my wife has the patience of a saint, and she sticks by me without fail. Unlike me, she's almost never sick. I don't know what I'd do without her.</p>\n<p>It's happened again. I'm stuck in this bed, staring at the ceiling as the symptoms overtake me. My head feels like it's burning up, and my entire body is itchy. I even had to close the curtains because the lights were too bright for me. I'm worried that I'm getting attacked en masse.</p>\n<p>Well, somehow I made it through without too many problems. I'm quite tired now. I think I'll turn in. Let me just grab my pills…</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-593\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 9: Redswift</strong></p>\n<p>The first warm day of the new year just happens to be my first day off in months. It's actually a little warmer than I would prefer but it seems like no matter where I walk the cloud position is perfect. Lady luck smiles on me today. Eating my favorite food at a picnic table in the local park I can hear the laughter of children on a nearby playground.</p>\n<p>I lay down on the grass to let my fully belly rest under the beautiful blue sky. It is much softer than what I have in my yard. Hell this grass is almost better than my bed. I don't want to ever leave. That cloud looks like a bunny… I don't have a care in the world…That one looks like a heart…I haven't done this since I was a kid…That one looks like a…</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-312\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 10: A Fat Ghost</strong></p>\n<p>Sailcloth claps with the wind as I bring the boom around, salt massaging its way into my skin in the spray of a sharp turn. Summer sun bakes the landscape into focus as I try to keep it within sight. It’s a lonely and haunted coast, hot sand and a shallow treeline the only definition for miles. The quiet is almost so absolute as to be a distraction.</p>\n<p>Have I found a secret current, hiding somewhere just outside the comfort of a hundred outboards? A lighthouse idles by like the only telephone pole beside an unkept track of road, how did I miss that a minute ago?</p>\n<p>A flash of fish just under the surface, or maybe just sun on the sea, draws my attention starboard. Something whistles on the gentle tidal roll, against wood and fiberglass and memory: my mother’s humming in her small drawing room, my first girlfriend calling me in from the cold, the first movement of the only orchestra I’ve ever attended.</p>\n<p>The boom taps out a warning strain against its tether, and I release my grip on the rail. The bow shudders and unfurls like a tulip. My feet leave the deck as wet stone rises to fill my eyes.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-327\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 11: Sorts</strong></p>\n<p>The rainy season had been getting shorter and shorter for the past few years and the grazing has become hazardous. The other farmers have been losing some of their stock as well, so I have taken it upon myself to spend more and more time with my flock with a rifle slung over my back. Some of the other villagers think that there's some sort of new predator stalking the savanna but I've not seen any unusual signs or heard any calls.</p>\n<p>Most of the familiar watering holes are drying out, so I moved my flock further out to an older location I knew well when I was a boy. The water there was more often visited by wild animals, perhaps if there truly was some sort of new predator on these plains I thought I would at least be able to spot some sign of it there, but no such luck. There are few tracks and no animals to compete with, and the trees and grass look to be striped with some sort of dark coloration. I feared the water was fouled so I drove my thirsty flock back towards the village when I heard the splashing.</p>\n<p>One of my goats must have over-enthusiastically wandered into the water and was now thrashing about in the mud like it was injured. I dismounted and headed towards the shore but it wasn't a goat at all. It looked like a child, flailing in the shallow water in panic. I rushed over to help the boy out, his skin was coated with thick mud, black with silt. He took my hand and would not let go, and as his face turned to mine I remember thinking that I have never seen anyone so scared.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-968\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 12: Dexanote</strong></p>\n<p><em>Finally</em>, I thought. <em>This place is great…</em> I stepped into the abandoned house, this will do nicely. Cobwebs, dust, a bit away from busier areas… Need a spot to drop the… eh. Maybe later. I sighed.</p>\n<p>“Eh… nobody’s coming right now…fuck it.” I sat on a chair. Comfy enough. The body sat halfway into the doorway. Gas was back in his car.</p>\n<p>“… Man.” I yawned. Felt the chair creak. Eh.</p>\n<p>I tried to yawn, couldn’t. Pressure on my shoulder. Growing more tired by the second…</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-179\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 13: Felgraf</strong></p>\n<p>I slid back into wakefulness, and the first thing I could remember was the pain. My chest felt like I’d been hit by a sledgehammer, my arms felt sliced up, and all I could smell was smoke and leaking fuel. What the fuck was going on?</p>\n<p>The memories filtered hazily into my mind. Mary and I, our small transport plane—something had made us crash. I couldn’t remember how it had happened—was it the brewing storm? Mechanical failure? Something else? The trees had ‘broken’ our landing, but now we were upside-down, and by the smell of it, the plane was on fire—</p>\n<p>Shit, Mary! Fighting through the haze of pain, I struggled to unbuckle myself, fumbling with the straps. Finally, I managed to undo my harness, and I pitched forwards onto the ceiling in a heap. As I struggled to stand, my hand pressed down into something warm and sticky—blood?</p>\n<p>It was hard to see through the haze in my head (and the growing smoke), and I sure as hell couldn’t smell, but—no, it wasn’t blood. It was something leaking from the cargo hold. I couldn’t even remember what we were transporting. Mint ice cream, maybe? Fuck it, it wasn’t important. I had to check on Mary-I hoped she was just unconscious.</p>\n<p>I staggered the few steps to the copilot’s seat, and look upwards. She was still strapped in, but she wasn’t moving. Her eyes were open. She was gone. My copilot, my love, gone.</p>\n<p>I ignored the growing smoke as I stepped closer to her, tears in my eyes. “Oh, Mary..” I lifted my hand to touch her face one last time, brushing her hair from her cheek.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-447\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 14: Dr_Adams</strong></p>\n<p>It was the most exciting day of my life. All of my hard work was paying off with an interview at the largest company in my field. I'd finally met someone special and my confidence was at an all-time high.</p>\n<p>I walked into the glistening, new skyscraper with the highest of hopes. A quick check-in at the front and I was off to the 30th floor. If this worked out, the rest of my life's dreams would soon follow.</p>\n<p>Everything in the building was new. The floors and walls were spotless, and the plants were put in place just as they were in bloom. I walked into the bathroom for one last check. I felt like I was the first person to use it. My suit and tie were perfect. I turned on the faucet to wash my hands and was blasted with a shocking spray of cold water. I guess they hadn't gotten the water pressure quite right. If getting a little wet was the worst that happened, it would still have been the best day ever.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-313\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 15: RhettSarlin</strong></p>\n<p>What's the point to life? I just can't see it. We go on about our daily lives, day in and day out. But we're just matter, just atoms and energy. What's special about that? What's special about life? It's all predictable, we all follow predetermined courses according to the flow of energy inside us, our free will is an illusion. We'll never escape to the stars anyway, it's a forlorn hope, so one day an asteroid's gonna hit or we'll be hit by a solar flare…or, hell, the sun will supernova at least. And then bam. We're done. Everything was pointless the whole time. I don't see any reason to prolong it. We're just meat and bones and empty inside, and my death will be no loss to the world. Nobody will even think about it 100 years from now. I'll never be remembered, and the people who might have remembered me are doomed to perish anyway.</p>\n<p>These thoughts have gone through my head for the last 6 months or so. The last time I actually found myself enjoying life was at the carnival back in August. People seemed happy, lovers holding onto each other. Kids running around laughing and playing with their carnival toys, using their imaginations and having fun. Old couples walking around serenely, enjoying each others company. Life seemed special to me. But since then everything has felt so dull. Maybe I enjoyed everything too much and burned myself out, because life just isn't fun anymore. Everything is dreary, I see people's faces as they pass by now and I can tell they're all full of goals and dreams and hopes that might come to pass. But I know better. Hell, they don't even really exist. Do I even exist? I feel that I shouldn't. I don't feel like I belong in this world, that I'm not even supposed to be here anymore. It'd be best for me to just make life better for everyone and end it.</p>\n<p>Yeah, I think that's the best option about now. I'm going up to the roof of this building and jumping off. Maybe it'll be fun to fall. Let's find out. If you find my body, just throw it in the river or something, ok? Leaving now.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-161\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 16: Dr_Adams</strong></p>\n<p>I swear to God I spend more time writing these reports than anything else around here. My eyes can't take much more of this damn screen. I know I signed up for this, I know it's important. Hell, before I spent every waking moment thinking about it, it was <em>interesting</em>. But how many times do we need to test it? How many times do we need to crunch the numbers? At least I have some people to talk to. Speaking of which, our new researcher was looking good today. I've never dated a Korean before…</p>\n<p>A sudden crash jolts me out of my seat.</p>\n<p>How did it happen? The noise is deafening, drowning out the screams of my friends.<br/>\nI glance up as my computer screen flashes a bright red warning of an imminent containment breach. A wave of calm sweeps over me as my training and instincts take over.</p>\n<p>No! Not without a fight!</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-176\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 17: Tyber</strong></p>\n<p>Day 3:</p>\n<p>Okay, okay, I can do it this time, I’m sure of it! Just got to loosen my muscles, get my mind clear, and go for it. Ok…1…2…3!</p>\n<p>Dammit!<br/>\n…</p>\n<p>This damn door! Just got to… huh huh…… clear my head, don’t think about it, just don’t think about it. Its not going to do anything, it’s not. Let's just, give it another go. Alright, head’s clear, body's limber, I can do it. I can do it. OK! 1…2… go!</p>\n<p>God… gah… Goddammit…</p>\n<p>…</p>\n<p>Please… just… just let me go… I can’t, I can’t keep trying. Its just too… I can’t. Please, just go away, leave, I’m begging you! I know you can hear me! Go away!</p>\n<p>…</p>\n<p>It's still there. I know that much. Everyone else is gone, but it’s still there. Why? What the fuck does it get out of this? I just want to leave.</p>\n<p>But it won’t let me.</p>\n<p>…</p>\n<p>One last time. Just, one last time. I can’t do much else. Just one last time. I’m going through that door, and I’m leaving. Its not going to stop me, I won’t let it. This time, I’m just going to leave, just going to leave, and never come back. Ever. Just going to leave… just going to leave…</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-303\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 18: CondorTalon</strong></p>\n<p>Being on the beach alone always calms me down. The smell of the air, the sound of the waves, the fact that no one else is here, it all comes together to create the perfect euphoric experience. I take a few steps along the coast, kicking things about as I go. I kick a rock ahead of me; it feels heavier than I expect. It lands near a small boulder. The boulder is smooth and in the rough shape of a chair. Perfect. I sit on it, and let everything wash over me.</p>\n<p>Wash over me… wash over me…</p>\n<p>Shit. Where did the time go? The water's around my ankles. The tide rises legendarily quickly on this beach. I should find a better place higher up.</p>\n<p>Why can't I move? I need to get away from the water. My body won't respond. The water sloshes around me like it's being shaken up. Shit. Gotta get away. Why can't I move?</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-289\">(Unsolved)</a></p>\n<hr/>\n<p><strong>Round 19: Scantron</strong></p>\n<p>And I don’t know how I got here. Ow. Did I get beaten or something? Maybe. What the <em>fuck</em> was in that needle. I’m holding a printout of… I don’t know <em>what</em> this is. They can’t be serious. The other guys don’t look like they know what it is either.</p>\n<p>There are loudspeakers and cameras here, just like that one other room. Except this one looks grimier. Headaches. The lights (fluorescent) come on, and I can see the stuff on the table better. What’s that thing next to the loudspeakers? It looks-</p>\n<p>“Welcome to the Punishment Detail, but you probably know it as ‘Keter Duty’. I'm in charge of this. You’re here because of your less than satisfactory behavior. If I may direct your attention to the scripts you each hold in your hands for a moment. If you don’t read this script correctly and do <em>exactly</em> what it says, the consequences will be less than pleasant. Start at the bell.\"</p>\n<p>Script? What- oh, this. Doesn’t look like any script I’ve ever read. I can barely read this shit, it’s incomprehensible. Whatever they drugged me with, I can’t think straight. Still, I think I can at least pronounce it right, that should be enough. Shit. I do wonder why it cuts off in the middle-</p>\n<p><strong>Dingdingdingdingding</strong></p>\n<p>Where did the time go? Well, I’ll have to give it a shot.</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-732\">(Unsolved)</a></p>\n<hr/>\n<p><strong>Round 20: TroyL</strong></p>\n<p>It should work, dammit! I know it should work! I've got over this time and time again, and nothing makes sense!</p>\n<p>I sigh and sit down at the table, looking at the room. I've gotten obsessed, I know, but obsession is good for physics. Planck was obsessed. So was Einstein, and Schrodinger, and Hawking! All of them were obsessed, and they changed the world. That's all I'm trying to do… Just change the world, for the better. With a heavy sigh, I sit down in my desk, looking around the room. I've scrawled the equations over the walls again and again, constantly trying to make it work. When I ran out of room on the walls, I started using the floor. When I ran out of room on the floor…</p>\n<p>Someone is trying to scoop me. They're trying to steal my notes, I know. Three cases of sabotage, this year alone. The techies say that they can't figure it out… No surges or anything…</p>\n<p>I sigh, returning to my desk, staring up at the ceiling where I had…</p>\n<p>'Oh God,' I think, noticing the crack running along the top of my office. \"OH GOD!\" I say out loud, running toward the door, hoping to get out before the whole thing-</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-033\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 21: Voct</strong></p>\n<p>Mmm. I pick the crumbs off my plate, drop them into my open mouth, and then suck the sauce off my fingers. Maybe it's just the contrast with the hospital food, but this has got to be the best damn burger I have <em>ever</em> had in my <em>life</em>! I know what the doctors would tell me, but I promise myself that I'll start my new healthy diet tomorrow. Absolute promise. <em>One</em> burger won't hurt me, and with a name like \"Last Chance Diner\"… well, hell, that's as good as a sign from God, right?</p>\n<p>I burp hugely, feeling like an eight-year-old as I savor the taste passing over my tongue again, and pay the waitress. It's seven dollars; I give her a twenty and tell her to keep the change. That was one INCREDIBLE burger!</p>\n<p>As I walk towards the exit, I get a sudden, stabbing, pain in my left chest, spreading towards my neck and shoulder… oh god, no, fuck, no no no PLEASE no… I collapse on the floor, knocking over a chair. I hear the waitress and the other customers panicking, someone's yelling 'call an ambulance', but I can tell it'll be too late…</p>\n<p>and then someone says \"Get out of my way, I'm a doctor\", and I feel a tiny surge of hope. I hear his footsteps coming closer, quick, sure, and confident.</p>\n<p>\"You're very, very lucky I happened to be in the same diner as you,\" he says, and I know he's right. He rips open my shirt, looks at my chest, puts his hand on me, just over my barely-healed scar, then closes his eyes and counts to himself for a few seconds. He opens his eyes again. \"It's worse than I thought. I'm going to have to operate right here. I have some tools in my bag - waitress! There's a drugstore down the street, go buy me some gauze and a bottle of rubbing alcohol!\"</p>\n<p>He traces the scar on my chest with his finger, then pulls a scalpel out of his bag. \"At least it'll be easier to go in. Don't worry, you'll be all right.\"</p>\n<p>I summon all my strength, and manage to croak \"thank you, doctor\". I can tell I'm going to pass out soon.</p>\n<p>He glares at me. \"Stop making that noise, I'm trying to talk to my patient.\"</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-890\">(Solved)</a></p>\n<hr/>\n<p><strong>Round 22: CondorTalon</strong></p>\n<p>Brrr. The cold wind smacks against my body as I walk home. That was a great meal, and I'm glad it was relatively cheap. The walks home always give plenty of time to reflect. About life, about death, about—</p>\n<p>Suddenly, I'm knocked out of my thoughts when someone runs out of the alley in front of me. The man quickly hurries away, a panicked look on his face, but I catch a glimpse of something shiny in his hand…</p>\n<p>A knife?!</p>\n<p>I quickly head into the alley the man came out of. Did that man stab someone? As I round the corner, I see the body of a woman lying unconscious in the alley. I run over, silently thanking my family for convincing me to attend medical school. As I land near the woman, I check for a pulse. It's dark so it's hard to find a wound. A nearby hissing sound is interrupting my focus. Is that a gas leak? I'd better hurry. As I scan my eyes across the body, I find no blood, but I still check to make sure—</p>\n<p>Wait what's that coming out of her stom—</p>\n<p>And then I died.</p>\n<p><a href=\"/scp-486\">(Unsolved)</a></p>\n<div class=\"licensebox\">\n<div class=\"collapsible-block\">\n<div class=\"collapsible-block-folded\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Licensing / Citation</a></div>\n<div class=\"collapsible-block-unfolded\" style=\"display:none\">\n<div class=\"collapsible-block-unfolded-link\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Hide Licensing / Citation</a></div>\n<div class=\"collapsible-block-content\">\n<p>Cite this page as:</p>\n<div class=\"list-pages-box\"> <div class=\"list-pages-item\">\n<blockquote>\n<p>\"<a href=\"/and-then-i-died\">\"And Then I Died\" Archive</a>\" by TroyL, from the <a href=\"https://scpwiki.com\">SCP Wiki</a>. Source: <a href=\"https://scpwiki.com/and-then-i-died\">https://scpwiki.com/and-then-i-died</a>. Licensed under <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA</a>.</p>\n</blockquote>\n</div>\n</div>\n<p>For information on how to use this component, see the <a href=\"/component:license-box\">License Box component</a>. To read about licensing policy, see the <a href=\"/licensing-guide\">Licensing Guide</a>.</p>\n</div>\n</div>\n</div>\n</div>\n</div></body></html>",
+  "raw_source": "\n\t> //Below are the previous entries for [http://scp-wiki.wikidot.com/and-then-i-died2 the game].  Read and enjoy! The answer are in links at the end of each one.//\n\n\n\n**Round 1: TroyL**\n\n\n\nI never really cared much for my brother.\n\n\n\nWe had at best a strained relationship.  Our parents just muttered “boys” and went about their business, but it was different.  It wasn’t sibling rivalry.  It wasn’t even rivalry.  We just… didn’t want to be around each other.  Ever.  We were like the same end of a magnet, always pushing away from each other, always bowing to the invisible force that kept us surely separated.  And, in a way, we were happy like that.\n\n\n\nI went into the military; he went to college.  I got out and started working with computers; he finished his degree and started designing them.  I eventually managed a private companies IT department; he worked at development in a rival company.  From my graduation on, I never saw him for more than an hour at most.  Since our mother’s funeral—the official cessation of all family gatherings—I hadn’t seen him at all.\n\n\n\nIt made his sudden appearance, haggard, carrying a briefcase and a shotgun, that so surprised me.  It was early in the morning, and when I opened the door, the light was carrying blinded me.  He talked for a few moments at the door, still holding the light aloft, before he turned it off, apologizing.  He came in, apologizing for the late hour, and asked for a cup of coffee.  I agreed, sitting with him at the table silently.  He didn’t speak.  I didn’t ask.\n\n\n\nAs he was about to leave, he looked at me, tilting his head sideways for a moment.  “Do you have any shells for a 20 gauge?”\n\n\n\nI nodded somewhat, fetching them from my study at the end of the hall and handing them to him.  He thanked me and left the building.  I should have wondered what he’d gotten himself into, what sort of espionage he’d managed, but I didn’t.  I just didn’t care.\n\n\n\nThe next morning, I found myself unable to think.  Everything looked like a gray haze, and even when I tried to concentrate, I couldn’t.  I remember turning the knob, and the bullet hitting my chest, but after that, everything starting shifting—going from gray to black.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-316 |(Solved)]]]\n\n----\n\n\n\n**Round 2: Dexanote**\n\n\n\nI’ve always had a pretty decent life. I was an only child, growing up in upstate New York with my mother and father. Mom was a real estate agent, Dad was an engineer. They both had emigrated from England before I was born, and we still had family back there. We visited sometimes, in the summers. I never liked English Summers. It would always rain.\n\n\n\nI always got good grades in school, played sports, did my chores, and so on. Never caused any trouble, but never really looked for any. I was a model, if fairly average, teenager.\n\n\n\nWhen I was 24 I decided to go travel abroad in Europe. Mom and Dad had retired together the year before, and didn’t seem to mind. I wish they had stopped me.\n\n\n\nI went to Italy first, then Austria, Germany, Switzerland, France… It was wonderful. I slept in hostels and under the stars, I loved this freedom. It was… beautiful. The countries, the places, the cities, the people, the art. It was all breathtaking.\n\n\n\nOne day, a few months into my travels, I called home to see how everyone was doing. I found that my widowed Aunt Helen back in England had passed, and left everything to me, her only nephew. I was told to make my way to Britain and find her lawyers, who would sort everything out in the mean time.\n\n\n\nWhen I arrived, the lawyers had already sorted out the transfer of ownership and related documentation. I now owned my Aunt’s entire estate. \n\n\n\nI went “home” to my new domain. \n\n\n\nIt was June, and the sky was grey. The estate was a large house in the countryside, with a greenhouse and a large garden out back. The entire building was covered in a purplish ivy, and an entire wing of the place contained a collection of strange, curious gadgets - a chessboard, an ugly green statue, a bunch of freakish  dolls, a fortune-teller machine, records, phonographs, a wardrobe, a dartboard… Nothing in the rooms seemed to have any coherent theme. I just shrugged; I’d sort through all the bullshit when I had time. \n\n\n\nI had decided to sleep on a sofa in the living room until I was more comfortable with the house. The huge conservatory window behind me let in a bit of light, the rain //plit plit plitting// off the panes. It hadn’t stopped raining since I arrived. \n\n\n\nI left one of the lower windows open to let in a nice breeze. At least I wasn’t sweating, I thought. If I was back in New York I’d be quite uncomfortable.\n\n\n\nIt wasn’t so bad here. The rain was relaxing, the ivy shivered quietly in the breeze. I guess I could get used to this…\n\n\n\nI felt something brush against my arm. I became very still. \n\n\n\nSomething burned. I screamed.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-749 |(Solved)]]]\n\n----\n\n\n\n**Round 3: Ragazzo**\n\n\n\nIn a Miami apartment's bathroom.\n\n\n\n//Ahhhhhh...damn...this...this is a really shitty hangover...fuck, man, what did I have last night...I'm here in my god damn apartment throwing up in my fucking apartment while that bastard Jode must be waking up next to some hot piece of a-ah f-fuck...// The sounds of vomiting echo off the bile, and blood splattered linoleum of the bathroom floor, interspersed with the odd dry heave here and there. \"Wait...fuckin' hang on...I partied with Jode last week, the fuck...is that my fuckin' hair?! The hell am I sitting in? Shit, fuck, my hands...what happened to my fuckin' hands?!\" And then I passed out. \n\n\n\n**Several hours later...**\n\n\n\n\"F-fuck...oh...g-god...I feel like...fuckin' shit...what'd I...drink last night...fuck, it must have been that old ass boo-\" A heave, a retching sound. A thin stream of bile dribbles out of my mouth, around the sickly pale orb of flesh that has swollen up from the roof of my mouth. I fall forward, and my face splashes into the toilet bowl, breaking through the thin crusty shell of bodily fluids into the rancid slop below.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-420 |(Solved)]]]\n\n----\n\n\n\n**Round 4: RhettSarlin**\n\n\n\nAlmost ready. We've been waiting for this excursion for a while now. Just us and the desert, looking up at the stars, snuggled close. Sophie smiles at me as she finishes packing food into the cooler. I smile back and take our sleeping bags out to the truck. I love her more than she knows. We've been going on random playful excursions for nearly 2 years now, and ever since that day at the camel farm where she came out soaked but laughing I've known she was the one for me. \n\n\n\nI may propose to her soon. \n\n\n\nBut not this trip. Watching the Perseids and looking at cacti are the order of the weekend this time. We've got everything packed up now. House is locked up, dogs have food and water, alarm's on. We already made sure things were good with her apartment, so she gives me a quick peck on the cheek and we're on our way. \n\n\n\nCountry music blaring from the radio as we head down I-8. I shake my head internally at her for that one, but hey, nobody's perfect. Exit coming up. Heading south now. She's chattering about her plans for a painting of the meteor shower. I love her art. I tend to appreciate the realistic more than the abstract, and her stuff from a distance looks almost like a photograph...at first glance anyway.\n\n\n\nQuick stop in Why for gas and a restroom break, then head down to the campgrounds. Or near enough. Sun's going down and we want to get set up out in the desert rather than the official spots. We go offroad a ways, drive past a hill and park where the truck won't be seen. Hiking time. We grab our packs, bags, and the cooler and head out. A mile or so we deem sufficient. We find a nice clear flat area that's to our liking and set up camp.\n\n\n\nNight now. Smores and hotdogs are sufficient for us. Playful makeouts, with an eye toward the sky. There it is! First meteor of the night. A kiss for every one we see. Soon there's too many for us to keep up, so we just lay in each other's arms and enjoy the show.\n\n\n\nStarting to feel a bit sleepy. Wouldn't be my first time sleeping in the open, and Sophie doesn't seem to mind. My body tingles a bit, then starts to go numb. I drift away and darkness takes me.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-165 |(Solved)]]]\n\n----\n\n\n\n**Round 5: TroyL**\n\n\n\nHe’s standing there.  He’s standing there, rooted to the spot, looking at me.  He’s going to kill me.  He didn’t realize it when he walked in the room—and he doesn’t even realize it now—but it’s going to happen.  They’re going to make him.\n\n\n\n“Richard,” I whisper, putting my hand on the glass  separating the two of us. “Richard, please don’t do this.”\n\n\n\nHis eyes look almost pained as he takes a step back, his face contorting as his teeth clench abnormally hard.  I can feel it as they grind, enamel on enamel, the sound practically boring a hole into my head.\n\n\n\n“Please,” I beg, my voice a pained whisper. “Please don’t do this. I… I’ll do anything. I’ll do whatever you want.  Just…don’t do what they say. Don’t kill me, Richard.”\n\n\n\nHe looks at me, gagging suddenly, as the intercom clicks: “Follow your orders, 18765. Proceed with the experiment.”\n\n\n\nI pound my fists on the glass, screaming, “They don’t even know your name! Please! I know you! I’m your friend, Richard! Please. //Please//. Don’t let them kill me.”\n\n\n\nI’m sobbing, and so is he.  The intercom sounds again, and he closes his eyes.  I watch as he backs away from me, his face streaming with sweat and tears.  I pound on the glass again, and again, and again, to no avail. “RICHARD!”\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-919 |(Solved)]]]\n\n----\n\n\n\n**Round 6: Redswift**\n\n\n\n\"August 14, 1981\n\n\n\nI'm so sorry. It's all my fault. I was weak and this will be my very last entry. Even now I can hear him, pounding and screaming. His pain is real and actions justified but I could fight back if not for the screaming. Damn his screaming!  It's his pain reverberating through my ears and my eyes and my bones and lending him my strength. There is no doubt I would already be dead if not for the heavy dresser which is slowing him down but will not stop him. He will never stop kill he kills the one responsible for taking her from him. I never had a ''her''. All I have is my farm and this journal. My last hope is that someone else will find use for them so at least some small good will have come of my existence. I can see the field right now from out my bedroom window.\n\n\n\nThe corn has seen better days but the sight of it is calming. \n\n\n\nWell nevermind about that first part. I don't know what came over me. I'm sure I'll be just fine. I don't know why I'm still writing. It seems kind of  silly and so does this barricade...I'll go say hello.\"\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-820|(Unsolved)]]]\n\n----\n\n\n\n**Round 7: Redswift**\n\n\n\nFinally I spot him walking toward the house. He is late for the first time today. Why does he look so shaken? I hope he is ok. The young man who brings me the mail is my only neighbor for miles. My driveway is too long and I am too weak to get it myself.  His smiling face is the only reason for these old bones to get out of bed anymore.  Yesterday's paper said there has been a series of strange break-ins but hell if I can remember any details. \n\n\n\nI turn to walk toward the door so I can greet him when suddenly there it is. Soundless, still and black as the devil's heart, its featureless face just inches from mine. The strain is too much and I drop to my knees from the pain. My eyes remain locked on the intruder. The pills on my dresser are far out of reach but all I can hope for is one last smile, even from this fiend. The young man knocks as he finally reaches my door. Thankfully it doesn't react. I clutch my chest as the world fades. In a blink it's gone.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-650 |(Solved)]]]\n\n----\n\n\n\n**Round 8: CondorTalon**\n\n\n\nI've been sick just about my whole life. Chicken pox, mumps, the flu, mono, E. coli; you name it, I've had it. At first, it was really frightening, not knowing when the next strike was, but now, it's just annoying. I think I've been held back a grade about 3 times when I was younger. Thankfully, my wife has the patience of a saint, and she sticks by me without fail. Unlike me, she's almost never sick. I don't know what I'd do without her.\n\n\n\nIt's happened again. I'm stuck in this bed, staring at the ceiling as the symptoms overtake me. My head feels like it's burning up, and my entire body is itchy. I even had to close the curtains because the lights were too bright for me. I'm worried that I'm getting attacked en masse.\n\n\n\nWell, somehow I made it through without too many problems. I'm quite tired now. I think I'll turn in. Let me just grab my pills...\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-593 |(Solved)]]]\n\n----\n\n\n\n**Round 9: Redswift**\n\n\n\nThe first warm day of the new year just happens to be my first day off in months. It's actually a little warmer than I would prefer but it seems like no matter where I walk the cloud position is perfect. Lady luck smiles on me today. Eating my favorite food at a picnic table in the local park I can hear the laughter of children on a nearby playground. \n\n\n\nI lay down on the grass to let my fully belly rest under the beautiful blue sky. It is much softer than what I have in my yard. Hell this grass is almost better than my bed. I don't want to ever leave. That cloud looks like a bunny... I don't have a care in the world...That one looks like a heart...I haven't done this since I was a kid...That one looks like a...\n\n\n\nAnd then I died.\n\n\n\n[[[scp-312 |(Solved)]]]\n\n----\n\n\n\n**Round 10: A Fat Ghost**\n\n\n\nSailcloth claps with the wind as I bring the boom around, salt massaging its way into my skin in the spray of a sharp turn. Summer sun bakes the landscape into focus as I try to keep it within sight. It’s a lonely and haunted coast, hot sand and a shallow treeline the only definition for miles. The quiet is almost so absolute as to be a distraction. \n\n\n\nHave I found a secret current, hiding somewhere just outside the comfort of a hundred outboards? A lighthouse idles by like the only telephone pole beside an unkept track of road, how did I miss that a minute ago?\n\n\n\nA flash of fish just under the surface, or maybe just sun on the sea, draws my attention starboard. Something whistles on the gentle tidal roll, against wood and fiberglass and memory: my mother’s humming in her small drawing room, my first girlfriend calling me in from the cold, the first movement of the only orchestra I’ve ever attended.\n\n\n\nThe boom taps out a warning strain against its tether, and I release my grip on the rail. The bow shudders and unfurls like a tulip. My feet leave the deck as wet stone rises to fill my eyes.\n\n\n\nAnd then I died.\n\n\n\n[[[scp-327 |(Solved)]]]\n\n----\n\n\n\n**Round 11: Sorts**\n\n\n\nThe rainy season had been getting shorter and shorter for the past few years and the grazing has become hazardous.  The other farmers have been losing some of their stock as well, so I have taken it upon myself to spend more and more time with my flock with a rifle slung over my back.  Some of the other villagers think that there's some sort of new predator stalking the savanna but I've not seen any unusual signs or heard any calls.\n\n\n\nMost of the familiar watering holes are drying out, so I moved my flock further out to an older location I knew well when I was a boy.  The water there was more often visited by wild animals, perhaps if there truly was some sort of new predator on these plains I thought I would at least be able to spot some sign of it there, but no such luck.  There are few tracks and no animals to compete with, and the trees and grass look to be striped with some sort of dark coloration.  I feared the water was fouled so I drove my thirsty flock back towards the village when I heard the splashing.\n\n\n\nOne of my goats must have over-enthusiastically wandered into the water and was now thrashing about in the mud like it was injured.  I dismounted and headed towards the shore but it wasn't a goat at all.  It looked like a child, flailing in the shallow water in panic.  I rushed over to help the boy out, his skin was coated with thick mud, black with silt.  He took my hand and would not let go, and as his face turned to mine I remember thinking that I have never seen anyone so scared.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-968 |(Solved)]]]\n\n----\n\n\n\n**Round 12: Dexanote**\n\n\n\n//Finally//, I thought. //This place is great…// I stepped into the abandoned house, this will do nicely. Cobwebs, dust, a bit away from busier areas… Need a spot to drop the… eh. Maybe later. I sighed. \n\n\n\n“Eh… nobody’s coming right now…fuck it.” I sat on a chair. Comfy enough. The body sat halfway into the doorway. Gas was back in his car. \n\n\n\n“… Man.” I yawned. Felt the chair creak. Eh.\n\n\n\nI tried to yawn, couldn’t. Pressure on my shoulder. Growing more tired by the second…\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-179 |(Solved)]]]\n\n----\n\n\n\n**Round 13: Felgraf**\n\n\n\nI slid back into wakefulness, and the first thing I could remember was the pain. My chest felt like I’d been hit by a sledgehammer, my arms felt sliced up, and all I could smell was smoke and leaking fuel. What the fuck was going on?\n\n\n\nThe memories filtered hazily into my mind.  Mary and I, our small transport plane—something had made us crash. I couldn’t remember how it had happened—was it the brewing storm? Mechanical failure? Something else? The trees had ‘broken’ our landing, but now we were upside-down, and by the smell of it, the plane was on fire—\n\n\n\nShit, Mary! Fighting through the haze of pain, I struggled to unbuckle myself, fumbling with the straps. Finally, I managed to undo my harness, and I pitched forwards onto the ceiling in a heap. As I struggled to stand, my hand pressed down into something warm and sticky—blood?\n\n\n\nIt was hard to see through the haze in my head (and the growing smoke), and I sure as hell couldn’t smell, but—no, it wasn’t blood. It was something leaking from the cargo hold. I couldn’t even remember what we were transporting. Mint ice cream, maybe? Fuck it, it wasn’t important. I had to check on Mary-I hoped she was just unconscious.\n\n\n\nI staggered the few steps to the copilot’s seat, and look upwards. She was still strapped in, but she wasn’t moving. Her eyes were open.  She was gone. My copilot, my love, gone.\n\n\n\nI ignored the growing smoke as I stepped closer to her, tears in my eyes. “Oh, Mary..” I lifted my hand to touch her face one last time, brushing her hair from her cheek.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-447 |(Solved)]]]\n\n----\n\n\n\n**Round 14: Dr_Adams**\n\n\n\nIt was the most exciting day of my life.  All of my hard work was paying off with an interview at the largest company in my field.  I'd finally met someone special and my confidence was at an all-time high.\n\n\n\nI walked into the glistening, new skyscraper with the highest of hopes.  A quick check-in at the front and I was off to the 30th floor.  If this worked out, the rest of my life's dreams would soon follow.\n\n\n\nEverything in the building was new.  The floors and walls were spotless, and the plants were put in place just as they were in bloom.  I walked into the bathroom for one last check.  I felt like I was the first person to use it.  My suit and tie were perfect.  I turned on the faucet to wash my hands and was blasted with a shocking spray of cold water.  I guess they hadn't gotten the water pressure quite right.  If getting a little wet was the worst that happened, it would still have been the best day ever.\n\n\n\nAnd then I died.\n\n\n\n[[[scp-313 |(Solved)]]]\n\n----\n\n\n\n**Round 15: RhettSarlin**\n\n\n\nWhat's the point to life? I just can't see it. We go on about our daily lives, day in and day out. But we're just matter, just atoms and energy. What's special about that? What's special about life? It's all predictable, we all follow predetermined courses according to the flow of energy inside us, our free will is an illusion. We'll never escape to the stars anyway, it's a forlorn hope, so one day an asteroid's gonna hit or we'll be hit by a solar flare...or, hell, the sun will supernova at least. And then bam. We're done. Everything was pointless the whole time. I don't see any reason to prolong it. We're just meat and bones and empty inside, and my death will be no loss to the world. Nobody will even think about it 100 years from now. I'll never be remembered, and the people who might have remembered me are doomed to perish anyway.\n\n\n\nThese thoughts have gone through my head for the last 6 months or so. The last time I actually found myself enjoying life was at the carnival back in August. People seemed happy, lovers holding onto each other. Kids running around laughing and playing with their carnival toys, using their imaginations and having fun. Old couples walking around serenely, enjoying each others company. Life seemed special to me. But since then everything has felt so dull. Maybe I enjoyed everything too much and burned myself out, because life just isn't fun anymore. Everything is dreary, I see people's faces as they pass by now and I can tell they're all full of goals and dreams and hopes that might come to pass. But I know better. Hell, they don't even really exist. Do I even exist? I feel that I shouldn't. I don't feel like I belong in this world, that I'm not even supposed to be here anymore. It'd be best for me to just make life better for everyone and end it.\n\n\n\nYeah, I think that's the best option about now. I'm going up to the roof of this building and jumping off. Maybe it'll be fun to fall. Let's find out. If you find my body, just throw it in the river or something, ok? Leaving now.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-161|(Solved)]]]\n\n----\n\n\n\n**Round 16: Dr_Adams**\n\n\n\nI swear to God I spend more time writing these reports than anything else around here.  My eyes can't take much more of this damn screen.  I know I signed up for this, I know it's important.  Hell, before I spent every waking moment thinking about it, it was //interesting//.  But how many times do we need to test it?  How many times do we need to crunch the numbers?  At least I have some people to talk to.  Speaking of which, our new researcher was looking good today.  I've never dated a Korean before...\n\n\n\nA sudden crash jolts me out of my seat.\n\n\n\nHow did it happen?  The noise is deafening, drowning out the screams of my friends.\n\nI glance up as my computer screen flashes a bright red warning of an imminent containment breach.  A wave of calm sweeps over me as my training and instincts take over.\n\n\n\nNo!  Not without a fight!\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-176|(Solved)]]]\n\n----\n\n\n\n**Round 17: Tyber**\n\n\n\nDay 3: \n\n\n\nOkay, okay, I can do it this time, I’m sure of it! Just got to loosen my muscles, get my mind clear, and go for it. Ok...1...2...3!\n\n\n\nDammit!\n\n…\n\n\n\nThis damn door! Just got to... huh huh...... clear my head, don’t think about it, just don’t think about it. Its not going to do anything, it’s not.  Let's just, give it another go. Alright, head’s clear, body's limber, I can do it.  I can do it. OK! 1…2… go! \n\n\n\nGod… gah… Goddammit…\n\n\n\n…\n\n\n\nPlease… just… just let me go… I can’t, I can’t keep trying. Its just too… I can’t. Please, just go away, leave, I’m begging you! I know you can hear me! Go away!\n\n\n\n…\n\n\n\nIt's still there. I know that much. Everyone else is gone, but it’s still there. Why? What the fuck does it get out of this? I just want to leave.\n\n \n\nBut it won’t let me.\n\n\n\n…\n\n\n\nOne last time. Just, one last time. I can’t do much else. Just one last time. I’m going through that door, and I’m leaving. Its not going to stop me, I won’t let it. This time, I’m just going to leave, just going to leave, and never come back. Ever.  Just going to leave… just going to leave…\n\n\n\nAnd then I died.  \n\n\n\n[[[SCP-303|(Solved)]]]\n\n----\n\n\n\n**Round 18: CondorTalon**\n\n\n\nBeing on the beach alone always calms me down. The smell of the air, the sound of the waves, the fact that no one else is here, it all comes together to create the perfect euphoric experience. I take a few steps along the coast, kicking things about as I go. I kick a rock ahead of me; it feels heavier than I expect. It lands near a small boulder. The boulder is smooth and in the rough shape of a chair. Perfect. I sit on it, and let everything wash over me.\n\n\n\nWash over me... wash over me...\n\n\n\nShit. Where did the time go? The water's around my ankles. The tide rises legendarily quickly on this beach. I should find a better place higher up.\n\n\n\nWhy can't I move? I need to get away from the water. My body won't respond. The water sloshes around me like it's being shaken up. Shit. Gotta get away. Why can't I move?\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-289|(Unsolved)]]]\n\n----\n\n\n\n**Round 19: Scantron**\n\n\n\nAnd I don’t know how I got here.  Ow.  Did I get beaten or something?  Maybe.  What the //fuck// was in that needle.  I’m holding a printout of… I don’t know //what// this is.  They can’t be serious.  The other guys don’t look like they know what it is either.  \n\n\n\nThere are loudspeakers and cameras here, just like that one other room.  Except this one looks grimier.  Headaches.  The lights (fluorescent) come on, and I can see the stuff on the table better.  What’s that thing next to the loudspeakers?  It looks-\n\n\n\n“Welcome to the Punishment Detail, but you probably know it as ‘Keter Duty’.  I'm in charge of this.  You’re here because of your less than satisfactory behavior.  If I may direct your attention to the scripts you each hold in your hands for a moment.  If you don’t read this script correctly and do //exactly// what it says, the consequences will be less than pleasant.  Start at the bell.\"\n\n\n\nScript?  What- oh, this.  Doesn’t look like any script I’ve ever read.  I can barely read this shit, it’s incomprehensible.  Whatever they drugged me with, I can’t think straight.  Still, I think I can at least pronounce it right, that should be enough.  Shit.  I do wonder why it cuts off in the middle-\n\n\n\n**Dingdingdingdingding**\n\n\n\nWhere did the time go?  Well, I’ll have to give it a shot.\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-732|(Unsolved)]]]\n\n-----\n\n\n\n**Round 20: TroyL**\n\n\n\nIt should work, dammit! I know it should work! I've got over this time and time again, and nothing makes sense!\n\n\n\nI sigh and sit down at the table, looking at the room. I've gotten obsessed, I know, but obsession is good for physics. Planck was obsessed. So was Einstein, and Schrodinger, and Hawking! All of them were obsessed, and they changed the world. That's all I'm trying to do… Just change the world, for the better. With a heavy sigh, I sit down in my desk, looking around the room. I've scrawled the equations over the walls again and again, constantly trying to make it work. When I ran out of room on the walls, I started using the floor. When I ran out of room on the floor…\n\n\n\nSomeone is trying to scoop me. They're trying to steal my notes, I know. Three cases of sabotage, this year alone. The techies say that they can't figure it out… No surges or anything…\n\n\n\nI sigh, returning to my desk, staring up at the ceiling where I had…\n\n\n\n'Oh God,' I think, noticing the crack running along the top of my office. \"OH GOD!\" I say out loud, running toward the door, hoping to get out before the whole thing-\n\n\n\nAnd then I died.\n\n\n\n[[[SCP-033|(Solved)]]]\n\n\n\n-----\n\n\n\n**Round 21: Voct**\n\n\n\nMmm. I pick the crumbs off my plate, drop them into my open mouth, and then suck the sauce off my fingers. Maybe it's just the contrast with the hospital food, but this has got to be the best damn burger I have //ever// had in my //life//! I know what the doctors would tell me, but I promise myself that I'll start my new healthy diet tomorrow. Absolute promise.  //One// burger won't hurt me, and with a name like \"Last Chance Diner\"... well, hell, that's as good as a sign from God, right?\n\n\n\nI burp hugely, feeling like an eight-year-old as I savor the taste passing over my tongue again, and pay the waitress. It's seven dollars; I give her a twenty and tell her to keep the change. That was one INCREDIBLE burger!\n\n\n\nAs I walk towards the exit, I get a sudden, stabbing, pain in my left chest, spreading towards my neck and shoulder... oh god, no, fuck, no no no PLEASE no... I collapse on the floor, knocking over a chair. I hear the waitress and the other customers panicking, someone's yelling 'call an ambulance', but I can tell it'll be too late...\n\n\n\nand then someone says \"Get out of my way, I'm a doctor\", and I feel a tiny surge of hope. I hear his footsteps coming closer, quick, sure, and confident.\n\n\n\n\"You're very, very lucky I happened to be in the same diner as you,\" he says, and I know he's right. He rips open my shirt, looks at my chest, puts his hand on me, just over my barely-healed scar, then closes his eyes and counts to himself for a few seconds. He opens his eyes again. \"It's worse than I thought. I'm going to have to operate right here. I have some tools in my bag - waitress! There's a drugstore down the street, go buy me some gauze and a bottle of rubbing alcohol!\"\n\n\n\nHe traces the scar on my chest with his finger, then pulls a scalpel out of his bag. \"At least it'll be easier to go in. Don't worry, you'll be all right.\"\n\n\n\nI summon all my strength, and manage to croak \"thank you, doctor\". I can tell I'm going to pass out soon.\n\n\n\nHe glares at me. \"Stop making that noise, I'm trying to talk to my patient.\"\n\n\n\nAnd then I died.\n\n\n\n[[[scp-890|(Solved)]]]\n\n\n\n-----\n\n\n\n**Round 22: CondorTalon**\n\n\n\nBrrr. The cold wind smacks against my body as I walk home. That was a great meal, and I'm glad it was relatively cheap. The walks home always give plenty of time to reflect. About life, about death, about--\n\n\n\nSuddenly, I'm knocked out of my thoughts when someone runs out of the alley in front of me. The man quickly hurries away, a panicked look on his face, but I catch a glimpse of something shiny in his hand...\n\n\n\nA knife?!\n\n\n\nI quickly head into the alley the man came out of. Did that man stab someone? As I round the corner, I see the body of a woman lying unconscious in the alley. I run over, silently thanking my family for convincing me to attend medical school. As I land near the woman, I check for a pulse. It's dark so it's hard to find a wound. A nearby hissing sound is interrupting my focus. Is that a gas leak? I'd better hurry. As I scan my eyes across the body, I find no blood, but I still check to make sure--\n\n\n\nWait what's that coming out of her stom--\n\n\n\nAnd then I died.\n\n\n\n[[[scp-486|(Unsolved)]]]\n\n\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box\">:scp-wiki:component:license-box</a>]]\n\n[!-- N/A (No Images)  --]\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box-end\">:scp-wiki:component:license-box-end</a>]]\n",
+  "references": [
+    "and-then-i-died2",
+    "scp-316",
+    "scp-749",
+    "scp-420",
+    "scp-165",
+    "scp-919",
+    "scp-820",
+    "scp-650",
+    "scp-593",
+    "scp-312",
+    "scp-327",
+    "scp-968",
+    "scp-179",
+    "scp-447",
+    "scp-313",
+    "scp-161",
+    "scp-176",
+    "scp-303",
+    "scp-289",
+    "scp-732",
+    "scp-033",
+    "scp-890",
+    "scp-486",
+    "component:license-box",
+    "licensing-guide"
+  ],
+  "tags": [
+    "_licensebox",
+    "collaboration",
+    "missing-number",
+    "tale"
+  ],
+  "title": "\"And Then I Died\" Archive - SCP Foundation",
+  "url": "https://scp-wiki.wikidot.com/and-then-i-died",
+  "year": 2011
+}

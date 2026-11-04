@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryContainerView.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryContainerView.cs</h1><p>game/Presentation/Inventory/InventoryContainerView.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorycontainerview.html">InventoryContainerView</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-3bfc9ee3d99d2d0244cd.html">InventoryContainerView.Panel</a> · line 9</li><li><a href="function-dd101596d5b1abcb1e3a.html">InventoryContainerView.Panel.get</a> · line 9</li><li><a href="function-8842d4cef4b27c910cec.html">InventoryContainerView.Panel.set</a> · line 9</li><li><a href="function-170c2828d680d429ab3f.html">InventoryContainerView.Browser</a> · line 10</li><li><a href="function-4b82a0b07e30bf3c600b.html">InventoryContainerView.Browser.get</a> · line 10</li><li><a href="function-76e678dc2650203b0400.html">InventoryContainerView.Browser.set</a> · line 10</li><li><a href="function-4008f0473e36d023152c.html">InventoryContainerView.GearView</a> · line 11</li><li><a href="function-357652c92d52623a2c0c.html">InventoryContainerView.GearView.get</a> · line 11</li><li><a href="function-327d5d4b4dc2bf4563d7.html">InventoryContainerView.GearView.set</a> · line 11</li><li><a href="function-eb4eecc6250266f4b27f.html">InventoryContainerView.Build</a> · line 18</li><li><a href="function-bbace76372b20138bb4e.html">InventoryContainerView.Refresh</a> · line 59</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;One of the two fixed inspection views. All physical commands go through the panel/service.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class InventoryContainerView : VBoxContainer</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public InventoryPanel Panel { get; set; } = null!;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public InventoryBrowser Browser { get; set; } = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     public bool GearView { get; set; }</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private string? _id;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private string? _region;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private Label? _state;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private VBoxContainer? _lower;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     private Button? _fastening;</span>
+<span id="L17"><a class="line" href="#L17">17</a>     private string _lowerSignature = &quot;&quot;;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     internal void Build(string? id, string? region, string path)</span>
+<span id="L19"><a class="line" href="#L19">19</a>     {</span>
+<span id="L20"><a class="line" href="#L20">20</a>         foreach (var child in GetChildren()) { RemoveChild(child); child.QueueFree(); }</span>
+<span id="L21"><a class="line" href="#L21">21</a>         _id = id; _region = region; _lower = null; _state = null; _fastening = null; _lowerSignature = &quot;&quot;;</span>
+<span id="L22"><a class="line" href="#L22">22</a>         CustomMinimumSize = new(GearView ? 330 : 280, 0); SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L23"><a class="line" href="#L23">23</a>         var header = new HBoxContainer(); AddChild(header);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         InventoryPanel.Label(header, GearView ? &quot;GEAR&quot; : &quot;CONTENTS&quot;, 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L25"><a class="line" href="#L25">25</a>         InventoryPanel.Button(header, &quot;↑&quot;, () =&gt; Browser.Dismiss(GearView, false));</span>
+<span id="L26"><a class="line" href="#L26">26</a>         InventoryPanel.Button(header, &quot;×&quot;, () =&gt; Browser.Dismiss(GearView, true));</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var breadcrumb = InventoryPanel.Label(this, path, 11); breadcrumb.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (id is null)</span>
+<span id="L29"><a class="line" href="#L29">29</a>         { InventoryPanel.Label(this, GearView ? &quot;Double-click worn gear to inspect it.&quot; : &quot;Choose a compartment on the gear illustration.&quot;, 12); return; }</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var sim = Panel.Simulation; var state = sim.Inventory;</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var root = state.Content!.Roots.FirstOrDefault(r =&gt; r.Id == id);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         var definition = root is null ? state.Definition(id) : null;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         InventoryPanel.Label(this, root?.Name ?? definition!.Name, 15);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         _state = InventoryPanel.Label(this, &quot;&quot;, 11); _state.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
+<span id="L35"><a class="line" href="#L35">35</a>         if (GearView)</span>
+<span id="L36"><a class="line" href="#L36">36</a>         {</span>
+<span id="L37"><a class="line" href="#L37">37</a>             if (definition is not null)</span>
+<span id="L38"><a class="line" href="#L38">38</a>             {</span>
+<span id="L39"><a class="line" href="#L39">39</a>                 AddChild(new InventoryGearSurface { Panel = Panel, Browser = Browser, ItemId = id });</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 if (definition.Wear?.OpenExposes is { Length: &gt; 0 })</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     _fastening = InventoryPanel.Button(this, &quot;&quot;, () =&gt; Panel.ToggleClosure(id));</span>
+<span id="L42"><a class="line" href="#L42">42</a>             }</span>
+<span id="L43"><a class="line" href="#L43">43</a>             // Authoring fallback for an unregistered sprite/hotspot; never derive capacity from pixels.</span>
+<span id="L44"><a class="line" href="#L44">44</a>             if (root is not null || !InventoryGearSurface.Registered(definition!.Id))</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r =&gt; r.Attachment is null))</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     InventoryPanel.Button(this, &quot;Open &quot; + r.Name, () =&gt; Panel.OpenCompartment(id, r.Id));</span>
+<span id="L47"><a class="line" href="#L47">47</a>             _lower = new VBoxContainer(); AddChild(_lower);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         }</span>
+<span id="L49"><a class="line" href="#L49">49</a>         else if (region is not null)</span>
+<span id="L50"><a class="line" href="#L50">50</a>         {</span>
+<span id="L51"><a class="line" href="#L51">51</a>             var r = state.Region(id, region);</span>
+<span id="L52"><a class="line" href="#L52">52</a>             var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill };</span>
+<span id="L53"><a class="line" href="#L53">53</a>             AddChild(scroll); Panel.AddGrid(scroll, id, region, r.CellMm &lt; 25 ? 44 : r.Columns &gt;= 8 ? 29 : 30);</span>
+<span id="L54"><a class="line" href="#L54">54</a>             if (definition is not null &amp;&amp; r.Sealable)</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 InventoryPanel.Button(this, r.SecureVerb, () =&gt; Panel.ChangeLid(id, region, false));</span>
+<span id="L56"><a class="line" href="#L56">56</a>         }</span>
+<span id="L57"><a class="line" href="#L57">57</a>         Refresh();</span>
+<span id="L58"><a class="line" href="#L58">58</a>     }</span>
+<span id="L59"><a class="line" href="#L59">59</a>     internal void Refresh()</span>
+<span id="L60"><a class="line" href="#L60">60</a>     {</span>
+<span id="L61"><a class="line" href="#L61">61</a>         if (_id is null || _state is null) return;</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var sim = Panel.Simulation; var state = sim.Inventory;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         if (_fastening is not null)</span>
+<span id="L64"><a class="line" href="#L64">64</a>         {</span>
+<span id="L65"><a class="line" href="#L65">65</a>             var action = InventoryClosures.Toggle(state, _id);</span>
+<span id="L66"><a class="line" href="#L66">66</a>             _fastening.Text = action.Verb;</span>
+<span id="L67"><a class="line" href="#L67">67</a>             _fastening.Disabled = state.Pending is not null || !sim.QuoteInventory(action.Request).Allowed;</span>
+<span id="L68"><a class="line" href="#L68">68</a>         }</span>
+<span id="L69"><a class="line" href="#L69">69</a>         _state.Text = _region is not null &amp;&amp; !state.Region(_id, _region).Sealable ? &quot;UNSEALABLE&quot; + (state.Region(_id, _region).Snug ? &quot; · snug fit&quot; : &quot;&quot;)</span>
+<span id="L70"><a class="line" href="#L70">70</a>             : _region is not null ? (state.IsOpen(_id, _region) ? &quot;OPEN · contents accessible&quot; : &quot;SECURED&quot;)</span>
+<span id="L71"><a class="line" href="#L71">71</a>             : state.DiagnosticItems.SingleOrDefault(i =&gt; i.Id == _id) is { } item</span>
+<span id="L72"><a class="line" href="#L72">72</a>                 ? state.Definition(_id).Wear?.OpenExposes is { Length: &gt; 0 }</span>
+<span id="L73"><a class="line" href="#L73">73</a>                     ? item.GarmentOpen ? &quot;GARMENT OPEN · removal restrictions still apply&quot; : &quot;GARMENT FASTENED&quot;</span>
+<span id="L74"><a class="line" href="#L74">74</a>                     : state.Definition(_id).Regions?.Any(r =&gt; r.Attachment is not null) == true</span>
+<span id="L75"><a class="line" href="#L75">75</a>                         ? &quot;Exterior mounts · drag compatible gear onto an exposed mount · R rotates&quot;</span>
+<span id="L76"><a class="line" href="#L76">76</a>                         : &quot;Inspect individual compartments; other compartments stay hidden.&quot;</span>
+<span id="L77"><a class="line" href="#L77">77</a>                 : &quot;Nearby storage · physical reach required&quot;;</span>
+<span id="L78"><a class="line" href="#L78">78</a>         if (_lower is null) return;</span>
+<span id="L79"><a class="line" href="#L79">79</a>         var exposed = sim.InventoryUnderlayers(_id);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         var signature = string.Join(&quot;|&quot;, exposed.Select(i =&gt; i.Id));</span>
+<span id="L81"><a class="line" href="#L81">81</a>         if (signature == _lowerSignature) return;</span>
+<span id="L82"><a class="line" href="#L82">82</a>         _lowerSignature = signature;</span>
+<span id="L83"><a class="line" href="#L83">83</a>         foreach (var child in _lower.GetChildren()) { _lower.RemoveChild(child); child.QueueFree(); }</span>
+<span id="L84"><a class="line" href="#L84">84</a>         foreach (var inner in exposed)</span>
+<span id="L85"><a class="line" href="#L85">85</a>             InventoryPanel.Button(_lower, &quot;Under: &quot; + state.Definition(inner.Id).Name, () =&gt; Browser.Descend(inner.Id));</span>
+<span id="L86"><a class="line" href="#L86">86</a>     }</span>
+<span id="L87"><a class="line" href="#L87">87</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

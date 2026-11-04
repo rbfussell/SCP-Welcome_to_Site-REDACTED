@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryAttachmentFrames.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryAttachmentFrames.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryAttachmentFrames.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-attachmentframe.html">AttachmentFrame</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-91d8fac6714bdd42c1a4.html">InventoryAttachmentFrames.Compose</a> · line 9</li><li><a href="function-d30e0eaa1bbedc457820.html">InventoryAttachmentFrames.RelativePose</a> · line 16</li><li><a href="function-79dcc7f98b90597467c2.html">InventoryAttachmentFrames.Provider</a> · line 28</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;A shared exterior plane: worn providers share the actor&#x27;s surface; loose assemblies keep their own frame.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal sealed record AttachmentFrame(string AnchorId, string Surface, BodyPose Pose);</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Composes physical support coordinates without creating inventory capacity or a second item parent.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public static class InventoryAttachmentFrames</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public static BodyPose Compose(BodyPose outer, BodyPose inner)</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var cell = BodyFitGeometry.Transform(new(inner.Q, inner.R), outer);</span>
+<span id="L12"><a class="line" href="#L12">12</a>         return new(cell.Q, cell.R, (outer.Rotation + inner.Rotation) % 6);</span>
+<span id="L13"><a class="line" href="#L13">13</a>     }</span>
+<span id="L14"><a class="line" href="#L14">14</a> </span>
+<span id="L15"><a class="line" href="#L15">15</a>     /// &lt;summary&gt;Returns a descendant&#x27;s pose in an ancestor&#x27;s exterior frame; packed contents have no such pose.&lt;/summary&gt;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public static BodyPose? RelativePose(InventoryState state, string descendant, string ancestor)</span>
+<span id="L17"><a class="line" href="#L17">17</a>     {</span>
+<span id="L18"><a class="line" href="#L18">18</a>         var pose = new BodyPose(0, 0);</span>
+<span id="L19"><a class="line" href="#L19">19</a>         for (var depth = 0; depth &lt;= InventoryHierarchy.MaxDepth; depth++)</span>
+<span id="L20"><a class="line" href="#L20">20</a>         {</span>
+<span id="L21"><a class="line" href="#L21">21</a>             if (descendant == ancestor) return pose;</span>
+<span id="L22"><a class="line" href="#L22">22</a>             if (!state.Items.TryGetValue(descendant, out var item) || item.Placement.AttachmentPose is not { } local) return null;</span>
+<span id="L23"><a class="line" href="#L23">23</a>             pose = Compose(local, pose); descendant = item.Placement.ParentId;</span>
+<span id="L24"><a class="line" href="#L24">24</a>         }</span>
+<span id="L25"><a class="line" href="#L25">25</a>         return null;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     }</span>
+<span id="L27"><a class="line" href="#L27">27</a> </span>
+<span id="L28"><a class="line" href="#L28">28</a>     internal static AttachmentFrame Provider(InventoryState state, string owner, string surface)</span>
+<span id="L29"><a class="line" href="#L29">29</a>     {</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var pose = new BodyPose(0, 0);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var top = state.Items[owner];</span>
+<span id="L32"><a class="line" href="#L32">32</a>         for (var depth = 0; top.Placement.AttachmentPose is { } local; depth++)</span>
+<span id="L33"><a class="line" href="#L33">33</a>         {</span>
+<span id="L34"><a class="line" href="#L34">34</a>             if (depth &gt;= InventoryHierarchy.MaxDepth) throw new ArgumentException(&quot;Attachment provider chain is cyclic or too deep.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>             pose = Compose(local, pose);</span>
+<span id="L36"><a class="line" href="#L36">36</a>             var offered = state.Region(top.Placement.ParentId, top.Placement.RegionId).Attachment!;</span>
+<span id="L37"><a class="line" href="#L37">37</a>             if (surface == &quot;mounted&quot;) surface = offered.Surface;</span>
+<span id="L38"><a class="line" href="#L38">38</a>             top = state.Items[top.Placement.ParentId];</span>
+<span id="L39"><a class="line" href="#L39">39</a>         }</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var mount = InventoryWear.Mount(state, top, top.Placement);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         if (surface == &quot;mounted&quot;) surface = mount?.BodySurface ?? &quot;front&quot;;</span>
+<span id="L42"><a class="line" href="#L42">42</a>         return mount is null ? new(top.Id, surface, pose)</span>
+<span id="L43"><a class="line" href="#L43">43</a>             : new(top.Placement.ParentId, surface, Compose(InventoryBodyFit.Pose(state, top)!, pose));</span>
+<span id="L44"><a class="line" href="#L44">44</a>     }</span>
+<span id="L45"><a class="line" href="#L45">45</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPaperdollArt.Validate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.Validate</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypaperdollart-cs.html#L32">game/Presentation/Inventory/InventoryPaperdollArt.cs:32</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private static void Validate(PaperdollManifest m)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-129048a6e3783a09fa1e.html">InventoryPaperdollArt.Rect</a></li><li><a href="function-6f172cad323a98a2b3ea.html">OscpApplications.All</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>r.All
+m.CanvasSize.Any
+m.Images.Any
+System.IO.Path.GetFileName
+i.Key.EndsWith
+i.Value.Any
+m.Frames.Any
+m.Frames.Select(f =&gt; f.Column).Distinct().Count
+m.Frames.Select(f =&gt; f.Column).Distinct
+m.Frames.Select
+m.Images.ContainsKey
+f.Parts.Any
+Rect
+new[] { p.Front, p.Back }.Any
+m.Frames.Single
+new[] { &quot;front&quot;, &quot;back&quot; }.All
+m.HeadCutouts.TryGetValue
+polygon.All
+p.All
+float.IsFinite
+m.Bindings.Select(b =&gt; b.Definition).Distinct().Count
+m.Bindings.Select(b =&gt; b.Definition).Distinct
+m.Bindings.Select
+m.Bindings.Any
+string.IsNullOrWhiteSpace
+cuts.Any
+mounts.Any</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-b8207662c8611c8c70c0.html">InventoryPaperdollArt.InventoryPaperdollArt</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdollmanifest.html">PaperdollManifest</a></li></ul><h2>Implementation</h2><pre><code>private static void Validate(PaperdollManifest m)
+    {
+        static bool Rect(float[]? r) =&gt; r is { Length: 4 } &amp;&amp; r.All(float.IsFinite) &amp;&amp; r[0] &gt;= 0 &amp;&amp; r[1] &gt;= 0
+            &amp;&amp; r[2] &gt; 0 &amp;&amp; r[3] &gt; 0 &amp;&amp; r[0] + r[2] &lt;= 1.001f &amp;&amp; r[1] + r[3] &lt;= 1.001f;
+        if (m.Version != 2 || m.Actor != &quot;avatar&quot; || m.BodyFamily != &quot;human-nine-shoulder&quot;
+            || m.CanvasSize is not { Length: 2 } || m.CanvasSize.Any(n =&gt; n &lt;= 0) || m.Images is not { Count: &gt; 0 }
+            || m.Images.Any(i =&gt; System.IO.Path.GetFileName(i.Key) != i.Key || !i.Key.EndsWith(&quot;.png&quot;, StringComparison.Ordinal)
+                || i.Value is not { Length: 2 } || i.Value.Any(n =&gt; n &lt;= 0))
+            || m.Frames is not { Length: &gt; 0 and &lt;= 128 } || m.Frames.Any(f =&gt; f.Column is &lt; 0 or &gt; 127)
+            || m.Frames.Select(f =&gt; f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f =&gt; f.Column == 0)
+            || m.Frames.Any(f =&gt; !m.Images.ContainsKey(f.File) || f.Parts is not { Length: &gt; 0 and &lt;= 8 }
+                || f.Parts.Any(p =&gt; p.Side is not (null or &quot;front&quot; or &quot;back&quot;) || !Rect(p.Destination) || p.BackDestination is { } back &amp;&amp; !Rect(back)
+                    || new[] { p.Front, p.Back }.Any(r =&gt; r is not { Length: 4 } || r[0] &lt; 0 || r[1] &lt; 0 || r[2] &lt;= 0 || r[3] &lt;= 0
+                        || (long)r[0] + r[2] &gt; m.Images[f.File][0] || (long)r[1] + r[3] &gt; m.Images[f.File][1])))
+            || m.Frames.Single(f =&gt; f.Column == 0).Parts.Length != 1 || m.Frames.Single(f =&gt; f.Column == 0).Parts[0].Side is not null
+            || m.HeadCutouts is null || !new[] { &quot;front&quot;, &quot;back&quot; }.All(side =&gt; m.HeadCutouts.TryGetValue(side, out var polygon)
+                &amp;&amp; polygon.Length &gt;= 3 &amp;&amp; polygon.All(p =&gt; p is { Length: 2 } &amp;&amp; p.All(n =&gt; float.IsFinite(n) &amp;&amp; n is &gt;= 0 and &lt;= 1)))
+            || m.Mosaic is null || !Rect(m.Mosaic.Front) || !Rect(m.Mosaic.Back) || m.Mosaic.BlockSize is &lt; 8 or &gt; 40
+            || m.Bindings is not { Length: &gt; 0 and &lt;= 128 } || m.Bindings.Select(b =&gt; b.Definition).Distinct().Count() != m.Bindings.Length
+            || m.Bindings.Any(b =&gt; string.IsNullOrWhiteSpace(b.Definition) || b.Column &lt;= 0 || !m.Frames.Any(f =&gt; f.Column == b.Column)
+                || (b.OpenColumn is { } open &amp;&amp; (open &lt;= 0 || !m.Frames.Any(f =&gt; f.Column == open)))
+                || b.BaseCutouts is { } cuts &amp;&amp; cuts.Any(r =&gt; !Rect(r))
+                || b.MountColumns is { } mounts &amp;&amp; (mounts.Count == 0 || mounts.Any(pair =&gt; string.IsNullOrWhiteSpace(pair.Key)
+                    || pair.Value &lt;= 0 || !m.Frames.Any(f =&gt; f.Column == pair.Value)))))
+            throw new InvalidOperationException(&quot;Invalid bounded full-body paperdoll manifest.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollArt.cs:32</footer></main></div></body></html>

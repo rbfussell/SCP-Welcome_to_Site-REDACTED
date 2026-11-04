@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodyFitChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyFitChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class BodyFitChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string message) { if (!ok) throw new Exception(&quot;Body fit: &quot; + message); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        void Finish(SpatialSimulation sim)
+        {
+            for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) sim.Tick();
+            Check(sim.Inventory.Pending is null, &quot;paid fitting resolves&quot;);
+        }
+        var sim = Sim(); var catalog = sim.Inventory.BodyFits!;
+        var body = catalog.Body(&quot;human-nine-shoulder&quot;);
+        Check(body.Rows[4].Count(c =&gt; c == &#x27;#&#x27;) == 9, &quot;fixture really has nine shoulder cells&quot;);
+        foreach (var shape in catalog.Content.Shapes)
+        {
+            var result = BodyFitGeometry.Evaluate(body, shape, shape.DefaultPose);
+            Check(result.Fits &amp;&amp; result.Outside.Length == 0 &amp;&amp; result.FailedContacts.Length == 0, &quot;each authored default fits: &quot; + shape.Id);
+            Check(shape.Rotations.SequenceEqual(Enumerable.Range(0, 6)), &quot;body rotation uses six orientations&quot;);
+            Check(!BodyFitGeometry.Evaluate(body, shape, shape.DefaultPose with { R = 50 }).Fits, &quot;far translated garment cannot float outside body&quot;);
+            Check(BodyFitGeometry.Cells(shape.Rows).Length == result.Cells.Length, &quot;fitting preserves worn occupancy size&quot;);
+        }
+        Check(new BodyHex(1, 0).Rotate(1) == new BodyHex(0, 1), &quot;independent axial 60-degree reference vector&quot;);
+        Check(new BodyHex(1, -1).Rotate(2) == new BodyHex(0, 1), &quot;independent axial 120-degree reference vector&quot;);
+        for (var rotation = 0; rotation &lt; 6; rotation++)
+        for (var direction = 0; direction &lt; 6; direction++)
+            Check(new BodyHex(0, 0).Neighbor(direction).Rotate(rotation) == new BodyHex(0, 0).Neighbor((direction + rotation) % 6), &quot;contact directions rotate with their shape&quot;);
+        try { new BodyHex(1, 0).Rotate(int.MaxValue); throw new Exception(&quot;Unbounded rotation accepted&quot;); }
+        catch (ArgumentOutOfRangeException) { Check(true, &quot;public body rotation is bounded before iteration&quot;); }
+        var square = new BodyMask(&quot;test&quot;, &quot;Reference body&quot;, [&quot;#####&quot;, &quot;#####&quot;, &quot;#####&quot;]);
+        var cap = new BodyFitShape(&quot;cap&quot;, &quot;test&quot;, [&quot;..#..&quot;, &quot;.....&quot;, &quot;.....&quot;], new(0, 0), [0, 1, 2, 3, 4, 5], [new(new(0, 0), 5)]);
+        Check(BodyFitGeometry.Evaluate(square, cap, cap.DefaultPose).Fits, &quot;closed top edge meets exterior body boundary&quot;);
+        var misplaced = BodyFitGeometry.Evaluate(square, cap, new(0, 1));
+        Check(!misplaced.Fits &amp;&amp; misplaced.Outside.Length == 0 &amp;&amp; misplaced.FailedContacts.Length == 1,
+            &quot;contact detects bad placement even when every garment cell lies inside the body&quot;);
+        Check(BodyFitGeometry.Evaluate(square, cap with { Contacts = [] }, new(0, 1)).Fits, &quot;authored open edge permits body continuation&quot;);
+        var turned = BodyFitGeometry.Evaluate(square, cap, new(0, 0, 1));
+        Check(turned.Contacts.Single().Direction == 0, &quot;closed edge direction turns with the geometry&quot;);
+        Check(!BodyFitGeometry.Evaluate(square, cap, new(0, 0, 6)).Fits &amp;&amp; !BodyFitGeometry.Evaluate(square, cap, new(0, 0, -1)).Fits, &quot;unbounded orientations are refused without a transform loop&quot;);
+        Check(!BodyFitGeometry.Evaluate(square, cap with { Rotations = [0] }, new(0, 0, 1)).Fits, &quot;authored orientation restrictions apply&quot;);
+        Check(!BodyFitGeometry.Evaluate(square with { Id = &quot;other&quot; }, cap, new(0, 0)).Fits, &quot;same silhouette does not override a different body family&quot;);
+        var shirt = catalog.Shape(&quot;shirt&quot;);
+        Check(!BodyFitGeometry.Evaluate(body, shirt, shirt.DefaultPose with { R = shirt.DefaultPose.R + 1 }).Fits, &quot;shirt cannot be shifted below its shoulders&quot;);
+        Check(!BodyFitGeometry.Evaluate(body, shirt, shirt.DefaultPose with { Rotation = 3 }).Fits, &quot;upside-down shirt fails its actual silhouette/contacts&quot;);
+        var before = sim.Save(); var blockedShirt = sim.PreviewBodyFit(&quot;avatar-shirt&quot;, shirt.DefaultPose)!;
+        Check(blockedShirt.Geometry.Fits &amp;&amp; !blockedShirt.Handling.Allowed &amp;&amp; sim.Save() == before, &quot;geometric fit never bypasses current wearing state or outer-layer constraints&quot;);
+        Check(sim.PreviewBodyFit(&quot;observer-coat&quot;, new(0, 0)) is null, &quot;preview cannot inspect another employee&#x27;s hidden equipment&quot;);
+        Check(sim.PreviewBodyFit(&quot;chemical-suit&quot;, new(0, 0)) is null, &quot;distant fixture&#x27;s gear is not granted through the fit menu&quot;);
+        Check(!sim.QuoteInventory(new(InventoryActionKind.Move, &quot;flashlight&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;, 0, 2, BodyPose: new(0, 0)))).Allowed,
+            &quot;storage cannot retain a spurious worn coordinate&quot;);
+        Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), &quot;remove shoes for fitting fixture&quot;); Finish(sim);
+        var bootShape = catalog.Shape(&quot;boots&quot;);
+        var fit = sim.PreviewBodyFit(&quot;avatar-shoes&quot;, bootShape.DefaultPose)!;
+        Check(fit.Geometry.Fits &amp;&amp; fit.Handling.Allowed, &quot;held shoes can be fitted through normal equipment command&quot;);
+        var invalid = sim.PreviewBodyFit(&quot;avatar-shoes&quot;, bootShape.DefaultPose with { R = 0 })!;
+        before = sim.Save();
+        Check(!invalid.Geometry.Fits &amp;&amp; !invalid.Handling.Allowed &amp;&amp; !sim.HandleInventory(invalid.Request) &amp;&amp; sim.Save() == before, &quot;failed body fit has no physical effect or cost&quot;);
+        var mixed = fit.Request with { Destination = fit.Request.Destination! with { Rotated = true } };
+        Check(!sim.QuoteInventory(mixed).Allowed, &quot;body rotation and packed orientation cannot be mixed&quot;);
+        sim.ManualPause = true; before = sim.Save();
+        Check(!sim.HandleInventory(fit.Request) &amp;&amp; sim.Save() == before, &quot;preview/apply cannot grant free dressing during pause&quot;);
+        sim.ManualPause = false;
+        Check(sim.HandleInventory(fit.Request) &amp;&amp; sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement.RegionId == &quot;hand&quot;, &quot;fitting purchases time before committing a new body pose&quot;);
+        sim.Tick(); var mid = sim.Save(); var clone = Sim(); clone.Restore(mid);
+        Check(clone.Save() == mid, &quot;pending body coordinates/costs restore exactly&quot;);
+        Finish(sim); Finish(clone);
+        Check(sim.Save() == clone.Save() &amp;&amp; sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement.BodyPose == bootShape.DefaultPose, &quot;applied worn pose persists and resumes identically&quot;);
+        before = sim.Save();
+        Check(!sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, &quot;footwear&quot;))) &amp;&amp; sim.Save() == before,
+            &quot;implicit and explicit authored default are equivalent, avoiding a meaningless refit&quot;);
+        Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), &quot;take fitted equipment off&quot;); Finish(sim);
+        Check(sim.Inventory.Items[&quot;avatar-shoes&quot;].Placement.BodyPose is null, &quot;removal clears worn position rather than carrying it into storage&quot;);
+        var packing = InventoryPlacement.Footprint(sim.Inventory.Definition(&quot;avatar-shoes&quot;), sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;), false);
+        Check(packing == (7, 10) &amp;&amp; InventoryPlacement.Footprint(sim.Inventory.Definition(&quot;avatar-shoes&quot;), sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;), true) == (10, 7),
+            &quot;worn shape never alters the separate two-orientation millimetre packing envelope&quot;);
+        var packSim = Sim(); packSim.Player.Cell = new(13, 6);
+        Check(packSim.HandleInventory(new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;))), &quot;fit second pack to front&quot;); Finish(packSim);
+        Check(packSim.PreviewBodyFit(&quot;chemical-suit&quot;, new(0, 0)) is null, &quot;even a nearby accessible crate is not exposed as a quick-scan fit list&quot;);
+        var packItem = packSim.Inventory.Items[&quot;spare-backpack&quot;];
+        Check(packSim.PreviewBodyFit(packItem.Id, catalog.Shape(&quot;backpack&quot;).DefaultPose)!.Request.Destination!.RegionId == &quot;front&quot;, &quot;preview preserves actual front-pack mount&quot;);
+        var tactical = Sim();
+        Check(tactical.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-shoes&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), &quot;prepare held tactical equipment&quot;); Finish(tactical);
+        tactical.Player.Facing = 1; Check(tactical.ArmTraining(), &quot;enter tactical fit fixture&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = 10 };
+        var tacticalFit = tactical.PreviewBodyFit(&quot;avatar-shoes&quot;, bootShape.DefaultPose)!;
+        Check(tactical.HandleInventory(tacticalFit.Request) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - tacticalFit.Handling.Ap, &quot;geometric fitting uses existing equipment AP costs&quot;);
+        Finish(tactical); var local = tactical.LocalMs; tactical.Tick();
+        Check(tactical.LocalMs == local, &quot;tactical input hold resumes after fitting&quot;);
+        void Reject(Action&lt;JsonNode&gt; mutate)
+        {
+            var victim = Sim(); var safe = victim.Save(); var bad = JsonNode.Parse(mid)!; mutate(bad);
+            try { victim.Restore(bad.ToJsonString()); throw new Exception(&quot;Invalid body continuation accepted&quot;); }
+            catch (ArgumentException) { Check(victim.Save() == safe, &quot;invalid worn pose restore preserves the running simulation&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;BodyPose&quot;]![&quot;Rotation&quot;] = 99);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;BodyPose&quot;]![&quot;Q&quot;] = 9999);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().First(i =&gt; i![&quot;Id&quot;]!.GetValue&lt;string&gt;() == &quot;avatar-coat&quot;)![&quot;Placement&quot;]![&quot;BodyPose&quot;] = new JsonObject { [&quot;Q&quot;] = 0, [&quot;R&quot;] = 0, [&quot;Rotation&quot;] = 0 });
+        var authored = catalog.Content;
+        void RejectCatalog(BodyFitContent bad)
+        {
+            try { BodyFitCatalog.Validate(bad); throw new Exception(&quot;Invalid authored body content accepted&quot;); }
+            catch (ArgumentException) { passed++; }
+        }
+        RejectCatalog(authored with { Bodies = [body with { Rows = [&quot;..X..&quot;] }] });
+        RejectCatalog(authored with { Shapes = [shirt with { Contacts = [new(new(999, 999), 0)] }] });
+        RejectCatalog(authored with { Shapes = [shirt with { Contacts = [new(new(0, 0), 9)] }] });
+        RejectCatalog(authored with { Shapes = [shirt with { Rotations = [0, 0] }] });
+        RejectCatalog(authored with { Shapes = [shirt with { BodyFamily = &quot;absent&quot; }] });
+        RejectCatalog(authored with { Shapes = [shirt with { DefaultPose = new(0, 0, 1) }] });
+        Console.WriteLine($&quot;BODY_FIT_CHECKS_PASS: {passed} assertions; mask/contact geometry, six orientations, paid equipment, isolation and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/BodyFitChecks.cs</footer></main></div></body></html>

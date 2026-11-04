@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Feedback/PlayerEventLog.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerEventLog.cs</h1><p>src/SiteSimulation/Feedback/PlayerEventLog.cs</p><p><a href="system-feedback.html">Player feedback and journal</a></p><h2>Types</h2><ul><li><a href="type-messagekind.html">MessageKind</a></li><li><a href="type-playermessage.html">PlayerMessage</a></li><li><a href="type-eventlogsnapshot.html">EventLogSnapshot</a></li><li><a href="type-playereventlog.html">PlayerEventLog</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-75d3a31c80e8ad81393b.html">PlayerEventLog.Visible</a> · line 14</li><li><a href="function-e1e290a906748f6627db.html">PlayerEventLog.Visible.get</a> · line 14</li><li><a href="function-38c9792d2e170c7b1737.html">PlayerEventLog.Entries</a> · line 16</li><li><a href="function-1e5e092777e5d0e25406.html">PlayerEventLog.Revision</a> · line 17</li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a> · line 18</li><li><a href="function-36f8cfe82d96edb46cf9.html">PlayerEventLog.Once</a> · line 25</li><li><a href="function-a43d7114feaa3ea552db.html">PlayerEventLog.Window</a> · line 32</li><li><a href="function-18e427710135ada25930.html">PlayerEventLog.Capture</a> · line 38</li><li><a href="function-45287ffbe1449be91515.html">PlayerEventLog.Restore</a> · line 39</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> public enum MessageKind { Observation, Orders, Combat, Equipment, Conversation, Status, Warning }</span>
+<span id="L4"><a class="line" href="#L4">4</a> public sealed record PlayerMessage(long Id, long WorldMs, long LocalMs, MessageKind Kind, string Text);</span>
+<span id="L5"><a class="line" href="#L5">5</a> public sealed record EventLogSnapshot(long NextId, PlayerMessage[] Entries, string[] Consumed, string[] Visible);</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> /// &lt;summary&gt;Acquired player-facing events only. Never populated by copying the authoritative debug trace.&lt;/summary&gt;</span>
+<span id="L8"><a class="line" href="#L8">8</a> public sealed class PlayerEventLog</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public const int Capacity = 100;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private readonly List&lt;PlayerMessage&gt; _entries = [];</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private readonly HashSet&lt;string&gt; _consumed = [];</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private readonly Queue&lt;string&gt; _consumedOrder = [];</span>
+<span id="L14"><a class="line" href="#L14">14</a>     internal HashSet&lt;string&gt; Visible { get; } = [];</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private long _nextId = 1;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public IReadOnlyList&lt;PlayerMessage&gt; Entries =&gt; _entries.AsReadOnly();</span>
+<span id="L17"><a class="line" href="#L17">17</a>     public long Revision =&gt; _nextId;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     public void Add(long worldMs, long localMs, MessageKind kind, string text)</span>
+<span id="L19"><a class="line" href="#L19">19</a>     {</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (!Enum.IsDefined(kind) || string.IsNullOrWhiteSpace(text) || text.Length &gt; 2000 || worldMs &lt; localMs || localMs &lt; 0)</span>
+<span id="L21"><a class="line" href="#L21">21</a>             throw new ArgumentException(&quot;Invalid player message.&quot;);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         _entries.Add(new(_nextId++, worldMs, localMs, kind, text));</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (_entries.Count &gt; Capacity) _entries.RemoveAt(0);</span>
+<span id="L24"><a class="line" href="#L24">24</a>     }</span>
+<span id="L25"><a class="line" href="#L25">25</a>     internal bool Once(string key)</span>
+<span id="L26"><a class="line" href="#L26">26</a>     {</span>
+<span id="L27"><a class="line" href="#L27">27</a>         if (!_consumed.Add(key)) return false;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         _consumedOrder.Enqueue(key);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (_consumedOrder.Count &gt; 4096) _consumed.Remove(_consumedOrder.Dequeue());</span>
+<span id="L30"><a class="line" href="#L30">30</a>         return true;</span>
+<span id="L31"><a class="line" href="#L31">31</a>     }</span>
+<span id="L32"><a class="line" href="#L32">32</a>     public PlayerMessage[] Window(long? firstId = null, int count = 5)</span>
+<span id="L33"><a class="line" href="#L33">33</a>     {</span>
+<span id="L34"><a class="line" href="#L34">34</a>         if (count is &lt; 1 or &gt; Capacity) throw new ArgumentOutOfRangeException(nameof(count));</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var start = firstId is { } id ? (_entries.FindIndex(e =&gt; e.Id &gt;= id) is var found &amp;&amp; found &gt;= 0 ? found : Math.Max(0, _entries.Count - count)) : Math.Max(0, _entries.Count - count);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         return _entries.Skip(start).Take(count).ToArray();</span>
+<span id="L37"><a class="line" href="#L37">37</a>     }</span>
+<span id="L38"><a class="line" href="#L38">38</a>     internal EventLogSnapshot Capture() =&gt; new(_nextId, _entries.ToArray(), _consumedOrder.ToArray(), Visible.Order(StringComparer.Ordinal).ToArray());</span>
+<span id="L39"><a class="line" href="#L39">39</a>     internal void Restore(EventLogSnapshot snapshot, long worldMs, long localMs, IReadOnlySet&lt;string&gt; subjects)</span>
+<span id="L40"><a class="line" href="#L40">40</a>     {</span>
+<span id="L41"><a class="line" href="#L41">41</a>         if (snapshot is null || snapshot.Entries is null || snapshot.Consumed is null || snapshot.Visible is null</span>
+<span id="L42"><a class="line" href="#L42">42</a>             || snapshot.NextId &lt; 1 || snapshot.Entries.Length &gt; Capacity || snapshot.Consumed.Length &gt; 4096</span>
+<span id="L43"><a class="line" href="#L43">43</a>             || snapshot.Visible.Any(id =&gt; !subjects.Contains(id)) || snapshot.Visible.Distinct().Count() != snapshot.Visible.Length</span>
+<span id="L44"><a class="line" href="#L44">44</a>             || snapshot.Consumed.Any(k =&gt; string.IsNullOrWhiteSpace(k) || k.Length &gt; 180)</span>
+<span id="L45"><a class="line" href="#L45">45</a>             || snapshot.Consumed.Distinct().Count() != snapshot.Consumed.Length</span>
+<span id="L46"><a class="line" href="#L46">46</a>             || snapshot.Entries.Any(e =&gt; e is null || e.Id &lt; 1 || e.Id &gt;= snapshot.NextId || e.WorldMs &lt; 0 || e.WorldMs &gt; worldMs</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 || e.LocalMs &lt; 0 || e.LocalMs &gt; localMs || e.LocalMs &gt; e.WorldMs || !Enum.IsDefined(e.Kind)</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 || string.IsNullOrWhiteSpace(e.Text) || e.Text.Length &gt; 2000)</span>
+<span id="L49"><a class="line" href="#L49">49</a>             || !snapshot.Entries.Select(e =&gt; e.Id).SequenceEqual(snapshot.Entries.Select(e =&gt; e.Id).Order().Distinct()))</span>
+<span id="L50"><a class="line" href="#L50">50</a>             throw new ArgumentException(&quot;Invalid player event log.&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         _entries.Clear(); _entries.AddRange(snapshot.Entries); _nextId = snapshot.NextId;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         _consumed.Clear(); _consumedOrder.Clear(); foreach (var key in snapshot.Consumed) Once(key); Visible.Clear(); Visible.UnionWith(snapshot.Visible);</span>
+<span id="L53"><a class="line" href="#L53">53</a>     }</span>
+<span id="L54"><a class="line" href="#L54">54</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

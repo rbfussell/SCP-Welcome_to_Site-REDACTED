@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Perception/PlayerAwareness.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerAwareness.cs</h1><p>src/SiteSimulation/Perception/PlayerAwareness.cs</p><p><a href="system-perception.html">Perception and awareness</a></p><h2>Types</h2><ul><li><a href="type-perceivedcontact.html">PerceivedContact</a></li><li><a href="type-noticedanomaly.html">NoticedAnomaly</a></li><li><a href="type-awarenesssnapshot.html">AwarenessSnapshot</a></li><li><a href="type-playerawareness.html">PlayerAwareness</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-eccdc4f699cc2f1144b2.html">PlayerAwareness.StopOnDirectSight</a> · line 14</li><li><a href="function-921acadbae01887024de.html">PlayerAwareness.StopOnDirectSight.get</a> · line 14</li><li><a href="function-47c27e9ec65a49eb6f9d.html">PlayerAwareness.StopOnDirectSight.set</a> · line 14</li><li><a href="function-c25d8c51c8e542f1a233.html">PlayerAwareness.StopOnReports</a> · line 15</li><li><a href="function-c13ddcbe7647b9046b7a.html">PlayerAwareness.StopOnReports.get</a> · line 15</li><li><a href="function-beab65ddce8af72ef9bd.html">PlayerAwareness.StopOnReports.set</a> · line 15</li><li><a href="function-3605c9ad720bd4466236.html">PlayerAwareness.Evidence</a> · line 16</li><li><a href="function-2015252fe9d6b53b4638.html">PlayerAwareness.Receive</a> · line 18</li><li><a href="function-c906e1c0d6ec7c9c0201.html">PlayerAwareness.Capture</a> · line 38</li><li><a href="function-44bdd90eaa2a9670d508.html">PlayerAwareness.Restore</a> · line 41</li><li><a href="function-064678e734156893df1a.html">PlayerAwareness.ValidSubject</a> · line 43</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Position is acquired evidence or an estimate, never an implicit live entity lookup.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public sealed record PerceivedContact(string SubjectId, long Encounter, Point2 Position, long LocalMs, string Source, string ObserverId,</span>
+<span id="L5"><a class="line" href="#L5">5</a>     string Classification = &quot;anomaly&quot;, double UncertaintyRadius = 0);</span>
+<span id="L6"><a class="line" href="#L6">6</a> public sealed record NoticedAnomaly(string SubjectId, long Encounter);</span>
+<span id="L7"><a class="line" href="#L7">7</a> public sealed record AwarenessSnapshot(bool StopOnDirectSight, bool StopOnReports, PerceivedContact[] Evidence, NoticedAnomaly[] Noticed);</span>
+<span id="L8"><a class="line" href="#L8">8</a> </span>
+<span id="L9"><a class="line" href="#L9">9</a> /// &lt;summary&gt;Player knowledge and configurable movement interruption. Independent of SCP modules and fear.&lt;/summary&gt;</span>
+<span id="L10"><a class="line" href="#L10">10</a> public sealed class PlayerAwareness</span>
+<span id="L11"><a class="line" href="#L11">11</a> {</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private readonly Dictionary&lt;string, PerceivedContact&gt; _evidence = [];</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private readonly Dictionary&lt;string, long&gt; _noticed = [];</span>
+<span id="L14"><a class="line" href="#L14">14</a>     public bool StopOnDirectSight { get; set; } = true;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public bool StopOnReports { get; set; } = true;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public IReadOnlyList&lt;PerceivedContact&gt; Evidence =&gt; _evidence.Values.OrderBy(e =&gt; e.SubjectId, StringComparer.Ordinal).ToArray();</span>
+<span id="L17"><a class="line" href="#L17">17</a> </span>
+<span id="L18"><a class="line" href="#L18">18</a>     public bool Receive(PerceivedContact evidence)</span>
+<span id="L19"><a class="line" href="#L19">19</a>     {</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (string.IsNullOrWhiteSpace(evidence.SubjectId) || evidence.Encounter &lt; 0 || evidence.LocalMs &lt; 0</span>
+<span id="L21"><a class="line" href="#L21">21</a>             || string.IsNullOrWhiteSpace(evidence.ObserverId) || !double.IsFinite(evidence.Position.X) || !double.IsFinite(evidence.Position.Y)</span>
+<span id="L22"><a class="line" href="#L22">22</a>             || evidence.Source is not (&quot;direct&quot; or &quot;voice&quot; or &quot;radio&quot; or &quot;sound&quot;)</span>
+<span id="L23"><a class="line" href="#L23">23</a>             || evidence.Classification is not (&quot;anomaly&quot; or &quot;hostile&quot; or &quot;unknown&quot;)</span>
+<span id="L24"><a class="line" href="#L24">24</a>             || !double.IsFinite(evidence.UncertaintyRadius) || evidence.UncertaintyRadius &lt; 0)</span>
+<span id="L25"><a class="line" href="#L25">25</a>             throw new ArgumentException(&quot;Invalid perceived contact evidence.&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         if (_evidence.TryGetValue(evidence.SubjectId, out var previous)</span>
+<span id="L27"><a class="line" href="#L27">27</a>             &amp;&amp; (evidence.LocalMs &lt; previous.LocalMs || evidence.Encounter &lt; previous.Encounter))</span>
+<span id="L28"><a class="line" href="#L28">28</a>             return false;</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (previous is null || evidence.LocalMs != previous.LocalMs || previous.Source != &quot;direct&quot; || evidence.Source == &quot;direct&quot;)</span>
+<span id="L30"><a class="line" href="#L30">30</a>             _evidence[evidence.SubjectId] = evidence;</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var enabled = evidence.Classification == &quot;anomaly&quot; &amp;&amp; (evidence.Source == &quot;direct&quot; ? StopOnDirectSight : evidence.Source is &quot;voice&quot; or &quot;radio&quot; &amp;&amp; StopOnReports);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         var fresh = !_noticed.TryGetValue(evidence.SubjectId, out var encounter) || evidence.Encounter != encounter;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         // A fresh known encounter is acknowledged even while stationary. Continuing sight is not another interruption.</span>
+<span id="L34"><a class="line" href="#L34">34</a>         if (enabled) _noticed[evidence.SubjectId] = evidence.Encounter;</span>
+<span id="L35"><a class="line" href="#L35">35</a>         return enabled &amp;&amp; fresh;</span>
+<span id="L36"><a class="line" href="#L36">36</a>     }</span>
+<span id="L37"><a class="line" href="#L37">37</a> </span>
+<span id="L38"><a class="line" href="#L38">38</a>     public AwarenessSnapshot Capture() =&gt; new(StopOnDirectSight, StopOnReports, Evidence.ToArray(),</span>
+<span id="L39"><a class="line" href="#L39">39</a>         _noticed.OrderBy(p =&gt; p.Key, StringComparer.Ordinal).Select(p =&gt; new NoticedAnomaly(p.Key, p.Value)).ToArray());</span>
+<span id="L40"><a class="line" href="#L40">40</a> </span>
+<span id="L41"><a class="line" href="#L41">41</a>     public void Restore(AwarenessSnapshot snapshot, IReadOnlyDictionary&lt;string, long&gt; subjects, IReadOnlySet&lt;string&gt; actors, long localMs)</span>
+<span id="L42"><a class="line" href="#L42">42</a>     {</span>
+<span id="L43"><a class="line" href="#L43">43</a>         bool ValidSubject(PerceivedContact evidence) =&gt; subjects.TryGetValue(evidence.SubjectId, out var current)</span>
+<span id="L44"><a class="line" href="#L44">44</a>             ? evidence.Encounter &gt;= 0 &amp;&amp; evidence.Encounter &lt;= current</span>
+<span id="L45"><a class="line" href="#L45">45</a>             : !string.IsNullOrWhiteSpace(evidence.SubjectId) &amp;&amp; evidence.Source == &quot;sound&quot; &amp;&amp; evidence.Classification == &quot;unknown&quot; &amp;&amp; evidence.Encounter == 0;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         if (snapshot.Evidence is null || snapshot.Noticed is null</span>
+<span id="L47"><a class="line" href="#L47">47</a>             || snapshot.Evidence.Any(e =&gt; e is null || !ValidSubject(e) || e.LocalMs &lt; 0 || e.LocalMs &gt; localMs</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 || !double.IsFinite(e.Position.X) || !double.IsFinite(e.Position.Y)</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 || e.Source is not (&quot;direct&quot; or &quot;voice&quot; or &quot;radio&quot; or &quot;sound&quot;) || !actors.Contains(e.ObserverId)</span>
+<span id="L50"><a class="line" href="#L50">50</a>                 || e.Classification is not (&quot;anomaly&quot; or &quot;hostile&quot; or &quot;unknown&quot;)</span>
+<span id="L51"><a class="line" href="#L51">51</a>                 || !double.IsFinite(e.UncertaintyRadius) || e.UncertaintyRadius &lt; 0)</span>
+<span id="L52"><a class="line" href="#L52">52</a>             || snapshot.Noticed.Any(n =&gt; n is null || !subjects.TryGetValue(n.SubjectId, out var current) || n.Encounter &lt; 0 || n.Encounter &gt; current)</span>
+<span id="L53"><a class="line" href="#L53">53</a>             || snapshot.Evidence.Select(e =&gt; e.SubjectId).Distinct().Count() != snapshot.Evidence.Length</span>
+<span id="L54"><a class="line" href="#L54">54</a>             || snapshot.Noticed.Select(n =&gt; n.SubjectId).Distinct().Count() != snapshot.Noticed.Length)</span>
+<span id="L55"><a class="line" href="#L55">55</a>             throw new ArgumentException(&quot;Invalid player awareness state.&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         _evidence.Clear(); _noticed.Clear();</span>
+<span id="L57"><a class="line" href="#L57">57</a>         foreach (var evidence in snapshot.Evidence) _evidence.Add(evidence.SubjectId, evidence);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         foreach (var noticed in snapshot.Noticed) _noticed.Add(noticed.SubjectId, noticed.Encounter);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         StopOnDirectSight = snapshot.StopOnDirectSight; StopOnReports = snapshot.StopOnReports;</span>
+<span id="L60"><a class="line" href="#L60">60</a>     }</span>
+<span id="L61"><a class="line" href="#L61">61</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

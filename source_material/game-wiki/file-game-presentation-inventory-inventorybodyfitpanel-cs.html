@@ -1,0 +1,223 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryBodyFitPanel.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitPanel.cs</h1><p>game/Presentation/Inventory/InventoryBodyFitPanel.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorybodyfitpanel.html">InventoryBodyFitPanel</a></li><li><a href="type-inventorybodyfitsurface.html">InventoryBodyFitSurface</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-9fd60ad0c43b90d7b9ef.html">InventoryBodyFitPanel.Panel</a> · line 9</li><li><a href="function-eceb25738b01622b374d.html">InventoryBodyFitPanel.Panel.get</a> · line 9</li><li><a href="function-859aa66f77d6ec8fe0e4.html">InventoryBodyFitPanel.Panel.set</a> · line 9</li><li><a href="function-d83b56ac009ad80e22d6.html">InventoryBodyFitPanel.InspectWorn</a> · line 16</li><li><a href="function-20d5451fa9bf7da83464.html">InventoryBodyFitPanel.ViewSurface</a> · line 17</li><li><a href="function-90564e7b1926d996c268.html">InventoryBodyFitPanel.ViewSurface.get</a> · line 17</li><li><a href="function-5091bed7052338f7868e.html">InventoryBodyFitPanel.ViewSurface.set</a> · line 17</li><li><a href="function-45955d159879c8ecfc8f.html">InventoryBodyFitPanel.FlipButton</a> · line 18</li><li><a href="function-0cfae43ff744ee8386fc.html">InventoryBodyFitPanel.InspectToggle</a> · line 19</li><li><a href="function-0c8dcb7464ad2ce300dc.html">InventoryBodyFitPanel.Pockets</a> · line 23</li><li><a href="function-393d9c6046678ba7b7cf.html">InventoryBodyFitPanel.SelectedId</a> · line 25</li><li><a href="function-54adfa814f954c28319d.html">InventoryBodyFitPanel.Draft</a> · line 26</li><li><a href="function-9b5dca6ae9a5ebf25980.html">InventoryBodyFitPanel.Draft.get</a> · line 26</li><li><a href="function-e0f309a1b9bdb24b995e.html">InventoryBodyFitPanel.Draft.set</a> · line 26</li><li><a href="function-0f623d670757b94c63b1.html">InventoryBodyFitPanel.Preview</a> · line 27</li><li><a href="function-0e8effa6ef277502dc5f.html">InventoryBodyFitPanel.Preview.get</a> · line 27</li><li><a href="function-1f652743b7a86141b2cf.html">InventoryBodyFitPanel.Preview.set</a> · line 27</li><li><a href="function-f9dab43ae32554b8d14c.html">InventoryBodyFitPanel.Surface</a> · line 28</li><li><a href="function-64866a51c951b9fd4b99.html">InventoryBodyFitPanel.Surface.get</a> · line 28</li><li><a href="function-ef15c4b5b59359f55c53.html">InventoryBodyFitPanel.Surface.set</a> · line 28</li><li><a href="function-4b07adcad9ae7c0c42b8.html">InventoryBodyFitPanel.ApplyButton</a> · line 29</li><li><a href="function-05a480b96289fd7923cd.html">InventoryBodyFitPanel.ItemChoice</a> · line 30</li><li><a href="function-bbdc87ed643efb335ecd.html">InventoryBodyFitPanel._Ready</a> · line 31</li><li><a href="function-2bf53d21a2feb0c5fdc7.html">InventoryBodyFitPanel.Choose</a> · line 57</li><li><a href="function-f0a5242c893d330ac03b.html">InventoryBodyFitPanel.ResetInspection</a> · line 62</li><li><a href="function-f7f61be8b961e0295ff8.html">InventoryBodyFitPanel.ResetDraft</a> · line 64</li><li><a href="function-c62fffb107e0e7f38b34.html">InventoryBodyFitPanel.RotateDraft</a> · line 69</li><li><a href="function-ce313d1fec52b7f570ad.html">InventoryBodyFitPanel.SetDraftAnchor</a> · line 70</li><li><a href="function-2f5931246500fe17cd8b.html">InventoryBodyFitPanel.Apply</a> · line 71</li><li><a href="function-ebd809735cda5bbec197.html">InventoryBodyFitPanel.Body</a> · line 76</li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a> · line 78</li><li><a href="function-7fcc2846397a601cd157.html">InventoryBodyFitPanel.UpdatePreview</a> · line 108</li><li><a href="function-a52844e605a7d9831cbb.html">InventoryBodyFitSurface.Fit</a> · line 148</li><li><a href="function-4348e7e0c1d2b199ffd0.html">InventoryBodyFitSurface.Fit.get</a> · line 148</li><li><a href="function-48e01b5275e0f6372c76.html">InventoryBodyFitSurface.Fit.set</a> · line 148</li><li><a href="function-c0fe64dfc72a31460ff5.html">InventoryBodyFitSurface.Mirror</a> · line 150</li><li><a href="function-c059bac8d60b94dda194.html">InventoryBodyFitSurface.Center</a> · line 151</li><li><a href="function-40de05cf1fd030aa0743.html">InventoryBodyFitSurface.CellPosition</a> · line 152</li><li><a href="function-9541678bf20eee3a9815.html">InventoryBodyFitSurface.Polygon</a> · line 153</li><li><a href="function-e0317321b81ba431d1d8.html">InventoryBodyFitSurface.Edge</a> · line 155</li><li><a href="function-d94a9476733ded88c2d1.html">InventoryBodyFitSurface._Ready</a> · line 161</li><li><a href="function-6322c1248a8487236bd5.html">InventoryBodyFitSurface._Draw</a> · line 166</li><li><a href="function-0c0a74b431085cdb139d.html">InventoryBodyFitSurface._GuiInput</a> · line 216</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;A diagnostic mode of the existing left view. Drafts are local UI state; Apply submits normal paid equipment work.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class InventoryBodyFitPanel : VBoxContainer</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public InventoryPanel Panel { get; set; } = null!;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private OptionButton _items = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private Label _status = null!, _pocketStatus = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private Button _apply = null!;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private Button _default = null!, _rotate = null!, _flip = null!;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private CheckButton _inspect = null!;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private Label _instructions = null!;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     internal bool InspectWorn =&gt; _inspect.ButtonPressed;</span>
+<span id="L17"><a class="line" href="#L17">17</a>     internal string ViewSurface { get; private set; } = &quot;front&quot;;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     internal Button FlipButton =&gt; _flip;</span>
+<span id="L19"><a class="line" href="#L19">19</a>     internal CheckButton InspectToggle =&gt; _inspect;</span>
+<span id="L20"><a class="line" href="#L20">20</a>     private string[] _ids = [];</span>
+<span id="L21"><a class="line" href="#L21">21</a>     private string? _selected;</span>
+<span id="L22"><a class="line" href="#L22">22</a>     private ItemPlacement? _seenPlacement;</span>
+<span id="L23"><a class="line" href="#L23">23</a>     internal PocketCoverage[] Pockets =&gt; _selected is null ? [] : (Panel.Simulation.Inventory.Definition(_selected).Regions ?? [])</span>
+<span id="L24"><a class="line" href="#L24">24</a>         .Select(r =&gt; Panel.Simulation.InventoryPocketCoverage(_selected, r.Id)).OfType&lt;PocketCoverage&gt;().ToArray();</span>
+<span id="L25"><a class="line" href="#L25">25</a>     internal string? SelectedId =&gt; _selected;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     internal BodyPose Draft { get; private set; } = new(0, 0);</span>
+<span id="L27"><a class="line" href="#L27">27</a>     internal BodyFitPreview? Preview { get; private set; }</span>
+<span id="L28"><a class="line" href="#L28">28</a>     internal InventoryBodyFitSurface Surface { get; private set; } = null!;</span>
+<span id="L29"><a class="line" href="#L29">29</a>     internal Button ApplyButton =&gt; _apply;</span>
+<span id="L30"><a class="line" href="#L30">30</a>     internal OptionButton ItemChoice =&gt; _items;</span>
+<span id="L31"><a class="line" href="#L31">31</a>     public override void _Ready()</span>
+<span id="L32"><a class="line" href="#L32">32</a>     {</span>
+<span id="L33"><a class="line" href="#L33">33</a>         AddThemeConstantOverride(&quot;separation&quot;, 5);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         _items = new OptionButton { FocusMode = FocusModeEnum.None, CustomMinimumSize = new(234, 0) }; AddChild(_items);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         _items.ItemSelected += index =&gt; Choose(_ids[(int)index]);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         var views = new HBoxContainer(); AddChild(views);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         _inspect = new CheckButton { Text = &quot;Inspect worn&quot;, FocusMode = FocusModeEnum.None }; views.AddChild(_inspect);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         _flip = InventoryPanel.Button(views, &quot;Front · flip&quot;, () =&gt;</span>
+<span id="L39"><a class="line" href="#L39">39</a>         {</span>
+<span id="L40"><a class="line" href="#L40">40</a>             Panel.CancelDragPreview(); ViewSurface = ViewSurface == &quot;front&quot; ? &quot;back&quot; : &quot;front&quot;;</span>
+<span id="L41"><a class="line" href="#L41">41</a>             Surface.ClearInspection(); UpdatePreview();</span>
+<span id="L42"><a class="line" href="#L42">42</a>         });</span>
+<span id="L43"><a class="line" href="#L43">43</a>         _inspect.Toggled += _ =&gt; { Panel.CancelDragPreview(); Surface.ClearInspection(); UpdatePreview(); };</span>
+<span id="L44"><a class="line" href="#L44">44</a>         InventoryPanel.Label(this, &quot;9-hex shoulders · body-local scale&quot;, 12);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Surface = new InventoryBodyFitSurface { Fit = this, CustomMinimumSize = new(234, 285) }; AddChild(Surface);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var row = new HBoxContainer(); AddChild(row);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         _default = InventoryPanel.Button(row, &quot;Default&quot;, ResetDraft);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         _rotate = InventoryPanel.Button(row, &quot;Rotate 60°&quot;, RotateDraft);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         _apply = InventoryPanel.Button(row, &quot;Fit / equip&quot;, Apply);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         _status = InventoryPanel.Label(this, &quot;Choose worn or held clothing.&quot;, 12);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         _status.CustomMinimumSize = new(234, 65);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         _pocketStatus = InventoryPanel.Label(this, &quot;&quot;, 11);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         _instructions = InventoryPanel.Label(this, &quot;&quot;, 11);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Refresh();</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a>     internal void Choose(string id)</span>
+<span id="L58"><a class="line" href="#L58">58</a>     {</span>
+<span id="L59"><a class="line" href="#L59">59</a>         _selected = id; _seenPlacement = null;</span>
+<span id="L60"><a class="line" href="#L60">60</a>         Panel.Select(id); Refresh();</span>
+<span id="L61"><a class="line" href="#L61">61</a>     }</span>
+<span id="L62"><a class="line" href="#L62">62</a>     internal void ResetInspection()</span>
+<span id="L63"><a class="line" href="#L63">63</a>     { _inspect.SetPressedNoSignal(false); ViewSurface = &quot;front&quot;; Surface.ClearInspection(); }</span>
+<span id="L64"><a class="line" href="#L64">64</a>     internal void ResetDraft()</span>
+<span id="L65"><a class="line" href="#L65">65</a>     {</span>
+<span id="L66"><a class="line" href="#L66">66</a>         if (_selected is null) return;</span>
+<span id="L67"><a class="line" href="#L67">67</a>         Draft = InventoryBodyFit.Shape(Panel.Simulation.Inventory, _selected)!.DefaultPose; UpdatePreview();</span>
+<span id="L68"><a class="line" href="#L68">68</a>     }</span>
+<span id="L69"><a class="line" href="#L69">69</a>     internal void RotateDraft() { if (InspectWorn) return; Draft = Draft with { Rotation = (Draft.Rotation + 1) % 6 }; UpdatePreview(); }</span>
+<span id="L70"><a class="line" href="#L70">70</a>     internal void SetDraftAnchor(BodyHex cell) { Draft = Draft with { Q = cell.Q, R = cell.R }; UpdatePreview(); }</span>
+<span id="L71"><a class="line" href="#L71">71</a>     private void Apply()</span>
+<span id="L72"><a class="line" href="#L72">72</a>     {</span>
+<span id="L73"><a class="line" href="#L73">73</a>         if (Preview is null) return;</span>
+<span id="L74"><a class="line" href="#L74">74</a>         Panel.Simulation.HandleInventory(Preview.Request); Panel.ShowReceipt(); Refresh();</span>
+<span id="L75"><a class="line" href="#L75">75</a>     }</span>
+<span id="L76"><a class="line" href="#L76">76</a>     internal BodyMask Body =&gt; Panel.Simulation.Inventory.BodyFits!.Body(</span>
+<span id="L77"><a class="line" href="#L77">77</a>         Panel.Simulation.Inventory.Content!.Roots.Single(r =&gt; r.ActorId == Panel.Simulation.Player.Id).BodyFamily!);</span>
+<span id="L78"><a class="line" href="#L78">78</a>     internal void Refresh()</span>
+<span id="L79"><a class="line" href="#L79">79</a>     {</span>
+<span id="L80"><a class="line" href="#L80">80</a>         if (!IsNodeReady() || !Visible) return;</span>
+<span id="L81"><a class="line" href="#L81">81</a>         var sim = Panel.Simulation;</span>
+<span id="L82"><a class="line" href="#L82">82</a>         var items = sim.BodyFitItems;</span>
+<span id="L83"><a class="line" href="#L83">83</a>         var ids = items.Select(i =&gt; i.Id).ToArray();</span>
+<span id="L84"><a class="line" href="#L84">84</a>         if (!_ids.SequenceEqual(ids))</span>
+<span id="L85"><a class="line" href="#L85">85</a>         {</span>
+<span id="L86"><a class="line" href="#L86">86</a>             _ids = ids; _items.Clear();</span>
+<span id="L87"><a class="line" href="#L87">87</a>             foreach (var item in items) _items.AddItem(sim.Inventory.EquipmentLabel(item.Id) + (item.Placement.RegionId == &quot;hand&quot; ? &quot; · held&quot; : &quot;&quot;));</span>
+<span id="L88"><a class="line" href="#L88">88</a>             if (_selected is not null &amp;&amp; !_ids.Contains(_selected)) _selected = null;</span>
+<span id="L89"><a class="line" href="#L89">89</a>         }</span>
+<span id="L90"><a class="line" href="#L90">90</a>         for (var i = 0; i &lt; items.Count; i++)</span>
+<span id="L91"><a class="line" href="#L91">91</a>             _items.SetItemText(i, sim.Inventory.EquipmentLabel(items[i].Id) + (items[i].Placement.RegionId == &quot;hand&quot; ? &quot; · held&quot; : &quot;&quot;));</span>
+<span id="L92"><a class="line" href="#L92">92</a>         if (Panel.SelectedItem is { } selected &amp;&amp; _ids.Contains(selected) &amp;&amp; selected != _selected) { _selected = selected; _seenPlacement = null; }</span>
+<span id="L93"><a class="line" href="#L93">93</a>         _selected ??= _ids.FirstOrDefault();</span>
+<span id="L94"><a class="line" href="#L94">94</a>         if (_selected is not null)</span>
+<span id="L95"><a class="line" href="#L95">95</a>         {</span>
+<span id="L96"><a class="line" href="#L96">96</a>             if (Panel.DragItemId is null &amp;&amp; (Panel.SelectedItem is null || Panel.Simulation.Inventory.Pending?.Request.ItemId != Panel.SelectedItem)</span>
+<span id="L97"><a class="line" href="#L97">97</a>                 &amp;&amp; (Panel.SelectedItem is null || !_ids.Contains(Panel.SelectedItem))) Panel.Select(_selected);</span>
+<span id="L98"><a class="line" href="#L98">98</a>             _items.Select(Array.IndexOf(_ids, _selected));</span>
+<span id="L99"><a class="line" href="#L99">99</a>             var item = items.Single(i =&gt; i.Id == _selected);</span>
+<span id="L100"><a class="line" href="#L100">100</a>             if (_seenPlacement != item.Placement)</span>
+<span id="L101"><a class="line" href="#L101">101</a>             {</span>
+<span id="L102"><a class="line" href="#L102">102</a>                 _seenPlacement = item.Placement;</span>
+<span id="L103"><a class="line" href="#L103">103</a>                 Draft = InventoryBodyFit.Pose(sim.Inventory, item)!;</span>
+<span id="L104"><a class="line" href="#L104">104</a>             }</span>
+<span id="L105"><a class="line" href="#L105">105</a>         }</span>
+<span id="L106"><a class="line" href="#L106">106</a>         UpdatePreview();</span>
+<span id="L107"><a class="line" href="#L107">107</a>     }</span>
+<span id="L108"><a class="line" href="#L108">108</a>     private void UpdatePreview()</span>
+<span id="L109"><a class="line" href="#L109">109</a>     {</span>
+<span id="L110"><a class="line" href="#L110">110</a>         if (!IsNodeReady()) return;</span>
+<span id="L111"><a class="line" href="#L111">111</a>         _default.Disabled = _rotate.Disabled = InspectWorn;</span>
+<span id="L112"><a class="line" href="#L112">112</a>         _flip.Disabled = !InspectWorn; _flip.Text = ViewSurface == &quot;front&quot; ? &quot;Front · flip&quot; : &quot;Back · flip&quot;;</span>
+<span id="L113"><a class="line" href="#L113">113</a>         _instructions.Text = InspectWorn ? &quot;Click selects · double-click inspects\nDrag moves · right-click actions&quot; : &quot;Click: anchor · R: 6 body / 2 storage\nWhite: contact · red: failed fit&quot;;</span>
+<span id="L114"><a class="line" href="#L114">114</a>         if (Surface.IsDropTarget)</span>
+<span id="L115"><a class="line" href="#L115">115</a>         {</span>
+<span id="L116"><a class="line" href="#L116">116</a>             _apply.Disabled = true;</span>
+<span id="L117"><a class="line" href="#L117">117</a>             _status.Text = Surface.DropPreview is { } drop ? $&quot;Drop: {Panel.Simulation.Inventory.Definition(drop.Request.ItemId).Name}\n&quot;</span>
+<span id="L118"><a class="line" href="#L118">118</a>                 + $&quot;Anchor {drop.Request.Destination!.BodyPose!.Q},{drop.Request.Destination.BodyPose.R} · {Panel.BodyRotation * 60}°\n&quot;</span>
+<span id="L119"><a class="line" href="#L119">119</a>                 + (drop.Handling.Allowed ? $&quot;{drop.Handling.DurationMs / 1000.0:0.00}s · {drop.Handling.Ap} AP · release to fit&quot; : Surface.DropReason)</span>
+<span id="L120"><a class="line" href="#L120">120</a>                 : Surface.DropReason;</span>
+<span id="L121"><a class="line" href="#L121">121</a>             if (Surface.DropPreview is { Geometry.Fits: true } fittedDrop &amp;&amp; InventoryBodyFit.Shape(Panel.Simulation.Inventory, fittedDrop.Request.ItemId)?.LinearSpan is { } spanDrop)</span>
+<span id="L122"><a class="line" href="#L122">122</a>                 _status.Text += $&quot;\nSpan {fittedDrop.Geometry.Cells.Length} cells · range {spanDrop.MinCells}–{spanDrop.MaxCells}&quot;;</span>
+<span id="L123"><a class="line" href="#L123">123</a>             _pocketStatus.Text = &quot;&quot;; Surface.QueueRedraw(); return;</span>
+<span id="L124"><a class="line" href="#L124">124</a>         }</span>
+<span id="L125"><a class="line" href="#L125">125</a>         Preview = _selected is null ? null : Panel.Simulation.PreviewBodyFit(_selected, Draft);</span>
+<span id="L126"><a class="line" href="#L126">126</a>         _apply.Disabled = InspectWorn || Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null || Panel.DragItemId is not null;</span>
+<span id="L127"><a class="line" href="#L127">127</a>         if (InspectWorn)</span>
+<span id="L128"><a class="line" href="#L128">128</a>         {</span>
+<span id="L129"><a class="line" href="#L129">129</a>             _status.Text = $&quot;{ViewSurface.ToUpperInvariant()} · worn material\n&quot; + (_selected is null ? &quot;Choose exposed equipment.&quot; : Panel.Simulation.Inventory.Definition(_selected).Name</span>
+<span id="L130"><a class="line" href="#L130">130</a>                 + &quot;\n&quot; + Panel.Simulation.InventoryMoveAccess(_selected).Reason);</span>
+<span id="L131"><a class="line" href="#L131">131</a>             _pocketStatus.Text = &quot;Engineering masks · attachments use gear view&quot;; Surface.QueueRedraw(); return;</span>
+<span id="L132"><a class="line" href="#L132">132</a>         }</span>
+<span id="L133"><a class="line" href="#L133">133</a>         _status.Text = Preview is null ? &quot;No known clothing is available.&quot;</span>
+<span id="L134"><a class="line" href="#L134">134</a>             : $&quot;Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n&quot; + (!Preview.Geometry.Fits ? Preview.Geometry.Reason</span>
+<span id="L135"><a class="line" href="#L135">135</a>                 : Preview.Handling.Allowed ? $&quot;Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP&quot;</span>
+<span id="L136"><a class="line" href="#L136">136</a>                 : &quot;Shape fits · &quot; + Preview.Handling.Reason);</span>
+<span id="L137"><a class="line" href="#L137">137</a>         if (Preview is { Geometry.Fits: true } fitted &amp;&amp; _selected is { } id &amp;&amp; InventoryBodyFit.Shape(Panel.Simulation.Inventory, id)?.LinearSpan is { } span)</span>
+<span id="L138"><a class="line" href="#L138">138</a>             _status.Text += $&quot;\nSpan {fitted.Geometry.Cells.Length} cells · range {span.MinCells}–{span.MaxCells}&quot;;</span>
+<span id="L139"><a class="line" href="#L139">139</a>         var pockets = Pockets;</span>
+<span id="L140"><a class="line" href="#L140">140</a>         _pocketStatus.Text = pockets.Length == 0 ? &quot;&quot; : $&quot;Pockets now: {pockets.Count(p =&gt; p.Covered)} covered · {pockets.Count(p =&gt; !p.Covered)} clear&quot;;</span>
+<span id="L141"><a class="line" href="#L141">141</a>         Surface.QueueRedraw();</span>
+<span id="L142"><a class="line" href="#L142">142</a>     }</span>
+<span id="L143"><a class="line" href="#L143">143</a> }</span>
+<span id="L144"><a class="line" href="#L144">144</a> </span>
+<span id="L145"><a class="line" href="#L145">145</a> /// &lt;summary&gt;Body mask/edge display. Drawing and picking use the same body-local projection, never the map projection.&lt;/summary&gt;</span>
+<span id="L146"><a class="line" href="#L146">146</a> public partial class InventoryBodyFitSurface : Control</span>
+<span id="L147"><a class="line" href="#L147">147</a> {</span>
+<span id="L148"><a class="line" href="#L148">148</a>     public InventoryBodyFitPanel Fit { get; set; } = null!;</span>
+<span id="L149"><a class="line" href="#L149">149</a>     private const float Radius = 9;</span>
+<span id="L150"><a class="line" href="#L150">150</a>     private float Mirror =&gt; Fit.InspectWorn &amp;&amp; Fit.ViewSurface == &quot;back&quot; ? -1 : 1;</span>
+<span id="L151"><a class="line" href="#L151">151</a>     private Vector2 Center(BodyHex cell) =&gt; new(Size.X / 2 + Mirror * (float)(Math.Sqrt(3) * Radius * (cell.Q + cell.R / 2.0)), 16 + Radius * 1.5f * cell.R);</span>
+<span id="L152"><a class="line" href="#L152">152</a>     internal Vector2 CellPosition(BodyHex cell) =&gt; GlobalPosition + Center(cell);</span>
+<span id="L153"><a class="line" href="#L153">153</a>     private Vector2[] Polygon(BodyHex cell) =&gt; Enumerable.Range(0, 6).Select(i =&gt; Center(cell)</span>
+<span id="L154"><a class="line" href="#L154">154</a>         + Vector2.FromAngle(Mathf.Pi / 6 + i * Mathf.Pi / 3) * (Radius - .45f)).ToArray();</span>
+<span id="L155"><a class="line" href="#L155">155</a>     private (Vector2 A, Vector2 B) Edge(Vector2 center, int direction)</span>
+<span id="L156"><a class="line" href="#L156">156</a>     {</span>
+<span id="L157"><a class="line" href="#L157">157</a>         var normal = (direction - 1) * Mathf.Pi / 3;</span>
+<span id="L158"><a class="line" href="#L158">158</a>         var a = Vector2.FromAngle(normal - Mathf.Pi / 6) * Radius; var b = Vector2.FromAngle(normal + Mathf.Pi / 6) * Radius;</span>
+<span id="L159"><a class="line" href="#L159">159</a>         return (center + new Vector2(Mirror * a.X, a.Y), center + new Vector2(Mirror * b.X, b.Y));</span>
+<span id="L160"><a class="line" href="#L160">160</a>     }</span>
+<span id="L161"><a class="line" href="#L161">161</a>     public override void _Ready()</span>
+<span id="L162"><a class="line" href="#L162">162</a>     {</span>
+<span id="L163"><a class="line" href="#L163">163</a>         MouseFilter = MouseFilterEnum.Stop; ClipContents = true;</span>
+<span id="L164"><a class="line" href="#L164">164</a>         MouseExited += () =&gt; { _hoveredItem = null; TooltipText = &quot;&quot;; QueueRedraw(); };</span>
+<span id="L165"><a class="line" href="#L165">165</a>     }</span>
+<span id="L166"><a class="line" href="#L166">166</a>     public override void _Draw()</span>
+<span id="L167"><a class="line" href="#L167">167</a>     {</span>
+<span id="L168"><a class="line" href="#L168">168</a>         var cells = BodyFitGeometry.Cells(Fit.Body.Rows);</span>
+<span id="L169"><a class="line" href="#L169">169</a>         foreach (var cell in cells)</span>
+<span id="L170"><a class="line" href="#L170">170</a>         {</span>
+<span id="L171"><a class="line" href="#L171">171</a>             var polygon = Polygon(cell);</span>
+<span id="L172"><a class="line" href="#L172">172</a>             DrawColoredPolygon(polygon, new(&quot;34433e&quot;)); DrawPolyline(polygon.Append(polygon[0]).ToArray(), new(&quot;60746a&quot;), 1);</span>
+<span id="L173"><a class="line" href="#L173">173</a>         }</span>
+<span id="L174"><a class="line" href="#L174">174</a>         if (Fit.InspectWorn) DrawOutfit();</span>
+<span id="L175"><a class="line" href="#L175">175</a>         var straps = Fit.Panel.Simulation.InventoryWornCells.Where(c =&gt; c.Cell.Surface == (Fit.InspectWorn ? Fit.ViewSurface : &quot;front&quot;)</span>
+<span id="L176"><a class="line" href="#L176">176</a>             &amp;&amp; Fit.Panel.Simulation.Inventory.Definition(c.ItemId).Wear!.OverlayLimit is not null).ToArray();</span>
+<span id="L177"><a class="line" href="#L177">177</a>         if (!Fit.InspectWorn) foreach (var cell in straps.Select(c =&gt; c.Cell.Cell).Distinct()) DrawColoredPolygon(Polygon(cell), new Color(&quot;d1ad68&quot;, .5f));</span>
+<span id="L178"><a class="line" href="#L178">178</a>         var activePreview = Fit.Panel.DragItemId is null ? Fit.InspectWorn ? null : Fit.Preview : DropPreview;</span>
+<span id="L179"><a class="line" href="#L179">179</a>         if (activePreview is { } preview)</span>
+<span id="L180"><a class="line" href="#L180">180</a>         {</span>
+<span id="L181"><a class="line" href="#L181">181</a>             var outside = preview.Geometry.Outside.ToHashSet();</span>
+<span id="L182"><a class="line" href="#L182">182</a>             foreach (var cell in preview.Geometry.Cells)</span>
+<span id="L183"><a class="line" href="#L183">183</a>                 DrawColoredPolygon(Polygon(cell), outside.Contains(cell) || Fit.Panel.DragItemId is not null &amp;&amp; !preview.Handling.Allowed</span>
+<span id="L184"><a class="line" href="#L184">184</a>                     ? new Color(&quot;d06258&quot;, .85f) : new Color(&quot;62baa2&quot;, .65f));</span>
+<span id="L185"><a class="line" href="#L185">185</a>             if (preview.Request.ItemId is { } selected)</span>
+<span id="L186"><a class="line" href="#L186">186</a>                 foreach (var region in Fit.Panel.Simulation.Inventory.Definition(selected).Regions ?? [])</span>
+<span id="L187"><a class="line" href="#L187">187</a>                     if (region.Attachment is not null)</span>
+<span id="L188"><a class="line" href="#L188">188</a>                         foreach (var child in Fit.Panel.Simulation.InventoryAttachmentsOn(selected, region.Id))</span>
+<span id="L189"><a class="line" href="#L189">189</a>                             foreach (var local in InventoryAttachments.Occupancy(Fit.Panel.Simulation.Inventory, child))</span>
+<span id="L190"><a class="line" href="#L190">190</a>                                 DrawColoredPolygon(Polygon(BodyFitGeometry.Transform(local, preview.Request.Destination!.BodyPose!)), new Color(&quot;d1ad68&quot;, .85f));</span>
+<span id="L191"><a class="line" href="#L191">191</a>             foreach (var contact in preview.Geometry.Contacts)</span>
+<span id="L192"><a class="line" href="#L192">192</a>             {</span>
+<span id="L193"><a class="line" href="#L193">193</a>                 var edge = Edge(Center(contact.Cell), contact.Direction);</span>
+<span id="L194"><a class="line" href="#L194">194</a>                 DrawLine(edge.A, edge.B, preview.Geometry.FailedContacts.Contains(contact) ? new(&quot;ff786d&quot;) : new(&quot;e3e5d3&quot;), 2);</span>
+<span id="L195"><a class="line" href="#L195">195</a>             }</span>
+<span id="L196"><a class="line" href="#L196">196</a>         }</span>
+<span id="L197"><a class="line" href="#L197">197</a>         // These marks show actual worn access, not the uncommitted fit draft.</span>
+<span id="L198"><a class="line" href="#L198">198</a>         foreach (var cross in straps.GroupBy(c =&gt; c.Cell.Cell).Where(g =&gt; g.Count() &gt; 1))</span>
+<span id="L199"><a class="line" href="#L199">199</a>             DrawString(ThemeDB.FallbackFont, Center(cross.Key) + new Vector2(-3, 3), cross.Max(c =&gt; c.SubLayer).ToString(), fontSize: 9, modulate: new(&quot;ffdc86&quot;));</span>
+<span id="L200"><a class="line" href="#L200">200</a>         foreach (var pocket in Fit.Pockets)</span>
+<span id="L201"><a class="line" href="#L201">201</a>         foreach (var cell in pocket.Mouth)</span>
+<span id="L202"><a class="line" href="#L202">202</a>         {</span>
+<span id="L203"><a class="line" href="#L203">203</a>             if (Fit.InspectWorn &amp;&amp; cell.Surface != Fit.ViewSurface) continue;</span>
+<span id="L204"><a class="line" href="#L204">204</a>             var position = Center(cell.Cell);</span>
+<span id="L205"><a class="line" href="#L205">205</a>             var obstructed = pocket.CoarseFallback || pocket.Blocked.Contains(cell);</span>
+<span id="L206"><a class="line" href="#L206">206</a>             DrawCircle(position, 3.2f, obstructed ? new(&quot;ff8979&quot;) : new(&quot;8ee5ce&quot;));</span>
+<span id="L207"><a class="line" href="#L207">207</a>             if (obstructed) DrawLine(position + new Vector2(-3, 3), position + new Vector2(3, -3), new(&quot;242b26&quot;), 1.5f);</span>
+<span id="L208"><a class="line" href="#L208">208</a>         }</span>
+<span id="L209"><a class="line" href="#L209">209</a>         if (activePreview is not null || !Fit.InspectWorn)</span>
+<span id="L210"><a class="line" href="#L210">210</a>         {</span>
+<span id="L211"><a class="line" href="#L211">211</a>             var activePose = activePreview?.Request.Destination?.BodyPose ?? Fit.Draft;</span>
+<span id="L212"><a class="line" href="#L212">212</a>             var anchor = Center(new(activePose.Q, activePose.R));</span>
+<span id="L213"><a class="line" href="#L213">213</a>             DrawCircle(anchor, 3, new(&quot;f1ca7a&quot;)); DrawArc(anchor, 6, 0, Mathf.Tau, 16, new(&quot;f1ca7a&quot;), 1);</span>
+<span id="L214"><a class="line" href="#L214">214</a>         }</span>
+<span id="L215"><a class="line" href="#L215">215</a>     }</span>
+<span id="L216"><a class="line" href="#L216">216</a>     public override void _GuiInput(InputEvent e)</span>
+<span id="L217"><a class="line" href="#L217">217</a>     {</span>
+<span id="L218"><a class="line" href="#L218">218</a>         if (Fit.InspectWorn) { InspectInput(e); return; }</span>
+<span id="L219"><a class="line" href="#L219">219</a>         if (e is not InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true } mouse) return;</span>
+<span id="L220"><a class="line" href="#L220">220</a>         if (PickCell(mouse.Position) is { } cell) Fit.SetDraftAnchor(cell);</span>
+<span id="L221"><a class="line" href="#L221">221</a>         AcceptEvent();</span>
+<span id="L222"><a class="line" href="#L222">222</a>     }</span>
+<span id="L223"><a class="line" href="#L223">223</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

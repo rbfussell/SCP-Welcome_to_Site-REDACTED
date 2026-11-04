@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodyFitCatalog.Validate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyFitCatalog.Validate</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-equipment-bodyfit-bodyfitcatalog-cs.html#L25">src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitCatalog.cs:25</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal static void Validate(BodyFitContent content)</code></pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-249b024b91e4a3edcd54.html">BodyHex.Neighbor</a></li><li><a href="function-293fc68714ed12045c70.html">BodyFitCatalog.Rows</a></li><li><a href="function-3cf39b056266adefe31f.html">Hex.Neighbor</a></li><li><a href="function-5e2b6295a5348f8c7909.html">BodyFitCatalog.SurfaceMasksValid</a></li><li><a href="function-6f172cad323a98a2b3ea.html">OscpApplications.All</a></li><li><a href="function-83563a74a93f2aacffb4.html">BodyFitCatalog.Id</a></li><li><a href="function-909815f23f75d4ae6e59.html">BodyFitGeometry.Cells</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-fa015a17cc8bf3ced0b1.html">BodyFitGeometry.Evaluate</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>string.IsNullOrWhiteSpace
+rows.All
+r.All
+rows.Any
+r.Contains
+content.Bodies.Any
+Id
+Rows
+content.Bodies.Select(b =&gt; b.Id).Distinct().Count
+content.Bodies.Select(b =&gt; b.Id).Distinct
+content.Bodies.Select
+content.Shapes.Any
+s.Rotations.Contains
+s.Rotations.Any
+s.Rotations.Distinct().Count
+s.Rotations.Distinct
+s.Contacts.Any
+s.Contacts.Distinct().Count
+s.Contacts.Distinct
+content.Shapes.Select(s =&gt; s.Id).Distinct().Count
+content.Shapes.Select(s =&gt; s.Id).Distinct
+content.Shapes.Select
+body.Zones.Any
+InventoryWear.BodyRegions.Contains
+BodyFitGeometry.Cells(body.Rows).Any
+BodyFitGeometry.Cells
+new[] { &quot;front&quot;, &quot;back&quot; }.Any
+body.Zones.Count
+BodyFitGeometry.Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet
+BodyFitGeometry.Cells(shape.Rows).Select
+cells.Any
+cells.Contains
+cells.Max
+cells.Min
+shape.Contacts.ToHashSet().SetEquals
+shape.Contacts.ToHashSet
+spanCoverage.Closed.Concat(spanCoverage.Open).Any
+spanCoverage.Closed.Concat
+m.Cells.ToHashSet().SetEquals
+m.Cells.ToHashSet
+SurfaceMasksValid
+coverage.Open.Any
+coverage.Closed.Any
+open.Cells.All
+shape.Contacts.Any
+e.Cell.Neighbor
+BodyFitGeometry.Evaluate
+content.Bodies.Single</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-d1010d4777229602738e.html">BodyFitCatalog.BodyFitCatalog</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodyfitcatalog.html">BodyFitCatalog</a></li><li><a href="type-bodyfitcontent.html">BodyFitContent</a></li><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-bodyhex.html">BodyHex</a></li><li><a href="type-inventorywear.html">InventoryWear</a></li></ul><h2>Implementation</h2><pre><code>internal static void Validate(BodyFitContent content)
+    {
+        static bool Id(string? id) =&gt; !string.IsNullOrWhiteSpace(id) &amp;&amp; id.Length &lt;= 100;
+        static bool Rows(string[]? rows) =&gt; rows is { Length: &gt; 0 and &lt;= 40 } &amp;&amp; rows.All(r =&gt; r is { Length: &gt; 0 and &lt;= 25 }
+            &amp;&amp; r.Length == rows[0].Length &amp;&amp; r.All(c =&gt; c is &#x27;.&#x27; or &#x27;#&#x27;)) &amp;&amp; rows.Any(r =&gt; r.Contains(&#x27;#&#x27;));
+        if (content.Version != 1 || content.Bodies is not { Length: &gt; 0 and &lt;= 16 } || content.Shapes is not { Length: &gt; 0 and &lt;= 128 }
+            || content.Bodies.Any(b =&gt; b is null || !Id(b.Id) || !Id(b.Name) || !Rows(b.Rows))
+            || content.Bodies.Select(b =&gt; b.Id).Distinct().Count() != content.Bodies.Length
+            || content.Shapes.Any(s =&gt; s is null || !Id(s.Id) || !Rows(s.Rows) || s.DefaultPose is null
+                || s.DefaultPose.Q is &lt; -64 or &gt; 64 || s.DefaultPose.R is &lt; -64 or &gt; 64 || s.DefaultPose.Rotation != 0
+                || !content.Bodies.Any(b =&gt; b.Id == s.BodyFamily &amp;&amp; b.Rows.Length == s.Rows.Length &amp;&amp; b.Rows[0].Length == s.Rows[0].Length)
+                || s.Rotations is not { Length: &gt; 0 and &lt;= 6 } || !s.Rotations.Contains(0) || s.Rotations.Any(r =&gt; r is &lt; 0 or &gt; 5)
+                || s.Rotations.Distinct().Count() != s.Rotations.Length || s.Contacts is null || s.Contacts.Length &gt; 1000
+                || s.Contacts.Any(e =&gt; e is null || e.Direction is &lt; 0 or &gt; 5) || s.Contacts.Distinct().Count() != s.Contacts.Length)
+            || content.Shapes.Select(s =&gt; s.Id).Distinct().Count() != content.Shapes.Length)
+            throw new ArgumentException(&quot;Invalid body-fit catalog.&quot;);
+        foreach (var body in content.Bodies)
+            if (body.Zones is not { Length: &gt; 0 and &lt;= 32 } || body.Zones.Any(z =&gt; z is null || !InventoryWear.BodyRegions.Contains(z.Region)
+                || z.Surface is not (&quot;front&quot; or &quot;back&quot;) || z.FirstRow &lt; 0 || z.LastRow &lt; z.FirstRow || z.LastRow &gt;= body.Rows.Length)
+                || BodyFitGeometry.Cells(body.Rows).Any(c =&gt; new[] { &quot;front&quot;, &quot;back&quot; }.Any(surface =&gt;
+                    body.Zones.Count(z =&gt; z.Surface == surface &amp;&amp; c.R &gt;= z.FirstRow &amp;&amp; c.R &lt;= z.LastRow) != 1)))
+                throw new ArgumentException(&quot;Body zones must identify every surface cell exactly once.&quot;);
+        foreach (var shape in content.Shapes)
+        {
+            var cells = BodyFitGeometry.Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet();
+            if (shape.LinearSpan is { } span &amp;&amp; (span.MinCells is &lt; 3 or &gt; 33 || span.MaxCells &lt; span.MinCells || span.MaxCells &gt; 33
+                || cells.Count != span.MinCells || cells.Any(c =&gt; c.R != 0) || !cells.Contains(new(0, 0))
+                || cells.Max(c =&gt; c.Q) - cells.Min(c =&gt; c.Q) + 1 != cells.Count
+                || !shape.Contacts.ToHashSet().SetEquals([new(new(cells.Min(c =&gt; c.Q), 0), 4), new(new(cells.Max(c =&gt; c.Q), 0), 1)])
+                || shape.Coverage is { } spanCoverage &amp;&amp; spanCoverage.Closed.Concat(spanCoverage.Open).Any(m =&gt; !m.Cells.ToHashSet().SetEquals(cells))))
+                throw new ArgumentException(&quot;Invalid adjustable linear span: &quot; + shape.Id);
+            if (shape.Coverage is { } coverage &amp;&amp; (!SurfaceMasksValid(coverage.Closed, cells) || !SurfaceMasksValid(coverage.Open, cells)
+                    || coverage.Open.Any(open =&gt; !coverage.Closed.Any(closed =&gt; closed.Surface == open.Surface &amp;&amp; open.Cells.All(closed.Cells.Contains)))))
+                throw new ArgumentException(&quot;Invalid closed/open cover masks: &quot; + shape.Id);
+            if (shape.Contacts.Any(e =&gt; !cells.Contains(e.Cell) || cells.Contains(e.Cell.Neighbor(e.Direction)))
+                || !BodyFitGeometry.Evaluate(content.Bodies.Single(b =&gt; b.Id == shape.BodyFamily), shape, shape.DefaultPose).Fits)
+                throw new ArgumentException(&quot;Invalid or misaligned authored body contacts: &quot; + shape.Id);
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitCatalog.cs:25</footer></main></div></body></html>

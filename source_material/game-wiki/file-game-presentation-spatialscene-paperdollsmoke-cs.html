@@ -1,0 +1,111 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PaperdollSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PaperdollSmoke.cs</h1><p>game/Presentation/SpatialScene.PaperdollSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a> · line 9</li><li><a href="function-dbf5f416a067cab43a27.html">SpatialScene.Check</a> · line 12</li><li><a href="function-546fd0342b6d59e0b120.html">SpatialScene.Click</a> · line 13</li><li><a href="function-07477c1b6ec950067700.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-4453fb8113e5c570299a.html">SpatialScene.Find</a> · line 29</li><li><a href="function-2230668e50a05bebc771.html">SpatialScene.PickUv</a> · line 36</li><li><a href="function-b12537b5fc2a8abbdde9.html">SpatialScene.At</a> · line 52</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunPaperdollSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory; var original = sim.Save(); sim.Player.Cell = new(13, 6);</span>
+<span id="L12"><a class="line" href="#L12">12</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Paperdoll: &quot; + reason); }</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Click(Vector2 at, bool twice = false) { Input.WarpMouse(at); InventoryClick(at, twice); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             sim.ManualPause = false;</span>
+<span id="L17"><a class="line" href="#L17">17</a>             for (var i = 0; i &lt; 400 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L18"><a class="line" href="#L18">18</a>             Check(sim.Inventory.Pending is null, &quot;paid handling did not complete&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L19"><a class="line" href="#L19">19</a>         }</span>
+<span id="L20"><a class="line" href="#L20">20</a>         Click(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var proof = panel.PaperdollProof; var surface = proof.Surface;</span>
+<span id="L22"><a class="line" href="#L22">22</a>         Check(proof.Visible &amp;&amp; !panel.BodyFit.Visible &amp;&amp; proof.Side == &quot;front&quot;, &quot;art view did not remain independent of fit tools&quot;);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         sim.ManualPause = true; var before = sim.Save();</span>
+<span id="L24"><a class="line" href="#L24">24</a>         var layers = proof.Art.Layers(sim);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         Check(layers.Select(l =&gt; l.ItemId).SequenceEqual(new string?[] { null, &quot;avatar-underwear&quot;, &quot;avatar-socks&quot;, &quot;avatar-trousers&quot;, &quot;avatar-shirt&quot;, &quot;avatar-shoes&quot;, &quot;avatar-coat&quot;, &quot;avatar-backpack&quot; }), &quot;actual own dressing order/bindings changed or leaked foreign gear&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         Check(layers.Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;).Column == 3 &amp;&amp; proof.Art.Omitted(sim).Length == 0,</span>
+<span id="L27"><a class="line" href="#L27">27</a>             &quot;open jacket, backpack binding or omission report incorrect&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         await RunPaperdollBackpackSmoke(); before = sim.Save();</span>
+<span id="L29"><a class="line" href="#L29">29</a>         Vector2 Find(Func&lt;Vector2, bool&gt; predicate)</span>
+<span id="L30"><a class="line" href="#L30">30</a>         {</span>
+<span id="L31"><a class="line" href="#L31">31</a>             for (var y = .04f; y &lt; .96f; y += .008f)</span>
+<span id="L32"><a class="line" href="#L32">32</a>             for (var x = .04f; x &lt; .96f; x += .008f)</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 if (predicate(new(x, y))) return new(x, y);</span>
+<span id="L34"><a class="line" href="#L34">34</a>             throw new InvalidOperationException(&quot;Paperdoll: required alpha registration region missing&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         }</span>
+<span id="L36"><a class="line" href="#L36">36</a>         string? PickUv(Vector2 uv) { var b = proof.Art.Bounds(surface.Size); return surface.Pick(b.Position + uv * b.Size); }</span>
+<span id="L37"><a class="line" href="#L37">37</a>         Check(new[] { &quot;front&quot;, &quot;back&quot; }.All(side =&gt; !proof.Art.MosaicVisible(sim, side, new(.5f, .55f))),</span>
+<span id="L38"><a class="line" href="#L38">38</a>             &quot;privacy mosaic painted over committed clothing&quot;);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         var pack = layers.Single(l =&gt; l.ItemId == &quot;avatar-backpack&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var shirt = layers.Single(l =&gt; l.ItemId == &quot;avatar-shirt&quot;); var coat = layers.Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         var trousers = layers.Single(l =&gt; l.ItemId == &quot;avatar-trousers&quot;); var socks = layers.Single(l =&gt; l.ItemId == &quot;avatar-socks&quot;);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         var shoes = layers.Single(l =&gt; l.ItemId == &quot;avatar-shoes&quot;); var underwear = layers.Single(l =&gt; l.ItemId == &quot;avatar-underwear&quot;);</span>
+<span id="L43"><a class="line" href="#L43">43</a>         var shirtUv = Find(uv =&gt; !proof.Art.Opaque(pack, &quot;front&quot;, uv) &amp;&amp; !proof.Art.HeadOpaque(&quot;front&quot;, uv) &amp;&amp; proof.Art.Opaque(shirt, &quot;front&quot;, uv) &amp;&amp; !proof.Art.Opaque(coat, &quot;front&quot;, uv)</span>
+<span id="L44"><a class="line" href="#L44">44</a>             &amp;&amp; proof.Art.Opaque(new(&quot;avatar-coat&quot;, 2), &quot;front&quot;, uv));</span>
+<span id="L45"><a class="line" href="#L45">45</a>         var headUv = Find(uv =&gt; proof.Art.HeadOpaque(&quot;front&quot;, uv));</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Check(PickUv(headUv) is null, &quot;far collar selected through the foreground head/neck&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var coatUv = Find(uv =&gt; !proof.Art.Opaque(pack, &quot;front&quot;, uv) &amp;&amp; !proof.Art.HeadOpaque(&quot;front&quot;, uv) &amp;&amp; proof.Art.Opaque(shirt, &quot;front&quot;, uv) &amp;&amp; proof.Art.Opaque(coat, &quot;front&quot;, uv));</span>
+<span id="L48"><a class="line" href="#L48">48</a>         Check(PickUv(shirtUv) == &quot;avatar-shirt&quot; &amp;&amp; PickUv(coatUv) == &quot;avatar-coat&quot;, &quot;open gap/outer sprite alpha picking disagrees with draw order&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Check(surface.Pick(Vector2.Zero) is null &amp;&amp; surface.Pick(new(surface.Size.X + 2, 10)) is null, &quot;transparent margin or outside area selected an item&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var blank = Find(uv =&gt; layers.All(l =&gt; !proof.Art.Opaque(l, &quot;front&quot;, uv)));</span>
+<span id="L51"><a class="line" href="#L51">51</a>         Check(PickUv(blank) is null, &quot;atlas padding became a hit target&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         Vector2 At(Vector2 uv) { var b = proof.Art.Bounds(surface.Size); return surface.GlobalPosition + b.Position + uv * b.Size; }</span>
+<span id="L53"><a class="line" href="#L53">53</a>         Click(At(shirtUv), true); await InventoryFrames();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         Check(panel.SelectedItem == &quot;avatar-shirt&quot; &amp;&amp; panel.Browser.CurrentGear == &quot;avatar-shirt&quot;</span>
+<span id="L55"><a class="line" href="#L55">55</a>             &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-shirt&quot;).Allowed &amp;&amp; sim.Save() == before, &quot;alpha selection bypassed access or changed physical state&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         var concealed = Find(uv =&gt; proof.Art.Opaque(underwear, &quot;front&quot;, uv) &amp;&amp; proof.Art.Opaque(trousers, &quot;front&quot;, uv));</span>
+<span id="L57"><a class="line" href="#L57">57</a>         Check(PickUv(concealed) != &quot;avatar-underwear&quot; &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-underwear&quot;).Allowed, &quot;trousers did not cover the real underwear&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         var feet = new[] { true, false }.Select(left =&gt; Find(uv =&gt; (uv.X &lt; .5f) == left &amp;&amp; proof.Art.Opaque(socks, &quot;front&quot;, uv)</span>
+<span id="L59"><a class="line" href="#L59">59</a>             &amp;&amp; proof.Art.Opaque(shoes, &quot;front&quot;, uv) &amp;&amp; !proof.Art.Opaque(trousers, &quot;front&quot;, uv))).ToArray();</span>
+<span id="L60"><a class="line" href="#L60">60</a>         Check(feet.All(uv =&gt; PickUv(uv) == &quot;avatar-shoes&quot;), &quot;paired footwear parts did not share one real item target over socks&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         await InventoryCapture(&quot;-paperdoll-open&quot;);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var oldSize = surface.Size; surface.Size = new(300, 270);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         Check(PickUv(shirtUv) == &quot;avatar-shirt&quot; &amp;&amp; PickUv(coatUv) == &quot;avatar-coat&quot;, &quot;letterbox resize changed source-alpha picking&quot;); surface.Size = oldSize;</span>
+<span id="L64"><a class="line" href="#L64">64</a>         Click(proof.Jacket.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L65"><a class="line" href="#L65">65</a>         Check(sim.Save() == before &amp;&amp; sim.Inventory.Pending is null &amp;&amp; proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;).Column == 3, &quot;paused art control did free fastening&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         sim.ManualPause = false; Click(proof.Jacket.GetGlobalRect().GetCenter());</span>
+<span id="L67"><a class="line" href="#L67">67</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.CloseGarment &amp;&amp; proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;).Column == 3,</span>
+<span id="L68"><a class="line" href="#L68">68</a>             &quot;sprite changed before normal paid fastening committed&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         var pending = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L70"><a class="line" href="#L70">70</a>         clone.Restore(pending); Check(clone.Save() == pending, &quot;appearance control changed continuation compatibility&quot;);</span>
+<span id="L71"><a class="line" href="#L71">71</a>         await Finish();</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(proof.Art.Layers(sim).Single(l =&gt; l.ItemId == &quot;avatar-coat&quot;).Column == 2 &amp;&amp; PickUv(shirtUv) == &quot;avatar-coat&quot;, &quot;committed closure did not occlude the same shirt pixel&quot;);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         Click(At(shirtUv)); await InventoryFrames(); Check(panel.SelectedItem == &quot;avatar-coat&quot;, &quot;closed artwork click picked through coat&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         await InventoryCapture(&quot;-paperdoll-closed&quot;);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         before = sim.Save(); Click(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L76"><a class="line" href="#L76">76</a>         Check(proof.Side == &quot;back&quot; &amp;&amp; sim.Save() == before, &quot;flipping art performed physical work&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         var back = Find(uv =&gt; !proof.Art.Opaque(pack, &quot;back&quot;, uv) &amp;&amp; !proof.Art.HeadOpaque(&quot;back&quot;, uv) &amp;&amp; proof.Art.Opaque(new(&quot;avatar-coat&quot;, 2), &quot;back&quot;, uv));</span>
+<span id="L78"><a class="line" href="#L78">78</a>         Check(PickUv(back) == &quot;avatar-coat&quot;, &quot;back artwork used front picking&quot;);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         foreach (var left in new[] { true, false })</span>
+<span id="L80"><a class="line" href="#L80">80</a>         {</span>
+<span id="L81"><a class="line" href="#L81">81</a>             var rearFoot = Find(uv =&gt; (uv.X &lt; .5f) == left &amp;&amp; proof.Art.Opaque(shoes, &quot;back&quot;, uv) &amp;&amp; !proof.Art.Opaque(trousers, &quot;back&quot;, uv));</span>
+<span id="L82"><a class="line" href="#L82">82</a>             Check(PickUv(rearFoot) == &quot;avatar-shoes&quot;, &quot;back paired footwear drifted from its instance&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         }</span>
+<span id="L84"><a class="line" href="#L84">84</a>         await InventoryCapture(&quot;-paperdoll-back&quot;);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         Click(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L86"><a class="line" href="#L86">86</a>         // Context removal is ordinary paid work, not an appearance-only toggle.</span>
+<span id="L87"><a class="line" href="#L87">87</a>         Input.WarpMouse(At(feet[0])); InventoryClick(At(feet[0]), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L88"><a class="line" href="#L88">88</a>         var menu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L89"><a class="line" href="#L89">89</a>         var removeButton = menu.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Remove → hand&quot;);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         before = sim.Save(); Click(removeButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L91"><a class="line" href="#L91">91</a>         Check(sim.Save() == before &amp;&amp; proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-shoes&quot;), &quot;paused sprite context supplied free footwear removal&quot;);</span>
+<span id="L92"><a class="line" href="#L92">92</a>         sim.ManualPause = false;</span>
+<span id="L93"><a class="line" href="#L93">93</a>         Input.WarpMouse(At(feet[0])); InventoryClick(At(feet[0]), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L94"><a class="line" href="#L94">94</a>         menu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L95"><a class="line" href="#L95">95</a>         removeButton = menu.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Remove → hand&quot;);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         Click(removeButton.GetGlobalRect().GetCenter());</span>
+<span id="L97"><a class="line" href="#L97">97</a>         Check(sim.Inventory.Pending?.Request.ItemId == &quot;avatar-shoes&quot; &amp;&amp; PickUv(feet[0]) == &quot;avatar-shoes&quot;, &quot;footwear disappeared before paid removal committed&quot;);</span>
+<span id="L98"><a class="line" href="#L98">98</a>         await Finish();</span>
+<span id="L99"><a class="line" href="#L99">99</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-shoes&quot;) &amp;&amp; feet.All(uv =&gt; PickUv(uv) == &quot;avatar-socks&quot;), &quot;held shoes remained painted on the body or failed to expose both socks&quot;);</span>
+<span id="L100"><a class="line" href="#L100">100</a>         await InventoryCapture(&quot;-paperdoll-socks&quot;);</span>
+<span id="L101"><a class="line" href="#L101">101</a>         sim.ManualPause = false; Check(sim.HandleInventory(new(InventoryActionKind.AutoPlace, &quot;avatar-shoes&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;))), sim.LastMessage); await Finish();</span>
+<span id="L102"><a class="line" href="#L102">102</a>         sim.ManualPause = false; Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-socks&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))), sim.LastMessage); await Finish();</span>
+<span id="L103"><a class="line" href="#L103">103</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-socks&quot;) &amp;&amp; feet.All(uv =&gt; PickUv(uv) is null), &quot;removed socks or base body became false footwear targets&quot;);</span>
+<span id="L104"><a class="line" href="#L104">104</a>         await InventoryCapture(&quot;-paperdoll-bare-feet&quot;);</span>
+<span id="L105"><a class="line" href="#L105">105</a>         await RunPaperdollUnderwearSmoke();</span>
+<span id="L106"><a class="line" href="#L106">106</a>         panel.Close(); panel.Open(); Click(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L107"><a class="line" href="#L107">107</a>         Check(proof.Side == &quot;front&quot;, &quot;inventory reopen retained art inspection side&quot;);</span>
+<span id="L108"><a class="line" href="#L108">108</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L109"><a class="line" href="#L109">109</a>         GD.Print(&quot;PAPERDOLL_SMOKE_PASS: full-body own outfit, covered underwear, paired feet, source-alpha picking/occlusion, front/back, resize, paid fastening/removal, exposed socks/bare feet and continuation.&quot;);</span>
+<span id="L110"><a class="line" href="#L110">110</a>     }</span>
+<span id="L111"><a class="line" href="#L111">111</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

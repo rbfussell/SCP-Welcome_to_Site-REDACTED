@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpriteArtCatalog.SpriteArtCatalog | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpriteArtCatalog.SpriteArtCatalog</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spriteartcatalog-cs.html#L16">game/Presentation/SpriteArtCatalog.cs:16</a></p><p><strong>Declaration kind:</strong> ConstructorDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public SpriteArtCatalog(string json)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-6f172cad323a98a2b3ea.html">OscpApplications.All</a></li><li><a href="function-800b0606e2f0fd53f269.html">SpriteArtCatalog.FileName</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>JsonSerializer.Deserialize&lt;SpriteArtManifest&gt;
+string.IsNullOrWhiteSpace
+path.StartsWith
+path.Contains
+path.Split(&#x27;/&#x27;).All
+path.Split
+m.Images.Any
+FileName
+e.Value.Any
+m.Mounts.Any
+double.IsFinite
+m.Images.TryGetValue
+s.Anchor.Any
+rig.Directions.SequenceEqual
+rig.Frames.ContainsKey
+rig.Frames.Any
+m.Rigs.TryGetValue
+actor.Layers.Any
+actor.Layers.Select(layer =&gt; layer.Id).Distinct().Count
+actor.Layers.Select(layer =&gt; layer.Id).Distinct
+actor.Layers.Select
+layer.States.TryGetValue
+directions.Any
+frames.Any
+m.Sprites.ContainsKey
+m.Objects.Concat(m.Surfaces).Any
+m.Objects.Concat</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-spriteartcatalog.html">SpriteArtCatalog</a></li><li><a href="type-spriteartmanifest.html">SpriteArtManifest</a></li></ul><h2>Implementation</h2><pre><code>public SpriteArtCatalog(string json)
+    {
+        Manifest = JsonSerializer.Deserialize&lt;SpriteArtManifest&gt;(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+            ?? throw new ArgumentException(&quot;Empty sprite-art manifest.&quot;);
+        var m = Manifest;
+        static bool FileName(string path) =&gt; !string.IsNullOrWhiteSpace(path) &amp;&amp; !path.StartsWith(&#x27;/&#x27;) &amp;&amp; !path.Contains(&#x27;\\&#x27;)
+            &amp;&amp; !path.Contains(&#x27;:&#x27;) &amp;&amp; path.Split(&#x27;/&#x27;).All(part =&gt; part is not (&quot;&quot; or &quot;.&quot; or &quot;..&quot;));
+        if (m.Version != 1 || m.Images is null || m.Sprites is null || m.Rigs is null || m.Actors is null || m.Objects is null || m.Surfaces is null
+            || m.Images.Any(e =&gt; !FileName(e.Key) || e.Value is not { Length: 2 } || e.Value.Any(n =&gt; n &lt;= 0)))
+            throw new ArgumentException(&quot;Invalid sprite-art schema or image declaration.&quot;);
+        if (m.Mounts is not null &amp;&amp; m.Mounts.Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || e.Value is not { Length: 2 } || e.Value.Any(n =&gt; !double.IsFinite(n))))
+            throw new ArgumentException(&quot;Invalid presentation mount offset.&quot;);
+        foreach (var (key, s) in m.Sprites)
+            if (string.IsNullOrWhiteSpace(key) || s is null || !m.Images.TryGetValue(s.File, out var size)
+                || s.Region is not { Length: 4 } || s.Region[0] &lt; 0 || s.Region[1] &lt; 0 || s.Region[2] &lt;= 0 || s.Region[3] &lt;= 0
+                || (long)s.Region[0] + s.Region[2] &gt; size[0] || (long)s.Region[1] + s.Region[3] &gt; size[1]
+                || s.Anchor is not { Length: 2 } || s.Anchor.Any(n =&gt; !double.IsFinite(n))
+                || s.Anchor[0] &lt; 0 || s.Anchor[0] &gt; s.Region[2] || s.Anchor[1] &lt; 0 || s.Anchor[1] &gt; s.Region[3]
+                || !double.IsFinite(s.Scale) || s.Scale &lt;= 0)
+                throw new ArgumentException(&quot;Invalid sprite region, scale or ground anchor: &quot; + key);
+        foreach (var (key, rig) in m.Rigs)
+            if (string.IsNullOrWhiteSpace(key) || rig is null || rig.Directions is not { Length: 6 }
+                || !rig.Directions.SequenceEqual(new[] { &quot;NE&quot;, &quot;E&quot;, &quot;SE&quot;, &quot;SW&quot;, &quot;W&quot;, &quot;NW&quot; }) || rig.Frames is null
+                || !rig.Frames.ContainsKey(&quot;idle&quot;) || !rig.Frames.ContainsKey(&quot;walk&quot;) || rig.Frames.Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || e.Value &lt; 1))
+                throw new ArgumentException(&quot;Invalid directional character rig: &quot; + key);
+        foreach (var (id, actor) in m.Actors)
+        {
+            if (string.IsNullOrWhiteSpace(id) || actor is null || !m.Rigs.TryGetValue(actor.Rig, out var rig) || actor.Layers is not { Length: &gt; 0 }
+                || actor.Layers.Any(layer =&gt; layer is null || string.IsNullOrWhiteSpace(layer.Id) || layer.States is null)
+                || actor.Layers.Select(layer =&gt; layer.Id).Distinct().Count() != actor.Layers.Length)
+                throw new ArgumentException(&quot;Invalid actor appearance: &quot; + id);
+            foreach (var layer in actor.Layers)
+            foreach (var (state, count) in rig.Frames)
+                if (!layer.States.TryGetValue(state, out var directions) || directions is not { Length: 6 }
+                    || directions.Any(frames =&gt; frames is null || frames.Length != count || frames.Any(key =&gt; !m.Sprites.ContainsKey(key))))
+                    throw new ArgumentException($&quot;Missing art binding: {id}/{layer.Id}/{state}&quot;);
+        }
+        if (m.Objects.Concat(m.Surfaces).Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || !m.Sprites.ContainsKey(e.Value)))
+            throw new ArgumentException(&quot;Unknown surface/object artwork.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpriteArtCatalog.cs:16</footer></main></div></body></html>

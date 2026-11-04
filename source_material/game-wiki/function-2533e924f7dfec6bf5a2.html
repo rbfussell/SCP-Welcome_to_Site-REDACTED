@@ -1,0 +1,87 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.UpdateEncounter | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.UpdateEncounter</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-cs.html#L78">game/Presentation/SpatialScene.cs:78</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private void UpdateEncounter()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-32ad6494f73dfb2b33de.html">SpatialSimulation.VisibleToPlayer</a></li><li><a href="function-34eb2473e872023859e1.html">EncounterOverlay.Pulse</a></li><li><a href="function-3e362d9e34e5e362eaf2.html">WorldView.Screen</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-732bc1bfd07c5ac423ac.html">DiscoveryFeedback.Update</a></li><li><a href="function-94fbf301be089583a9a8.html">DiscoveryFeedback.Pulse</a></li><li><a href="function-a6835268166844b39e23.html">DiscoveryFeedback.Caption</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-e68d188abcb24be500fe.html">EncounterAudio.Update</a></li><li><a href="function-f07cd5aa15b5d23cbee1.html">EncounterOverlay.Caption</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_feedback.Update
+_audio.Update
+_feedback.Pulse
+_feedback.Caption
+_world.GetTransform
+WorldView.Screen
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take(4)
+            .Select(e =&gt; new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
+                $&quot;{(e.Source == &quot;sound&quot; ? &quot;sound ~&quot; : e.Source is &quot;voice&quot; or &quot;radio&quot; ? &quot;reported&quot; : &quot;last seen&quot;)} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s&quot;,
+                e.Classification == &quot;hostile&quot;))
+            .Concat(_simulation.Combat.Active ? _simulation.Combat.AcquiredContacts
+                .Where(c =&gt; c.ObserverId == _simulation.Player.Id &amp;&amp; !_simulation.VisibleToPlayer(c.Position)
+                    &amp;&amp; _simulation.LocalMs - c.LocalMs &lt;= 15000 &amp;&amp; Point2.Distance(c.Position, _simulation.Player.Position) &gt; 0.05)
+                .Select(c =&gt; new ContactBearing(WorldView.Screen(c.Position) - WorldView.Screen(_simulation.Player.Position),
+                    $&quot;training last seen {(_simulation.LocalMs - c.LocalMs) / 1000.0:0.0}s&quot;, true)) : [])
+            .Take(4).ToArray
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take(4)
+            .Select(e =&gt; new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
+                $&quot;{(e.Source == &quot;sound&quot; ? &quot;sound ~&quot; : e.Source is &quot;voice&quot; or &quot;radio&quot; ? &quot;reported&quot; : &quot;last seen&quot;)} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s&quot;,
+                e.Classification == &quot;hostile&quot;))
+            .Concat(_simulation.Combat.Active ? _simulation.Combat.AcquiredContacts
+                .Where(c =&gt; c.ObserverId == _simulation.Player.Id &amp;&amp; !_simulation.VisibleToPlayer(c.Position)
+                    &amp;&amp; _simulation.LocalMs - c.LocalMs &lt;= 15000 &amp;&amp; Point2.Distance(c.Position, _simulation.Player.Position) &gt; 0.05)
+                .Select(c =&gt; new ContactBearing(WorldView.Screen(c.Position) - WorldView.Screen(_simulation.Player.Position),
+                    $&quot;training last seen {(_simulation.LocalMs - c.LocalMs) / 1000.0:0.0}s&quot;, true)) : [])
+            .Take
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take(4)
+            .Select(e =&gt; new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
+                $&quot;{(e.Source == &quot;sound&quot; ? &quot;sound ~&quot; : e.Source is &quot;voice&quot; or &quot;radio&quot; ? &quot;reported&quot; : &quot;last seen&quot;)} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s&quot;,
+                e.Classification == &quot;hostile&quot;))
+            .Concat
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take(4)
+            .Select
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take
+_simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending
+_simulation.Awareness.Evidence
+            .Where
+_simulation.VisibleToPlayer
+Point2.Distance
+Math.Max
+_simulation.Combat.AcquiredContacts
+                .Where(c =&gt; c.ObserverId == _simulation.Player.Id &amp;&amp; !_simulation.VisibleToPlayer(c.Position)
+                    &amp;&amp; _simulation.LocalMs - c.LocalMs &lt;= 15000 &amp;&amp; Point2.Distance(c.Position, _simulation.Player.Position) &gt; 0.05)
+                .Select
+_simulation.Combat.AcquiredContacts
+                .Where
+_encounter.QueueRedraw</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li></ul><h2>Related types</h2><ul><li><a href="type-contactbearing.html">ContactBearing</a></li><li><a href="type-point2.html">Point2</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Implementation</h2><pre><code>private void UpdateEncounter()
+    {
+        var discovered = _feedback.Update(_simulation, _world.FieldView);
+        _audio.Update(_world.FieldView, _simulation.LocalProgressHeld, discovered);
+        _encounter.Visible = _world.FieldView;
+        _encounter.Pulse = _feedback.Pulse(_simulation.LocalMs);
+        _encounter.Caption = _feedback.Caption(_simulation.LocalMs);
+        _encounter.PlayerPoint = _world.GetTransform() * WorldView.Screen(_simulation.Player.Position);
+        _encounter.Bearings = _simulation.Awareness.Evidence
+            .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)
+                &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))
+            .OrderByDescending(e =&gt; e.LocalMs).Take(4)
+            .Select(e =&gt; new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),
+                $&quot;{(e.Source == &quot;sound&quot; ? &quot;sound ~&quot; : e.Source is &quot;voice&quot; or &quot;radio&quot; ? &quot;reported&quot; : &quot;last seen&quot;)} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s&quot;,
+                e.Classification == &quot;hostile&quot;))
+            .Concat(_simulation.Combat.Active ? _simulation.Combat.AcquiredContacts
+                .Where(c =&gt; c.ObserverId == _simulation.Player.Id &amp;&amp; !_simulation.VisibleToPlayer(c.Position)
+                    &amp;&amp; _simulation.LocalMs - c.LocalMs &lt;= 15000 &amp;&amp; Point2.Distance(c.Position, _simulation.Player.Position) &gt; 0.05)
+                .Select(c =&gt; new ContactBearing(WorldView.Screen(c.Position) - WorldView.Screen(_simulation.Player.Position),
+                    $&quot;training last seen {(_simulation.LocalMs - c.LocalMs) / 1000.0:0.0}s&quot;, true)) : [])
+            .Take(4).ToArray();
+        _encounter.QueueRedraw();
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.cs:78</footer></main></div></body></html>

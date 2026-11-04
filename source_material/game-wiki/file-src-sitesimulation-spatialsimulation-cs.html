@@ -1,0 +1,300 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/SpatialSimulation.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialSimulation.cs</h1><p>src/SiteSimulation/SpatialSimulation.cs</p><p><a href="system-facade.html">Simulation command facade</a></p><h2>Types</h2><ul><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-fdbef4a4f60fa84698de.html">SpatialSimulation.Map</a> · line 12</li><li><a href="function-99d5dd5054fb26d300b1.html">SpatialSimulation.Actors</a> · line 13</li><li><a href="function-aad543b1c91314401209.html">SpatialSimulation.Player</a> · line 14</li><li><a href="function-e307ec8270a9f3380661.html">SpatialSimulation.Anomalies</a> · line 15</li><li><a href="function-06ffdf8f804bc94cfec1.html">SpatialSimulation.Trace</a> · line 16</li><li><a href="function-dd6e73ec0a1fe72dd2df.html">SpatialSimulation.Awareness</a> · line 17</li><li><a href="function-8a578f0d69c217499516.html">SpatialSimulation.Operations</a> · line 18</li><li><a href="function-1eb679c315528bcceeb5.html">SpatialSimulation.Employment</a> · line 19</li><li><a href="function-708e79893b1c040958c4.html">SpatialSimulation.DiagnosticPostCoverage</a> · line 20</li><li><a href="function-7e9e59d41732efab4a72.html">SpatialSimulation.Events</a> · line 21</li><li><a href="function-bce34c9f95f1bee8ba8b.html">SpatialSimulation.Combat</a> · line 22</li><li><a href="function-052c8db940a1d72a0a9d.html">SpatialSimulation.LocalProgressHeld</a> · line 23</li><li><a href="function-cd00de2b6403b20e9a6e.html">SpatialSimulation.ArmTraining</a> · line 24</li><li><a href="function-e405556878429fcb876f.html">SpatialSimulation.EndTraining</a> · line 31</li><li><a href="function-5415cbf9e399a3486619.html">SpatialSimulation.EndTurn</a> · line 35</li><li><a href="function-23d9762f969df182214f.html">SpatialSimulation.UseTrainingEquipment</a> · line 39</li><li><a href="function-366f6b077896c87035b5.html">SpatialSimulation.FireTraining</a> · line 43</li><li><a href="function-b98fb151ccda81034c18.html">SpatialSimulation.TryUseOscpDevice</a> · line 47</li><li><a href="function-1e1b9f610e8fd19521d3.html">SpatialSimulation.OscpAccess</a> · line 53</li><li><a href="function-5ea077256f52e86a491d.html">SpatialSimulation.OscpRecords</a> · line 54</li><li><a href="function-b48808a002929d4b50d2.html">SpatialSimulation.IssueOscpOrder</a> · line 55</li><li><a href="function-d5734f5a866039191475.html">SpatialSimulation.SubmitPreparedPhoneOrder</a> · line 61</li><li><a href="function-17073cd30b23351a071d.html">SpatialSimulation.CanUseTerminal</a> · line 63</li><li><a href="function-5f632fdb0bc8e9901964.html">SpatialSimulation.WorldMs</a> · line 64</li><li><a href="function-ec89a573e03de3a8c40a.html">SpatialSimulation.LocalMs</a> · line 65</li><li><a href="function-67d10d2088a3e3f07320.html">SpatialSimulation.LocalHold</a> · line 66</li><li><a href="function-d1a5e8c4dc3e4a07a0d6.html">SpatialSimulation.LocalHold.get</a> · line 66</li><li><a href="function-099e3765f235917d9d03.html">SpatialSimulation.LocalHold.set</a> · line 66</li><li><a href="function-a8a009b2764e2aa11c02.html">SpatialSimulation.ManualPause</a> · line 67</li><li><a href="function-cb471c5309cb7a551eef.html">SpatialSimulation.ManualPause.get</a> · line 67</li><li><a href="function-24c13d17f2634a52c3a3.html">SpatialSimulation.ManualPause.set</a> · line 67</li><li><a href="function-fe7cb9637a92a016c469.html">SpatialSimulation.Speed</a> · line 68</li><li><a href="function-d3817bd5e45d3ce43802.html">SpatialSimulation.Speed.get</a> · line 68</li><li><a href="function-e51b583511279116bf19.html">SpatialSimulation.Speed.set</a> · line 68</li><li><a href="function-fcff169b56c2f5a6663e.html">SpatialSimulation.OffsiteUpdates</a> · line 69</li><li><a href="function-6dd52cebb7be16e92e0a.html">SpatialSimulation.LocalCountdownMs</a> · line 70</li><li><a href="function-675cb0a4de0ba17322f6.html">SpatialSimulation.LastMessage</a> · line 71</li><li><a href="function-a123938e4b62ff2cb3ed.html">SpatialSimulation.LastMessage.get</a> · line 71</li><li><a href="function-ca443e2eceb979fc7159.html">SpatialSimulation.LastMessage.set</a> · line 71</li><li><a href="function-250efffdba763cf6f6bc.html">SpatialSimulation.SpatialSimulation</a> · line 73</li><li><a href="function-9ea91f84276374279ce4.html">SpatialSimulation.Ready</a> · line 85</li><li><a href="function-e79cf90892bf9dafd048.html">SpatialSimulation.Changed</a> · line 93</li><li><a href="function-ab6a6cdf91f3f09dc873.html">SpatialSimulation.EvaluatePlayerAwareness</a> · line 100</li><li><a href="function-4a702211e50839f7a6b2.html">SpatialSimulation.IssueOrder</a> · line 124</li><li><a href="function-3dd7c119c193e7c08283.html">SpatialSimulation.IssueOrderOnChannel</a> · line 126</li><li><a href="function-b4274e90684c8a1320be.html">SpatialSimulation.ApproachTerminal</a> · line 136</li><li><a href="function-54539386bacf5fa345f9.html">SpatialSimulation.ReceivePerceivedContact</a> · line 145</li><li><a href="function-8462014cbd9717e3ae20.html">SpatialSimulation.PreviewPath</a> · line 154</li><li><a href="function-102297a12ea14b9ee7d3.html">SpatialSimulation.KnownNavigationBlocked</a> · line 155</li><li><a href="function-d219efa12d116bffe672.html">SpatialSimulation.InspectAnomalies</a> · line 156</li><li><a href="function-32ad6494f73dfb2b33de.html">SpatialSimulation.VisibleToPlayer</a> · line 157</li><li><a href="function-10a484f5657bf0713d8c.html">SpatialSimulation.SetModuleFlag</a> · line 159</li><li><a href="function-6d27cf6ba1541d4f9008.html">SpatialSimulation.RequestMove</a> · line 168</li><li><a href="function-7244f6e432dd4e320836.html">SpatialSimulation.CancelMove</a> · line 184</li><li><a href="function-53789ae72a2eea244e8d.html">SpatialSimulation.Face</a> · line 191</li><li><a href="function-c584b2a7a803b3022576.html">SpatialSimulation.ToggleObserverAttention</a> · line 210</li><li><a href="function-06f7132ee80e68cc477f.html">SpatialSimulation.BlinkPlayer</a> · line 216</li><li><a href="function-40474accb456dcf32583.html">SpatialSimulation.ToggleLighting</a> · line 222</li><li><a href="function-30426758219b49510289.html">SpatialSimulation.ToggleNearestDoor</a> · line 228</li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a> · line 241</li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a> · line 293</li><li><a href="function-15df43c72b0c3ad941c4.html">SpatialSimulation.Restore</a> · line 294</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Small orchestration facade. Rules live in named movement/perception/anomaly/save systems.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public sealed partial class SpatialSimulation</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public const int TickMs = 50;</span>
+<span id="L7"><a class="line" href="#L7">7</a>     public const int StepDurationMs = 300;</span>
+<span id="L8"><a class="line" href="#L8">8</a>     private readonly string _mapJson;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private readonly string _mapIdentity;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private readonly string? _operationJson;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private SimulationWorld _world;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     public FacilityMap Map =&gt; _world.Map;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public List&lt;ActorState&gt; Actors =&gt; _world.Actors;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     public ActorState Player =&gt; _world.Player;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public AnomalySystem Anomalies =&gt; _world.Anomalies;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public SimulationTrace Trace =&gt; _world.Trace;</span>
+<span id="L17"><a class="line" href="#L17">17</a>     public PlayerAwareness Awareness =&gt; _world.Awareness;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     public OperationState Operations =&gt; _world.Operations;</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public EmploymentState Employment =&gt; _world.Employment;</span>
+<span id="L20"><a class="line" href="#L20">20</a>     public int DiagnosticPostCoverage(string postId) =&gt; EmploymentSystem.Coverage(_world, postId);</span>
+<span id="L21"><a class="line" href="#L21">21</a>     public PlayerEventLog Events =&gt; _world.Events;</span>
+<span id="L22"><a class="line" href="#L22">22</a>     public CombatState Combat =&gt; _world.Combat;</span>
+<span id="L23"><a class="line" href="#L23">23</a>     public bool LocalProgressHeld =&gt; !_world.LocalActive;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     public bool ArmTraining(string opponentId = &quot;tech&quot;)</span>
+<span id="L25"><a class="line" href="#L25">25</a>     {</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var result = TacticalCombatSystem.Arm(_world, opponentId, out var reason);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         LastMessage = reason;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (result) { TacticalCombatSystem.Detect(_world); TrainingOpponentSystem.Observe(_world); }</span>
+<span id="L29"><a class="line" href="#L29">29</a>         return result;</span>
+<span id="L30"><a class="line" href="#L30">30</a>     }</span>
+<span id="L31"><a class="line" href="#L31">31</a>     public bool EndTraining()</span>
+<span id="L32"><a class="line" href="#L32">32</a>     {</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var result = TacticalCombatSystem.FinishDrill(_world, out var reason); LastMessage = reason; return result;</span>
+<span id="L34"><a class="line" href="#L34">34</a>     }</span>
+<span id="L35"><a class="line" href="#L35">35</a>     public bool EndTurn()</span>
+<span id="L36"><a class="line" href="#L36">36</a>     {</span>
+<span id="L37"><a class="line" href="#L37">37</a>         var result = TacticalCombatSystem.EndTurn(_world, Player.Id, out var reason); LastMessage = reason; return result;</span>
+<span id="L38"><a class="line" href="#L38">38</a>     }</span>
+<span id="L39"><a class="line" href="#L39">39</a>     public bool UseTrainingEquipment(CombatActionKind kind)</span>
+<span id="L40"><a class="line" href="#L40">40</a>     {</span>
+<span id="L41"><a class="line" href="#L41">41</a>         var result = TacticalCombatSystem.Equipment(_world, Player.Id, kind, out var reason); LastMessage = reason; return result;</span>
+<span id="L42"><a class="line" href="#L42">42</a>     }</span>
+<span id="L43"><a class="line" href="#L43">43</a>     public bool FireTraining(string targetId)</span>
+<span id="L44"><a class="line" href="#L44">44</a>     {</span>
+<span id="L45"><a class="line" href="#L45">45</a>         var result = TacticalCombatSystem.Fire(_world, Player.Id, targetId, out var reason); LastMessage = reason; return result;</span>
+<span id="L46"><a class="line" href="#L46">46</a>     }</span>
+<span id="L47"><a class="line" href="#L47">47</a>     public bool TryUseOscpDevice(OscpDevice device)</span>
+<span id="L48"><a class="line" href="#L48">48</a>     {</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var access = OscpAccess(device);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (!access.Available) LastMessage = access.Status;</span>
+<span id="L51"><a class="line" href="#L51">51</a>         return access.Available;</span>
+<span id="L52"><a class="line" href="#L52">52</a>     }</span>
+<span id="L53"><a class="line" href="#L53">53</a>     public OscpAccess OscpAccess(OscpDevice device) =&gt; OscpService.Access(_world, device);</span>
+<span id="L54"><a class="line" href="#L54">54</a>     public IReadOnlyList&lt;OperationReport&gt; OscpRecords =&gt; OscpService.Records(_world);</span>
+<span id="L55"><a class="line" href="#L55">55</a>     public bool IssueOscpOrder(OscpDevice device, string actorId, PersonnelTask task, Hex destination)</span>
+<span id="L56"><a class="line" href="#L56">56</a>     {</span>
+<span id="L57"><a class="line" href="#L57">57</a>         var access = OscpAccess(device);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (!access.Available || !access.Connected) { LastMessage = access.Status; return false; }</span>
+<span id="L59"><a class="line" href="#L59">59</a>         return IssueOrderOnChannel(actorId, task, destination, device == OscpDevice.Phone ? &quot;phone&quot; : &quot;terminal&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>     }</span>
+<span id="L61"><a class="line" href="#L61">61</a>     public bool SubmitPreparedPhoneOrder(string actorId, PersonnelTask task, Hex destination)</span>
+<span id="L62"><a class="line" href="#L62">62</a>         =&gt; IssueOrderOnChannel(actorId, task, destination, &quot;phone&quot;, allowPausedIntent: true);</span>
+<span id="L63"><a class="line" href="#L63">63</a>     public bool CanUseTerminal =&gt; FacilityCommunications.TerminalReachable(_world);</span>
+<span id="L64"><a class="line" href="#L64">64</a>     public long WorldMs =&gt; _world.WorldMs;</span>
+<span id="L65"><a class="line" href="#L65">65</a>     public long LocalMs =&gt; _world.LocalMs;</span>
+<span id="L66"><a class="line" href="#L66">66</a>     public bool LocalHold { get =&gt; _world.LocalHold; set { if (_world.LocalHold == value) return; _world.LocalHold = value; _world.Log(&quot;time&quot;, &quot;local-zone&quot;, value ? &quot;held&quot; : &quot;resumed&quot;, &quot;World calendar continues; local progress retained.&quot;); } }</span>
+<span id="L67"><a class="line" href="#L67">67</a>     public bool ManualPause { get =&gt; _world.ManualPause; set { if (_world.ManualPause == value) return; _world.ManualPause = value; _world.Log(&quot;time&quot;, &quot;world&quot;, value ? &quot;manual-pause&quot; : &quot;manual-resume&quot;, &quot;Explicit single-player manual clock control.&quot;); } }</span>
+<span id="L68"><a class="line" href="#L68">68</a>     public int Speed { get =&gt; _world.Speed; set =&gt; _world.Speed = value; }</span>
+<span id="L69"><a class="line" href="#L69">69</a>     public int OffsiteUpdates =&gt; (int)(WorldMs / 1000);</span>
+<span id="L70"><a class="line" href="#L70">70</a>     public int LocalCountdownMs =&gt; 10000 - (int)(LocalMs % 10000);</span>
+<span id="L71"><a class="line" href="#L71">71</a>     public string LastMessage { get; private set; } = &quot;SCP-650 is watched by Chen. O distracts Chen; K blinks; F8 changes lighting.&quot;;</span>
+<span id="L72"><a class="line" href="#L72">72</a> </span>
+<span id="L73"><a class="line" href="#L73">73</a>     public SpatialSimulation(string json, string? operationJson = null)</span>
+<span id="L74"><a class="line" href="#L74">74</a>     {</span>
+<span id="L75"><a class="line" href="#L75">75</a>         _mapJson = json;</span>
+<span id="L76"><a class="line" href="#L76">76</a>         _operationJson = operationJson;</span>
+<span id="L77"><a class="line" href="#L77">77</a>         _world = new(json, operationJson);</span>
+<span id="L78"><a class="line" href="#L78">78</a>         _mapIdentity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(</span>
+<span id="L79"><a class="line" href="#L79">79</a>             (operationJson is null ? json : json + &quot;\nOPERATION\n&quot; + operationJson)</span>
+<span id="L80"><a class="line" href="#L80">80</a>             + (_world.Inventory.Enabled ? &quot;\nINVENTORY\n&quot; + _world.Inventory.ContentJson : &quot;&quot;))));</span>
+<span id="L81"><a class="line" href="#L81">81</a>         _world.Anomalies.Evaluate(_world, &quot;initialize&quot;);</span>
+<span id="L82"><a class="line" href="#L82">82</a>         EvaluatePlayerAwareness();</span>
+<span id="L83"><a class="line" href="#L83">83</a>         if (Operations.Definition is not null) LastMessage = &quot;Observation shift active · local voice orders or approach OSCP terminal.&quot;;</span>
+<span id="L84"><a class="line" href="#L84">84</a>     }</span>
+<span id="L85"><a class="line" href="#L85">85</a>     private bool Ready(string action)</span>
+<span id="L86"><a class="line" href="#L86">86</a>     {</span>
+<span id="L87"><a class="line" href="#L87">87</a>         if (Inventory.Pending is not null &amp;&amp; action is not (&quot;Movement&quot; or &quot;Attention change&quot;))</span>
+<span id="L88"><a class="line" href="#L88">88</a>         { LastMessage = &quot;Finish or cancel the inventory action first.&quot;; return false; }</span>
+<span id="L89"><a class="line" href="#L89">89</a>         if (_world.LocalActive &amp;&amp; !Combat.Active) return true;</span>
+<span id="L90"><a class="line" href="#L90">90</a>         LastMessage = action + (Combat.Active ? &quot; requires a paid tactical action on your turn.&quot; : &quot; is held with local simulation.&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         return false;</span>
+<span id="L92"><a class="line" href="#L92">92</a>     }</span>
+<span id="L93"><a class="line" href="#L93">93</a>     private void Changed(string system, string subject, string action, string detail)</span>
+<span id="L94"><a class="line" href="#L94">94</a>     {</span>
+<span id="L95"><a class="line" href="#L95">95</a>         _world.Log(system, subject, action, detail);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         _world.Anomalies.Evaluate(_world, action + &quot;:&quot; + subject);</span>
+<span id="L97"><a class="line" href="#L97">97</a>         LastMessage = detail;</span>
+<span id="L98"><a class="line" href="#L98">98</a>         EvaluatePlayerAwareness();</span>
+<span id="L99"><a class="line" href="#L99">99</a>     }</span>
+<span id="L100"><a class="line" href="#L100">100</a>     private void EvaluatePlayerAwareness()</span>
+<span id="L101"><a class="line" href="#L101">101</a>     {</span>
+<span id="L102"><a class="line" href="#L102">102</a>         if (!_world.LocalActive) return;</span>
+<span id="L103"><a class="line" href="#L103">103</a>         FacilityCommunications.SenseAndReport(_world);</span>
+<span id="L104"><a class="line" href="#L104">104</a>         OscpService.Acquire(_world);</span>
+<span id="L105"><a class="line" href="#L105">105</a>         foreach (var body in Anomalies.Bodies)</span>
+<span id="L106"><a class="line" href="#L106">106</a>         {</span>
+<span id="L107"><a class="line" href="#L107">107</a>             // Bounded prototype communication: an audible, unobstructed nearby human report.</span>
+<span id="L108"><a class="line" href="#L108">108</a>             // The optional operation adds received radio records; general SCiPnet transport remains later work.</span>
+<span id="L109"><a class="line" href="#L109">109</a>             foreach (var reporter in Actors.Where(a =&gt; a != Player &amp;&amp; a.ObserverKind == &quot;human&quot;))</span>
+<span id="L110"><a class="line" href="#L110">110</a>                 if (Point2.Distance(reporter.Position, Player.Position) &lt;= 4 &amp;&amp; Map.ClearSight(reporter.Position, Player.Position)</span>
+<span id="L111"><a class="line" href="#L111">111</a>                     &amp;&amp; ObservationService.Inspect(Map, reporter, body.Cell.World, LocalMs).Detected)</span>
+<span id="L112"><a class="line" href="#L112">112</a>                     ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, &quot;voice&quot;, reporter.Id));</span>
+<span id="L113"><a class="line" href="#L113">113</a>             if (VisibleToPlayer(body.Cell.World))</span>
+<span id="L114"><a class="line" href="#L114">114</a>                 ReceivePerceivedContact(new(body.Id, body.Revision, body.Cell.World, LocalMs, &quot;direct&quot;, Player.Id));</span>
+<span id="L115"><a class="line" href="#L115">115</a>             if (OscpService.ReceivesRadio(_world))</span>
+<span id="L116"><a class="line" href="#L116">116</a>             foreach (var report in Operations.ReceivedReports.Where(r =&gt; r.SubjectId == body.Id &amp;&amp; r.Position is not null &amp;&amp; r.Source == &quot;radio&quot;))</span>
+<span id="L117"><a class="line" href="#L117">117</a>             {</span>
+<span id="L118"><a class="line" href="#L118">118</a>                 var reporter = Actors.Single(a =&gt; a.Name == report.Author);</span>
+<span id="L119"><a class="line" href="#L119">119</a>                 ReceivePerceivedContact(new(body.Id, report.Encounter, report.Position!.Value, report.LocalMs, &quot;radio&quot;, reporter.Id));</span>
+<span id="L120"><a class="line" href="#L120">120</a>             }</span>
+<span id="L121"><a class="line" href="#L121">121</a>         }</span>
+<span id="L122"><a class="line" href="#L122">122</a>         PlayerFeedback.Sense(_world);</span>
+<span id="L123"><a class="line" href="#L123">123</a>     }</span>
+<span id="L124"><a class="line" href="#L124">124</a>     public bool IssueOrder(string actorId, PersonnelTask task, Hex destination, bool throughTerminal = false)</span>
+<span id="L125"><a class="line" href="#L125">125</a>         =&gt; IssueOrderOnChannel(actorId, task, destination, throughTerminal ? &quot;terminal&quot; : &quot;voice&quot;);</span>
+<span id="L126"><a class="line" href="#L126">126</a>     private bool IssueOrderOnChannel(string actorId, PersonnelTask task, Hex destination, string channel, bool allowPausedIntent = false)</span>
+<span id="L127"><a class="line" href="#L127">127</a>     {</span>
+<span id="L128"><a class="line" href="#L128">128</a>         if (!(allowPausedIntent &amp;&amp; ManualPause &amp;&amp; !LocalHold &amp;&amp; !Combat.Active) &amp;&amp; !Ready(&quot;Order&quot;)) return false;</span>
+<span id="L129"><a class="line" href="#L129">129</a>         var accepted = PersonnelOrderSystem.Issue(_world, Player.Id, actorId, task, destination,</span>
+<span id="L130"><a class="line" href="#L130">130</a>             channel, out var reason, allowPausedIntent);</span>
+<span id="L131"><a class="line" href="#L131">131</a>         LastMessage = accepted ? &quot;Order submitted · awaiting delivery and acknowledgement.&quot; : reason;</span>
+<span id="L132"><a class="line" href="#L132">132</a>         if (accepted) PlayerFeedback.Add(_world, MessageKind.Orders,</span>
+<span id="L133"><a class="line" href="#L133">133</a>             $&quot;Order to {Actors.Single(a =&gt; a.Id == actorId).Name}: {task} · awaiting acknowledgement.&quot;);</span>
+<span id="L134"><a class="line" href="#L134">134</a>         return accepted;</span>
+<span id="L135"><a class="line" href="#L135">135</a>     }</span>
+<span id="L136"><a class="line" href="#L136">136</a>     public void ApproachTerminal()</span>
+<span id="L137"><a class="line" href="#L137">137</a>     {</span>
+<span id="L138"><a class="line" href="#L138">138</a>         if (Operations.Definition is not { } d || CanUseTerminal) return;</span>
+<span id="L139"><a class="line" href="#L139">139</a>         var approach = Enumerable.Range(0, 6).Select(d.Terminal.Neighbor)</span>
+<span id="L140"><a class="line" href="#L140">140</a>             .Select(c =&gt; (Cell: c, Path: PreviewPath(c))).Where(p =&gt; p.Path.Count &gt; 0)</span>
+<span id="L141"><a class="line" href="#L141">141</a>             .OrderBy(p =&gt; p.Path.Count).FirstOrDefault();</span>
+<span id="L142"><a class="line" href="#L142">142</a>         if (approach.Path is null) { LastMessage = &quot;No route to OSCP terminal · open access or clear the path.&quot;; return; }</span>
+<span id="L143"><a class="line" href="#L143">143</a>         RequestMove(approach.Cell);</span>
+<span id="L144"><a class="line" href="#L144">144</a>     }</span>
+<span id="L145"><a class="line" href="#L145">145</a>     private void ReceivePerceivedContact(PerceivedContact evidence)</span>
+<span id="L146"><a class="line" href="#L146">146</a>     {</span>
+<span id="L147"><a class="line" href="#L147">147</a>         if (!Awareness.Receive(evidence)) return;</span>
+<span id="L148"><a class="line" href="#L148">148</a>         _world.Log(&quot;awareness&quot;, evidence.SubjectId, &quot;noticed&quot;, $&quot;{evidence.Source} from {evidence.ObserverId}; encounter {evidence.Encounter}&quot;);</span>
+<span id="L149"><a class="line" href="#L149">149</a>         if (!Player.Moving) return;</span>
+<span id="L150"><a class="line" href="#L150">150</a>         MovementSystem.StopInPlace(Player);</span>
+<span id="L151"><a class="line" href="#L151">151</a>         LastMessage = $&quot;Movement stopped: anomaly {(evidence.Source == &quot;direct&quot; ? &quot;sighted&quot; : &quot;reported&quot;)} · click to move again.&quot;;</span>
+<span id="L152"><a class="line" href="#L152">152</a>         _world.Log(&quot;movement&quot;, Player.Id, &quot;awareness-stop&quot;, $&quot;{evidence.SubjectId}; {evidence.Source}; path cleared, fractional position retained; world continues.&quot;);</span>
+<span id="L153"><a class="line" href="#L153">153</a>     }</span>
+<span id="L154"><a class="line" href="#L154">154</a>     public IReadOnlyList&lt;Hex&gt; PreviewPath(Hex destination) =&gt; PlayerNavigation.PlanRoute(_world, destination);</span>
+<span id="L155"><a class="line" href="#L155">155</a>     public bool KnownNavigationBlocked(Hex cell) =&gt; PlayerNavigation.KnownBlocked(_world, cell);</span>
+<span id="L156"><a class="line" href="#L156">156</a>     public AnomalyDiagnostics[] InspectAnomalies() =&gt; Anomalies.Inspect(_world);</span>
+<span id="L157"><a class="line" href="#L157">157</a>     public bool VisibleToPlayer(Point2 target) =&gt; ObservationService.Inspect(Map, Player, target, LocalMs).Detected;</span>
+<span id="L158"><a class="line" href="#L158">158</a>     /// &lt;summary&gt;Native authoring/debug control. Not an in-world permission bypass for a public mod API.&lt;/summary&gt;</span>
+<span id="L159"><a class="line" href="#L159">159</a>     public bool SetModuleFlag(string instanceId, string flag, string actorId, bool enabled)</span>
+<span id="L160"><a class="line" href="#L160">160</a>     {</span>
+<span id="L161"><a class="line" href="#L161">161</a>         if (!Ready(&quot;Module flag&quot;)) return false;</span>
+<span id="L162"><a class="line" href="#L162">162</a>         if (!Anomalies.TrySetFlag(_world, instanceId, flag, actorId, enabled, out var reason))</span>
+<span id="L163"><a class="line" href="#L163">163</a>         { LastMessage = &quot;Module flag rejected: &quot; + reason; return false; }</span>
+<span id="L164"><a class="line" href="#L164">164</a>         Changed(&quot;module-control&quot;, instanceId, &quot;flag-changed&quot;, $&quot;{flag}[{actorId}] = {enabled}; authoring/debug control.&quot;);</span>
+<span id="L165"><a class="line" href="#L165">165</a>         return true;</span>
+<span id="L166"><a class="line" href="#L166">166</a>     }</span>
+<span id="L167"><a class="line" href="#L167">167</a> </span>
+<span id="L168"><a class="line" href="#L168">168</a>     public bool RequestMove(Hex destination, bool keepFacing = false)</span>
+<span id="L169"><a class="line" href="#L169">169</a>     {</span>
+<span id="L170"><a class="line" href="#L170">170</a>         if (Combat.Active)</span>
+<span id="L171"><a class="line" href="#L171">171</a>         {</span>
+<span id="L172"><a class="line" href="#L172">172</a>             var accepted = TacticalCombatSystem.Move(_world, Player.Id, destination, keepFacing, out var reason);</span>
+<span id="L173"><a class="line" href="#L173">173</a>             LastMessage = reason; return accepted;</span>
+<span id="L174"><a class="line" href="#L174">174</a>         }</span>
+<span id="L175"><a class="line" href="#L175">175</a>         if (!Ready(&quot;Movement&quot;)) return false;</span>
+<span id="L176"><a class="line" href="#L176">176</a>         if (Player.Moving) { LastMessage = &quot;Finish this route first (Esc cancels at the next hex).&quot;; return false; }</span>
+<span id="L177"><a class="line" href="#L177">177</a>         var path = PreviewPath(destination);</span>
+<span id="L178"><a class="line" href="#L178">178</a>         if (path.Count == 0) { LastMessage = &quot;No closer reachable position on the known facility plan.&quot;; return false; }</span>
+<span id="L179"><a class="line" href="#L179">179</a>         InventoryActions.Cancel(_world, &quot;Movement requested&quot;);</span>
+<span id="L180"><a class="line" href="#L180">180</a>         MovementSystem.CommitRoute(Player, path, keepFacing, destination);</span>
+<span id="L181"><a class="line" href="#L181">181</a>         Changed(&quot;movement&quot;, Player.Id, &quot;route-committed&quot;, $&quot;Route committed: {path.Count} hexes; {(keepFacing ? &quot;maintain attention&quot; : &quot;face movement&quot;)}.&quot;);</span>
+<span id="L182"><a class="line" href="#L182">182</a>         return true;</span>
+<span id="L183"><a class="line" href="#L183">183</a>     }</span>
+<span id="L184"><a class="line" href="#L184">184</a>     public void CancelMove()</span>
+<span id="L185"><a class="line" href="#L185">185</a>     {</span>
+<span id="L186"><a class="line" href="#L186">186</a>         if (!Ready(&quot;Cancellation&quot;)) return;</span>
+<span id="L187"><a class="line" href="#L187">187</a>         Player.Route = Player.Route.Take(Player.SegmentMs &gt; 0 ? 1 : 0).ToList();</span>
+<span id="L188"><a class="line" href="#L188">188</a>         Player.MoveGoal = null; Player.BumpedCells.Clear();</span>
+<span id="L189"><a class="line" href="#L189">189</a>         Changed(&quot;movement&quot;, Player.Id, &quot;route-cancelled&quot;, &quot;Route cancelled at next safe hex boundary.&quot;);</span>
+<span id="L190"><a class="line" href="#L190">190</a>     }</span>
+<span id="L191"><a class="line" href="#L191">191</a>     public void Face(Point2 target)</span>
+<span id="L192"><a class="line" href="#L192">192</a>     {</span>
+<span id="L193"><a class="line" href="#L193">193</a>         if (Combat.Active)</span>
+<span id="L194"><a class="line" href="#L194">194</a>         {</span>
+<span id="L195"><a class="line" href="#L195">195</a>             var accepted = TacticalCombatSystem.Face(_world, Player.Id, target, out var reason); LastMessage = reason;</span>
+<span id="L196"><a class="line" href="#L196">196</a>             if (accepted) EvaluatePlayerAwareness();</span>
+<span id="L197"><a class="line" href="#L197">197</a>             return;</span>
+<span id="L198"><a class="line" href="#L198">198</a>         }</span>
+<span id="L199"><a class="line" href="#L199">199</a>         if (!Ready(&quot;Attention change&quot;)) return;</span>
+<span id="L200"><a class="line" href="#L200">200</a>         // A look command ends travel immediately; Shift-click is the explicit keep-facing move.</span>
+<span id="L201"><a class="line" href="#L201">201</a>         InventoryActions.Cancel(_world, &quot;Attention changed&quot;);</span>
+<span id="L202"><a class="line" href="#L202">202</a>         var wasMoving = Player.Moving;</span>
+<span id="L203"><a class="line" href="#L203">203</a>         MovementSystem.StopInPlace(Player);</span>
+<span id="L204"><a class="line" href="#L204">204</a>         Player.Facing = ObservationService.FacingToward(Player.Position, target, Player.Facing);</span>
+<span id="L205"><a class="line" href="#L205">205</a>         Player.KeepFacing = true;</span>
+<span id="L206"><a class="line" href="#L206">206</a>         if (wasMoving)</span>
+<span id="L207"><a class="line" href="#L207">207</a>             _world.Log(&quot;movement&quot;, Player.Id, &quot;look-stop&quot;, &quot;Look command cleared the route; fractional position retained.&quot;);</span>
+<span id="L208"><a class="line" href="#L208">208</a>         Changed(&quot;perception&quot;, Player.Id, &quot;facing-changed&quot;, wasMoving ? &quot;Movement stopped · looking toward target.&quot; : &quot;Looking toward target.&quot;);</span>
+<span id="L209"><a class="line" href="#L209">209</a>     }</span>
+<span id="L210"><a class="line" href="#L210">210</a>     public void ToggleObserverAttention()</span>
+<span id="L211"><a class="line" href="#L211">211</a>     {</span>
+<span id="L212"><a class="line" href="#L212">212</a>         if (!Ready(&quot;Observer fixture&quot;)) return;</span>
+<span id="L213"><a class="line" href="#L213">213</a>         var observer = Actors.Single(a =&gt; a.Id == &quot;observer&quot;); observer.Attending = !observer.Attending;</span>
+<span id="L214"><a class="line" href="#L214">214</a>         Changed(&quot;perception&quot;, observer.Id, &quot;attention-changed&quot;, $&quot;Chen {(observer.Attending ? &quot;attending&quot; : &quot;distracted&quot;)}; prototype debug control.&quot;);</span>
+<span id="L215"><a class="line" href="#L215">215</a>     }</span>
+<span id="L216"><a class="line" href="#L216">216</a>     public void BlinkPlayer()</span>
+<span id="L217"><a class="line" href="#L217">217</a>     {</span>
+<span id="L218"><a class="line" href="#L218">218</a>         if (!Ready(&quot;Blink&quot;)) return;</span>
+<span id="L219"><a class="line" href="#L219">219</a>         Player.EyesClosedUntilMs = LocalMs + 150;</span>
+<span id="L220"><a class="line" href="#L220">220</a>         Changed(&quot;perception&quot;, Player.Id, &quot;blink-started&quot;, &quot;Avatar eyes closed for 150 local milliseconds.&quot;);</span>
+<span id="L221"><a class="line" href="#L221">221</a>     }</span>
+<span id="L222"><a class="line" href="#L222">222</a>     public void ToggleLighting()</span>
+<span id="L223"><a class="line" href="#L223">223</a>     {</span>
+<span id="L224"><a class="line" href="#L224">224</a>         if (!Ready(&quot;Lighting fixture&quot;)) return;</span>
+<span id="L225"><a class="line" href="#L225">225</a>         Map.LightsOn = !Map.LightsOn;</span>
+<span id="L226"><a class="line" href="#L226">226</a>         Changed(&quot;world&quot;, &quot;facility&quot;, &quot;lighting-changed&quot;, $&quot;Prototype lighting {(Map.LightsOn ? &quot;on&quot; : &quot;off&quot;)}.&quot;);</span>
+<span id="L227"><a class="line" href="#L227">227</a>     }</span>
+<span id="L228"><a class="line" href="#L228">228</a>     public bool ToggleNearestDoor()</span>
+<span id="L229"><a class="line" href="#L229">229</a>     {</span>
+<span id="L230"><a class="line" href="#L230">230</a>         if (Combat.Active)</span>
+<span id="L231"><a class="line" href="#L231">231</a>         {</span>
+<span id="L232"><a class="line" href="#L232">232</a>             var result = TacticalCombatSystem.Door(_world, Player.Id, out var detail); LastMessage = detail; return result;</span>
+<span id="L233"><a class="line" href="#L233">233</a>         }</span>
+<span id="L234"><a class="line" href="#L234">234</a>         if (!Ready(&quot;Door use&quot;)) return false;</span>
+<span id="L235"><a class="line" href="#L235">235</a>         if (!DoorInteraction.Validate(_world, Player, null, out var door, out var reason)) { LastMessage = reason; return false; }</span>
+<span id="L236"><a class="line" href="#L236">236</a>         DoorInteraction.Toggle(_world, door!);</span>
+<span id="L237"><a class="line" href="#L237">237</a>         Changed(&quot;world&quot;, door!.Id, &quot;door-used&quot;, $&quot;{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? &quot;open&quot; : &quot;closed&quot;)}; path and sight updated.&quot;);</span>
+<span id="L238"><a class="line" href="#L238">238</a>         PlayerFeedback.Equipment(_world, Player, &quot;operate the door.&quot;);</span>
+<span id="L239"><a class="line" href="#L239">239</a>         return true;</span>
+<span id="L240"><a class="line" href="#L240">240</a>     }</span>
+<span id="L241"><a class="line" href="#L241">241</a>     public void Tick()</span>
+<span id="L242"><a class="line" href="#L242">242</a>     {</span>
+<span id="L243"><a class="line" href="#L243">243</a>         if (ManualPause) return;</span>
+<span id="L244"><a class="line" href="#L244">244</a>         _world.WorldMs += TickMs;</span>
+<span id="L245"><a class="line" href="#L245">245</a>         RegionalIntakeSystem.Advance(_world);</span>
+<span id="L246"><a class="line" href="#L246">246</a>         if (LocalHold) return;</span>
+<span id="L247"><a class="line" href="#L247">247</a>         // Securing may purchase the next action at a tactical input boundary, never free local time.</span>
+<span id="L248"><a class="line" href="#L248">248</a>         InventorySecuring.TryStart(_world);</span>
+<span id="L249"><a class="line" href="#L249">249</a>         if (Combat.Active &amp;&amp; Combat.Pending is null)</span>
+<span id="L250"><a class="line" href="#L250">250</a>         {</span>
+<span id="L251"><a class="line" href="#L251">251</a>             TrainingOpponentSystem.Observe(_world);</span>
+<span id="L252"><a class="line" href="#L252">252</a>             TrainingOpponentSystem.Choose(_world);</span>
+<span id="L253"><a class="line" href="#L253">253</a>         }</span>
+<span id="L254"><a class="line" href="#L254">254</a>         if (!_world.LocalActive) return;</span>
+<span id="L255"><a class="line" href="#L255">255</a>         _world.LocalMs += TickMs;</span>
+<span id="L256"><a class="line" href="#L256">256</a>         // Due anomaly effects precede detection/entry: an unseen lethal event is never held just for proximity.</span>
+<span id="L257"><a class="line" href="#L257">257</a>         Anomalies.Evaluate(_world, &quot;local-timer&quot;);</span>
+<span id="L258"><a class="line" href="#L258">258</a>         EvaluatePlayerAwareness();</span>
+<span id="L259"><a class="line" href="#L259">259</a>         InventoryActions.Advance(_world);</span>
+<span id="L260"><a class="line" href="#L260">260</a>         if (Combat.Active)</span>
+<span id="L261"><a class="line" href="#L261">261</a>         {</span>
+<span id="L262"><a class="line" href="#L262">262</a>             var actor = Actors.Single(a =&gt; a.Id == Combat.CurrentActorId);</span>
+<span id="L263"><a class="line" href="#L263">263</a>             var before = actor.Cell;</span>
+<span id="L264"><a class="line" href="#L264">264</a>             if (Combat.Pending?.Kind == CombatActionKind.Move &amp;&amp; MovementSystem.Advance(_world, actor.Id))</span>
+<span id="L265"><a class="line" href="#L265">265</a>                 PlayerFeedback.Add(_world, MessageKind.Warning, &quot;Movement stopped: the way ahead is blocked.&quot;);</span>
+<span id="L266"><a class="line" href="#L266">266</a>             EmploymentSystem.Advance(_world);</span>
+<span id="L267"><a class="line" href="#L267">267</a>             foreach (var employee in Actors.Where(a =&gt; EmploymentSystem.Owns(_world, a.Id) &amp;&amp; Combat.For(a.Id) is null))</span>
+<span id="L268"><a class="line" href="#L268">268</a>                 MovementSystem.Advance(_world, employee.Id);</span>
+<span id="L269"><a class="line" href="#L269">269</a>             Anomalies.Evaluate(_world, &quot;tactical-step&quot;);</span>
+<span id="L270"><a class="line" href="#L270">270</a>             EvaluatePlayerAwareness();</span>
+<span id="L271"><a class="line" href="#L271">271</a>             TrainingOpponentSystem.Observe(_world);</span>
+<span id="L272"><a class="line" href="#L272">272</a>             OperationLifecycle.Advance(_world);</span>
+<span id="L273"><a class="line" href="#L273">273</a>             PlayerFeedback.Sense(_world);</span>
+<span id="L274"><a class="line" href="#L274">274</a>             TacticalCombatSystem.ResolveTick(_world, before, EvaluatePlayerAwareness);</span>
+<span id="L275"><a class="line" href="#L275">275</a>             return;</span>
+<span id="L276"><a class="line" href="#L276">276</a>         }</span>
+<span id="L277"><a class="line" href="#L277">277</a>         PersonnelOrderSystem.Advance(_world);</span>
+<span id="L278"><a class="line" href="#L278">278</a>         EmploymentSystem.Advance(_world);</span>
+<span id="L279"><a class="line" href="#L279">279</a>         Anomalies.Evaluate(_world, &quot;orders&quot;);</span>
+<span id="L280"><a class="line" href="#L280">280</a>         if (MovementSystem.Advance(_world))</span>
+<span id="L281"><a class="line" href="#L281">281</a>         {</span>
+<span id="L282"><a class="line" href="#L282">282</a>             LastMessage = &quot;Movement stopped: the way ahead is blocked.&quot;;</span>
+<span id="L283"><a class="line" href="#L283">283</a>             PlayerFeedback.Add(_world, MessageKind.Warning, LastMessage);</span>
+<span id="L284"><a class="line" href="#L284">284</a>         }</span>
+<span id="L285"><a class="line" href="#L285">285</a>         ObservedTransportSystem.Advance(_world);</span>
+<span id="L286"><a class="line" href="#L286">286</a>         Anomalies.Evaluate(_world, &quot;local-step-complete&quot;);</span>
+<span id="L287"><a class="line" href="#L287">287</a>         EvaluatePlayerAwareness();</span>
+<span id="L288"><a class="line" href="#L288">288</a>         OperationLifecycle.Advance(_world);</span>
+<span id="L289"><a class="line" href="#L289">289</a>         PlayerFeedback.Sense(_world);</span>
+<span id="L290"><a class="line" href="#L290">290</a>         TacticalCombatSystem.Detect(_world);</span>
+<span id="L291"><a class="line" href="#L291">291</a>         if (Combat.Active) TrainingOpponentSystem.Observe(_world);</span>
+<span id="L292"><a class="line" href="#L292">292</a>     }</span>
+<span id="L293"><a class="line" href="#L293">293</a>     public string Save() =&gt; PrototypeSaveCodec.Capture(_world, _mapIdentity);</span>
+<span id="L294"><a class="line" href="#L294">294</a>     public void Restore(string json)</span>
+<span id="L295"><a class="line" href="#L295">295</a>     {</span>
+<span id="L296"><a class="line" href="#L296">296</a>         // Decode/validate a detached candidate; failure cannot partially change live state.</span>
+<span id="L297"><a class="line" href="#L297">297</a>         _world = PrototypeSaveCodec.Restore(json, _mapJson, _mapIdentity, _operationJson);</span>
+<span id="L298"><a class="line" href="#L298">298</a>         LastMessage = &quot;Restored world, local turns, event log and module state without replaying actions.&quot;;</span>
+<span id="L299"><a class="line" href="#L299">299</a>     }</span>
+<span id="L300"><a class="line" href="#L300">300</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

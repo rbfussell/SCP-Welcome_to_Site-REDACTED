@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EncounterOverlay._Draw | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>EncounterOverlay._Draw</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-encounteroverlay-cs.html#L16">game/Presentation/EncounterOverlay.cs:16</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Draw()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><p>No repository declaration matched an invocation name.</p><details><summary>All invocation expressions, including external calls</summary><pre>DrawRect
+bearing.Direction.Normalized
+new Rect2(12, 12, Size.X - 24, Size.Y - 24).HasPoint
+DrawColoredPolygon
+DrawString
+font.GetStringSize</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-encounteroverlay.html">EncounterOverlay</a></li></ul><h2>Implementation</h2><pre><code>public override void _Draw()
+    {
+        // Broad stepped edge shading stays outside the central readable area.
+        for (var i = 0; i &lt; 14; i++)
+        {
+            var margin = i * 5f;
+            DrawRect(new Rect2(margin, margin, Size.X - margin * 2, Size.Y - margin * 2),
+                new Color(0.015f, 0.02f, 0.025f, 0.035f), false, 10);
+        }
+        if (!ReducedEffects &amp;&amp; Pulse &gt; 0)
+            DrawRect(new Rect2(3, 3, Size.X - 6, Size.Y - 6), new Color(0.65f, 0.51f, 0.38f, (float)Pulse * 0.32f), false, 3);
+        foreach (var bearing in Bearings)
+        {
+            var direction = bearing.Direction.Normalized();
+            var tip = PlayerPoint + direction * 65;
+            if (!new Rect2(12, 12, Size.X - 24, Size.Y - 24).HasPoint(tip)) continue;
+            var side = new Vector2(-direction.Y, direction.X);
+            var color = bearing.Hostile ? new Color(&quot;df927b&quot;) : new Color(&quot;c3ac7b&quot;);
+            DrawColoredPolygon([tip, tip - direction * 11 + side * 5, tip - direction * 11 - side * 5], color);
+            var labelPoint = tip + side * 10 + new Vector2(0, -8);
+            DrawString(ThemeDB.FallbackFont, labelPoint, bearing.Label, HorizontalAlignment.Left, -1, 11, color);
+        }
+        if (Caption.Length == 0) return;
+        var font = ThemeDB.FallbackFont;
+        var width = font.GetStringSize(Caption, HorizontalAlignment.Left, -1, 19).X;
+        var p = new Vector2((Size.X - width) / 2, Size.Y - 45);
+        DrawRect(new Rect2(p.X - 20, p.Y - 25, width + 40, 40), new Color(0.025f, 0.035f, 0.035f, 0.92f));
+        DrawString(font, p, Caption, HorizontalAlignment.Left, -1, 19, new Color(&quot;ddc9af&quot;));
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/EncounterOverlay.cs:16</footer></main></div></body></html>

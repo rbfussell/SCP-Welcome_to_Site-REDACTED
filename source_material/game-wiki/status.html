@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Implementation ledger | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a aria-current="page" href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Guide</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1 id="implementation-ledger">Implementation ledger</h1>
+<p>This ledger describes the inspected source snapshot. Existing checks and reviews are evidence sources, not a fresh certification of every game feature.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Current implementation</th>
+<th>Remaining work</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCP-650</td>
+<td>Native module; human/AI/any profile fixtures; direct sight; relocation/poses/RNG; complacency flags; witnesses; bounded recovery</td>
+<td>Live human-attended cameras, general fear/doctrine, public sandbox, complete M1 acceptance</td>
+</tr>
+<tr>
+<td>SCP-1499</td>
+<td>Design and art references</td>
+<td>Mask interaction, domains, physical/perceived contexts, linked consequences, procedural population</td>
+</tr>
+<tr>
+<td>Movement/perception</td>
+<td>Hex routing, physical interpolation, doors, facing, lighting, acquired evidence and movement interruption</td>
+<td>Broader swept/sub-tick qualification, general hearing and cross-zone effects</td>
+</tr>
+<tr>
+<td>Operations/employment</td>
+<td>Delivered voice/device orders; trolley; receiving conditions; real posts, relief, bounded overtime</td>
+<td>Full professions, needs, hiring, calendar shifts and general logistics</td>
+</tr>
+<tr>
+<td>OSCP</td>
+<td>Native app registry, workstation/phone modes, acquired records, prepared phone orders, device access gates</td>
+<td>General SCiPnet, production applications, resident AIC execution and provider integration</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>Physical graph, nesting, closures, timed/AP actions, exact/scoped packing, <a href="body-fit-cleanup.html">symmetric body fit and bounded spans</a>, <a href="body-drag-fitting.html">direct stored-clothing fitting drops</a>, <a href="body-inspection.html">front/back inspection and removal</a>, <a href="full-body-paperdoll.html">full-body sprite qualification and real base garment</a>, pocket coverage, worn overlays, <a href="mount-points.html">hook/provider chains</a> and shared exterior clearance</td>
+<td>General crafting, material accounting, spillage, assembly packing envelopes, arbitrary depth offsets, <a href="wearable-appearance.html">character-matched clothing/silhouette presentation</a> and protection effects</td>
+</tr>
+<tr>
+<td>Combat</td>
+<td>Local turns/AP, training equipment, autonomous training opponents, saved pending actions</td>
+<td>Full injuries/death, ordinary hostility/factions, lethal SCPs, general weapon content and aftermath reveal</td>
+</tr>
+<tr>
+<td>Facility utilities</td>
+<td>Debug lighting and physical map/doors</td>
+<td>Electrical circuits, batteries, HVAC, heat/air transport, utility maintenance</td>
+</tr>
+<tr>
+<td>Persistence</td>
+<td>Content-identified detached validation, native subsystem continuations</td>
+<td>General module migration/removal, cross-domain continuation and broader compatibility</td>
+</tr>
+<tr>
+<td>Regional game</td>
+<td>Requirements and bounded intake fixture</td>
+<td>Autonomous GOIs, network economy, world-map travel, production offsite simulation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="documentation-drift-found-during-research">Documentation drift found during research</h2>
+<p>The simulation README now identifies inventory schema 14; earlier prototype guides retain schemas 4–13 as historical context. Current <code>PrototypeSaveCodec</code> rejects inventory saves older than 14. The full-body follow-up adds underwear (19 definitions/39 instances/9 fit profiles) and changes native content identity; older-kit inventory saves need a fresh start even though schema remains 14. The wiki's current-state statements follow code; historical documents remain available with their original context.</p>
+<p>Older SCP-650 and code-map text lists shifts, inventory devices, or belt attachments as future work. Later employment/inventory source and guides implement bounded versions of these. A future-work sentence in an early document must be read alongside the later system page.</p>
+<h2 id="decisions-that-remain-open">Decisions that remain open</h2>
+<p>AIC identity, authority and canon/timeline; final Technical Services terminology; automatic complacency measurement; production utility routing UI; broad combat tuning; public scripting security and capabilities; production art coverage; cross-zone effects and transfer policies. This wiki records these questions without choosing new game rules.</p>
+<p>Presentation follow-up: <a href="paperdoll-mosaic.html">engine-rendered paperdoll mosaic</a> now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.</p>
+<p>November 4 follow-up: <a href="worn-backpack.html">worn backpack/harness presentation</a> adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

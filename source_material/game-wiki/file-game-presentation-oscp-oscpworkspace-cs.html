@@ -1,0 +1,236 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Oscp/OscpWorkspace.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpWorkspace.cs</h1><p>game/Presentation/Oscp/OscpWorkspace.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-oscpworkspace.html">OscpWorkspace</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-92873b46d3b7742befe9.html">OscpWorkspace.HeaderHeight</a> · line 15</li><li><a href="function-ec3200824c364905bf2b.html">OscpWorkspace.Device</a> · line 28</li><li><a href="function-056e0343955bb527235c.html">OscpWorkspace.Device.get</a> · line 28</li><li><a href="function-69a22d927dd5baa78d1c.html">OscpWorkspace.Device.set</a> · line 28</li><li><a href="function-d6d33fb4a9df7ea50d42.html">OscpWorkspace.IsOpen</a> · line 29</li><li><a href="function-271cb40983942628cb68.html">OscpWorkspace.CurrentApp</a> · line 30</li><li><a href="function-9e150145553708b75daf.html">OscpWorkspace.Receipt</a> · line 31</li><li><a href="function-73482797c2cd8da2d7a2.html">OscpWorkspace.CommandLine</a> · line 32</li><li><a href="function-0de8273e639451f5d8f5.html">OscpWorkspace.DocumentText</a> · line 33</li><li><a href="function-f27f7f6790664384451e.html">OscpWorkspace.Closed</a> · line 34</li><li><a href="function-95a58cee04312ee0cb1b.html">OscpWorkspace.Closed.get</a> · line 34</li><li><a href="function-88e6c083e907ebf01f4d.html">OscpWorkspace.Closed.set</a> · line 34</li><li><a href="function-b492dd34522594dfb935.html">OscpWorkspace.Initialize</a> · line 36</li><li><a href="function-92692d40232f74bc928c.html">OscpWorkspace.Style</a> · line 97</li><li><a href="function-45624d2a4c4f4cab51c5.html">OscpWorkspace.Text</a> · line 102</li><li><a href="function-389326f7387bf8460e4b.html">OscpWorkspace.Button</a> · line 107</li><li><a href="function-c512448836d100d75671.html">OscpWorkspace.Open</a> · line 112</li><li><a href="function-f1b9c56509f6ddf4b743.html">OscpWorkspace.Toggle</a> · line 132</li><li><a href="function-1f9b4b41bff2abde9297.html">OscpWorkspace.ReleasePhonePause</a> · line 133</li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a> · line 138</li><li><a href="function-a5099bc32e947ae11587.html">OscpWorkspace.CloseSession</a> · line 139</li><li><a href="function-a6ebd31703377952cb79.html">OscpWorkspace.SelectApp</a> · line 140</li><li><a href="function-23e6db1bfb7b83bcccb3.html">OscpWorkspace.Send</a> · line 149</li><li><a href="function-66579bf629d43cf4e789.html">OscpWorkspace.Execute</a> · line 164</li><li><a href="function-b179637e5b8ead1b6702.html">OscpWorkspace.HandleInput</a> · line 184</li><li><a href="function-94f20583fb59e35a8ded.html">OscpWorkspace.Refresh</a> · line 193</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Attachable OSCP mode view. The host alone ticks the shared simulation.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class OscpWorkspace : Control</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private SpatialSimulation _sim = null!;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private OscpApplications _apps = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private OscpDeviceFrame _frame = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private Control _screen = null!;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private VBoxContainer _nav = null!, _actions = null!;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private HBoxContainer _header = null!;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     internal float HeaderHeight =&gt; _header.Size.Y;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     private HBoxContainer _body = null!, _toolbar = null!;</span>
+<span id="L17"><a class="line" href="#L17">17</a>     private Label _subtitle = null!;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     private Label _session = null!, _link = null!, _clock = null!, _heading = null!, _receipt = null!, _scope = null!;</span>
+<span id="L19"><a class="line" href="#L19">19</a>     private ScrollContainer _contentScroll = null!;</span>
+<span id="L20"><a class="line" href="#L20">20</a>     private RichTextLabel _document = null!;</span>
+<span id="L21"><a class="line" href="#L21">21</a>     private LineEdit _command = null!;</span>
+<span id="L22"><a class="line" href="#L22">22</a>     private Button _clearDrafts = null!;</span>
+<span id="L23"><a class="line" href="#L23">23</a>     private OptionButton _recipient = null!;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     private OscpLocalPlan _map = null!;</span>
+<span id="L25"><a class="line" href="#L25">25</a>     private bool _ownsPhonePause;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     private string _app = &quot;foundation:operations&quot;;</span>
+<span id="L27"><a class="line" href="#L27">27</a>     private readonly Dictionary&lt;string, Button&gt; _navigation = [];</span>
+<span id="L28"><a class="line" href="#L28">28</a>     public OscpDevice Device { get; private set; }</span>
+<span id="L29"><a class="line" href="#L29">29</a>     public bool IsOpen =&gt; Visible;</span>
+<span id="L30"><a class="line" href="#L30">30</a>     public string CurrentApp =&gt; _app;</span>
+<span id="L31"><a class="line" href="#L31">31</a>     public string Receipt =&gt; _receipt.Text;</span>
+<span id="L32"><a class="line" href="#L32">32</a>     internal LineEdit CommandLine =&gt; _command;</span>
+<span id="L33"><a class="line" href="#L33">33</a>     internal string DocumentText =&gt; _document.Text;</span>
+<span id="L34"><a class="line" href="#L34">34</a>     public Action? Closed { get; set; }</span>
+<span id="L35"><a class="line" href="#L35">35</a> </span>
+<span id="L36"><a class="line" href="#L36">36</a>     public void Initialize(SpatialSimulation sim)</span>
+<span id="L37"><a class="line" href="#L37">37</a>     {</span>
+<span id="L38"><a class="line" href="#L38">38</a>         _sim = sim;</span>
+<span id="L39"><a class="line" href="#L39">39</a>         _apps = new(Godot.FileAccess.GetFileAsString(&quot;res://Content/oscp-apps.json&quot;));</span>
+<span id="L40"><a class="line" href="#L40">40</a>         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Stop;</span>
+<span id="L41"><a class="line" href="#L41">41</a>         Theme = new Theme { DefaultFontSize = 14 };</span>
+<span id="L42"><a class="line" href="#L42">42</a>         Theme.SetColor(&quot;font_color&quot;, &quot;Label&quot;, new(&quot;dddcca&quot;));</span>
+<span id="L43"><a class="line" href="#L43">43</a>         Theme.SetColor(&quot;default_color&quot;, &quot;RichTextLabel&quot;, new(&quot;c7d3c9&quot;));</span>
+<span id="L44"><a class="line" href="#L44">44</a>         Theme.SetStylebox(&quot;normal&quot;, &quot;Button&quot;, Style(&quot;17211e&quot;, &quot;435249&quot;));</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Theme.SetStylebox(&quot;hover&quot;, &quot;Button&quot;, Style(&quot;29392e&quot;, &quot;859581&quot;));</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Theme.SetStylebox(&quot;pressed&quot;, &quot;Button&quot;, Style(&quot;3b2422&quot;, &quot;aa6960&quot;));</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var dim = new ColorRect { Color = new(0.015f, 0.025f, 0.025f, 0.92f), MouseFilter = MouseFilterEnum.Stop };</span>
+<span id="L48"><a class="line" href="#L48">48</a>         AddChild(dim); dim.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         _frame = new OscpDeviceFrame { MouseFilter = MouseFilterEnum.Stop }; AddChild(_frame);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         _screen = new Control { ClipContents = true, MouseFilter = MouseFilterEnum.Stop }; _frame.AddChild(_screen);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         var margin = new MarginContainer(); _screen.AddChild(margin); margin.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         foreach (var side in new[] { &quot;left&quot;, &quot;right&quot;, &quot;top&quot;, &quot;bottom&quot; }) margin.AddThemeConstantOverride(&quot;margin_&quot; + side, 16);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         var column = new VBoxContainer(); margin.AddChild(column); column.AddThemeConstantOverride(&quot;separation&quot;, 9);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var header = new HBoxContainer(); header.AddThemeConstantOverride(&quot;separation&quot;, 12); _header = header; column.AddChild(header);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         var brand = Text(header, &quot;OSCP&quot;, 28, new(&quot;db7e75&quot;)); brand.SizeFlagsHorizontal = SizeFlags.ShrinkBegin; brand.AutowrapMode = TextServer.AutowrapMode.Off;</span>
+<span id="L56"><a class="line" href="#L56">56</a>         _subtitle = Text(header, &quot;INFORMATION &amp; OPERATIONS&quot;, 12, new(&quot;a6b0a0&quot;)); _subtitle.SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L57"><a class="line" href="#L57">57</a>         var brightness = new HSlider { MinValue = 0.7, MaxValue = 1.1, Step = 0.05, Value = 1, CustomMinimumSize = new(68, 0), TooltipText = &quot;Screen brightness&quot; };</span>
+<span id="L58"><a class="line" href="#L58">58</a>         brightness.ValueChanged += value =&gt; { _screen.Modulate = new((float)value, (float)value, (float)value); _frame.Brightness = (float)value; _frame.QueueRedraw(); };</span>
+<span id="L59"><a class="line" href="#L59">59</a>         header.AddChild(brightness);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         Button(header, &quot;CLOSE&quot;, Close).SizeFlagsHorizontal = SizeFlags.ShrinkEnd;</span>
+<span id="L61"><a class="line" href="#L61">61</a>         _session = Text(column, &quot;&quot;, 12, new(&quot;c1b6a2&quot;));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         _link = Text(column, &quot;&quot;, 12, new(&quot;a8c7a4&quot;));</span>
+<span id="L63"><a class="line" href="#L63">63</a>         _clock = Text(column, &quot;&quot;, 11, new(&quot;9fae9e&quot;));</span>
+<span id="L64"><a class="line" href="#L64">64</a>         column.AddChild(new HSeparator());</span>
+<span id="L65"><a class="line" href="#L65">65</a>         _body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; column.AddChild(_body); _body.AddThemeConstantOverride(&quot;separation&quot;, 20);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         _nav = new VBoxContainer { CustomMinimumSize = new(164, 0) }; _body.AddChild(_nav);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, SizeFlagsHorizontal = SizeFlags.ExpandFill };</span>
+<span id="L68"><a class="line" href="#L68">68</a>         _contentScroll = scroll; _body.AddChild(scroll);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         var content = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; scroll.AddChild(content); content.AddThemeConstantOverride(&quot;separation&quot;, 12);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         _heading = Text(content, &quot;&quot;, 20, new(&quot;dedcca&quot;));</span>
+<span id="L71"><a class="line" href="#L71">71</a>         _scope = Text(content, &quot;&quot;, 12, new(&quot;9eaf9f&quot;));</span>
+<span id="L72"><a class="line" href="#L72">72</a>         _toolbar = new HBoxContainer(); content.AddChild(_toolbar);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         _recipient = new OptionButton { FocusMode = FocusModeEnum.None, SizeFlagsHorizontal = SizeFlags.ExpandFill }; _toolbar.AddChild(_recipient);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         foreach (var actor in sim.Actors.Where(a =&gt; a != sim.Player)) _recipient.AddItem(actor.Name);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         _actions = new VBoxContainer(); content.AddChild(_actions);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         var row = new HBoxContainer(); _actions.AddChild(row);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         Button(row, &quot;Observe&quot;, () =&gt; Send(PersonnelTask.Observe)); Button(row, &quot;Follow&quot;, () =&gt; Send(PersonnelTask.Follow));</span>
+<span id="L78"><a class="line" href="#L78">78</a>         row = new HBoxContainer(); _actions.AddChild(row);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         Button(row, &quot;Take post&quot;, () =&gt; Send(PersonnelTask.Post)); Button(row, &quot;Recover&quot;, () =&gt; Send(PersonnelTask.Transport));</span>
+<span id="L80"><a class="line" href="#L80">80</a>         row = new HBoxContainer(); _actions.AddChild(row);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         Button(row, &quot;Return to duty&quot;, () =&gt; Send(PersonnelTask.ResumeDuty));</span>
+<span id="L82"><a class="line" href="#L82">82</a>         _clearDrafts = Button(_actions, &quot;Clear prepared orders&quot;, ClearPhoneDrafts);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         _map = new OscpLocalPlan { Simulation = sim, CustomMinimumSize = new(200, 225), SizeFlagsHorizontal = SizeFlags.ExpandFill }; content.AddChild(_map);</span>
+<span id="L84"><a class="line" href="#L84">84</a>         _document = new RichTextLabel { BbcodeEnabled = false, FitContent = true, ScrollActive = false, CustomMinimumSize = new(170, 80), SizeFlagsHorizontal = SizeFlags.ExpandFill, SelectionEnabled = true };</span>
+<span id="L85"><a class="line" href="#L85">85</a>         _document.AddThemeFontSizeOverride(&quot;normal_font_size&quot;, 14); content.AddChild(_document);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         column.AddChild(new HSeparator());</span>
+<span id="L87"><a class="line" href="#L87">87</a>         _receipt = Text(column, &quot;&quot;, 12, new(&quot;d8b77a&quot;));</span>
+<span id="L88"><a class="line" href="#L88">88</a>         var commandRow = new HBoxContainer(); column.AddChild(commandRow);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         var prompt = Text(commandRow, &quot;&gt;&quot;, 16, new(&quot;db7e75&quot;));</span>
+<span id="L90"><a class="line" href="#L90">90</a>         prompt.SizeFlagsHorizontal = SizeFlags.ShrinkBegin; prompt.AutowrapMode = TextServer.AutowrapMode.Off;</span>
+<span id="L91"><a class="line" href="#L91">91</a>         _command = new LineEdit { PlaceholderText = &quot;status / team / records / mail / map / help&quot;, SizeFlagsHorizontal = SizeFlags.ExpandFill, MaxLength = 200, KeepEditingOnTextSubmit = true };</span>
+<span id="L92"><a class="line" href="#L92">92</a>         commandRow.AddChild(_command); _command.TextSubmitted += Execute;</span>
+<span id="L93"><a class="line" href="#L93">93</a>         Button(commandRow, &quot;ENTER&quot;, () =&gt; Execute(_command.Text)).SizeFlagsHorizontal = SizeFlags.ShrinkEnd;</span>
+<span id="L94"><a class="line" href="#L94">94</a>         Text(column, &quot;SCiPnet · Esc closes · Space pauses when not typing&quot;, 11, new(&quot;83998b&quot;));</span>
+<span id="L95"><a class="line" href="#L95">95</a>         Visible = false;</span>
+<span id="L96"><a class="line" href="#L96">96</a>     }</span>
+<span id="L97"><a class="line" href="#L97">97</a>     private static StyleBoxFlat Style(string background, string border) =&gt; new()</span>
+<span id="L98"><a class="line" href="#L98">98</a>     {</span>
+<span id="L99"><a class="line" href="#L99">99</a>         BgColor = new(background), BorderColor = new(border), BorderWidthBottom = 1, BorderWidthTop = 1, BorderWidthLeft = 1, BorderWidthRight = 1,</span>
+<span id="L100"><a class="line" href="#L100">100</a>         ContentMarginLeft = 10, ContentMarginRight = 10, ContentMarginTop = 7, ContentMarginBottom = 7</span>
+<span id="L101"><a class="line" href="#L101">101</a>     };</span>
+<span id="L102"><a class="line" href="#L102">102</a>     private static Label Text(Node parent, string text, int size, Color color)</span>
+<span id="L103"><a class="line" href="#L103">103</a>     {</span>
+<span id="L104"><a class="line" href="#L104">104</a>         var label = new Label { Text = text, AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill, MouseFilter = MouseFilterEnum.Ignore };</span>
+<span id="L105"><a class="line" href="#L105">105</a>         label.AddThemeColorOverride(&quot;font_color&quot;, color); label.AddThemeFontSizeOverride(&quot;font_size&quot;, size); parent.AddChild(label); return label;</span>
+<span id="L106"><a class="line" href="#L106">106</a>     }</span>
+<span id="L107"><a class="line" href="#L107">107</a>     private static Button Button(Node parent, string text, Action action)</span>
+<span id="L108"><a class="line" href="#L108">108</a>     {</span>
+<span id="L109"><a class="line" href="#L109">109</a>         var button = new Button { Text = text, FocusMode = FocusModeEnum.None, SizeFlagsHorizontal = SizeFlags.ExpandFill };</span>
+<span id="L110"><a class="line" href="#L110">110</a>         button.Pressed += action; parent.AddChild(button); return button;</span>
+<span id="L111"><a class="line" href="#L111">111</a>     }</span>
+<span id="L112"><a class="line" href="#L112">112</a>     public bool Open(OscpDevice device)</span>
+<span id="L113"><a class="line" href="#L113">113</a>     {</span>
+<span id="L114"><a class="line" href="#L114">114</a>         var access = _sim.OscpAccess(device);</span>
+<span id="L115"><a class="line" href="#L115">115</a>         if (!access.Available) { _sim.TryUseOscpDevice(device); return false; }</span>
+<span id="L116"><a class="line" href="#L116">116</a>         if (IsOpen &amp;&amp; Device == OscpDevice.Phone &amp;&amp; device != OscpDevice.Phone) CompletePhoneSession(true);</span>
+<span id="L117"><a class="line" href="#L117">117</a>         Device = device; _frame.Device = device;</span>
+<span id="L118"><a class="line" href="#L118">118</a>         if (device == OscpDevice.Phone &amp;&amp; !_sim.ManualPause)</span>
+<span id="L119"><a class="line" href="#L119">119</a>         { _ownsPhonePause = true; _sim.ManualPause = true; }</span>
+<span id="L120"><a class="line" href="#L120">120</a>         foreach (var child in _nav.GetChildren()) { _nav.RemoveChild(child); child.QueueFree(); }</span>
+<span id="L121"><a class="line" href="#L121">121</a>         _navigation.Clear();</span>
+<span id="L122"><a class="line" href="#L122">122</a>         foreach (var app in _apps.For(device))</span>
+<span id="L123"><a class="line" href="#L123">123</a>         {</span>
+<span id="L124"><a class="line" href="#L124">124</a>             var button = Button(_nav, device == OscpDevice.Phone ? app.Label : app.Symbol + &quot;  &quot; + app.Label, () =&gt; SelectApp(app.Id));</span>
+<span id="L125"><a class="line" href="#L125">125</a>             button.AddThemeFontSizeOverride(&quot;font_size&quot;, device == OscpDevice.Phone ? 11 : 14);</span>
+<span id="L126"><a class="line" href="#L126">126</a>             button.Alignment = HorizontalAlignment.Left; button.ToggleMode = true; _navigation.Add(app.Id, button);</span>
+<span id="L127"><a class="line" href="#L127">127</a>         }</span>
+<span id="L128"><a class="line" href="#L128">128</a>         Visible = true; _receipt.Text = &quot;Session established · &quot; + access.DeviceId;</span>
+<span id="L129"><a class="line" href="#L129">129</a>         SelectApp(&quot;foundation:operations&quot;); Refresh();</span>
+<span id="L130"><a class="line" href="#L130">130</a>         return true;</span>
+<span id="L131"><a class="line" href="#L131">131</a>     }</span>
+<span id="L132"><a class="line" href="#L132">132</a>     public void Toggle(OscpDevice device) { if (Visible &amp;&amp; Device == device) Close(); else Open(device); }</span>
+<span id="L133"><a class="line" href="#L133">133</a>     private void ReleasePhonePause()</span>
+<span id="L134"><a class="line" href="#L134">134</a>     {</span>
+<span id="L135"><a class="line" href="#L135">135</a>         if (_ownsPhonePause &amp;&amp; _sim.ManualPause) _sim.ManualPause = false;</span>
+<span id="L136"><a class="line" href="#L136">136</a>         _ownsPhonePause = false;</span>
+<span id="L137"><a class="line" href="#L137">137</a>     }</span>
+<span id="L138"><a class="line" href="#L138">138</a>     public void Close() =&gt; CloseSession(true);</span>
+<span id="L139"><a class="line" href="#L139">139</a>     private void CloseSession(bool sendDrafts) { CompletePhoneSession(sendDrafts); Visible = false; GetViewport().GuiReleaseFocus(); Closed?.Invoke(); }</span>
+<span id="L140"><a class="line" href="#L140">140</a>     public void SelectApp(string id)</span>
+<span id="L141"><a class="line" href="#L141">141</a>     {</span>
+<span id="L142"><a class="line" href="#L142">142</a>         var app = _apps.Find(id, Device);</span>
+<span id="L143"><a class="line" href="#L143">143</a>         if (app is null) { _receipt.Text = &quot;Application unavailable on this device.&quot;; return; }</span>
+<span id="L144"><a class="line" href="#L144">144</a>         _contentScroll.ScrollVertical = 0;</span>
+<span id="L145"><a class="line" href="#L145">145</a>         _app = app.Id; _heading.Text = app.Label.ToUpperInvariant();</span>
+<span id="L146"><a class="line" href="#L146">146</a>         foreach (var (key, button) in _navigation) button.SetPressedNoSignal(key == _app);</span>
+<span id="L147"><a class="line" href="#L147">147</a>         _command.Text = &quot;&quot;; Refresh();</span>
+<span id="L148"><a class="line" href="#L148">148</a>     }</span>
+<span id="L149"><a class="line" href="#L149">149</a>     public void Send(PersonnelTask task, Hex? destination = null)</span>
+<span id="L150"><a class="line" href="#L150">150</a>     {</span>
+<span id="L151"><a class="line" href="#L151">151</a>         var actor = _sim.Actors.Where(a =&gt; a != _sim.Player).ElementAt(_recipient.Selected);</span>
+<span id="L152"><a class="line" href="#L152">152</a>         var d = _sim.Operations.Definition!;</span>
+<span id="L153"><a class="line" href="#L153">153</a>         var target = destination ?? (task == PersonnelTask.Transport ? d.Home : task == PersonnelTask.Post ? d.Posts[_recipient.Selected % d.Posts.Length] : _sim.Player.Cell);</span>
+<span id="L154"><a class="line" href="#L154">154</a>         if (Device == OscpDevice.Phone &amp;&amp; _sim.ManualPause)</span>
+<span id="L155"><a class="line" href="#L155">155</a>         {</span>
+<span id="L156"><a class="line" href="#L156">156</a>             if (!_sim.OscpAccess(Device).CanPlan) { _receipt.Text = &quot;Cannot prepare this command with the current authority or connection.&quot;; return; }</span>
+<span id="L157"><a class="line" href="#L157">157</a>             _phoneDrafts.RemoveAll(draft =&gt; draft.ActorId == actor.Id);</span>
+<span id="L158"><a class="line" href="#L158">158</a>             _phoneDrafts.Add(new(actor.Id, task, target));</span>
+<span id="L159"><a class="line" href="#L159">159</a>             _receipt.Text = $&quot;Prepared {task} for {actor.Name}. Close phone to send ({_phoneDrafts.Count} draft(s)).&quot;;</span>
+<span id="L160"><a class="line" href="#L160">160</a>             Refresh(); return;</span>
+<span id="L161"><a class="line" href="#L161">161</a>         }</span>
+<span id="L162"><a class="line" href="#L162">162</a>         _sim.IssueOscpOrder(Device, actor.Id, task, target); _receipt.Text = _sim.LastMessage;</span>
+<span id="L163"><a class="line" href="#L163">163</a>     }</span>
+<span id="L164"><a class="line" href="#L164">164</a>     public void Execute(string command)</span>
+<span id="L165"><a class="line" href="#L165">165</a>     {</span>
+<span id="L166"><a class="line" href="#L166">166</a>         _command.Text = &quot;&quot;;</span>
+<span id="L167"><a class="line" href="#L167">167</a>         var parts = command.Trim().Split(&#x27; &#x27;, StringSplitOptions.RemoveEmptyEntries);</span>
+<span id="L168"><a class="line" href="#L168">168</a>         if (parts.Length == 0) return;</span>
+<span id="L169"><a class="line" href="#L169">169</a>         var app = _apps.Find(command.Trim(), Device);</span>
+<span id="L170"><a class="line" href="#L170">170</a>         if (app is not null) { SelectApp(app.Id); _receipt.Text = &quot;Opened &quot; + app.Label; return; }</span>
+<span id="L171"><a class="line" href="#L171">171</a>         if (parts.Length == 1 &amp;&amp; parts[0].Equals(&quot;help&quot;, StringComparison.OrdinalIgnoreCase))</span>
+<span id="L172"><a class="line" href="#L172">172</a>         { _receipt.Text = &quot;Open: status, team, records, mail, map. Orders: order &lt;staff id&gt; &lt;observe|follow|post|recover|duty&gt; [q r].&quot;; return; }</span>
+<span id="L173"><a class="line" href="#L173">173</a>         if (parts.Length is 3 or 5 &amp;&amp; parts[0].Equals(&quot;order&quot;, StringComparison.OrdinalIgnoreCase))</span>
+<span id="L174"><a class="line" href="#L174">174</a>         {</span>
+<span id="L175"><a class="line" href="#L175">175</a>             var index = Array.FindIndex(_sim.Actors.Where(a =&gt; a != _sim.Player).ToArray(), a =&gt; a.Id.Equals(parts[1], StringComparison.OrdinalIgnoreCase));</span>
+<span id="L176"><a class="line" href="#L176">176</a>             var task = parts[2].ToLowerInvariant() switch { &quot;observe&quot; =&gt; PersonnelTask.Observe, &quot;follow&quot; =&gt; PersonnelTask.Follow, &quot;post&quot; =&gt; PersonnelTask.Post, &quot;recover&quot; =&gt; PersonnelTask.Transport, &quot;duty&quot; =&gt; PersonnelTask.ResumeDuty, _ =&gt; (PersonnelTask)(-1) };</span>
+<span id="L177"><a class="line" href="#L177">177</a>             if (index &gt;= 0 &amp;&amp; Enum.IsDefined(task) &amp;&amp; (parts.Length == 3 || task == PersonnelTask.Post &amp;&amp; int.TryParse(parts[3], out _) &amp;&amp; int.TryParse(parts[4], out _)))</span>
+<span id="L178"><a class="line" href="#L178">178</a>             {</span>
+<span id="L179"><a class="line" href="#L179">179</a>                 _recipient.Select(index); Send(task, parts.Length == 5 ? new(int.Parse(parts[3]), int.Parse(parts[4])) : null); return;</span>
+<span id="L180"><a class="line" href="#L180">180</a>             }</span>
+<span id="L181"><a class="line" href="#L181">181</a>         }</span>
+<span id="L182"><a class="line" href="#L182">182</a>         _receipt.Text = &quot;Unknown command or unavailable application. Type help.&quot;;</span>
+<span id="L183"><a class="line" href="#L183">183</a>     }</span>
+<span id="L184"><a class="line" href="#L184">184</a>     public void HandleInput(InputEvent e)</span>
+<span id="L185"><a class="line" href="#L185">185</a>     {</span>
+<span id="L186"><a class="line" href="#L186">186</a>         if (e is InputEventKey { Pressed: true, Echo: false } key)</span>
+<span id="L187"><a class="line" href="#L187">187</a>         {</span>
+<span id="L188"><a class="line" href="#L188">188</a>             if (key.Keycode == Key.Escape || key.Keycode == (Device == OscpDevice.Phone ? Key.P : Key.T)) Close();</span>
+<span id="L189"><a class="line" href="#L189">189</a>             else if (key.Keycode == Key.Space) { _ownsPhonePause = false; _sim.ManualPause = !_sim.ManualPause; }</span>
+<span id="L190"><a class="line" href="#L190">190</a>         }</span>
+<span id="L191"><a class="line" href="#L191">191</a>         GetViewport().SetInputAsHandled();</span>
+<span id="L192"><a class="line" href="#L192">192</a>     }</span>
+<span id="L193"><a class="line" href="#L193">193</a>     public void Refresh()</span>
+<span id="L194"><a class="line" href="#L194">194</a>     {</span>
+<span id="L195"><a class="line" href="#L195">195</a>         if (!Visible) return;</span>
+<span id="L196"><a class="line" href="#L196">196</a>         var access = _sim.OscpAccess(Device);</span>
+<span id="L197"><a class="line" href="#L197">197</a>         if (!access.Available) { CloseSession(false); return; }</span>
+<span id="L198"><a class="line" href="#L198">198</a>         var phone = Device == OscpDevice.Phone;</span>
+<span id="L199"><a class="line" href="#L199">199</a>         var viewport = GetViewportRect().Size;</span>
+<span id="L200"><a class="line" href="#L200">200</a>         _frame.Size = phone ? new(Math.Min(490, viewport.X - 30), Math.Min(820, viewport.Y - 32))</span>
+<span id="L201"><a class="line" href="#L201">201</a>             : new(Math.Min(1320, viewport.X - 28), Math.Min(860, viewport.Y - 28));</span>
+<span id="L202"><a class="line" href="#L202">202</a>         _frame.Position = (viewport - _frame.Size) / 2;</span>
+<span id="L203"><a class="line" href="#L203">203</a>         var area = _frame.ScreenArea; _screen.Position = area.Position; _screen.Size = area.Size;</span>
+<span id="L204"><a class="line" href="#L204">204</a>         _frame.QueueRedraw();</span>
+<span id="L205"><a class="line" href="#L205">205</a>         _nav.CustomMinimumSize = new(phone ? 95 : 164, 0);</span>
+<span id="L206"><a class="line" href="#L206">206</a>         _body.AddThemeConstantOverride(&quot;separation&quot;, phone ? 10 : 20);</span>
+<span id="L207"><a class="line" href="#L207">207</a>         _subtitle.Text = phone ? &quot;&quot; : &quot;INFORMATION &amp; OPERATIONS&quot;;</span>
+<span id="L208"><a class="line" href="#L208">208</a>         _session.Text = $&quot;{access.DeviceId} / {access.Identity} / {access.Role}&quot;;</span>
+<span id="L209"><a class="line" href="#L209">209</a>         _link.Text = access.Status;</span>
+<span id="L210"><a class="line" href="#L210">210</a>         var time = TimeSpan.FromHours(8) + TimeSpan.FromMilliseconds(_sim.WorldMs);</span>
+<span id="L211"><a class="line" href="#L211">211</a>         _clock.Text = $&quot;{time:hh\\:mm\\:ss}  {_sim.Speed}×  · &quot; + (_sim.ManualPause ? _ownsPhonePause ? &quot;PHONE PAUSE&quot; : &quot;MANUAL PAUSE&quot; : _sim.LocalProgressHeld ? &quot;LOCAL WAIT · calendar continues&quot; : &quot;REAL TIME · site continues&quot;);</span>
+<span id="L212"><a class="line" href="#L212">212</a>         var view = _apps.Find(_app, Device)?.View;</span>
+<span id="L213"><a class="line" href="#L213">213</a>         _toolbar.Visible = _actions.Visible = view == &quot;personnel&quot;;</span>
+<span id="L214"><a class="line" href="#L214">214</a>         foreach (var button in _actions.GetChildren().SelectMany(n =&gt; n.GetChildren()).OfType&lt;Button&gt;()) button.Disabled = !(Device == OscpDevice.Phone ? access.CanPlan : access.CanCommand);</span>
+<span id="L215"><a class="line" href="#L215">215</a>         _clearDrafts.Visible = Device == OscpDevice.Phone &amp;&amp; _phoneDrafts.Count &gt; 0;</span>
+<span id="L216"><a class="line" href="#L216">216</a>         _map.Visible = view == &quot;map&quot;;</span>
+<span id="L217"><a class="line" href="#L217">217</a>         _map.QueueRedraw();</span>
+<span id="L218"><a class="line" href="#L218">218</a>         _scope.Text = view == &quot;personnel&quot; ? &quot;Assigned site personnel · acknowledgement and travel remain separate&quot; : view == &quot;map&quot; ? &quot;Known plan · your position · recorded contacts; no live tracking&quot; : access.Connected ? &quot;Received information / current session&quot; : &quot;Offline / last acquired information&quot;;</span>
+<span id="L219"><a class="line" href="#L219">219</a>         var reports = _sim.OscpRecords.Reverse().Select(r =&gt; $&quot;L {r.LocalMs / 1000.0:0.0}s  /  {r.Author}  /  {r.Source.ToUpperInvariant()}\n{r.Text}&quot;);</span>
+<span id="L220"><a class="line" href="#L220">220</a>         var own = _sim.Operations.OrderHistory.Where(o =&gt; o.Issuer == _sim.Player.Id &amp;&amp; (o.IssuedMs &gt; 0 || o.Channel is &quot;phone&quot; or &quot;terminal&quot;)).TakeLast(6).Reverse()</span>
+<span id="L221"><a class="line" href="#L221">221</a>             .Select(o =&gt; $&quot;SUBMITTED #{o.Id}  {o.ActorId} / {o.Task} / {o.Channel}&quot;);</span>
+<span id="L222"><a class="line" href="#L222">222</a>         var text = view switch</span>
+<span id="L223"><a class="line" href="#L223">223</a>         {</span>
+<span id="L224"><a class="line" href="#L224">224</a>             &quot;operations&quot; =&gt; &quot;OBSERVATION SHIFT / INCIDENT 650\n\n&quot; + (_sim.OscpRecords.LastOrDefault(r =&gt; r.Text.StartsWith(&quot;Containment assessment:&quot;) || r.Text.StartsWith(&quot;Receiving footprint empty&quot;))?.Text ?? &quot;Awaiting a received containment assessment.&quot;)</span>
+<span id="L225"><a class="line" href="#L225">225</a>                 + &quot;\n\nCOMMAND REGISTER\n&quot; + (own.Any() ? string.Join(&quot;\n&quot;, own) : &quot;No new orders submitted.&quot;) + &quot;\n\nOpen PERSONNEL to direct assigned staff. COMMUNICATIONS carries delivered acknowledgements and field reports.&quot;,</span>
+<span id="L226"><a class="line" href="#L226">226</a>             &quot;personnel&quot; =&gt; PersonnelDocument()</span>
+<span id="L227"><a class="line" href="#L227">227</a>                 + &quot;\n\n&quot; + string.Join(&quot;\n&quot;, own) + DraftDescription() + &quot;\n\nAn accepted command does not establish coverage. Wait for the employee&#x27;s acknowledgement and subsequent report.&quot;,</span>
+<span id="L228"><a class="line" href="#L228">228</a>             &quot;records&quot; =&gt; &quot;SCP-650 / CONTAINMENT BRIEF\n\nMaintain a lit, secured receiving room and continuous human observation. Site procedure calls for three personnel. A single qualifying observer may prevent self-relocation while staffing remains inadequate.\n\nIf found outside containment, establish observation and coordinate recovery. The current procedure uses an open trolley with separate observers. The entity has no demonstrated attack routine.\n\nOld reports and unattended recordings do not establish current observation.\n\nPROCEDURE NOTE\nReport an empty receiving area as an absence. Do not infer the subject&#x27;s new location.\n\nSource: SCP-650 by Dr Talson / SCP Wiki, CC BY-SA 3.0. This operational brief includes the game&#x27;s transport adaptation.&quot;,</span>
+<span id="L229"><a class="line" href="#L229">229</a>             &quot;communications&quot; =&gt; &quot;RECEIVED RECORDS\n\n&quot; + (reports.Any() ? string.Join(&quot;\n\n&quot;, reports) : &quot;No acquired messages.&quot;),</span>
+<span id="L230"><a class="line" href="#L230">230</a>             &quot;map&quot; =&gt; &quot;Contacts mark recorded positions. They can become stale. Door markings identify planned access points, not current open/closed status.&quot;,</span>
+<span id="L231"><a class="line" href="#L231">231</a>             &quot;systems&quot; =&gt; $&quot;LOCAL WORKSTATION\n\nPower: {(_sim.Operations.TerminalPowered ? &quot;available&quot; : &quot;unavailable&quot;)}\nSite connection: {(access.Connected ? &quot;connected&quot; : &quot;offline&quot;)}\n\nSESSION\n{access.Identity}\n{access.Role}\n\nACCESS\nThis workstation&#x27;s operations service validates authority and delivery for every command.\n\nDISPLAY\nUse the brightness control above to adjust the screen.\n\nOSCP interface inspiration: SCP-245 (Doctor Cimmerian) and SCP-5810 (Lt Flops), SCP Wiki / CC BY-SA 3.0. Hardware surround and applications are original game adaptations.&quot;,</span>
+<span id="L232"><a class="line" href="#L232">232</a>             _ =&gt; &quot;This application has no installed view handler.&quot;</span>
+<span id="L233"><a class="line" href="#L233">233</a>         };</span>
+<span id="L234"><a class="line" href="#L234">234</a>         if (_document.Text != text) _document.Text = text;</span>
+<span id="L235"><a class="line" href="#L235">235</a>     }</span>
+<span id="L236"><a class="line" href="#L236">236</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

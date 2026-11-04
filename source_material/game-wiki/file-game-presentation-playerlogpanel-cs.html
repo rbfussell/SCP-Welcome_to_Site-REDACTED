@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/PlayerLogPanel.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerLogPanel.cs</h1><p>game/Presentation/PlayerLogPanel.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-playerlogpanel.html">PlayerLogPanel</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-5896119232aea81f69b7.html">PlayerLogPanel.Initialize</a> · line 16</li><li><a href="function-13466eeb084032b68d05.html">PlayerLogPanel.Refresh</a> · line 45</li><li><a href="function-130d9b11411a72122d3c.html">PlayerLogPanel.DrawEntries</a> · line 51</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Five readable lines over a bounded journal. Scrolling anchors history while new messages arrive.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class PlayerLogPanel : PanelContainer</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private readonly Label[] _lines = new Label[5];</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private Label _heading = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private VScrollBar _scroll = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private PlayerEventLog? _source;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private long? _anchor;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private long _revision = -1;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private bool _updating;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public void Initialize()</span>
+<span id="L17"><a class="line" href="#L17">17</a>     {</span>
+<span id="L18"><a class="line" href="#L18">18</a>         MouseFilter = MouseFilterEnum.Stop;</span>
+<span id="L19"><a class="line" href="#L19">19</a>         AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;101a19&quot;), BorderColor = new(&quot;415748&quot;),</span>
+<span id="L20"><a class="line" href="#L20">20</a>             BorderWidthTop = 1, ContentMarginLeft = 10, ContentMarginRight = 8, ContentMarginTop = 6, ContentMarginBottom = 6 });</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var row = new HBoxContainer(); AddChild(row);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         var column = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; row.AddChild(column);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         column.AddThemeConstantOverride(&quot;separation&quot;, 1);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         _heading = new Label { Text = &quot;EVENT LOG  /  100 entries&quot;, MouseFilter = MouseFilterEnum.Ignore };</span>
+<span id="L25"><a class="line" href="#L25">25</a>         _heading.AddThemeFontSizeOverride(&quot;font_size&quot;, 11); column.AddChild(_heading);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         for (var i = 0; i &lt; _lines.Length; i++)</span>
+<span id="L27"><a class="line" href="#L27">27</a>         {</span>
+<span id="L28"><a class="line" href="#L28">28</a>             _lines[i] = new Label { Text = &quot; &quot;, TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis,</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 CustomMinimumSize = new(0, 18), MouseFilter = MouseFilterEnum.Stop };</span>
+<span id="L30"><a class="line" href="#L30">30</a>             _lines[i].AddThemeFontSizeOverride(&quot;font_size&quot;, 12); column.AddChild(_lines[i]);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         }</span>
+<span id="L32"><a class="line" href="#L32">32</a>         _scroll = new VScrollBar { CustomMinimumSize = new(16, 0), Step = 1, Page = 5 }; row.AddChild(_scroll);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         _scroll.ValueChanged += value =&gt;</span>
+<span id="L34"><a class="line" href="#L34">34</a>         {</span>
+<span id="L35"><a class="line" href="#L35">35</a>             if (_updating || _source is null) return;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             _anchor = value &gt;= Math.Max(0, _source.Entries.Count - 5) ? null : _source.Entries[(int)value].Id;</span>
+<span id="L37"><a class="line" href="#L37">37</a>             DrawEntries();</span>
+<span id="L38"><a class="line" href="#L38">38</a>         };</span>
+<span id="L39"><a class="line" href="#L39">39</a>         GuiInput += input =&gt;</span>
+<span id="L40"><a class="line" href="#L40">40</a>         {</span>
+<span id="L41"><a class="line" href="#L41">41</a>             if (input is InputEventMouseButton { Pressed: true } mouse &amp;&amp; mouse.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown)</span>
+<span id="L42"><a class="line" href="#L42">42</a>             { _scroll.Value += mouse.ButtonIndex == MouseButton.WheelUp ? -3 : 3; AcceptEvent(); }</span>
+<span id="L43"><a class="line" href="#L43">43</a>         };</span>
+<span id="L44"><a class="line" href="#L44">44</a>     }</span>
+<span id="L45"><a class="line" href="#L45">45</a>     public void Refresh(PlayerEventLog source)</span>
+<span id="L46"><a class="line" href="#L46">46</a>     {</span>
+<span id="L47"><a class="line" href="#L47">47</a>         if (_source == source &amp;&amp; _revision == source.Revision) return;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         if (_source != source) _anchor = null;</span>
+<span id="L49"><a class="line" href="#L49">49</a>         _source = source; _revision = source.Revision; DrawEntries();</span>
+<span id="L50"><a class="line" href="#L50">50</a>     }</span>
+<span id="L51"><a class="line" href="#L51">51</a>     private void DrawEntries()</span>
+<span id="L52"><a class="line" href="#L52">52</a>     {</span>
+<span id="L53"><a class="line" href="#L53">53</a>         if (_source is null) return;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var entries = _source.Window(_anchor);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         var start = entries.Length == 0 ? 0 : _source.Entries.ToList().FindIndex(e =&gt; e.Id == entries[0].Id);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         _updating = true; _scroll.MaxValue = Math.Max(5, _source.Entries.Count); _scroll.Value = Math.Max(0, start); _updating = false;</span>
+<span id="L57"><a class="line" href="#L57">57</a>         _heading.Text = $&quot;EVENT LOG  /  {_source.Entries.Count}/100  ·  {(_anchor is null ? &quot;LIVE&quot; : &quot;HISTORY — scroll down for live&quot;)}&quot;;</span>
+<span id="L58"><a class="line" href="#L58">58</a>         for (var i = 0; i &lt; 5; i++)</span>
+<span id="L59"><a class="line" href="#L59">59</a>         {</span>
+<span id="L60"><a class="line" href="#L60">60</a>             var message = i &lt; entries.Length ? entries[i] : null;</span>
+<span id="L61"><a class="line" href="#L61">61</a>             _lines[i].Text = message is null ? &quot; &quot; : $&quot;{TimeSpan.FromHours(8) + TimeSpan.FromMilliseconds(message.WorldMs):hh\\:mm\\:ss}  [{message.Kind.ToString().ToUpperInvariant()}]  {message.Text}&quot;;</span>
+<span id="L62"><a class="line" href="#L62">62</a>             _lines[i].TooltipText = message?.Text ?? &quot;&quot;;</span>
+<span id="L63"><a class="line" href="#L63">63</a>             _lines[i].AddThemeColorOverride(&quot;font_color&quot;, message?.Kind switch</span>
+<span id="L64"><a class="line" href="#L64">64</a>             {</span>
+<span id="L65"><a class="line" href="#L65">65</a>                 MessageKind.Combat =&gt; new(&quot;efad8e&quot;), MessageKind.Observation =&gt; new(&quot;e4d393&quot;),</span>
+<span id="L66"><a class="line" href="#L66">66</a>                 MessageKind.Orders =&gt; new(&quot;a7c9ed&quot;), MessageKind.Equipment =&gt; new(&quot;aacfb4&quot;),</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 MessageKind.Conversation =&gt; new(&quot;d5b7e4&quot;), MessageKind.Warning =&gt; new(&quot;f3bf6d&quot;), _ =&gt; new Color(&quot;c3ceca&quot;)</span>
+<span id="L68"><a class="line" href="#L68">68</a>             });</span>
+<span id="L69"><a class="line" href="#L69">69</a>         }</span>
+<span id="L70"><a class="line" href="#L70">70</a>     }</span>
+<span id="L71"><a class="line" href="#L71">71</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

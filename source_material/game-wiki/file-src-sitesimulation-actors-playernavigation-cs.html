@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Actors/PlayerNavigation.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerNavigation.cs</h1><p>src/SiteSimulation/Actors/PlayerNavigation.cs</p><p><a href="system-actors.html">Actors and navigation</a></p><h2>Types</h2><ul><li><a href="type-playernavigation.html">PlayerNavigation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-7dcacf25a85138938e19.html">PlayerNavigation.PlanningObstacles</a> · line 6</li><li><a href="function-44e7b99608cea6561fcc.html">PlayerNavigation.Seen</a> · line 8</li><li><a href="function-f463aed2472c70dd9191.html">PlayerNavigation.PlanRoute</a> · line 23</li><li><a href="function-e7f6f4fc6dc5f9e61aab.html">PlayerNavigation.KnownBlocked</a> · line 31</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Plan from the known facility layout and perceived occupants; execution still uses real collision.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class PlayerNavigation</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     private static (HashSet&lt;Hex&gt; Ignored, HashSet&lt;Hex&gt; Occupied) PlanningObstacles(SimulationWorld world)</span>
+<span id="L7"><a class="line" href="#L7">7</a>     {</span>
+<span id="L8"><a class="line" href="#L8">8</a>         bool Seen(Point2 point) =&gt; ObservationService.Inspect(world.Map, world.Player, point, world.LocalMs).Detected;</span>
+<span id="L9"><a class="line" href="#L9">9</a>         var known = world.Anomalies.Bodies.Where(b =&gt; Seen(b.Position)).Select(b =&gt; b.Cell).ToHashSet();</span>
+<span id="L10"><a class="line" href="#L10">10</a>         if (world.Operations.Definition is { } definition)</span>
+<span id="L11"><a class="line" href="#L11">11</a>         {</span>
+<span id="L12"><a class="line" href="#L12">12</a>             // The fixed terminal is on the known facility plan. Movable equipment needs actual sight.</span>
+<span id="L13"><a class="line" href="#L13">13</a>             known.Add(definition.Terminal);</span>
+<span id="L14"><a class="line" href="#L14">14</a>             if (Seen(world.Operations.Trolley.Position)) known.Add(Hex.FromWorld(world.Operations.Trolley.Position));</span>
+<span id="L15"><a class="line" href="#L15">15</a>         }</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var occupied = world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Seen(a.Position))</span>
+<span id="L17"><a class="line" href="#L17">17</a>             .SelectMany(a =&gt; a.StoppedStep is { } stopped ? new[] { a.Cell, stopped.Next }</span>
+<span id="L18"><a class="line" href="#L18">18</a>                 : a.Moving ? new[] { a.Cell, a.Route[0] } : new[] { a.Cell }).ToHashSet();</span>
+<span id="L19"><a class="line" href="#L19">19</a>         // Anonymous collision/reservation cells are not evidence of a visible object.</span>
+<span id="L20"><a class="line" href="#L20">20</a>         return (world.Map.DynamicBlockers.Except(known).ToHashSet(), occupied);</span>
+<span id="L21"><a class="line" href="#L21">21</a>     }</span>
+<span id="L22"><a class="line" href="#L22">22</a> </span>
+<span id="L23"><a class="line" href="#L23">23</a>     public static IReadOnlyList&lt;Hex&gt; PlanRoute(SimulationWorld world, Hex destination, IReadOnlyCollection&lt;Hex&gt;? bumped = null)</span>
+<span id="L24"><a class="line" href="#L24">24</a>     {</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var obstacles = PlanningObstacles(world);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         obstacles.Occupied.UnionWith(bumped ?? world.Player.BumpedCells);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var path = world.Map.FindPath(world.Player.Cell, destination, obstacles.Occupied, obstacles.Ignored, approachBlockedGoal: true);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         return MovementSystem.ContinueStopped(world, world.Player, destination, path);</span>
+<span id="L29"><a class="line" href="#L29">29</a>     }</span>
+<span id="L30"><a class="line" href="#L30">30</a> </span>
+<span id="L31"><a class="line" href="#L31">31</a>     public static bool KnownBlocked(SimulationWorld world, Hex cell)</span>
+<span id="L32"><a class="line" href="#L32">32</a>     {</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var obstacles = PlanningObstacles(world);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         return !world.Map.Walkable(cell, obstacles.Ignored) || obstacles.Occupied.Contains(cell) || world.Player.BumpedCells.Contains(cell);</span>
+<span id="L35"><a class="line" href="#L35">35</a>     }</span>
+<span id="L36"><a class="line" href="#L36">36</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

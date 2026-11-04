@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PersonnelOrderSystem.Advance | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PersonnelOrderSystem.Advance</h1><p><a href="system-operations.html">Personnel orders and recovery</a> / <a href="file-src-sitesimulation-operations-personnelordersystem-cs.html#L51">src/SiteSimulation/Operations/PersonnelOrderSystem.cs:51</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Advance(SimulationWorld world)</code></pre><h2>Role in the engine</h2><p>Owns authored duties, orders, bounded communications, received reports, trolley loading/pushing/unloading and receiving-footprint compliance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-1acf8aee3b8cfe00baec.html">PlayerFeedback.NoAcknowledgement</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-4a8b3b1eef40502d85db.html">MovementSystem.PlanRoute</a></li><li><a href="function-4da618d29356ad6c69d6.html">ObservationService.FacingToward</a></li><li><a href="function-5a329cf2a097eb86678e.html">PersonnelOrderSystem.Travel</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-6088225634e82a7025c1.html">ObservedTransportSystem.Interrupt</a></li><li><a href="function-738bc47c82c149139857.html">ObservationService.Inspect</a></li><li><a href="function-884dec27ed89451d6e86.html">FacilityCommunications.Link</a></li><li><a href="function-9bb129b1483b7c569116.html">FacilityMap.ClearSight</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-cefd9f0464ac2eff59f2.html">MovementSystem.Occupied</a></li><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a></li><li><a href="function-e1e43c48d552a95fac0d.html">PersonnelOrderSystem.Set</a></li><li><a href="function-ef12fabff83dbd289510.html">MovementSystem.StopInPlace</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>state.Orders.Where(o =&gt; o.Status == OrderStatus.Pending).ToArray
+state.Orders.Where
+FacilityCommunications.Link
+PlayerFeedback.NoAcknowledgement
+state.Orders.Any
+ObservedTransportSystem.Interrupt
+state.Orders.Where(o =&gt; o.ActorId == pending.ActorId &amp;&amp; o.Id &lt; pending.Id
+                &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray
+Set
+world.Actors.Single
+MovementSystem.StopInPlace
+EmploymentSystem.Owns
+state.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray
+ObservationService.FacingToward
+Travel
+ObservationService.Inspect
+state.Orders.FindIndex
+Point2.Distance
+state.Contacts.SingleOrDefault
+world.Anomalies.Bodies.Single
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).ThenBy(p =&gt; p.Cell.Q).ThenBy(p =&gt; p.Cell.R).FirstOrDefault
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).ThenBy(p =&gt; p.Cell.Q).ThenBy
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).ThenBy
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where
+world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select
+world.Map.Cells.Where
+world.Map.Walkable
+world.Map.ClearSight
+MovementSystem.Occupied(world, actor).Contains
+MovementSystem.Occupied
+MovementSystem.PlanRoute</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-12f1a5568687a2d2a06a.html">OscpScene._Process</a></li><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li></ul><h2>Related types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-facilitycommunications.html">FacilityCommunications</a></li><li><a href="type-movementsystem.html">MovementSystem</a></li><li><a href="type-observationservice.html">ObservationService</a></li><li><a href="type-observedtransportsystem.html">ObservedTransportSystem</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-personnelordersystem.html">PersonnelOrderSystem</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-playerfeedback.html">PlayerFeedback</a></li><li><a href="type-point2.html">Point2</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-stoppedstep.html">StoppedStep</a></li></ul><h2>Implementation</h2><pre><code>public static void Advance(SimulationWorld world)
+    {
+        var state = world.Operations;
+        if (state.Definition is not { } d) return;
+        foreach (var pending in state.Orders.Where(o =&gt; o.Status == OrderStatus.Pending).ToArray())
+        {
+            if (!FacilityCommunications.Link(world, pending)) { PlayerFeedback.NoAcknowledgement(world, pending); continue; }
+            if (state.Orders.Any(o =&gt; o.ActorId == pending.ActorId &amp;&amp; o.Task == PersonnelTask.Transport
+                &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked)) ObservedTransportSystem.Interrupt(world);
+            foreach (var previous in state.Orders.Where(o =&gt; o.ActorId == pending.ActorId &amp;&amp; o.Id &lt; pending.Id
+                &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())
+                Set(world, previous.Id, OrderStatus.Cancelled, &quot;Relieved by an acknowledged replacement order&quot;);
+            var actor = world.Actors.Single(a =&gt; a.Id == pending.ActorId);
+            MovementSystem.StopInPlace(actor);
+            actor.Attending = true;
+            Set(world, pending.Id, OrderStatus.Active, &quot;Acknowledged&quot;
+                + (EmploymentSystem.Owns(world, actor.Id) &amp;&amp; pending.Task != PersonnelTask.ResumeDuty ? &quot; · reassignment may leave the employment post uncovered&quot; : &quot;&quot;));
+            if (pending.Task == PersonnelTask.ResumeDuty)
+                Set(world, pending.Id, OrderStatus.Complete, &quot;Released from direct orders; resuming scheduled employment&quot;);
+        }
+        foreach (var order in state.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())
+        {
+            var actor = world.Actors.Single(a =&gt; a.Id == order.ActorId);
+            if (world.LocalMs &lt; actor.StartledUntilMs) { Set(world, order.Id, OrderStatus.Blocked, &quot;Recovering from startle&quot;); continue; }
+            if (order.Task == PersonnelTask.Transport) continue; // The physical transport service owns this continuation.
+            if (order.Task == PersonnelTask.Post)
+            {
+                if (actor.Cell == order.Destination &amp;&amp; !actor.Moving &amp;&amp; actor.StoppedStep is null)
+                {
+                    if (order.TargetPoint is { } point) actor.Facing = ObservationService.FacingToward(actor.Position, point, actor.Facing);
+                    Set(world, order.Id, OrderStatus.Active, &quot;Holding assigned post&quot;); continue;
+                }
+                Travel(world, order, actor, order.Destination, false); continue;
+            }
+            Point2 target;
+            if (order.Task == PersonnelTask.Follow)
+            {
+                var leader = world.Actors.Single(a =&gt; a.Id == order.Issuer);
+                target = order.TargetPoint ?? actor.Position;
+                actor.Facing = ObservationService.FacingToward(actor.Position, target, actor.Facing);
+                if (ObservationService.Inspect(world.Map, actor, leader.Position, world.LocalMs).Detected)
+                {
+                    target = leader.Position;
+                    var index = state.Orders.FindIndex(o =&gt; o.Id == order.Id);
+                    state.Orders[index] = state.Orders[index] with { TargetPoint = target };
+                }
+                else if (Point2.Distance(actor.Position, target) &lt;= 1)
+                { MovementSystem.StopInPlace(actor); Set(world, order.Id, OrderStatus.Blocked, &quot;Leader not in sight; last known position reached&quot;); continue; }
+                if (Point2.Distance(actor.Position, target) &lt;= 1)
+                { MovementSystem.StopInPlace(actor); Set(world, order.Id, OrderStatus.Active, &quot;Following · holding separation&quot;); continue; }
+            }
+            else
+            {
+                var contact = state.Contacts.SingleOrDefault(c =&gt; c.ActorId == actor.Id);
+                // A delivered order shares the issuer&#x27;s acquired point, never a hidden live transform.
+                var deliveredPoint = order.TargetPoint;
+                if (contact is null &amp;&amp; deliveredPoint is null)
+                { Set(world, order.Id, OrderStatus.Blocked, &quot;No acquired sighting to investigate&quot;); continue; }
+                target = contact?.Position ?? deliveredPoint!.Value;
+                actor.Facing = ObservationService.FacingToward(actor.Position, target, actor.Facing);
+                var subject = world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId);
+                if (ObservationService.Inspect(world.Map, actor, subject.Position, world.LocalMs).Detected)
+                {
+                    MovementSystem.StopInPlace(actor);
+                    Set(world, order.Id, OrderStatus.Active, &quot;Maintaining direct observation&quot;); continue;
+                }
+                if (ObservationService.Inspect(world.Map, actor, target, world.LocalMs).Detected)
+                {
+                    MovementSystem.StopInPlace(actor);
+                    Set(world, order.Id, OrderStatus.Blocked, &quot;Last known position empty · awaiting updated sighting&quot;); continue;
+                }
+            }
+            actor.Facing = ObservationService.FacingToward(actor.Position, target, actor.Facing);
+            var vantage = world.Map.Cells.Where(c =&gt; world.Map.Walkable(c) &amp;&amp; Point2.Distance(c.World, target) is &gt; 0.5 and &lt; 2
+                &amp;&amp; world.Map.ClearSight(c.World, target) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).ThenBy(p =&gt; p.Cell.Q).ThenBy(p =&gt; p.Cell.R).FirstOrDefault();
+            if (vantage.Path is null) { Set(world, order.Id, OrderStatus.Blocked, &quot;Last known area reached or no clear observation route&quot;); continue; }
+            Travel(world, order, actor, vantage.Cell, true);
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Operations/PersonnelOrderSystem.cs:51</footer></main></div></body></html>

@@ -1,0 +1,128 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.RunWearSmoke | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.RunWearSmoke</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-wearsmoke-cs.html#L9">game/Presentation/SpatialScene.WearSmoke.cs:9</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async Task RunWearSmoke()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-016b38302207c8ccd929.html">SpatialScene.Finish</a></li><li><a href="function-02d793a21dba830161dd.html">SpatialScene.Finish</a></li><li><a href="function-07477c1b6ec950067700.html">SpatialScene.Finish</a></li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a></li><li><a href="function-1443472b35854bba8dbd.html">SpatialScene.Finish</a></li><li><a href="function-15df43c72b0c3ad941c4.html">SpatialSimulation.Restore</a></li><li><a href="function-163ab890ac230eb06416.html">InventoryPanel.Open</a></li><li><a href="function-1d92fcde6351e1941d20.html">IAnomalyModule.Inspect</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-26febcdb0b596301a36b.html">SpatialScene.Finish</a></li><li><a href="function-27e4634901b893bd127a.html">SpatialScene.Finish</a></li><li><a href="function-2ae64841e98569193530.html">InventoryEquipmentList.Row</a></li><li><a href="function-319f205e228e1fc0ac95.html">InventoryGrid._GetDragData</a></li><li><a href="function-33efb3cfcabbe21ba187.html">SpatialScene.SelectSuit</a></li><li><a href="function-437bdfff80409077a5f4.html">SpatialScene.Finish</a></li><li><a href="function-440aad2c464713a54351.html">SimulationRuntime.ResetAccumulator</a></li><li><a href="function-44bdd90eaa2a9670d508.html">PlayerAwareness.Restore</a></li><li><a href="function-45287ffbe1449be91515.html">PlayerEventLog.Restore</a></li><li><a href="function-45eb2318b34d5fab2dc8.html">SpatialScene.Finish</a></li><li><a href="function-480ce0f230cd10ef79fd.html">EmploymentSaveCodec.Restore</a></li><li><a href="function-51bafa83ec7d74a84e09.html">CombatSaveCodec.Restore</a></li><li><a href="function-546fd0342b6d59e0b120.html">SpatialScene.Click</a></li><li><a href="function-553327117b7a641ba6b0.html">Scp650Module.Restore</a></li><li><a href="function-6469798b617ec9f67b98.html">IAnomalyModule.Restore</a></li><li><a href="function-738bc47c82c149139857.html">ObservationService.Inspect</a></li><li><a href="function-73c7971d370ba0862882.html">AnomalySystem.Inspect</a></li><li><a href="function-7e1acbff94992fe86ff5.html">SpatialSimulation.InventoryAccess</a></li><li><a href="function-7eb300265d6bd70b5e8f.html">SpatialScene.Finish</a></li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a></li><li><a href="function-815df44ccf2c84be9982.html">InventoryPanel.OpenCompartment</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a></li><li><a href="function-8b27f1bc69e43c207d42.html">SpatialSimulation.InventoryContents</a></li><li><a href="function-8bbc3d6440840ec4667d.html">InventoryPanel.FindGrid</a></li><li><a href="function-918554009bb5efb6c491.html">SpatialScene.InventoryClick</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-93ab6c8bc00dac92b0d0.html">SpatialScene.Click</a></li><li><a href="function-96872243b156414d5f71.html">InventoryGearSurface._GetDragData</a></li><li><a href="function-972f51d2c02986945d58.html">SpatialScene.InventoryFrames</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-9ce48cd98d897a7a08ac.html">SpatialScene.Finish</a></li><li><a href="function-a3f6deda586c7d6b6df9.html">SpatialScene.Finish</a></li><li><a href="function-a5a83eea0a6b713ada36.html">SpatialScene.Click</a></li><li><a href="function-a8888e0ee272be7d2c40.html">InventorySaveCodec.Restore</a></li><li><a href="function-b754b5cade752b4a47cc.html">OperationSaveCodec.Restore</a></li><li><a href="function-c4bcb099863e173562ac.html">InventoryBrowser.Inspect</a></li><li><a href="function-c512448836d100d75671.html">OscpWorkspace.Open</a></li><li><a href="function-c5526d32c709d4ad4f33.html">SpatialScene.Click</a></li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a></li><li><a href="function-dce8f999453504b52b87.html">SimulationTrace.Restore</a></li><li><a href="function-e403ce659fd124205baf.html">InventoryBodyFitSurface._GetDragData</a></li><li><a href="function-e7c935f0a41156f95825.html">InventoryGearSurface.Open</a></li><li><a href="function-e96de535d569435021f6.html">Scp650Module.Inspect</a></li><li><a href="function-f48ca0a4023d40c726bb.html">SpatialScene.Finish</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>sim.Save
+InventoryFrames
+InventoryClick
+button.GetGlobalRect().GetCenter
+button.GetGlobalRect
+panel.Inspect
+panel.OpenCompartment
+panel.FindGrid
+Click
+Finish
+panel.InspectedContainers.Contains
+sim.InventoryAccess
+sim.InventoryContents
+list.Row
+list.GetItemText(shirtRow).Contains
+list.GetItemText
+list.GetItemRect(shirtRow).GetCenter
+list.GetItemRect
+InventoryCapture
+sim.InventoryEquipment.Any
+e.Layers.Any
+((ScrollContainer)shirt.GetParent().GetParent()).EnsureControlVisible
+shirt.GetParent().GetParent
+shirt.GetParent
+shirt._GetDragData
+panel.TakeInHand.GetGlobalRect().GetCenter
+panel.TakeInHand.GetGlobalRect
+((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible
+coat.GetParent().GetParent
+coat.GetParent
+SelectSuit
+sim.LastMessage.Contains
+sim.Inventory.DiagnosticItems.Single
+((ScrollContainer)suitGrid.GetParent().GetParent()).EnsureControlVisible
+suitGrid.GetParent().GetParent
+suitGrid.GetParent
+Godot.FileAccess.GetFileAsString
+clone.Restore
+clone.Save
+sim.Restore
+_runtime.ResetAccumulator
+panel.Close
+panel.Open
+GD.Print</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryaccess.html">InventoryAccess</a></li><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>private async Task RunWearSmoke()
+    {
+        var panel = _hud.Inventory; var sim = _simulation;
+        sim.ManualPause = true; var original = sim.Save();
+        async Task Finish()
+        {
+            for (var i = 0; i &lt; 300 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);
+            if (sim.Inventory.Pending is not null) throw new InvalidOperationException(&quot;Garment UI action failed to resolve.&quot;);
+            sim.ManualPause = true; await InventoryFrames();
+        }
+        void Click(Button button) =&gt; InventoryClick(button.GetGlobalRect().GetCenter());
+        panel.Inspect(&quot;avatar-trousers&quot;); panel.OpenCompartment(&quot;avatar-trousers&quot;, &quot;left&quot;); panel.Inspect(&quot;gum-packet&quot;); await InventoryFrames();
+        var coat = panel.FindGrid(&quot;person:avatar&quot;, &quot;outerwear&quot;);
+        InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();
+        if (panel.GarmentToggle.Disabled) throw new InvalidOperationException(&quot;Selecting a supported garment did not enable its physical opening control.&quot;);
+        var held = sim.Save(); Click(panel.GarmentToggle); await InventoryFrames();
+        if (sim.Save() != held) throw new InvalidOperationException(&quot;Fastening during pause supplied a free clothing change.&quot;);
+        sim.ManualPause = false; Click(panel.GarmentToggle);
+        if (sim.Inventory.Pending?.Request.Kind != InventoryActionKind.CloseGarment) throw new InvalidOperationException(&quot;Actual fastening button did not begin timed work.&quot;);
+        await Finish();
+        if (panel.InspectedContainers.Contains(&quot;gum-packet&quot;) || sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed
+            || sim.InventoryContents(&quot;person:avatar&quot;, &quot;torso&quot;).Count != 0)
+            throw new InvalidOperationException(&quot;Fastened coat failed to hide its inner shirt/pocket paths and descendant views.&quot;);
+        held = sim.Save();
+        // The main equipment list replaces the old fixed-layer selector; covered rows remain read-only.
+        Click(panel.EngineeringSlots); await InventoryFrames();
+        var list = panel.EquipmentList;
+        var shirtRow = list.Row(&quot;avatar-shirt&quot;);
+        if (shirtRow &lt; 0 || !list.GetItemText(shirtRow).Contains(&quot;0&quot;) || !list.GetItemText(shirtRow).Contains(&quot;covered&quot;))
+            throw new InvalidOperationException(&quot;Equipment list omitted the covered shirt&#x27;s real layer.&quot;);
+        InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter()); await InventoryFrames();
+        if (panel.SelectedItem != &quot;avatar-shirt&quot; || sim.Save() != held)
+            throw new InvalidOperationException(&quot;Native equipment row selection changed physical state or selected the wrong item.&quot;);
+        InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter(), true); await InventoryFrames();
+        if (panel.Browser.CurrentGear == &quot;avatar-shirt&quot; || sim.Save() != held)
+            throw new InvalidOperationException(&quot;Double-clicking covered equipment bypassed inspection access.&quot;);
+        await InventoryCapture(&quot;-equipment-layers&quot;);
+        Click(panel.EngineeringSlots); await InventoryFrames();
+        if (!sim.InventoryEquipment.Any(e =&gt; e.ItemId == &quot;avatar-shirt&quot; &amp;&amp; !e.Visible &amp;&amp; e.Layers.Any(l =&gt; l.Layer == 0)))
+            throw new InvalidOperationException(&quot;Known covered shirt is missing from actual layer projection.&quot;);
+        panel.Inspect(&quot;gum-packet&quot;);
+        if (panel.InspectedContainers.Contains(&quot;gum-packet&quot;) || sim.Save() != held)
+            throw new InvalidOperationException(&quot;Layer inspection uncovered physical storage or mutated the save.&quot;);
+        var shirt = panel.FindGrid(&quot;person:avatar&quot;, &quot;torso&quot;);
+        ((ScrollContainer)shirt.GetParent().GetParent()).EnsureControlVisible(shirt); await InventoryFrames();
+        InventoryClick(shirt.GlobalPosition + new Vector2(30, 80));
+        if (panel.SelectedItem != &quot;avatar-shirt&quot; || shirt._GetDragData(new Vector2(30, 80)).VariantType != Variant.Type.Nil)
+            throw new InvalidOperationException(&quot;A known covered shirt could not be inspected or incorrectly became draggable.&quot;);
+        InventoryClick(panel.TakeInHand.GetGlobalRect().GetCenter());
+        if (sim.Save() != held) throw new InvalidOperationException(&quot;Layer-view selection bypassed physical dressing rules.&quot;);
+        await InventoryCapture(&quot;-layer-inspection&quot;);
+        ((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible(coat); await InventoryFrames();
+        InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();
+        await InventoryCapture(&quot;-coat-fastened&quot;);
+        sim.ManualPause = false; Click(panel.GarmentToggle); await Finish();
+        if (!sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed || sim.InventoryContents(&quot;person:avatar&quot;, &quot;torso&quot;).Count != 1)
+            throw new InvalidOperationException(&quot;Opening a coat failed to expose the underlying paperdoll and storage.&quot;);
+        await InventoryCapture(&quot;-coat-open&quot;);
+        sim.Player.Cell = new(13, 6); panel.Inspect(&quot;fixture:crate-a&quot;); panel.OpenCompartment(&quot;fixture:crate-a&quot;, &quot;store&quot;); await InventoryFrames();
+        var crate = panel.FindGrid(&quot;fixture:crate-a&quot;, &quot;store&quot;);
+        void SelectSuit() =&gt; InventoryClick(crate.GlobalPosition + new Vector2(6 * crate.CellPixels + 15, 59));
+        SelectSuit();
+        if (panel.SelectedItem != &quot;chemical-suit&quot;) throw new InvalidOperationException(&quot;The physical suit could not be selected from the nearby crate.&quot;);
+        held = sim.Save(); sim.ManualPause = false; var beforeAttempt = sim.Save(); Click(panel.WearDefault);
+        if (sim.Inventory.Pending is not null || sim.Save() != beforeAttempt || !sim.LastMessage.Contains(&quot;backpack&quot;, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidOperationException(&quot;The worn pack did not block fitting the suit through the real UI.&quot;);
+        var pack = panel.FindGrid(&quot;person:avatar&quot;, &quot;back&quot;);
+        InventoryClick(pack.GlobalPosition + new Vector2(30, 80)); Click(panel.TakeInHand); await Finish();
+        sim.ManualPause = false; SelectSuit(); Click(panel.WearDefault); await Finish();
+        if (sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;chemical-suit&quot;).Placement.RegionId != &quot;suit&quot;)
+            throw new InvalidOperationException(&quot;The suit was not fitted after clearing the pack.&quot;);
+        var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);
+        InventoryClick(hand.GlobalPosition + new Vector2(30, 80)); sim.ManualPause = false; Click(panel.WearDefault); await Finish();
+        if (sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-backpack&quot;).Placement.RegionId != &quot;back&quot;
+            || sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed)
+            throw new InvalidOperationException(&quot;Refitting a pack failed or incorrectly uncovered inner suit equipment.&quot;);
+        var suitGrid = panel.FindGrid(&quot;person:avatar&quot;, &quot;suit&quot;);
+        ((ScrollContainer)suitGrid.GetParent().GetParent()).EnsureControlVisible(suitGrid); await InventoryFrames();
+        await InventoryCapture(&quot;-suit-fitted&quot;);
+        var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));
+        clone.Restore(saved);
+        if (clone.Save() != saved) throw new InvalidOperationException(&quot;Dressed paperdoll and coverage failed to persist.&quot;);
+        sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;
+        GD.Print(&quot;WEAR_SMOKE_PASS: actual paid garment controls, paused rejection, covered pocket/descendant hiding, exposed shirt, explicit pack-off/suit-on/pack-on buttons and save restore.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.WearSmoke.cs:9</footer></main></div></body></html>

@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Combat/TrainingOpponentSystem.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>TrainingOpponentSystem.cs</h1><p>src/SiteSimulation/Combat/TrainingOpponentSystem.cs</p><p><a href="system-combat.html">Tactical turns and training</a></p><h2>Types</h2><ul><li><a href="type-trainingopponentsystem.html">TrainingOpponentSystem</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-26f35083819a7a993f11.html">TrainingOpponentSystem.Observe</a> · line 6</li><li><a href="function-6710472d44b17b7840dd.html">TrainingOpponentSystem.Choose</a> · line 21</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Deterministic training decisions use direct observations and retained points, never hidden live targets.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class TrainingOpponentSystem</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static void Observe(SimulationWorld world)</span>
+<span id="L7"><a class="line" href="#L7">7</a>     {</span>
+<span id="L8"><a class="line" href="#L8">8</a>         var state = world.Combat;</span>
+<span id="L9"><a class="line" href="#L9">9</a>         foreach (var c in state.Participants.Where(c =&gt; c.Points &gt; 0))</span>
+<span id="L10"><a class="line" href="#L10">10</a>         {</span>
+<span id="L11"><a class="line" href="#L11">11</a>             var actor = world.Actors.Single(a =&gt; a.Id == c.ActorId);</span>
+<span id="L12"><a class="line" href="#L12">12</a>             foreach (var target in state.Participants.Where(t =&gt; t.Side != c.Side &amp;&amp; t.Points &gt; 0))</span>
+<span id="L13"><a class="line" href="#L13">13</a>             {</span>
+<span id="L14"><a class="line" href="#L14">14</a>                 var other = world.Actors.Single(a =&gt; a.Id == target.ActorId);</span>
+<span id="L15"><a class="line" href="#L15">15</a>                 if (!ObservationService.Inspect(world.Map, actor, other.Position, world.LocalMs).Detected) continue;</span>
+<span id="L16"><a class="line" href="#L16">16</a>                 state.Contacts.RemoveAll(p =&gt; p.ObserverId == actor.Id &amp;&amp; p.TargetId == other.Id);</span>
+<span id="L17"><a class="line" href="#L17">17</a>                 state.Contacts.Add(new(actor.Id, other.Id, other.Position, world.LocalMs));</span>
+<span id="L18"><a class="line" href="#L18">18</a>             }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         }</span>
+<span id="L20"><a class="line" href="#L20">20</a>     }</span>
+<span id="L21"><a class="line" href="#L21">21</a>     public static void Choose(SimulationWorld world)</span>
+<span id="L22"><a class="line" href="#L22">22</a>     {</span>
+<span id="L23"><a class="line" href="#L23">23</a>         var state = world.Combat;</span>
+<span id="L24"><a class="line" href="#L24">24</a>         if (!state.Active || state.Pending is not null || state.CurrentActorId == world.Player.Id) return;</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var actor = world.Actors.Single(a =&gt; a.Id == state.CurrentActorId);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var c = state.For(actor.Id)!;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         if (world.LocalMs &lt; actor.StartledUntilMs || c.Ap == 0) { TacticalCombatSystem.EndTurn(world, actor.Id, out _); return; }</span>
+<span id="L28"><a class="line" href="#L28">28</a>         var target = state.Contacts.Where(p =&gt; p.ObserverId == actor.Id &amp;&amp; state.For(p.TargetId)!.Points &gt; 0)</span>
+<span id="L29"><a class="line" href="#L29">29</a>             .OrderBy(p =&gt; Point2.Distance(actor.Position, p.Position)).ThenBy(p =&gt; p.TargetId, StringComparer.Ordinal).FirstOrDefault();</span>
+<span id="L30"><a class="line" href="#L30">30</a>         if (target is not null)</span>
+<span id="L31"><a class="line" href="#L31">31</a>         {</span>
+<span id="L32"><a class="line" href="#L32">32</a>             if (!c.WeaponReady &amp;&amp; TacticalCombatSystem.Equipment(world, actor.Id, CombatActionKind.ReadyWeapon, out _)) return;</span>
+<span id="L33"><a class="line" href="#L33">33</a>             if (c.Ammo == 0 &amp;&amp; TacticalCombatSystem.Equipment(world, actor.Id, CombatActionKind.Reload, out _)) return;</span>
+<span id="L34"><a class="line" href="#L34">34</a>             // Fire revalidates actual direct sight. Retained contact is only a travel/facing cue.</span>
+<span id="L35"><a class="line" href="#L35">35</a>             if (TacticalCombatSystem.Fire(world, actor.Id, target.TargetId, out _)) return;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             if (actor.Cell != Hex.FromWorld(target.Position))</span>
+<span id="L37"><a class="line" href="#L37">37</a>             {</span>
+<span id="L38"><a class="line" href="#L38">38</a>                 var route = MovementSystem.PlanRoute(world, actor, Hex.FromWorld(target.Position));</span>
+<span id="L39"><a class="line" href="#L39">39</a>                 // A visible target occupies its cell: approach a reachable neighbour instead.</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 if (route.Count == 0) route = Enumerable.Range(0, 6).Select(Hex.FromWorld(target.Position).Neighbor)</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     .Select(cell =&gt; MovementSystem.PlanRoute(world, actor, cell)).Where(p =&gt; p.Count &gt; 0).OrderBy(p =&gt; p.Count).FirstOrDefault() ?? [];</span>
+<span id="L42"><a class="line" href="#L42">42</a>                 if (route.Count &gt; 0 &amp;&amp; TacticalCombatSystem.Move(world, actor.Id, route[Math.Min(Math.Min(3, c.Ap), route.Count) - 1], false, out _)) return;</span>
+<span id="L43"><a class="line" href="#L43">43</a>             }</span>
+<span id="L44"><a class="line" href="#L44">44</a>         }</span>
+<span id="L45"><a class="line" href="#L45">45</a>         if (TacticalCombatSystem.Face(world, actor.Id, actor.Cell.Neighbor((actor.Facing + 1) % 6).World, out _)) return;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         TacticalCombatSystem.EndTurn(world, actor.Id, out _);</span>
+<span id="L47"><a class="line" href="#L47">47</a>     }</span>
+<span id="L48"><a class="line" href="#L48">48</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

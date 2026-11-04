@@ -1,0 +1,199 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.cs</h1><p>game/Presentation/SpatialScene.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-cca00ec29dbf08139b4e.html">SpatialScene._Ready</a> · line 27</li><li><a href="function-5c5375315cb38e87abc1.html">SpatialScene.RefreshCamera</a> · line 49</li><li><a href="function-b077e0b23e612c329eda.html">SpatialScene.ResetCamera</a> · line 57</li><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a> · line 58</li><li><a href="function-2533e924f7dfec6bf5a2.html">SpatialScene.UpdateEncounter</a> · line 78</li><li><a href="function-01ab998aa717c6f1f769.html">SpatialScene._Input</a> · line 101</li><li><a href="function-f8c1f1f4ba15a86368e9.html">SpatialScene._UnhandledInput</a> · line 108</li><li><a href="function-7d41a47cdf9d129bcec2.html">SpatialScene.WriteUserFile</a> · line 170</li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a> · line 178</li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a> · line 183</li><li><a href="function-bd333c04bfcec3bdc9b6.html">SpatialScene.ExportTrace</a> · line 194</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> /// &lt;summary&gt;Godot scheduling, input and transport adapter; gameplay rules stay in the C# systems.&lt;/summary&gt;</span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class SpatialScene : Node2D</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private SpatialSimulation _simulation = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private WorldView _world = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private SpatialHud _hud = null!;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private EncounterAudio _audio = null!;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private EncounterOverlay _encounter = null!;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private readonly DiscoveryFeedback _feedback = new();</span>
+<span id="L16"><a class="line" href="#L16">16</a>     private SimulationRuntime _runtime = null!;</span>
+<span id="L17"><a class="line" href="#L17">17</a>     private float _zoom = 1.75f;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     private Vector2 _pan;</span>
+<span id="L19"><a class="line" href="#L19">19</a>     private Hex? _previousHover;</span>
+<span id="L20"><a class="line" href="#L20">20</a>     private string? _capturePath;</span>
+<span id="L21"><a class="line" href="#L21">21</a>     private int _smokeFrame, _smokeStage;</span>
+<span id="L22"><a class="line" href="#L22">22</a>     private string? _smokeSave;</span>
+<span id="L23"><a class="line" href="#L23">23</a>     private string? _notice;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     private double _noticeSeconds;</span>
+<span id="L25"><a class="line" href="#L25">25</a>     private bool _operationSmoke, _combatSmoke, _inventorySmoke, _inventorySmokeRunning, _inventorySmokeQuit;</span>
+<span id="L26"><a class="line" href="#L26">26</a> </span>
+<span id="L27"><a class="line" href="#L27">27</a>     public override void _Ready()</span>
+<span id="L28"><a class="line" href="#L28">28</a>     {</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var args = OS.GetCmdlineUserArgs();</span>
+<span id="L30"><a class="line" href="#L30">30</a>         _operationSmoke = args.Contains(&quot;--operation-smoke&quot;);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         _inventorySmoke = args.Contains(&quot;--inventory-smoke&quot;);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         _combatSmoke = args.Contains(&quot;--combat-smoke&quot;);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var legacySmoke = args.Contains(&quot;--scene-smoke&quot;) &amp;&amp; !_operationSmoke &amp;&amp; !_inventorySmoke;</span>
+<span id="L34"><a class="line" href="#L34">34</a>         _simulation = new(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;),</span>
+<span id="L35"><a class="line" href="#L35">35</a>             legacySmoke ? null : Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L36"><a class="line" href="#L36">36</a>         _runtime = new(_simulation);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         var layer = new CanvasLayer(); AddChild(layer);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         _world = new WorldView { Simulation = _simulation };</span>
+<span id="L39"><a class="line" href="#L39">39</a>         _hud = new SpatialHud(); layer.AddChild(_hud); _hud.Initialize(_simulation, _world);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         _audio = new EncounterAudio(); AddChild(_audio);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         _encounter = new EncounterOverlay(); _hud.Field.AddChild(_encounter);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         _feedback.Reset(_simulation);</span>
+<span id="L43"><a class="line" href="#L43">43</a>         _hud.SaveRequested = Save; _hud.RestoreRequested = Restore;</span>
+<span id="L44"><a class="line" href="#L44">44</a>         _hud.ResetCameraRequested = ResetCamera;</span>
+<span id="L45"><a class="line" href="#L45">45</a>         _hud.ExportTraceRequested = ExportTrace;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         for (var i = 0; i &lt; args.Length; i++) if (args[i] == &quot;--scene-smoke&quot; &amp;&amp; i + 1 &lt; args.Length) _capturePath = args[++i];</span>
+<span id="L47"><a class="line" href="#L47">47</a>         RefreshCamera();</span>
+<span id="L48"><a class="line" href="#L48">48</a>     }</span>
+<span id="L49"><a class="line" href="#L49">49</a>     private void RefreshCamera()</span>
+<span id="L50"><a class="line" href="#L50">50</a>     {</span>
+<span id="L51"><a class="line" href="#L51">51</a>         _hud.Layout();</span>
+<span id="L52"><a class="line" href="#L52">52</a>         _world.Scale = Vector2.One * _zoom;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         var focus = _world.FieldView ? WorldView.Screen(_simulation.Player.Position) : new Vector2(368, 30);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         _world.Position = _hud.Field.Size / 2 - focus * _zoom + _pan;</span>
+<span id="L55"><a class="line" href="#L55">55</a>         _encounter.Size = _hud.Field.Size;</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a>     private void ResetCamera() { _pan = Vector2.Zero; _zoom = _world.FieldView ? 1.75f : 1.25f; }</span>
+<span id="L58"><a class="line" href="#L58">58</a>     public override void _Process(double delta)</span>
+<span id="L59"><a class="line" href="#L59">59</a>     {</span>
+<span id="L60"><a class="line" href="#L60">60</a>         if (_inventorySmokeQuit)</span>
+<span id="L61"><a class="line" href="#L61">61</a>         { GC.Collect(); GC.WaitForPendingFinalizers(); GetTree().Quit(); return; }</span>
+<span id="L62"><a class="line" href="#L62">62</a>         _runtime.Advance(delta);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         RefreshCamera();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         UpdateEncounter();</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var local = _world.GetLocalMousePosition();</span>
+<span id="L66"><a class="line" href="#L66">66</a>         var ground = ReferenceProjection.Unproject(new(local.X, local.Y));</span>
+<span id="L67"><a class="line" href="#L67">67</a>         Hex? hover = _hud.Field.GetGlobalRect().HasPoint(GetGlobalMousePosition()) ? Hex.FromWorld(ground) : null;</span>
+<span id="L68"><a class="line" href="#L68">68</a>         _world.Hover = hover;</span>
+<span id="L69"><a class="line" href="#L69">69</a>         if (_previousHover != hover || _simulation.LocalMs % 200 == 0)</span>
+<span id="L70"><a class="line" href="#L70">70</a>         { _world.Preview = !_hud.Operations.ChoosingPost &amp;&amp; hover is { } cell ? _simulation.PreviewPath(cell) : []; _previousHover = hover; }</span>
+<span id="L71"><a class="line" href="#L71">71</a>         _noticeSeconds = Math.Max(0, _noticeSeconds - delta);</span>
+<span id="L72"><a class="line" href="#L72">72</a>         var audioState = $&quot;{(_audio.Muted ? &quot;MUTED&quot; : &quot;AUDIO ON&quot;)} · {(_encounter.ReducedEffects ? &quot;REDUCED EFFECTS&quot; : &quot;SUBTLE EFFECTS&quot;)}&quot;;</span>
+<span id="L73"><a class="line" href="#L73">73</a>         _hud.Refresh(_simulation, _world, hover, ground, _zoom,</span>
+<span id="L74"><a class="line" href="#L74">74</a>             _noticeSeconds &gt; 0 ? _notice : _world.FieldView ? audioState + &quot; · &quot; + _simulation.LastMessage : null);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         _world.QueueRedraw();</span>
+<span id="L76"><a class="line" href="#L76">76</a>         if (_capturePath is not null) { if (_inventorySmoke) { if (!_inventorySmokeRunning &amp;&amp; ++_smokeFrame == 12) { _inventorySmokeRunning = true; RunInventorySmoke(); } } else if (_combatSmoke) CombatSmokeStep(); else if (_operationSmoke) OperationSmokeStep(); else SmokeStep(); }</span>
+<span id="L77"><a class="line" href="#L77">77</a>     }</span>
+<span id="L78"><a class="line" href="#L78">78</a>     private void UpdateEncounter()</span>
+<span id="L79"><a class="line" href="#L79">79</a>     {</span>
+<span id="L80"><a class="line" href="#L80">80</a>         var discovered = _feedback.Update(_simulation, _world.FieldView);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         _audio.Update(_world.FieldView, _simulation.LocalProgressHeld, discovered);</span>
+<span id="L82"><a class="line" href="#L82">82</a>         _encounter.Visible = _world.FieldView;</span>
+<span id="L83"><a class="line" href="#L83">83</a>         _encounter.Pulse = _feedback.Pulse(_simulation.LocalMs);</span>
+<span id="L84"><a class="line" href="#L84">84</a>         _encounter.Caption = _feedback.Caption(_simulation.LocalMs);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         _encounter.PlayerPoint = _world.GetTransform() * WorldView.Screen(_simulation.Player.Position);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         _encounter.Bearings = _simulation.Awareness.Evidence</span>
+<span id="L87"><a class="line" href="#L87">87</a>             .Where(e =&gt; _simulation.LocalMs - e.LocalMs &lt;= 15000 &amp;&amp; !_simulation.VisibleToPlayer(e.Position)</span>
+<span id="L88"><a class="line" href="#L88">88</a>                 &amp;&amp; Point2.Distance(e.Position, _simulation.Player.Position) &gt; Math.Max(0.05, e.UncertaintyRadius))</span>
+<span id="L89"><a class="line" href="#L89">89</a>             .OrderByDescending(e =&gt; e.LocalMs).Take(4)</span>
+<span id="L90"><a class="line" href="#L90">90</a>             .Select(e =&gt; new ContactBearing(WorldView.Screen(e.Position) - WorldView.Screen(_simulation.Player.Position),</span>
+<span id="L91"><a class="line" href="#L91">91</a>                 $&quot;{(e.Source == &quot;sound&quot; ? &quot;sound ~&quot; : e.Source is &quot;voice&quot; or &quot;radio&quot; ? &quot;reported&quot; : &quot;last seen&quot;)} {(_simulation.LocalMs - e.LocalMs) / 1000.0:0.0}s&quot;,</span>
+<span id="L92"><a class="line" href="#L92">92</a>                 e.Classification == &quot;hostile&quot;))</span>
+<span id="L93"><a class="line" href="#L93">93</a>             .Concat(_simulation.Combat.Active ? _simulation.Combat.AcquiredContacts</span>
+<span id="L94"><a class="line" href="#L94">94</a>                 .Where(c =&gt; c.ObserverId == _simulation.Player.Id &amp;&amp; !_simulation.VisibleToPlayer(c.Position)</span>
+<span id="L95"><a class="line" href="#L95">95</a>                     &amp;&amp; _simulation.LocalMs - c.LocalMs &lt;= 15000 &amp;&amp; Point2.Distance(c.Position, _simulation.Player.Position) &gt; 0.05)</span>
+<span id="L96"><a class="line" href="#L96">96</a>                 .Select(c =&gt; new ContactBearing(WorldView.Screen(c.Position) - WorldView.Screen(_simulation.Player.Position),</span>
+<span id="L97"><a class="line" href="#L97">97</a>                     $&quot;training last seen {(_simulation.LocalMs - c.LocalMs) / 1000.0:0.0}s&quot;, true)) : [])</span>
+<span id="L98"><a class="line" href="#L98">98</a>             .Take(4).ToArray();</span>
+<span id="L99"><a class="line" href="#L99">99</a>         _encounter.QueueRedraw();</span>
+<span id="L100"><a class="line" href="#L100">100</a>     }</span>
+<span id="L101"><a class="line" href="#L101">101</a>     public override void _Input(InputEvent e)</span>
+<span id="L102"><a class="line" href="#L102">102</a>     {</span>
+<span id="L103"><a class="line" href="#L103">103</a>         if (_hud.Inventory.IsOpen &amp;&amp; e is InputEventKey { Pressed: true, Keycode: Key.Escape })</span>
+<span id="L104"><a class="line" href="#L104">104</a>         { _hud.Inventory.HandleInput(e); return; }</span>
+<span id="L105"><a class="line" href="#L105">105</a>         if (_hud.Workspace.IsOpen &amp;&amp; e is InputEventKey { Pressed: true, Keycode: Key.Escape })</span>
+<span id="L106"><a class="line" href="#L106">106</a>         { _hud.Workspace.Close(); GetViewport().SetInputAsHandled(); }</span>
+<span id="L107"><a class="line" href="#L107">107</a>     }</span>
+<span id="L108"><a class="line" href="#L108">108</a>     public override void _UnhandledInput(InputEvent e)</span>
+<span id="L109"><a class="line" href="#L109">109</a>     {</span>
+<span id="L110"><a class="line" href="#L110">110</a>         if (_hud.Inventory.IsOpen) { _hud.Inventory.HandleInput(e); return; }</span>
+<span id="L111"><a class="line" href="#L111">111</a>         if (_hud.Workspace.IsOpen) { _hud.Workspace.HandleInput(e); return; }</span>
+<span id="L112"><a class="line" href="#L112">112</a>         if (e is InputEventMouseMotion motion &amp;&amp; _hud.Field.GetGlobalRect().HasPoint(motion.Position)</span>
+<span id="L113"><a class="line" href="#L113">113</a>             &amp;&amp; Input.IsMouseButtonPressed(MouseButton.Middle)) _pan += motion.Relative;</span>
+<span id="L114"><a class="line" href="#L114">114</a>         if (e is InputEventMouseButton { Pressed: true } mouse &amp;&amp; _hud.Field.GetGlobalRect().HasPoint(mouse.Position))</span>
+<span id="L115"><a class="line" href="#L115">115</a>         {</span>
+<span id="L116"><a class="line" href="#L116">116</a>             var local = _world.GetGlobalTransformWithCanvas().AffineInverse() * mouse.Position;</span>
+<span id="L117"><a class="line" href="#L117">117</a>             var target = ReferenceProjection.Unproject(new(local.X, local.Y));</span>
+<span id="L118"><a class="line" href="#L118">118</a>             if (mouse.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown)</span>
+<span id="L119"><a class="line" href="#L119">119</a>             {</span>
+<span id="L120"><a class="line" href="#L120">120</a>                 _zoom = Math.Clamp(_zoom * (mouse.ButtonIndex == MouseButton.WheelUp ? 1.125f : 1 / 1.125f), 0.65f, 2.5f);</span>
+<span id="L121"><a class="line" href="#L121">121</a>                 RefreshCamera();</span>
+<span id="L122"><a class="line" href="#L122">122</a>                 var after = _world.GetGlobalTransformWithCanvas().AffineInverse() * mouse.Position;</span>
+<span id="L123"><a class="line" href="#L123">123</a>                 _pan += (after - local) * _zoom;</span>
+<span id="L124"><a class="line" href="#L124">124</a>             }</span>
+<span id="L125"><a class="line" href="#L125">125</a>             else if (_hud.Operations.ChoosingPost &amp;&amp; mouse.ButtonIndex == MouseButton.Left) _hud.Operations.PlacePost(Hex.FromWorld(target));</span>
+<span id="L126"><a class="line" href="#L126">126</a>             else if (_hud.Operations.ChoosingPost &amp;&amp; mouse.ButtonIndex == MouseButton.Right) _hud.Operations.CancelPost();</span>
+<span id="L127"><a class="line" href="#L127">127</a>             else if (mouse.ButtonIndex == MouseButton.Right || mouse.ButtonIndex == MouseButton.Left &amp;&amp; mouse.CtrlPressed) _simulation.Face(target);</span>
+<span id="L128"><a class="line" href="#L128">128</a>             else if (mouse.ButtonIndex == MouseButton.Left)</span>
+<span id="L129"><a class="line" href="#L129">129</a>             {</span>
+<span id="L130"><a class="line" href="#L130">130</a>                 var victim = _simulation.Combat.Active &amp;&amp; !mouse.ShiftPressed ? _world.PickTrainingOpponent(local) : null;</span>
+<span id="L131"><a class="line" href="#L131">131</a>                 if (victim is not null) _simulation.FireTraining(victim.Id);</span>
+<span id="L132"><a class="line" href="#L132">132</a>                 else _simulation.RequestMove(Hex.FromWorld(target), mouse.ShiftPressed);</span>
+<span id="L133"><a class="line" href="#L133">133</a>             }</span>
+<span id="L134"><a class="line" href="#L134">134</a>         }</span>
+<span id="L135"><a class="line" href="#L135">135</a>         if (e is not InputEventKey { Pressed: true, Echo: false } key) return;</span>
+<span id="L136"><a class="line" href="#L136">136</a>         switch (key.Keycode)</span>
+<span id="L137"><a class="line" href="#L137">137</a>         {</span>
+<span id="L138"><a class="line" href="#L138">138</a>             case Key.I: _hud.Workspace.Close(); _hud.Inventory.Toggle(); break;</span>
+<span id="L139"><a class="line" href="#L139">139</a>             case Key.Enter: _simulation.EndTurn(); break;</span>
+<span id="L140"><a class="line" href="#L140">140</a>             case Key.V: _simulation.UseTrainingEquipment(CombatActionKind.ReadyWeapon); break;</span>
+<span id="L141"><a class="line" href="#L141">141</a>             case Key.Y: _simulation.UseTrainingEquipment(CombatActionKind.Reload); break;</span>
+<span id="L142"><a class="line" href="#L142">142</a>             case Key.F2: _world.FieldView = !_world.FieldView; ResetCamera(); break;</span>
+<span id="L143"><a class="line" href="#L143">143</a>             case Key.F4: _world.DiagnosticSprites = !_world.DiagnosticSprites; break;</span>
+<span id="L144"><a class="line" href="#L144">144</a>             case Key.M: _audio.Muted = !_audio.Muted; break;</span>
+<span id="L145"><a class="line" href="#L145">145</a>             case Key.R: _encounter.ReducedEffects = !_encounter.ReducedEffects; break;</span>
+<span id="L146"><a class="line" href="#L146">146</a>             case Key.J: SpatialHud.ToggleComplacency(_simulation); break;</span>
+<span id="L147"><a class="line" href="#L147">147</a>             case Key.T: _hud.Operations.ToggleTerminal(); break;</span>
+<span id="L148"><a class="line" href="#L148">148</a>             case Key.P: _hud.Workspace.Toggle(OscpDevice.Phone); break;</span>
+<span id="L149"><a class="line" href="#L149">149</a>             case Key.C: _world.CollisionOverlay = !_world.CollisionOverlay; break;</span>
+<span id="L150"><a class="line" href="#L150">150</a>             case Key.G: _world.HexGrid = !_world.HexGrid; break;</span>
+<span id="L151"><a class="line" href="#L151">151</a>             case Key.B: _world.FloorGrid = !_world.FloorGrid; break;</span>
+<span id="L152"><a class="line" href="#L152">152</a>             case Key.L: _world.SightOverlay = !_world.SightOverlay; break;</span>
+<span id="L153"><a class="line" href="#L153">153</a>             case Key.W: _world.ReducedWalls = !_world.ReducedWalls; break;</span>
+<span id="L154"><a class="line" href="#L154">154</a>             case Key.H: _world.Cutaway = !_world.Cutaway; break;</span>
+<span id="L155"><a class="line" href="#L155">155</a>             case Key.E: _simulation.ToggleNearestDoor(); break;</span>
+<span id="L156"><a class="line" href="#L156">156</a>             case Key.O: _simulation.ToggleObserverAttention(); break;</span>
+<span id="L157"><a class="line" href="#L157">157</a>             case Key.K: _simulation.BlinkPlayer(); break;</span>
+<span id="L158"><a class="line" href="#L158">158</a>             case Key.F8: _simulation.ToggleLighting(); break;</span>
+<span id="L159"><a class="line" href="#L159">159</a>             case Key.F6: _simulation.LocalHold = !_simulation.LocalHold; break;</span>
+<span id="L160"><a class="line" href="#L160">160</a>             case Key.Space: _simulation.ManualPause = !_simulation.ManualPause; break;</span>
+<span id="L161"><a class="line" href="#L161">161</a>             case Key.Key1: _simulation.Speed = 1; break;</span>
+<span id="L162"><a class="line" href="#L162">162</a>             case Key.Key2: _simulation.Speed = 2; break;</span>
+<span id="L163"><a class="line" href="#L163">163</a>             case Key.Key3: _simulation.Speed = 4; break;</span>
+<span id="L164"><a class="line" href="#L164">164</a>             case Key.F5: Save(); break;</span>
+<span id="L165"><a class="line" href="#L165">165</a>             case Key.F9: Restore(); break;</span>
+<span id="L166"><a class="line" href="#L166">166</a>             case Key.Escape: _simulation.CancelMove(); break;</span>
+<span id="L167"><a class="line" href="#L167">167</a>             case Key.Home: ResetCamera(); break;</span>
+<span id="L168"><a class="line" href="#L168">168</a>         }</span>
+<span id="L169"><a class="line" href="#L169">169</a>     }</span>
+<span id="L170"><a class="line" href="#L170">170</a>     private void WriteUserFile(string filename, string json)</span>
+<span id="L171"><a class="line" href="#L171">171</a>     {</span>
+<span id="L172"><a class="line" href="#L172">172</a>         var path = ProjectSettings.GlobalizePath(&quot;user://&quot; + filename);</span>
+<span id="L173"><a class="line" href="#L173">173</a>         Directory.CreateDirectory(Path.GetDirectoryName(path)!);</span>
+<span id="L174"><a class="line" href="#L174">174</a>         System.IO.File.WriteAllText(path + &quot;.tmp&quot;, json); System.IO.File.Move(path + &quot;.tmp&quot;, path, true);</span>
+<span id="L175"><a class="line" href="#L175">175</a>         _notice = &quot;Written: &quot; + filename; _noticeSeconds = 4;</span>
+<span id="L176"><a class="line" href="#L176">176</a>         GD.Print(&quot;Written: &quot; + path);</span>
+<span id="L177"><a class="line" href="#L177">177</a>     }</span>
+<span id="L178"><a class="line" href="#L178">178</a>     private void Save()</span>
+<span id="L179"><a class="line" href="#L179">179</a>     {</span>
+<span id="L180"><a class="line" href="#L180">180</a>         try { WriteUserFile(&quot;spatial-state.json&quot;, _simulation.Save()); }</span>
+<span id="L181"><a class="line" href="#L181">181</a>         catch (IOException ex) { GD.PushError(&quot;Save failed: &quot; + ex.Message); }</span>
+<span id="L182"><a class="line" href="#L182">182</a>     }</span>
+<span id="L183"><a class="line" href="#L183">183</a>     private void Restore()</span>
+<span id="L184"><a class="line" href="#L184">184</a>     {</span>
+<span id="L185"><a class="line" href="#L185">185</a>         try</span>
+<span id="L186"><a class="line" href="#L186">186</a>         {</span>
+<span id="L187"><a class="line" href="#L187">187</a>             _simulation.Restore(System.IO.File.ReadAllText(ProjectSettings.GlobalizePath(&quot;user://spatial-state.json&quot;)));</span>
+<span id="L188"><a class="line" href="#L188">188</a>             _feedback.Reset(_simulation); _audio.Reset();</span>
+<span id="L189"><a class="line" href="#L189">189</a>             _runtime.ResetAccumulator(); _previousHover = null; _notice = null;</span>
+<span id="L190"><a class="line" href="#L190">190</a>         }</span>
+<span id="L191"><a class="line" href="#L191">191</a>         catch (Exception ex) when (ex is IOException or ArgumentException or System.Text.Json.JsonException)</span>
+<span id="L192"><a class="line" href="#L192">192</a>         { _notice = &quot;Restore rejected: &quot; + ex.Message; _noticeSeconds = 5; GD.PushWarning(_notice); }</span>
+<span id="L193"><a class="line" href="#L193">193</a>     }</span>
+<span id="L194"><a class="line" href="#L194">194</a>     private void ExportTrace()</span>
+<span id="L195"><a class="line" href="#L195">195</a>     {</span>
+<span id="L196"><a class="line" href="#L196">196</a>         try { WriteUserFile(&quot;observation-trace.json&quot;, System.Text.Json.JsonSerializer.Serialize(_simulation.Trace.Capture(), new System.Text.Json.JsonSerializerOptions { WriteIndented = true })); }</span>
+<span id="L197"><a class="line" href="#L197">197</a>         catch (IOException ex) { GD.PushError(&quot;Trace export failed: &quot; + ex.Message); }</span>
+<span id="L198"><a class="line" href="#L198">198</a>     }</span>
+<span id="L199"><a class="line" href="#L199">199</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

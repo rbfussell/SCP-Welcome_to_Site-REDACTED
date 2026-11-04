@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Anomalies/AnomalyWorldAccess.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>AnomalyWorldAccess.cs</h1><p>src/SiteSimulation/Anomalies/AnomalyWorldAccess.cs</p><p><a href="system-anomalies.html">Anomaly host and SCP modules</a></p><h2>Types</h2><ul><li><a href="type-anomalyworldaccess.html">AnomalyWorldAccess</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-ebd1b6aabbbad081ef80.html">AnomalyWorldAccess.LocalMs</a> · line 6</li><li><a href="function-9e4e0783148dad787a0f.html">AnomalyWorldAccess.Body</a> · line 7</li><li><a href="function-c0601de90478169ff185.html">AnomalyWorldAccess.Observation</a> · line 8</li><li><a href="function-8c2e4dd780e31a38671d.html">AnomalyWorldAccess.Free</a> · line 12</li><li><a href="function-ba57cbb0e2308fac0426.html">AnomalyWorldAccess.Candidates</a> · line 21</li><li><a href="function-cd7c4490372c62bd319b.html">AnomalyWorldAccess.TryRelocate</a> · line 43</li><li><a href="function-9066d1e86178feb58641.html">AnomalyWorldAccess.Witnessed</a> · line 63</li><li><a href="function-f9bb851ce3eeec4bc899.html">AnomalyWorldAccess.Trace</a> · line 71</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Host validation for one module&#x27;s body. Every relocation is rechecked at commit.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal sealed class AnomalyWorldAccess(SimulationWorld world, AnomalyBody body) : IAnomalyWorld</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public long LocalMs =&gt; world.LocalMs;</span>
+<span id="L7"><a class="line" href="#L7">7</a>     public AnomalyBodySnapshot Body =&gt; new(body.Id, body.ModuleId, body.Cell, body.Pose, body.Revision);</span>
+<span id="L8"><a class="line" href="#L8">8</a>     public ObservationReport Observation(string profile) =&gt; profile != body.ObserverProfile</span>
+<span id="L9"><a class="line" href="#L9">9</a>         ? throw new ArgumentException(&quot;Observer profile differs from instance configuration.&quot;)</span>
+<span id="L10"><a class="line" href="#L10">10</a>         : ObservationService.Evaluate(world.Map, world.Actors, body.Cell.World, LocalMs, profile);</span>
+<span id="L11"><a class="line" href="#L11">11</a> </span>
+<span id="L12"><a class="line" href="#L12">12</a>     private bool Free(Hex cell)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (cell == body.Cell || !world.Map.Walkable(cell)) return false;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         return !world.Actors.Any(a =&gt; a.Cell == cell || a.Moving &amp;&amp; a.Route[0] == cell</span>
+<span id="L16"><a class="line" href="#L16">16</a>             || a.StoppedStep is { } stopped &amp;&amp; stopped.Next == cell</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || Point2.Distance(a.Position, cell.World) &lt; 0.26</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || a.Moving &amp;&amp; Geometry.DistanceToSegment(cell.World, a.Position, a.Route[0].World) &lt; 0.18);</span>
+<span id="L19"><a class="line" href="#L19">19</a>     }</span>
+<span id="L20"><a class="line" href="#L20">20</a> </span>
+<span id="L21"><a class="line" href="#L21">21</a>     public IReadOnlyList&lt;RelocationCandidate&gt; Candidates(string profile, RelocationQuery query)</span>
+<span id="L22"><a class="line" href="#L22">22</a>     {</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (profile != body.ObserverProfile || query.MinHexes &lt; 1 || query.MaxHexes &gt; body.MaxRelocationHexes || query.MaxHexes &lt; query.MinHexes</span>
+<span id="L24"><a class="line" href="#L24">24</a>             || query.NearObserverKind is not (&quot;human&quot; or &quot;ai&quot;)) return [];</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var candidates = new List&lt;RelocationCandidate&gt;();</span>
+<span id="L26"><a class="line" href="#L26">26</a>         foreach (var actor in world.Actors.Where(a =&gt; a.ObserverKind == query.NearObserverKind</span>
+<span id="L27"><a class="line" href="#L27">27</a>             &amp;&amp; (query.NearActorId is null || a.Id == query.NearActorId)).OrderBy(a =&gt; a.Id, StringComparer.Ordinal))</span>
+<span id="L28"><a class="line" href="#L28">28</a>         foreach (var cell in world.Map.Cells)</span>
+<span id="L29"><a class="line" href="#L29">29</a>         {</span>
+<span id="L30"><a class="line" href="#L30">30</a>             var distance = actor.Cell.Distance(cell);</span>
+<span id="L31"><a class="line" href="#L31">31</a>             if (distance &lt; query.MinHexes || distance &gt; query.MaxHexes || !Free(cell)) continue;</span>
+<span id="L32"><a class="line" href="#L32">32</a>             if (query.RequireClearLine &amp;&amp; !world.Map.ClearSight(actor.Position, cell.World)) continue;</span>
+<span id="L33"><a class="line" href="#L33">33</a>             var behind = cell.World - actor.Position;</span>
+<span id="L34"><a class="line" href="#L34">34</a>             var direction = actor.Cell.Neighbor(actor.Facing).World - actor.Cell.World;</span>
+<span id="L35"><a class="line" href="#L35">35</a>             if (query.BehindOnly &amp;&amp; behind.X * direction.X + behind.Y * direction.Y &gt;= -0.01) continue;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             if (ObservationService.Evaluate(world.Map, world.Actors, cell.World, LocalMs, profile).Observed) continue;</span>
+<span id="L37"><a class="line" href="#L37">37</a>             candidates.Add(new(cell, actor.Id, distance));</span>
+<span id="L38"><a class="line" href="#L38">38</a>         }</span>
+<span id="L39"><a class="line" href="#L39">39</a>         return candidates.OrderBy(p =&gt; p.Cell.Q).ThenBy(p =&gt; p.Cell.R)</span>
+<span id="L40"><a class="line" href="#L40">40</a>             .ThenBy(p =&gt; p.NearActorId, StringComparer.Ordinal).ToArray();</span>
+<span id="L41"><a class="line" href="#L41">41</a>     }</span>
+<span id="L42"><a class="line" href="#L42">42</a> </span>
+<span id="L43"><a class="line" href="#L43">43</a>     public bool TryRelocate(long expectedRevision, Hex destination, int pose, string profile, RelocationQuery query, out string reason)</span>
+<span id="L44"><a class="line" href="#L44">44</a>     {</span>
+<span id="L45"><a class="line" href="#L45">45</a>         reason = !world.LocalActive ? &quot;local-held&quot;</span>
+<span id="L46"><a class="line" href="#L46">46</a>             : profile != body.ObserverProfile ? &quot;observer-profile-mismatch&quot;</span>
+<span id="L47"><a class="line" href="#L47">47</a>             : expectedRevision != body.Revision ? &quot;stale-body-revision&quot;</span>
+<span id="L48"><a class="line" href="#L48">48</a>             : (pose &lt; 0 || pose &gt;= body.PoseCount) ? &quot;invalid-pose&quot;</span>
+<span id="L49"><a class="line" href="#L49">49</a>             : Observation(profile).Observed ? &quot;origin-observed&quot;</span>
+<span id="L50"><a class="line" href="#L50">50</a>             : !Free(destination) ? &quot;destination-occupied-or-outside&quot;</span>
+<span id="L51"><a class="line" href="#L51">51</a>             : ObservationService.Evaluate(world.Map, world.Actors, destination.World, LocalMs, profile).Observed ? &quot;destination-observed&quot;</span>
+<span id="L52"><a class="line" href="#L52">52</a>             : !Candidates(profile, query).Any(c =&gt; c.Cell == destination) ? &quot;outside-relocation-policy&quot; : &quot;accepted&quot;;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         if (reason != &quot;accepted&quot;) return false;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var origin = body.Cell;</span>
+<span id="L55"><a class="line" href="#L55">55</a>         world.Map.DynamicBlockers.Remove(origin);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         body.Cell = destination; body.Pose = pose; body.Revision++;</span>
+<span id="L57"><a class="line" href="#L57">57</a>         world.Map.DynamicBlockers.Add(destination);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         ObservedTransportSystem.DetachRelocated(world, body.Id);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         world.Log(&quot;anomaly-host&quot;, body.Id, &quot;relocated&quot;, $&quot;{origin.Q},{origin.R} -&gt; {destination.Q},{destination.R}; pose {pose + 1}; silent&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         return true;</span>
+<span id="L61"><a class="line" href="#L61">61</a>     }</span>
+<span id="L62"><a class="line" href="#L62">62</a> </span>
+<span id="L63"><a class="line" href="#L63">63</a>     public void Witnessed(string actorId, int encounter)</span>
+<span id="L64"><a class="line" href="#L64">64</a>     {</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == actorId);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         if (!world.LocalActive || actor is null || actor.ObserverKind != &quot;human&quot;</span>
+<span id="L67"><a class="line" href="#L67">67</a>             || !ObservationService.Inspect(world.Map, actor, body.Cell.World, LocalMs).Detected) return;</span>
+<span id="L68"><a class="line" href="#L68">68</a>         actor.StartledUntilMs = Math.Max(actor.StartledUntilMs, LocalMs + 400);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         world.Log(&quot;reaction&quot;, actorId, &quot;startled&quot;, $&quot;Discovered {body.Id}, encounter {encounter}; brief local movement interruption, no attack.&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>     }</span>
+<span id="L71"><a class="line" href="#L71">71</a>     public void Trace(string eventName, string detail) =&gt; world.Log(body.ModuleId, body.Id, eventName, detail);</span>
+<span id="L72"><a class="line" href="#L72">72</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

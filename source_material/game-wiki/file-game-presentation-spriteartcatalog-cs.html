@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpriteArtCatalog.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpriteArtCatalog.cs</h1><p>game/Presentation/SpriteArtCatalog.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-artsprite.html">ArtSprite</a></li><li><a href="type-artrig.html">ArtRig</a></li><li><a href="type-artlayer.html">ArtLayer</a></li><li><a href="type-actorart.html">ActorArt</a></li><li><a href="type-spriteartmanifest.html">SpriteArtManifest</a></li><li><a href="type-spriteartcatalog.html">SpriteArtCatalog</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-5f4e603ce0a6942cde2f.html">SpriteArtCatalog.Manifest</a> · line 15</li><li><a href="function-ea469f7c30f15a590d4e.html">SpriteArtCatalog.Manifest.get</a> · line 15</li><li><a href="function-e3c5bc5008ed85fa08af.html">SpriteArtCatalog.SpriteArtCatalog</a> · line 16</li><li><a href="function-800b0606e2f0fd53f269.html">SpriteArtCatalog.FileName</a> · line 21</li><li><a href="function-0c623fa40c397b194255.html">SpriteArtCatalog.Layers</a> · line 56</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> namespace SitePresentation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> public sealed record ArtSprite(string File, int[] Region, double[] Anchor, double Scale);</span>
+<span id="L6"><a class="line" href="#L6">6</a> public sealed record ArtRig(string[] Directions, Dictionary&lt;string, int&gt; Frames);</span>
+<span id="L7"><a class="line" href="#L7">7</a> public sealed record ArtLayer(string Id, Dictionary&lt;string, string[][]&gt; States);</span>
+<span id="L8"><a class="line" href="#L8">8</a> public sealed record ActorArt(string Rig, ArtLayer[] Layers);</span>
+<span id="L9"><a class="line" href="#L9">9</a> public sealed record SpriteArtManifest(int Version, Dictionary&lt;string, int[]&gt; Images, Dictionary&lt;string, ArtSprite&gt; Sprites,</span>
+<span id="L10"><a class="line" href="#L10">10</a>     Dictionary&lt;string, ArtRig&gt; Rigs, Dictionary&lt;string, ActorArt&gt; Actors, Dictionary&lt;string, string&gt; Objects, Dictionary&lt;string, string&gt; Surfaces, Dictionary&lt;string, double[]&gt;? Mounts = null);</span>
+<span id="L11"><a class="line" href="#L11">11</a> </span>
+<span id="L12"><a class="line" href="#L12">12</a> /// &lt;summary&gt;Presentation-only registration: atlas bounds, feet anchors, rig/state/facing and ordered layers.&lt;/summary&gt;</span>
+<span id="L13"><a class="line" href="#L13">13</a> public sealed class SpriteArtCatalog</span>
+<span id="L14"><a class="line" href="#L14">14</a> {</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public SpriteArtManifest Manifest { get; }</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public SpriteArtCatalog(string json)</span>
+<span id="L17"><a class="line" href="#L17">17</a>     {</span>
+<span id="L18"><a class="line" href="#L18">18</a>         Manifest = JsonSerializer.Deserialize&lt;SpriteArtManifest&gt;(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })</span>
+<span id="L19"><a class="line" href="#L19">19</a>             ?? throw new ArgumentException(&quot;Empty sprite-art manifest.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>         var m = Manifest;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         static bool FileName(string path) =&gt; !string.IsNullOrWhiteSpace(path) &amp;&amp; !path.StartsWith(&#x27;/&#x27;) &amp;&amp; !path.Contains(&#x27;\\&#x27;)</span>
+<span id="L22"><a class="line" href="#L22">22</a>             &amp;&amp; !path.Contains(&#x27;:&#x27;) &amp;&amp; path.Split(&#x27;/&#x27;).All(part =&gt; part is not (&quot;&quot; or &quot;.&quot; or &quot;..&quot;));</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (m.Version != 1 || m.Images is null || m.Sprites is null || m.Rigs is null || m.Actors is null || m.Objects is null || m.Surfaces is null</span>
+<span id="L24"><a class="line" href="#L24">24</a>             || m.Images.Any(e =&gt; !FileName(e.Key) || e.Value is not { Length: 2 } || e.Value.Any(n =&gt; n &lt;= 0)))</span>
+<span id="L25"><a class="line" href="#L25">25</a>             throw new ArgumentException(&quot;Invalid sprite-art schema or image declaration.&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         if (m.Mounts is not null &amp;&amp; m.Mounts.Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || e.Value is not { Length: 2 } || e.Value.Any(n =&gt; !double.IsFinite(n))))</span>
+<span id="L27"><a class="line" href="#L27">27</a>             throw new ArgumentException(&quot;Invalid presentation mount offset.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         foreach (var (key, s) in m.Sprites)</span>
+<span id="L29"><a class="line" href="#L29">29</a>             if (string.IsNullOrWhiteSpace(key) || s is null || !m.Images.TryGetValue(s.File, out var size)</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 || s.Region is not { Length: 4 } || s.Region[0] &lt; 0 || s.Region[1] &lt; 0 || s.Region[2] &lt;= 0 || s.Region[3] &lt;= 0</span>
+<span id="L31"><a class="line" href="#L31">31</a>                 || (long)s.Region[0] + s.Region[2] &gt; size[0] || (long)s.Region[1] + s.Region[3] &gt; size[1]</span>
+<span id="L32"><a class="line" href="#L32">32</a>                 || s.Anchor is not { Length: 2 } || s.Anchor.Any(n =&gt; !double.IsFinite(n))</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 || s.Anchor[0] &lt; 0 || s.Anchor[0] &gt; s.Region[2] || s.Anchor[1] &lt; 0 || s.Anchor[1] &gt; s.Region[3]</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 || !double.IsFinite(s.Scale) || s.Scale &lt;= 0)</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 throw new ArgumentException(&quot;Invalid sprite region, scale or ground anchor: &quot; + key);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         foreach (var (key, rig) in m.Rigs)</span>
+<span id="L37"><a class="line" href="#L37">37</a>             if (string.IsNullOrWhiteSpace(key) || rig is null || rig.Directions is not { Length: 6 }</span>
+<span id="L38"><a class="line" href="#L38">38</a>                 || !rig.Directions.SequenceEqual(new[] { &quot;NE&quot;, &quot;E&quot;, &quot;SE&quot;, &quot;SW&quot;, &quot;W&quot;, &quot;NW&quot; }) || rig.Frames is null</span>
+<span id="L39"><a class="line" href="#L39">39</a>                 || !rig.Frames.ContainsKey(&quot;idle&quot;) || !rig.Frames.ContainsKey(&quot;walk&quot;) || rig.Frames.Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || e.Value &lt; 1))</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 throw new ArgumentException(&quot;Invalid directional character rig: &quot; + key);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         foreach (var (id, actor) in m.Actors)</span>
+<span id="L42"><a class="line" href="#L42">42</a>         {</span>
+<span id="L43"><a class="line" href="#L43">43</a>             if (string.IsNullOrWhiteSpace(id) || actor is null || !m.Rigs.TryGetValue(actor.Rig, out var rig) || actor.Layers is not { Length: &gt; 0 }</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 || actor.Layers.Any(layer =&gt; layer is null || string.IsNullOrWhiteSpace(layer.Id) || layer.States is null)</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 || actor.Layers.Select(layer =&gt; layer.Id).Distinct().Count() != actor.Layers.Length)</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 throw new ArgumentException(&quot;Invalid actor appearance: &quot; + id);</span>
+<span id="L47"><a class="line" href="#L47">47</a>             foreach (var layer in actor.Layers)</span>
+<span id="L48"><a class="line" href="#L48">48</a>             foreach (var (state, count) in rig.Frames)</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 if (!layer.States.TryGetValue(state, out var directions) || directions is not { Length: 6 }</span>
+<span id="L50"><a class="line" href="#L50">50</a>                     || directions.Any(frames =&gt; frames is null || frames.Length != count || frames.Any(key =&gt; !m.Sprites.ContainsKey(key))))</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     throw new ArgumentException($&quot;Missing art binding: {id}/{layer.Id}/{state}&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         }</span>
+<span id="L53"><a class="line" href="#L53">53</a>         if (m.Objects.Concat(m.Surfaces).Any(e =&gt; string.IsNullOrWhiteSpace(e.Key) || !m.Sprites.ContainsKey(e.Value)))</span>
+<span id="L54"><a class="line" href="#L54">54</a>             throw new ArgumentException(&quot;Unknown surface/object artwork.&quot;);</span>
+<span id="L55"><a class="line" href="#L55">55</a>     }</span>
+<span id="L56"><a class="line" href="#L56">56</a>     public string[] Layers(string actorId, string state, int facing, double phase)</span>
+<span id="L57"><a class="line" href="#L57">57</a>     {</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (!Manifest.Actors.TryGetValue(actorId, out var actor)) return [];</span>
+<span id="L59"><a class="line" href="#L59">59</a>         if (facing is &lt; 0 or &gt; 5 || !double.IsFinite(phase) || phase is &lt; 0 or &gt;= 1 || !Manifest.Rigs[actor.Rig].Frames.TryGetValue(state, out var count))</span>
+<span id="L60"><a class="line" href="#L60">60</a>             throw new ArgumentException(&quot;Invalid visual state/facing/phase.&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         var frame = Math.Min(count - 1, (int)(phase * count));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         return actor.Layers.Select(layer =&gt; layer.States[state][facing][frame]).ToArray();</span>
+<span id="L63"><a class="line" href="#L63">63</a>     }</span>
+<span id="L64"><a class="line" href="#L64">64</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

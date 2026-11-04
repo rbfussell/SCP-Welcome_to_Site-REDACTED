@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Symmetric body fit and adjustable straps | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/38-body-fit-cleanup.md.</aside><h1 id="symmetric-body-fit-and-adjustable-straps">Symmetric body fit and adjustable straps</h1>
+<p>Implemented October 30, 2026. This refines the diagnostic <a href="doc-docs-30-body-fit-prototype-md.html">body-fit fixture</a>, <a href="doc-docs-31-pocket-coverage-prototype-md.html">pocket geometry</a>, <a href="doc-docs-36-overlay-sublayers-md.html">overlay bands</a> and <a href="doc-docs-37-placement-extenders-and-mount-points-md.html">mount providers</a>. It is ordinary equipment behavior, not an SCP canon claim. The <a href="body-fit-cleanup.html">game-wiki article</a> cross-links current mechanics and evidence.</p>
+<h2 id="native-controls-and-useful-fits">Native controls and useful fits</h2>
+<p>Start a fresh scene. Use <strong>I → Body fit · hex view</strong>, holding or selecting the clothing as before. Click chooses the body anchor, <strong>R</strong> steps through six orientations, and <strong>Fit / equip</strong> buys normal handling time/AP. The diagnostic reports fitted strap length and authored range. Previewing does no work; pause cannot supply free dressing. A lower intersecting strap must still be freed before refitting.</p>
+<p>Put the backpack aside before chest fitting. Useful current native poses:</p>
+<table>
+<thead>
+<tr>
+<th>Placement</th>
+<th>Anchor</th>
+<th>Rotation</th>
+<th>Resolved length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Waist</td>
+<td><code>(-6,12)</code></td>
+<td>0°</td>
+<td>5 cells</td>
+</tr>
+<tr>
+<td>Horizontal chest</td>
+<td><code>(-4,8)</code></td>
+<td>0°</td>
+<td>5 cells</td>
+</tr>
+<tr>
+<td>First chest diagonal</td>
+<td><code>(-4,8)</code></td>
+<td>60°</td>
+<td>10 cells</td>
+</tr>
+<tr>
+<td>Mirrored chest diagonal</td>
+<td><code>(-4,8)</code></td>
+<td>120°</td>
+<td>10 cells</td>
+</tr>
+</tbody>
+</table>
+<p>The two diagonals form a real X on the native human body, meeting once at the chest anchor. At that intersection the current base garment counts once, then the two straps use subpositions 1 and 2. A third strap there exceeds the native allowance. Front and back remain separate surfaces. Every anchor/orientation still requires actual geometric fit.</p>
+<p>The earlier three-belt demonstration works at waist <code>(-6,12,0)</code>, diagonal <code>(-4,10,2)</code> and horizontal chest <code>(-4,8,0)</code>. Its separate intersections exercise exposed versus covered attachment contacts. It is distinct from the chest-X example.</p>
+<h2 id="symmetric-authoring">Symmetric authoring</h2>
+<p><a href="evidence-tools-author-body-fit-fixture-py.html">author_body_fit_fixture.py</a> regenerates the body and matching garment rows, boundary contacts, closed/open cover masks, trouser mouths and jacket fastening footprint in the embedded JSON. Other definitions and metadata are retained. After changing its inputs:</p>
+<pre><code class="language-sh">python3 tools/author_body_fit_fixture.py
+python3 tools/author_body_fit_fixture.py --check
+</code></pre>
+<p>The odd-row offset canvas projects horizontally as <code>q + r/2</code>. Vertical reflection is <code>(q,r) → (-q-r,r)</code>. Odd rows require even-width symmetric spans; using even-row centering shifts half the silhouette. The corrected connected body retains nine shoulder cells. Default garments and required outward edges mirror the body. Hip/cargo mouths are paired mirrors. The jacket fastening includes both centreline-adjacent cells on odd rows. Open jacket coverage still exposes hip mouths while cargo access remains independent. Storage dimensions and art are unchanged.</p>
+<h2 id="bounded-adjustable-span">Bounded adjustable span</h2>
+<p><code>BodyFitShape.LinearSpan</code> optionally declares <code>MinCells</code> and <code>MaxCells</code> for an extension-only straight strap. The native belt uses <strong>5–10 body cells</strong>. These are provisional body-local fit units, not millimetres, map units or a change to packed dimensions/mass.</p>
+<p>The authored mask defines a contiguous horizontal core containing the anchor, with two outward end contacts. The solver keeps that core and walks independently along each rotated end until the first exterior cell. It accepts only a fully supported run within the authored total range. Independent end lengths accommodate shoulders and hips without moving the anchor. It never bridges a gap, shrinks the core, stretches past the limit or ignores a failed contact. Fixed shapes retain their original evaluation.</p>
+<p>Catalog validation bounds ranges to 3–33 cells, requires minimum length to equal the core, and checks straight/contiguous occupancy and exact endpoint contacts. Any declared closed/open surface masks must cover the full core. Declared surfaces expand to the resolved span for band counts, access coverage, restraint, fastening interference and attachment exposure. Bulk/compatibility remain separate tests. Diagnostics draw the same fitted cells.</p>
+<p>The existing five central webbing positions remain authored provider-local mounts inside the guaranteed core. Extension does <strong>not</strong> create additional attachment points or resize the gear illustration. Hook/pouch composition, required contacts, shared exterior clearance, recursive load and parent relationships retain their rules. Stretchable clothing, curved straps and adjustable gear-view art are not implemented.</p>
+<h2 id="transactions-persistence-and-verification">Transactions, persistence and verification</h2>
+<p>Span length is derived deterministically from immutable body/shape data and saved pose, with no duplicate mutable length. Fitting uses the ordinary whole-graph validated Move command, source retention, normal costs and commitment revalidation. Schema stays <strong>14</strong>; corrected immutable fixture content changes identity, requiring a fresh scene for earlier field-kit saves. Matching pending work resumes exactly.</p>
+<pre><code class="language-sh">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/body-cleanup.png
+python3 tools/author_body_fit_fixture.py --check
+python3 tools/check_gear_data.py
+python3 tools/build_game_wiki.py
+python3 tools/build_game_wiki.py --check
+</code></pre>
+<p><a href="evidence-tests-spatialchecks-bodysymmetrychecks-cs.html">BodySymmetryChecks</a> qualify mirrors, connectedness, contacts, paired mouths, independent diagonal coordinates, range failure, six orientations, resolved surfaces, paid native X, covered contacts and pending continuation. Existing overlay, coverage, attachment, hook, AP and invalid-save checks remain required. <a href="file-game-presentation-spatialscene-bodyfitsmoke-cs.html">Native body-fit checks</a> exercise actual anchor/R/Apply input, read-only ten-cell previews and paid/restored X geometry. See <a href="doc-docs-reviews-inventory-runtime-checks-md.html">recorded results</a>; wiki compilation does not execute gameplay tests.</p>
+<p>The <a href="doc-docs-39-body-drag-fitting-md.html">direct body-drop slice</a> now qualifies stored-clothing drag fitting. Final anatomy art, body-size variants, dragging worn gear out of the body, world outfit composition, general cloth restraint and spillage remain later work. Named mounts and coarse ordinary-garment removal declarations still apply alongside geometry.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/38-body-fit-cleanup.md</footer></main></div></body></html>

@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/OperationsPanel.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationsPanel.cs</h1><p>game/Presentation/OperationsPanel.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-operationspanel.html">OperationsPanel</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c53465c1ee1e95c86632.html">OperationsPanel.Workspace</a> · line 12</li><li><a href="function-033d7c89aaebefff7f2c.html">OperationsPanel.Workspace.get</a> · line 12</li><li><a href="function-d86c9388dd06c37ff240.html">OperationsPanel.Workspace.set</a> · line 12</li><li><a href="function-be6520d308827d49619e.html">OperationsPanel.TerminalOpen</a> · line 13</li><li><a href="function-e6164ef0b9e732e4c256.html">OperationsPanel.ChoosingPost</a> · line 14</li><li><a href="function-34cb905c9eedd0d3db51.html">OperationsPanel.ChoosingPost.get</a> · line 14</li><li><a href="function-e580fc5ba23192f9e46b.html">OperationsPanel.ChoosingPost.set</a> · line 14</li><li><a href="function-c46d69fa81194525ee35.html">OperationsPanel.SelectedRecipient</a> · line 15</li><li><a href="function-095e99205a36e0809a5c.html">OperationsPanel.SelectedRecipient.get</a> · line 15</li><li><a href="function-b7cc3de1e2aa8442c0e0.html">OperationsPanel.SelectedRecipient.set</a> · line 15</li><li><a href="function-9f42aa9de57c1634dca3.html">OperationsPanel.Initialize</a> · line 16</li><li><a href="function-689a0aa5a34004a5efcd.html">OperationsPanel.ToggleTerminal</a> · line 39</li><li><a href="function-4eff21f45f4030d18280.html">OperationsPanel.Send</a> · line 40</li><li><a href="function-77404554453759f98ad2.html">OperationsPanel.PlacePost</a> · line 47</li><li><a href="function-16883261ab1c8ff057e1.html">OperationsPanel.CancelPost</a> · line 52</li><li><a href="function-bd62e3a4b356b439e096.html">OperationsPanel.Refresh</a> · line 53</li><li><a href="function-df12752ae330e2e02e9e.html">OperationsPanel.AddLabel</a> · line 63</li><li><a href="function-1e06e8e1ab9d6b51c0e5.html">OperationsPanel.AddButton</a> · line 68</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Local voice controls and a bounded OSCP command/document view over received information.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class OperationsPanel : VBoxContainer</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private SpatialSimulation _sim = null!;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private OptionButton _recipient = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private Label _summary = null!, _access = null!, _channel = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     public OscpWorkspace Workspace { get; set; } = null!;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public bool TerminalOpen =&gt; Workspace.IsOpen &amp;&amp; Workspace.Device == OscpDevice.Workstation;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     public bool ChoosingPost { get; private set; }</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public int SelectedRecipient { get =&gt; _recipient.Selected; set =&gt; _recipient.Select(value); }</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public void Initialize(SpatialSimulation sim)</span>
+<span id="L17"><a class="line" href="#L17">17</a>     {</span>
+<span id="L18"><a class="line" href="#L18">18</a>         _sim = sim;</span>
+<span id="L19"><a class="line" href="#L19">19</a>         AddThemeConstantOverride(&quot;separation&quot;, 9);</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (sim.Operations.Definition is null) { Visible = false; return; }</span>
+<span id="L21"><a class="line" href="#L21">21</a>         AddLabel(&quot;SITE OPERATIONS&quot;, 17);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         _summary = AddLabel(&quot;&quot;, 12);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         _access = AddLabel(&quot;&quot;, 12);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         AddButton(&quot;Approach OSCP terminal&quot;, sim.ApproachTerminal);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         AddButton(&quot;Use / close OSCP     T&quot;, ToggleTerminal);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         AddButton(&quot;Secure field phone     P&quot;, () =&gt; Workspace.Toggle(OscpDevice.Phone));</span>
+<span id="L27"><a class="line" href="#L27">27</a>         _channel = AddLabel(&quot;&quot;, 12);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         _recipient = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill, FocusMode = FocusModeEnum.None };</span>
+<span id="L29"><a class="line" href="#L29">29</a>         foreach (var actor in sim.Actors.Where(a =&gt; a != sim.Player)) _recipient.AddItem(actor.Name);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         AddChild(_recipient);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         AddButton(&quot;Maintain observation&quot;, () =&gt; Send(PersonnelTask.Observe));</span>
+<span id="L32"><a class="line" href="#L32">32</a>         AddButton(&quot;Follow me&quot;, () =&gt; Send(PersonnelTask.Follow));</span>
+<span id="L33"><a class="line" href="#L33">33</a>         AddButton(&quot;Take corridor post&quot;, () =&gt; Send(PersonnelTask.Post));</span>
+<span id="L34"><a class="line" href="#L34">34</a>         AddButton(&quot;Choose observation post on map&quot;, () =&gt; ChoosingPost = true);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         AddButton(&quot;Recover SCP-650 using trolley&quot;, () =&gt; Send(PersonnelTask.Transport));</span>
+<span id="L36"><a class="line" href="#L36">36</a>         AddButton(&quot;Return to scheduled duty&quot;, () =&gt; Send(PersonnelTask.ResumeDuty));</span>
+<span id="L37"><a class="line" href="#L37">37</a>         AddLabel(&quot;Trolley work needs another observer.\nReceiving: three humans, light, closed access, 3s stabilization.\n\nOrders wait for delivery. Clear access and restore coverage when staff report a blockage.&quot;, 12);</span>
+<span id="L38"><a class="line" href="#L38">38</a>     }</span>
+<span id="L39"><a class="line" href="#L39">39</a>     public void ToggleTerminal() =&gt; Workspace.Toggle(OscpDevice.Workstation);</span>
+<span id="L40"><a class="line" href="#L40">40</a>     public void Send(PersonnelTask task)</span>
+<span id="L41"><a class="line" href="#L41">41</a>     {</span>
+<span id="L42"><a class="line" href="#L42">42</a>         var d = _sim.Operations.Definition!;</span>
+<span id="L43"><a class="line" href="#L43">43</a>         var actor = _sim.Actors.Where(a =&gt; a != _sim.Player).ElementAt(_recipient.Selected);</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var destination = task == PersonnelTask.Transport ? d.Home : task == PersonnelTask.Post ? d.Posts[_recipient.Selected % d.Posts.Length] : actor.Cell;</span>
+<span id="L45"><a class="line" href="#L45">45</a>         _sim.IssueOrder(actor.Id, task, destination, TerminalOpen);</span>
+<span id="L46"><a class="line" href="#L46">46</a>     }</span>
+<span id="L47"><a class="line" href="#L47">47</a>     public void PlacePost(Hex destination)</span>
+<span id="L48"><a class="line" href="#L48">48</a>     {</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var actor = _sim.Actors.Where(a =&gt; a != _sim.Player).ElementAt(_recipient.Selected);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (_sim.IssueOrder(actor.Id, PersonnelTask.Post, destination, TerminalOpen)) ChoosingPost = false;</span>
+<span id="L51"><a class="line" href="#L51">51</a>     }</span>
+<span id="L52"><a class="line" href="#L52">52</a>     public void CancelPost() =&gt; ChoosingPost = false;</span>
+<span id="L53"><a class="line" href="#L53">53</a>     public void Refresh()</span>
+<span id="L54"><a class="line" href="#L54">54</a>     {</span>
+<span id="L55"><a class="line" href="#L55">55</a>         if (_sim.Operations.Definition is not { } d) return;</span>
+<span id="L56"><a class="line" href="#L56">56</a> </span>
+<span id="L57"><a class="line" href="#L57">57</a>         var assessment = _sim.OscpRecords.LastOrDefault(r =&gt; r.Text.StartsWith(&quot;Containment assessment:&quot;) || r.Text.StartsWith(&quot;Receiving footprint empty&quot;));</span>
+<span id="L58"><a class="line" href="#L58">58</a>         _summary.Text = assessment is null ? &quot;Awaiting a delivered containment assessment&quot; : $&quot;LAST REPORT / L {assessment.LocalMs / 1000.0:0.0}s\n{assessment.Text}&quot;;</span>
+<span id="L59"><a class="line" href="#L59">59</a>         _access.Text = _sim.CanUseTerminal ? &quot;OSCP terminal within reach · service online&quot; : &quot;OSCP: approach the terminal; power/network required&quot;;</span>
+<span id="L60"><a class="line" href="#L60">60</a>         _channel.Text = TerminalOpen ? &quot;OSCP / COMMAND · site radio delivery&quot; : &quot;LOCAL VOICE · requires proximity and clear path&quot;;</span>
+<span id="L61"><a class="line" href="#L61">61</a>         if (ChoosingPost) _channel.Text += &quot;\nClick a post on the map · RMB cancels&quot;;</span>
+<span id="L62"><a class="line" href="#L62">62</a>     }</span>
+<span id="L63"><a class="line" href="#L63">63</a>     private Label AddLabel(string text, int size)</span>
+<span id="L64"><a class="line" href="#L64">64</a>     {</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var label = new Label { Text = text, AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill };</span>
+<span id="L66"><a class="line" href="#L66">66</a>         label.AddThemeFontSizeOverride(&quot;font_size&quot;, size); AddChild(label); return label;</span>
+<span id="L67"><a class="line" href="#L67">67</a>     }</span>
+<span id="L68"><a class="line" href="#L68">68</a>     private void AddButton(string text, Action action)</span>
+<span id="L69"><a class="line" href="#L69">69</a>     {</span>
+<span id="L70"><a class="line" href="#L70">70</a>         var button = new Button { Text = text, FocusMode = FocusModeEnum.None, SizeFlagsHorizontal = SizeFlags.ExpandFill };</span>
+<span id="L71"><a class="line" href="#L71">71</a>         button.AddThemeFontSizeOverride(&quot;font_size&quot;, 12); button.Pressed += action; AddChild(button);</span>
+<span id="L72"><a class="line" href="#L72">72</a>     }</span>
+<span id="L73"><a class="line" href="#L73">73</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

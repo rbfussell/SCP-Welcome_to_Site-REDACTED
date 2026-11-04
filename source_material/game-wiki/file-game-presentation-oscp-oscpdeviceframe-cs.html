@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Oscp/OscpDeviceFrame.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpDeviceFrame.cs</h1><p>game/Presentation/Oscp/OscpDeviceFrame.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-oscpdeviceframe.html">OscpDeviceFrame</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-1b0e1595cfee14616910.html">OscpDeviceFrame.Device</a> · line 9</li><li><a href="function-7312defada3cfb276bc6.html">OscpDeviceFrame.Device.get</a> · line 9</li><li><a href="function-0754c01dade253b78134.html">OscpDeviceFrame.Device.set</a> · line 9</li><li><a href="function-e960c37e4928a7e35d2a.html">OscpDeviceFrame.Brightness</a> · line 10</li><li><a href="function-8727ff400eed49fc28f3.html">OscpDeviceFrame.Brightness.get</a> · line 10</li><li><a href="function-9e09dd0390eca5417db7.html">OscpDeviceFrame.Brightness.set</a> · line 10</li><li><a href="function-f287ab9ca5ee9c722f0c.html">OscpDeviceFrame.ScreenArea</a> · line 11</li><li><a href="function-c891180531477173366a.html">OscpDeviceFrame.Box</a> · line 12</li><li><a href="function-10e6bc688972a4fc130c.html">OscpDeviceFrame._Draw</a> · line 19</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Original faux hardware surround. Screen content remains ordinary readable controls.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class OscpDeviceFrame : Control</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public OscpDevice Device { get; set; }</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public float Brightness { get; set; } = 1;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     public Rect2 ScreenArea =&gt; Device == OscpDevice.Phone ? new(24, 65, Size.X - 48, Size.Y - 125) : new(68, 48, Size.X - 136, Size.Y - 142);</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private void Box(Rect2 rect, string color, int radius, string? border = null, int width = 0)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         using var style = new StyleBoxFlat { BgColor = new(color), CornerRadiusTopLeft = radius, CornerRadiusTopRight = radius,</span>
+<span id="L15"><a class="line" href="#L15">15</a>             CornerRadiusBottomLeft = radius, CornerRadiusBottomRight = radius, BorderColor = new(border ?? color),</span>
+<span id="L16"><a class="line" href="#L16">16</a>             BorderWidthLeft = width, BorderWidthTop = width, BorderWidthRight = width, BorderWidthBottom = width };</span>
+<span id="L17"><a class="line" href="#L17">17</a>         DrawStyleBox(style, rect);</span>
+<span id="L18"><a class="line" href="#L18">18</a>     }</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public override void _Draw()</span>
+<span id="L20"><a class="line" href="#L20">20</a>     {</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var phone = Device == OscpDevice.Phone;</span>
+<span id="L22"><a class="line" href="#L22">22</a>         Box(new(new Vector2(7, 10), Size), &quot;050606&quot;, phone ? 34 : 25);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         Box(new(Vector2.Zero, Size), phone ? &quot;272e31&quot; : &quot;3b3e3b&quot;, phone ? 30 : 22, &quot;666b63&quot;, 2);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         Box(new(new Vector2(8, 8), Size - new Vector2(16, 16)), phone ? &quot;171f23&quot; : &quot;2c302e&quot;, phone ? 24 : 17, &quot;1b211e&quot;, 3);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var screen = ScreenArea;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         Box(screen.Grow(11), &quot;111615&quot;, phone ? 16 : 20, &quot;62675d&quot;, 2);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         Box(screen.Grow(4), &quot;040a09&quot;, 8);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         DrawRect(screen, new Color(&quot;0b1312&quot;) * new Color(Brightness, Brightness, Brightness));</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var font = ThemeDB.FallbackFont;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         DrawString(font, new(phone ? 32 : 33, phone ? 34 : Size.Y - 51), phone ? &quot;FOUNDATION  /  SECURE FIELD CLIENT&quot; : &quot;FOUNDATION     INFORMATION SYSTEMS&quot;,</span>
+<span id="L31"><a class="line" href="#L31">31</a>             HorizontalAlignment.Left, -1, phone ? 11 : 13, new Color(&quot;bec1ad&quot;));</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (phone)</span>
+<span id="L33"><a class="line" href="#L33">33</a>         {</span>
+<span id="L34"><a class="line" href="#L34">34</a>             Box(new(Size.X / 2 - 25, 43, 50, 4), &quot;070a09&quot;, 2);</span>
+<span id="L35"><a class="line" href="#L35">35</a>             Box(new(Size.X / 2 - 30, Size.Y - 25, 60, 4), &quot;718278&quot;, 2);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         }</span>
+<span id="L37"><a class="line" href="#L37">37</a>         else</span>
+<span id="L38"><a class="line" href="#L38">38</a>         {</span>
+<span id="L39"><a class="line" href="#L39">39</a>             for (var x = 34; x &lt; 175; x += 7) DrawLine(new(x, Size.Y - 36), new(x + 2, Size.Y - 21), new Color(&quot;171d19&quot;), 3);</span>
+<span id="L40"><a class="line" href="#L40">40</a>             DrawCircle(new(Size.X - 44, Size.Y - 41), 13, new Color(&quot;151b17&quot;));</span>
+<span id="L41"><a class="line" href="#L41">41</a>             DrawCircle(new(Size.X - 44, Size.Y - 41), 9, new Color(&quot;6c7168&quot;));</span>
+<span id="L42"><a class="line" href="#L42">42</a>             DrawCircle(new(Size.X - 83, Size.Y - 41), 3, new Color(&quot;a8c78a&quot;));</span>
+<span id="L43"><a class="line" href="#L43">43</a>             DrawString(font, new(Size.X - 184, Size.Y - 20), &quot;OSCP  /  SITE-OPS&quot;, HorizontalAlignment.Left, -1, 10, new Color(&quot;929c8e&quot;));</span>
+<span id="L44"><a class="line" href="#L44">44</a>         }</span>
+<span id="L45"><a class="line" href="#L45">45</a>         DrawLine(screen.Position + new Vector2(7, 2), new(screen.End.X - 7, screen.Position.Y + 2), new Color(0.8f, 0.9f, 0.8f, 0.09f), 2);</span>
+<span id="L46"><a class="line" href="#L46">46</a>     }</span>
+<span id="L47"><a class="line" href="#L47">47</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>source_material/game-wiki/README.md | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>README.md</h1><pre># Game wiki
+
+Open [index.html](index.html), or serve this directory with:
+
+```sh
+python3 tools/serve_game_wiki.py
+```
+
+The wiki is independent of the `../scp-api/` reference checkout. It uses a classic SCP-inspired layout, local search, ordinary HTML links, per-function source pages and explicit implementation status. Reading works offline, including search. No external assets or services are required.
+
+From the repository root, rebuild and validate:
+
+```sh
+python3 tools/build_game_wiki.py
+python3 tools/build_game_wiki.py --check
+```
+
+Building requires the repository&#x27;s .NET SDK, the existing local archive, and Python&#x27;s `Markdown` package (`python3 -m pip install -r tools/wiki-requirements.txt` if missing). The Roslyn indexer uses compiler assemblies shipped with the SDK and clears NuGet sources; no external .NET packages are used. Its temporary build copy handles the colon in the workspace path.
+
+Edit `content/*.md` for overview pages, and `tools/build_game_wiki.py` for researched SCP entries and subsystem metadata. HTML, search data, and manifests are generated. Function URLs derive from file/type/declaration identity rather than line number; declaration changes can change the URL. Source anchors reflect the current snapshot.
+
+The repository [agent rules](../../AGENTS.md) require examining relevant game-wiki pages before planning or changing a system, maintaining the wiki and applicable development documents alongside every change, and reviewing their agreement with the final implementation. See [Development and documentation consistency](development.html) for this workflow. New distinct concepts need discoverable pages linked to and from all materially related pages. Rebuild and validate after the final edits; successful link/hash checks do not replace reviewing semantic accuracy.
+
+`manifest.json` records source hashes, evidence hashes, checkout revisions and coverage. Its `game_revision` identifies the source commit used for generation; a subsequent commit of generated output can leave that revision at its parent. Source and evidence hashes determine freshness. The [remote recovery workflow](../../docs/12-development-workflow.md#remote-backup-and-recovery) includes these generated pages and documents how to restore the separate canon checkout for rebuilding. `symbols.json` provides machine-readable declarations and candidate call links. `article-evidence.json` and `archive-research.json` retain local research evidence. `llms.txt` gives coding agents an entry point. Current-state claims follow native code; historical design documents retain their original status statements.
+
+Call links are syntax-derived candidates, not a semantically resolved runtime graph. The catalog covers repository-owned C# declarations under `src/` and `game/`, including properties/accessors and smoke drivers; external Godot/.NET APIs and compiler-generated record members are outside that scope.
+
+Canon references use a standard Hosted ↗ / Local snapshot / JSON link group. See [Canon sources](canon-index.html). Local article views provide source provenance and backlinks to game pages. `canon-records/` contains exact single-record extractions, so browsing works under the existing server and offline without exposing or changing the clone. `canon-index.json` maps these copies to their original dataset shard, JSON pointer and archive revision. Validation compares each extraction to the original record.
+
+The wiki server also exposes the original JSON shards through a read-only `/scp-api/docs/data/scp/` route. Local snapshot pages link directly to the original shard as well as the extracted record; the original-shard links also work when opening the wiki through `file://`. A generic server restricted to the wiki directory still supports extracted snapshots, but cannot serve the sibling archive.
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

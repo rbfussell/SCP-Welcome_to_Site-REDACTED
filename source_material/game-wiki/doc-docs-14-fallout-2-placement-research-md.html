@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fallout 2: grids, placement and sprite projection | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/14-fallout-2-placement-research.md.</aside><h1 id="fallout-2-grids-placement-and-sprite-projection">Fallout 2: grids, placement and sprite projection</h1>
+<p>Research date: October 22, 2026. This investigates the user's visual reference. Subsequent decision: the user clarified hex actor movement with smooth transitions; the delegated Falltergeist comparison retained Godot with our own simulation. Historical findings below do not require reproducing the reference engine's animation-driven movement authority.</p>
+<h2 id="evidence-and-limits">Evidence and limits</h2>
+<p>The original <a href="https://cdn.akamai.steamstatic.com/steam/apps/38410/manuals/Fallout2_manual_EN.pdf">Fallout 2 manual</a>, “Movement Cursor” on printed page 34 and combat movement on pages 119/122, establishes hex-based movement/distance and six character facings.</p>
+<p>Implementation details below were inspected in <a href="https://github.com/alexbatalov/fallout2-ce">Fallout 2 Community Edition</a>, a working reimplementation. It is evidence of that implementation and its representation of the original game's behavior/data; it is not Interplay's original source tree. No game binaries, proprietary sprites or repository source files were imported into this project.</p>
+<h2 id="findings">Findings</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Representation found</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actor movement</td>
+<td>Hex locations, paths and six facing directions</td>
+<td>Original manual; CE <code>Rotation</code> and movement routines</td>
+</tr>
+<tr>
+<td>Floor/roof placement</td>
+<td>Separate square-tile layer and projection</td>
+<td>CE square-grid definitions and floor/roof conversion/render functions</td>
+</tr>
+<tr>
+<td>World object location</td>
+<td>Hex tile plus elevation; additional image/screen offsets</td>
+<td>CE <code>Object</code> record and location validator</td>
+</tr>
+<tr>
+<td>Sprite image</td>
+<td>Width/height, per-direction offsets and frame offsets</td>
+<td>CE <code>Art</code> / <code>ArtFrame</code> records</td>
+</tr>
+<tr>
+<td>Visual motion</td>
+<td>Pixel displacement between hex-location updates</td>
+<td>CE <code>_object_move</code></td>
+</tr>
+</tbody>
+</table>
+<p>The CE <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/map_defs.h">map definitions</a> distinguish a 100×100 square layer from a 200×200 hex layer, with three elevations. These are reference implementation dimensions, not proposed limits for our procedural domains.</p>
+<p>The <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/tile.cc">tile implementation</a> has separate hex/square screen conversions and floor/roof passes. Its square projection advances internal axes by screen vectors <code>(48, -12)</code> and <code>(32, 24)</code>: a skewed parallelogram rather than a symmetric 2:1 diamond. This observation follows from the conversion arithmetic; it does not determine our camera angle or world scale. Matching the visual reference requires evaluating the projection and asset perspective together.</p>
+<p>The <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/obj_types.h">object record</a> separates tile, elevation, facing, frame and image-position fields. <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/object.cc">Placement calculations</a> project the hex location, add offsets and place the image around a bottom-center anchor. An image can extend well beyond its location cell; visible image bounds are not the movement grid.</p>
+<p>The <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/art.h">art records</a> contain six-direction offsets plus frame dimensions/offsets. The <a href="https://github.com/alexbatalov/fallout2-ce/blob/main/src/animation.cc">movement routine</a> applies frame offsets while walking and advances the object's hex when the displacement reaches the next step. Smooth-looking movement therefore does not establish freely continuous world positioning. It combines discrete path locations with image displacement.</p>
+<p>“Vector positioning” is not an exclusive alternative to a grid: screen coordinates and offsets can be vectors while navigation still uses cells. The practical questions are what the authoritative location stores, which positions are legal and what determines collision, distance and observation.</p>
+<h2 id="application-to-this-game">Application to this game</h2>
+<p>Preserve the useful separation between construction, actor location and sprite presentation. Square room/building tiles remain confirmed. The user now accepts hex actor navigation alongside them; the finished sprite-facing count remains a separate art decision.</p>
+<p>The user clarified that apparent smoothness over a hex grid is appropriate. Use a separate hex actor/navigation grid with smooth real-time movement between path locations, while retaining square construction/floor tiles and independent facing. The earlier recommendation of freely positioned actors within construction cells was not retained. <a href="doc-docs-adr-0005-retain-godot-after-falltergeist-review-md.html">ADR-0005</a> records the retained Godot route after inspecting Falltergeist. This design has not been implemented or benchmarked.</p>
+<p>Actor hex/path identity, movement-segment progress, floor and footprint belong to the simulation. Derive current world position from that progress for collision and observation; a presentation adapter projects it and applies sprite anchors/cosmetic offsets. Any display interpolation must agree with committed movement and observation boundaries. The <a href="doc-docs-15-spatial-prototype-md.html">first spatial prototype</a> now exercises the reference floor/hex registration, footprints, movement and input picking; broader scale, precision and production collision remain M0 qualification work. Smooth movement does not require making engine physics authoritative.</p>
+<p>Do not reproduce animation-driven location updates merely to imitate the reference. Our existing contract makes semantic movement/action progress authoritative and sprite frames a representation of it. Animation replacement must not change speed or the instant an SCP loses observation.</p>
+<p>Smooth movement applies both during real-time exploration and when a tactical action resolves. The adopted time split holds all local simulation during turn selection while the world calendar and other areas continue; <a href="doc-docs-adr-0006-real-time-exploration-and-tactical-turns-md.html">ADR-0006</a> records that game-specific departure from a global wait.</p>
+<p>The next bounded presentation proof should compare projected floor/wall geometry, a tall sprite's anchor, walk-behind order, click-to-world conversion and the facing diagnostic. Projection and actor-movement choices must remain explicit; the research does not silently supersede <a href="doc-docs-06-sprites-and-placeholders-md.html">the art contract</a> or <a href="doc-docs-02-simulation-and-world-md.html">simulation contract</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/14-fallout-2-placement-research.md</footer></main></div></body></html>

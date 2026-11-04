@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WorldView._Ready | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>WorldView._Ready</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-worldview-cs.html#L48">game/Presentation/WorldView.cs:48</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Ready()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-3e3decffd37010238dfc.html">SimulationRuntime.Load</a></li><li><a href="function-5b96d5175dcdb3327eac.html">FacilityMap.Load</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-ffbd723e4b9db1597fbf.html">InventoryArt.Load</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>JsonDocument.Parse
+Godot.FileAccess.GetFileAsString
+manifest.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject
+manifest.RootElement.GetProperty
+binding.Value.EnumerateArray().Select(x =&gt; x.GetString()!).ToArray
+binding.Value.EnumerateArray().Select
+binding.Value.EnumerateArray
+x.GetString
+manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_frames&quot;).GetInt32
+manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty
+manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_cycle_ms&quot;).GetInt32
+manifest.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject
+entry.Value.GetProperty
+GD.Load&lt;Texture2D&gt;
+entry.Value.GetProperty(&quot;file&quot;).GetString
+anchor[0].GetSingle
+anchor[1].GetSingle
+art.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject
+art.RootElement.GetProperty
+art.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject
+r[0].GetSingle
+r[1].GetSingle
+r[2].GetSingle
+r[3].GetSingle
+entry.Value.GetProperty(&quot;scale&quot;).GetSingle
+sourceImages.TryGetValue
+source.GetWidth
+source.GetHeight
+sourceImages.Add
+_sprites.Add
+_surfaceArt.Add
+Enumerable.Range(0, 6).SelectMany(i =&gt; new[] { &quot;floor&quot;, &quot;land&quot; }.Select(kind =&gt; (Key: $&quot;{kind}-{i}&quot;, Texture: _surfaceArt[kind])))
+                .ToDictionary
+Enumerable.Range(0, 6).SelectMany
+Enumerable.Range
+new[] { &quot;floor&quot;, &quot;land&quot; }.Select
+_sprites.Where(s =&gt; s.Key.StartsWith(&quot;floor-&quot;, StringComparison.Ordinal)
+                || s.Key.StartsWith(&quot;land-&quot;, StringComparison.Ordinal)).ToDictionary
+_sprites.Where
+s.Key.StartsWith
+AddChild</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-groundview.html">GroundView</a></li><li><a href="type-spriteartcatalog.html">SpriteArtCatalog</a></li><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Implementation</h2><pre><code>public override void _Ready()
+    {
+        TextureFilter = TextureFilterEnum.Nearest;
+        using var manifest = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/spatial-manifest.json&quot;));
+        foreach (var binding in manifest.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject())
+            _anomalySprites[binding.Name] = binding.Value.EnumerateArray().Select(x =&gt; x.GetString()!).ToArray();
+        _walkFrames = manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_frames&quot;).GetInt32();
+        _walkCycleMs = manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_cycle_ms&quot;).GetInt32();
+        foreach (var entry in manifest.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject())
+        {
+            var anchor = entry.Value.GetProperty(&quot;anchor&quot;);
+            _sprites[entry.Name] = (GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + entry.Value.GetProperty(&quot;file&quot;).GetString()), new(anchor[0].GetSingle(), anchor[1].GetSingle()), 1);
+        }
+        using var art = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/scp650-appearance.json&quot;));
+        foreach (var binding in art.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject())
+            _anomalyArt[binding.Name] = binding.Value.EnumerateArray().Select(x =&gt; x.GetString()!).ToArray();
+        foreach (var entry in art.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject())
+        {
+            var anchor = entry.Value.GetProperty(&quot;anchor&quot;);
+            var r = entry.Value.GetProperty(&quot;region&quot;);
+            var texture = new AtlasTexture
+            {
+                Atlas = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + entry.Value.GetProperty(&quot;file&quot;).GetString()),
+                Region = new(r[0].GetSingle(), r[1].GetSingle(), r[2].GetSingle(), r[3].GetSingle()), FilterClip = true
+            };
+            _sprites[entry.Name] = (texture, new(anchor[0].GetSingle(), anchor[1].GetSingle()), entry.Value.GetProperty(&quot;scale&quot;).GetSingle());
+        }
+        _facilityArt = new SpriteArtCatalog(Godot.FileAccess.GetFileAsString(&quot;res://Assets/facility-standins/manifest.json&quot;));
+        var sourceImages = new Dictionary&lt;string, Texture2D&gt;();
+        foreach (var (key, sprite) in _facilityArt.Manifest.Sprites)
+        {
+            if (!sourceImages.TryGetValue(sprite.File, out var source))
+            {
+                source = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + sprite.File);
+                var expected = _facilityArt.Manifest.Images[sprite.File];
+                if (source.GetWidth() != expected[0] || source.GetHeight() != expected[1]) throw new InvalidOperationException(&quot;Art image size changed: &quot; + sprite.File);
+                sourceImages.Add(sprite.File, source);
+            }
+            var r = sprite.Region;
+            var texture = new AtlasTexture { Atlas = source, Region = new(r[0], r[1], r[2], r[3]), FilterClip = true };
+            _sprites.Add(key, (texture, new((float)sprite.Anchor[0], (float)sprite.Anchor[1]), (float)sprite.Scale));
+        }
+        foreach (var (surface, key) in _facilityArt.Manifest.Surfaces) _surfaceArt.Add(surface, _sprites[key].Texture);
+        _ground = new GroundView
+        {
+            Simulation = Simulation,
+            AuthoredTextures = Enumerable.Range(0, 6).SelectMany(i =&gt; new[] { &quot;floor&quot;, &quot;land&quot; }.Select(kind =&gt; (Key: $&quot;{kind}-{i}&quot;, Texture: _surfaceArt[kind])))
+                .ToDictionary(e =&gt; e.Key, e =&gt; e.Texture),
+            Textures = _sprites.Where(s =&gt; s.Key.StartsWith(&quot;floor-&quot;, StringComparison.Ordinal)
+                || s.Key.StartsWith(&quot;land-&quot;, StringComparison.Ordinal)).ToDictionary(s =&gt; s.Key, s =&gt; s.Value.Texture)
+        };
+        AddChild(_ground);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/WorldView.cs:48</footer></main></div></body></html>

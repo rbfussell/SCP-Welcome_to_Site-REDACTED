@@ -1,0 +1,396 @@
+{
+  "created_at": "2008-07-25T20:49:00",
+  "creator": "Lt Masipag",
+  "domain": "scp-wiki.wikidot.com",
+  "history": [
+    {
+      "author": "Lt Masipag",
+      "author_href": "https://www.wikidot.com/user:info/lt-masipag",
+      "comment": "173 WOOT",
+      "date": "2008-07-25T20:49:00"
+    },
+    {
+      "author": "Lt Masipag",
+      "author_href": "https://www.wikidot.com/user:info/lt-masipag",
+      "comment": "Uploaded file \"SCP-173.jpg\".",
+      "date": "2008-07-25T20:53:00"
+    },
+    {
+      "author": "Lt Masipag",
+      "author_href": "https://www.wikidot.com/user:info/lt-masipag",
+      "comment": "Embedded the pic. SCP-173 is complete",
+      "date": "2008-07-25T20:54:00"
+    },
+    {
+      "author": "far2",
+      "author_href": "https://www.wikidot.com/user:info/far2",
+      "comment": "Turned the image thumbnail into a link to the full-size image",
+      "date": "2008-07-27T09:47:00"
+    },
+    {
+      "author": "far2",
+      "author_href": "https://www.wikidot.com/user:info/far2",
+      "comment": "added rating module",
+      "date": "2008-08-31T11:36:00"
+    },
+    {
+      "author": "JoystickHero",
+      "author_href": "https://www.wikidot.com/user:info/joystickhero",
+      "comment": "",
+      "date": "2008-12-19T22:10:00"
+    },
+    {
+      "author": "DrClef",
+      "author_href": "https://www.wikidot.com/user:info/drclef",
+      "comment": "Reverted to page revision number 4",
+      "date": "2008-12-20T08:55:00"
+    },
+    {
+      "author": "A Fat Ghost",
+      "author_href": "https://www.wikidot.com/user:info/a-fat-ghost",
+      "comment": "Title standardisation. OH YEAH.",
+      "date": "2009-02-13T07:03:00"
+    },
+    {
+      "author": "DrClef",
+      "author_href": "https://www.wikidot.com/user:info/drclef",
+      "comment": "Uploaded file \"scp-173-4-1-09.jpg\".",
+      "date": "2009-04-01T14:06:00"
+    },
+    {
+      "author": "DrClef",
+      "author_href": "https://www.wikidot.com/user:info/drclef",
+      "comment": "",
+      "date": "2009-04-01T14:10:00"
+    },
+    {
+      "author": "DrClef",
+      "author_href": "https://www.wikidot.com/user:info/drclef",
+      "comment": "",
+      "date": "2009-04-01T14:11:00"
+    },
+    {
+      "author": "DrClef",
+      "author_href": "https://www.wikidot.com/user:info/drclef",
+      "comment": "Reverted to page revision number 7",
+      "date": "2009-04-02T07:03:00"
+    },
+    {
+      "author": "snorlison",
+      "author_href": "https://www.wikidot.com/user:info/snorlison",
+      "comment": "Added tags: statue. Removed tags: statute.",
+      "date": "2009-06-09T04:15:00"
+    },
+    {
+      "author": "snorlison",
+      "author_href": "https://www.wikidot.com/user:info/snorlison",
+      "comment": "Added tags: scp, euclid, statute, the_original_scp.",
+      "date": "2009-06-09T04:15:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Added tags: autonomous, featured, sculpture. Removed tags: statue, the_original_scp. ",
+      "date": "2012-04-16T15:38:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Added a caption. It just looked so naked without a caption. (I just hope I haven't metaphorically spray-painted graffiti over the Birth of Venus.)",
+      "date": "2012-04-16T15:44:00"
+    },
+    {
+      "author": "Quikngruvn",
+      "author_href": "https://www.wikidot.com/user:info/quikngruvn",
+      "comment": "Added tags: observational. ",
+      "date": "2012-06-08T16:29:00"
+    },
+    {
+      "author": "DrEverettMann",
+      "author_href": "https://www.wikidot.com/user:info/dreverettmann",
+      "comment": "",
+      "date": "2013-04-01T03:11:00"
+    },
+    {
+      "author": "Akumeoy",
+      "author_href": "https://www.wikidot.com/user:info/akumeoy",
+      "comment": "You successfully reverted the page to revision number 16",
+      "date": "2013-04-02T04:23:00"
+    },
+    {
+      "author": "AdminBright",
+      "author_href": "https://www.wikidot.com/user:info/adminbright",
+      "comment": "Site19 changed to Site-19",
+      "date": "2013-06-03T04:47:00"
+    },
+    {
+      "author": "thedeadlymoose",
+      "author_href": "https://www.wikidot.com/user:info/thedeadlymoose",
+      "comment": "Object class to Object Class",
+      "date": "2013-08-30T22:02:00"
+    },
+    {
+      "author": "Aelanna",
+      "author_href": "https://www.wikidot.com/user:info/aelanna",
+      "comment": "Added tags: heritage. ",
+      "date": "2013-12-20T22:12:00"
+    },
+    {
+      "author": "Aelanna",
+      "author_href": "https://www.wikidot.com/user:info/aelanna",
+      "comment": "Added Heritage Collection rating module.",
+      "date": "2013-12-20T22:12:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "At admin request, added licensing information to the picture caption.",
+      "date": "2014-06-26T21:56:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "Removing the anti-footnote deal",
+      "date": "2014-06-27T19:24:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "",
+      "date": "2014-06-27T19:27:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "",
+      "date": "2014-06-27T19:38:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "Changed licensing information to clarify one or two things.",
+      "date": "2014-07-03T22:53:00"
+    },
+    {
+      "author": "TroyL",
+      "author_href": "https://www.wikidot.com/user:info/troyl",
+      "comment": "",
+      "date": "2014-07-09T16:15:00"
+    },
+    {
+      "author": "thedeadlymoose",
+      "author_href": "https://www.wikidot.com/user:info/thedeadlymoose",
+      "comment": "Izumi Kato responded! :O Updating to match his wishes.",
+      "date": "2014-09-09T23:32:00"
+    },
+    {
+      "author": "thedeadlymoose",
+      "author_href": "https://www.wikidot.com/user:info/thedeadlymoose",
+      "comment": "",
+      "date": "2014-09-09T23:43:00"
+    },
+    {
+      "author": "anqxyr",
+      "author_href": "https://www.wikidot.com/user:info/anqxyr",
+      "comment": "add navigation links",
+      "date": "2017-06-06T15:23:00"
+    },
+    {
+      "author": "anqxyr",
+      "author_href": "https://www.wikidot.com/user:info/anqxyr",
+      "comment": "Added tags: _image. ",
+      "date": "2017-08-02T16:16:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "File \"scp-173-4-1-09.jpg\" deleted",
+      "date": "2019-05-03T01:59:00"
+    },
+    {
+      "author": "Modern_Erasmus",
+      "author_href": "https://www.wikidot.com/user:info/modern-erasmus",
+      "comment": "",
+      "date": "2019-05-21T20:57:00"
+    },
+    {
+      "author": "Modern_Erasmus",
+      "author_href": "https://www.wikidot.com/user:info/modern-erasmus",
+      "comment": "",
+      "date": "2019-05-21T20:59:00"
+    },
+    {
+      "author": "Elenee FishTruck",
+      "author_href": "https://www.wikidot.com/user:info/elenee-fishtruck",
+      "comment": "April Fools!",
+      "date": "2020-04-01T04:10:00"
+    },
+    {
+      "author": "Elenee FishTruck",
+      "author_href": "https://www.wikidot.com/user:info/elenee-fishtruck",
+      "comment": "You successfully reverted the page to revision number 35",
+      "date": "2020-04-02T03:43:00"
+    },
+    {
+      "author": "Riemann",
+      "author_href": "https://www.wikidot.com/user:info/riemann",
+      "comment": "Heritage Module is out of date and is being removed per rewrite",
+      "date": "2020-10-20T00:47:00"
+    },
+    {
+      "author": "aismallard",
+      "author_href": "https://www.wikidot.com/user:info/aismallard",
+      "comment": "Removed tags: heritage. ",
+      "date": "2020-11-21T20:21:00"
+    },
+    {
+      "author": "TSATPWTCOTTTADC",
+      "author_href": "https://www.wikidot.com/user:info/tsatpwtcotttadc",
+      "comment": "2021 April Fools",
+      "date": "2021-04-01T04:12:00"
+    },
+    {
+      "author": "TSATPWTCOTTTADC",
+      "author_href": "https://www.wikidot.com/user:info/tsatpwtcotttadc",
+      "comment": "You successfully reverted the page to revision number 39",
+      "date": "2021-04-02T03:45:00"
+    },
+    {
+      "author": "Deadly Bread",
+      "author_href": "https://www.wikidot.com/user:info/deadly-bread",
+      "comment": "Added tags: hostile. ",
+      "date": "2021-10-10T00:01:00"
+    },
+    {
+      "author": "stormbreath",
+      "author_href": "https://www.wikidot.com/user:info/stormbreath",
+      "comment": "Added tags: the-sculpture. ",
+      "date": "2022-02-08T20:35:00"
+    },
+    {
+      "author": "Naepic",
+      "author_href": "https://www.wikidot.com/user:info/naepic",
+      "comment": "",
+      "date": "2022-02-14T03:32:00"
+    },
+    {
+      "author": "Naepic",
+      "author_href": "https://www.wikidot.com/user:info/naepic",
+      "comment": "Removed tags: _image. ",
+      "date": "2022-02-14T03:33:00"
+    },
+    {
+      "author": "Naepic",
+      "author_href": "https://www.wikidot.com/user:info/naepic",
+      "comment": "",
+      "date": "2022-02-14T03:33:00"
+    },
+    {
+      "author": "deleted",
+      "author_href": false,
+      "comment": "File \"SCP-173.jpg\" deleted",
+      "date": "2022-02-14T03:35:00"
+    },
+    {
+      "author": "Siddartha Alonne",
+      "author_href": "https://www.wikidot.com/user:info/siddartha-alonne",
+      "comment": "Added tags: _licensebox. ",
+      "date": "2022-02-19T19:23:00"
+    },
+    {
+      "author": "Siddartha Alonne",
+      "author_href": "https://www.wikidot.com/user:info/siddartha-alonne",
+      "comment": "Adding licensebox",
+      "date": "2022-02-19T19:23:00"
+    },
+    {
+      "author": "EstrellaYoshte",
+      "author_href": "https://www.wikidot.com/user:info/estrellayoshte",
+      "comment": "",
+      "date": "2023-04-01T09:37:00"
+    },
+    {
+      "author": "Prime Girl",
+      "author_href": "https://www.wikidot.com/user:info/prime-girl",
+      "comment": "You successfully reverted the page to revision number 49",
+      "date": "2023-04-02T04:37:00"
+    },
+    {
+      "author": "psychicprogrammer",
+      "author_href": "https://www.wikidot.com/user:info/psychicprogrammer",
+      "comment": "Added tags: ectoentropic. ",
+      "date": "2023-06-30T13:34:00"
+    },
+    {
+      "author": "psychicprogrammer",
+      "author_href": "https://www.wikidot.com/user:info/psychicprogrammer",
+      "comment": "Added tags: cosmic-horror, horror, mystery. ",
+      "date": "2024-08-22T11:46:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Added tags: murder-monster. ",
+      "date": "2024-10-01T18:26:00"
+    },
+    {
+      "author": "Jerden",
+      "author_href": "https://www.wikidot.com/user:info/jerden",
+      "comment": "Removed tags: cosmic-horror. ",
+      "date": "2024-10-10T21:21:00"
+    },
+    {
+      "author": "ParallelPotatoes",
+      "author_href": "https://www.wikidot.com/user:info/parallelpotatoes",
+      "comment": "April Fools edit",
+      "date": "2025-04-01T15:42:00"
+    },
+    {
+      "author": "ParallelPotatoes",
+      "author_href": "https://www.wikidot.com/user:info/parallelpotatoes",
+      "comment": "You successfully reverted the page to revision number 55",
+      "date": "2025-04-02T12:17:00"
+    }
+  ],
+  "hubs": [
+    "archived:archived-news",
+    "april-fools-2021",
+    "april-fools-2020",
+    "audio-adaptations",
+    "aces-and-eights",
+    "173-festival",
+    "scp-series"
+  ],
+  "images": [],
+  "link": "scp-173",
+  "page_id": "1956234",
+  "rating": 11124,
+  "raw_content": "<html><body><div id=\"page-content\">\n\n<p><strong>Item #:</strong> SCP-173</p>\n<p><strong>Object Class:</strong> Euclid</p>\n<p><strong>Special Containment Procedures:</strong> Item SCP-173 is to be kept in a locked container at all times. When personnel must enter SCP-173's container, no fewer than 3 may enter at any time and the door is to be relocked behind them. At all times, two persons must maintain direct eye contact with SCP-173 until all personnel have vacated and relocked the container.</p>\n<p><strong>Description:</strong> Moved to Site-19 1993. Origin is as of yet unknown. It is constructed from concrete and rebar with traces of Krylon brand spray paint. SCP-173 is animate and extremely hostile. The object cannot move while within a direct line of sight. Line of sight must not be broken at any time with SCP-173. Personnel assigned to enter container are instructed to alert one another before blinking. Object is reported to attack by snapping the neck at the base of the skull, or by strangulation. In the event of an attack, personnel are to observe Class 4 hazardous object containment procedures.</p>\n<p>Personnel report sounds of scraping stone originating from within the container when no one is present inside. This is considered normal, and any change in this behaviour should be reported to the acting HMCL supervisor on duty.</p>\n<p>The reddish brown substance on the floor is a combination of feces and blood. Origin of these materials is unknown. The enclosure must be cleaned on a bi-weekly basis.</p>\n\n<div class=\"licensebox\">\n<div class=\"collapsible-block\">\n<div class=\"collapsible-block-folded\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Licensing / Citation</a></div>\n<div class=\"collapsible-block-unfolded\" style=\"display:none\">\n<div class=\"collapsible-block-unfolded-link\"><a class=\"collapsible-block-link\" href=\"javascript:;\">‡ Hide Licensing / Citation</a></div>\n<div class=\"collapsible-block-content\">\n<p>Cite this page as:</p>\n<div class=\"list-pages-box\"> <div class=\"list-pages-item\">\n<blockquote>\n<p>\"<a href=\"/scp-173\">SCP-173</a>\" by Moto42, from the <a href=\"https://scpwiki.com\">SCP Wiki</a>. Source: <a href=\"https://scpwiki.com/scp-173\">https://scpwiki.com/scp-173</a>. Licensed under <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA</a>.</p>\n</blockquote>\n</div>\n</div>\n<p>For information on how to use this component, see the <a href=\"/component:license-box\">License Box component</a>. To read about licensing policy, see the <a href=\"/licensing-guide\">Licensing Guide</a>.</p>\n</div>\n</div>\n</div>\n</div>\n</div></body></html>",
+  "raw_source": "\n\t[[>]]\n\n[[module Rate]]\n\n[[/>]]\n\n\n\n\n\n**Item #:** SCP-173 \n\n\n\n**Object Class:** Euclid \n\n\n\n**Special Containment Procedures:** Item SCP-173 is to be kept in a locked container at all times. When personnel must enter SCP-173's container, no fewer than 3 may enter at any time and the door is to be relocked behind them. At all times, two persons must maintain direct eye contact with SCP-173 until all personnel have vacated and relocked the container. \n\n\n\n**Description:** Moved to Site-19 1993. Origin is as of yet unknown. It is constructed from concrete and rebar with traces of Krylon brand spray paint. SCP-173 is animate and extremely hostile. The object cannot move while within a direct line of sight. Line of sight must not be broken at any time with SCP-173. Personnel assigned to enter container are instructed to alert one another before blinking. Object is reported to attack by snapping the neck at the base of the skull, or by strangulation. In the event of an attack, personnel are to observe Class 4 hazardous object containment procedures. \n\n\n\nPersonnel report sounds of scraping stone originating from within the container when no one is present inside. This is considered normal, and any change in this behaviour should be reported to the acting HMCL supervisor on duty. \n\n\n\nThe reddish brown substance on the floor is a combination of feces and blood. Origin of these materials is unknown. The enclosure must be cleaned on a bi-weekly basis.\n\n \n\n\n\n\n\n[[footnoteblock]]\n\n\n\n[[div class=\"footer-wikiwalk-nav\"]]\n\n[[=]]\n\n<< [[[SCP-172]]] | SCP-173 | [[[SCP-174]]] >>\n\n[[/=]]\n\n[[/div]]\n\n\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box\">:scp-wiki:component:license-box</a>\n\n|author=Moto42]]\n\n[[include <a href=\"https://scp-wiki.wikidot.com/component:license-box-end\">:scp-wiki:component:license-box-end</a>]]\n",
+  "references": [
+    "scp-172",
+    "scp-174",
+    "component:license-box",
+    "licensing-guide"
+  ],
+  "scp": "SCP-173",
+  "scp_number": 173,
+  "series": "series-1",
+  "tags": [
+    "_licensebox",
+    "autonomous",
+    "ectoentropic",
+    "euclid",
+    "featured",
+    "horror",
+    "hostile",
+    "murder-monster",
+    "mystery",
+    "observational",
+    "scp",
+    "sculpture",
+    "the-sculpture"
+  ],
+  "title": "SCP-173",
+  "url": "https://scp-wiki.wikidot.com/scp-173"
+}

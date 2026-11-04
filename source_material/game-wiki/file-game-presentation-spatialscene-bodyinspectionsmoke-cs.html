@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.BodyInspectionSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.BodyInspectionSmoke.cs</h1><p>game/Presentation/SpatialScene.BodyInspectionSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-0587fb81855352c26851.html">SpatialScene.RunBodyInspectionSmoke</a> · line 9</li><li><a href="function-a5a83eea0a6b713ada36.html">SpatialScene.Click</a> · line 13</li><li><a href="function-e7cd2df4d6ce8536b165.html">SpatialScene.Check</a> · line 15</li><li><a href="function-f48ca0a4023d40c726bb.html">SpatialScene.Finish</a> · line 16</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunBodyInspectionSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save(); sim.Player.Cell = new(13, 6);</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Click(Vector2 at, bool doubleClick = false, MouseButton button = MouseButton.Left)</span>
+<span id="L14"><a class="line" href="#L14">14</a>         { Input.WarpMouse(at); InventoryClick(at, doubleClick, button); }</span>
+<span id="L15"><a class="line" href="#L15">15</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Body inspection UI: &quot; + reason); }</span>
+<span id="L16"><a class="line" href="#L16">16</a>         async Task Finish()</span>
+<span id="L17"><a class="line" href="#L17">17</a>         {</span>
+<span id="L18"><a class="line" href="#L18">18</a>             for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L19"><a class="line" href="#L19">19</a>             Check(sim.Inventory.Pending is null, &quot;ordinary paid work did not resolve&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L20"><a class="line" href="#L20">20</a>         }</span>
+<span id="L21"><a class="line" href="#L21">21</a>         sim.ManualPause = false;</span>
+<span id="L22"><a class="line" href="#L22">22</a>         Check(sim.HandleInventory(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;))), sim.LastMessage); await Finish();</span>
+<span id="L23"><a class="line" href="#L23">23</a>         Click(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L24"><a class="line" href="#L24">24</a>         var fit = panel.BodyFit; var surface = fit.Surface; var chest = new BodyHex(-4, 8); var waist = new BodyHex(-6, 12);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         Click(fit.InspectToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L26"><a class="line" href="#L26">26</a>         Check(fit.InspectWorn &amp;&amp; fit.ViewSurface == &quot;front&quot; &amp;&amp; fit.ApplyButton.Disabled, &quot;inspection mode did not separate picking from fitting&quot;);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var before = sim.Save();</span>
+<span id="L28"><a class="line" href="#L28">28</a>         Click(surface.CellPosition(chest)); await InventoryFrames();</span>
+<span id="L29"><a class="line" href="#L29">29</a>         await InventoryCapture(&quot;-body-inspect-first-click&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         Check(panel.SelectedItem == &quot;avatar-shirt&quot; &amp;&amp; surface.HoveredItem == &quot;avatar-shirt&quot; &amp;&amp; sim.Save() == before,</span>
+<span id="L31"><a class="line" href="#L31">31</a>             $&quot;front opening failed: selected={panel.SelectedItem}, hovered={surface.HoveredItem}, unchanged={sim.Save() == before}&quot;);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         Click(surface.CellPosition(chest), true); await InventoryFrames();</span>
+<span id="L33"><a class="line" href="#L33">33</a>         Check(panel.Browser.CurrentGear == &quot;avatar-shirt&quot;, &quot;body double-click did not inspect the actual worn instance&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         Click(surface.CellPosition(waist), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var menu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L36"><a class="line" href="#L36">36</a>         Check(menu.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Any(b =&gt; b.Text == &quot;Remove → hand&quot;) &amp;&amp; panel.SelectedItem == &quot;utility-belt&quot;,</span>
+<span id="L37"><a class="line" href="#L37">37</a>             &quot;body context menu did not address the picked item&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         Click(panel.GlobalPosition + new Vector2(80, 80)); await InventoryFrames();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         await InventoryCapture(&quot;-body-inspect-front&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var left = new BodyHex(-6, 8); var frontX = surface.CellPosition(left).X;</span>
+<span id="L41"><a class="line" href="#L41">41</a>         Click(fit.FlipButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L42"><a class="line" href="#L42">42</a>         Check(fit.ViewSurface == &quot;back&quot; &amp;&amp; frontX &lt; surface.GetGlobalRect().GetCenter().X</span>
+<span id="L43"><a class="line" href="#L43">43</a>             &amp;&amp; surface.CellPosition(left).X &gt; surface.GetGlobalRect().GetCenter().X &amp;&amp; sim.Save() == before,</span>
+<span id="L44"><a class="line" href="#L44">44</a>             &quot;back view did not mirror screen projection without changing physical state&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Click(surface.CellPosition(chest), true); await InventoryFrames();</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; surface.HoveredItem == &quot;avatar-backpack&quot;, &quot;back view picked through the worn pack&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         await InventoryCapture(&quot;-body-inspect-back&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var gear = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Click(gear.HotspotPosition(&quot;main&quot;), true); await InventoryFrames();</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var grid = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         Click(fit.FlipButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var destination = grid.GlobalPosition + new Vector2(15, 44 + 3 * grid.CellPixels + 15);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         before = sim.Save();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         await InventoryDrag(surface.CellPosition(chest), destination, async () =&gt;</span>
+<span id="L55"><a class="line" href="#L55">55</a>         { Check(panel.DragItemId is null &amp;&amp; sim.Inventory.Pending is null, &quot;visible but restrained shirt became a movable source&quot;); await InventoryFrames(); });</span>
+<span id="L56"><a class="line" href="#L56">56</a>         Check(sim.Save() == before, &quot;blocked source drag changed equipment&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         await InventoryDrag(surface.CellPosition(waist), destination, async () =&gt;</span>
+<span id="L58"><a class="line" href="#L58">58</a>         {</span>
+<span id="L59"><a class="line" href="#L59">59</a>             Check(panel.DragItemId == &quot;utility-belt&quot; &amp;&amp; panel.DropPreview is { Quote.Allowed: true } preview</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 &amp;&amp; preview.Request.Destination == new ItemPlacement(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 3), &quot;body drag did not use the exact ordinary storage target&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>             Check(sim.Save() == before, &quot;body-source hover performed work&quot;); await InventoryCapture(&quot;-body-source-valid&quot;);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         });</span>
+<span id="L63"><a class="line" href="#L63">63</a>         Check(sim.Save() == before &amp;&amp; sim.Inventory.Pending is null, &quot;paused removal supplied free undressing&quot;);</span>
+<span id="L64"><a class="line" href="#L64">64</a>         sim.ManualPause = false;</span>
+<span id="L65"><a class="line" href="#L65">65</a>         await InventoryDrag(surface.CellPosition(waist), destination);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         Check(sim.Inventory.Pending?.Request.ItemId == &quot;utility-belt&quot; &amp;&amp; sim.InventoryBodyPick(&quot;front&quot;, waist)?.ItemId == &quot;utility-belt&quot;,</span>
+<span id="L67"><a class="line" href="#L67">67</a>             &quot;source did not remain worn while paid handling began&quot;);</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var pending = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L69"><a class="line" href="#L69">69</a>         clone.Restore(pending); Check(clone.Save() == pending, &quot;native body-source continuation failed exact restore&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         await Finish();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-belt&quot;).Placement == new ItemPlacement(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 3)</span>
+<span id="L72"><a class="line" href="#L72">72</a>             &amp;&amp; sim.InventoryBodyPick(&quot;front&quot;, waist)?.ItemId == &quot;avatar-trousers&quot;, &quot;completed storage differs from preview or stale belt remains targetable&quot;);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         await InventoryCapture(&quot;-body-source-applied&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         panel.Close(); panel.Open(); Click(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(!fit.InspectWorn &amp;&amp; fit.ViewSurface == &quot;front&quot;, &quot;reopening inventory retained transient inspection state&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L77"><a class="line" href="#L77">77</a>         GD.Print(&quot;BODY_INSPECTION_SMOKE_PASS: native exposed-item selection, double-click/context, front/back mirroring, restrained source refusal, paused/timed body-to-storage drag and continuation.&quot;);</span>
+<span id="L78"><a class="line" href="#L78">78</a>     }</span>
+<span id="L79"><a class="line" href="#L79">79</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

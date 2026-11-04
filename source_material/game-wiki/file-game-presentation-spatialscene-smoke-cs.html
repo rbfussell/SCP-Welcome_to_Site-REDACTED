@@ -1,0 +1,176 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.Smoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.Smoke.cs</h1><p>game/Presentation/SpatialScene.Smoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-02f945823908ec349f6d.html">SpatialScene.SmokeKey</a> · line 13</li><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a> · line 18</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> // Automated presentation checks are kept out of normal input and world rules.</span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class SpatialScene</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private int _smokeShadingBuilds;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private Point2 _smokeStopPoint;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private long _smokeStopLocalMs;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private static void SmokeKey(Key key)</span>
+<span id="L14"><a class="line" href="#L14">14</a>     {</span>
+<span id="L15"><a class="line" href="#L15">15</a>         Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = true });</span>
+<span id="L16"><a class="line" href="#L16">16</a>         Input.ParseInputEvent(new InputEventKey { Keycode = key, Pressed = false });</span>
+<span id="L17"><a class="line" href="#L17">17</a>     }</span>
+<span id="L18"><a class="line" href="#L18">18</a>     private async void SmokeStep()</span>
+<span id="L19"><a class="line" href="#L19">19</a>     {</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (++_smokeFrame != 12) return;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         try</span>
+<span id="L22"><a class="line" href="#L22">22</a>         {</span>
+<span id="L23"><a class="line" href="#L23">23</a>             switch (_smokeStage)</span>
+<span id="L24"><a class="line" href="#L24">24</a>             {</span>
+<span id="L25"><a class="line" href="#L25">25</a>                 case 0:</span>
+<span id="L26"><a class="line" href="#L26">26</a>                     if (!_simulation.InspectAnomalies().Single().Observation.Observed || _simulation.InspectAnomalies().Single().Relocations != 0)</span>
+<span id="L27"><a class="line" href="#L27">27</a>                         throw new InvalidOperationException(&quot;Initial human observation failed to hold SCP-650.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>                     var target = _world.GetGlobalTransform() * WorldView.Screen(new Hex(12, 3).World);</span>
+<span id="L29"><a class="line" href="#L29">29</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = target, ButtonIndex = MouseButton.Left, Pressed = true });</span>
+<span id="L30"><a class="line" href="#L30">30</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = target, ButtonIndex = MouseButton.Left, Pressed = false });</span>
+<span id="L31"><a class="line" href="#L31">31</a>                     break;</span>
+<span id="L32"><a class="line" href="#L32">32</a>                 case 1:</span>
+<span id="L33"><a class="line" href="#L33">33</a>                     if (!_simulation.Player.Moving || _simulation.Player.Route[^1] != new Hex(12, 3))</span>
+<span id="L34"><a class="line" href="#L34">34</a>                         throw new InvalidOperationException(&quot;Mouse picking did not commit the intended hex route.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>                     SmokeKey(Key.O);</span>
+<span id="L36"><a class="line" href="#L36">36</a>                     break;</span>
+<span id="L37"><a class="line" href="#L37">37</a>                 case 2:</span>
+<span id="L38"><a class="line" href="#L38">38</a>                     if (_simulation.InspectAnomalies().Single().Relocations != 1)</span>
+<span id="L39"><a class="line" href="#L39">39</a>                         throw new InvalidOperationException(&quot;Observer attention input did not release SCP-650.&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>                     SmokeKey(Key.F6);</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     break;</span>
+<span id="L42"><a class="line" href="#L42">42</a>                 case 3:</span>
+<span id="L43"><a class="line" href="#L43">43</a>                     if (!_simulation.LocalHold) throw new InvalidOperationException(&quot;F6 did not hold local simulation.&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>                     _smokeSave = _simulation.Save();</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     _smokeShadingBuilds = _world.GroundShadingBuilds;</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     break;</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 case 4:</span>
+<span id="L48"><a class="line" href="#L48">48</a>                     if (_world.GroundShadingBuilds != _smokeShadingBuilds)</span>
+<span id="L49"><a class="line" href="#L49">49</a>                         throw new InvalidOperationException(&quot;Unchanged held sight rebuilt its ground meshes.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>                     var restored = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;));</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     restored.Restore(_smokeSave!);</span>
+<span id="L52"><a class="line" href="#L52">52</a>                     if (restored.InspectAnomalies().Single().Relocations != _simulation.InspectAnomalies().Single().Relocations</span>
+<span id="L53"><a class="line" href="#L53">53</a>                         || restored.Anomalies.Bodies.Single().Cell != _simulation.Anomalies.Bodies.Single().Cell</span>
+<span id="L54"><a class="line" href="#L54">54</a>                         || restored.Anomalies.Bodies.Single().Pose != _simulation.Anomalies.Bodies.Single().Pose</span>
+<span id="L55"><a class="line" href="#L55">55</a>                         || restored.LocalMs != _simulation.LocalMs || restored.Player.Position != _simulation.Player.Position || restored.WorldMs &gt;= _simulation.WorldMs)</span>
+<span id="L56"><a class="line" href="#L56">56</a>                         throw new InvalidOperationException(&quot;Held module/local progress or continuing world clock diverged.&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>                     _world.HexGrid = true;</span>
+<span id="L58"><a class="line" href="#L58">58</a>                     break;</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 case 5:</span>
+<span id="L60"><a class="line" href="#L60">60</a>                     // Place the avatar for a reproducible look-away/discovery input fixture.</span>
+<span id="L61"><a class="line" href="#L61">61</a>                     // This is test setup only; the module still owns the statue&#x27;s actual destination.</span>
+<span id="L62"><a class="line" href="#L62">62</a>                     SmokeKey(Key.F6);</span>
+<span id="L63"><a class="line" href="#L63">63</a>                     Input.FlushBufferedEvents();</span>
+<span id="L64"><a class="line" href="#L64">64</a>                     if (_simulation.LocalHold) throw new InvalidOperationException(&quot;Fixture must release local hold before authoring movement.&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>                     var statue = _simulation.Anomalies.Bodies.Single();</span>
+<span id="L66"><a class="line" href="#L66">66</a>                     var neighbor = Enumerable.Range(0, 6).Select(statue.Cell.Neighbor).Where(c =&gt; _simulation.Map.Walkable(c)</span>
+<span id="L67"><a class="line" href="#L67">67</a>                         &amp;&amp; !_simulation.Actors.Any(a =&gt; a.Cell == c) &amp;&amp; _simulation.Map.ClearSight(c.World, statue.Cell.World))</span>
+<span id="L68"><a class="line" href="#L68">68</a>                         .OrderByDescending(c =&gt; _simulation.Actors.Where(a =&gt; a.Id != _simulation.Player.Id).Min(a =&gt; a.Cell.Distance(c))).First();</span>
+<span id="L69"><a class="line" href="#L69">69</a>                     _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0; _simulation.Player.StoppedStep = null; _simulation.Player.Cell = neighbor;</span>
+<span id="L70"><a class="line" href="#L70">70</a>                     if (!_simulation.Awareness.StopOnDirectSight || !_simulation.Awareness.StopOnReports)</span>
+<span id="L71"><a class="line" href="#L71">71</a>                         throw new InvalidOperationException(&quot;Both shared sighting settings must default on.&quot;);</span>
+<span id="L72"><a class="line" href="#L72">72</a>                     _simulation.Awareness.StopOnReports = false;</span>
+<span id="L73"><a class="line" href="#L73">73</a>                     // A preview may intentionally include unseen occupants. This fixture injects an already</span>
+<span id="L74"><a class="line" href="#L74">74</a>                     // started step, so qualify the physical clearance normal movement checks before starting.</span>
+<span id="L75"><a class="line" href="#L75">75</a>                     var walking = _simulation.Map.Cells.Select(c =&gt; _simulation.PreviewPath(c)).First(p =&gt; p.Count &gt;= 2</span>
+<span id="L76"><a class="line" href="#L76">76</a>                         &amp;&amp; _simulation.Map.CanTraverse(_simulation.Player.Cell, p[0])</span>
+<span id="L77"><a class="line" href="#L77">77</a>                         &amp;&amp; !_simulation.Actors.Where(a =&gt; a != _simulation.Player).Any(a =&gt; a.Cell == p[0]</span>
+<span id="L78"><a class="line" href="#L78">78</a>                             || a.Moving &amp;&amp; a.Route[0] == p[0] || a.StoppedStep?.Next == p[0]));</span>
+<span id="L79"><a class="line" href="#L79">79</a>                     _simulation.Face(_simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World));</span>
+<span id="L80"><a class="line" href="#L80">80</a>                     _simulation.Player.Route = walking.ToList(); _simulation.Player.SegmentMs = 100; _simulation.Player.KeepFacing = true;</span>
+<span id="L81"><a class="line" href="#L81">81</a>                     _simulation.Player.MoveGoal = walking[^1]; _simulation.Player.BumpedCells.Clear();</span>
+<span id="L82"><a class="line" href="#L82">82</a>                     _feedback.Reset(_simulation); _audio.Reset();</span>
+<span id="L83"><a class="line" href="#L83">83</a>                     if (FieldPresentation.ShowAnomaly(_simulation, statue, false))</span>
+<span id="L84"><a class="line" href="#L84">84</a>                         throw new InvalidOperationException(&quot;Field view exposed a statue behind the avatar.&quot;);</span>
+<span id="L85"><a class="line" href="#L85">85</a>                     _smokeStopPoint = _simulation.Player.Position; _smokeStopLocalMs = _simulation.LocalMs;</span>
+<span id="L86"><a class="line" href="#L86">86</a>                     var walkingSave = _simulation.Save();</span>
+<span id="L87"><a class="line" href="#L87">87</a>                     _simulation.Awareness.StopOnDirectSight = false;</span>
+<span id="L88"><a class="line" href="#L88">88</a>                     RefreshCamera();</span>
+<span id="L89"><a class="line" href="#L89">89</a>                     var ordinaryLookTarget = _world.GetGlobalTransform() * WorldView.Screen(</span>
+<span id="L90"><a class="line" href="#L90">90</a>                         _simulation.Player.Position + (_simulation.Player.Position - statue.Cell.World) * 0.25);</span>
+<span id="L91"><a class="line" href="#L91">91</a>                     if (!_hud.Field.GetGlobalRect().HasPoint(ordinaryLookTarget))</span>
+<span id="L92"><a class="line" href="#L92">92</a>                         throw new InvalidOperationException(&quot;Ordinary look fixture must click inside the field.&quot;);</span>
+<span id="L93"><a class="line" href="#L93">93</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = ordinaryLookTarget, ButtonIndex = MouseButton.Right, Pressed = true });</span>
+<span id="L94"><a class="line" href="#L94">94</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = ordinaryLookTarget, ButtonIndex = MouseButton.Right, Pressed = false });</span>
+<span id="L95"><a class="line" href="#L95">95</a>                     Input.FlushBufferedEvents();</span>
+<span id="L96"><a class="line" href="#L96">96</a>                     if (_simulation.Player.Moving || _simulation.Player.Position != _smokeStopPoint</span>
+<span id="L97"><a class="line" href="#L97">97</a>                         || _simulation.Player.MoveGoal is not null || _simulation.Player.StoppedStep?.ProgressMs != 100)</span>
+<span id="L98"><a class="line" href="#L98">98</a>                         throw new InvalidOperationException(&quot;Ordinary RMB look must stop exactly even with both anomaly-stop settings disabled.&quot;);</span>
+<span id="L99"><a class="line" href="#L99">99</a>                     _simulation.Restore(walkingSave);</span>
+<span id="L100"><a class="line" href="#L100">100</a>                     _feedback.Reset(_simulation); _audio.Reset();</span>
+<span id="L101"><a class="line" href="#L101">101</a>                     var sightTarget = _world.GetGlobalTransform() * WorldView.Screen(statue.Cell.World);</span>
+<span id="L102"><a class="line" href="#L102">102</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = true });</span>
+<span id="L103"><a class="line" href="#L103">103</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = sightTarget, ButtonIndex = MouseButton.Right, Pressed = false });</span>
+<span id="L104"><a class="line" href="#L104">104</a>                     break;</span>
+<span id="L105"><a class="line" href="#L105">105</a>                 case 6:</span>
+<span id="L106"><a class="line" href="#L106">106</a>                     if (!_world.FieldView || _feedback.Discoveries != 1 || _audio.PlayedDiscoveries != 1</span>
+<span id="L107"><a class="line" href="#L107">107</a>                         || !FieldPresentation.ShowAnomaly(_simulation, _simulation.Anomalies.Bodies.Single(), false))</span>
+<span id="L108"><a class="line" href="#L108">108</a>                         throw new InvalidOperationException($&quot;Actual avatar discovery did not reveal the statue with one presentation cue: discoveries={_feedback.Discoveries}, audio={_audio.PlayedDiscoveries}, visible={FieldPresentation.ShowAnomaly(_simulation, _simulation.Anomalies.Bodies.Single(), false)}, moving={_simulation.Player.Moving}, facing={_simulation.Player.Facing}, message={_simulation.LastMessage}.&quot;);</span>
+<span id="L109"><a class="line" href="#L109">109</a>                     if (_simulation.Player.Moving || _simulation.Player.Route.Count != 0 || _simulation.Player.Position != _smokeStopPoint</span>
+<span id="L110"><a class="line" href="#L110">110</a>                         || _simulation.Player.StoppedStep is null || _simulation.ManualPause || _simulation.LocalHold || _simulation.LocalMs &lt;= _smokeStopLocalMs)</span>
+<span id="L111"><a class="line" href="#L111">111</a>                         throw new InvalidOperationException(&quot;RMB look must stop exactly in place, clear the path and keep the simulation running.&quot;);</span>
+<span id="L112"><a class="line" href="#L112">112</a>                     _simulation.Awareness.StopOnReports = true;</span>
+<span id="L113"><a class="line" href="#L113">113</a>                     _smokeSave = _simulation.Save();</span>
+<span id="L114"><a class="line" href="#L114">114</a>                     SmokeKey(Key.J);</span>
+<span id="L115"><a class="line" href="#L115">115</a>                     SmokeKey(Key.F2); SmokeKey(Key.F2); SmokeKey(Key.M); SmokeKey(Key.R);</span>
+<span id="L116"><a class="line" href="#L116">116</a>                     break;</span>
+<span id="L117"><a class="line" href="#L117">117</a>                 case 7:</span>
+<span id="L118"><a class="line" href="#L118">118</a>                     var beforeFlag = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;));</span>
+<span id="L119"><a class="line" href="#L119">119</a>                     beforeFlag.Restore(_smokeSave!);</span>
+<span id="L120"><a class="line" href="#L120">120</a>                     if (!_simulation.InspectAnomalies().Single().FlaggedActors(&quot;complacency&quot;).Contains(_simulation.Player.Id)</span>
+<span id="L121"><a class="line" href="#L121">121</a>                         || _simulation.Anomalies.Bodies.Single().Pose != beforeFlag.Anomalies.Bodies.Single().Pose</span>
+<span id="L122"><a class="line" href="#L122">122</a>                         || _simulation.Anomalies.Bodies.Single().Cell != beforeFlag.Anomalies.Bodies.Single().Cell)</span>
+<span id="L123"><a class="line" href="#L123">123</a>                         throw new InvalidOperationException(&quot;Complacency input must change only module policy while observed.&quot;);</span>
+<span id="L124"><a class="line" href="#L124">124</a>                     if (!_world.FieldView || !_audio.Muted || !_encounter.ReducedEffects)</span>
+<span id="L125"><a class="line" href="#L125">125</a>                         throw new InvalidOperationException(&quot;Presentation/accessibility inputs failed.&quot;);</span>
+<span id="L126"><a class="line" href="#L126">126</a>                     break;</span>
+<span id="L127"><a class="line" href="#L127">127</a>                 case 8:</span>
+<span id="L128"><a class="line" href="#L128">128</a>                     _smokeStage = 9;</span>
+<span id="L129"><a class="line" href="#L129">129</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L130"><a class="line" href="#L130">130</a>                     var error = GetViewport().GetTexture().GetImage().SavePng(_capturePath!);</span>
+<span id="L131"><a class="line" href="#L131">131</a>                     if (error != Error.Ok) throw new IOException(&quot;Screenshot failed: &quot; + error);</span>
+<span id="L132"><a class="line" href="#L132">132</a>                     _simulation.ManualPause = true;</span>
+<span id="L133"><a class="line" href="#L133">133</a>                     var artBaseline = _simulation.Save();</span>
+<span id="L134"><a class="line" href="#L134">134</a>                     var artShadingBuilds = _world.GroundShadingBuilds;</span>
+<span id="L135"><a class="line" href="#L135">135</a>                     SmokeKey(Key.F4);</span>
+<span id="L136"><a class="line" href="#L136">136</a>                     await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);</span>
+<span id="L137"><a class="line" href="#L137">137</a>                     await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);</span>
+<span id="L138"><a class="line" href="#L138">138</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L139"><a class="line" href="#L139">139</a>                     if (!_world.DiagnosticSprites || _simulation.Save() != artBaseline || _world.GroundShadingBuilds &lt;= artShadingBuilds)</span>
+<span id="L140"><a class="line" href="#L140">140</a>                         throw new InvalidOperationException(&quot;F4 must switch all art/ground bindings without advancing the held world.&quot;);</span>
+<span id="L141"><a class="line" href="#L141">141</a>                     var placeholdersPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + &quot;-placeholders.png&quot;);</span>
+<span id="L142"><a class="line" href="#L142">142</a>                     if (GetViewport().GetTexture().GetImage().SavePng(placeholdersPath) != Error.Ok) throw new IOException(&quot;Placeholder screenshot failed.&quot;);</span>
+<span id="L143"><a class="line" href="#L143">143</a>                     SmokeKey(Key.F4);</span>
+<span id="L144"><a class="line" href="#L144">144</a>                     await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);</span>
+<span id="L145"><a class="line" href="#L145">145</a>                     await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);</span>
+<span id="L146"><a class="line" href="#L146">146</a>                     if (_world.DiagnosticSprites || _simulation.Save() != artBaseline)</span>
+<span id="L147"><a class="line" href="#L147">147</a>                         throw new InvalidOperationException(&quot;F4 return to authored art changed simulation state.&quot;);</span>
+<span id="L148"><a class="line" href="#L148">148</a>                     _world.FieldView = false; ResetCamera(); RefreshCamera();</span>
+<span id="L149"><a class="line" href="#L149">149</a>                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;DIAGNOSTIC CAPTURE&quot;);</span>
+<span id="L150"><a class="line" href="#L150">150</a>                     _encounter.Visible = false; _world.QueueRedraw();</span>
+<span id="L151"><a class="line" href="#L151">151</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L152"><a class="line" href="#L152">152</a>                     var diagnosticPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + &quot;-diagnostics.png&quot;);</span>
+<span id="L153"><a class="line" href="#L153">153</a>                     if (GetViewport().GetTexture().GetImage().SavePng(diagnosticPath) != Error.Ok) throw new IOException(&quot;Diagnostic screenshot failed.&quot;);</span>
+<span id="L154"><a class="line" href="#L154">154</a>                     // A wider room makes cross-tile sight shading inspectable without moving the anomaly.</span>
+<span id="L155"><a class="line" href="#L155">155</a>                     _simulation.ManualPause = true;</span>
+<span id="L156"><a class="line" href="#L156">156</a>                     _simulation.Player.Route.Clear(); _simulation.Player.SegmentMs = 0;</span>
+<span id="L157"><a class="line" href="#L157">157</a>                     _simulation.Player.StoppedStep = null;</span>
+<span id="L158"><a class="line" href="#L158">158</a>                     _simulation.Player.Cell = new(10, 8); _simulation.Player.Facing = 1;</span>
+<span id="L159"><a class="line" href="#L159">159</a>                     _feedback.Reset(_simulation); _world.FieldView = true; ResetCamera(); RefreshCamera();</span>
+<span id="L160"><a class="line" href="#L160">160</a>                     _encounter.Caption = &quot;&quot;; _encounter.Visible = true;</span>
+<span id="L161"><a class="line" href="#L161">161</a>                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;VISION SHADING · PRESENTATION FIXTURE&quot;);</span>
+<span id="L162"><a class="line" href="#L162">162</a>                     _world.QueueRedraw();</span>
+<span id="L163"><a class="line" href="#L163">163</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L164"><a class="line" href="#L164">164</a>                     var sightPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + &quot;-sight.png&quot;);</span>
+<span id="L165"><a class="line" href="#L165">165</a>                     if (GetViewport().GetTexture().GetImage().SavePng(sightPath) != Error.Ok) throw new IOException(&quot;Sight screenshot failed.&quot;);</span>
+<span id="L166"><a class="line" href="#L166">166</a>                     await CheckPlayerCutaway();</span>
+<span id="L167"><a class="line" href="#L167">167</a>                     await CheckReducedWalls();</span>
+<span id="L168"><a class="line" href="#L168">168</a>                     GD.Print(&quot;SCENE_SMOKE_PASS: feathered player cutaway/H toggle/fractional following with unchanged world and sight, click/move, observation/release, held world/save and shading cache, ordinary RMB look stop with anomaly interruption disabled, RMB discovery and exact look stop with running local time, one cue, J module flag, F2 diagnostics, mute/reduced effects, F4 reversible full-art swap with unchanged held state, field/diagnostic/placeholder/sight screenshots.&quot;);</span>
+<span id="L169"><a class="line" href="#L169">169</a>                     GetTree().Quit();</span>
+<span id="L170"><a class="line" href="#L170">170</a>                     return;</span>
+<span id="L171"><a class="line" href="#L171">171</a>             }</span>
+<span id="L172"><a class="line" href="#L172">172</a>             _smokeStage++; _smokeFrame = 0;</span>
+<span id="L173"><a class="line" href="#L173">173</a>         }</span>
+<span id="L174"><a class="line" href="#L174">174</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
+<span id="L175"><a class="line" href="#L175">175</a>     }</span>
+<span id="L176"><a class="line" href="#L176">176</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

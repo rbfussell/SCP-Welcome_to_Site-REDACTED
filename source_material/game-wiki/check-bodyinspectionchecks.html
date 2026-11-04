@@ -1,0 +1,78 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodyInspectionChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyInspectionChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class BodyInspectionChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Body inspection: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        void Finish(SpatialSimulation s) { for (var i = 0; i &lt; 2000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;ordinary paid work resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest r) { Check(s.HandleInventory(r), s.LastMessage); Finish(s); }
+        var sim = Sim(); var chest = new BodyHex(-4, 8); var before = sim.Save();
+        Check(sim.InventoryBodyPick(&quot;front&quot;, chest)?.ItemId == &quot;avatar-shirt&quot;, &quot;open jacket exposes the shirt at its opening&quot;);
+        Check(sim.InventoryBodyPick(&quot;back&quot;, chest)?.ItemId == &quot;avatar-backpack&quot;, &quot;back-mounted pack wins on the back surface only&quot;);
+        Check(sim.InventoryBodyPick(&quot;front&quot;, new(-2, 4))?.ItemId == &quot;avatar-coat&quot;, &quot;retained jacket shoulder material stays on top&quot;);
+        Check(sim.InventoryBodyPick(&quot;front&quot;, new(0, 0)) is null &amp;&amp; sim.InventoryBodyPick(&quot;front&quot;, new(40, 40)) is null,
+            &quot;bare body and outside positions are not equipment targets&quot;);
+        Check(sim.InventoryBodySurface(&quot;other&quot;).Count == 0 &amp;&amp; sim.InventoryBodySurface(&quot;mounted&quot;).Count == 0, &quot;only explicit front/back surfaces are supported&quot;);
+        foreach (var surface in new[] { &quot;front&quot;, &quot;back&quot; })
+        {
+            var targets = sim.InventoryBodySurface(surface);
+            Check(targets.SelectMany(t =&gt; t.Cells).Distinct().Count() == targets.Sum(t =&gt; t.Cells.Length), &quot;exposed target cells never overlap: &quot; + surface);
+            Check(targets.All(t =&gt; sim.Inventory.Items[t.ItemId].Placement.ParentId == &quot;person:avatar&quot; &amp;&amp; t.Cells.Length &gt; 0), &quot;only own worn instances are projected: &quot; + surface);
+            Check(!targets.Any(t =&gt; t.ItemId is &quot;medical-case&quot; or &quot;flashlight&quot; or &quot;chemical-suit&quot; or &quot;observer-coat&quot;), &quot;no contents, stored or foreign gear leaks: &quot; + surface);
+        }
+        Check(sim.Save() == before, &quot;projection, picking and access feedback are read-only&quot;);
+        var shirt = sim.InventoryBodyPick(&quot;front&quot;, chest)!;
+        Check(!shirt.MoveAccess.Allowed &amp;&amp; shirt.MoveAccess == sim.InventoryMoveAccess(&quot;avatar-shirt&quot;), &quot;visible material does not grant removal through an outer pack&quot;);
+        Act(sim, new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;));
+        Check(sim.InventoryBodyPick(&quot;front&quot;, chest)?.ItemId == &quot;avatar-coat&quot;, &quot;closing changes the actual top target after paid completion&quot;);
+        Check(!sim.InventoryBodySurface(&quot;front&quot;).Any(t =&gt; t.ItemId == &quot;avatar-shirt&quot;), &quot;fully hidden shirt has no front hit region&quot;);
+        Act(sim, new(InventoryActionKind.OpenGarment, &quot;avatar-coat&quot;));
+        Check(sim.InventoryBodyPick(&quot;front&quot;, chest)?.ItemId == &quot;avatar-shirt&quot;, &quot;reopening restores the exposed lower target&quot;);
+        sim.Player.Cell = new(13, 6);
+        Act(sim, new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));
+        Check(sim.InventoryBodyPick(&quot;front&quot;, chest)?.ItemId == &quot;spare-backpack&quot; &amp;&amp; sim.InventoryBodyPick(&quot;back&quot;, chest)?.ItemId == &quot;avatar-backpack&quot;,
+            &quot;two packs are distinct items on distinct surfaces&quot;);
+        Act(sim, new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 13, 0)));
+        Act(sim, new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));
+        var waist = new BodyHex(-6, 12);
+        Check(sim.InventoryBodyPick(&quot;front&quot;, waist)?.ItemId == &quot;utility-belt&quot; &amp;&amp; sim.InventoryBodyPick(&quot;back&quot;, waist)?.ItemId == &quot;utility-belt&quot;,
+            &quot;wrapping belt is the same source identity on both surfaces&quot;);
+
+        var packSource = sim.InventoryBodyPick(&quot;back&quot;, chest)!.ItemId;
+        var casePlacement = sim.Inventory.Items[&quot;medical-case&quot;].Placement; var lightPlacement = sim.Inventory.Items[&quot;flashlight&quot;].Placement;
+        var mass = InventoryHierarchy.CarriedMass(sim.Inventory, &quot;person:avatar&quot;);
+        var remove = new InventoryRequest(InventoryActionKind.Move, packSource, new(&quot;person:avatar&quot;, &quot;hand&quot;));
+        sim.ManualPause = true; before = sim.Save();
+        Check(!sim.HandleInventory(remove) &amp;&amp; sim.Save() == before, &quot;paused body-source move cannot undress for free&quot;);
+        sim.ManualPause = false;
+        Check(sim.HandleInventory(remove) &amp;&amp; sim.InventoryBodyPick(&quot;back&quot;, chest)?.ItemId == packSource, &quot;source remains worn until paid completion&quot;);
+        sim.Tick(); var midway = sim.Save(); var clone = Sim(); clone.Restore(midway);
+        Check(clone.Save() == midway, &quot;paid body-source move restores exactly&quot;); Finish(sim); Finish(clone);
+        Check(sim.Save() == clone.Save(), &quot;body-source continuation is deterministic&quot;);
+        Check(sim.InventoryBodyPick(&quot;back&quot;, chest)?.ItemId == &quot;avatar-coat&quot; &amp;&amp; !sim.InventoryBodySurface(&quot;back&quot;).Any(t =&gt; t.ItemId == packSource),
+            &quot;held pack leaves the worn projection and exposes the jacket&quot;);
+        Check(sim.Inventory.Items[&quot;medical-case&quot;].Placement == casePlacement &amp;&amp; sim.Inventory.Items[&quot;flashlight&quot;].Placement == lightPlacement
+            &amp;&amp; InventoryHierarchy.CarriedMass(sim.Inventory, &quot;person:avatar&quot;) == mass, &quot;removing a loaded provider preserves child placement, identity and counted mass&quot;);
+
+        var tactical = Sim(); tactical.Player.Cell = new(13, 6);
+        Act(tactical, new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));
+        tactical.Player.Cell = new(9, 2); tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(10, 2); tactical.Face(new Hex(10, 2).World);
+        Check(tactical.ArmTraining(), &quot;tactical fixture starts&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var move = new InventoryRequest(InventoryActionKind.Move, tactical.InventoryBodyPick(&quot;front&quot;, waist)!.ItemId, new(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 3));
+        var quote = tactical.QuoteInventory(move); Check(quote.Allowed, quote.Reason);
+        var turn = tactical.Combat.Cursor;
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = quote.Ap - 1 }; before = tactical.Save();
+        Check(!tactical.HandleInventory(move) &amp;&amp; tactical.Save() == before, &quot;body-to-storage move refuses insufficient AP atomically&quot;);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        Check(tactical.HandleInventory(move) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - quote.Ap, &quot;body-source action spends normal AP once&quot;); Finish(tactical);
+        Check(tactical.Inventory.Items[&quot;utility-belt&quot;].Placement == new ItemPlacement(&quot;avatar-backpack&quot;, &quot;main&quot;, 0, 3)
+            &amp;&amp; tactical.InventoryBodyPick(&quot;front&quot;, waist)?.ItemId == &quot;avatar-trousers&quot;, &quot;exact storage move clears worn coordinates/order and reveals the trousers&quot;);
+        Console.WriteLine($&quot;BODY_INSPECTION_CHECKS_PASS: {passed} assertions; exposed own surfaces, open covers, front/back packs, no hidden contents, paid removal, AP and continuation.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/BodyInspectionChecks.cs</footer></main></div></body></html>

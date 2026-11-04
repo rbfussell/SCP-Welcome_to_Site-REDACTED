@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-0004: Godot engine selection and proposed independent simulation core | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/adr/0004-godot-and-simulation-core.md.</aside><h1 id="adr-0004-godot-engine-selection-and-proposed-independent-simulation-core">ADR-0004: Godot engine selection and proposed independent simulation core</h1>
+<p><strong>Status:</strong> Godot selected by the user; .NET/C# integration details proposed pending M0 qualification</p>
+<p><strong>Date:</strong> October 22, 2026</p>
+<p><strong>Follow-up:</strong> <a href="doc-docs-adr-0005-retain-godot-after-falltergeist-review-md.html">ADR-0005</a> reviews the user's Falltergeist alternative, retains Godot and selects the .NET/C# implementation direction under delegated engineering authority. Version/runtime qualification remains M0 work. The original recommendation below is retained as decision history.</p>
+<h2 id="context-and-drivers">Context and drivers</h2>
+<p>The game needs modern 2D sprites, layered inventories, a substantial OSCP interface, input/audio, developer tooling and desktop packaging. Its distinctive engineering is persistent simulation, employment, procedural domains, observation, physical logistics and capability-based SCP mods. Those domain rules must behave offscreen and independently of rendering.</p>
+<h2 id="options">Options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Benefit</th>
+<th>Cost/tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Godot with all world state in scene nodes</td>
+<td>Fast initial visual iteration</td>
+<td>Harder to separate persistence, replay, offscreen detail and authoritative order</td>
+</tr>
+<tr>
+<td>Godot front end plus custom C# simulation library</td>
+<td>Reuses visual/UI tooling while keeping game rules testable and independent</td>
+<td>Requires a disciplined adapter boundary and the .NET Godot distribution</td>
+</tr>
+<tr>
+<td>Full custom engine</td>
+<td>Complete control over renderer, editor and runtime</td>
+<td>Adds rendering, UI layout/input, asset tooling, audio, platform/export and debugging work before proving gameplay</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recommendation">Recommendation</h2>
+<p>The user selected Godot on October 22, 2026, and confirmed a fixed isometric/three-quarter field view with square logical tiles and a Fallout 2-inspired detailed sprite aesthetic. This accepts the engine choice. It does not certify a runtime version, installed editor integration, exports, performance or a finished art pipeline. The .NET distribution and independent C# library below remain the recommended implementation configuration to qualify during M0.</p>
+<p>Use a qualified Godot 4 .NET release for presentation and a plain C# simulation library with no Godot dependency. Godot renders active sprites/tiles, equipment UI, OSCP and audio. The library owns entity IDs, time/event ordering, spatial/observation rules, employment/orders, physical inventories, procedures, knowledge, generation, saves and module hosting.</p>
+<p>Start locally in one process. Adapters submit validated commands and receive snapshots/events; headless kernel fixtures run without an editor or renderer. Scene nodes are projections of selected active entities, not the only place those entities exist. Keep Godot integration thin enough that renderer changes do not rewrite domain state.</p>
+<p>This is a custom simulation architecture, not a recommendation to write a renderer or a general-purpose engine. Choose the full-custom option only if measured requirements cannot be met after bounded optimization; publish the failing case and alternatives first.</p>
+<h2 id="verified-capabilities-and-limitations">Verified capabilities and limitations</h2>
+<ul>
+<li>Godot provides dedicated 2D tools including sprites, tile-based scenes and lighting. <a href="https://docs.godotengine.org/en/stable/tutorials/2d/introduction_to_2d.html">Official 2D introduction</a>.</li>
+<li>Its Control-node UI supports content, layout, tabs and theming suitable for an OSCP application shell. This suitability is an engineering inference from those primitives, not an OSCP component shipped with Godot. <a href="https://docs.godotengine.org/en/stable/tutorials/ui/index.html">Official UI guide</a>.</li>
+<li>Godot supports headless execution. A plain simulation library can also be exercised separately, while headless Godot tests qualify adapters. <a href="https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_dedicated_servers.html">Headless/export guide</a>.</li>
+<li>C# needs the .NET edition; desktop export is supported, while current C# web export is unavailable. The desktop target fits this proposal; a mandatory browser version would require revisiting it. <a href="https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/index.html">Official C# documentation</a>.</li>
+<li>Godot explicitly does not guarantee deterministic physics. Keep authoritative movement, visibility and critical action order in the tested kernel; a fixed tick alone does not make Godot physics a replay guarantee. <a href="https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html">Official physics guide</a>.</li>
+<li>Resource packs can contain scripts/scenes and replace resource paths. They are not our public gameplay sandbox. Use validated namespaced data/assets plus the separately qualified metered scripting host; arbitrary GDScript/C# assemblies or native packs do not inherit the module contract. <a href="https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html">Official pack/mod guide</a>.</li>
+</ul>
+<p>Runtime asset loading is available for user content, but built-in production assets should use the normal import pipeline. Pin the importer/schema and restrict public asset formats. <a href="https://docs.godotengine.org/en/stable/tutorials/io/runtime_file_loading_and_saving.html">Runtime loading guide</a>.</p>
+<h2 id="m0-proof-and-exit-conditions">M0 proof and exit conditions</h2>
+<p>Select and record the exact Godot .NET/.NET SDK/export-template versions and reference machine. Run the existing timing/state fixtures independently of Godot, then through a sprite/terminal adapter. Demonstrate four-facing markers, render-rate-independent sight, an OSCP order producing a real acknowledged assignment, save/resume, bounded script faults and a domain transfer.</p>
+<p>Use the proposed performance envelope and report measurements; none have been run here. Profile kernel, allocations, adapter transfer and rendering separately. Only introduce worker scheduling or native optimization after finding a relevant bottleneck. Live Godot scene changes stay in their integration context; workers exchange ordinary data rather than sharing mutable scene state.</p>
+<p>If the metered mod host cannot enforce required limits, revise its integration/runtime before claiming support. Godot does not remove that requirement. A core implementation language and a public mod language need not be the same.</p>
+<h2 id="environment-evidence-and-status">Environment evidence and status</h2>
+<p>Read-only tools on this workspace reported Godot <code>4.6.3.stable.fedora.7d41c59c4</code>, .NET SDKs <code>8.0.128</code> and <code>10.0.110</code>, and Git. This does not qualify the installed Godot binary's C# integration, target-platform exports or performance. No game project, simulation library or editor distribution was installed/created by this decision record.</p>
+<p>Godot is the selected engine. Version/platform/runtime qualification and implementation evidence remain M0 work; reopening the engine choice requires a recorded reason and owner discussion. Related: <a href="doc-docs-adr-0001-shared-simulation-md.html">shared simulation</a>, <a href="doc-docs-03-scp-module-contract-md.html">module contract</a>, <a href="doc-docs-11-oscp-terminal-md.html">OSCP design</a>, <a href="doc-docs-06-sprites-and-placeholders-md.html">sprite/art contract</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/adr/0004-godot-and-simulation-core.md</footer></main></div></body></html>

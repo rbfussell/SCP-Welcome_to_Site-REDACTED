@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PersonnelOrderSystem.Issue | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PersonnelOrderSystem.Issue</h1><p><a href="system-operations.html">Personnel orders and recovery</a> / <a href="file-src-sitesimulation-operations-personnelordersystem-cs.html#L8">src/SiteSimulation/Operations/PersonnelOrderSystem.cs:8</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static bool Issue(SimulationWorld world, string issuerId, string actorId, PersonnelTask task, Hex destination,
+        string channel, out string reason, bool allowPausedIntent = false)</code></pre><h2>Role in the engine</h2><p>Owns authored duties, orders, bounded communications, received reports, trolley loading/pushing/unloading and receiving-footprint compliance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0acf3fb0a09874cc72d7.html">OscpService.PhoneAvailable</a></li><li><a href="function-1b5978a2e89e01a08b24.html">FacilityCommunications.TerminalReachable</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-cc087ade8b0b571eab8b.html">SimulationWorld.Log</a></li><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>world.Actors.SingleOrDefault
+Enum.IsDefined
+EmploymentSystem.Owns
+state.Orders.Any
+world.Map.Walkable
+FacilityCommunications.TerminalReachable
+OscpService.PhoneAvailable
+state.Orders.FindIndex
+state.Orders.RemoveAt
+state.Orders.Add
+world.Awareness.Evidence.SingleOrDefault
+world.Log</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-3dd7c119c193e7c08283.html">SpatialSimulation.IssueOrderOnChannel</a></li></ul><h2>Related types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-facilitycommunications.html">FacilityCommunications</a></li><li><a href="type-hex.html">Hex</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-oscpservice.html">OscpService</a></li><li><a href="type-personnelordersystem.html">PersonnelOrderSystem</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li></ul><h2>Implementation</h2><pre><code>public static bool Issue(SimulationWorld world, string issuerId, string actorId, PersonnelTask task, Hex destination,
+        string channel, out string reason, bool allowPausedIntent = false)
+    {
+        var state = world.Operations;
+        var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == actorId);
+        reason = !world.LocalActive &amp;&amp; !(allowPausedIntent &amp;&amp; world.ManualPause &amp;&amp; !world.LocalHold &amp;&amp; !world.Combat.Active) ? &quot;Local simulation is held.&quot;
+            : state.Definition is null ? &quot;No operation configured.&quot;
+            : state.Definition.CommanderId != issuerId ? &quot;Issuer lacks site operations authority.&quot;
+            : actor is null || actor.Id == issuerId || actor.ObserverKind != &quot;human&quot; ? &quot;Recipient is not an assigned human employee.&quot;
+            : !Enum.IsDefined(task) || channel is not (&quot;voice&quot; or &quot;terminal&quot; or &quot;phone&quot;) ? &quot;Unsupported task/channel.&quot;
+            : task == PersonnelTask.ResumeDuty &amp;&amp; !EmploymentSystem.Owns(world, actorId) ? &quot;Recipient has no employment appointment.&quot;
+            : task == PersonnelTask.Transport &amp;&amp; state.Orders.Any(o =&gt; o.ActorId != actorId &amp;&amp; o.Task == PersonnelTask.Transport
+                &amp;&amp; o.Status is OrderStatus.Pending or OrderStatus.Active or OrderStatus.Blocked) ? &quot;Trolley already assigned to another handler.&quot;
+            : !world.Map.Walkable(destination) ? &quot;Destination is blocked.&quot;
+            : channel == &quot;terminal&quot; &amp;&amp; !FacilityCommunications.TerminalReachable(world) ? &quot;Approach the powered, connected OSCP terminal.&quot;
+            : channel == &quot;phone&quot; &amp;&amp; (!OscpService.PhoneAvailable(world) || !state.NetworkOnline) ? &quot;A powered, accessible handset and site link are required.&quot;
+            : &quot;accepted&quot;;
+        if (reason != &quot;accepted&quot;) return false;
+        // A bounded history cannot evict an active order.
+        if (state.Orders.Count &gt;= 32)
+        {
+            var completed = state.Orders.FindIndex(o =&gt; o.Status is OrderStatus.Complete or OrderStatus.Cancelled);
+            if (completed &lt; 0) { reason = &quot;Order ledger is full.&quot;; return false; }
+            state.Orders.RemoveAt(completed);
+        }
+        state.Orders.Add(new(state.NextId++, issuerId, actorId, task, destination, channel, OrderStatus.Pending,
+            &quot;Awaiting delivery and acknowledgement&quot;, world.LocalMs,
+            task == PersonnelTask.Follow ? world.Player.Position : world.Awareness.Evidence.SingleOrDefault(e =&gt; e.SubjectId == state.Definition!.SubjectId)?.Position));
+        world.Log(&quot;orders&quot;, actorId, &quot;submitted&quot;, $&quot;{task} via {channel}; destination {destination}&quot;);
+        return true;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Operations/PersonnelOrderSystem.cs:8</footer></main></div></body></html>

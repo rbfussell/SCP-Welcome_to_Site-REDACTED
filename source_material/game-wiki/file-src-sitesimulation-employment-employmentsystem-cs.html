@@ -1,0 +1,154 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Employment/EmploymentSystem.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>EmploymentSystem.cs</h1><p>src/SiteSimulation/Employment/EmploymentSystem.cs</p><p><a href="system-employment.html">Employment and relief</a></p><h2>Types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a> · line 6</li><li><a href="function-4152c13f64c4e71ee74e.html">EmploymentSystem.Scheduled</a> · line 7</li><li><a href="function-7d30a8b2a27b11b3d655.html">EmploymentSystem.Initialize</a> · line 10</li><li><a href="function-b0937324beb7404538a9.html">EmploymentSystem.Ready</a> · line 33</li><li><a href="function-b1931dd6e5204e073841.html">EmploymentSystem.HasOrder</a> · line 42</li><li><a href="function-29a3fa22bc9df2848038.html">EmploymentSystem.Coverage</a> · line 44</li><li><a href="function-ab2ec81884535a66451b.html">EmploymentSystem.Set</a> · line 47</li><li><a href="function-3018d350856759ab217c.html">EmploymentSystem.Advance</a> · line 56</li><li><a href="function-74eb42dd39556349b4a7.html">EmploymentSystem.Travel</a> · line 123</li><li><a href="function-b2d16be15115a0657619.html">EmploymentSystem.Publish</a> · line 140</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Scheduled primary work, bounded relief and return after orders. Uses ordinary movement and sight.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class EmploymentSystem</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static bool Owns(SimulationWorld world, string actorId) =&gt; world.Employment.Definition?.Appointments?.Any(a =&gt; a is not null &amp;&amp; a.ActorId == actorId) == true;</span>
+<span id="L7"><a class="line" href="#L7">7</a>     internal static bool Scheduled(StaffAppointment a, long localMs)</span>
+<span id="L8"><a class="line" href="#L8">8</a>         =&gt; (localMs % a.CycleMs - a.StartMs + a.CycleMs) % a.CycleMs &lt; a.DurationMs;</span>
+<span id="L9"><a class="line" href="#L9">9</a> </span>
+<span id="L10"><a class="line" href="#L10">10</a>     public static void Initialize(SimulationWorld world)</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         var state = world.Employment;</span>
+<span id="L13"><a class="line" href="#L13">13</a>         if (state.Definition is not { } d) return;</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (d.Posts is null || d.Appointments is null || d.Posts.Length == 0 || d.Appointments.Length == 0</span>
+<span id="L15"><a class="line" href="#L15">15</a>             || d.Posts.Any(p =&gt; p is null || string.IsNullOrWhiteSpace(p.Id) || p.Id.Length &gt; 80 || string.IsNullOrWhiteSpace(p.Name)</span>
+<span id="L16"><a class="line" href="#L16">16</a>                 || p.Name.Length &gt; 100 || !world.Map.Inside(p.LookAt) || p.MinimumStaff is &lt; 1 or &gt; 16)</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || d.Posts.Select(p =&gt; p.Id).Distinct().Count() != d.Posts.Length</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || d.Appointments.Any(a =&gt; a is null || a.ActorId == world.Player.Id || !world.Actors.Any(actor =&gt; actor.Id == a.ActorId &amp;&amp; actor.ObserverKind == &quot;human&quot;)</span>
+<span id="L19"><a class="line" href="#L19">19</a>                 || a.SupervisorId != world.Operations.Definition?.CommanderId || !d.Posts.Any(p =&gt; p.Id == a.PostId)</span>
+<span id="L20"><a class="line" href="#L20">20</a>                 || string.IsNullOrWhiteSpace(a.Role) || a.Role.Length &gt; 100 || !world.Map.Walkable(a.Station) || !world.Map.Walkable(a.Rest)</span>
+<span id="L21"><a class="line" href="#L21">21</a>                 || a.Rest == a.Station || a.RestFacing is &lt; 0 or &gt; 5 || a.CycleMs is &lt; 1000 or &gt; 86400000</span>
+<span id="L22"><a class="line" href="#L22">22</a>                 || a.StartMs &lt; 0 || a.StartMs &gt;= a.CycleMs || a.DurationMs &lt;= 0 || a.DurationMs &gt;= a.CycleMs</span>
+<span id="L23"><a class="line" href="#L23">23</a>                 || a.MaxOvertimeMs &lt; 0 || a.MaxOvertimeMs &gt; a.CycleMs - a.DurationMs</span>
+<span id="L24"><a class="line" href="#L24">24</a>                 || new[] { a.CycleMs, a.StartMs, a.DurationMs, a.MaxOvertimeMs }.Any(ms =&gt; ms % SpatialSimulation.TickMs != 0))</span>
+<span id="L25"><a class="line" href="#L25">25</a>             || d.Appointments.Select(a =&gt; a.ActorId).Distinct().Count() != d.Appointments.Length</span>
+<span id="L26"><a class="line" href="#L26">26</a>             || d.Appointments.Select(a =&gt; a.Station).Distinct().Count() != d.Appointments.Length)</span>
+<span id="L27"><a class="line" href="#L27">27</a>             throw new ArgumentException(&quot;Invalid employment definitions or appointment.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         state.Duties.AddRange(d.Appointments.Select(a =&gt; Scheduled(a, 0)</span>
+<span id="L29"><a class="line" href="#L29">29</a>             ? new StaffDuty(a.ActorId, DutyPhase.Reporting, &quot;Reporting for assigned duty&quot;, 0)</span>
+<span id="L30"><a class="line" href="#L30">30</a>             : new StaffDuty(a.ActorId, DutyPhase.OffShift, &quot;Off shift at scenario start&quot;, 0, Release: DutyRelease.OffShift)));</span>
+<span id="L31"><a class="line" href="#L31">31</a>     }</span>
+<span id="L32"><a class="line" href="#L32">32</a> </span>
+<span id="L33"><a class="line" href="#L33">33</a>     private static bool Ready(SimulationWorld world, StaffAppointment appointment)</span>
+<span id="L34"><a class="line" href="#L34">34</a>     {</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var actor = world.Actors.Single(a =&gt; a.Id == appointment.ActorId);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         var post = world.Employment.Definition!.Posts.Single(p =&gt; p.Id == appointment.PostId);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         return actor.Cell == appointment.Station &amp;&amp; !actor.Moving &amp;&amp; actor.StoppedStep is null</span>
+<span id="L38"><a class="line" href="#L38">38</a>             &amp;&amp; world.LocalMs &gt;= actor.StartledUntilMs &amp;&amp; !HasOrder(world, actor.Id)</span>
+<span id="L39"><a class="line" href="#L39">39</a>             &amp;&amp; !(world.Combat.Active &amp;&amp; world.Combat.For(actor.Id) is not null)</span>
+<span id="L40"><a class="line" href="#L40">40</a>             &amp;&amp; ObservationService.Inspect(world.Map, actor, post.LookAt, world.LocalMs).Detected;</span>
+<span id="L41"><a class="line" href="#L41">41</a>     }</span>
+<span id="L42"><a class="line" href="#L42">42</a>     private static bool HasOrder(SimulationWorld world, string actorId) =&gt; world.Operations.Orders.Any(o =&gt; o.ActorId == actorId</span>
+<span id="L43"><a class="line" href="#L43">43</a>         &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked);</span>
+<span id="L44"><a class="line" href="#L44">44</a>     public static int Coverage(SimulationWorld world, string postId) =&gt; world.Employment.Definition?.Appointments.Count(a =&gt; a.PostId == postId</span>
+<span id="L45"><a class="line" href="#L45">45</a>         &amp;&amp; world.Employment.Duties.Any(s =&gt; s.ActorId == a.ActorId &amp;&amp; s.Phase is DutyPhase.OnDuty or DutyPhase.AwaitingRelief)</span>
+<span id="L46"><a class="line" href="#L46">46</a>         &amp;&amp; Ready(world, a)) ?? 0;</span>
+<span id="L47"><a class="line" href="#L47">47</a>     private static void Set(SimulationWorld world, StaffAppointment a, DutyPhase phase, string reason, long? reliefSince = null, DutyRelease release = DutyRelease.None)</span>
+<span id="L48"><a class="line" href="#L48">48</a>     {</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var state = world.Employment;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var index = state.Duties.FindIndex(s =&gt; s.ActorId == a.ActorId);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         var old = state.Duties[index];</span>
+<span id="L52"><a class="line" href="#L52">52</a>         if (old.Phase == phase &amp;&amp; old.Reason == reason &amp;&amp; old.ReliefSinceMs == reliefSince &amp;&amp; old.Release == release) return;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         state.Duties[index] = new(a.ActorId, phase, reason, world.LocalMs, reliefSince, release);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         world.Log(&quot;employment&quot;, a.ActorId, phase.ToString(), reason);</span>
+<span id="L55"><a class="line" href="#L55">55</a>     }</span>
+<span id="L56"><a class="line" href="#L56">56</a>     public static void Advance(SimulationWorld world)</span>
+<span id="L57"><a class="line" href="#L57">57</a>     {</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (world.Employment.Definition is not { } d) return;</span>
+<span id="L59"><a class="line" href="#L59">59</a>         foreach (var a in d.Appointments)</span>
+<span id="L60"><a class="line" href="#L60">60</a>         {</span>
+<span id="L61"><a class="line" href="#L61">61</a>             var actor = world.Actors.Single(actor =&gt; actor.Id == a.ActorId);</span>
+<span id="L62"><a class="line" href="#L62">62</a>             var state = world.Employment.Duties.Single(s =&gt; s.ActorId == a.ActorId);</span>
+<span id="L63"><a class="line" href="#L63">63</a>             var post = d.Posts.Single(p =&gt; p.Id == a.PostId);</span>
+<span id="L64"><a class="line" href="#L64">64</a>             var scheduled = Scheduled(a, world.LocalMs);</span>
+<span id="L65"><a class="line" href="#L65">65</a>             if (world.Combat.Active &amp;&amp; world.Combat.For(actor.Id) is not null)</span>
+<span id="L66"><a class="line" href="#L66">66</a>             {</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 Set(world, a, DutyPhase.Interrupted, &quot;Tactical participation suspends employment&quot;, state.ReliefSinceMs, state.Release);</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 continue;</span>
+<span id="L69"><a class="line" href="#L69">69</a>             }</span>
+<span id="L70"><a class="line" href="#L70">70</a>             if (HasOrder(world, actor.Id))</span>
+<span id="L71"><a class="line" href="#L71">71</a>             {</span>
+<span id="L72"><a class="line" href="#L72">72</a>                 Set(world, a, DutyPhase.Interrupted, &quot;Authorized order suspends employment; return when released&quot;, state.ReliefSinceMs, state.Release);</span>
+<span id="L73"><a class="line" href="#L73">73</a>                 continue;</span>
+<span id="L74"><a class="line" href="#L74">74</a>             }</span>
+<span id="L75"><a class="line" href="#L75">75</a>             if (world.LocalMs &lt; actor.StartledUntilMs)</span>
+<span id="L76"><a class="line" href="#L76">76</a>             {</span>
+<span id="L77"><a class="line" href="#L77">77</a>                 MovementSystem.StopInPlace(actor);</span>
+<span id="L78"><a class="line" href="#L78">78</a>                 Set(world, a, DutyPhase.Blocked, &quot;Recovering from startle; post coverage unavailable&quot;, state.ReliefSinceMs, state.Release);</span>
+<span id="L79"><a class="line" href="#L79">79</a>                 continue;</span>
+<span id="L80"><a class="line" href="#L80">80</a>             }</span>
+<span id="L81"><a class="line" href="#L81">81</a>             // Shift edges are processed once on a local tick; a hold never replays work or handovers.</span>
+<span id="L82"><a class="line" href="#L82">82</a>             var reliefSince = scheduled ? null : state.ReliefSinceMs;</span>
+<span id="L83"><a class="line" href="#L83">83</a>             var release = scheduled ? DutyRelease.None : state.Release;</span>
+<span id="L84"><a class="line" href="#L84">84</a>             if (!scheduled &amp;&amp; release == DutyRelease.None)</span>
+<span id="L85"><a class="line" href="#L85">85</a>             {</span>
+<span id="L86"><a class="line" href="#L86">86</a>                 var wasWorking = state.Phase is not DutyPhase.OffShift &amp;&amp; (state.Phase != DutyPhase.Reporting || Ready(world, a));</span>
+<span id="L87"><a class="line" href="#L87">87</a>                 if (!wasWorking &amp;&amp; reliefSince is null) release = DutyRelease.OffShift;</span>
+<span id="L88"><a class="line" href="#L88">88</a>                 else</span>
+<span id="L89"><a class="line" href="#L89">89</a>                 {</span>
+<span id="L90"><a class="line" href="#L90">90</a>                     var phaseMs = (world.LocalMs % a.CycleMs - a.StartMs + a.CycleMs) % a.CycleMs;</span>
+<span id="L91"><a class="line" href="#L91">91</a>                     reliefSince ??= world.LocalMs - (phaseMs - a.DurationMs);</span>
+<span id="L92"><a class="line" href="#L92">92</a>                     var replacements = d.Appointments.Count(other =&gt; other.ActorId != actor.Id &amp;&amp; other.PostId == a.PostId</span>
+<span id="L93"><a class="line" href="#L93">93</a>                         &amp;&amp; Scheduled(other, world.LocalMs) &amp;&amp; Ready(world, other)</span>
+<span id="L94"><a class="line" href="#L94">94</a>                         &amp;&amp; world.Employment.Duties.Any(s =&gt; s.ActorId == other.ActorId &amp;&amp; s.Phase == DutyPhase.OnDuty));</span>
+<span id="L95"><a class="line" href="#L95">95</a>                     release = replacements &gt;= post.MinimumStaff ? DutyRelease.Relieved</span>
+<span id="L96"><a class="line" href="#L96">96</a>                         : world.LocalMs - reliefSince &gt;= a.MaxOvertimeMs ? DutyRelease.OvertimeExpired : DutyRelease.None;</span>
+<span id="L97"><a class="line" href="#L97">97</a>                 }</span>
+<span id="L98"><a class="line" href="#L98">98</a>             }</span>
+<span id="L99"><a class="line" href="#L99">99</a>             if (!scheduled &amp;&amp; release != DutyRelease.None)</span>
+<span id="L100"><a class="line" href="#L100">100</a>             {</span>
+<span id="L101"><a class="line" href="#L101">101</a>                 var reason = release switch</span>
+<span id="L102"><a class="line" href="#L102">102</a>                 {</span>
+<span id="L103"><a class="line" href="#L103">103</a>                     DutyRelease.OvertimeExpired =&gt; &quot;Overtime limit reached; leaving even without relief&quot;,</span>
+<span id="L104"><a class="line" href="#L104">104</a>                     DutyRelease.Relieved =&gt; &quot;Relieved by ready on-duty staff; off shift&quot;,</span>
+<span id="L105"><a class="line" href="#L105">105</a>                     _ =&gt; &quot;Off shift; not assigned this interval&quot;</span>
+<span id="L106"><a class="line" href="#L106">106</a>                 };</span>
+<span id="L107"><a class="line" href="#L107">107</a>                 Travel(world, a, actor, a.Rest, DutyPhase.OffShift, reason, reliefSince, release);</span>
+<span id="L108"><a class="line" href="#L108">108</a>                 if (!actor.Moving &amp;&amp; actor.Cell == a.Rest) actor.Facing = a.RestFacing;</span>
+<span id="L109"><a class="line" href="#L109">109</a>                 continue;</span>
+<span id="L110"><a class="line" href="#L110">110</a>             }</span>
+<span id="L111"><a class="line" href="#L111">111</a>             var phase = scheduled ? DutyPhase.OnDuty : DutyPhase.AwaitingRelief;</span>
+<span id="L112"><a class="line" href="#L112">112</a>             var detail = scheduled ? &quot;At assigned observation station&quot; : &quot;Relief absent; bounded overtime at post&quot;;</span>
+<span id="L113"><a class="line" href="#L113">113</a>             if (actor.Cell == a.Station &amp;&amp; !actor.Moving &amp;&amp; actor.StoppedStep is null)</span>
+<span id="L114"><a class="line" href="#L114">114</a>             {</span>
+<span id="L115"><a class="line" href="#L115">115</a>                 actor.Facing = ObservationService.FacingToward(actor.Position, post.LookAt, actor.Facing);</span>
+<span id="L116"><a class="line" href="#L116">116</a>                 if (!Ready(world, a))</span>
+<span id="L117"><a class="line" href="#L117">117</a>                 { Set(world, a, DutyPhase.Blocked, &quot;Post not ready: attention, light or sight obstructed&quot;, reliefSince); continue; }</span>
+<span id="L118"><a class="line" href="#L118">118</a>             }</span>
+<span id="L119"><a class="line" href="#L119">119</a>             Travel(world, a, actor, a.Station, phase, detail, reliefSince, DutyRelease.None);</span>
+<span id="L120"><a class="line" href="#L120">120</a>         }</span>
+<span id="L121"><a class="line" href="#L121">121</a>         Publish(world);</span>
+<span id="L122"><a class="line" href="#L122">122</a>     }</span>
+<span id="L123"><a class="line" href="#L123">123</a>     private static void Travel(SimulationWorld world, StaffAppointment a, ActorState actor, Hex destination,</span>
+<span id="L124"><a class="line" href="#L124">124</a>         DutyPhase arrived, string detail, long? reliefSince, DutyRelease release)</span>
+<span id="L125"><a class="line" href="#L125">125</a>     {</span>
+<span id="L126"><a class="line" href="#L126">126</a>         if (actor.Cell == destination &amp;&amp; !actor.Moving &amp;&amp; actor.StoppedStep is null)</span>
+<span id="L127"><a class="line" href="#L127">127</a>         { Set(world, a, arrived, detail, reliefSince, release); return; }</span>
+<span id="L128"><a class="line" href="#L128">128</a>         if (actor.Moving &amp;&amp; actor.Route[^1] != destination) MovementSystem.StopInPlace(actor);</span>
+<span id="L129"><a class="line" href="#L129">129</a>         // Employment only owns this route while no acknowledged command owns the employee.</span>
+<span id="L130"><a class="line" href="#L130">130</a>         if (!actor.Moving)</span>
+<span id="L131"><a class="line" href="#L131">131</a>         {</span>
+<span id="L132"><a class="line" href="#L132">132</a>             var path = MovementSystem.PlanRoute(world, actor, destination);</span>
+<span id="L133"><a class="line" href="#L133">133</a>             if (path.Count == 0)</span>
+<span id="L134"><a class="line" href="#L134">134</a>             { Set(world, a, DutyPhase.Blocked, release != DutyRelease.None ? &quot;Off-shift rest route blocked; not providing coverage&quot; : &quot;Duty route blocked; waiting for access or clearance&quot;, reliefSince, release); return; }</span>
+<span id="L135"><a class="line" href="#L135">135</a>             MovementSystem.CommitRoute(actor, path, false);</span>
+<span id="L136"><a class="line" href="#L136">136</a>         }</span>
+<span id="L137"><a class="line" href="#L137">137</a>         Set(world, a, arrived == DutyPhase.OffShift ? DutyPhase.OffShift : DutyPhase.Reporting,</span>
+<span id="L138"><a class="line" href="#L138">138</a>             arrived == DutyPhase.OffShift ? detail + &quot;; travelling to rest point&quot; : &quot;Travelling to assigned post&quot;, reliefSince, release);</span>
+<span id="L139"><a class="line" href="#L139">139</a>     }</span>
+<span id="L140"><a class="line" href="#L140">140</a>     private static void Publish(SimulationWorld world)</span>
+<span id="L141"><a class="line" href="#L141">141</a>     {</span>
+<span id="L142"><a class="line" href="#L142">142</a>         foreach (var duty in world.Employment.Duties)</span>
+<span id="L143"><a class="line" href="#L143">143</a>         {</span>
+<span id="L144"><a class="line" href="#L144">144</a>             var actor = world.Actors.Single(a =&gt; a.Id == duty.ActorId);</span>
+<span id="L145"><a class="line" href="#L145">145</a>             var previous = world.Employment.Reports.SingleOrDefault(r =&gt; r.ActorId == duty.ActorId);</span>
+<span id="L146"><a class="line" href="#L146">146</a>             if (previous is not null &amp;&amp; previous.Phase == duty.Phase &amp;&amp; previous.Reason == duty.Reason) continue;</span>
+<span id="L147"><a class="line" href="#L147">147</a>             var voice = FacilityCommunications.Voice(world, actor, world.Player);</span>
+<span id="L148"><a class="line" href="#L148">148</a>             if (!voice &amp;&amp; !(OscpService.ReceivesRadio(world) &amp;&amp; FacilityCommunications.Radio(world, actor.Id))) continue;</span>
+<span id="L149"><a class="line" href="#L149">149</a>             world.Employment.Reports.RemoveAll(r =&gt; r.ActorId == actor.Id);</span>
+<span id="L150"><a class="line" href="#L150">150</a>             world.Employment.Reports.Add(new(actor.Id, duty.Phase, duty.Reason, world.LocalMs));</span>
+<span id="L151"><a class="line" href="#L151">151</a>             world.Operations.Report(world, actor.Name, $&quot;Employment: {duty.Phase} · {duty.Reason}&quot;, source: voice ? &quot;voice&quot; : &quot;radio&quot;);</span>
+<span id="L152"><a class="line" href="#L152">152</a>         }</span>
+<span id="L153"><a class="line" href="#L153">153</a>     }</span>
+<span id="L154"><a class="line" href="#L154">154</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

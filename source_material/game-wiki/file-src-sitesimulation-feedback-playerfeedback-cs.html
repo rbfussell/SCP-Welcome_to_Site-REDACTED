@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Feedback/PlayerFeedback.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerFeedback.cs</h1><p>src/SiteSimulation/Feedback/PlayerFeedback.cs</p><p><a href="system-feedback.html">Player feedback and journal</a></p><h2>Types</h2><ul><li><a href="type-playerfeedback.html">PlayerFeedback</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a> · line 6</li><li><a href="function-41bba389eb138609411f.html">PlayerFeedback.Sees</a> · line 7</li><li><a href="function-a9f4814924ce51b811dd.html">PlayerFeedback.Sense</a> · line 9</li><li><a href="function-1acf8aee3b8cfe00baec.html">PlayerFeedback.NoAcknowledgement</a> · line 30</li><li><a href="function-1b33cdede66efce662c6.html">PlayerFeedback.Equipment</a> · line 38</li><li><a href="function-4fdc29a1069517db21f5.html">PlayerFeedback.Attack</a> · line 42</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Evidence gates and feedback producers shared by realtime and tactical play.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class PlayerFeedback</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static void Add(SimulationWorld world, MessageKind kind, string text) =&gt; world.Events.Add(world.WorldMs, world.LocalMs, kind, text);</span>
+<span id="L7"><a class="line" href="#L7">7</a>     public static bool Sees(SimulationWorld world, ActorState actor) =&gt; actor == world.Player</span>
+<span id="L8"><a class="line" href="#L8">8</a>         || ObservationService.Inspect(world.Map, world.Player, actor.Position, world.LocalMs).Detected;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public static void Sense(SimulationWorld world)</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         if (!world.LocalActive) return;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         if (world.LocalMs &gt;= world.Player.EyesClosedUntilMs)</span>
+<span id="L13"><a class="line" href="#L13">13</a>         {</span>
+<span id="L14"><a class="line" href="#L14">14</a>             var visible = world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Sees(world, a)).Select(a =&gt; a.Id)</span>
+<span id="L15"><a class="line" href="#L15">15</a>                 .Concat(world.Anomalies.Bodies.Where(b =&gt; ObservationService.Inspect(world.Map, world.Player, b.Cell.World, world.LocalMs).Detected).Select(b =&gt; b.Id)).ToHashSet();</span>
+<span id="L16"><a class="line" href="#L16">16</a>             foreach (var id in visible.Where(id =&gt; !world.Events.Visible.Contains(id)).Order(StringComparer.Ordinal))</span>
+<span id="L17"><a class="line" href="#L17">17</a>             {</span>
+<span id="L18"><a class="line" href="#L18">18</a>                 var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == id);</span>
+<span id="L19"><a class="line" href="#L19">19</a>                 Add(world, MessageKind.Observation, $&quot;{actor?.Name ?? id} comes into view.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>             }</span>
+<span id="L21"><a class="line" href="#L21">21</a>             world.Events.Visible.Clear(); world.Events.Visible.UnionWith(visible);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         }</span>
+<span id="L23"><a class="line" href="#L23">23</a>         foreach (var report in world.Operations.Reports)</span>
+<span id="L24"><a class="line" href="#L24">24</a>         {</span>
+<span id="L25"><a class="line" href="#L25">25</a>             if ((report.Source is &quot;radio&quot; or &quot;scipnet&quot;) &amp;&amp; !OscpService.ReceivesRadio(world)) continue;</span>
+<span id="L26"><a class="line" href="#L26">26</a>             if (!world.Events.Once(&quot;report:&quot; + report.Id)) continue;</span>
+<span id="L27"><a class="line" href="#L27">27</a>             Add(world, report.SubjectId is null ? MessageKind.Orders : MessageKind.Observation, $&quot;{report.Author}: {report.Text}&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         }</span>
+<span id="L29"><a class="line" href="#L29">29</a>     }</span>
+<span id="L30"><a class="line" href="#L30">30</a>     public static void NoAcknowledgement(SimulationWorld world, PersonnelOrder order)</span>
+<span id="L31"><a class="line" href="#L31">31</a>     {</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (world.LocalMs - order.IssuedMs &lt; 1000 || !world.Events.Once(&quot;no-ack:&quot; + order.Id)) return;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var name = world.Actors.Single(a =&gt; a.Id == order.ActorId).Name;</span>
+<span id="L34"><a class="line" href="#L34">34</a>         Add(world, MessageKind.Warning, order.Channel == &quot;voice&quot;</span>
+<span id="L35"><a class="line" href="#L35">35</a>             ? $&quot;No acknowledgement from {name}. I don&#x27;t think they heard me.&quot;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             : $&quot;Still no acknowledgement from {name}; the order may not have arrived.&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>     }</span>
+<span id="L38"><a class="line" href="#L38">38</a>     public static void Equipment(SimulationWorld world, ActorState actor, string action)</span>
+<span id="L39"><a class="line" href="#L39">39</a>     {</span>
+<span id="L40"><a class="line" href="#L40">40</a>         if (Sees(world, actor)) Add(world, MessageKind.Equipment, $&quot;{(actor == world.Player ? &quot;You&quot; : actor.Name)} {action}&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>     }</span>
+<span id="L42"><a class="line" href="#L42">42</a>     public static void Attack(SimulationWorld world, ActorState source, ActorState target, bool hit, int damage)</span>
+<span id="L43"><a class="line" href="#L43">43</a>     {</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var seeSource = Sees(world, source); var seeTarget = Sees(world, target);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         if (!seeSource &amp;&amp; !seeTarget) return;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var who = seeSource ? source == world.Player ? &quot;You&quot; : source.Name : &quot;An unseen attacker&quot;;</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var whom = seeTarget ? target == world.Player ? &quot;you&quot; : target.Name : &quot;an unseen target&quot;;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var result = !seeTarget ? &quot;impact not observed&quot; : hit ? $&quot;hit, {damage} training points&quot; : &quot;miss&quot;;</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Add(world, MessageKind.Combat, $&quot;{who} fire{(source == world.Player ? &quot;&quot; : &quot;s&quot;)} at {whom}: {result}.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>     }</span>
+<span id="L51"><a class="line" href="#L51">51</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

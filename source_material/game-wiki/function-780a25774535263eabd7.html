@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialSimulation.PreviewAttachmentDrop | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialSimulation.PreviewAttachmentDrop</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-equipment-inventoryattachments-cs.html#L65">src/SiteSimulation/Inventory/Equipment/InventoryAttachments.cs:65</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public AttachmentPreview PreviewAttachmentDrop(string itemId, string owner, int rotation = 0)</code></pre><h2>Source documentation</h2><pre>/// &lt;summary&gt;Container-style exterior drop: choose free support at the requested orientation without moving existing children.&lt;/summary&gt;</pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-047ea98e4d070a9385ca.html">InventoryPanel.Rotate</a></li><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-350e8f37f529bc4a2ec5.html">SpatialSimulation.PreviewAttachment</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-d0ee8c2752e15ffb5b09.html">BodyHex.Rotate</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Inventory.Items.TryGetValue
+Inventory.Items.ContainsKey
+Inventory.Definition
+.Where(r =&gt; r.Attachment is not null).OrderBy(r =&gt; r.Id, StringComparer.Ordinal).ToArray
+.Where(r =&gt; r.Attachment is not null).OrderBy
+.Where
+supports.Any
+supports.Where
+support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct().OrderBy(c =&gt; Math.Max(Math.Abs(c.Q), Math.Max(Math.Abs(c.R), Math.Abs(c.Q + c.R))))
+                .ThenBy(c =&gt; c.R).ThenBy
+support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct().OrderBy(c =&gt; Math.Max(Math.Abs(c.Q), Math.Max(Math.Abs(c.R), Math.Abs(c.Q + c.R))))
+                .ThenBy
+support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct().OrderBy
+support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct
+support.Attachment!.Cells.SelectMany
+profile.Contacts.Select
+contact.Rotate
+Math.Max
+Math.Abs
+PreviewAttachment</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-fa93537e2deb817f5b8b.html">InventoryGrid.PreviewAt</a></li></ul><h2>Related types</h2><ul><li><a href="type-attachmentpreview.html">AttachmentPreview</a></li><li><a href="type-bodyhex.html">BodyHex</a></li><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-inventoryrequest.html">InventoryRequest</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>public AttachmentPreview PreviewAttachmentDrop(string itemId, string owner, int rotation = 0)
+    {
+        var fallback = new InventoryRequest(InventoryActionKind.Move, itemId);
+        if (!Inventory.Items.TryGetValue(itemId, out var incoming) || !Inventory.Items.ContainsKey(owner) || rotation is &lt; 0 or &gt; 5)
+            return new(new(false, &quot;Choose known equipment and a valid attachment orientation.&quot;, 0, 0), fallback);
+        var profile = Inventory.Definition(itemId).Attachment;
+        var supports = Inventory.Definition(owner).Regions?.Where(r =&gt; r.Attachment is not null).OrderBy(r =&gt; r.Id, StringComparer.Ordinal).ToArray() ?? [];
+        if (profile is null || !supports.Any(s =&gt; s.Attachment!.Interface == profile.Interface))
+            return new(new(false, &quot;No compatible exterior attachment surface.&quot;, 0, 0), fallback);
+        if (incoming.Placement.ParentId == owner &amp;&amp; incoming.Placement.AttachmentPose is not null)
+            return new(new(false, &quot;Already attached here; reposition it on the gear illustration.&quot;, 0, 0), fallback);
+        AttachmentPreview? refused = null;
+        // A contact need not sit at the authored origin: enumerate every support/contact alignment, not just origins on support.
+        foreach (var support in supports.Where(s =&gt; s.Attachment!.Interface == profile.Interface))
+        {
+            var origins = support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;
+            {
+                var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);
+            })).Distinct().OrderBy(c =&gt; Math.Max(Math.Abs(c.Q), Math.Max(Math.Abs(c.R), Math.Abs(c.Q + c.R))))
+                .ThenBy(c =&gt; c.R).ThenBy(c =&gt; c.Q);
+            foreach (var cell in origins)
+            {
+                var preview = PreviewAttachment(itemId, owner, support.Id, new(cell.Q, cell.R, rotation));
+                if (preview.Handling.Allowed) return preview;
+                refused ??= preview;
+            }
+        }
+        return refused ?? new(new(false, &quot;No free compatible support; existing attachments stay in place.&quot;, 0, 0), fallback);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Equipment/InventoryAttachments.cs:65</footer></main></div></body></html>

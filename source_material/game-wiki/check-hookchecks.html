@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HookChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>HookChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class HookChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Hooks: &quot; + reason); passed++; }
+        SpatialSimulation Sim() { var s = new SpatialSimulation(map, config); s.Player.Cell = new(13, 6); return s; }
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 1000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;paid work resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest r) { Check(s.HandleInventory(r), s.LastMessage); Finish(s); }
+        InventoryRequest Move(string id, string owner, string region, int x = 0, int y = 0)
+            =&gt; new(InventoryActionKind.Move, id, new(owner, region, x, y));
+        InventoryRequest Mount(string id, string owner, string region, BodyPose pose)
+            =&gt; new(InventoryActionKind.Move, id, new(owner, region, AttachmentPose: pose));
+        var sim = Sim(); var state = sim.Inventory;
+        var hook = state.Definition(&quot;utility-hook&quot;);
+        Check(hook.Regions is [{ Attachment: not null, Sealable: false }] &amp;&amp; hook.DefaultDropRegion is null
+            &amp;&amp; !state.Regions.Any(r =&gt; r.ItemId == &quot;utility-hook&quot;), &quot;extender provides exterior support without a fictitious lid or loose storage&quot;);
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        var attach = Mount(&quot;utility-hook&quot;, &quot;utility-belt&quot;, &quot;webbing&quot;, new(0, 0));
+        var start = state.Items[&quot;utility-hook&quot;].Placement;
+        sim.ManualPause = true; var before = sim.Save();
+        Check(!sim.HandleInventory(attach) &amp;&amp; sim.Save() == before, &quot;paused inspection cannot mount for free&quot;); sim.ManualPause = false;
+        Check(sim.HandleInventory(attach) &amp;&amp; state.Items[&quot;utility-hook&quot;].Placement == start, &quot;paid hook placement preserves source until completion&quot;);
+        sim.Tick(); var mid = sim.Save(); var copy = Sim(); copy.Restore(mid); Finish(sim); Finish(copy);
+        Check(sim.Save() == copy.Save(), &quot;hook mounting resumes exactly across save/restore&quot;);
+        before = sim.Save(); var drop = sim.PreviewAttachmentDrop(&quot;utility-pouch&quot;, &quot;utility-hook&quot;);
+        Check(drop.Handling.Allowed &amp;&amp; drop.Request.Destination?.AttachmentPose == new BodyPose(-1, 2)
+            &amp;&amp; sim.Save() == before, &quot;whole-hook drop targets the offered lower point, not the provider origin or an interior&quot;);
+        Act(sim, drop.Request);
+        Check(state.Items[&quot;utility-pouch&quot;].Placement.ParentId == &quot;utility-hook&quot;
+            &amp;&amp; InventoryAttachmentFrames.RelativePose(state, &quot;utility-pouch&quot;, &quot;utility-belt&quot;) == new BodyPose(-1, 2), &quot;pouch occupies a composed lower mount with one parent&quot;);
+        Check(InventoryAttachmentFrames.RelativePose(state, &quot;spare-dressing&quot;, &quot;utility-belt&quot;) is null, &quot;packed objects never become exterior geometry&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));
+        Act(sim, Move(&quot;spare-dressing&quot;, &quot;utility-pouch&quot;, &quot;inside&quot;));
+        var pouchPlacement = state.Items[&quot;utility-pouch&quot;].Placement; var dressingPlacement = state.Items[&quot;spare-dressing&quot;].Placement;
+        Check(InventoryHierarchy.Mass(state, &quot;utility-belt&quot;) == 470, &quot;belt, hook, pouch and payload contribute mass once each&quot;);
+        Check(InventoryHierarchy.Breadcrumb(state, &quot;spare-dressing&quot;).EndsWith(&quot;Utility belt / Utility hook / Utility pouch / Dressing packet&quot;), &quot;ordinary hierarchy describes the entire assembly&quot;);
+        for (var angle = 0; angle &lt; 6; angle++)
+        {
+            var request = Mount(&quot;utility-hook&quot;, &quot;utility-belt&quot;, &quot;webbing&quot;, new(1, 0, angle));
+            if (state.Items[&quot;utility-hook&quot;].Placement != request.Destination) Act(sim, request);
+            // Independent axial reference for the six orientations of the lower point (-1,2).
+            BodyHex[] offsets = [new(-1, 2), new(-2, 1), new(-1, -1), new(1, -2), new(2, -1), new(1, 1)];
+            var expected = new BodyPose(1 + offsets[angle].Q, offsets[angle].R, angle);
+            Check(InventoryAttachmentFrames.RelativePose(state, &quot;utility-pouch&quot;, &quot;utility-belt&quot;) == expected
+                &amp;&amp; state.Items[&quot;utility-pouch&quot;].Placement == pouchPlacement &amp;&amp; state.Items[&quot;spare-dressing&quot;].Placement == dressingPlacement,
+                &quot;six provider rotations carry exact child coordinates and preserve child identity&quot;);
+        }
+        Act(sim, attach);
+        var localHook = state.Items[&quot;utility-hook&quot;].Placement;
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(state.Items[&quot;utility-hook&quot;].Placement == localHook &amp;&amp; state.Items[&quot;utility-pouch&quot;].Placement == pouchPlacement
+            &amp;&amp; state.Items[&quot;spare-dressing&quot;].Placement == dressingPlacement &amp;&amp; InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) is null,
+            &quot;taking off the belt carries both attachment generations and payload without rewriting local placements&quot;);
+        Act(sim, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        Act(sim, new(InventoryActionKind.Close, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));
+        Check(!sim.InventoryAccess(&quot;utility-pouch&quot;, &quot;inside&quot;).Allowed, &quot;mounted pouch still has its own paid closure&quot;);
+        var bad = new[] {
+            Mount(&quot;utility-pouch-2&quot;, &quot;utility-hook&quot;, &quot;hook&quot;, new(0, 0)),
+            Mount(&quot;field-phone&quot;, &quot;utility-hook&quot;, &quot;hook&quot;, new(-1, 2)),
+            new InventoryRequest(InventoryActionKind.AutoPlace, &quot;field-phone&quot;, new(&quot;utility-hook&quot;, &quot;hook&quot;)),
+            new InventoryRequest(InventoryActionKind.Arrange, &quot;utility-hook&quot;, new(&quot;utility-hook&quot;, &quot;hook&quot;)),
+            new InventoryRequest(InventoryActionKind.Close, &quot;utility-hook&quot;, RegionId: &quot;hook&quot;),
+            Mount(&quot;utility-hook&quot;, &quot;utility-hook&quot;, &quot;hook&quot;, new(-1, 2))
+        };
+        foreach (var request in bad)
+        { before = sim.Save(); Check(!sim.QuoteInventory(request).Allowed &amp;&amp; !sim.HandleInventory(request) &amp;&amp; sim.Save() == before, &quot;invalid support/storage/cycle request is atomic&quot;); }
+        Check(sim.HandleInventory(Move(&quot;utility-hook&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)), &quot;loaded hook detachment starts paid work&quot;);
+        sim.Tick(); mid = sim.Save(); copy = Sim(); copy.Restore(mid); Finish(sim); Finish(copy);
+        Check(copy.Save() == sim.Save(), &quot;loaded nested assembly resumes the same paid detachment&quot;);
+        Check(state.Items[&quot;utility-pouch&quot;].Placement == pouchPlacement &amp;&amp; state.Items[&quot;spare-dressing&quot;].Placement == dressingPlacement
+            &amp;&amp; InventoryAttachments.BodyPosition(state, &quot;utility-pouch&quot;) is null, &quot;detaching a loaded hook carries its entire assembly&quot;);
+        Act(sim, Move(&quot;utility-hook&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;, 22, 13));
+        sim.Player.Cell = new(9, 2);
+        Check(sim.InventoryAttachmentsOn(&quot;utility-hook&quot;, &quot;hook&quot;).Count == 0 &amp;&amp; !sim.InventoryAccess(&quot;utility-pouch&quot;, &quot;inside&quot;).Allowed,
+            &quot;remote provider cannot disclose its attached gear or contents&quot;);
+
+        // Separate worn providers must not bypass the shared body/surface clearance plane.
+        var shared = Sim(); Act(shared, Move(&quot;avatar-backpack&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;, 0, 8));
+        Act(shared, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        Act(shared, new(InventoryActionKind.Move, &quot;utility-belt-2&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;, BodyPose: new(-4, 10, 2))));
+        Act(shared, Mount(&quot;utility-hook&quot;, &quot;utility-belt&quot;, &quot;webbing&quot;, new(1, 0)));
+        Act(shared, Mount(&quot;utility-pouch-2&quot;, &quot;utility-belt-2&quot;, &quot;webbing&quot;, new(-2, 0)));
+        var clash = Mount(&quot;utility-pouch-2&quot;, &quot;utility-belt-2&quot;, &quot;webbing&quot;, new(1, 0, 3)); before = shared.Save();
+        Check(!shared.QuoteInventory(clash).Allowed &amp;&amp; shared.QuoteInventory(clash).Reason.Contains(&quot;clearance&quot;) &amp;&amp; shared.Save() == before,
+            &quot;different worn providers cannot superimpose attached objects&quot;);
+        var forged = JsonNode.Parse(before)!;
+        var itemNode = forged[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().Single(n =&gt; n![&quot;Id&quot;]!.GetValue&lt;string&gt;() == &quot;utility-pouch-2&quot;)!;
+        itemNode[&quot;Placement&quot;]![&quot;AttachmentPose&quot;]![&quot;Q&quot;] = 1;
+        itemNode[&quot;Placement&quot;]![&quot;AttachmentPose&quot;]![&quot;Rotation&quot;] = 3;
+        try { shared.Restore(forged.ToJsonString()); throw new Exception(&quot;Overlapping saved exterior accepted&quot;); }
+        catch (ArgumentException) { Check(shared.Save() == before, &quot;cross-provider collision in a save rejects detached and atomically&quot;); }
+
+        ReferenceClearance(map, config, Check);
+        var load = new SimulationWorld(map, config); var ls = load.Inventory;
+        ls.Items[&quot;utility-hook&quot;] = ls.Items[&quot;utility-hook&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)) };
+        ls.Items[&quot;utility-pouch&quot;] = ls.Items[&quot;utility-pouch&quot;] with { Placement = new(&quot;utility-hook&quot;, &quot;hook&quot;, AttachmentPose: new(-1, 2)) };
+        ls.Items[&quot;spare-dressing&quot;] = ls.Items[&quot;spare-dressing&quot;] with { Placement = new(&quot;utility-pouch&quot;, &quot;inside&quot;) };
+        var defs = ls.Content!.Definitions; var di = Array.FindIndex(defs, d =&gt; d.Id == &quot;dressing&quot;);
+        defs[di] = defs[di] with { MassGrams = 450 };
+        try { InventoryPlacement.Validate(ls); throw new Exception(&quot;Overloaded hook accepted&quot;); }
+        catch (ArgumentException ex) { Check(ex.Message.Contains(&quot;Lower hook mount&quot;), &quot;hook load limit includes the loaded descendant pouch&quot;); }
+
+        var tactical = Sim(); Act(tactical, Move(&quot;utility-belt&quot;, &quot;person:avatar&quot;, &quot;belt&quot;));
+        Act(tactical, Move(&quot;utility-hook&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        tactical.Player.Cell = new(9, 2); tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(10, 2); tactical.Face(new Hex(10, 2).World);
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;tactical fixture starts&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var turn = tactical.Combat.Cursor; var quote = tactical.QuoteInventory(attach);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = quote.Ap - 1 }; before = tactical.Save();
+        Check(!tactical.HandleInventory(attach) &amp;&amp; tactical.Save() == before, &quot;hook placement requires the complete quoted AP&quot;);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        Check(tactical.HandleInventory(attach) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - quote.Ap, &quot;hook AP is charged exactly once&quot;);
+        Finish(tactical);
+        Console.WriteLine($&quot;HOOK_CHECKS_PASS: {passed} assertions; placement extenders, nested mounts, composed rotations, shared clearance, mass, paid AP and persistence.&quot;);
+        return passed;
+    }
+
+    /// &lt;summary&gt;Small authored geometry fixture isolates cousin clearance and connector exceptions from native sprite calibration.&lt;/summary&gt;
+    private static void ReferenceClearance(string map, string config, Action&lt;bool, string&gt; check)
+    {
+        var world = new SimulationWorld(map, config); var s = world.Inventory; var defs = s.Content!.Definitions;
+        var hi = Array.FindIndex(defs, d =&gt; d.Id == &quot;utility-hook&quot;); var hook = defs[hi];
+        defs[hi] = hook with { Attachment = new(&quot;belt-loop&quot;, [new(0, 0), new(0, 1), new(0, 2)], [new(0, 0)]),
+            Regions = [hook.Regions![0] with { Attachment = new(&quot;belt-loop&quot;, [new(0, 2)]) }] };
+        var pi = Array.FindIndex(defs, d =&gt; d.Id == &quot;utility-pouch&quot;);
+        defs[pi] = defs[pi] with { Attachment = new(&quot;belt-loop&quot;, [new(0, 0), new(1, 0)], [new(0, 0)]) };
+        s.Items[&quot;utility-hook&quot;] = s.Items[&quot;utility-hook&quot;] with { Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(0, 0)) };
+        s.Items[&quot;training-weight&quot;] = s.Items[&quot;training-weight&quot;] with { DefinitionId = &quot;utility-hook&quot;, Placement = new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(2, 0)) };
+        s.Items[&quot;utility-pouch&quot;] = s.Items[&quot;utility-pouch&quot;] with { Placement = new(&quot;utility-hook&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2)) };
+        s.Items[&quot;utility-pouch-2&quot;] = s.Items[&quot;utility-pouch-2&quot;] with { Placement = new(&quot;training-weight&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2)) };
+        InventoryPlacement.Validate(s); check(true, &quot;separate hooked pouches meet their parent only at connector contacts&quot;);
+        s.Items[&quot;utility-pouch-2&quot;] = s.Items[&quot;utility-pouch-2&quot;] with { Placement = new(&quot;training-weight&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2, 3)) };
+        try { InventoryPlacement.Validate(s); throw new Exception(&quot;Cousin overlap accepted&quot;); }
+        catch (ArgumentException ex) { check(ex.Message.Contains(&quot;clearance&quot;), &quot;pouches on different hooks cannot intersect in the common frame&quot;); }
+        s.Items[&quot;utility-pouch-2&quot;] = s.Items[&quot;utility-pouch-2&quot;] with { Placement = new(&quot;training-weight&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2)) };
+        // An explicit opposite surface is a separate plane, not a permission to overlap on the same side.
+        var wi = Array.FindIndex(defs, d =&gt; d.Id == &quot;weight&quot;);
+        defs[wi] = defs[hi] with { Id = &quot;weight&quot;, Regions = [defs[hi].Regions![0] with { Attachment = new(&quot;belt-loop&quot;, [new(0, 2)], &quot;back&quot;) }] };
+        s.Items[&quot;training-weight&quot;] = s.Items[&quot;training-weight&quot;] with { DefinitionId = &quot;weight&quot; };
+        s.Items[&quot;utility-pouch-2&quot;] = s.Items[&quot;utility-pouch-2&quot;] with { Placement = new(&quot;training-weight&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2, 3)) };
+        InventoryPlacement.Validate(s); check(true, &quot;explicit opposite surfaces keep separate clearance planes&quot;);
+        check(InventoryAttachmentFrames.Provider(s, &quot;utility-pouch-2&quot;, &quot;mounted&quot;).Surface == &quot;back&quot;, &quot;nested mounted surfaces inherit the explicit provider side&quot;);
+        s.Items[&quot;training-weight&quot;] = s.Items[&quot;training-weight&quot;] with { DefinitionId = &quot;utility-hook&quot; };
+        defs[pi] = defs[pi] with { Attachment = new(&quot;belt-loop&quot;, [new(0, 0), new(0, 1)], [new(0, 0)]) };
+        s.Items[&quot;utility-pouch-2&quot;] = s.Items[&quot;utility-pouch-2&quot;] with { Placement = new(&quot;training-weight&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2)) };
+        s.Items[&quot;utility-pouch&quot;] = s.Items[&quot;utility-pouch&quot;] with { Placement = new(&quot;utility-hook&quot;, &quot;hook&quot;, AttachmentPose: new(0, 2, 3)) };
+        try { InventoryPlacement.Validate(s); throw new Exception(&quot;Parent silhouette penetration accepted&quot;); }
+        catch (ArgumentException ex) { check(ex.Message.Contains(&quot;clearance&quot;), &quot;connector exception cannot waive non-contact overlap with the immediate parent&quot;); }
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/HookChecks.cs</footer></main></div></body></html>

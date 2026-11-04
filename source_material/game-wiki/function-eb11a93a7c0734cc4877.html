@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.OperationSmokeStep | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.OperationSmokeStep</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-operationsmoke-cs.html#L11">game/Presentation/SpatialScene.OperationSmoke.cs:11</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async void OperationSmokeStep()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-02f945823908ec349f6d.html">SpatialScene.SmokeKey</a></li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a></li><li><a href="function-13466eeb084032b68d05.html">PlayerLogPanel.Refresh</a></li><li><a href="function-15df43c72b0c3ad941c4.html">SpatialSimulation.Restore</a></li><li><a href="function-23e6db1bfb7b83bcccb3.html">OscpWorkspace.Send</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a></li><li><a href="function-32ad6494f73dfb2b33de.html">SpatialSimulation.VisibleToPlayer</a></li><li><a href="function-3427d399e80c3c4ba887.html">DiscoveryFeedback.Reset</a></li><li><a href="function-39be252f6ed553406ed8.html">InventoryPaperdollProof.Refresh</a></li><li><a href="function-3e362d9e34e5e362eaf2.html">WorldView.Screen</a></li><li><a href="function-3ec3b1f1125d97e46430.html">CombatPanel.Refresh</a></li><li><a href="function-44bdd90eaa2a9670d508.html">PlayerAwareness.Restore</a></li><li><a href="function-45287ffbe1449be91515.html">PlayerEventLog.Restore</a></li><li><a href="function-480ce0f230cd10ef79fd.html">EmploymentSaveCodec.Restore</a></li><li><a href="function-4a702211e50839f7a6b2.html">SpatialSimulation.IssueOrder</a></li><li><a href="function-4eff21f45f4030d18280.html">OperationsPanel.Send</a></li><li><a href="function-51bafa83ec7d74a84e09.html">CombatSaveCodec.Restore</a></li><li><a href="function-553327117b7a641ba6b0.html">Scp650Module.Restore</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-5c5375315cb38e87abc1.html">SpatialScene.RefreshCamera</a></li><li><a href="function-5cc8277260b550d921b3.html">EncounterAudio.Reset</a></li><li><a href="function-5ed8f259fbd4a06a821f.html">SpatialHud.Refresh</a></li><li><a href="function-6469798b617ec9f67b98.html">IAnomalyModule.Restore</a></li><li><a href="function-66579bf629d43cf4e789.html">OscpWorkspace.Execute</a></li><li><a href="function-6edf60e779cf0c0972c1.html">Hex.Distance</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-90877b5fc9b9d4a29c81.html">GroundView.Refresh</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-94f20583fb59e35a8ded.html">OscpWorkspace.Refresh</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-a8888e0ee272be7d2c40.html">InventorySaveCodec.Restore</a></li><li><a href="function-b077e0b23e612c329eda.html">SpatialScene.ResetCamera</a></li><li><a href="function-b4274e90684c8a1320be.html">SpatialSimulation.ApproachTerminal</a></li><li><a href="function-b754b5cade752b4a47cc.html">OperationSaveCodec.Restore</a></li><li><a href="function-bbace76372b20138bb4e.html">InventoryContainerView.Refresh</a></li><li><a href="function-bd62e3a4b356b439e096.html">OperationsPanel.Refresh</a></li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a></li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a></li><li><a href="function-d219efa12d116bffe672.html">SpatialSimulation.InspectAnomalies</a></li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a></li><li><a href="function-dce8f999453504b52b87.html">SimulationTrace.Restore</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_simulation.Save
+_simulation.InspectAnomalies().Single
+_simulation.InspectAnomalies
+SmokeKey
+_simulation.ApproachTerminal
+_hud.Operations.Send
+_simulation.Operations.OrderHistory.Last
+_simulation.Operations.ReceivedReports.Any
+r.Text.Contains
+Godot.FileAccess.GetFileAsString
+clone.Restore
+clone.Save
+_hud.Refresh
+ToSignal
+GetViewport().GetTexture
+GetViewport
+texture.GetImage
+image.SavePng
+GD.Print
+_hud.Workspace.Close
+_simulation.Restore
+Input.FlushBufferedEvents
+_hud.Field.GetGlobalRect
+Input.ParseInputEvent
+_hud.Workspace.Execute
+_simulation.Actors.Single
+_simulation.IssueOrder
+_feedback.Reset
+_audio.Reset
+ResetCamera
+RefreshCamera
+_world.GetGlobalTransform
+WorldView.Screen
+_simulation.VisibleToPlayer
+_simulation.Player.Cell.Distance
+Path.Combine
+Path.GetDirectoryName
+Path.GetFileNameWithoutExtension
+GetTree().Quit
+GetTree
+GD.PushError
+ex.ToString</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li></ul><h2>Related types</h2><ul><li><a href="type-hex.html">Hex</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-oscpdevice.html">OscpDevice</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Implementation</h2><pre><code>private async void OperationSmokeStep()
+    {
+        if (++_smokeFrame != 12) return;
+        try
+        {
+            switch (_smokeStage)
+            {
+                case 0:
+                    _operationInitialSave = _simulation.Save();
+                    if (_simulation.Operations.Definition is null || _simulation.InspectAnomalies().Single().Observation.EligibleIds.Length != 3)
+                        throw new InvalidOperationException(&quot;Operation must start with actual three-person observation.&quot;);
+                    SmokeKey(Key.E); // Real door interaction, not a map mutation.
+                    break;
+                case 1:
+                    _simulation.ApproachTerminal();
+                    break;
+                case 2:
+                    if (!_simulation.CanUseTerminal)
+                    {
+                        if (++_operationWait &gt; 120) throw new InvalidOperationException(&quot;Could not physically reach OSCP terminal: &quot; + _simulation.LastMessage);
+                        _smokeFrame = 0; return;
+                    }
+                    SmokeKey(Key.T);
+                    break;
+                case 3:
+                    if (!_hud.Operations.TerminalOpen) throw new InvalidOperationException(&quot;T did not open reachable OSCP service.&quot;);
+                    _smokeStopLocalMs = _simulation.LocalMs;
+                    _hud.Operations.SelectedRecipient = 1;
+                    _hud.Operations.Send(PersonnelTask.Post);
+                    break;
+                case 4:
+                    if (_simulation.Operations.OrderHistory.Last().Status == OrderStatus.Pending
+                        || !_simulation.Operations.ReceivedReports.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)))
+                        throw new InvalidOperationException(&quot;OSCP did not receive the staff acknowledgement.&quot;);
+                    if (_simulation.LocalMs &lt;= _smokeStopLocalMs) throw new InvalidOperationException(&quot;Opening OSCP suspended local simulation.&quot;);
+                    var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;),
+                        Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));
+                    clone.Restore(_simulation.Save());
+                    if (clone.Save() != _simulation.Save()) throw new InvalidOperationException(&quot;Rendered operation save did not round-trip.&quot;);
+                    _simulation.ManualPause = true;
+                    _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;OSCP · received acknowledgement / physical site&quot;);
+                    await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                    using (var texture = GetViewport().GetTexture())
+                    using (var image = texture.GetImage())
+                        if (image.SavePng(_capturePath!) != Error.Ok) throw new IOException(&quot;OSCP screenshot failed.&quot;);
+                    GD.Print(&quot;OPERATION_SMOKE_PASS: initial coverage, E door, physical terminal approach, T access, personnel order acknowledgement and operation save round-trip.&quot;);
+                    // A separate input fixture keeps Chen watching, with an unseen ordinary occupant in the corridor.
+                    _hud.Workspace.Close();
+                    _simulation.Restore(_operationInitialSave!);
+                    SmokeKey(Key.P); Input.FlushBufferedEvents();
+                    if (!_hud.Workspace.IsOpen || _hud.Workspace.Device != OscpDevice.Phone || !_simulation.ManualPause)
+                        throw new InvalidOperationException(&quot;P must open the issued handset and automatically pause local single-player.&quot;);
+                    var phoneBaseline = _simulation.Save();
+                    SmokeKey(Key.O); Input.FlushBufferedEvents();
+                    var covered = _hud.Field.GetGlobalRect().Position + new Vector2(8, 8);
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = true });
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = false });
+                    Input.FlushBufferedEvents();
+                    if (_simulation.Save() != phoneBaseline) throw new InvalidOperationException(&quot;Modal phone input leaked into field actions.&quot;);
+                    var ordersBeforeDraft = _simulation.Operations.OrderHistory.Count;
+                    _hud.Workspace.Execute(&quot;order tech follow&quot;);
+                    if (_simulation.Operations.OrderHistory.Count != ordersBeforeDraft || _hud.Workspace.PhoneDraftCount != 1)
+                        throw new InvalidOperationException(&quot;Phone draft became a world order before closing.&quot;);
+                    SmokeKey(Key.Escape); Input.FlushBufferedEvents();
+                    if (_hud.Workspace.IsOpen || _simulation.ManualPause || _simulation.Operations.OrderHistory.Last().Channel != &quot;phone&quot;)
+                        throw new InvalidOperationException(&quot;Closing the phone must resume its own pause and submit the prepared intent.&quot;);
+                    _simulation.Restore(_operationInitialSave!);
+                    _simulation.Player.Cell = new(5, 6); _simulation.Player.Facing = 4;
+                    var hidden = _simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;);
+                    hidden.Cell = new(12, 3);
+                    if (!_simulation.IssueOrder(hidden.Id, PersonnelTask.Post, hidden.Cell))
+                        throw new InvalidOperationException(&quot;Navigation fixture could not assign a stationary corridor post.&quot;);
+                    _feedback.Reset(_simulation); _audio.Reset(); ResetCamera(); RefreshCamera();
+                    var click = _world.GetGlobalTransform() * WorldView.Screen(hidden.Cell.World);
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, ShiftPressed = true, Pressed = true });
+                    Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, ShiftPressed = true, Pressed = false });
+                    _operationWait = 0;
+                    break;
+                case 5:
+                    if (!_simulation.Player.Moving || _simulation.Player.MoveGoal != new Hex(12, 3)
+                        || _simulation.VisibleToPlayer(_simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Position))
+                        throw new InvalidOperationException(&quot;Click on an unseen occupied destination did not commit ordinary travel.&quot;);
+                    break;
+                case 6:
+                    if (_simulation.Player.Moving)
+                    {
+                        if (++_operationWait &gt; 120) throw new InvalidOperationException(&quot;Occupied-goal travel never stopped.&quot;);
+                        _smokeFrame = 0; return;
+                    }
+                    if (_simulation.Player.Cell == new Hex(5, 6) || _simulation.Player.Cell.Distance(new(12, 3)) != 1
+                        || _simulation.LastMessage != &quot;Movement stopped: the way ahead is blocked.&quot;)
+                        throw new InvalidOperationException(&quot;Occupied-goal click must approach and stop before collision.&quot;);
+                    _simulation.ManualPause = true;
+                    _audio.Muted = true; _audio.Reset();
+                    _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, _simulation.LastMessage);
+                    await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+                    var navigationPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + &quot;-navigation.png&quot;);
+                    using (var texture = GetViewport().GetTexture())
+                    using (var image = texture.GetImage())
+                        if (image.SavePng(navigationPath) != Error.Ok) throw new IOException(&quot;Navigation screenshot failed.&quot;);
+                    GD.Print(&quot;NAVIGATION_SMOKE_PASS: actual Shift-click on unseen occupied hex committed travel, approached the blocker and stopped before collision.&quot;);
+                    break;
+                case 7:
+                    // Leave the capture continuation before tearing down Godot&#x27;s native resources.
+                    GetTree().Quit(); return;
+            }
+            _smokeStage++; _smokeFrame = 0;
+        }
+        catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.OperationSmoke.cs:11</footer></main></div></body></html>

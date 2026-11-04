@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/author_body_fit_fixture.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>author_body_fit_fixture.py</h1><pre>&quot;&quot;&quot;Author the native nine-shoulder body and its matching clothing/contact masks.
+
+Rows use odd-row offset coordinates: odd rows need even-width mirrored spans.
+The runtime JSON is derived here; the ordinary fit evaluator stays authoritative.
+&quot;&quot;&quot;
+import argparse
+from copy import deepcopy
+import json
+from pathlib import Path
+import re
+
+ROOT = Path(__file__).resolve().parents[1]
+CATALOG = ROOT / &#x27;src/SiteSimulation/Inventory/Content/body-fit.json&#x27;
+KIT = ROOT / &#x27;src/SiteSimulation/Inventory/Content/field-kit.json&#x27;
+BODY = [
+    &#x27;...###...&#x27;, &#x27;..####...&#x27;, &#x27;...###...&#x27;, &#x27;...##....&#x27;,
+    &#x27;#########&#x27;, &#x27;########.&#x27;, &#x27;#.#####.#&#x27;, &#x27;#.####.#.&#x27;,
+    &#x27;#.#####.#&#x27;, &#x27;#.####.#.&#x27;, &#x27;#.#####.#&#x27;, &#x27;.######..&#x27;,
+    &#x27;..#####..&#x27;, &#x27;.##..##..&#x27;, &#x27;..##.##..&#x27;, &#x27;.##..##..&#x27;,
+    &#x27;..##.##..&#x27;, &#x27;.##..##..&#x27;, &#x27;..##.##..&#x27;, &#x27;###..###.&#x27;,
+]
+DIRECTIONS = [(1, -1), (1, 0), (0, 1), (-1, 1), (-1, 0), (0, -1)]
+RANGES = {&#x27;underwear&#x27;: (11, 13), &#x27;shirt&#x27;: (4, 8), &#x27;coat&#x27;: (4, 11), &#x27;trousers&#x27;: (11, 18),
+          &#x27;socks&#x27;: (18, 19), &#x27;boots&#x27;: (17, 19), &#x27;chem-suit&#x27;: (0, 19)}
+POSES = {&#x27;underwear&#x27;: (-6, 12), &#x27;shirt&#x27;: (-2, 4), &#x27;coat&#x27;: (-2, 4), &#x27;trousers&#x27;: (-6, 12),
+         &#x27;socks&#x27;: (-9, 18), &#x27;boots&#x27;: (-9, 18), &#x27;chem-suit&#x27;: (0, 0),
+         &#x27;backpack&#x27;: (-2, 4), &#x27;belt&#x27;: (-6, 12)}
+
+
+def cells(rows):
+    return {(c - len(row) // 2 - r // 2, r) for r, row in enumerate(rows) for c, v in enumerate(row) if v == &#x27;#&#x27;}
+
+
+def point(q, r):
+    return {&#x27;q&#x27;: q, &#x27;r&#x27;: r}
+
+
+def local(points, pose):
+    return [point(q - pose[0], r - pose[1]) for q, r in sorted(points, key=lambda c: (c[1], c[0]))]
+
+
+def mask(surface, points, pose):
+    return {&#x27;surface&#x27;: surface, &#x27;cells&#x27;: local(points, pose)}
+
+
+def pretty_catalog(value):
+    text = json.dumps(value, indent=2)
+    text = re.sub(r&#x27;\{\n\s+&quot;q&quot;: (-?\d+),\n\s+&quot;r&quot;: (-?\d+)\n\s+\}&#x27;, r&#x27;{ &quot;q&quot;: \1, &quot;r&quot;: \2 }&#x27;, text)
+    text = re.sub(r&#x27;\{\n\s+&quot;cell&quot;: (\{ &quot;q&quot;: -?\d+, &quot;r&quot;: -?\d+ \}),\n\s+&quot;direction&quot;: (\d+)\n\s+\}&#x27;, r&#x27;{ &quot;cell&quot;: \1, &quot;direction&quot;: \2 }&#x27;, text)
+    return text + &#x27;\n&#x27;
+
+
+def author():
+    catalog = json.loads(CATALOG.read_text())
+    kit = json.loads(KIT.read_text())
+    body = next(b for b in catalog[&#x27;bodies&#x27;] if b[&#x27;id&#x27;] == &#x27;human-nine-shoulder&#x27;)
+    body[&#x27;rows&#x27;] = BODY
+    body_points = cells(BODY)
+    assert all((-q - r, r) in body_points for q, r in body_points)
+    for shape in catalog[&#x27;shapes&#x27;]:
+        name = shape[&#x27;id&#x27;]
+        if name not in POSES:
+            continue
+        if name in RANGES:
+            first, last = RANGES[name]
+            rows = [row if first &lt;= r &lt;= last else &#x27;.&#x27; * 9 for r, row in enumerate(BODY)]
+        elif name == &#x27;belt&#x27;:
+            rows = [&#x27;..#####..&#x27; if r == 12 else &#x27;.&#x27; * 9 for r in range(20)]
+        else:
+            rows = [&#x27;##.....##&#x27; if r == 4 else &#x27;&#x27;.join(&#x27;#&#x27; if value == &#x27;#&#x27; and 2 &lt;= c &lt;= (5 if r % 2 else 6) else &#x27;.&#x27;
+                    for c, value in enumerate(row)) if 5 &lt;= r &lt;= 9 else &#x27;.&#x27; * 9 for r, row in enumerate(BODY)]
+        pose = POSES[name]
+        shape[&#x27;rows&#x27;] = rows
+        shape[&#x27;defaultPose&#x27;] = dict(q=pose[0], r=pose[1], rotation=0)
+        points = cells(rows)
+        if name == &#x27;belt&#x27;:
+            shape[&#x27;linearSpan&#x27;] = {&#x27;minCells&#x27;: 5, &#x27;maxCells&#x27;: 10}
+            shape[&#x27;contacts&#x27;] = [{&#x27;cell&#x27;: point(-2, 0), &#x27;direction&#x27;: 4}, {&#x27;cell&#x27;: point(2, 0), &#x27;direction&#x27;: 1}]
+        else:
+            # Every body-boundary edge is closed; an edge continuing into body remains open.
+            shape[&#x27;contacts&#x27;] = [{&#x27;cell&#x27;: point(q - pose[0], r - pose[1]), &#x27;direction&#x27;: d}
+                for q, r in sorted(points, key=lambda c: (c[1], c[0]))
+                for d, (dq, dr) in enumerate(DIRECTIONS) if (q + dq, r + dr) not in body_points]
+        sides = [&#x27;mounted&#x27;] if name == &#x27;backpack&#x27; else [&#x27;front&#x27;, &#x27;back&#x27;]
+        closed = [mask(side, points, pose) for side in sides]
+        opened = deepcopy(closed)
+        if name == &#x27;coat&#x27;:
+            # Shoulders remain covered; open fronts leave sleeves and side hems only.
+            edge_points = {p for p in points if p[1] == 4 or abs(p[0] + p[1] / 2) ==
+                           max(abs(q + r / 2) for q, r in points if r == p[1])}
+            opened[0] = mask(&#x27;front&#x27;, edge_points, pose)
+        shape[&#x27;coverage&#x27;] = dict(closed=closed, open=opened)
+    for definition in kit[&#x27;definitions&#x27;]:
+        if definition[&#x27;id&#x27;] == &#x27;trousers&#x27;:
+            mouths = {&#x27;left&#x27;: [(-7, 11), (-7, 12)], &#x27;right&#x27;: [(-4, 11), (-5, 12)],
+                      &#x27;cargo-left&#x27;: [(-8, 14), (-9, 15)], &#x27;cargo-right&#x27;: [(-6, 14), (-6, 15)]}
+            for region in definition[&#x27;regions&#x27;]:
+                region[&#x27;accessFootprint&#x27;] = [mask(&#x27;front&#x27;, mouths[region[&#x27;id&#x27;]], POSES[&#x27;trousers&#x27;])]
+        elif definition[&#x27;id&#x27;] == &#x27;coat&#x27;:
+            center = {(q, r) for q, r in body_points if 4 &lt;= r &lt;= 11 and abs(q + r / 2) &lt;= .5}
+            definition[&#x27;wear&#x27;][&#x27;fasteningFootprint&#x27;] = [mask(&#x27;front&#x27;, center, POSES[&#x27;coat&#x27;])]
+    return {CATALOG: pretty_catalog(catalog), KIT: json.dumps(kit, indent=2) + &#x27;\n&#x27;}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(&#x27;--check&#x27;, action=&#x27;store_true&#x27;, help=&#x27;Verify generated native fixture sources without writing.&#x27;)
+    args = parser.parse_args()
+    for path, text in author().items():
+        if args.check:
+            if path.read_text() != text:
+                raise SystemExit(&#x27;Out-of-date body-fit fixture: &#x27; + str(path.relative_to(ROOT)))
+        else:
+            path.write_text(text)
+    print(&#x27;BODY_FIXTURE_&#x27; + (&#x27;CHECKS_PASS&#x27; if args.check else &#x27;AUTHORED&#x27;) + &#x27;: symmetric body, clothing, contacts and mapped access&#x27;)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

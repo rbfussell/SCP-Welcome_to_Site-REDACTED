@@ -1,0 +1,1037 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>schemas/gear-definition.schema.json | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>gear-definition.schema.json</h1><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;schemaVersion&quot;: {
+      &quot;const&quot;: 1
+    },
+    &quot;status&quot;: {
+      &quot;enum&quot;: [
+        &quot;design-contract&quot;
+      ]
+    },
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1
+    },
+    &quot;description&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1
+    },
+    &quot;massGrams&quot;: {
+      &quot;type&quot;: &quot;number&quot;,
+      &quot;minimum&quot;: 0
+    },
+    &quot;materials&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/material&quot;
+      },
+      &quot;minItems&quot;: 1
+    },
+    &quot;traits&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+      },
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;forms&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/form&quot;
+      },
+      &quot;minItems&quot;: 1
+    },
+    &quot;defaultForm&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1
+    },
+    &quot;appearance&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/appearance&quot;
+    },
+    &quot;compartments&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/compartment&quot;
+      }
+    },
+    &quot;closures&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/closure&quot;
+      }
+    },
+    &quot;wear&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/wear&quot;
+    },
+    &quot;attachmentSurfaces&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/attachment&quot;
+      }
+    },
+    &quot;functions&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;#/$defs/function&quot;
+      }
+    },
+    &quot;condition&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/condition&quot;
+    },
+    &quot;crafting&quot;: {
+      &quot;$ref&quot;: &quot;#/$defs/crafting&quot;
+    },
+    &quot;stateDefaults&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: {
+        &quot;type&quot;: [
+          &quot;string&quot;,
+          &quot;number&quot;,
+          &quot;boolean&quot;,
+          &quot;null&quot;
+        ]
+      }
+    },
+    &quot;knowledgePolicy&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+    },
+    &quot;sources&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;minLength&quot;: 1
+      }
+    },
+    &quot;extensions&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;propertyNames&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+      },
+      &quot;additionalProperties&quot;: true
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schemaVersion&quot;,
+    &quot;status&quot;,
+    &quot;id&quot;,
+    &quot;name&quot;,
+    &quot;description&quot;,
+    &quot;massGrams&quot;,
+    &quot;materials&quot;,
+    &quot;traits&quot;,
+    &quot;forms&quot;,
+    &quot;defaultForm&quot;,
+    &quot;appearance&quot;,
+    &quot;condition&quot;,
+    &quot;crafting&quot;,
+    &quot;stateDefaults&quot;,
+    &quot;sources&quot;
+  ],
+  &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
+  &quot;$id&quot;: &quot;urn:scp-site:gear-definition:1&quot;,
+  &quot;title&quot;: &quot;Gear definition design contract v1&quot;,
+  &quot;$defs&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+    },
+    &quot;extensions&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;propertyNames&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+      },
+      &quot;additionalProperties&quot;: true
+    },
+    &quot;hexMask&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;array&quot;,
+        &quot;items&quot;: {
+          &quot;type&quot;: &quot;integer&quot;
+        },
+        &quot;minItems&quot;: 2,
+        &quot;maxItems&quot;: 2
+      },
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;storage&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;columns&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;rows&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;cellMm&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0.001
+        },
+        &quot;depthMm&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0.001
+        },
+        &quot;usableCells&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0
+          },
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;maxMassGrams&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;acceptTraits&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;uniqueItems&quot;: true
+        }
+      },
+      &quot;required&quot;: [
+        &quot;columns&quot;,
+        &quot;rows&quot;,
+        &quot;cellMm&quot;,
+        &quot;depthMm&quot;,
+        &quot;maxMassGrams&quot;
+      ]
+    },
+    &quot;form&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;envelopeMm&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;number&quot;,
+            &quot;minimum&quot;: 0
+          },
+          &quot;minItems&quot;: 3,
+          &quot;maxItems&quot;: 3
+        },
+        &quot;referenceCellMm&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0.001
+        },
+        &quot;squareShape&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: false,
+          &quot;properties&quot;: {
+            &quot;columns&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;rows&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;usableCells&quot;: {
+              &quot;type&quot;: &quot;array&quot;,
+              &quot;items&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 0
+              },
+              &quot;uniqueItems&quot;: true
+            }
+          },
+          &quot;required&quot;: [
+            &quot;columns&quot;,
+            &quot;rows&quot;
+          ]
+        },
+        &quot;orientations&quot;: {
+          &quot;const&quot;: [
+            0,
+            90
+          ]
+        },
+        &quot;sprite&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;transitionFunction&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;envelopeMm&quot;,
+        &quot;referenceCellMm&quot;,
+        &quot;squareShape&quot;,
+        &quot;orientations&quot;,
+        &quot;sprite&quot;
+      ]
+    },
+    &quot;compartment&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;name&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;kind&quot;: {
+          &quot;enum&quot;: [
+            &quot;storage&quot;,
+            &quot;service-slot&quot;,
+            &quot;feed&quot;
+          ]
+        },
+        &quot;grid&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/storage&quot;
+        },
+        &quot;slot&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: false,
+          &quot;properties&quot;: {
+            &quot;interface&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+            },
+            &quot;count&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;maxMassGrams&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;minimum&quot;: 0
+            }
+          },
+          &quot;required&quot;: [
+            &quot;interface&quot;,
+            &quot;count&quot;,
+            &quot;maxMassGrams&quot;
+          ]
+        },
+        &quot;snug&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;defaultOpen&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;defaultDrop&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;accessMs&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;accessAp&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;accessFunction&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;spillProfile&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;presentation&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;name&quot;,
+        &quot;kind&quot;,
+        &quot;snug&quot;,
+        &quot;defaultOpen&quot;,
+        &quot;accessMs&quot;,
+        &quot;accessAp&quot;
+      ],
+      &quot;allOf&quot;: [
+        {
+          &quot;if&quot;: {
+            &quot;properties&quot;: {
+              &quot;kind&quot;: {
+                &quot;const&quot;: &quot;storage&quot;
+              }
+            }
+          },
+          &quot;then&quot;: {
+            &quot;required&quot;: [
+              &quot;grid&quot;
+            ],
+            &quot;not&quot;: {
+              &quot;required&quot;: [
+                &quot;slot&quot;
+              ]
+            }
+          },
+          &quot;else&quot;: {
+            &quot;required&quot;: [
+              &quot;slot&quot;
+            ],
+            &quot;not&quot;: {
+              &quot;required&quot;: [
+                &quot;grid&quot;
+              ]
+            }
+          }
+        }
+      ]
+    },
+    &quot;closure&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;targets&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1
+          },
+          &quot;minItems&quot;: 1,
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;mechanism&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;openVerb&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;secureVerb&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;defaultOpen&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;secureOnViewClose&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;handleMs&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;handleAp&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;targets&quot;,
+        &quot;mechanism&quot;,
+        &quot;openVerb&quot;,
+        &quot;secureVerb&quot;,
+        &quot;defaultOpen&quot;,
+        &quot;secureOnViewClose&quot;,
+        &quot;handleMs&quot;,
+        &quot;handleAp&quot;
+      ]
+    },
+    &quot;segment&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;view&quot;: {
+          &quot;enum&quot;: [
+            &quot;front&quot;,
+            &quot;back&quot;,
+            &quot;gear&quot;
+          ]
+        },
+        &quot;sprite&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;polygon&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;number&quot;,
+              &quot;minimum&quot;: 0,
+              &quot;maximum&quot;: 1
+            },
+            &quot;minItems&quot;: 2,
+            &quot;maxItems&quot;: 2
+          },
+          &quot;minItems&quot;: 3
+        },
+        &quot;compartment&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;closure&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;attachmentSurface&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;bodySurface&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;view&quot;,
+        &quot;sprite&quot;,
+        &quot;polygon&quot;
+      ]
+    },
+    &quot;attachment&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;interface&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;hexMask&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;maxMassGrams&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;allowedRotations&quot;: {
+          &quot;const&quot;: [
+            0,
+            60,
+            120,
+            180,
+            240,
+            300
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;interface&quot;,
+        &quot;hexMask&quot;,
+        &quot;maxMassGrams&quot;,
+        &quot;allowedRotations&quot;
+      ]
+    },
+    &quot;wear&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;bodyFamily&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;layer&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0,
+          &quot;description&quot;: &quot;Legacy/provisional authored order; fit compatibility comes from fit, not this number. Actual runtime dressing order belongs to the item instance, not this definition field.&quot;
+        },
+        &quot;surfaces&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1
+          },
+          &quot;minItems&quot;: 1,
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;hexFootprint&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;openEdges&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;requiredContacts&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;orientations&quot;: {
+          &quot;const&quot;: [
+            0,
+            60,
+            120,
+            180,
+            240,
+            300
+          ]
+        },
+        &quot;coversAccess&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;blocksRemoval&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;outermost&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;overlapTraits&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;coverMask&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;removalMask&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+        },
+        &quot;appearanceTemplate&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;attachmentRequirement&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;fit&quot;: {
+          &quot;$ref&quot;: &quot;#/$defs/wearFit&quot;
+        },
+        &quot;overlayLimit&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1,
+          &quot;maximum&quot;: 16,
+          &quot;description&quot;: &quot;Same local band capacity, counting the base garment once. Omit for ordinary primary clothing.&quot;
+        },
+        &quot;blocksFastenings&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;,
+          &quot;description&quot;: &quot;Can obstruct an underlying fastening where physical masks intersect.&quot;
+        },
+        &quot;fasteningFootprint&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;minItems&quot;: 1,
+          &quot;maxItems&quot;: 3,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: false,
+            &quot;properties&quot;: {
+              &quot;surface&quot;: {
+                &quot;enum&quot;: [
+                  &quot;front&quot;,
+                  &quot;back&quot;,
+                  &quot;mounted&quot;
+                ]
+              },
+              &quot;cells&quot;: {
+                &quot;$ref&quot;: &quot;#/$defs/hexMask&quot;
+              }
+            },
+            &quot;required&quot;: [
+              &quot;surface&quot;,
+              &quot;cells&quot;
+            ]
+          }
+        }
+      },
+      &quot;required&quot;: [
+        &quot;bodyFamily&quot;,
+        &quot;layer&quot;,
+        &quot;surfaces&quot;,
+        &quot;hexFootprint&quot;,
+        &quot;orientations&quot;,
+        &quot;coversAccess&quot;,
+        &quot;blocksRemoval&quot;,
+        &quot;outermost&quot;,
+        &quot;fit&quot;
+      ]
+    },
+    &quot;function&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;handler&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;capabilities&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;parameters&quot;: {
+          &quot;type&quot;: &quot;object&quot;
+        },
+        &quot;requiredTraits&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;uniqueItems&quot;: true
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;handler&quot;,
+        &quot;capabilities&quot;
+      ]
+    },
+    &quot;appearance&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;inventory&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;paperdollFront&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;paperdollBack&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;worldBinding&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;stateSprites&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1
+          }
+        },
+        &quot;segments&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;$ref&quot;: &quot;#/$defs/segment&quot;
+          }
+        }
+      },
+      &quot;required&quot;: [
+        &quot;inventory&quot;
+      ]
+    },
+    &quot;condition&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;maximum&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0.001
+        },
+        &quot;default&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;responses&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;uniqueItems&quot;: true
+        }
+      },
+      &quot;required&quot;: [
+        &quot;maximum&quot;,
+        &quot;default&quot;,
+        &quot;responses&quot;
+      ]
+    },
+    &quot;material&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;massFraction&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;exclusiveMinimum&quot;: 0,
+          &quot;maximum&quot;: 1
+        },
+        &quot;properties&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          }
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;massFraction&quot;
+      ]
+    },
+    &quot;crafting&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;deconstructable&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;crafted&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;recipe&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;disassemblyFunction&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;compositionPolicy&quot;: {
+          &quot;enum&quot;: [
+            &quot;none&quot;,
+            &quot;sealed-work-record&quot;
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;deconstructable&quot;,
+        &quot;crafted&quot;,
+        &quot;compositionPolicy&quot;
+      ]
+    },
+    &quot;instance&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;properties&quot;: {
+        &quot;schemaVersion&quot;: {
+          &quot;const&quot;: 1
+        },
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;definition&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+        },
+        &quot;form&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1
+        },
+        &quot;condition&quot;: {
+          &quot;type&quot;: &quot;number&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;parent&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: false,
+          &quot;properties&quot;: {
+            &quot;id&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;minLength&quot;: 1
+            },
+            &quot;relation&quot;: {
+              &quot;enum&quot;: [
+                &quot;contained&quot;,
+                &quot;service-installed&quot;,
+                &quot;attached&quot;,
+                &quot;worn&quot;,
+                &quot;world&quot;,
+                &quot;work-held&quot;
+              ]
+            },
+            &quot;region&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;minLength&quot;: 1
+            },
+            &quot;orientation&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 0
+            },
+            &quot;x&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            },
+            &quot;y&quot;: {
+              &quot;type&quot;: &quot;integer&quot;
+            }
+          },
+          &quot;required&quot;: [
+            &quot;id&quot;,
+            &quot;relation&quot;
+          ]
+        },
+        &quot;compartments&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: false,
+            &quot;properties&quot;: {
+              &quot;state&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                }
+              }
+            },
+            &quot;required&quot;: [
+              &quot;state&quot;
+            ]
+          }
+        },
+        &quot;closures&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: false,
+            &quot;properties&quot;: {
+              &quot;open&quot;: {
+                &quot;type&quot;: &quot;boolean&quot;
+              },
+              &quot;secureOnViewCloseOverride&quot;: {
+                &quot;type&quot;: [
+                  &quot;boolean&quot;,
+                  &quot;null&quot;
+                ]
+              }
+            },
+            &quot;required&quot;: [
+              &quot;open&quot;
+            ]
+          }
+        },
+        &quot;state&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          }
+        },
+        &quot;provenance&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1
+          }
+        },
+        &quot;extensions&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;propertyNames&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]*:[a-z0-9][a-z0-9_.-]*$&quot;
+          },
+          &quot;additionalProperties&quot;: true
+        }
+      },
+      &quot;required&quot;: [
+        &quot;schemaVersion&quot;,
+        &quot;id&quot;,
+        &quot;definition&quot;,
+        &quot;form&quot;,
+        &quot;condition&quot;,
+        &quot;parent&quot;,
+        &quot;state&quot;,
+        &quot;provenance&quot;
+      ]
+    },
+    &quot;wearFit&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: false,
+      &quot;description&quot;: &quot;Directional compatibility and relative cumulative bulk; independent of actual worn order and same-band strap limits.&quot;,
+      &quot;properties&quot;: {
+        &quot;family&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;minLength&quot;: 1,
+          &quot;maxLength&quot;: 64,
+          &quot;pattern&quot;: &quot;^[a-z0-9_.:-]+$&quot;
+        },
+        &quot;bulk&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1,
+          &quot;maximum&quot;: 1000
+        },
+        &quot;maxUnderBulk&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0,
+          &quot;maximum&quot;: 1000
+        },
+        &quot;fitsOver&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 64,
+            &quot;pattern&quot;: &quot;^[a-z0-9_.:-]+$&quot;
+          },
+          &quot;maxItems&quot;: 32,
+          &quot;uniqueItems&quot;: true
+        },
+        &quot;excludesUnderTags&quot;: {
+          &quot;type&quot;: &quot;array&quot;,
+          &quot;items&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 64,
+            &quot;pattern&quot;: &quot;^[a-z0-9_.:-]+$&quot;
+          },
+          &quot;maxItems&quot;: 32,
+          &quot;uniqueItems&quot;: true
+        }
+      },
+      &quot;required&quot;: [
+        &quot;family&quot;,
+        &quot;bulk&quot;,
+        &quot;maxUnderBulk&quot;,
+        &quot;fitsOver&quot;
+      ]
+    }
+  }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

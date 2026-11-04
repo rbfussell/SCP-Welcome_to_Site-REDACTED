@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wearable metadata, interactions and surface mapping | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/28-wearable-metadata-and-surface-mapping.md.</aside><h1 id="wearable-metadata-interactions-and-surface-mapping">Wearable metadata, interactions and surface mapping</h1>
+<p>October 27 revision: the user separates fit compatibility from actual wearing order and adds per-hex same-layer subpositions. See <a href="doc-docs-33-fit-ranks-and-worn-stacks-md.html">fit ranks and actual worn stacks</a>. That contract supersedes fixed authored-layer design assumptions below; the current native runtime has not yet migrated.</p>
+<p>Status: October 25, 2026. User-confirmed direction: independent overlap, covering, removal blocking, attachment surfaces and coherent front/back appearance. The bounded runtime now separates access covering, removal blocking and declared same-layer overlap. Body-hex placement, continuous attachment surfaces and procedural world clothing remain proposed. The user confirms belt overlap with accessible pockets and blocked underlying removal, and sensible per-fastening securing defaults with player overrides.</p>
+<p>Related: <a href="doc-docs-24-body-equipment-and-container-navigation-md.html">body equipment</a>, <a href="doc-docs-25-wear-layer-and-fit-standard-md.html">fit standard</a>, <a href="doc-docs-26-wearable-appearance-pipeline-md.html">appearance pipeline</a>, and <a href="doc-docs-27-three-view-inventory-and-body-fit-md.html">three-view inventory/body fit</a>.</p>
+<h2 id="independent-wearable-interactions">Independent wearable interactions</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Placement overlap</td>
+<td>May these items occupy overlapping worn cells at this layer?</td>
+</tr>
+<tr>
+<td>Covers access</td>
+<td>Must this item be opened or removed to reach an underlying location, pocket or fastening?</td>
+</tr>
+<tr>
+<td>Blocks removal</td>
+<td>Must this item be removed before an underlying item can be removed/refitted?</td>
+</tr>
+<tr>
+<td>Visual occlusion</td>
+<td>Which underlying pixels/surfaces are actually hidden in this pose?</td>
+</tr>
+<tr>
+<td>Attachment compatibility</td>
+<td>Can another object mount to an offered point, strip or surface with sufficient fit/load/clearance?</td>
+</tr>
+</tbody>
+</table>
+<p>Access and removal constraints are independent. A covering without a removal block can be opened to permit an underlying item to be reached and changed. An item with a removal block must be removed; merely opening it does not clear that explicit dependency. A jacket can have both. Neither property alone determines whether another item can overlap it or whether an entire underlying garment disappears visually.</p>
+<p>Current native metadata appends <code>CoversAccess</code>, <code>BlocksRemoval</code> and <code>OverlapTags</code> to <code>WearProfile</code>. Access/removal default to true to preserve the current fixture. Overlap permission must match both profiles; ordinary same-layer conflicts remain rejected. Fastening checks access coverage. Removal blocking persists for the worn item's footprint after opening. Fitting/removing through outer obstructions still uses normal timed/AP-bearing dressing commands.</p>
+<p>The flags currently operate over coarse <code>WearMount.Coverage</code> regions. Region/surface masks and geometric body-hex overlap remain future work. A single occupied named mount still accepts one item; overlap tags do not create several occupants in that legacy mount. Crossed belts at distinct body placements need the body-shape implementation.</p>
+<h2 id="belt-placement-and-support">Belt placement and support</h2>
+<p>The confirmed rule is local geometric fitting: transform a belt's shape and contact edges with its orientation, then test those transformed contacts against the body. Horizontal and angled placement use the same rule. Two belts across the chest can be possible if their contacts, overlap permissions, worn-stack fit and loads validate. Do not reject placement solely because the object's category is belt or its conventional location is the waist.</p>
+<p>Concrete body silhouettes and orientation footprints remain to be qualified. This does not freeze an axis-aligned waist slot or claim arbitrary non-60° rotations of discrete hex masks already work.</p>
+<p>Confirmed belt interaction profile: compatible belts may overlap each other, leave underlying pocket access open (<code>CoversAccess=false</code>), and prevent removal of clothing they restrain (<code>BlocksRemoval=true</code>). This settles the earlier ambiguous “does not block” wording as access rather than removal. A real belt instance/contact footprint and its attachment surfaces still need the body-shape fixture.</p>
+<h2 id="attachment-surfaces">Attachment surfaces</h2>
+<p>Attachment providers can be points, segments or continuous surfaces. A belt can offer a belt-type interface along its usable length rather than one isolated holster slot. A holster supplies the matching attachment requirement and occupies a valid location/span on it.</p>
+<p>Continuous support does not mean infinite capacity: attachment footprint, clip width, occupied span, combined load, clearance, orientation and compatibility still apply. Rotating the belt carries its offered attachment surface and anchors with it. Functional effects inspect the actual support/orientation rather than assume conventional waist placement.</p>
+<p>Packs, garments, armor and anomalous objects can provide other interfaces through this contract. Physical parenthood remains singular: a pistol in a holster attached to a belt is not duplicated in another inventory. Attachment capacity, packed interior capacity and body occupancy are separate, and mass is counted once.</p>
+<h2 id="representations-of-one-item">Representations of one item</h2>
+<p>The <a href="doc-docs-26-wearable-appearance-pipeline-md.html#confirmed-paperdoll-presentation-october-30">October 30 paperdoll clarification</a> confirms a character-matched sprite body, hidden normal-use fit grid and highlights clipped to visible worn garment silhouettes. Physical surface masks remain independent of rendered alpha. This is a confirmed output requirement; the procedural mapping route below remains proposed.</p>
+<table>
+<thead>
+<tr>
+<th>Representation</th>
+<th>Describes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inventory sprite and packing data</td>
+<td>Loose/packed item and square-grid storage envelope</td>
+</tr>
+<tr>
+<td>Paperdoll sprite and fitting data</td>
+<td>Worn form, contact/coverage and linked front/back surfaces</td>
+</tr>
+<tr>
+<td>World representation</td>
+<td>That same worn item transformed for body, facing, pose and animation frame</td>
+</tr>
+</tbody>
+</table>
+<p>A belt's front and back are surfaces of one wrapping object. A backpack's bag, shoulder straps and front-visible strap segments share one item identity. Shirts and jackets need linked front/back/sleeve/shoulder surfaces. Placement, orientation and fastening update every representation from the same state.</p>
+<p>Access covering, removal contact, attachment support and visual opacity can have different surface masks. A narrow strap can restrain a shirt without covering its entire pocket. A transparent surface can reveal an item while preventing physical access. Opaque sprite pixels cannot stand in for every physical rule.</p>
+<h2 id="proposed-procedural-route-from-paperdoll-art">Proposed procedural route from paperdoll art</h2>
+<p>The next useful experiment is reusable body-surface/pose mapping. Define aligned front/back paperdoll texture coordinates for a body family, then provide a projection map for each world facing/action/frame. That map identifies source surface/coordinates for output pixels, with pose masks and draw depth. Shared maps can be authored once or baked from a rigged source body.</p>
+<p>An ordinary garment supplies a fitted paperdoll texture/mask, supported states and template parameters. The compositor projects it through the body's shared pose maps. This could avoid drawing a new directional animation sheet for every shirt color or conventional garment. It is a proposed prototype, not a functioning automatic converter.</p>
+<p>Wraparound bands need seam-linked coordinates so belt texture and attachment locations continue around the body. Pack straps use body-following surfaces/anchors, while the bag needs its own bulk/silhouette representation. Near/far arms, collars, straps and attachments need appropriate occlusion/depth ordering.</p>
+<p>Body-surface projection alone cannot invent a thick coat's or bag's expanded silhouette. Such items need template geometry, silhouette extensions, authored overlays or custom directional assets. A front-only inventory illustration also lacks missing side/back information. The authoring contract must identify these requirements and provide readable fallbacks.</p>
+<p>Qualify one body and one front/back garment across the current six facings/walk frames, then add a wrapping belt and strapped pack. Check seams, silhouette, pixel style, shading, pose alignment, stable anchors and paperdoll/world state agreement. This builds on the existing appearance proposal; it does not require a 3D runtime game or general cloth solver.</p>
+<h2 id="ui-dismissal-and-physical-state">UI dismissal and physical state</h2>
+<p><strong>Esc closes the interface only.</strong> It does not zip, latch, button or otherwise secure inventory. Open containers stay physically open unless a physical action changes them. Already committed timed work may continue after the UI closes under the existing scheduler.</p>
+<p><strong>↑/× use each fastening’s authored <code>SecureOnClose</code> default or player override.</strong> There is no global setting. A jacket front stays open by default; its pocket flaps can auto-secure independently. The three-view browser prepares child-before-parent close intent through the normal physical action service; every actual closure pays time/AP, can fail, and persists independently of the interface. ↑ applies the closed step’s own preference. Preparing a sequence during pause does not physically close anything. Waiting for tactical AP does not end the player’s turn. Esc still performs no securing.</p>
+<h2 id="qualification-boundary">Qualification boundary</h2>
+<p>Runtime checks cover all four access/removal boolean combinations, removal blocking after opening, mutual same-layer overlap, metadata validation and Esc leaving actual backpack/case states unchanged. Existing garment, layer inspection, packing, AP and save checks remain required.</p>
+<p>The three-view browser, context menus, illustrated hotspot input, paid opening, automatic securing and saved continuation are now implemented in the bounded native fixture. Hover tooltips report current closure state; animated zipper/flap artwork, anatomical paperdoll compositing, body-local hex fitting, continuous attachments and procedural world clothing remain separate work.</p>
+<p>The October 26 gear-view clarification extends attachment surfaces to the exterior of backpacks and other equipment. The middle gear illustration shows those actual mounted items; stored contents stay in the right-hand interior view. A strap's visual segment locates its interaction surface, while authored fit/support geometry and physical constraints decide which item can mount there. The <a href="doc-docs-27-three-view-inventory-and-body-fit-md.html#segmented-gear-illustration-october-26-clarification">segmented gear contract</a> records hover contours, child selection priority and the current two-compartment prototype boundary.</p>
+<p>Per-compartment obstruction will use the target segment's projected body-local access hexes, with independent access-cover and removal-restraint masks. A jacket over hip pockets therefore leaves lower cargo pockets usable; covering cloth elsewhere never marks every compartment inaccessible. This is the next body-geometry contract. The current coarse regional proof and implemented per-fastening state/behavior fields are qualified separately in the <a href="doc-docs-27-three-view-inventory-and-body-fit-md.html#spatial-obstruction-and-per-fastening-policy-october-26-clarification">spatial obstruction and closure section</a>.</p>
+<h2 id="geometric-compartment-access-follow-up">Geometric compartment access follow-up</h2>
+<p>The <a href="doc-docs-31-pocket-coverage-prototype-md.html">pocket coverage prototype</a> now projects per-region mouth footprints and garment closed/open cover masks through actual body poses. The native four-pocket trousers distinguish hip and cargo access; front/back surfaces and mount-resolved packs are qualified. Whole-item visibility and removal masks still use coarse regions. This follow-up does not claim the complete surface/pose compositor or continuous attachment solver is finished.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/28-wearable-metadata-and-surface-mapping.md</footer></main></div></body></html>

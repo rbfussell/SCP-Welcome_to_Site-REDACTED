@@ -1,0 +1,114 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryArt.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryArt.cs</h1><p>game/Presentation/Inventory/InventoryArt.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventoryart.html">InventoryArt</a></li><li><a href="type-inventoryart-mountillustration.html">MountIllustration</a></li><li><a href="type-inventoryart-layout.html">Layout</a></li><li><a href="type-inventoryart-mountlayout.html">MountLayout</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-ffbd723e4b9db1597fbf.html">InventoryArt.Load</a> · line 14</li><li><a href="function-f7c7848e8b5f485ead27.html">InventoryArt.Layout.Project</a> · line 37</li><li><a href="function-c8ea93e742fa42048923.html">InventoryArt.Layout.Unproject</a> · line 42</li><li><a href="function-fe9dff7ca9bc3a714ba5.html">InventoryArt.GetLayout</a> · line 48</li><li><a href="function-7724c28ecb889c373d9b.html">InventoryArt.Project</a> · line 57</li><li><a href="function-4a7808f6d54ac0e6de0d.html">InventoryArt.Unproject</a> · line 58</li><li><a href="function-a155034e04e63e955f0d.html">InventoryArt.Opaque</a> · line 59</li><li><a href="function-dc4edbb9e8c0cc5b79cd.html">InventoryArt.Release</a> · line 67</li><li><a href="function-0a2b1f8f4a0a1684e0be.html">InventoryArt.Draw</a> · line 74</li><li><a href="function-d2c2c1a43ab8c189142e.html">InventoryArt.MountLayout.Project</a> · line 83</li><li><a href="function-949029297dee6d38db88.html">InventoryArt.MountLayout.Unproject</a> · line 84</li><li><a href="function-b4bf1a028af6af225fc4.html">InventoryArt.MountedLayout</a> · line 86</li><li><a href="function-ac163d3efbcbe6d0dd32.html">InventoryArt.ProjectMount</a> · line 92</li><li><a href="function-d54388e0adadd8cfe703.html">InventoryArt.UnprojectMount</a> · line 93</li><li><a href="function-b3ce4b4279b2a1c2ebb0.html">InventoryArt.HasMountIllustration</a> · line 94</li><li><a href="function-c91965ff7e220a0c986d.html">InventoryArt.DrawMount</a> · line 95</li><li><a href="function-0a67fea201b5fe43f724.html">InventoryArt.Highlight</a> · line 104</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using System.Text.Json;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Object sprites and their shared source-image projection. Pixel size never defines physical capacity.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> internal static class InventoryArt</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private static readonly Dictionary&lt;string, AtlasTexture&gt; Textures = [];</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private static readonly Dictionary&lt;string, Image&gt; Images = [];</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private sealed record MountIllustration(float Height, float[] Anchor, float RotationDegrees);</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static readonly Dictionary&lt;string, MountIllustration&gt; MountIllustrations = [];</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private static bool _loaded;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private static void Load()</span>
+<span id="L15"><a class="line" href="#L15">15</a>     {</span>
+<span id="L16"><a class="line" href="#L16">16</a>         if (_loaded) return;</span>
+<span id="L17"><a class="line" href="#L17">17</a>         using var json = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/inventory-objects/manifest.json&quot;));</span>
+<span id="L18"><a class="line" href="#L18">18</a>         foreach (var asset in json.RootElement.GetProperty(&quot;assets&quot;).EnumerateArray())</span>
+<span id="L19"><a class="line" href="#L19">19</a>         {</span>
+<span id="L20"><a class="line" href="#L20">20</a>             var r = asset.GetProperty(&quot;region&quot;).EnumerateArray().Select(v =&gt; v.GetInt32()).ToArray();</span>
+<span id="L21"><a class="line" href="#L21">21</a>             Textures.Add(asset.GetProperty(&quot;id&quot;).GetString()!, new AtlasTexture</span>
+<span id="L22"><a class="line" href="#L22">22</a>             { Atlas = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/inventory-objects/&quot; + asset.GetProperty(&quot;file&quot;).GetString()), Region = new(r[0], r[1], r[2], r[3]) });</span>
+<span id="L23"><a class="line" href="#L23">23</a>         }</span>
+<span id="L24"><a class="line" href="#L24">24</a>         foreach (var binding in json.RootElement.GetProperty(&quot;attachmentIllustrations&quot;).EnumerateObject())</span>
+<span id="L25"><a class="line" href="#L25">25</a>         {</span>
+<span id="L26"><a class="line" href="#L26">26</a>             var profile = binding.Value.Deserialize&lt;MountIllustration&gt;(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;</span>
+<span id="L27"><a class="line" href="#L27">27</a>             if (profile is null || !Textures.ContainsKey(binding.Name) || !float.IsFinite(profile.Height) || profile.Height is &lt;= 0 or &gt; 256</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 || profile.Anchor is not { Length: 2 } || profile.Anchor.Any(v =&gt; !float.IsFinite(v) || v is &lt; 0 or &gt; 1)</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 || !float.IsFinite(profile.RotationDegrees) || Math.Abs(profile.RotationDegrees) &gt; 360)</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 throw new InvalidOperationException(&quot;Invalid mounted illustration: &quot; + binding.Name);</span>
+<span id="L31"><a class="line" href="#L31">31</a>             MountIllustrations.Add(binding.Name, profile);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         }</span>
+<span id="L33"><a class="line" href="#L33">33</a>         _loaded = true;</span>
+<span id="L34"><a class="line" href="#L34">34</a>     }</span>
+<span id="L35"><a class="line" href="#L35">35</a>     private readonly record struct Layout(AtlasTexture Texture, Vector2 Center, Vector2 Size, bool Turn)</span>
+<span id="L36"><a class="line" href="#L36">36</a>     {</span>
+<span id="L37"><a class="line" href="#L37">37</a>         public Vector2 Project(Vector2 normalized)</span>
+<span id="L38"><a class="line" href="#L38">38</a>         {</span>
+<span id="L39"><a class="line" href="#L39">39</a>             var p = (normalized - Vector2.One * 0.5f) * Size;</span>
+<span id="L40"><a class="line" href="#L40">40</a>             return Center + (Turn ? new Vector2(-p.Y, p.X) : p);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         }</span>
+<span id="L42"><a class="line" href="#L42">42</a>         public Vector2 Unproject(Vector2 screen)</span>
+<span id="L43"><a class="line" href="#L43">43</a>         {</span>
+<span id="L44"><a class="line" href="#L44">44</a>             var p = screen - Center;</span>
+<span id="L45"><a class="line" href="#L45">45</a>             return (Turn ? new Vector2(p.Y, -p.X) : p) / Size + Vector2.One * 0.5f;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         }</span>
+<span id="L47"><a class="line" href="#L47">47</a>     }</span>
+<span id="L48"><a class="line" href="#L48">48</a>     private static Layout? GetLayout(string id, Rect2 bounds, bool rotated = false)</span>
+<span id="L49"><a class="line" href="#L49">49</a>     {</span>
+<span id="L50"><a class="line" href="#L50">50</a>         Load();</span>
+<span id="L51"><a class="line" href="#L51">51</a>         if (!Textures.TryGetValue(id, out var texture)) return null;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var turn = rotated ^ (id == &quot;gum-pack&quot;);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         var available = turn ? new Vector2(bounds.Size.Y, bounds.Size.X) : bounds.Size;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var scale = Math.Min(available.X / texture.GetWidth(), available.Y / texture.GetHeight());</span>
+<span id="L55"><a class="line" href="#L55">55</a>         return new(texture, bounds.GetCenter(), texture.GetSize() * scale, turn);</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a>     internal static Vector2 Project(string id, Rect2 bounds, Vector2 point) =&gt; GetLayout(id, bounds)!.Value.Project(point);</span>
+<span id="L58"><a class="line" href="#L58">58</a>     internal static Vector2 Unproject(string id, Rect2 bounds, Vector2 point) =&gt; GetLayout(id, bounds)!.Value.Unproject(point);</span>
+<span id="L59"><a class="line" href="#L59">59</a>     internal static bool Opaque(string id, Vector2 normalized)</span>
+<span id="L60"><a class="line" href="#L60">60</a>     {</span>
+<span id="L61"><a class="line" href="#L61">61</a>         if (normalized.X is &lt; 0 or &gt;= 1 || normalized.Y is &lt; 0 or &gt;= 1) return false;</span>
+<span id="L62"><a class="line" href="#L62">62</a>         Load(); var texture = Textures[id];</span>
+<span id="L63"><a class="line" href="#L63">63</a>         if (!Images.TryGetValue(id, out var image)) Images.Add(id, image = texture.Atlas.GetImage());</span>
+<span id="L64"><a class="line" href="#L64">64</a>         var pixel = texture.Region.Position + normalized * texture.Region.Size;</span>
+<span id="L65"><a class="line" href="#L65">65</a>         return image.GetPixel((int)pixel.X, (int)pixel.Y).A &gt; 0.08f;</span>
+<span id="L66"><a class="line" href="#L66">66</a>     }</span>
+<span id="L67"><a class="line" href="#L67">67</a>     public static void Release()</span>
+<span id="L68"><a class="line" href="#L68">68</a>     {</span>
+<span id="L69"><a class="line" href="#L69">69</a>         foreach (var image in Images.Values) image.Dispose();</span>
+<span id="L70"><a class="line" href="#L70">70</a>         Images.Clear();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         foreach (var texture in Textures.Values) { var source = texture.Atlas; texture.Dispose(); source?.Dispose(); }</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Textures.Clear(); MountIllustrations.Clear(); _loaded = false;</span>
+<span id="L73"><a class="line" href="#L73">73</a>     }</span>
+<span id="L74"><a class="line" href="#L74">74</a>     public static void Draw(Control canvas, string definitionId, Rect2 bounds, bool rotated, float opacity = 1)</span>
+<span id="L75"><a class="line" href="#L75">75</a>     {</span>
+<span id="L76"><a class="line" href="#L76">76</a>         if (GetLayout(definitionId, bounds, rotated) is not { } layout) return;</span>
+<span id="L77"><a class="line" href="#L77">77</a>         canvas.DrawSetTransform(layout.Center, layout.Turn ? Mathf.Pi / 2 : 0);</span>
+<span id="L78"><a class="line" href="#L78">78</a>         canvas.DrawTextureRect(layout.Texture, new(-layout.Size / 2, layout.Size), false, new(1, 1, 1, opacity));</span>
+<span id="L79"><a class="line" href="#L79">79</a>         canvas.DrawSetTransform(Vector2.Zero);</span>
+<span id="L80"><a class="line" href="#L80">80</a>     }</span>
+<span id="L81"><a class="line" href="#L81">81</a>     private readonly record struct MountLayout(AtlasTexture Texture, Vector2 Size, Vector2 Anchor, float Angle)</span>
+<span id="L82"><a class="line" href="#L82">82</a>     {</span>
+<span id="L83"><a class="line" href="#L83">83</a>         public Vector2 Project(Vector2 source) =&gt; ((source - Anchor) * Size).Rotated(Angle);</span>
+<span id="L84"><a class="line" href="#L84">84</a>         public Vector2 Unproject(Vector2 point) =&gt; point.Rotated(-Angle) / Size + Anchor;</span>
+<span id="L85"><a class="line" href="#L85">85</a>     }</span>
+<span id="L86"><a class="line" href="#L86">86</a>     private static MountLayout MountedLayout(string id, int rotation)</span>
+<span id="L87"><a class="line" href="#L87">87</a>     {</span>
+<span id="L88"><a class="line" href="#L88">88</a>         Load(); var profile = MountIllustrations[id]; var texture = Textures[id];</span>
+<span id="L89"><a class="line" href="#L89">89</a>         return new(texture, texture.GetSize() * (profile.Height / texture.GetHeight()), new(profile.Anchor[0], profile.Anchor[1]),</span>
+<span id="L90"><a class="line" href="#L90">90</a>             Mathf.DegToRad(profile.RotationDegrees + rotation * 60));</span>
+<span id="L91"><a class="line" href="#L91">91</a>     }</span>
+<span id="L92"><a class="line" href="#L92">92</a>     internal static Vector2 ProjectMount(string id, int rotation, Vector2 source) =&gt; MountedLayout(id, rotation).Project(source);</span>
+<span id="L93"><a class="line" href="#L93">93</a>     internal static Vector2 UnprojectMount(string id, int rotation, Vector2 point) =&gt; MountedLayout(id, rotation).Unproject(point);</span>
+<span id="L94"><a class="line" href="#L94">94</a>     internal static bool HasMountIllustration(string id) { Load(); return MountIllustrations.ContainsKey(id); }</span>
+<span id="L95"><a class="line" href="#L95">95</a>     internal static void DrawMount(Control canvas, string id, Vector2 origin, int rotation, float opacity, bool highlight = false)</span>
+<span id="L96"><a class="line" href="#L96">96</a>     {</span>
+<span id="L97"><a class="line" href="#L97">97</a>         if (!HasMountIllustration(id)) return;</span>
+<span id="L98"><a class="line" href="#L98">98</a>         var layout = MountedLayout(id, rotation);</span>
+<span id="L99"><a class="line" href="#L99">99</a>         canvas.DrawSetTransform(origin, layout.Angle);</span>
+<span id="L100"><a class="line" href="#L100">100</a>         canvas.DrawTextureRect(layout.Texture, new(-layout.Anchor * layout.Size, layout.Size), false,</span>
+<span id="L101"><a class="line" href="#L101">101</a>             highlight ? new(1.3f, 1.5f, 1.25f, opacity) : new(1, 1, 1, opacity));</span>
+<span id="L102"><a class="line" href="#L102">102</a>         canvas.DrawSetTransform(Vector2.Zero);</span>
+<span id="L103"><a class="line" href="#L103">103</a>     }</span>
+<span id="L104"><a class="line" href="#L104">104</a>     internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon, bool blocked = false)</span>
+<span id="L105"><a class="line" href="#L105">105</a>     {</span>
+<span id="L106"><a class="line" href="#L106">106</a>         if (GetLayout(id, bounds) is not { } layout) return;</span>
+<span id="L107"><a class="line" href="#L107">107</a>         var points = polygon.Select(layout.Project).ToArray();</span>
+<span id="L108"><a class="line" href="#L108">108</a>         var texture = layout.Texture;</span>
+<span id="L109"><a class="line" href="#L109">109</a>         var uv = polygon.Select(p =&gt; (texture.Region.Position + p * texture.Region.Size) / texture.Atlas.GetSize()).ToArray();</span>
+<span id="L110"><a class="line" href="#L110">110</a>         // Re-draw only this sprite segment: its alpha and material texture remain intact.</span>
+<span id="L111"><a class="line" href="#L111">111</a>         canvas.DrawPolygon(points, new[] { blocked ? new Color(1.8f, 1.0f, 0.85f, 0.65f) : new Color(1.45f, 1.65f, 1.35f, 0.65f) }, uv, texture.Atlas);</span>
+<span id="L112"><a class="line" href="#L112">112</a>         canvas.DrawPolyline(points.Append(points[0]).ToArray(), new Color(blocked ? &quot;ff8c78&quot; : &quot;b5d2a1&quot;, 0.75f), 1, false);</span>
+<span id="L113"><a class="line" href="#L113">113</a>     }</span>
+<span id="L114"><a class="line" href="#L114">114</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

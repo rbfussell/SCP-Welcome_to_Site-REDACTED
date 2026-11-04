@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Operations/OperationLifecycle.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationLifecycle.cs</h1><p>src/SiteSimulation/Operations/OperationLifecycle.cs</p><p><a href="system-operations.html">Personnel orders and recovery</a></p><h2>Types</h2><ul><li><a href="type-operationlifecycle.html">OperationLifecycle</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c87fece05ffcd792069e.html">OperationLifecycle.Initialize</a> · line 6</li><li><a href="function-7da2e75fa53038583034.html">OperationLifecycle.Advance</a> · line 36</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Scenario setup and continuously evaluated receiving conditions; never forces anomaly relocation.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class OperationLifecycle</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static void Initialize(SimulationWorld world)</span>
+<span id="L7"><a class="line" href="#L7">7</a>     {</span>
+<span id="L8"><a class="line" href="#L8">8</a>         var state = world.Operations;</span>
+<span id="L9"><a class="line" href="#L9">9</a>         if (state.Definition is not { } d) return;</span>
+<span id="L10"><a class="line" href="#L10">10</a>         if (d.AccessDoors is null || d.Posts is null || d.Starts is null || d.RadioActors is null</span>
+<span id="L11"><a class="line" href="#L11">11</a>             || d.Posts.Length == 0 || d.Starts.Any(s =&gt; s is null)</span>
+<span id="L12"><a class="line" href="#L12">12</a>             || d.StabilizeMs is &lt; 500 or &gt; 60000 || d.StabilizeMs % SpatialSimulation.TickMs != 0</span>
+<span id="L13"><a class="line" href="#L13">13</a>             || !world.Anomalies.Bodies.Any(b =&gt; b.Id == d.SubjectId) || !world.Actors.Any(a =&gt; a.Id == d.CommanderId)</span>
+<span id="L14"><a class="line" href="#L14">14</a>             || d.Starts.Select(s =&gt; s.ActorId).Distinct().Count() != d.Starts.Length</span>
+<span id="L15"><a class="line" href="#L15">15</a>             || d.RadioActors.Distinct().Count() != d.RadioActors.Length</span>
+<span id="L16"><a class="line" href="#L16">16</a>             || d.RadioActors.Any(id =&gt; !world.Actors.Any(a =&gt; a.Id == id))</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || d.Home == d.Terminal || !world.Map.Walkable(d.Home, world.Anomalies.Bodies.Select(b =&gt; b.Cell).ToHashSet()) || !world.Map.Walkable(d.Terminal) || !world.Map.Walkable(d.Trolley)</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || d.Terminal == d.Trolley || d.Posts.Any(p =&gt; !world.Map.Walkable(p))</span>
+<span id="L19"><a class="line" href="#L19">19</a>             || d.AccessDoors.Any(id =&gt; !world.Map.Definition.Walls.Any(w =&gt; w.Id == id &amp;&amp; w.Door)))</span>
+<span id="L20"><a class="line" href="#L20">20</a>             throw new ArgumentException(&quot;Invalid operation scenario.&quot;);</span>
+<span id="L21"><a class="line" href="#L21">21</a>         foreach (var start in d.Starts)</span>
+<span id="L22"><a class="line" href="#L22">22</a>         {</span>
+<span id="L23"><a class="line" href="#L23">23</a>             var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == start.ActorId);</span>
+<span id="L24"><a class="line" href="#L24">24</a>             if (actor is null || !world.Map.Walkable(start.Cell) || start.Facing is &lt; 0 or &gt; 5)</span>
+<span id="L25"><a class="line" href="#L25">25</a>                 throw new ArgumentException(&quot;Invalid operation actor start.&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>             actor.Cell = start.Cell; actor.Facing = start.Facing;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         }</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (world.Actors.Select(a =&gt; a.Cell).Distinct().Count() != world.Actors.Count</span>
+<span id="L29"><a class="line" href="#L29">29</a>             || world.Actors.Any(a =&gt; a.Cell == d.Terminal || a.Cell == d.Trolley)) throw new ArgumentException(&quot;Operation fixtures overlap.&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         world.Map.DynamicBlockers.Add(d.Terminal); world.Map.DynamicBlockers.Add(d.Trolley);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         foreach (var actor in world.Actors.Where(a =&gt; a.Id != d.CommanderId &amp;&amp; !EmploymentSystem.Owns(world, a.Id)))</span>
+<span id="L32"><a class="line" href="#L32">32</a>             state.Orders.Add(new(state.NextId++, d.CommanderId, actor.Id, PersonnelTask.Observe, actor.Cell, &quot;voice&quot;, OrderStatus.Active,</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 &quot;Standing observation duty&quot;, 0, world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Position));</span>
+<span id="L34"><a class="line" href="#L34">34</a>         state.Report(world, &quot;OPERATIONS&quot;, &quot;Observation shift opened. Receiving conditions require three humans, lit room and closed access. One observer can suppress self-relocation.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>     }</span>
+<span id="L36"><a class="line" href="#L36">36</a>     public static void Advance(SimulationWorld world)</span>
+<span id="L37"><a class="line" href="#L37">37</a>     {</span>
+<span id="L38"><a class="line" href="#L38">38</a>         var state = world.Operations;</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (state.Definition is not { } d) return;</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var body = world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         var report = ObservationService.Evaluate(world.Map, world.Actors, body.Position, world.LocalMs, body.ObserverProfile);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         var atHome = body.Cell == d.Home;</span>
+<span id="L43"><a class="line" href="#L43">43</a>         if (!atHome) state.HadBreach = true;</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var stable = atHome &amp;&amp; state.Trolley.SubjectId is null &amp;&amp; state.Trolley.Step is null</span>
+<span id="L45"><a class="line" href="#L45">45</a>             &amp;&amp; report.Observers.Count(o =&gt; o.Kind == &quot;human&quot; &amp;&amp; o.Detected &amp;&amp; o.Eligible) &gt;= 3</span>
+<span id="L46"><a class="line" href="#L46">46</a>             &amp;&amp; d.AccessDoors.All(id =&gt; !world.Map.OpenDoors.Contains(id)) &amp;&amp; world.Map.LightsOn;</span>
+<span id="L47"><a class="line" href="#L47">47</a>         state.StableMs = stable ? Math.Min(d.StabilizeMs, state.StableMs + SpatialSimulation.TickMs) : 0;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var status = state.StableMs &gt;= d.StabilizeMs ? &quot;Contained · procedure compliant&quot;</span>
+<span id="L49"><a class="line" href="#L49">49</a>             : !atHome ? &quot;Breach · outside receiving footprint&quot;</span>
+<span id="L50"><a class="line" href="#L50">50</a>             : report.Observed ? &quot;Emergency stabilized · procedure incomplete&quot; : &quot;Coverage lost · unresolved&quot;;</span>
+<span id="L51"><a class="line" href="#L51">51</a>         if (state.HadBreach &amp;&amp; state.StableMs &gt;= d.StabilizeMs) state.Completed = true;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         if (status == state.PhysicalStatus) return;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         state.PhysicalStatus = status;</span>
+<span id="L54"><a class="line" href="#L54">54</a>         world.Log(&quot;operation&quot;, d.SubjectId, &quot;conditions&quot;, status);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         var witness = world.Actors.FirstOrDefault(a =&gt; ObservationService.Inspect(world.Map, a, body.Position, world.LocalMs).Detected);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         if (witness is null)</span>
+<span id="L57"><a class="line" href="#L57">57</a>         {</span>
+<span id="L58"><a class="line" href="#L58">58</a>             // Seeing the empty receiving footprint is evidence of absence, not of the subject&#x27;s hidden location.</span>
+<span id="L59"><a class="line" href="#L59">59</a>             witness = world.Actors.FirstOrDefault(a =&gt; ObservationService.Inspect(world.Map, a, d.Home.World, world.LocalMs).Detected);</span>
+<span id="L60"><a class="line" href="#L60">60</a>             if (witness is not null &amp;&amp; !atHome &amp;&amp; (FacilityCommunications.Voice(world, witness, world.Player)</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 || (state.TerminalPowered || OscpService.PhoneAvailable(world)) &amp;&amp; FacilityCommunications.Radio(world, witness.Id)))</span>
+<span id="L62"><a class="line" href="#L62">62</a>                 state.Report(world, witness.Name, &quot;Receiving footprint empty · subject location unconfirmed&quot;,</span>
+<span id="L63"><a class="line" href="#L63">63</a>                     source: FacilityCommunications.Voice(world, witness, world.Player) ? &quot;voice&quot; : &quot;radio&quot;);</span>
+<span id="L64"><a class="line" href="#L64">64</a>             return;</span>
+<span id="L65"><a class="line" href="#L65">65</a>         }</span>
+<span id="L66"><a class="line" href="#L66">66</a>         if (FacilityCommunications.Voice(world, witness, world.Player) || (state.TerminalPowered || OscpService.PhoneAvailable(world)) &amp;&amp; FacilityCommunications.Radio(world, witness.Id))</span>
+<span id="L67"><a class="line" href="#L67">67</a>             state.Report(world, witness.Name, $&quot;Containment assessment: {status}&quot;, body.Position,</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 source: FacilityCommunications.Voice(world, witness, world.Player) ? &quot;voice&quot; : &quot;radio&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>     }</span>
+<span id="L70"><a class="line" href="#L70">70</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

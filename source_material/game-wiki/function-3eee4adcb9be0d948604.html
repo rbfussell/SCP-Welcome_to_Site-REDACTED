@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPanel.Initialize | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPanel.Initialize</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypanel-cs.html#L36">game/Presentation/Inventory/InventoryPanel.cs:36</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public void Initialize(SpatialSimulation simulation)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-1484e0f1ff3ac68797ce.html">InventoryPanel.MoveSelectedTo</a></li><li><a href="function-27ba47d4af72daf8f9ec.html">InventoryPanel.AddGrid</a></li><li><a href="function-3385d60b84bdead3e7b5.html">TacticalCombatSystem.HandleInventory</a></li><li><a href="function-3db0958d9183d75b0bf7.html">InventoryPanel.ShowReceipt</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-72b928b42032ab22db0d.html">InventoryPanel.CancelDragPreview</a></li><li><a href="function-7650ee2a92c12deb1e5b.html">InventoryPanel.SetBodyFit</a></li><li><a href="function-76f2030de2126bac671b.html">InventoryPanel.Label</a></li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a></li><li><a href="function-aee5c2480f49b5c924ad.html">SpatialSimulation.CancelInventoryHandling</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-da774cec6925c72b0f06.html">SpatialSimulation.HandleInventory</a></li><li><a href="function-f7d9ce1a9ef5a584806c.html">InventoryPanel.Button</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>SetAnchorsAndOffsetsPreset
+Theme.SetColor
+AddChild
+dim.SetAnchorsAndOffsetsPreset
+_window.AddThemeStyleboxOverride
+_window.AddChild
+column.AddThemeConstantOverride
+column.AddChild
+Label
+Button
+body.AddThemeConstantOverride
+body.AddChild
+worn.AddChild
+CancelDragPreview
+SetBodyFit
+mounts.AddThemeConstantOverride
+_wornScroll.AddChild
+AddGrid
+_equipmentActions.AddChild
+MoveSelectedTo
+Simulation.Inventory.Definition
+Inspect
+Simulation.Inventory.DiagnosticItems.Single
+Simulation.HandleInventory
+ShowReceipt
+Simulation.CancelInventoryHandling
+storage.AddChild
+_browser.AddThemeConstantOverride
+scroll.AddChild</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-718b2bacfd27f8176d9a.html">OscpScene._Ready</a></li><li><a href="function-cca00ec29dbf08139b4e.html">SpatialScene._Ready</a></li><li><a href="function-f903653729ecd946ab9f.html">SpatialHud.Initialize</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-inventorybodyfitpanel.html">InventoryBodyFitPanel</a></li><li><a href="type-inventorybrowser.html">InventoryBrowser</a></li><li><a href="type-inventoryequipmentlist.html">InventoryEquipmentList</a></li><li><a href="type-inventorypanel.html">InventoryPanel</a></li><li><a href="type-inventorypaperdollproof.html">InventoryPaperdollProof</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>public void Initialize(SpatialSimulation simulation)
+    {
+        Simulation = simulation;
+        if (!simulation.Inventory.Enabled) { Visible = false; return; }
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Stop;
+        Theme = new Theme { DefaultFontSize = 13 };
+        Theme.SetColor(&quot;font_color&quot;, &quot;Label&quot;, new(&quot;dddcca&quot;));
+        var dim = new ColorRect { Color = new(0.018f, 0.025f, 0.025f, 0.90f) }; AddChild(dim); dim.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        _window = new PanelContainer(); AddChild(_window);
+        _window.AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;101916&quot;), BorderColor = new(&quot;4c5c4d&quot;), BorderWidthTop = 1, BorderWidthBottom = 1, BorderWidthLeft = 1, BorderWidthRight = 1, ContentMarginLeft = 22, ContentMarginRight = 22, ContentMarginTop = 16, ContentMarginBottom = 16 });
+        var column = new VBoxContainer(); _window.AddChild(column); column.AddThemeConstantOverride(&quot;separation&quot;, 10);
+        var header = new HBoxContainer(); column.AddChild(header);
+        Label(header, &quot;PERSONAL EQUIPMENT&quot;, 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        _clock = Label(header, &quot;&quot;, 13);
+        Button(header, &quot;CLOSE  /  I&quot;, Close);
+        Label(column, &quot;Double-click opens · right-click for actions · drag to move · R rotates · ↑/× use gear securing preferences · Esc hides interface&quot;, 12);
+        column.AddChild(new HSeparator());
+        var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride(&quot;separation&quot;, 26); column.AddChild(body);
+        var worn = new VBoxContainer(); body.AddChild(worn);
+        Label(worn, &quot;PAPERDOLL / WORN &amp; HELD&quot;, 16);
+        var bodyViews = new HBoxContainer(); worn.AddChild(bodyViews);
+        _bodyFitToggle = Button(bodyViews, &quot;Body fit · hex view&quot;, ToggleBodyFit);
+        _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        PaperdollProofToggle = Button(bodyViews, &quot;Sprites&quot;, TogglePaperdollProof);
+        PaperdollProofToggle.TooltipText = &quot;Upper-body clothing sprite qualification; other gear is explicitly omitted.&quot;;
+        EngineeringSlots = new CheckButton { Text = &quot;Engineering slot controls&quot;, FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);
+        _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);
+        EngineeringSlots.Toggled += _ =&gt; { CancelDragPreview(); SetBodyFit(false); };
+        _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,
+            CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);
+        var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride(&quot;h_separation&quot;, 16); _wornScroll.AddChild(mounts);
+        foreach (var slot in new[] { &quot;outerwear&quot;, &quot;back&quot;, &quot;legs&quot;, &quot;hand&quot;, &quot;torso&quot;, &quot;suit&quot;, &quot;socks&quot;, &quot;footwear&quot;, &quot;front&quot;, &quot;belt&quot;, &quot;underwear&quot; }) AddGrid(mounts, &quot;person:avatar&quot;, slot, 90);
+        _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);
+        _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);
+        _garmentToggle = new Button { Text = &quot;Open / fasten selected garment&quot;, FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);
+        _garmentToggle.Pressed += ToggleGarment;
+        _takeInHand = Button(_equipmentActions, &quot;Take selected in hand&quot;, () =&gt; MoveSelectedTo(&quot;hand&quot;));
+        _wearDefault = Button(_equipmentActions, &quot;Wear selected (default mount)&quot;, () =&gt;
+        {
+            if (SelectedItem is { } id &amp;&amp; Simulation.Inventory.Definition(id).WearSlot is { } slot) MoveSelectedTo(slot);
+        });
+        Button(_equipmentActions, &quot;Rotate selected object  R&quot;, Rotate);
+        Button(_equipmentActions, &quot;Inspect selected container&quot;, () =&gt; { if (SelectedItem is { } id) Inspect(id); });
+        Button(_equipmentActions, &quot;Switch selected power&quot;, () =&gt;
+        {
+            if (SelectedItem is not { } id) return;
+            var item = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);
+            Simulation.HandleInventory(new(item.Powered ? InventoryActionKind.PowerOff : InventoryActionKind.PowerOn, id)); ShowReceipt();
+        });
+        Button(_equipmentActions, &quot;Cancel handling&quot;, () =&gt; { Simulation.CancelInventoryHandling(); ShowReceipt(); });
+        Button(_equipmentActions, &quot;Nearby supply crate&quot;, () =&gt; Inspect(&quot;fixture:crate-a&quot;));
+        PaperdollProof = new InventoryPaperdollProof { Panel = this, Visible = false }; worn.AddChild(PaperdollProof);
+        var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);
+        var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);
+        Label(storageHeader, &quot;GEAR &amp; CONTENTS / TWO INDEPENDENT TRAILS&quot;, 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        Label(storage, &quot;Compartments open individually. ↑/× follow each fastening’s preference. Esc leaves physical closures unchanged.&quot;, 12);
+        var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill,
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);
+        _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
+        _browser.AddThemeConstantOverride(&quot;separation&quot;, 18); scroll.AddChild(_browser);
+        column.AddChild(new HSeparator());
+        _detail = Label(column, &quot;&quot;, 13); _detail.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _progress = Label(column, &quot;&quot;, 13);
+        _receipt = Label(column, &quot;Arrange equipment before trouble. The world continues while this view is open.&quot;, 12);
+        _receipt.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        Visible = false;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPanel.cs:36</footer></main></div></body></html>

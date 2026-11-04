@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/InventorySaveCodec.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventorySaveCodec.cs</h1><p>src/SiteSimulation/Inventory/InventorySaveCodec.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorysavecodec.html">InventorySaveCodec</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-2695dde9447911e1a213.html">InventorySaveCodec.ValidateGraph</a> · line 5</li><li><a href="function-a8888e0ee272be7d2c40.html">InventorySaveCodec.Restore</a> · line 23</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> internal static class InventorySaveCodec</span>
+<span id="L4"><a class="line" href="#L4">4</a> {</span>
+<span id="L5"><a class="line" href="#L5">5</a>     internal static void ValidateGraph(InventoryState state)</span>
+<span id="L6"><a class="line" href="#L6">6</a>     {</span>
+<span id="L7"><a class="line" href="#L7">7</a>         var content = state.Content!;</span>
+<span id="L8"><a class="line" href="#L8">8</a>         if (!state.Items.Keys.Order().SequenceEqual(content.Items.Select(i =&gt; i.Id).Order())</span>
+<span id="L9"><a class="line" href="#L9">9</a>             || state.Items.Values.Any(i =&gt; i.Placement is null || i.Condition is &lt; 0 or &gt; 100</span>
+<span id="L10"><a class="line" href="#L10">10</a>                 || !content.Items.Any(original =&gt; original.Id == i.Id &amp;&amp; original.DefinitionId == i.DefinitionId)</span>
+<span id="L11"><a class="line" href="#L11">11</a>                 || i.GarmentOpen &amp;&amp; state.Definition(i.Id).Wear?.OpenExposes is not { Length: &gt; 0 }</span>
+<span id="L12"><a class="line" href="#L12">12</a>                 || i.SecureOnClose is not null &amp;&amp; state.Definition(i.Id).Wear?.OpenExposes is not { Length: &gt; 0 }</span>
+<span id="L13"><a class="line" href="#L13">13</a>                 || !state.Items.ContainsKey(i.Placement.ParentId) &amp;&amp; !content.Roots.Any(r =&gt; r.Id == i.Placement.ParentId))</span>
+<span id="L14"><a class="line" href="#L14">14</a>             || state.Regions.Any(r =&gt; r is null || !state.Items.ContainsKey(r.ItemId)</span>
+<span id="L15"><a class="line" href="#L15">15</a>                 || state.Definition(r.ItemId).Regions?.Any(region =&gt; region.Id == r.RegionId &amp;&amp; region.Attachment is null) != true)</span>
+<span id="L16"><a class="line" href="#L16">16</a>             || state.Regions.Any(r =&gt; !state.Region(r.ItemId, r.RegionId).Sealable &amp;&amp; (!r.Open || r.SecureOnClose is not null))</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || state.Regions.Select(r =&gt; (r.ItemId, r.RegionId)).Distinct().Count() != state.Regions.Count</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || state.Regions.Count != content.Regions.Length)</span>
+<span id="L19"><a class="line" href="#L19">19</a>             throw new ArgumentException(&quot;Invalid inventory identity, membership or compartment state.&quot;);</span>
+<span id="L20"><a class="line" href="#L20">20</a>         try { InventoryPlacement.Validate(state); }</span>
+<span id="L21"><a class="line" href="#L21">21</a>         catch (Exception ex) when (ex is InvalidOperationException or KeyNotFoundException) { throw new ArgumentException(&quot;Invalid inventory graph.&quot;, ex); }</span>
+<span id="L22"><a class="line" href="#L22">22</a>     }</span>
+<span id="L23"><a class="line" href="#L23">23</a>     internal static void Restore(SimulationWorld world, InventorySnapshot? saved)</span>
+<span id="L24"><a class="line" href="#L24">24</a>     {</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var state = world.Inventory;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         if (!state.Enabled)</span>
+<span id="L27"><a class="line" href="#L27">27</a>         {</span>
+<span id="L28"><a class="line" href="#L28">28</a>             if (saved is not null) throw new ArgumentException(&quot;Inventory state has no matching scenario.&quot;);</span>
+<span id="L29"><a class="line" href="#L29">29</a>             return;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         }</span>
+<span id="L31"><a class="line" href="#L31">31</a>         if (saved is null || saved.Items is null || saved.Regions is null || saved.Items.Any(i =&gt; i is null)</span>
+<span id="L32"><a class="line" href="#L32">32</a>             || saved.Items.Select(i =&gt; i.Id).Distinct().Count() != saved.Items.Length || saved.Revision &lt; 0)</span>
+<span id="L33"><a class="line" href="#L33">33</a>             throw new ArgumentException(&quot;Invalid inventory snapshot.&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         state.Items.Clear(); foreach (var item in saved.Items) state.Items.Add(item.Id, item);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         state.Regions.Clear(); state.Regions.AddRange(saved.Regions); state.Revision = saved.Revision;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         ValidateGraph(state);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         if (saved.Pending is { } work)</span>
+<span id="L38"><a class="line" href="#L38">38</a>         {</span>
+<span id="L39"><a class="line" href="#L39">39</a>             if (work.ActorId != world.Player.Id || work.Request is null || work.Revision != saved.Revision</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 || work.RemainingMs &lt;= 0 || work.RemainingMs &gt; work.TotalMs || work.RemainingMs % SpatialSimulation.TickMs != 0</span>
+<span id="L41"><a class="line" href="#L41">41</a>                 || work.TotalMs &lt;= 0 || work.TotalMs &gt; 100000 || work.TotalMs % SpatialSimulation.TickMs != 0</span>
+<span id="L42"><a class="line" href="#L42">42</a>                 || work.CostAp &lt; 1 || work.AbortReason is { Length: &gt; 250 } || work.Position != world.Player.Position || world.Player.Moving)</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 throw new ArgumentException(&quot;Invalid inventory handling continuation.&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>             // An interrupted action can remain paid while resolving; its original physical request must still be structurally valid.</span>
+<span id="L45"><a class="line" href="#L45">45</a>             if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 throw new ArgumentException(&quot;Invalid inventory request or declared cost.&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>             if (InventoryWornOrder.Resolve(state, work.Request) != work.Request)</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 throw new ArgumentException(&quot;Saved handling is missing its resolved dressing order.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>             var tactical = world.Combat.Pending;</span>
+<span id="L51"><a class="line" href="#L51">51</a>             if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 || work.Tactical &amp;&amp; (tactical!.ActorId != work.ActorId || tactical.RemainingMs != work.RemainingMs</span>
+<span id="L53"><a class="line" href="#L53">53</a>                     || tactical.TotalMs != work.TotalMs || tactical.Cost != work.CostAp))</span>
+<span id="L54"><a class="line" href="#L54">54</a>                 throw new ArgumentException(&quot;Inventory and tactical schedules disagree.&quot;);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         }</span>
+<span id="L56"><a class="line" href="#L56">56</a>         else if (world.Combat.Pending?.Kind == CombatActionKind.Inventory) throw new ArgumentException(&quot;Missing paid inventory continuation.&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         state.Pending = saved.Pending;</span>
+<span id="L58"><a class="line" href="#L58">58</a>         var queue = saved.SecureQueue ?? [];</span>
+<span id="L59"><a class="line" href="#L59">59</a>         if (queue.Length &gt; InventorySecuring.MaxSteps || queue.Any(s =&gt; s is null || s.Request is null || s.Placement is null</span>
+<span id="L60"><a class="line" href="#L60">60</a>             || !InventorySecuring.IsSecure(s.Request) || s.Request.Destination is not null</span>
+<span id="L61"><a class="line" href="#L61">61</a>             || !state.Items.TryGetValue(s.Request.ItemId, out var item) || item.Placement != s.Placement</span>
+<span id="L62"><a class="line" href="#L62">62</a>             || (s.Request.Kind == InventoryActionKind.Close) != (s.Request.RegionId is not null))</span>
+<span id="L63"><a class="line" href="#L63">63</a>             || queue.Select(s =&gt; s.Request).Distinct().Count() != queue.Length)</span>
+<span id="L64"><a class="line" href="#L64">64</a>             throw new ArgumentException(&quot;Invalid inventory securing continuation.&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         foreach (var step in queue)</span>
+<span id="L66"><a class="line" href="#L66">66</a>             if (!InventoryActions.Validate(world, world.Player.Id, step.Request, out var reason, out _, out _)</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 &amp;&amp; reason is not (&quot;Compartment is already in that state&quot; or &quot;Garment is already in that state&quot;))</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 throw new ArgumentException(&quot;Invalid inventory securing target: &quot; + reason);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         state.SecureQueue.Clear(); state.SecureQueue.AddRange(queue);</span>
+<span id="L70"><a class="line" href="#L70">70</a>     }</span>
+<span id="L71"><a class="line" href="#L71">71</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/FieldPresentationChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>FieldPresentationChecks.cs</h1><pre>using SiteSimulation;
+using SitePresentation;
+
+internal static class FieldPresentationChecks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool condition, string detail)
+        { if (!condition) throw new Exception(&quot;Field presentation: &quot; + detail); passed++; }
+        var sim = new SpatialSimulation(json);
+        var shadingState = sim.Save();
+        var left = FieldPresentation.SightShade(sim, new(3 - 0.00001, 4.4));
+        var right = FieldPresentation.SightShade(sim, new(3 + 0.00001, 4.4));
+        Check(left &gt; 0 &amp;&amp; Math.Abs(left - right) &lt; 0.001, &quot;cosmetic shading cannot jump at a floor-tile boundary&quot;);
+        var direction = sim.Player.Cell.Neighbor(sim.Player.Facing).World - sim.Player.Cell.World;
+        direction *= 1 / direction.Length;
+        var edge = direction * 0.5 + new Point2(-direction.Y, direction.X) * Math.Sqrt(0.75);
+        var edgePoint = sim.Player.Position + edge * 0.5;
+        var edgeShade = FieldPresentation.SightShade(sim, edgePoint);
+        Check(sim.VisibleToPlayer(edgePoint) &amp;&amp; edgeShade is &gt; 0 and &lt; 1,
+            &quot;a cosmetic cone fade must not remove exact observation near its edge&quot;);
+        Check(FieldPresentation.SightShade(sim, sim.Player.Position - direction * 0.5) == 0,
+            &quot;cosmetic shading must not brighten a point behind the viewer&quot;);
+        Check(sim.Save() == shadingState, &quot;sampling floor appearance cannot mutate observation, RNG or world state&quot;);
+        var cutaway = PlayerWallCutaway.AroundSprite(new(100, 200), 60);
+        Check(cutaway.Center == new Point2(100, 170) &amp;&amp; cutaway.Radius == 45,
+            &quot;opening centers on the body with a diameter one and a half times the character height&quot;);
+        Check(cutaway.Opacity(cutaway.Center) &lt; 0.1 &amp;&amp; cutaway.Opacity(new(100, 200)) &lt; 0.5,
+            &quot;clear core keeps the body readable with partial transparency at the feet&quot;);
+        Check(cutaway.Opacity(new(145, 170)) == 1 &amp;&amp; cutaway.Opacity(new(220, 170)) == 1,
+            &quot;walls outside the opening keep full opacity&quot;);
+        var inner = cutaway.Opacity(new(122.5, 170)); var middle = cutaway.Opacity(new(133.75, 170));
+        Check(inner &lt; middle &amp;&amp; middle &lt; 1, &quot;opening feathers gradually from clear core to opaque edge&quot;);
+        Check(Math.Abs(cutaway.Opacity(new(133.75, 170)) - cutaway.Opacity(new(66.25, 170))) &lt; 1e-8,
+            &quot;feather has no directional or wall-segment bias&quot;);
+        Check(Math.Abs(cutaway.Opacity(new(144.999, 170)) - cutaway.Opacity(new(145.001, 170))) &lt; 0.0001,
+            &quot;outer edge joins the unchanged wall continuously&quot;);
+        var moved = PlayerWallCutaway.AroundSprite(new(100.25, 200.5), 60);
+        Check(Math.Abs(moved.Opacity(new(134, 170.5)) - middle) &lt; 1e-8,
+            &quot;fractional movement carries the opening continuously without tile snapping&quot;);
+        var large = PlayerWallCutaway.AroundSprite(new(200, 400), 120);
+        Check(Math.Abs(large.Opacity(new(267.5, 340)) - middle) &lt; 1e-8,
+            &quot;sprite scale changes preserve the relative clear area and feather&quot;);
+        Check(cutaway.Intersects(80, 160, 120, 190) &amp;&amp; !cutaway.Intersects(170, 160, 180, 190),
+            &quot;only nearby wall quads need feather geometry&quot;);
+        Check(sim.Save() == shadingState, &quot;cutaway sampling cannot advance clocks or mutate sight, collision, module state or RNG&quot;);
+        var statue = sim.Anomalies.Bodies.Single();
+        var feedback = new DiscoveryFeedback(); feedback.Reset(sim);
+        Check(!FieldPresentation.ShowAnomaly(sim, statue, false), &quot;closed room hides statue despite another human observing it&quot;);
+        Check(FieldPresentation.ShowAnomaly(sim, statue, true), &quot;diagnostics remains explicitly omniscient&quot;);
+        Check(FieldPresentation.ShowActor(sim, sim.Player, false), &quot;avatar remains drawable&quot;);
+        sim.ToggleObserverAttention();
+        Check(!FieldPresentation.ShowAnomaly(sim, statue, false), &quot;silent relocation behind someone is not a player sighting&quot;);
+        Check(!feedback.Update(sim, true) &amp;&amp; feedback.Discoveries == 0, &quot;silent relocation must not play discovery feedback&quot;);
+        var neighbor = Enumerable.Range(0, 6).Select(statue.Cell.Neighbor).First(c =&gt; sim.Map.Walkable(c)
+            &amp;&amp; !sim.Actors.Any(a =&gt; a.Cell == c) &amp;&amp; sim.Map.ClearSight(c.World, statue.Cell.World));
+        sim.Player.Cell = neighbor; sim.Player.Route.Clear(); sim.Player.SegmentMs = 0;
+        sim.Face(statue.Cell.World);
+        Check(FieldPresentation.ShowAnomaly(sim, statue, false), &quot;actual avatar sight reveals the statue&quot;);
+        Check(feedback.Update(sim, true) &amp;&amp; feedback.Discoveries == 1, &quot;actual avatar discovery produces one presentation event&quot;);
+        var authoritative = sim.Save();
+        for (var i = 0; i &lt; 20; i++) Check(!feedback.Update(sim, true), &quot;render refresh cannot repeat the cue&quot;);
+        Check(sim.Save() == authoritative, &quot;presentation must not consume module RNG or mutate world/trace&quot;);
+        var pulse = feedback.Pulse(sim.LocalMs);
+        sim.LocalHold = true;
+        for (var i = 0; i &lt; 100; i++) sim.Tick();
+        Check(feedback.Pulse(sim.LocalMs) == pulse, &quot;held local time retains the reaction presentation phase&quot;);
+        feedback.Reset(sim);
+        Check(!feedback.Update(sim, true) &amp;&amp; feedback.Caption(sim.LocalMs) == &quot;&quot;, &quot;restore baseline must not replay historical encounters&quot;);
+        sim.LocalHold = false; sim.BlinkPlayer();
+        Check(!FieldPresentation.ShowAnomaly(sim, statue, false), &quot;closed eyes cannot display the statue&quot;);
+        sim.Map.LightsOn = false;
+        Check(!FieldPresentation.ShowAnomaly(sim, statue, false), &quot;unlit scene cannot expose an unseen statue&quot;);
+        Console.WriteLine($&quot;FIELD_PRESENTATION_CHECKS_PASS: {passed} assertions; direct sight, no remote/relocation cues, deduplication and read-only rendering.&quot;);
+        return passed;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

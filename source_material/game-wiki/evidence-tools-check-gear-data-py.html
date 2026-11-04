@@ -1,0 +1,133 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/check_gear_data.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>check_gear_data.py</h1><pre>&quot;&quot;&quot;Validate the proposed gear cards, references and saved-instance example; not the native content loader.&quot;&quot;&quot;
+from copy import deepcopy
+import json
+from pathlib import Path
+from math import isclose
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError
+
+ROOT = Path(__file__).resolve().parents[1]
+SCHEMA = json.loads((ROOT / &#x27;schemas/gear-definition.schema.json&#x27;).read_text())
+Draft202012Validator.check_schema(SCHEMA)
+VALIDATOR = Draft202012Validator(SCHEMA)
+
+
+def validate_card(card):
+    VALIDATOR.validate(card)
+    def unique(records, name):
+        ids = [r[&#x27;id&#x27;] for r in records]
+        if len(ids) != len(set(ids)):
+            raise ValueError(&#x27;Duplicate &#x27; + name)
+        return set(ids)
+    forms = unique(card[&#x27;forms&#x27;], &#x27;form&#x27;)
+    if card[&#x27;defaultForm&#x27;] not in forms:
+        raise ValueError(&#x27;Missing default form&#x27;)
+    if not isclose(sum(m[&#x27;massFraction&#x27;] for m in card[&#x27;materials&#x27;]), 1, abs_tol=1e-8):
+        raise ValueError(&#x27;Material fractions must sum to one&#x27;)
+    if card[&#x27;condition&#x27;][&#x27;default&#x27;] &gt; card[&#x27;condition&#x27;][&#x27;maximum&#x27;]:
+        raise ValueError(&#x27;Condition exceeds maximum&#x27;)
+    compartments = card.get(&#x27;compartments&#x27;, [])
+    regions = unique(compartments, &#x27;compartment&#x27;)
+    closures = unique(card.get(&#x27;closures&#x27;, []), &#x27;closure&#x27;)
+    surfaces = unique(card.get(&#x27;attachmentSurfaces&#x27;, []), &#x27;attachment surface&#x27;)
+    unique(card.get(&#x27;functions&#x27;, []), &#x27;function&#x27;)
+    unique(card[&#x27;appearance&#x27;].get(&#x27;segments&#x27;, []), &#x27;segment&#x27;)
+    if sum(c.get(&#x27;defaultDrop&#x27;, False) for c in compartments) &gt; 1:
+        raise ValueError(&#x27;Multiple default drop compartments&#x27;)
+    def check_mask(grid, key):
+        if any(v &gt;= grid[&#x27;columns&#x27;] * grid[&#x27;rows&#x27;] for v in grid.get(key, [])):
+            raise ValueError(&#x27;Mask outside grid&#x27;)
+    for form in card[&#x27;forms&#x27;]:
+        check_mask(form[&#x27;squareShape&#x27;], &#x27;usableCells&#x27;)
+        if any(v &lt;= 0 for v in form[&#x27;envelopeMm&#x27;]):
+            raise ValueError(&#x27;Form envelope must be positive&#x27;)
+        shape = form[&#x27;squareShape&#x27;]
+        if (shape[&#x27;columns&#x27;] * form[&#x27;referenceCellMm&#x27;] &lt; form[&#x27;envelopeMm&#x27;][0]
+                or shape[&#x27;rows&#x27;] * form[&#x27;referenceCellMm&#x27;] &lt; form[&#x27;envelopeMm&#x27;][1]):
+            raise ValueError(&#x27;Reference shape smaller than physical envelope&#x27;)
+    for c in compartments:
+        if c[&#x27;kind&#x27;] == &#x27;storage&#x27;:
+            check_mask(c[&#x27;grid&#x27;], &#x27;usableCells&#x27;)
+    controlled = set()
+    for closure in card.get(&#x27;closures&#x27;, []):
+        for target in closure[&#x27;targets&#x27;]:
+            if target not in regions and not (target == &#x27;garment-front&#x27; and &#x27;wear&#x27; in card):
+                raise ValueError(&#x27;Closure targets unknown region&#x27;)
+            if target in controlled:
+                raise ValueError(&#x27;Multiple closures require a future explicit gate expression&#x27;)
+            controlled.add(target)
+            c = next((c for c in compartments if c[&#x27;id&#x27;] == target), None)
+            if c and c[&#x27;defaultOpen&#x27;] != closure[&#x27;defaultOpen&#x27;]:
+                raise ValueError(&#x27;Closure and compartment defaults disagree&#x27;)
+    for segment in card[&#x27;appearance&#x27;].get(&#x27;segments&#x27;, []):
+        for key, allowed in [(&#x27;compartment&#x27;, regions), (&#x27;closure&#x27;, closures), (&#x27;attachmentSurface&#x27;, surfaces)]:
+            if key in segment and segment[key] not in allowed:
+                raise ValueError(&#x27;Segment has unknown &#x27; + key)
+        if not any(k in segment for k in [&#x27;compartment&#x27;, &#x27;closure&#x27;, &#x27;attachmentSurface&#x27;, &#x27;bodySurface&#x27;]):
+            raise ValueError(&#x27;Segment has no interaction target&#x27;)
+
+
+def validate_instance(instance, cards):
+    Draft202012Validator({&#x27;$ref&#x27;: &#x27;#/$defs/instance&#x27;, &#x27;$defs&#x27;: SCHEMA[&#x27;$defs&#x27;]}).validate(instance)
+    card = cards[instance[&#x27;definition&#x27;]]
+    if instance[&#x27;form&#x27;] not in {f[&#x27;id&#x27;] for f in card[&#x27;forms&#x27;]}:
+        raise ValueError(&#x27;Unknown instance form&#x27;)
+    if instance[&#x27;condition&#x27;] &gt; card[&#x27;condition&#x27;][&#x27;maximum&#x27;]:
+        raise ValueError(&#x27;Instance condition out of range&#x27;)
+    if set(instance.get(&#x27;compartments&#x27;, {})) != {c[&#x27;id&#x27;] for c in card.get(&#x27;compartments&#x27;, [])}:
+        raise ValueError(&#x27;Instance compartment identity mismatch&#x27;)
+    if set(instance.get(&#x27;closures&#x27;, {})) != {c[&#x27;id&#x27;] for c in card.get(&#x27;closures&#x27;, [])}:
+        raise ValueError(&#x27;Instance closure identity mismatch&#x27;)
+    orientation = instance[&#x27;parent&#x27;].get(&#x27;orientation&#x27;, 0)
+    allowed = [0, 60, 120, 180, 240, 300] if instance[&#x27;parent&#x27;][&#x27;relation&#x27;] in [&#x27;attached&#x27;, &#x27;worn&#x27;] else [0, 90]
+    if orientation not in allowed:
+        raise ValueError(&#x27;Wrong orientation domain&#x27;)
+
+
+def main():
+    cards = {}
+    for path in sorted((ROOT / &#x27;examples/gear&#x27;).glob(&#x27;*.json&#x27;)):
+        if path.name.endswith(&#x27;.instance.json&#x27;):
+            continue
+        card = json.loads(path.read_text())
+        validate_card(card)
+        if card[&#x27;id&#x27;] in cards:
+            raise ValueError(&#x27;Duplicate catalog ID&#x27;)
+        cards[card[&#x27;id&#x27;]] = card
+    instance = json.loads((ROOT / &#x27;examples/gear/backpack.instance.json&#x27;).read_text())
+    validate_instance(instance, cards)
+    rejected = 0
+    def reject(mutator):
+        nonlocal rejected
+        bad = deepcopy(cards[&#x27;example:backpack&#x27;])
+        mutator(bad)
+        try:
+            validate_card(bad)
+        except (ValueError, ValidationError):
+            rejected += 1
+            return
+        raise AssertionError(&#x27;Invalid author card accepted&#x27;)
+    reject(lambda c: c[&#x27;forms&#x27;][0].update(orientations=[0, 60]))
+    reject(lambda c: c[&#x27;compartments&#x27;].append(deepcopy(c[&#x27;compartments&#x27;][0])))
+    reject(lambda c: c[&#x27;appearance&#x27;][&#x27;segments&#x27;][0].update(compartment=&#x27;missing&#x27;))
+    reject(lambda c: c[&#x27;closures&#x27;][0].update(targets=[&#x27;missing&#x27;]))
+    reject(lambda c: c[&#x27;compartments&#x27;][0][&#x27;grid&#x27;].update(usableCells=[9999]))
+    reject(lambda c: c[&#x27;materials&#x27;][0].update(massFraction=.5))
+    reject(lambda c: c[&#x27;compartments&#x27;][1].update(defaultDrop=True))
+    reject(lambda c: c[&#x27;compartments&#x27;][0].update(defaultOpen=True))
+    reject(lambda c: c.update(unregisteredMagic=True))
+    reject(lambda c: c.update(extensions={&#x27;unscoped&#x27;: {}}))
+    reject(lambda c: c[&#x27;forms&#x27;][0].update(envelopeMm=[9999, 100, 40]))
+    reject(lambda c: c[&#x27;wear&#x27;][&#x27;fit&#x27;].update(bulk=0))
+    reject(lambda c: c[&#x27;wear&#x27;][&#x27;fit&#x27;].update(fitsOver=[&#x27;core:light-textile&#x27;, &#x27;core:light-textile&#x27;]))
+    reject(lambda c: c[&#x27;wear&#x27;][&#x27;fit&#x27;].update(family=&#x27;bad token&#x27;))
+    reject(lambda c: c[&#x27;wear&#x27;].pop(&#x27;fit&#x27;))
+    reject(lambda c: c[&#x27;wear&#x27;].update(overlayLimit=0))
+    reject(lambda c: c[&#x27;wear&#x27;].update(overlayLimit=17))
+    reject(lambda c: c[&#x27;wear&#x27;].update(fasteningFootprint=[{&#x27;surface&#x27;: &#x27;sideways&#x27;, &#x27;cells&#x27;: [[0, 0]]}]))
+    print(f&#x27;GEAR_STANDARD_CHECKS_PASS: {len(cards)} definitions, 1 instance, {rejected} invalid author cards rejected.&#x27;)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

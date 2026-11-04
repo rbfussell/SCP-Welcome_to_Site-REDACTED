@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryArt.Load | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryArt.Load</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventoryart-cs.html#L14">game/Presentation/Inventory/InventoryArt.cs:14</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private static void Load()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-3e3decffd37010238dfc.html">SimulationRuntime.Load</a></li><li><a href="function-5b96d5175dcdb3327eac.html">FacilityMap.Load</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>JsonDocument.Parse
+Godot.FileAccess.GetFileAsString
+json.RootElement.GetProperty(&quot;assets&quot;).EnumerateArray
+json.RootElement.GetProperty
+asset.GetProperty(&quot;region&quot;).EnumerateArray().Select(v =&gt; v.GetInt32()).ToArray
+asset.GetProperty(&quot;region&quot;).EnumerateArray().Select
+asset.GetProperty(&quot;region&quot;).EnumerateArray
+asset.GetProperty
+v.GetInt32
+Textures.Add
+asset.GetProperty(&quot;id&quot;).GetString
+GD.Load&lt;Texture2D&gt;
+asset.GetProperty(&quot;file&quot;).GetString
+json.RootElement.GetProperty(&quot;attachmentIllustrations&quot;).EnumerateObject
+binding.Value.Deserialize&lt;MountIllustration&gt;
+Textures.ContainsKey
+float.IsFinite
+profile.Anchor.Any
+Math.Abs
+MountIllustrations.Add</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-a155034e04e63e955f0d.html">InventoryArt.Opaque</a></li><li><a href="function-b3ce4b4279b2a1c2ebb0.html">InventoryArt.HasMountIllustration</a></li><li><a href="function-b4bf1a028af6af225fc4.html">InventoryArt.MountedLayout</a></li><li><a href="function-b8207662c8611c8c70c0.html">InventoryPaperdollArt.InventoryPaperdollArt</a></li><li><a href="function-d1bb1d910d7a5beaffe4.html">WorldView._Ready</a></li><li><a href="function-fe9dff7ca9bc3a714ba5.html">InventoryArt.GetLayout</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart-mountillustration.html">MountIllustration</a></li><li><a href="type-inventoryart.html">InventoryArt</a></li></ul><h2>Implementation</h2><pre><code>private static void Load()
+    {
+        if (_loaded) return;
+        using var json = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/inventory-objects/manifest.json&quot;));
+        foreach (var asset in json.RootElement.GetProperty(&quot;assets&quot;).EnumerateArray())
+        {
+            var r = asset.GetProperty(&quot;region&quot;).EnumerateArray().Select(v =&gt; v.GetInt32()).ToArray();
+            Textures.Add(asset.GetProperty(&quot;id&quot;).GetString()!, new AtlasTexture
+            { Atlas = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/inventory-objects/&quot; + asset.GetProperty(&quot;file&quot;).GetString()), Region = new(r[0], r[1], r[2], r[3]) });
+        }
+        foreach (var binding in json.RootElement.GetProperty(&quot;attachmentIllustrations&quot;).EnumerateObject())
+        {
+            var profile = binding.Value.Deserialize&lt;MountIllustration&gt;(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+            if (profile is null || !Textures.ContainsKey(binding.Name) || !float.IsFinite(profile.Height) || profile.Height is &lt;= 0 or &gt; 256
+                || profile.Anchor is not { Length: 2 } || profile.Anchor.Any(v =&gt; !float.IsFinite(v) || v is &lt; 0 or &gt; 1)
+                || !float.IsFinite(profile.RotationDegrees) || Math.Abs(profile.RotationDegrees) &gt; 360)
+                throw new InvalidOperationException(&quot;Invalid mounted illustration: &quot; + binding.Name);
+            MountIllustrations.Add(binding.Name, profile);
+        }
+        _loaded = true;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryArt.cs:14</footer></main></div></body></html>

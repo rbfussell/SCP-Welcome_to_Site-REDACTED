@@ -1,0 +1,167 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Operations/ObservedTransportSystem.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>ObservedTransportSystem.cs</h1><p>src/SiteSimulation/Operations/ObservedTransportSystem.cs</p><p><a href="system-operations.html">Personnel orders and recovery</a></p><h2>Types</h2><ul><li><a href="type-observedtransportsystem.html">ObservedTransportSystem</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-8351d5a959bbfc9aef60.html">ObservedTransportSystem.OwnCells</a> · line 7</li><li><a href="function-fae937bf0b19c862cd32.html">ObservedTransportSystem.Body</a> · line 9</li><li><a href="function-1bad2f0fcd36810809f9.html">ObservedTransportSystem.ObservedByOther</a> · line 10</li><li><a href="function-586a537b4ef3bf5d3a47.html">ObservedTransportSystem.ClearWork</a> · line 12</li><li><a href="function-6088225634e82a7025c1.html">ObservedTransportSystem.Interrupt</a> · line 19</li><li><a href="function-4a1e376075486800d5c9.html">ObservedTransportSystem.DetachRelocated</a> · line 25</li><li><a href="function-7411a08c0118f45f2df8.html">ObservedTransportSystem.Advance</a> · line 37</li><li><a href="function-ef6a6b8d2492a1b8031c.html">ObservedTransportSystem.CartPath</a> · line 144</li><li><a href="function-071659ad9d3f9a08aa48.html">ObservedTransportSystem.Work</a> · line 150</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Open-trolley fixture. Each load/push is timed work followed by a validated one-hex transaction.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class ObservedTransportSystem</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public const int WorkMs = 600;</span>
+<span id="L7"><a class="line" href="#L7">7</a>     private static HashSet&lt;Hex&gt; OwnCells(OperationState state) =&gt; state.Trolley.Step is { Stage: &quot;push&quot; } step</span>
+<span id="L8"><a class="line" href="#L8">8</a>         ? [Hex.FromWorld(state.Trolley.Position), step.Next] : [Hex.FromWorld(state.Trolley.Position)];</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private static AnomalyBody Body(SimulationWorld world) =&gt; world.Anomalies.Bodies.Single(b =&gt; b.Id == world.Operations.Definition!.SubjectId);</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private static bool ObservedByOther(SimulationWorld world, string handler) =&gt; ObservationService.Evaluate(world.Map,</span>
+<span id="L11"><a class="line" href="#L11">11</a>         world.Actors.Where(a =&gt; a.Id != handler), Body(world).Position, world.LocalMs, Body(world).ObserverProfile).Observed;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static void ClearWork(SimulationWorld world)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         var cart = world.Operations.Trolley;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         if (cart.Step is { Stage: &quot;push&quot; } step &amp;&amp; step.Next != Hex.FromWorld(cart.Position))</span>
+<span id="L16"><a class="line" href="#L16">16</a>             world.Map.DynamicBlockers.Remove(step.Next);</span>
+<span id="L17"><a class="line" href="#L17">17</a>         world.Operations.Trolley = cart with { Step = null };</span>
+<span id="L18"><a class="line" href="#L18">18</a>     }</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public static void Interrupt(SimulationWorld world)</span>
+<span id="L20"><a class="line" href="#L20">20</a>     {</span>
+<span id="L21"><a class="line" href="#L21">21</a>         if (world.Operations.Definition is null) return;</span>
+<span id="L22"><a class="line" href="#L22">22</a>         ClearWork(world);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         world.Operations.Trolley = world.Operations.Trolley with { HandlerId = null };</span>
+<span id="L24"><a class="line" href="#L24">24</a>     }</span>
+<span id="L25"><a class="line" href="#L25">25</a>     public static void DetachRelocated(SimulationWorld world, string subjectId)</span>
+<span id="L26"><a class="line" href="#L26">26</a>     {</span>
+<span id="L27"><a class="line" href="#L27">27</a>         if (world.Operations.Definition is null || world.Operations.Trolley.SubjectId != subjectId) return;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         ClearWork(world);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var cart = world.Operations.Trolley;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         world.Operations.Trolley = cart with { SubjectId = null, HandlerId = null };</span>
+<span id="L31"><a class="line" href="#L31">31</a>         world.Map.DynamicBlockers.Add(Hex.FromWorld(cart.Position));</span>
+<span id="L32"><a class="line" href="#L32">32</a>         foreach (var order in world.Operations.Orders.Where(o =&gt; o.Task == PersonnelTask.Transport</span>
+<span id="L33"><a class="line" href="#L33">33</a>             &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked).ToArray())</span>
+<span id="L34"><a class="line" href="#L34">34</a>             PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Subject left trolley · reacquire sight and recover equipment&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         world.Log(&quot;transport&quot;, subjectId, &quot;detached&quot;, &quot;Relocation left the physical trolley in place; no duplicate cargo.&quot;);</span>
+<span id="L36"><a class="line" href="#L36">36</a>     }</span>
+<span id="L37"><a class="line" href="#L37">37</a>     public static void Advance(SimulationWorld world)</span>
+<span id="L38"><a class="line" href="#L38">38</a>     {</span>
+<span id="L39"><a class="line" href="#L39">39</a>         var state = world.Operations;</span>
+<span id="L40"><a class="line" href="#L40">40</a>         if (state.Definition is not { } d) return;</span>
+<span id="L41"><a class="line" href="#L41">41</a>         var order = state.Orders.Where(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked)</span>
+<span id="L42"><a class="line" href="#L42">42</a>             .OrderBy(o =&gt; o.Id).FirstOrDefault();</span>
+<span id="L43"><a class="line" href="#L43">43</a>         if (order is null)</span>
+<span id="L44"><a class="line" href="#L44">44</a>         {</span>
+<span id="L45"><a class="line" href="#L45">45</a>             ClearWork(world); state.Trolley = state.Trolley with { HandlerId = null }; return;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         }</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var actor = world.Actors.Single(a =&gt; a.Id == order.ActorId);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var body = Body(world);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var cart = state.Trolley;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (cart.HandlerId is not null &amp;&amp; cart.HandlerId != actor.Id) { ClearWork(world); cart = state.Trolley; }</span>
+<span id="L51"><a class="line" href="#L51">51</a>         state.Trolley = cart = cart with { HandlerId = actor.Id };</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var cartCell = Hex.FromWorld(cart.Position);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         if (cart.SubjectId is not null &amp;&amp; body.Cell != cartCell) { DetachRelocated(world, body.Id); return; }</span>
+<span id="L54"><a class="line" href="#L54">54</a>         if (actor.Moving) return;</span>
+<span id="L55"><a class="line" href="#L55">55</a>         if (actor.StoppedStep is not null || actor.Cell.Distance(cartCell) != 1)</span>
+<span id="L56"><a class="line" href="#L56">56</a>         {</span>
+<span id="L57"><a class="line" href="#L57">57</a>             ClearWork(world);</span>
+<span id="L58"><a class="line" href="#L58">58</a>             var approach = Enumerable.Range(0, 6).Select(cartCell.Neighbor)</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault();</span>
+<span id="L62"><a class="line" href="#L62">62</a>             if (approach.Path is null) { PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Cannot reach trolley handle&quot;); return; }</span>
+<span id="L63"><a class="line" href="#L63">63</a>             PersonnelOrderSystem.Travel(world, order, actor, approach.Cell, false); return;</span>
+<span id="L64"><a class="line" href="#L64">64</a>         }</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var knownPoint = state.Contacts.SingleOrDefault(c =&gt; c.ActorId == actor.Id)?.Position ?? order.TargetPoint;</span>
+<span id="L66"><a class="line" href="#L66">66</a>         actor.Facing = ObservationService.FacingToward(actor.Position, cart.SubjectId is null ? knownPoint ?? cart.Position : cart.Position, actor.Facing);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         if (world.LocalMs &lt; actor.StartledUntilMs || !world.Anomalies.AllowsObservedTransport(body.Id))</span>
+<span id="L68"><a class="line" href="#L68">68</a>         { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Handler not ready or module disallows transport&quot;); return; }</span>
+<span id="L69"><a class="line" href="#L69">69</a>         // Requiring real external observation makes the handler&#x27;s own facing insufficient for the procedure.</span>
+<span id="L70"><a class="line" href="#L70">70</a>         var seesBody = ObservationService.Inspect(world.Map, actor, body.Position, world.LocalMs).Detected;</span>
+<span id="L71"><a class="line" href="#L71">71</a>         if (cart.SubjectId is not null &amp;&amp; !ObservedByOther(world, actor.Id))</span>
+<span id="L72"><a class="line" href="#L72">72</a>         { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Observation coverage lost · trolley stopped&quot;); return; }</span>
+<span id="L73"><a class="line" href="#L73">73</a>         if (cart.SubjectId is null &amp;&amp; seesBody &amp;&amp; body.Cell.Distance(cartCell) == 1)</span>
+<span id="L74"><a class="line" href="#L74">74</a>         {</span>
+<span id="L75"><a class="line" href="#L75">75</a>             if (!ObservedByOther(world, actor.Id) || !world.Map.CanTraverse(body.Cell, cartCell, new HashSet&lt;Hex&gt; { body.Cell, cartCell }))</span>
+<span id="L76"><a class="line" href="#L76">76</a>             { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Loading needs clear access and another observer&quot;); return; }</span>
+<span id="L77"><a class="line" href="#L77">77</a>             if (!Work(world, order, actor, cartCell, actor.Cell, &quot;load&quot;)) return;</span>
+<span id="L78"><a class="line" href="#L78">78</a>             world.Map.DynamicBlockers.Remove(body.Cell);</span>
+<span id="L79"><a class="line" href="#L79">79</a>             body.Cell = cartCell; // External transport preserves anomalous appearance/pose/encounter identity.</span>
+<span id="L80"><a class="line" href="#L80">80</a>             world.Map.DynamicBlockers.Add(cartCell);</span>
+<span id="L81"><a class="line" href="#L81">81</a>             state.Trolley = state.Trolley with { SubjectId = body.Id, Step = null };</span>
+<span id="L82"><a class="line" href="#L82">82</a>             world.Log(&quot;transport&quot;, body.Id, &quot;loaded&quot;, &quot;Observed external loading onto open trolley; module remains active.&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>             return;</span>
+<span id="L84"><a class="line" href="#L84">84</a>         }</span>
+<span id="L85"><a class="line" href="#L85">85</a>         Hex destination;</span>
+<span id="L86"><a class="line" href="#L86">86</a>         if (cart.SubjectId is not null)</span>
+<span id="L87"><a class="line" href="#L87">87</a>         {</span>
+<span id="L88"><a class="line" href="#L88">88</a>             destination = d.Home;</span>
+<span id="L89"><a class="line" href="#L89">89</a>             if (cartCell == destination)</span>
+<span id="L90"><a class="line" href="#L90">90</a>             {</span>
+<span id="L91"><a class="line" href="#L91">91</a>                 // Unload into the receiving footprint; the empty trolley is parked at the handler&#x27;s former hex.</span>
+<span id="L92"><a class="line" href="#L92">92</a>                 if (!ObservedByOther(world, actor.Id)) return;</span>
+<span id="L93"><a class="line" href="#L93">93</a>                 var parkedAt = actor.Cell;</span>
+<span id="L94"><a class="line" href="#L94">94</a>                 var exit = Enumerable.Range(0, 6).Select(actor.Cell.Neighbor).FirstOrDefault(c =&gt; c != cartCell &amp;&amp; world.Map.Walkable(c)</span>
+<span id="L95"><a class="line" href="#L95">95</a>                     &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c) &amp;&amp; world.Map.CanTraverse(actor.Cell, c, new HashSet&lt;Hex&gt; { actor.Cell }));</span>
+<span id="L96"><a class="line" href="#L96">96</a>                 if (exit == default) { PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;No space to park trolley and step clear&quot;); return; }</span>
+<span id="L97"><a class="line" href="#L97">97</a>                 if (!Work(world, order, actor, cartCell, actor.Cell, &quot;unload&quot;)) return;</span>
+<span id="L98"><a class="line" href="#L98">98</a>                 world.Map.DynamicBlockers.Add(parkedAt);</span>
+<span id="L99"><a class="line" href="#L99">99</a>                 state.Trolley = new(parkedAt.World);</span>
+<span id="L100"><a class="line" href="#L100">100</a>                 actor.Cell = exit;</span>
+<span id="L101"><a class="line" href="#L101">101</a>                 actor.Facing = ObservationService.FacingToward(actor.Position, body.Position, actor.Facing);</span>
+<span id="L102"><a class="line" href="#L102">102</a>                 PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Complete, &quot;Delivered and unloaded in receiving footprint&quot;);</span>
+<span id="L103"><a class="line" href="#L103">103</a>                 if (EmploymentSystem.Owns(world, actor.Id))</span>
+<span id="L104"><a class="line" href="#L104">104</a>                 {</span>
+<span id="L105"><a class="line" href="#L105">105</a>                     world.Log(&quot;employment&quot;, actor.Id, &quot;order-complete&quot;, &quot;Transport complete; return to scheduled duty on next tick.&quot;);</span>
+<span id="L106"><a class="line" href="#L106">106</a>                     return;</span>
+<span id="L107"><a class="line" href="#L107">107</a>                 }</span>
+<span id="L108"><a class="line" href="#L108">108</a>                 if (state.Orders.Count &gt;= 32) state.Orders.RemoveAt(state.Orders.FindIndex(o =&gt; o.Status is OrderStatus.Complete or OrderStatus.Cancelled));</span>
+<span id="L109"><a class="line" href="#L109">109</a>                 state.Orders.Add(new(state.NextId++, order.Issuer, actor.Id, PersonnelTask.Observe, exit, order.Channel, OrderStatus.Active,</span>
+<span id="L110"><a class="line" href="#L110">110</a>                     &quot;Procedure follow-up: maintain observation until relieved&quot;, world.LocalMs, body.Position));</span>
+<span id="L111"><a class="line" href="#L111">111</a>                 world.Log(&quot;transport&quot;, body.Id, &quot;unloaded&quot;, &quot;One body retained; empty trolley parked alongside receiving footprint.&quot;);</span>
+<span id="L112"><a class="line" href="#L112">112</a>                 return;</span>
+<span id="L113"><a class="line" href="#L113">113</a>             }</span>
+<span id="L114"><a class="line" href="#L114">114</a>         }</span>
+<span id="L115"><a class="line" href="#L115">115</a>         else</span>
+<span id="L116"><a class="line" href="#L116">116</a>         {</span>
+<span id="L117"><a class="line" href="#L117">117</a>             var contact = state.Contacts.SingleOrDefault(c =&gt; c.ActorId == actor.Id);</span>
+<span id="L118"><a class="line" href="#L118">118</a>             var point = seesBody ? body.Position : contact?.Position ?? order.TargetPoint;</span>
+<span id="L119"><a class="line" href="#L119">119</a>             if (point is null) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;No acquired location for subject&quot;); return; }</span>
+<span id="L120"><a class="line" href="#L120">120</a>             if (!seesBody &amp;&amp; cartCell.Distance(Hex.FromWorld(point.Value)) &lt;= 1)</span>
+<span id="L121"><a class="line" href="#L121">121</a>             { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Last known area reached · reacquire subject&quot;); return; }</span>
+<span id="L122"><a class="line" href="#L122">122</a>             var options = world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)</span>
+<span id="L123"><a class="line" href="#L123">123</a>                 &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))</span>
+<span id="L124"><a class="line" href="#L124">124</a>                 .Select(c =&gt; (Cell: c, Path: CartPath(world, cartCell, c, actor))).Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault();</span>
+<span id="L125"><a class="line" href="#L125">125</a>             if (options.Path is null) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Last known area reached · reacquire subject or clear route&quot;); return; }</span>
+<span id="L126"><a class="line" href="#L126">126</a>             destination = options.Cell;</span>
+<span id="L127"><a class="line" href="#L127">127</a>         }</span>
+<span id="L128"><a class="line" href="#L128">128</a>         var path = CartPath(world, cartCell, destination, actor);</span>
+<span id="L129"><a class="line" href="#L129">129</a>         if (path.Count == 0) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Trolley route blocked · open access and clear personnel&quot;); return; }</span>
+<span id="L130"><a class="line" href="#L130">130</a>         var next = cart.Step?.Stage == &quot;push&quot; ? cart.Step.Next : path[0];</span>
+<span id="L131"><a class="line" href="#L131">131</a>         var ignored = OwnCells(state);</span>
+<span id="L132"><a class="line" href="#L132">132</a>         if (!world.Map.CanTraverse(cartCell, next, ignored) || !world.Map.CanTraverse(actor.Cell, cartCell, ignored)</span>
+<span id="L133"><a class="line" href="#L133">133</a>             || next == actor.Cell || MovementSystem.Occupied(world, actor).Contains(next))</span>
+<span id="L134"><a class="line" href="#L134">134</a>         { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Push obstructed · reposition handler or clear next hex&quot;); return; }</span>
+<span id="L135"><a class="line" href="#L135">135</a>         if (!Work(world, order, actor, next, cartCell, &quot;push&quot;)) return;</span>
+<span id="L136"><a class="line" href="#L136">136</a>         world.Map.DynamicBlockers.Remove(cartCell);</span>
+<span id="L137"><a class="line" href="#L137">137</a>         world.Map.DynamicBlockers.Add(next);</span>
+<span id="L138"><a class="line" href="#L138">138</a>         actor.Cell = cartCell; actor.WalkMs += WorkMs;</span>
+<span id="L139"><a class="line" href="#L139">139</a>         if (state.Trolley.SubjectId is not null) body.Cell = next;</span>
+<span id="L140"><a class="line" href="#L140">140</a>         actor.Facing = ObservationService.FacingToward(actor.Position, next.World, actor.Facing);</span>
+<span id="L141"><a class="line" href="#L141">141</a>         state.Trolley = state.Trolley with { Position = next.World, Step = null };</span>
+<span id="L142"><a class="line" href="#L142">142</a>         world.Log(&quot;transport&quot;, actor.Id, &quot;pushed&quot;, $&quot;Trolley {cartCell} -&gt; {next}; physical path validated; 600ms work.&quot;);</span>
+<span id="L143"><a class="line" href="#L143">143</a>     }</span>
+<span id="L144"><a class="line" href="#L144">144</a>     private static IReadOnlyList&lt;Hex&gt; CartPath(SimulationWorld world, Hex start, Hex end, ActorState handler)</span>
+<span id="L145"><a class="line" href="#L145">145</a>     {</span>
+<span id="L146"><a class="line" href="#L146">146</a>         var ignored = OwnCells(world.Operations);</span>
+<span id="L147"><a class="line" href="#L147">147</a>         if (world.Operations.Trolley.Step is { Stage: &quot;push&quot; } step) ignored.Add(step.Next);</span>
+<span id="L148"><a class="line" href="#L148">148</a>         return world.Map.FindPath(start, end, MovementSystem.Occupied(world, handler).Append(handler.Cell).ToHashSet(), ignored);</span>
+<span id="L149"><a class="line" href="#L149">149</a>     }</span>
+<span id="L150"><a class="line" href="#L150">150</a>     private static bool Work(SimulationWorld world, PersonnelOrder order, ActorState actor, Hex next, Hex handlerNext, string stage)</span>
+<span id="L151"><a class="line" href="#L151">151</a>     {</span>
+<span id="L152"><a class="line" href="#L152">152</a>         var state = world.Operations;</span>
+<span id="L153"><a class="line" href="#L153">153</a>         var step = state.Trolley.Step;</span>
+<span id="L154"><a class="line" href="#L154">154</a>         if (step is null || step.Stage != stage || step.Next != next)</span>
+<span id="L155"><a class="line" href="#L155">155</a>         {</span>
+<span id="L156"><a class="line" href="#L156">156</a>             ClearWork(world);</span>
+<span id="L157"><a class="line" href="#L157">157</a>             step = new(next, handlerNext, 0, stage);</span>
+<span id="L158"><a class="line" href="#L158">158</a>             if (stage == &quot;push&quot;) world.Map.DynamicBlockers.Add(next);</span>
+<span id="L159"><a class="line" href="#L159">159</a>         }</span>
+<span id="L160"><a class="line" href="#L160">160</a>         step = step with { ProgressMs = step.ProgressMs + SpatialSimulation.TickMs };</span>
+<span id="L161"><a class="line" href="#L161">161</a>         state.Trolley = state.Trolley with { Step = step };</span>
+<span id="L162"><a class="line" href="#L162">162</a>         PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Active, stage == &quot;load&quot; ? &quot;Loading under observation&quot; : stage == &quot;unload&quot; ? &quot;Unloading in receiving footprint&quot; : &quot;Pushing trolley&quot;);</span>
+<span id="L163"><a class="line" href="#L163">163</a>         if (step.ProgressMs &lt; WorkMs) return false;</span>
+<span id="L164"><a class="line" href="#L164">164</a>         ClearWork(world);</span>
+<span id="L165"><a class="line" href="#L165">165</a>         return true;</span>
+<span id="L166"><a class="line" href="#L166">166</a>     }</span>
+<span id="L167"><a class="line" href="#L167">167</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

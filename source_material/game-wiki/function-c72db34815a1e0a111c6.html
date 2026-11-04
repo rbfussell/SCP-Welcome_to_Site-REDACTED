@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryBodyFitPanel.Refresh | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitPanel.Refresh</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorybodyfitpanel-cs.html#L78">game/Presentation/Inventory/InventoryBodyFitPanel.cs:78</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal void Refresh()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a></li><li><a href="function-2f43bb34c3b3f6e9b76a.html">InventoryState.EquipmentLabel</a></li><li><a href="function-7fcc2846397a601cd157.html">InventoryBodyFitPanel.UpdatePreview</a></li><li><a href="function-92ddae75da250d533f3d.html">InventoryBodyFit.Pose</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>IsNodeReady
+items.Select(i =&gt; i.Id).ToArray
+items.Select
+_ids.SequenceEqual
+_items.Clear
+_items.AddItem
+sim.Inventory.EquipmentLabel
+_ids.Contains
+_items.SetItemText
+_ids.FirstOrDefault
+Panel.Select
+_items.Select
+Array.IndexOf
+items.Single
+InventoryBodyFit.Pose
+UpdatePreview</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-0618ca4a7ef87bf0a62d.html">InventoryPanel.TogglePaperdollProof</a></li><li><a href="function-12f1a5568687a2d2a06a.html">OscpScene._Process</a></li><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li><li><a href="function-2b0f4761bc4df459001d.html">InventoryBrowser.Refresh</a></li><li><a href="function-2bf53d21a2feb0c5fdc7.html">InventoryBodyFitPanel.Choose</a></li><li><a href="function-2f5931246500fe17cd8b.html">InventoryBodyFitPanel.Apply</a></li><li><a href="function-3bc6f391ee5a01cb7eea.html">WorldView._Process</a></li><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li><li><a href="function-5ae9576e6493b79a50f6.html">SpatialScene.CheckPlayerCutaway</a></li><li><a href="function-5ed8f259fbd4a06a821f.html">SpatialHud.Refresh</a></li><li><a href="function-7650ee2a92c12deb1e5b.html">InventoryPanel.SetBodyFit</a></li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a></li><li><a href="function-a76a747c2b5ca5039f22.html">OscpScene.RunSmoke</a></li><li><a href="function-bbdc87ed643efb335ecd.html">InventoryBodyFitPanel._Ready</a></li><li><a href="function-c1026920ebdf3062f84d.html">OscpScene.Capture</a></li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a></li><li><a href="function-eb11a93a7c0734cc4877.html">SpatialScene.OperationSmokeStep</a></li><li><a href="function-ed52cbde94e2c1e9fbd8.html">SpatialScene.CombatSmokeStep</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorybodyfit.html">InventoryBodyFit</a></li><li><a href="type-inventorybodyfitpanel.html">InventoryBodyFitPanel</a></li></ul><h2>Implementation</h2><pre><code>internal void Refresh()
+    {
+        if (!IsNodeReady() || !Visible) return;
+        var sim = Panel.Simulation;
+        var items = sim.BodyFitItems;
+        var ids = items.Select(i =&gt; i.Id).ToArray();
+        if (!_ids.SequenceEqual(ids))
+        {
+            _ids = ids; _items.Clear();
+            foreach (var item in items) _items.AddItem(sim.Inventory.EquipmentLabel(item.Id) + (item.Placement.RegionId == &quot;hand&quot; ? &quot; · held&quot; : &quot;&quot;));
+            if (_selected is not null &amp;&amp; !_ids.Contains(_selected)) _selected = null;
+        }
+        for (var i = 0; i &lt; items.Count; i++)
+            _items.SetItemText(i, sim.Inventory.EquipmentLabel(items[i].Id) + (items[i].Placement.RegionId == &quot;hand&quot; ? &quot; · held&quot; : &quot;&quot;));
+        if (Panel.SelectedItem is { } selected &amp;&amp; _ids.Contains(selected) &amp;&amp; selected != _selected) { _selected = selected; _seenPlacement = null; }
+        _selected ??= _ids.FirstOrDefault();
+        if (_selected is not null)
+        {
+            if (Panel.DragItemId is null &amp;&amp; (Panel.SelectedItem is null || Panel.Simulation.Inventory.Pending?.Request.ItemId != Panel.SelectedItem)
+                &amp;&amp; (Panel.SelectedItem is null || !_ids.Contains(Panel.SelectedItem))) Panel.Select(_selected);
+            _items.Select(Array.IndexOf(_ids, _selected));
+            var item = items.Single(i =&gt; i.Id == _selected);
+            if (_seenPlacement != item.Placement)
+            {
+                _seenPlacement = item.Placement;
+                Draft = InventoryBodyFit.Pose(sim.Inventory, item)!;
+            }
+        }
+        UpdatePreview();
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryBodyFitPanel.cs:78</footer></main></div></body></html>

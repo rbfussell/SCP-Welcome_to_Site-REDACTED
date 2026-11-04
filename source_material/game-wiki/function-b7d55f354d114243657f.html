@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene.CheckReducedWalls | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.CheckReducedWalls</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-wallviewsmoke-cs.html#L10">game/Presentation/SpatialScene.WallViewSmoke.cs:10</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private async Task CheckReducedWalls()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-02f945823908ec349f6d.html">SpatialScene.SmokeKey</a></li><li><a href="function-089146c0d543eebf62bd.html">SpatialSimulation.Save</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-32ad6494f73dfb2b33de.html">SpatialSimulation.VisibleToPlayer</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-a50858d11afb7695b197.html">SpatialScene.Render</a></li><li><a href="function-a79a74513fd4b48e883b.html">WorldView.RenderedWallHeight</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bd721733ef6f47060c7f.html">SpatialScene.Unchanged</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>sim.Save
+map.Cells.Select(c =&gt; sim.VisibleToPlayer(c.World)).ToArray
+map.Cells.Select
+sim.VisibleToPlayer
+map.Cells.Select(c =&gt; map.Walkable(c)).ToArray
+map.Walkable
+Path.Combine
+Path.GetDirectoryName
+Path.GetFileNameWithoutExtension
+_world.QueueRedraw
+ToSignal
+GetViewport().GetTexture().GetImage
+GetViewport().GetTexture
+GetViewport
+image.SavePng
+sight.SequenceEqual
+walkability.SequenceEqual
+Render
+SmokeKey
+Input.FlushBufferedEvents
+map.Definition.Walls.Count
+map.Definition.Walls.Any
+Math.Abs
+_world.RenderedWallHeight
+Unchanged
+_hud.Field.GetGlobalRect
+Math.Min
+low.GetHeight
+low.GetWidth
+full.GetPixel
+low.GetPixel
+_hud.WallViewButton.GetGlobalRect().GetCenter
+_hud.WallViewButton.GetGlobalRect
+Input.ParseInputEvent
+GD.Print</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li></ul><h2>Related types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Implementation</h2><pre><code>private async Task CheckReducedWalls()
+    {
+        _world.ReducedWalls = false; _world.DiagnosticSprites = false; _world.FieldView = true; _world.Cutaway = true;
+        var sim = _simulation; var map = sim.Map; var baseline = sim.Save();
+        var sight = map.Cells.Select(c =&gt; sim.VisibleToPlayer(c.World)).ToArray();
+        var walkability = map.Cells.Select(c =&gt; map.Walkable(c)).ToArray();
+        var prefix = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath!));
+        async Task Render(string suffix)
+        {
+            _world.QueueRedraw(); await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+            using var image = GetViewport().GetTexture().GetImage();
+            if (image.SavePng(prefix + suffix + &quot;.png&quot;) != Error.Ok) throw new IOException(&quot;Wall-view capture failed.&quot;);
+        }
+        void Unchanged()
+        {
+            if (sim.Save() != baseline || !sight.SequenceEqual(map.Cells.Select(c =&gt; sim.VisibleToPlayer(c.World)))
+                || !walkability.SequenceEqual(map.Cells.Select(c =&gt; map.Walkable(c))))
+                throw new InvalidOperationException(&quot;Wall view must not change sight, collision, actors, clocks, doors or anomaly state.&quot;);
+        }
+        await Render(&quot;-walls-full&quot;);
+        using var full = GetViewport().GetTexture().GetImage();
+        SmokeKey(Key.W); Input.FlushBufferedEvents(); await Render(&quot;-walls-lowered&quot;);
+        if (!_world.ReducedWalls || _world.ReducedWallFaces != map.Definition.Walls.Count(w =&gt; !w.Door) || _world.FeatheredWallFaces != 0)
+            throw new InvalidOperationException(&quot;W must lower every solid wall and leave the full-height local opening dormant.&quot;);
+        if (map.Definition.Walls.Any(w =&gt; Math.Abs(_world.RenderedWallHeight(w) - (w.Door ? 68 : 68 * .31f)) &gt; .01f))
+            throw new InvalidOperationException(&quot;Lowered walls must end at the dark base panel while doors keep their height.&quot;);
+        Unchanged();
+        using var low = GetViewport().GetTexture().GetImage();
+        var area = _hud.Field.GetGlobalRect(); var changed = 0;
+        for (var y = (int)area.Position.Y; y &lt; Math.Min(low.GetHeight(), area.End.Y); y += 3)
+        for (var x = (int)area.Position.X; x &lt; Math.Min(low.GetWidth(), area.End.X); x += 3)
+        {
+            var a = full.GetPixel(x, y); var b = low.GetPixel(x, y);
+            if (Math.Abs(a.R - b.R) + Math.Abs(a.G - b.G) + Math.Abs(a.B - b.B) &gt; .04f) changed++;
+        }
+        if (changed &lt; 100) throw new InvalidOperationException(&quot;Lowering the walls did not visibly clear room interiors.&quot;);
+        // Use the visible field control to return to full height; the previous local-cutaway preference survives.
+        var click = _hud.WallViewButton.GetGlobalRect().GetCenter();
+        Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, Pressed = true });
+        Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, Pressed = false });
+        Input.FlushBufferedEvents(); await Render(&quot;-walls-restored&quot;);
+        if (_world.ReducedWalls || !_world.Cutaway || _world.FeatheredWallFaces == 0)
+            throw new InvalidOperationException(&quot;Field button must restore full walls and the existing local cutaway.&quot;);
+        Unchanged();
+        SmokeKey(Key.W); SmokeKey(Key.F4); Input.FlushBufferedEvents(); await Render(&quot;-walls-lowered-diagnostic&quot;);
+        if (!_world.DiagnosticSprites || _world.ReducedWallFaces == 0 || map.Definition.Walls.Any(w =&gt;
+            Math.Abs(_world.RenderedWallHeight(w) - (w.Door ? 54 : 54 * .31f)) &gt; .01f))
+            throw new InvalidOperationException(&quot;Diagnostic artwork must use short bases too, with full-height doors.&quot;);
+        Unchanged();
+        SmokeKey(Key.F4); SmokeKey(Key.W); Input.FlushBufferedEvents(); await Render(&quot;-walls-final&quot;); Unchanged();
+        GD.Print($&quot;WALL_VIEW_SMOKE_PASS: W and native field-button round trip, every wall lowered ({changed} changed samples), cropped base texture, full-height doors, diagnostic parity and unchanged simulation/sight/collision.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.WallViewSmoke.cs:10</footer></main></div></body></html>

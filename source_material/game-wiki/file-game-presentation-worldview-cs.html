@@ -1,0 +1,365 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/WorldView.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>WorldView.cs</h1><p>game/Presentation/WorldView.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-worldview.html">WorldView</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-cfba14511377edaa896b.html">WorldView.Simulation</a> · line 10</li><li><a href="function-418b56273d15929ec5d4.html">WorldView.Simulation.get</a> · line 10</li><li><a href="function-2b8e4b069378095ac9a1.html">WorldView.Simulation.set</a> · line 10</li><li><a href="function-e964f4904653f5b559ab.html">WorldView.CollisionOverlay</a> · line 11</li><li><a href="function-77480543363f8743aefb.html">WorldView.CollisionOverlay.get</a> · line 11</li><li><a href="function-85ea528f2410d907905f.html">WorldView.CollisionOverlay.set</a> · line 11</li><li><a href="function-d84ce07a18c84c7f5d46.html">WorldView.HexGrid</a> · line 12</li><li><a href="function-83af923149b205b36d93.html">WorldView.HexGrid.get</a> · line 12</li><li><a href="function-a2e52f2ea47bd05ddcd6.html">WorldView.HexGrid.set</a> · line 12</li><li><a href="function-9ea15f4a478a3da60bd3.html">WorldView.FloorGrid</a> · line 13</li><li><a href="function-0df1f9f91cd8ddcbe7b6.html">WorldView.FloorGrid.get</a> · line 13</li><li><a href="function-49471ac33c7dd57965d4.html">WorldView.FloorGrid.set</a> · line 13</li><li><a href="function-6d42b29020e0c56b70ec.html">WorldView.SightOverlay</a> · line 14</li><li><a href="function-02bb77934c6546ffcf14.html">WorldView.SightOverlay.get</a> · line 14</li><li><a href="function-27a77af789e3b6010238.html">WorldView.SightOverlay.set</a> · line 14</li><li><a href="function-baa464d2648572ac8a2d.html">WorldView.Cutaway</a> · line 15</li><li><a href="function-02a8b446380671d313b4.html">WorldView.Cutaway.get</a> · line 15</li><li><a href="function-c20a2e3bac35f210f700.html">WorldView.Cutaway.set</a> · line 15</li><li><a href="function-fcc9b0bcefb46a22f2f4.html">WorldView.ReducedWalls</a> · line 16</li><li><a href="function-b292b2a0f64ac3bd78a5.html">WorldView.ReducedWalls.get</a> · line 16</li><li><a href="function-2458bff6dd55b1ebdfbf.html">WorldView.ReducedWalls.set</a> · line 16</li><li><a href="function-c33d173c0f3063240945.html">WorldView.FieldView</a> · line 17</li><li><a href="function-ee0e99e9ca7f92b0ef0d.html">WorldView.FieldView.get</a> · line 17</li><li><a href="function-5cff450fe1b8da14f952.html">WorldView.FieldView.set</a> · line 17</li><li><a href="function-e37da1a9d38e564a186b.html">WorldView.DiagnosticSprites</a> · line 18</li><li><a href="function-3e6678fabc6662db5f76.html">WorldView.DiagnosticSprites.get</a> · line 18</li><li><a href="function-23b94f74696230e7af63.html">WorldView.DiagnosticSprites.set</a> · line 18</li><li><a href="function-8fc25eb2c1b4525b87aa.html">WorldView.Hover</a> · line 19</li><li><a href="function-82d02d6c9afd1b647475.html">WorldView.Hover.get</a> · line 19</li><li><a href="function-7431e7841b364b02e3c2.html">WorldView.Hover.set</a> · line 19</li><li><a href="function-94b43f6af87ee4f3d716.html">WorldView.Preview</a> · line 20</li><li><a href="function-24072d0ea76fe4eb137a.html">WorldView.Preview.get</a> · line 20</li><li><a href="function-f18bf33ba8b35411a76b.html">WorldView.Preview.set</a> · line 20</li><li><a href="function-a79a74513fd4b48e883b.html">WorldView.RenderedWallHeight</a> · line 31</li><li><a href="function-3b163226033ab1904a35.html">WorldView.ReducedWallFaces</a> · line 33</li><li><a href="function-141f91d4a33bd799ced0.html">WorldView.ReducedWallFaces.get</a> · line 33</li><li><a href="function-3bfb1df389316d4fcd45.html">WorldView.ReducedWallFaces.set</a> · line 33</li><li><a href="function-82208818f1072dc505a0.html">WorldView.GroundShadingBuilds</a> · line 34</li><li><a href="function-6f7009e33826ec69e9f5.html">WorldView.Frame</a> · line 37</li><li><a href="function-3e362d9e34e5e362eaf2.html">WorldView.Screen</a> · line 42</li><li><a href="function-d1bb1d910d7a5beaffe4.html">WorldView._Ready</a> · line 48</li><li><a href="function-87ec14861be3ff3d1291.html">WorldView.PickTrainingOpponent</a> · line 103</li><li><a href="function-a7b70ae7bba9f0b9a565.html">WorldView.ActorLayers</a> · line 124</li><li><a href="function-da232911845158a1cfea.html">WorldView.ObjectKey</a> · line 134</li><li><a href="function-3bc6f391ee5a01cb7eea.html">WorldView._Process</a> · line 135</li><li><a href="function-483fff37d084eed3ac03.html">WorldView.LightAt</a> · line 137</li><li><a href="function-d0004ddd6227771e42ce.html">WorldView.Sprite</a> · line 144</li><li><a href="function-2e8b82413832e79b5766.html">WorldView.WallFace</a> · line 149</li><li><a href="function-8ebf844c4b615422a668.html">WorldView.Corners</a> · line 173</li><li><a href="function-610971d4b088f17269b5.html">WorldView.Outline</a> · line 179</li><li><a href="function-f707d0b151f721975a4c.html">WorldView.Tag</a> · line 184</li><li><a href="function-3c962201b492995e8c5e.html">WorldView._Draw</a> · line 198</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Text.Json;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> /// &lt;summary&gt;Original stand-in artwork over reference-scale floor/hex projection.&lt;/summary&gt;</span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class WorldView : Node2D</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public SpatialSimulation Simulation { get; set; } = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     public bool CollisionOverlay { get; set; } = true;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     public bool HexGrid { get; set; }</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public bool FloorGrid { get; set; }</span>
+<span id="L14"><a class="line" href="#L14">14</a>     public bool SightOverlay { get; set; } = true;</span>
+<span id="L15"><a class="line" href="#L15">15</a>     public bool Cutaway { get; set; } = true;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public bool ReducedWalls { get; set; }</span>
+<span id="L17"><a class="line" href="#L17">17</a>     public bool FieldView { get; set; } = true;</span>
+<span id="L18"><a class="line" href="#L18">18</a>     public bool DiagnosticSprites { get; set; }</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public Hex? Hover { get; set; }</span>
+<span id="L20"><a class="line" href="#L20">20</a>     public IReadOnlyList&lt;Hex&gt; Preview { get; set; } = [];</span>
+<span id="L21"><a class="line" href="#L21">21</a>     private readonly Dictionary&lt;string, (Texture2D Texture, Vector2 Anchor, float Scale)&gt; _sprites = [];</span>
+<span id="L22"><a class="line" href="#L22">22</a>     private readonly List&lt;Rect2&gt; _debugLabels = [];</span>
+<span id="L23"><a class="line" href="#L23">23</a>     private readonly Dictionary&lt;string, string[]&gt; _anomalySprites = [];</span>
+<span id="L24"><a class="line" href="#L24">24</a>     private readonly Dictionary&lt;string, string[]&gt; _anomalyArt = [];</span>
+<span id="L25"><a class="line" href="#L25">25</a>     private GroundView _ground = null!;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     private SpriteArtCatalog _facilityArt = null!;</span>
+<span id="L27"><a class="line" href="#L27">27</a>     private readonly Dictionary&lt;string, Texture2D&gt; _surfaceArt = [];</span>
+<span id="L28"><a class="line" href="#L28">28</a>     private const float WallHeight = 68;</span>
+<span id="L29"><a class="line" href="#L29">29</a>     // Crop at the top of the dark lower panel; preserve the original texture scale below the cut.</span>
+<span id="L30"><a class="line" href="#L30">30</a>     internal const float ReducedWallFraction = 0.31f;</span>
+<span id="L31"><a class="line" href="#L31">31</a>     internal float RenderedWallHeight(WallDefinition wall) =&gt; (DiagnosticSprites ? 54 : WallHeight)</span>
+<span id="L32"><a class="line" href="#L32">32</a>         * (ReducedWalls &amp;&amp; !wall.Door ? ReducedWallFraction : 1);</span>
+<span id="L33"><a class="line" href="#L33">33</a>     internal int ReducedWallFaces { get; private set; }</span>
+<span id="L34"><a class="line" href="#L34">34</a>     internal int GroundShadingBuilds =&gt; _ground.ShadingBuilds;</span>
+<span id="L35"><a class="line" href="#L35">35</a>     private int _walkFrames = 3;</span>
+<span id="L36"><a class="line" href="#L36">36</a>     private int _walkCycleMs = 300;</span>
+<span id="L37"><a class="line" href="#L37">37</a>     private int Frame(ActorState actor) =&gt; actor.Moving ? (int)(actor.WalkMs % _walkCycleMs * _walkFrames / _walkCycleMs) : 0;</span>
+<span id="L38"><a class="line" href="#L38">38</a>     private static readonly Color Mint = new(&quot;9ed4b0&quot;);</span>
+<span id="L39"><a class="line" href="#L39">39</a>     private static readonly Color White = new(&quot;f2f0dc&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>     private static readonly Color Amber = new(&quot;d5ad67&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>     private static readonly string[] FacingNames = [&quot;NE&quot;, &quot;E&quot;, &quot;SE&quot;, &quot;SW&quot;, &quot;W&quot;, &quot;NW&quot;];</span>
+<span id="L42"><a class="line" href="#L42">42</a>     public static Vector2 Screen(Point2 p)</span>
+<span id="L43"><a class="line" href="#L43">43</a>     {</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var s = ReferenceProjection.Project(p);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         return new((float)s.X, (float)s.Y);</span>
+<span id="L46"><a class="line" href="#L46">46</a>     }</span>
+<span id="L47"><a class="line" href="#L47">47</a> </span>
+<span id="L48"><a class="line" href="#L48">48</a>     public override void _Ready()</span>
+<span id="L49"><a class="line" href="#L49">49</a>     {</span>
+<span id="L50"><a class="line" href="#L50">50</a>         TextureFilter = TextureFilterEnum.Nearest;</span>
+<span id="L51"><a class="line" href="#L51">51</a>         using var manifest = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/spatial-manifest.json&quot;));</span>
+<span id="L52"><a class="line" href="#L52">52</a>         foreach (var binding in manifest.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject())</span>
+<span id="L53"><a class="line" href="#L53">53</a>             _anomalySprites[binding.Name] = binding.Value.EnumerateArray().Select(x =&gt; x.GetString()!).ToArray();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         _walkFrames = manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_frames&quot;).GetInt32();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         _walkCycleMs = manifest.RootElement.GetProperty(&quot;animation&quot;).GetProperty(&quot;walk_cycle_ms&quot;).GetInt32();</span>
+<span id="L56"><a class="line" href="#L56">56</a>         foreach (var entry in manifest.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject())</span>
+<span id="L57"><a class="line" href="#L57">57</a>         {</span>
+<span id="L58"><a class="line" href="#L58">58</a>             var anchor = entry.Value.GetProperty(&quot;anchor&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             _sprites[entry.Name] = (GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + entry.Value.GetProperty(&quot;file&quot;).GetString()), new(anchor[0].GetSingle(), anchor[1].GetSingle()), 1);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         }</span>
+<span id="L61"><a class="line" href="#L61">61</a>         using var art = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/scp650-appearance.json&quot;));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         foreach (var binding in art.RootElement.GetProperty(&quot;anomaly_sprites&quot;).EnumerateObject())</span>
+<span id="L63"><a class="line" href="#L63">63</a>             _anomalyArt[binding.Name] = binding.Value.EnumerateArray().Select(x =&gt; x.GetString()!).ToArray();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         foreach (var entry in art.RootElement.GetProperty(&quot;sprites&quot;).EnumerateObject())</span>
+<span id="L65"><a class="line" href="#L65">65</a>         {</span>
+<span id="L66"><a class="line" href="#L66">66</a>             var anchor = entry.Value.GetProperty(&quot;anchor&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>             var r = entry.Value.GetProperty(&quot;region&quot;);</span>
+<span id="L68"><a class="line" href="#L68">68</a>             var texture = new AtlasTexture</span>
+<span id="L69"><a class="line" href="#L69">69</a>             {</span>
+<span id="L70"><a class="line" href="#L70">70</a>                 Atlas = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + entry.Value.GetProperty(&quot;file&quot;).GetString()),</span>
+<span id="L71"><a class="line" href="#L71">71</a>                 Region = new(r[0].GetSingle(), r[1].GetSingle(), r[2].GetSingle(), r[3].GetSingle()), FilterClip = true</span>
+<span id="L72"><a class="line" href="#L72">72</a>             };</span>
+<span id="L73"><a class="line" href="#L73">73</a>             _sprites[entry.Name] = (texture, new(anchor[0].GetSingle(), anchor[1].GetSingle()), entry.Value.GetProperty(&quot;scale&quot;).GetSingle());</span>
+<span id="L74"><a class="line" href="#L74">74</a>         }</span>
+<span id="L75"><a class="line" href="#L75">75</a>         _facilityArt = new SpriteArtCatalog(Godot.FileAccess.GetFileAsString(&quot;res://Assets/facility-standins/manifest.json&quot;));</span>
+<span id="L76"><a class="line" href="#L76">76</a>         var sourceImages = new Dictionary&lt;string, Texture2D&gt;();</span>
+<span id="L77"><a class="line" href="#L77">77</a>         foreach (var (key, sprite) in _facilityArt.Manifest.Sprites)</span>
+<span id="L78"><a class="line" href="#L78">78</a>         {</span>
+<span id="L79"><a class="line" href="#L79">79</a>             if (!sourceImages.TryGetValue(sprite.File, out var source))</span>
+<span id="L80"><a class="line" href="#L80">80</a>             {</span>
+<span id="L81"><a class="line" href="#L81">81</a>                 source = GD.Load&lt;Texture2D&gt;(&quot;res://Assets/&quot; + sprite.File);</span>
+<span id="L82"><a class="line" href="#L82">82</a>                 var expected = _facilityArt.Manifest.Images[sprite.File];</span>
+<span id="L83"><a class="line" href="#L83">83</a>                 if (source.GetWidth() != expected[0] || source.GetHeight() != expected[1]) throw new InvalidOperationException(&quot;Art image size changed: &quot; + sprite.File);</span>
+<span id="L84"><a class="line" href="#L84">84</a>                 sourceImages.Add(sprite.File, source);</span>
+<span id="L85"><a class="line" href="#L85">85</a>             }</span>
+<span id="L86"><a class="line" href="#L86">86</a>             var r = sprite.Region;</span>
+<span id="L87"><a class="line" href="#L87">87</a>             var texture = new AtlasTexture { Atlas = source, Region = new(r[0], r[1], r[2], r[3]), FilterClip = true };</span>
+<span id="L88"><a class="line" href="#L88">88</a>             _sprites.Add(key, (texture, new((float)sprite.Anchor[0], (float)sprite.Anchor[1]), (float)sprite.Scale));</span>
+<span id="L89"><a class="line" href="#L89">89</a>         }</span>
+<span id="L90"><a class="line" href="#L90">90</a>         foreach (var (surface, key) in _facilityArt.Manifest.Surfaces) _surfaceArt.Add(surface, _sprites[key].Texture);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         _ground = new GroundView</span>
+<span id="L92"><a class="line" href="#L92">92</a>         {</span>
+<span id="L93"><a class="line" href="#L93">93</a>             Simulation = Simulation,</span>
+<span id="L94"><a class="line" href="#L94">94</a>             AuthoredTextures = Enumerable.Range(0, 6).SelectMany(i =&gt; new[] { &quot;floor&quot;, &quot;land&quot; }.Select(kind =&gt; (Key: $&quot;{kind}-{i}&quot;, Texture: _surfaceArt[kind])))</span>
+<span id="L95"><a class="line" href="#L95">95</a>                 .ToDictionary(e =&gt; e.Key, e =&gt; e.Texture),</span>
+<span id="L96"><a class="line" href="#L96">96</a>             Textures = _sprites.Where(s =&gt; s.Key.StartsWith(&quot;floor-&quot;, StringComparison.Ordinal)</span>
+<span id="L97"><a class="line" href="#L97">97</a>                 || s.Key.StartsWith(&quot;land-&quot;, StringComparison.Ordinal)).ToDictionary(s =&gt; s.Key, s =&gt; s.Value.Texture)</span>
+<span id="L98"><a class="line" href="#L98">98</a>         };</span>
+<span id="L99"><a class="line" href="#L99">99</a>         AddChild(_ground);</span>
+<span id="L100"><a class="line" href="#L100">100</a>     }</span>
+<span id="L101"><a class="line" href="#L101">101</a> </span>
+<span id="L102"><a class="line" href="#L102">102</a>     /// &lt;summary&gt;Pick only visible opposing sprites; transparent padding cannot intercept a ground click.&lt;/summary&gt;</span>
+<span id="L103"><a class="line" href="#L103">103</a>     public ActorState? PickTrainingOpponent(Vector2 local)</span>
+<span id="L104"><a class="line" href="#L104">104</a>     {</span>
+<span id="L105"><a class="line" href="#L105">105</a>         foreach (var actor in Simulation.Actors.Where(a =&gt; a != Simulation.Player &amp;&amp; Simulation.Combat.For(a.Id) is { Side: &quot;opposition&quot;, Points: &gt; 0 }</span>
+<span id="L106"><a class="line" href="#L106">106</a>             &amp;&amp; Simulation.VisibleToPlayer(a.Position)).OrderByDescending(a =&gt; Screen(a.Position).Y))</span>
+<span id="L107"><a class="line" href="#L107">107</a>         {</span>
+<span id="L108"><a class="line" href="#L108">108</a>             foreach (var key in ActorLayers(actor).Reverse())</span>
+<span id="L109"><a class="line" href="#L109">109</a>             {</span>
+<span id="L110"><a class="line" href="#L110">110</a>                 var sprite = _sprites[key];</span>
+<span id="L111"><a class="line" href="#L111">111</a>                 var pixel = local - (Screen(actor.Position) - sprite.Anchor * sprite.Scale).Round();</span>
+<span id="L112"><a class="line" href="#L112">112</a>                 var size = sprite.Texture.GetSize() * sprite.Scale;</span>
+<span id="L113"><a class="line" href="#L113">113</a>                 if (pixel.X &gt;= 0 &amp;&amp; pixel.Y &gt;= 0 &amp;&amp; pixel.X &lt; size.X &amp;&amp; pixel.Y &lt; size.Y)</span>
+<span id="L114"><a class="line" href="#L114">114</a>                 {</span>
+<span id="L115"><a class="line" href="#L115">115</a>                     using var image = sprite.Texture.GetImage();</span>
+<span id="L116"><a class="line" href="#L116">116</a>                     if (image.GetPixel((int)(pixel.X / sprite.Scale), (int)(pixel.Y / sprite.Scale)).A &gt; 0.05f) return actor;</span>
+<span id="L117"><a class="line" href="#L117">117</a>                 }</span>
+<span id="L118"><a class="line" href="#L118">118</a>             }</span>
+<span id="L119"><a class="line" href="#L119">119</a>             if (Point2.Distance(actor.Position, ReferenceProjection.Unproject(new(local.X, local.Y))) &lt; 0.3) return actor;</span>
+<span id="L120"><a class="line" href="#L120">120</a>         }</span>
+<span id="L121"><a class="line" href="#L121">121</a>         return null;</span>
+<span id="L122"><a class="line" href="#L122">122</a>     }</span>
+<span id="L123"><a class="line" href="#L123">123</a> </span>
+<span id="L124"><a class="line" href="#L124">124</a>     private string[] ActorLayers(ActorState actor)</span>
+<span id="L125"><a class="line" href="#L125">125</a>     {</span>
+<span id="L126"><a class="line" href="#L126">126</a>         var state = actor.Moving ? &quot;walk&quot; : &quot;idle&quot;;</span>
+<span id="L127"><a class="line" href="#L127">127</a>         if (!DiagnosticSprites)</span>
+<span id="L128"><a class="line" href="#L128">128</a>         {</span>
+<span id="L129"><a class="line" href="#L129">129</a>             var art = _facilityArt.Layers(actor.Id, state, actor.Facing, actor.Moving ? actor.WalkMs % _walkCycleMs / (double)_walkCycleMs : 0);</span>
+<span id="L130"><a class="line" href="#L130">130</a>             if (art.Length &gt; 0) return art;</span>
+<span id="L131"><a class="line" href="#L131">131</a>         }</span>
+<span id="L132"><a class="line" href="#L132">132</a>         return [$&quot;{actor.Kind}-{state}-{actor.Facing}-{Frame(actor)}&quot;];</span>
+<span id="L133"><a class="line" href="#L133">133</a>     }</span>
+<span id="L134"><a class="line" href="#L134">134</a>     private string ObjectKey(string kind) =&gt; !DiagnosticSprites &amp;&amp; _facilityArt.Manifest.Objects.TryGetValue(kind, out var key) ? key : kind;</span>
+<span id="L135"><a class="line" href="#L135">135</a>     public override void _Process(double delta) =&gt; _ground.Refresh(FieldView, !DiagnosticSprites);</span>
+<span id="L136"><a class="line" href="#L136">136</a> </span>
+<span id="L137"><a class="line" href="#L137">137</a>     private Color LightAt(Vector2 feet)</span>
+<span id="L138"><a class="line" href="#L138">138</a>     {</span>
+<span id="L139"><a class="line" href="#L139">139</a>         var ground = ReferenceProjection.Unproject(new(feet.X, feet.Y));</span>
+<span id="L140"><a class="line" href="#L140">140</a>         return FieldView</span>
+<span id="L141"><a class="line" href="#L141">141</a>             ? new Color(0.28f, 0.32f, 0.34f).Lerp(new Color(0.92f, 1, 0.96f), FieldPresentation.SightShade(Simulation, ground))</span>
+<span id="L142"><a class="line" href="#L142">142</a>             : Simulation.Map.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);</span>
+<span id="L143"><a class="line" href="#L143">143</a>     }</span>
+<span id="L144"><a class="line" href="#L144">144</a>     private void Sprite(string key, Vector2 feet, Color? tint = null)</span>
+<span id="L145"><a class="line" href="#L145">145</a>     {</span>
+<span id="L146"><a class="line" href="#L146">146</a>         var sprite = _sprites[key];</span>
+<span id="L147"><a class="line" href="#L147">147</a>         DrawTextureRect(sprite.Texture, new Rect2((feet - sprite.Anchor * sprite.Scale).Round(), sprite.Texture.GetSize() * sprite.Scale), false, (tint ?? Colors.White) * LightAt(feet));</span>
+<span id="L148"><a class="line" href="#L148">148</a>     }</span>
+<span id="L149"><a class="line" href="#L149">149</a>     private void WallFace(WallDefinition wall, bool feather)</span>
+<span id="L150"><a class="line" href="#L150">150</a>     {</span>
+<span id="L151"><a class="line" href="#L151">151</a>         var start = Screen(wall.Start); var end = Screen(wall.End);</span>
+<span id="L152"><a class="line" href="#L152">152</a>         var height = RenderedWallHeight(wall);</span>
+<span id="L153"><a class="line" href="#L153">153</a>         var top = new Vector2(0, -height);</span>
+<span id="L154"><a class="line" href="#L154">154</a>         var light = LightAt(Screen(wall.Center)) * (wall.Axis == &quot;u&quot; ? Colors.White : new Color(0.79f, 0.84f, 0.88f));</span>
+<span id="L155"><a class="line" href="#L155">155</a>         Vector2[] face = [start, end, end + top, start + top];</span>
+<span id="L156"><a class="line" href="#L156">156</a>         var thickness = new Vector2(-3, -2);</span>
+<span id="L157"><a class="line" href="#L157">157</a>         Vector2[] cap = [start + top, end + top, end + top + thickness, start + top + thickness];</span>
+<span id="L158"><a class="line" href="#L158">158</a>         var capLight = new Color(ReducedWalls &amp;&amp; !wall.Door ? &quot;555b58&quot; : &quot;a5a99f&quot;) * light;</span>
+<span id="L159"><a class="line" href="#L159">159</a>         if (feather)</span>
+<span id="L160"><a class="line" href="#L160">160</a>         {</span>
+<span id="L161"><a class="line" href="#L161">161</a>             FeatheredQuad(wall.Id + &quot;:face&quot;, face, light, _surfaceArt[wall.Door ? &quot;door&quot; : &quot;wall&quot;]);</span>
+<span id="L162"><a class="line" href="#L162">162</a>             FeatheredQuad(wall.Id + &quot;:cap&quot;, cap, capLight);</span>
+<span id="L163"><a class="line" href="#L163">163</a>         }</span>
+<span id="L164"><a class="line" href="#L164">164</a>         else</span>
+<span id="L165"><a class="line" href="#L165">165</a>         {</span>
+<span id="L166"><a class="line" href="#L166">166</a>             DrawPolygon(face, new Color[] { light, light, light, light },</span>
+<span id="L167"><a class="line" href="#L167">167</a>                 new Vector2[] { new(0, 1), new(1, 1), new(1, 1 - height / WallHeight), new(0, 1 - height / WallHeight) }, _surfaceArt[wall.Door ? &quot;door&quot; : &quot;wall&quot;]);</span>
+<span id="L168"><a class="line" href="#L168">168</a>             DrawColoredPolygon(cap, capLight);</span>
+<span id="L169"><a class="line" href="#L169">169</a>         }</span>
+<span id="L170"><a class="line" href="#L170">170</a>         WallStroke(start, end, new Color(&quot;252b2b&quot;) * light, 2, feather);</span>
+<span id="L171"><a class="line" href="#L171">171</a>     }</span>
+<span id="L172"><a class="line" href="#L172">172</a> </span>
+<span id="L173"><a class="line" href="#L173">173</a>     private static Vector2[] Corners(Hex h)</span>
+<span id="L174"><a class="line" href="#L174">174</a>     {</span>
+<span id="L175"><a class="line" href="#L175">175</a>         var center = Screen(h.World);</span>
+<span id="L176"><a class="line" href="#L176">176</a>         return ReferenceProjection.HexCorners.Select(p =&gt; center + new Vector2((float)p.X, (float)p.Y)).ToArray();</span>
+<span id="L177"><a class="line" href="#L177">177</a>     }</span>
+<span id="L178"><a class="line" href="#L178">178</a> </span>
+<span id="L179"><a class="line" href="#L179">179</a>     private void Outline(Vector2[] points, Color color, float width = 1)</span>
+<span id="L180"><a class="line" href="#L180">180</a>     {</span>
+<span id="L181"><a class="line" href="#L181">181</a>         DrawPolyline(points.Append(points[0]).ToArray(), color, width, false);</span>
+<span id="L182"><a class="line" href="#L182">182</a>     }</span>
+<span id="L183"><a class="line" href="#L183">183</a> </span>
+<span id="L184"><a class="line" href="#L184">184</a>     private void Tag(Vector2 p, string text, Color color, int size = 9)</span>
+<span id="L185"><a class="line" href="#L185">185</a>     {</span>
+<span id="L186"><a class="line" href="#L186">186</a>         var font = ThemeDB.FallbackFont;</span>
+<span id="L187"><a class="line" href="#L187">187</a>         var width = font.GetStringSize(text, HorizontalAlignment.Left, -1, size).X;</span>
+<span id="L188"><a class="line" href="#L188">188</a>         var original = p;</span>
+<span id="L189"><a class="line" href="#L189">189</a>         var rect = new Rect2(p.X - width / 2 - 3, p.Y - size, width + 6, size + 5);</span>
+<span id="L190"><a class="line" href="#L190">190</a>         for (var attempt = 0; attempt &lt; 10 &amp;&amp; _debugLabels.Any(r =&gt; r.Intersects(rect)); attempt++)</span>
+<span id="L191"><a class="line" href="#L191">191</a>         { p.Y -= size + 8; rect.Position = new(p.X - width / 2 - 3, p.Y - size); }</span>
+<span id="L192"><a class="line" href="#L192">192</a>         _debugLabels.Add(rect);</span>
+<span id="L193"><a class="line" href="#L193">193</a>         if (p != original) DrawLine(original, p, new Color(White, 0.45f), 0.8f);</span>
+<span id="L194"><a class="line" href="#L194">194</a>         DrawRect(rect, new Color(0.04f, 0.06f, 0.06f, 0.9f));</span>
+<span id="L195"><a class="line" href="#L195">195</a>         DrawString(font, new Vector2(p.X - width / 2, p.Y), text, HorizontalAlignment.Left, -1, size, color);</span>
+<span id="L196"><a class="line" href="#L196">196</a>     }</span>
+<span id="L197"><a class="line" href="#L197">197</a> </span>
+<span id="L198"><a class="line" href="#L198">198</a>     public override void _Draw()</span>
+<span id="L199"><a class="line" href="#L199">199</a>     {</span>
+<span id="L200"><a class="line" href="#L200">200</a>         if (Simulation is null) return;</span>
+<span id="L201"><a class="line" href="#L201">201</a>         _debugLabels.Clear();</span>
+<span id="L202"><a class="line" href="#L202">202</a>         RefreshCutaway();</span>
+<span id="L203"><a class="line" href="#L203">203</a>         ReducedWallFaces = 0;</span>
+<span id="L204"><a class="line" href="#L204">204</a>         var map = Simulation.Map;</span>
+<span id="L205"><a class="line" href="#L205">205</a>         for (var y = -2; y &lt; map.Definition.Height + 2; y++)</span>
+<span id="L206"><a class="line" href="#L206">206</a>         for (var x = -2; x &lt; map.Definition.Width + 2; x++)</span>
+<span id="L207"><a class="line" href="#L207">207</a>         {</span>
+<span id="L208"><a class="line" href="#L208">208</a>             var indoor = x &gt;= 0 &amp;&amp; y &gt;= 0 &amp;&amp; x &lt; map.Definition.Width &amp;&amp; y &lt; map.Definition.Height;</span>
+<span id="L209"><a class="line" href="#L209">209</a>             if (indoor &amp;&amp; FloorGrid &amp;&amp; !FieldView)</span>
+<span id="L210"><a class="line" href="#L210">210</a>                 Outline([Screen(new(x, y)), Screen(new(x + 1, y)), Screen(new(x + 1, y + 1)), Screen(new(x, y + 1))], new Color(Amber, 0.75f));</span>
+<span id="L211"><a class="line" href="#L211">211</a>         }</span>
+<span id="L212"><a class="line" href="#L212">212</a> </span>
+<span id="L213"><a class="line" href="#L213">213</a>         foreach (var wall in map.SolidWalls)</span>
+<span id="L214"><a class="line" href="#L214">214</a>         {</span>
+<span id="L215"><a class="line" href="#L215">215</a>             var a = Screen(wall.Start); var b = Screen(wall.End);</span>
+<span id="L216"><a class="line" href="#L216">216</a>             DrawColoredPolygon([a, b, b + new Vector2(9, 8), a + new Vector2(9, 8)], new Color(0.01f, 0.02f, 0.02f, 0.2f));</span>
+<span id="L217"><a class="line" href="#L217">217</a>         }</span>
+<span id="L218"><a class="line" href="#L218">218</a>         foreach (var h in map.Cells)</span>
+<span id="L219"><a class="line" href="#L219">219</a>         {</span>
+<span id="L220"><a class="line" href="#L220">220</a>             var corners = Corners(h);</span>
+<span id="L221"><a class="line" href="#L221">221</a>             if (!FieldView &amp;&amp; SightOverlay &amp;&amp; Simulation.VisibleToPlayer(h.World) &amp;&amp; map.Walkable(h))</span>
+<span id="L222"><a class="line" href="#L222">222</a>                 DrawColoredPolygon(corners, new Color(Mint, 0.09f));</span>
+<span id="L223"><a class="line" href="#L223">223</a>             if (HexGrid &amp;&amp; !FieldView) Outline(corners, new Color(White, 0.13f));</span>
+<span id="L224"><a class="line" href="#L224">224</a>         }</span>
+<span id="L225"><a class="line" href="#L225">225</a>         DrawString(ThemeDB.FallbackFont, Screen(new(0.9, 1.2)), &quot;OBSERVATION / LAB&quot;, HorizontalAlignment.Left, -1, 11, new Color(White, 0.46f));</span>
+<span id="L226"><a class="line" href="#L226">226</a>         DrawString(ThemeDB.FallbackFont, Screen(new(0.8, 3.7)), &quot;SERVICE CORRIDOR&quot;, HorizontalAlignment.Left, -1, 9, new Color(White, 0.45f));</span>
+<span id="L227"><a class="line" href="#L227">227</a>         DrawString(ThemeDB.FallbackFont, Screen(new(0.7, 6.4)), &quot;OPERATIONS / STORES&quot;, HorizontalAlignment.Left, -1, 11, new Color(White, 0.46f));</span>
+<span id="L228"><a class="line" href="#L228">228</a> </span>
+<span id="L229"><a class="line" href="#L229">229</a>         foreach (var door in map.Definition.Walls.Where(w =&gt; w.Door))</span>
+<span id="L230"><a class="line" href="#L230">230</a>         {</span>
+<span id="L231"><a class="line" href="#L231">231</a>             DrawLine(Screen(door.Start), Screen(door.End), new Color(Amber, 0.8f), 3);</span>
+<span id="L232"><a class="line" href="#L232">232</a>             var c = Screen(door.Center);</span>
+<span id="L233"><a class="line" href="#L233">233</a>             DrawCircle(c + new Vector2(0, -2), 2, map.OpenDoors.Contains(door.Id) ? Mint : Amber);</span>
+<span id="L234"><a class="line" href="#L234">234</a>         }</span>
+<span id="L235"><a class="line" href="#L235">235</a>         var committed = new[] { Simulation.Player.Cell }.Concat(Simulation.Player.Route).Select(h =&gt; Screen(h.World)).ToArray();</span>
+<span id="L236"><a class="line" href="#L236">236</a>         if (committed.Length &gt; 1) DrawPolyline(committed, Mint, 1.4f, false);</span>
+<span id="L237"><a class="line" href="#L237">237</a>         if (Preview.Count &gt; 0 &amp;&amp; !Simulation.Player.Moving)</span>
+<span id="L238"><a class="line" href="#L238">238</a>         {</span>
+<span id="L239"><a class="line" href="#L239">239</a>             foreach (var cell in Preview) DrawCircle(Screen(cell.World), 1.5f, new Color(Mint, 0.7f));</span>
+<span id="L240"><a class="line" href="#L240">240</a>         }</span>
+<span id="L241"><a class="line" href="#L241">241</a>         DrawArc(Screen(Simulation.Player.Position), 9, 0, Mathf.Tau, 24, Mint, 1);</span>
+<span id="L242"><a class="line" href="#L242">242</a> </span>
+<span id="L243"><a class="line" href="#L243">243</a>         // Short wall segments and object feet participate in the same depth order.</span>
+<span id="L244"><a class="line" href="#L244">244</a>         var drawables = new List&lt;(float Depth, string Id, Action Draw)&gt;();</span>
+<span id="L245"><a class="line" href="#L245">245</a>         foreach (var wall in map.Definition.Walls)</span>
+<span id="L246"><a class="line" href="#L246">246</a>         {</span>
+<span id="L247"><a class="line" href="#L247">247</a>             var c = Screen(wall.Center);</span>
+<span id="L248"><a class="line" href="#L248">248</a>             drawables.Add((c.Y, wall.Id, () =&gt;</span>
+<span id="L249"><a class="line" href="#L249">249</a>             {</span>
+<span id="L250"><a class="line" href="#L250">250</a>                 if (ReducedWalls &amp;&amp; !wall.Door) ReducedWallFaces++;</span>
+<span id="L251"><a class="line" href="#L251">251</a>                 var feather = UsesPlayerCutaway(wall);</span>
+<span id="L252"><a class="line" href="#L252">252</a>                 if (feather) FeatheredWallFaces++;</span>
+<span id="L253"><a class="line" href="#L253">253</a>                 var open = wall.Door &amp;&amp; map.OpenDoors.Contains(wall.Id);</span>
+<span id="L254"><a class="line" href="#L254">254</a>                 if (open)</span>
+<span id="L255"><a class="line" href="#L255">255</a>                 {</span>
+<span id="L256"><a class="line" href="#L256">256</a>                     var height = DiagnosticSprites ? 54 : WallHeight;</span>
+<span id="L257"><a class="line" href="#L257">257</a>                     WallStroke(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, height), new Color(&quot;b4aaa0&quot;), 3, feather);</span>
+<span id="L258"><a class="line" href="#L258">258</a>                     WallStroke(Screen(wall.End), Screen(wall.End) - new Vector2(0, height), new Color(&quot;b4aaa0&quot;), 3, feather);</span>
+<span id="L259"><a class="line" href="#L259">259</a>                     WallStroke(Screen(wall.Start) - new Vector2(0, height), Screen(wall.End) - new Vector2(0, height), new Color(&quot;888681&quot;), 4, feather);</span>
+<span id="L260"><a class="line" href="#L260">260</a>                     return;</span>
+<span id="L261"><a class="line" href="#L261">261</a>                 }</span>
+<span id="L262"><a class="line" href="#L262">262</a>                 if (!DiagnosticSprites) WallFace(wall, feather);</span>
+<span id="L263"><a class="line" href="#L263">263</a>                 else DiagnosticWall(wall, feather);</span>
+<span id="L264"><a class="line" href="#L264">264</a>             }));</span>
+<span id="L265"><a class="line" href="#L265">265</a>         }</span>
+<span id="L266"><a class="line" href="#L266">266</a>         foreach (var prop in map.Definition.Props)</span>
+<span id="L267"><a class="line" href="#L267">267</a>         {</span>
+<span id="L268"><a class="line" href="#L268">268</a>             var p = Screen(prop.Cell.World);</span>
+<span id="L269"><a class="line" href="#L269">269</a>             drawables.Add((p.Y, prop.Id, () =&gt; Sprite(ObjectKey(prop.Kind), p)));</span>
+<span id="L270"><a class="line" href="#L270">270</a>         }</span>
+<span id="L271"><a class="line" href="#L271">271</a>         if (Simulation.Operations.Definition is { } operation)</span>
+<span id="L272"><a class="line" href="#L272">272</a>         {</span>
+<span id="L273"><a class="line" href="#L273">273</a>             var terminal = Screen(operation.Terminal.World);</span>
+<span id="L274"><a class="line" href="#L274">274</a>             drawables.Add((terminal.Y, &quot;-oscp&quot;, () =&gt;</span>
+<span id="L275"><a class="line" href="#L275">275</a>             {</span>
+<span id="L276"><a class="line" href="#L276">276</a>                 Sprite(DiagnosticSprites ? &quot;cabinet&quot; : ObjectKey(&quot;terminal&quot;), terminal);</span>
+<span id="L277"><a class="line" href="#L277">277</a>                 Tag(terminal + new Vector2(0, -45), &quot;OSCP&quot;, new Color(&quot;a0d1af&quot;), 10);</span>
+<span id="L278"><a class="line" href="#L278">278</a>             }));</span>
+<span id="L279"><a class="line" href="#L279">279</a>             var cart = Simulation.Operations.Trolley;</span>
+<span id="L280"><a class="line" href="#L280">280</a>             if (!FieldView || Simulation.VisibleToPlayer(cart.Position))</span>
+<span id="L281"><a class="line" href="#L281">281</a>             {</span>
+<span id="L282"><a class="line" href="#L282">282</a>                 var p = Screen(cart.Position);</span>
+<span id="L283"><a class="line" href="#L283">283</a>                 drawables.Add((p.Y, &quot;-trolley&quot;, () =&gt;</span>
+<span id="L284"><a class="line" href="#L284">284</a>                 {</span>
+<span id="L285"><a class="line" href="#L285">285</a>                     if (!DiagnosticSprites) Sprite(ObjectKey(&quot;trolley&quot;), p);</span>
+<span id="L286"><a class="line" href="#L286">286</a>                     else</span>
+<span id="L287"><a class="line" href="#L287">287</a>                     {</span>
+<span id="L288"><a class="line" href="#L288">288</a>                         DrawColoredPolygon(Corners(Hex.FromWorld(cart.Position)), new Color(&quot;557f82&quot;));</span>
+<span id="L289"><a class="line" href="#L289">289</a>                         DrawLine(p + new Vector2(-14, -7), p + new Vector2(-14, -22), new Color(&quot;bac3bc&quot;), 3);</span>
+<span id="L290"><a class="line" href="#L290">290</a>                         DrawCircle(p + new Vector2(-11, 6), 3, new Color(&quot;d6d2ba&quot;));</span>
+<span id="L291"><a class="line" href="#L291">291</a>                         DrawCircle(p + new Vector2(11, 6), 3, new Color(&quot;d6d2ba&quot;));</span>
+<span id="L292"><a class="line" href="#L292">292</a>                     }</span>
+<span id="L293"><a class="line" href="#L293">293</a>                     if (!FieldView) Tag(p + new Vector2(0, 18), &quot;OPEN TROLLEY&quot;, new Color(&quot;a0d1af&quot;), 8);</span>
+<span id="L294"><a class="line" href="#L294">294</a>                 }));</span>
+<span id="L295"><a class="line" href="#L295">295</a>             }</span>
+<span id="L296"><a class="line" href="#L296">296</a>             Outline(Corners(operation.Home), new Color(&quot;a0d1af&quot;, 0.4f), 1.2f);</span>
+<span id="L297"><a class="line" href="#L297">297</a>         }</span>
+<span id="L298"><a class="line" href="#L298">298</a>         foreach (var body in Simulation.Anomalies.Bodies)</span>
+<span id="L299"><a class="line" href="#L299">299</a>         {</span>
+<span id="L300"><a class="line" href="#L300">300</a>             if (!FieldPresentation.ShowAnomaly(Simulation, body, !FieldView)) continue;</span>
+<span id="L301"><a class="line" href="#L301">301</a>             var p = Screen(body.Cell.World);</span>
+<span id="L302"><a class="line" href="#L302">302</a>             var keys = DiagnosticSprites ? _anomalySprites : _anomalyArt;</span>
+<span id="L303"><a class="line" href="#L303">303</a>             var support = !DiagnosticSprites &amp;&amp; Simulation.Operations.Trolley.SubjectId == body.Id</span>
+<span id="L304"><a class="line" href="#L304">304</a>                 &amp;&amp; _facilityArt.Manifest.Mounts?.TryGetValue(&quot;trolley-support&quot;, out var mount) == true</span>
+<span id="L305"><a class="line" href="#L305">305</a>                 ? new Vector2((float)mount[0], (float)mount[1]) : Vector2.Zero;</span>
+<span id="L306"><a class="line" href="#L306">306</a>             drawables.Add((p.Y, body.Id, () =&gt; Sprite(keys[body.ModuleId][body.Pose], p + support)));</span>
+<span id="L307"><a class="line" href="#L307">307</a>         }</span>
+<span id="L308"><a class="line" href="#L308">308</a>         foreach (var actor in Simulation.Actors)</span>
+<span id="L309"><a class="line" href="#L309">309</a>         {</span>
+<span id="L310"><a class="line" href="#L310">310</a>             if (!FieldPresentation.ShowActor(Simulation, actor, !FieldView)) continue;</span>
+<span id="L311"><a class="line" href="#L311">311</a>             var p = Screen(actor.Position);</span>
+<span id="L312"><a class="line" href="#L312">312</a>             drawables.Add((p.Y, actor.Id, () =&gt;</span>
+<span id="L313"><a class="line" href="#L313">313</a>             {</span>
+<span id="L314"><a class="line" href="#L314">314</a>                 foreach (var key in ActorLayers(actor)) Sprite(key, p);</span>
+<span id="L315"><a class="line" href="#L315">315</a>                 var direction = Screen(actor.Cell.Neighbor(actor.Facing).World) - Screen(actor.Cell.World);</span>
+<span id="L316"><a class="line" href="#L316">316</a>                 if (!FieldView || actor == Simulation.Player)</span>
+<span id="L317"><a class="line" href="#L317">317</a>                     DrawLine(p, p + direction.Normalized() * 15, new Color(&quot;61ff70&quot;), 2);</span>
+<span id="L318"><a class="line" href="#L318">318</a>             }));</span>
+<span id="L319"><a class="line" href="#L319">319</a>         }</span>
+<span id="L320"><a class="line" href="#L320">320</a>         foreach (var item in drawables.OrderBy(d =&gt; d.Depth).ThenBy(d =&gt; d.Id, StringComparer.Ordinal)) item.Draw();</span>
+<span id="L321"><a class="line" href="#L321">321</a> </span>
+<span id="L322"><a class="line" href="#L322">322</a>         // White lines deliberately sit above the artwork: these are debug geometry, not an art mask.</span>
+<span id="L323"><a class="line" href="#L323">323</a>         if (CollisionOverlay &amp;&amp; !FieldView)</span>
+<span id="L324"><a class="line" href="#L324">324</a>         {</span>
+<span id="L325"><a class="line" href="#L325">325</a>             foreach (var h in map.Cells.Where(h =&gt; !map.Walkable(h)))</span>
+<span id="L326"><a class="line" href="#L326">326</a>             {</span>
+<span id="L327"><a class="line" href="#L327">327</a>                 var corners = Corners(h);</span>
+<span id="L328"><a class="line" href="#L328">328</a>                 DrawColoredPolygon(corners, new Color(White, 0.05f));</span>
+<span id="L329"><a class="line" href="#L329">329</a>                 Outline(corners, new Color(White, 0.65f));</span>
+<span id="L330"><a class="line" href="#L330">330</a>             }</span>
+<span id="L331"><a class="line" href="#L331">331</a>             foreach (var wall in map.SolidWalls) DrawLine(Screen(wall.Start), Screen(wall.End), White, 1.3f, false);</span>
+<span id="L332"><a class="line" href="#L332">332</a>         }</span>
+<span id="L333"><a class="line" href="#L333">333</a>         foreach (var status in Simulation.InspectAnomalies().Where(_ =&gt; !FieldView))</span>
+<span id="L334"><a class="line" href="#L334">334</a>         {</span>
+<span id="L335"><a class="line" href="#L335">335</a>             var body = Simulation.Anomalies.Bodies.Single(b =&gt; b.Id == status.Id);</span>
+<span id="L336"><a class="line" href="#L336">336</a>             var p = Screen(body.Cell.World);</span>
+<span id="L337"><a class="line" href="#L337">337</a>             DrawArc(p, 10, 0, Mathf.Tau, 24, new Color(&quot;ceb4df&quot;), 1.2f);</span>
+<span id="L338"><a class="line" href="#L338">338</a>             foreach (var observer in status.Observation.EligibleIds)</span>
+<span id="L339"><a class="line" href="#L339">339</a>                 DrawLine(p, Screen(Simulation.Actors.Single(a =&gt; a.Id == observer).Position), new Color(Mint, 0.6f), 1, false);</span>
+<span id="L340"><a class="line" href="#L340">340</a>             Tag(p + new Vector2(0, -88), $&quot;SCP-650 · POSE {body.Pose + 1}/{body.PoseCount}&quot;, new Color(&quot;ceb4df&quot;));</span>
+<span id="L341"><a class="line" href="#L341">341</a>             Tag(p + new Vector2(0, 18), $&quot;{status.Observation.EligibleIds.Length} eligible · {(status.Observation.Observed ? &quot;FROZEN&quot; : &quot;UNOBSERVED&quot;)}&quot;, White, 8);</span>
+<span id="L342"><a class="line" href="#L342">342</a>         }</span>
+<span id="L343"><a class="line" href="#L343">343</a>         if (Hover is { } hover)</span>
+<span id="L344"><a class="line" href="#L344">344</a>         {</span>
+<span id="L345"><a class="line" href="#L345">345</a>             var good = map.Walkable(hover) &amp;&amp; !Simulation.Actors.Any(a =&gt; a.Cell == hover);</span>
+<span id="L346"><a class="line" href="#L346">346</a>             Outline(Corners(hover), FieldView || good ? Mint : new Color(&quot;e6a180&quot;), 1.7f);</span>
+<span id="L347"><a class="line" href="#L347">347</a>         }</span>
+<span id="L348"><a class="line" href="#L348">348</a>         foreach (var actor in Simulation.Actors)</span>
+<span id="L349"><a class="line" href="#L349">349</a>         {</span>
+<span id="L350"><a class="line" href="#L350">350</a>             if (!FieldPresentation.ShowActor(Simulation, actor, !FieldView)) continue;</span>
+<span id="L351"><a class="line" href="#L351">351</a>             var p = Screen(actor.Position);</span>
+<span id="L352"><a class="line" href="#L352">352</a>             if (FieldView)</span>
+<span id="L353"><a class="line" href="#L353">353</a>             {</span>
+<span id="L354"><a class="line" href="#L354">354</a>                 if (actor == Simulation.Player || Hover == actor.Cell)</span>
+<span id="L355"><a class="line" href="#L355">355</a>                     Tag(p + new Vector2(0, 24), actor == Simulation.Player ? &quot;YOU&quot; : actor.Name, White, 8);</span>
+<span id="L356"><a class="line" href="#L356">356</a>                 continue;</span>
+<span id="L357"><a class="line" href="#L357">357</a>             }</span>
+<span id="L358"><a class="line" href="#L358">358</a>             var state = !actor.Attending ? &quot;DISTRACTED&quot; : Simulation.LocalMs &lt; actor.EyesClosedUntilMs ? &quot;BLINK&quot; : Simulation.LocalMs &lt; actor.StartledUntilMs ? &quot;STARTLED&quot; : actor.Moving ? $&quot;walk:{Frame(actor) + 1}/{_walkFrames}&quot; : &quot;idle:1/1&quot;;</span>
+<span id="L359"><a class="line" href="#L359">359</a>             Tag(p + new Vector2(0, -65), $&quot;{actor.Name}  {FacingNames[actor.Facing]}&quot;, actor.Kind == &quot;player&quot; ? new Color(&quot;efb4cb&quot;) : new Color(&quot;a5d8e2&quot;));</span>
+<span id="L360"><a class="line" href="#L360">360</a>             Tag(p + new Vector2(0, 16), state, White, 8);</span>
+<span id="L361"><a class="line" href="#L361">361</a>         }</span>
+<span id="L362"><a class="line" href="#L362">362</a>         foreach (var prop in map.Definition.Props.Where(_ =&gt; !FieldView))</span>
+<span id="L363"><a class="line" href="#L363">363</a>             Tag(Screen(prop.Cell.World) + new Vector2(0, prop.Kind == &quot;crate&quot; ? -23 : -76), prop.Label, Amber, 8);</span>
+<span id="L364"><a class="line" href="#L364">364</a>     }</span>
+<span id="L365"><a class="line" href="#L365">365</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

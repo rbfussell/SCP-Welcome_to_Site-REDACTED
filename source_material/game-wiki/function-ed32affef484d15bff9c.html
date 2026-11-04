@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpWorkspace.PersonnelDocument | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpWorkspace.PersonnelDocument</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscpworkspace-personnel-cs.html#L7">game/Presentation/Oscp/OscpWorkspace.Personnel.cs:7</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private string PersonnelDocument()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>string.Join
+_sim.Actors.Where(a =&gt; a != _sim.Player).Select
+_sim.Actors.Where
+definition.Appointments.Select
+_sim.Actors.Single
+_sim.Employment.DeliveredReports.SingleOrDefault
+definition.Posts.Single
+definition.Posts.Select
+_sim.Employment.DeliveredReports.Where
+definition.Appointments.Any
+reports.Count</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-94f20583fb59e35a8ded.html">OscpWorkspace.Refresh</a></li></ul><h2>Related types</h2><ul><li><a href="type-dutyphase.html">DutyPhase</a></li><li><a href="type-oscpworkspace.html">OscpWorkspace</a></li></ul><h2>Implementation</h2><pre><code>private string PersonnelDocument()
+    {
+        if (_sim.Employment.Definition is not { } definition)
+            return string.Join(&quot;\n\n&quot;, _sim.Actors.Where(a =&gt; a != _sim.Player).Select(a =&gt; a.Name + &quot; / &quot; + a.Id + &quot;\nAssigned to current site operation&quot;));
+        var entries = definition.Appointments.Select(a =&gt;
+        {
+            var actor = _sim.Actors.Single(actor =&gt; actor.Id == a.ActorId);
+            var report = _sim.Employment.DeliveredReports.SingleOrDefault(r =&gt; r.ActorId == a.ActorId);
+            var post = definition.Posts.Single(p =&gt; p.Id == a.PostId);
+            return $&quot;{actor.Name} / {actor.Id}\n{a.Role} · {post.Name}\n&quot;
+                + $&quot;Local duty cycle {a.CycleMs / 1000}s · starts {a.StartMs / 1000}s · lasts {a.DurationMs / 1000}s · overtime limit {a.MaxOvertimeMs / 1000}s\n&quot;
+                + (report is null ? &quot;Awaiting employment report.&quot; : $&quot;LAST REPORT L {report.LocalMs / 1000.0:0.0}s: {report.Phase}\n{report.Reason}&quot;);
+        });
+        var coverage = definition.Posts.Select(post =&gt;
+        {
+            var reports = _sim.Employment.DeliveredReports.Where(r =&gt; definition.Appointments.Any(a =&gt; a.ActorId == r.ActorId &amp;&amp; a.PostId == post.Id));
+            var count = reports.Count(r =&gt; r.Phase is DutyPhase.OnDuty or DutyPhase.AwaitingRelief);
+            return $&quot;{post.Name}: reported {count} / required {post.MinimumStaff}&quot;
+                + (count &lt; post.MinimumStaff ? &quot; · STAFFING WARNING&quot; : &quot;&quot;) + &quot;\nLast reports only; not live observation or containment certification.&quot;;
+        });
+        return string.Join(&quot;\n\n&quot;, entries) + &quot;\n\nPOST COVERAGE / REPORTED\n&quot; + string.Join(&quot;\n\n&quot;, coverage)
+            + &quot;\n\nDirect orders suspend employment only on delivery. Return to duty releases a standing command. Test shifts use local execution time; tactical holds freeze them.&quot;;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpWorkspace.Personnel.cs:7</footer></main></div></body></html>

@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpatialScene._UnhandledInput | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene._UnhandledInput</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-spatialscene-cs.html#L108">game/Presentation/SpatialScene.cs:108</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _UnhandledInput(InputEvent e)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-021b887f27d58a4c52e6.html">InventoryPanel.Toggle</a></li><li><a href="function-06f7132ee80e68cc477f.html">SpatialSimulation.BlinkPlayer</a></li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a></li><li><a href="function-16883261ab1c8ff057e1.html">OperationsPanel.CancelPost</a></li><li><a href="function-21e26055651ee30f0c6b.html">ReferenceProjection.Unproject</a></li><li><a href="function-23d9762f969df182214f.html">SpatialSimulation.UseTrainingEquipment</a></li><li><a href="function-24effbaa33246ef354e3.html">SpatialScene.Save</a></li><li><a href="function-30426758219b49510289.html">SpatialSimulation.ToggleNearestDoor</a></li><li><a href="function-366f6b077896c87035b5.html">SpatialSimulation.FireTraining</a></li><li><a href="function-37a92c20a44ba3c46a41.html">DoorInteraction.Toggle</a></li><li><a href="function-40474accb456dcf32583.html">SpatialSimulation.ToggleLighting</a></li><li><a href="function-416b039bdea599f8e1af.html">TacticalCombatSystem.EndTurn</a></li><li><a href="function-53789ae72a2eea244e8d.html">SpatialSimulation.Face</a></li><li><a href="function-5415cbf9e399a3486619.html">SpatialSimulation.EndTurn</a></li><li><a href="function-55d804e682a391f43ecb.html">InventoryClosures.Toggle</a></li><li><a href="function-5c5375315cb38e87abc1.html">SpatialScene.RefreshCamera</a></li><li><a href="function-689a0aa5a34004a5efcd.html">OperationsPanel.ToggleTerminal</a></li><li><a href="function-6d27cf6ba1541d4f9008.html">SpatialSimulation.RequestMove</a></li><li><a href="function-7244f6e432dd4e320836.html">SpatialSimulation.CancelMove</a></li><li><a href="function-77404554453759f98ad2.html">OperationsPanel.PlacePost</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-87ec14861be3ff3d1291.html">WorldView.PickTrainingOpponent</a></li><li><a href="function-95563ee7e62ae5215f5e.html">SpatialHud.ToggleComplacency</a></li><li><a href="function-95ae8c31c71fadae1a6b.html">SpatialHud.Toggle</a></li><li><a href="function-acd96b4066463ed0bf8c.html">Hex.FromWorld</a></li><li><a href="function-b077e0b23e612c329eda.html">SpatialScene.ResetCamera</a></li><li><a href="function-b179637e5b8ead1b6702.html">OscpWorkspace.HandleInput</a></li><li><a href="function-c584b2a7a803b3022576.html">SpatialSimulation.ToggleObserverAttention</a></li><li><a href="function-cc766b6bd1a7684d55e1.html">OscpWorkspace.Close</a></li><li><a href="function-f1b9c56509f6ddf4b743.html">OscpWorkspace.Toggle</a></li><li><a href="function-f4fe8ddda11b86d6e8d4.html">TacticalCombatSystem.Face</a></li><li><a href="function-f8835dd960e48c3efdc2.html">InventoryPanel.HandleInput</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_hud.Inventory.HandleInput
+_hud.Workspace.HandleInput
+_hud.Field.GetGlobalRect().HasPoint
+_hud.Field.GetGlobalRect
+Input.IsMouseButtonPressed
+_world.GetGlobalTransformWithCanvas().AffineInverse
+_world.GetGlobalTransformWithCanvas
+ReferenceProjection.Unproject
+Math.Clamp
+RefreshCamera
+_hud.Operations.PlacePost
+Hex.FromWorld
+_hud.Operations.CancelPost
+_simulation.Face
+_world.PickTrainingOpponent
+_simulation.FireTraining
+_simulation.RequestMove
+_hud.Workspace.Close
+_hud.Inventory.Toggle
+_simulation.EndTurn
+_simulation.UseTrainingEquipment
+ResetCamera
+SpatialHud.ToggleComplacency
+_hud.Operations.ToggleTerminal
+_hud.Workspace.Toggle
+_simulation.ToggleNearestDoor
+_simulation.ToggleObserverAttention
+_simulation.BlinkPlayer
+_simulation.ToggleLighting
+Save
+Restore
+_simulation.CancelMove</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-combatactionkind.html">CombatActionKind</a></li><li><a href="type-hex.html">Hex</a></li><li><a href="type-oscpdevice.html">OscpDevice</a></li><li><a href="type-referenceprojection.html">ReferenceProjection</a></li><li><a href="type-spatialhud.html">SpatialHud</a></li><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Implementation</h2><pre><code>public override void _UnhandledInput(InputEvent e)
+    {
+        if (_hud.Inventory.IsOpen) { _hud.Inventory.HandleInput(e); return; }
+        if (_hud.Workspace.IsOpen) { _hud.Workspace.HandleInput(e); return; }
+        if (e is InputEventMouseMotion motion &amp;&amp; _hud.Field.GetGlobalRect().HasPoint(motion.Position)
+            &amp;&amp; Input.IsMouseButtonPressed(MouseButton.Middle)) _pan += motion.Relative;
+        if (e is InputEventMouseButton { Pressed: true } mouse &amp;&amp; _hud.Field.GetGlobalRect().HasPoint(mouse.Position))
+        {
+            var local = _world.GetGlobalTransformWithCanvas().AffineInverse() * mouse.Position;
+            var target = ReferenceProjection.Unproject(new(local.X, local.Y));
+            if (mouse.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown)
+            {
+                _zoom = Math.Clamp(_zoom * (mouse.ButtonIndex == MouseButton.WheelUp ? 1.125f : 1 / 1.125f), 0.65f, 2.5f);
+                RefreshCamera();
+                var after = _world.GetGlobalTransformWithCanvas().AffineInverse() * mouse.Position;
+                _pan += (after - local) * _zoom;
+            }
+            else if (_hud.Operations.ChoosingPost &amp;&amp; mouse.ButtonIndex == MouseButton.Left) _hud.Operations.PlacePost(Hex.FromWorld(target));
+            else if (_hud.Operations.ChoosingPost &amp;&amp; mouse.ButtonIndex == MouseButton.Right) _hud.Operations.CancelPost();
+            else if (mouse.ButtonIndex == MouseButton.Right || mouse.ButtonIndex == MouseButton.Left &amp;&amp; mouse.CtrlPressed) _simulation.Face(target);
+            else if (mouse.ButtonIndex == MouseButton.Left)
+            {
+                var victim = _simulation.Combat.Active &amp;&amp; !mouse.ShiftPressed ? _world.PickTrainingOpponent(local) : null;
+                if (victim is not null) _simulation.FireTraining(victim.Id);
+                else _simulation.RequestMove(Hex.FromWorld(target), mouse.ShiftPressed);
+            }
+        }
+        if (e is not InputEventKey { Pressed: true, Echo: false } key) return;
+        switch (key.Keycode)
+        {
+            case Key.I: _hud.Workspace.Close(); _hud.Inventory.Toggle(); break;
+            case Key.Enter: _simulation.EndTurn(); break;
+            case Key.V: _simulation.UseTrainingEquipment(CombatActionKind.ReadyWeapon); break;
+            case Key.Y: _simulation.UseTrainingEquipment(CombatActionKind.Reload); break;
+            case Key.F2: _world.FieldView = !_world.FieldView; ResetCamera(); break;
+            case Key.F4: _world.DiagnosticSprites = !_world.DiagnosticSprites; break;
+            case Key.M: _audio.Muted = !_audio.Muted; break;
+            case Key.R: _encounter.ReducedEffects = !_encounter.ReducedEffects; break;
+            case Key.J: SpatialHud.ToggleComplacency(_simulation); break;
+            case Key.T: _hud.Operations.ToggleTerminal(); break;
+            case Key.P: _hud.Workspace.Toggle(OscpDevice.Phone); break;
+            case Key.C: _world.CollisionOverlay = !_world.CollisionOverlay; break;
+            case Key.G: _world.HexGrid = !_world.HexGrid; break;
+            case Key.B: _world.FloorGrid = !_world.FloorGrid; break;
+            case Key.L: _world.SightOverlay = !_world.SightOverlay; break;
+            case Key.W: _world.ReducedWalls = !_world.ReducedWalls; break;
+            case Key.H: _world.Cutaway = !_world.Cutaway; break;
+            case Key.E: _simulation.ToggleNearestDoor(); break;
+            case Key.O: _simulation.ToggleObserverAttention(); break;
+            case Key.K: _simulation.BlinkPlayer(); break;
+            case Key.F8: _simulation.ToggleLighting(); break;
+            case Key.F6: _simulation.LocalHold = !_simulation.LocalHold; break;
+            case Key.Space: _simulation.ManualPause = !_simulation.ManualPause; break;
+            case Key.Key1: _simulation.Speed = 1; break;
+            case Key.Key2: _simulation.Speed = 2; break;
+            case Key.Key3: _simulation.Speed = 4; break;
+            case Key.F5: Save(); break;
+            case Key.F9: Restore(); break;
+            case Key.Escape: _simulation.CancelMove(); break;
+            case Key.Home: ResetCamera(); break;
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/SpatialScene.cs:108</footer></main></div></body></html>

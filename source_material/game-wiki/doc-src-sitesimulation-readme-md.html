@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Simulation code map | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: src/SiteSimulation/README.md.</aside><h1 id="simulation-code-map">Simulation code map</h1>
+<p>This is the engine-independent C# prototype. Godot input, drawing and diagnostics UI live in game/Presentation (<code>../../game/Presentation</code>; repository path). The public script host, complete logistics/crafting, full profession/calendar systems and complete combat are not implemented yet. Scheduled observation employment is implemented as a bounded slice.</p>
+<table>
+<thead>
+<tr>
+<th>Directory/file</th>
+<th>Owns</th>
+<th>Does not own</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="file-src-sitesimulation-spatialsimulation-cs.html">SpatialSimulation.cs</a></td>
+<td>Tick ordering and validated prototype command entry points</td>
+<td>Sprite frames, SCP-specific selection policy or inventory rules</td>
+</tr>
+<tr>
+<td>World/ (<code>World</code>; repository path)</td>
+<td>Map definition/geometry, doors, lighting, physical state and dynamic blockers</td>
+<td>Whether an SCP is allowed to self-relocate</td>
+</tr>
+<tr>
+<td>Actors/ (<code>Actors</code>; repository path)</td>
+<td>Actor state, perceived player-route planning, movement progression, reservations and bounded patrol</td>
+<td>Perception qualification or anomaly RNG</td>
+</tr>
+<tr>
+<td>Perception/ (<code>Perception</code>; repository path)</td>
+<td>Facing/lighting/occlusion/attention facts, eligibility and shared player evidence/interruption settings</td>
+<td>SCP-specific reactions, relocation selection or hidden-entity tracking</td>
+</tr>
+<tr>
+<td><a href="file-src-sitesimulation-anomalies-anomalysystem-cs.html">Anomalies/AnomalySystem.cs</a></td>
+<td>Native module registry, scheduling and persistence binding</td>
+<td>Mission-triggered teleports</td>
+</tr>
+<tr>
+<td><a href="file-src-sitesimulation-anomalies-anomalyworldaccess-cs.html">Anomalies/AnomalyWorldAccess.cs</a></td>
+<td>Bounded read queries and commit-time spatial validation</td>
+<td>The module's policy for when to request a move</td>
+</tr>
+<tr>
+<td>Anomalies/Scp650/ (<code>Anomalies/Scp650</code>; repository path)</td>
+<td>SCP-650 observation rule, placement query, poses, RNG, local retry and per-witness encounters</td>
+<td>Directly setting actor/world positions or playing sound</td>
+</tr>
+<tr>
+<td>Operations/ (<code>Operations</code>; repository path)</td>
+<td>Data-defined duties/orders, bounded voice/radio delivery, observed physical transport, received reports and recovery conditions</td>
+<td>SCP relocation policy, full employment, inventory-backed devices or public scripting</td>
+</tr>
+<tr>
+<td>Employment/ (<code>Employment</code>; repository path)</td>
+<td>Scheduled appointments, physical observation posts, bounded relief/overtime, delivered duty reports and continuation</td>
+<td>Full professions, hiring, needs, optional jobs or world-calendar shifts</td>
+</tr>
+<tr>
+<td>Inventory/ (<code>Inventory</code>; repository path)</td>
+<td>Shared physical item graph, worn/nested regions, packing/access, timed/AP manipulation and native equipment availability</td>
+<td>General hauling, crafting, material portions, public mod loading or item-based weapons</td>
+</tr>
+<tr>
+<td>Terminals/ (<code>Terminals</code>; repository path)</td>
+<td>Native OSCP app registry, actual workstation/handset access, acquired records and bounded regional intake</td>
+<td>UI layout, host shell execution, full SCiPnet, AIC runtime or inventory-backed devices</td>
+</tr>
+<tr>
+<td>Feedback/ (<code>Feedback</code>; repository path)</td>
+<td>Bounded acquired player messages, visibility episodes and delivery feedback</td>
+<td>Copying hidden diagnostic state or implementing conversations</td>
+</tr>
+<tr>
+<td>Combat/ (<code>Combat</code>; repository path)</td>
+<td>Local turn/AP scheduler, training equipment/points, action continuations, perception-based autonomous decisions and save validation</td>
+<td>Full injuries, public weapon definitions or ordinary hostility policy</td>
+</tr>
+<tr>
+<td>Diagnostics/ (<code>Diagnostics</code>; repository path)</td>
+<td>Bounded causal trace with world/local time, cause, subject and reason</td>
+<td>Advancing simulation when inspected</td>
+</tr>
+<tr>
+<td>Persistence/ (<code>Persistence</code>; repository path)</td>
+<td>Versioned snapshot and detached validation before replacing live state</td>
+<td>Replaying creation rewards or rerolling modules</td>
+</tr>
+</tbody>
+</table>
+<p>The confirmed production presentation is a Fallout 2-style bottom HUD plus a dedicated full OSCP terminal workspace for strategic management. The Pip-Boy comparison concerns interface access, not arm-mounted hardware. Full OSCP is accessed at fixed facility workstations and framed by a visible faux CRT monitor; its secure-phone counterpart focuses on current-location maps, mission information, communications and authorized mission/team commands, with extensible applications and shell navigation still to qualify. Current engineering panels are replaceable adapters: they read acquired feedback/query state and submit validated commands through <code>SpatialSimulation</code>. Keep screen arrangement and interaction bindings in Godot presentation; the simulation owns authority, knowledge, AP, equipment rules and consequences. See the <a href="doc-docs-20-event-log-and-tactical-training-md.html#confirmed-presentation-target">presentation target</a>.</p>
+<p>Future OSCP, world-map, local-play and facility-management entry scenes each receive their declared simulation services from an application bootstrap. They must run meaningful standalone scenarios without sibling renderers and attach to one session/scheduler in combined play. Commands, queries, IDs and saved world state stay shared; scene-to-scene widget calls do not implement domain work. <a href="doc-docs-adr-0007-independent-gameplay-modes-md.html">ADR-0007</a> records the accepted direction and proposed contracts. The October 25 OSCP/local proof now uses an attachable <code>OscpWorkspace</code> and a standalone OSCP entry over the same <code>SimulationRuntime</code> tick adapter and simulation services. World-map/facility mode entries remain future work. <a href="doc-docs-21-oscp-runtime-prototype-md.html">The OSCP runtime guide</a> records qualification and limits.</p>
+<p>Typical path:</p>
+<pre><code class="language-text">mouse/key intent
+  -&gt; SpatialSimulation command validation
+  -&gt; world/perception facts change
+  -&gt; anomaly module evaluates the facts
+  -&gt; module proposes a relocation
+  -&gt; host rechecks observation + destination + execution gate
+  -&gt; one physical body/pose/collision transaction
+  -&gt; diagnostic trace and later witness reaction
+  -&gt; Godot draws the committed state
+</code></pre>
+<p>The native module interface is an implementation seam, not a sandbox security guarantee or a promised mod API. SCP-650 owns per-person <code>complacency</code> state and selects threat/relaxed placement and pose pools. Its queries request explicit near-actor/radius, optional rear placement, clear-line geometry and unobserved cells. The shared host does not interpret complacency: its generic flag dispatcher forwards a validated target to the module, which accepts/rejects the named flag and actor kind. The host validates those declared parameters within the instance's granted scope. A future module can need another qualified capability; avoid adding its special rule to the movement/rendering code.</p>
+<p>Current inventory snapshots require outer schema 14 for actual worn order, attachment poses, worn body coordinates, exact packing plans, per-fastening preferences and queued inventory securing, garment fastening and inventory handling plus employment/journal/tactical continuations and SCP-650 module schema 2. Matching older non-inventory operation/spatial saves retain their explicit compatibility paths; older inventory schemas require a fresh scene. The optional operation snapshot persists order/report/rig state and is validated separately. Handset, acquired-report IDs and once-only regional-intake fields introduced in schema 5 remain supported; matching older saves do not gain a new issued handset. Content identity includes the operation definition; the newly appointed employment scenarios cannot load the former scenario saves. Employment continuation is required when the matching scenario defines appointments. Matching spatial-only schema-2/3 saves remain supported; schema 2 migrates with empty awareness history and enabled safety settings; older implicit-familiarity module saves are rejected rather than assigned invented flags. PlayerNavigation plans against known layout/perceived occupants and approaches blocked goals; actual steps retain full collision validation. Requested goals and route-local encountered cells preserve continuation/rerouting without revealing hidden occupants. A stopped actor retains a fractional edge separately from its cleared route, and new paths can continue or reverse without snapping. Shared awareness accepts acquired contacts and never pauses a clock or delegates player safety to the SCP module. Module state stores complacency separately from witness history. No automatic complacency metric exists. A failed restore builds/discards a detached candidate and leaves the current world intact. Do not mutate live state incrementally while validating a save. Read-only diagnostics return current facts without consuming RNG or adding events.</p>
+<p>Run <a href="evidence-tests-spatialchecks-program-cs.html">the spatial checks</a> and <a href="evidence-tests-spatialchecks-scp650checks-cs.html">SCP-650 checks</a> with <code>python3 tools/run_spatial_scene.py --check</code> from the workspace root. The <a href="doc-docs-15-spatial-prototype-md.html">prototype guide</a> covers the Godot smoke run and the <a href="doc-docs-16-item-composition-and-crafting-md.html">composition contract</a> records future inventory/crafting boundaries without adding empty implementations now.</p>
+<p>The <a href="doc-docs-19-personnel-orders-and-recovery-prototype-md.html">recovery prototype guide</a> describes the command → delivered order → real work → received report flow and the explicit limits of radio/device and physical transport fixtures.</p>
+<p>The <a href="doc-docs-20-event-log-and-tactical-training-md.html">event log and tactical training guide</a> explains evidence-gated player messages, local AP resolution, controls, provisional tuning and pending-action persistence. The unrestricted debug trace never supplies journal entries.</p>
+<p>The <a href="evidence-game-assets-facility-standins-readme-md.html">generated facility sprite set</a> is selected by the presentation-only <code>SpriteArtCatalog</code> in <code>game/Presentation</code>. Its actor/rig/state/facing/frame/ordered-layer bindings, atlas regions and anchors are independent of this simulation. Baked outfit art can later be replaced by compatible layered assets without changing NPC rules or timing.</p>
+<p>The <a href="doc-docs-22-employment-prototype-md.html">employment guide</a> records local test-shift timing, actual handover, order interruption, acquired staffing information and limits.</p>
+<p>The <a href="doc-docs-23-personal-inventory-prototype-md.html">inventory guide</a> records native profile identity, physical/service equipment gates, realtime/AP costs and qualification limits. Definitions are embedded JSON; art stays in Godot presentation.</p>
+<p><a href="file-src-sitesimulation-inventory-equipment-inventorywear-cs.html">InventoryWear</a> owns body coverage, layer conflicts, exposed pocket regions and outermost pack dressing dependencies. It is independent of sprite/UI selection. Garment opening is a timed inventory action; world clothing art and protection effects remain future work. Belts, physical overlays and nested hook providers are qualified by the later guides.</p>
+<p>Inventory closure intent is isolated in <code>Inventory/Transactions/InventorySecuring.cs</code>. It purchases serial ordinary handling at local scheduler boundaries, including tactical input boundaries. Preparing during pause never advances local time; insufficient AP waits for an explicit later turn. Clothing overlap, access covering and removal blocking are independent metadata. UI view trails and authored hotspot geometry remain in Godot presentation.</p>
+<p><code>Inventory/Transactions/InventoryClosures.cs</code> derives action labels from physical closure booleans and resolves authored securing defaults against instance/compartment overrides. Automatic dismissal plans honor those preferences; explicit physical actions remain available. Overrides persist in the item graph but do not change physical access or invalidate already paid work.</p>
+<p>Inventory packing is isolated in <code>Inventory/Placement/InventoryPacking.cs</code> (pure bounded region solver) and <code>Inventory/Transactions/InventoryPackingActions.cs</code> (access, costs and plan validation). Exact manual moves retain their original behavior; AutoPlace addresses a different container, and Arrange is explicit. Saved paid work retains the exact atomic plan. See the <a href="doc-docs-29-gear-data-standard-md.html">gear authoring contract</a> for proposed future schemas beyond the current native DTOs.</p>
+<p>Body-local mask/contact fitting is isolated under <code>Inventory/Equipment/BodyFit/</code>. The catalog reads a separate embedded silhouette/contact resource included in content identity. Pure geometry returns cells and failed contacts; the bridge validates optional worn poses through existing Move commands, costs and detached saves. Named mounts remain; mapped pocket coverage is now handled separately by <code>InventoryCoverage</code>. See the <a href="doc-docs-30-body-fit-prototype-md.html">body-fit runtime guide</a>.</p>
+<p>The <a href="doc-docs-38-body-fit-cleanup-md.html">symmetric body cleanup</a> authors matching body/clothing/mouth/fastening geometry through <code>tools/author_body_fit_fixture.py</code>. Optional linear spans extend a fixed core within declared bounds; wearing and access project resolved cells. Length derives from immutable geometry and saved pose, preserving schema 14 and ordinary paid handling. Central authored webbing points remain distinct from extension.</p>
+<p><code>Inventory/Equipment/BodyFit/InventoryCoverage.cs</code> projects compartment access mouths and active outer cover masks on matching body surfaces. <code>InventoryWear.Compartment</code> feeds that result into every ancestor access check. Unmapped outer gear retains the coarse compatibility rule, and geometric non-overlap does not reapply a coarse block. Removal/layer rules remain independent. See the <a href="doc-docs-31-pocket-coverage-prototype-md.html">coverage runtime guide</a>.</p>
+<p>The <a href="doc-docs-32-belt-and-attachment-prototype-md.html">belt/pouch runtime</a> adds <code>Inventory/Equipment/InventoryAttachments.cs</code>: compatible support contacts, local hex occupancy, collision and composed body position. It shares the ordinary hierarchy, placement, access, timed transaction and save services. Exterior attachment regions deliberately bypass square packing and have no lid state.</p>
+<p><a href="doc-docs-37-placement-extenders-and-mount-points-md.html">Placement extenders and mount points</a> add <code>InventoryAttachmentFrames</code> for composed provider coordinates and <code>InventoryAttachmentClearance</code> for shared exterior collision. Worn providers share the actor/surface plane; loose assemblies have separate anchors. Immediate mating contacts have a narrow collision exception. Existing access, hierarchy, load, paid transaction and detached restore checks remain authoritative.</p>
+<p><a href="doc-docs-39-body-drag-fitting-md.html">Direct body-fit drops</a> address one inspectable stored item through <code>PreviewBodyFitDrop</code>, leaving the worn/held selector bounded. Both preview paths build the same ordinary Move request; access, time/AP, graph revalidation and continuation remain in existing services. Godot owns independent transient rotation/drag drafts.</p>
+<p><a href="doc-docs-40-body-inspection-and-removal-md.html">Body inspection/removal</a> adds <code>InventoryBodyInspection</code>: read-only exposed own-worn targets, active cover masks, explicit front/back sides and normal move-access feedback. The Godot inspection partial separates item picking/drag sources from fit drafts. Camera mirroring never changes physical pose; removal uses existing paid transactions and clears worn coordinates normally.</p>
+<p>The original <a href="doc-docs-41-paperdoll-sprite-proof-md.html">upper-body sprite qualification</a> introduced a Godot-only appearance adapter without domain state/content changes. <a href="doc-docs-42-full-body-paperdoll-md.html">Full-body qualification</a> now adds the real underwear item/profile and reads six clothing bindings through that adapter. The native kit has 19 definitions/39 instances/9 fit profiles; new content identity requires fresh older-kit saves, with schema 14 unchanged. Visual alpha, body cutouts and paired render parts never determine physical access, fitting, parenthood or mass.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/README.md</footer></main></div></body></html>

@@ -1,0 +1,140 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/generate_diagnostic_sprites.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>generate_diagnostic_sprites.py</h1><pre>&quot;&quot;&quot;Generate labeled development sprite samples; no game/runtime integration.&quot;&quot;&quot;
+
+from hashlib import sha256
+import json
+from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageFont, __version__ as pillow_version
+
+
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT = ROOT / &quot;assets/development/diagnostic-sprites&quot;
+SIZE = 192
+SUPERSAMPLE = 4
+FACING_COLOR = &quot;#61FF70&quot;
+FONT = Path(&quot;/usr/share/fonts/open-sans/OpenSans-Regular.ttf&quot;)
+BOLD_FONT = Path(&quot;/usr/share/fonts/open-sans/OpenSans-Bold.ttf&quot;)
+PALETTE = {
+    &quot;landscape&quot;: (&quot;#6B5D3E&quot;, &quot;LANDSCAPE&quot;, &quot;Ground&quot;),
+    &quot;map_object&quot;: (&quot;#61717C&quot;, &quot;MAP OBJECT&quot;, &quot;Oak tree&quot;),
+    &quot;building&quot;: (&quot;#9B7BA6&quot;, &quot;BUILDING&quot;, &quot;Wall tile&quot;),
+    &quot;object&quot;: (&quot;#C88E41&quot;, &quot;OBJECT&quot;, &quot;Supply box&quot;),
+    &quot;npc&quot;: (&quot;#3D8FA3&quot;, &quot;NPC&quot;, &quot;Mara Chen&quot;),
+    &quot;player&quot;: (&quot;#C74D79&quot;, &quot;PLAYER&quot;, &quot;Player&quot;),
+}
+BAR_RECTS = {
+    &quot;north&quot;: (18, 14, 174, 22),
+    &quot;east&quot;: (168, 18, 176, 174),
+    &quot;south&quot;: (18, 168, 174, 176),
+    &quot;west&quot;: (14, 18, 22, 174),
+}
+
+
+def sprite(category, state, facing, frame=1, total=1):
+    color, label, name = PALETTE[category]
+    canvas = Image.new(&quot;RGBA&quot;, (SIZE * SUPERSAMPLE,) * 2)
+    draw = ImageDraw.Draw(canvas)
+
+    def rect(bounds, fill, radius=0, outline=None):
+        bounds = tuple(value * SUPERSAMPLE for value in bounds)
+        draw.rounded_rectangle(
+            bounds, radius=radius * SUPERSAMPLE, fill=fill,
+            outline=outline, width=2 * SUPERSAMPLE,
+        )
+
+    def text(y, value, size, bold=False, fill=&quot;white&quot;):
+        font = ImageFont.truetype(str(BOLD_FONT if bold else FONT), size * SUPERSAMPLE)
+        draw.text(
+            (SIZE * SUPERSAMPLE / 2, y * SUPERSAMPLE), value,
+            font=font, fill=fill, anchor=&quot;mm&quot;,
+        )
+
+    rect((12, 12, 180, 180), color, radius=14, outline=&quot;#101820&quot;)
+    if facing:
+        rect(BAR_RECTS[facing], FACING_COLOR, radius=2)
+    text(42, label, 14, bold=True)
+    text(77, name, 21, bold=True)
+    text(110, f&quot;{state}:{frame}/{total}&quot;, 19)
+    text(140, facing[0].upper() if facing else &quot;STATIC&quot;, 16, bold=True)
+    # A diagnostic phase marker, not a collision or gameplay animation event.
+    if total &gt; 1:
+        for index in range(total):
+            x = 65 + index * 24
+            rect((x, 154, x + 14, 159), &quot;white&quot; if index == frame - 1 else &quot;#18313B&quot;, radius=2)
+    return canvas.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
+
+
+def main():
+    for path in (FONT, BOLD_FONT):
+        if not path.is_file():
+            raise SystemExit(f&quot;Required reference font missing: {path}&quot;)
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    entries = []
+    images = {}
+
+    def emit(category, state, facing, frame=1, total=1):
+        direction = facing or &quot;none&quot;
+        key = f&quot;{category}/{state}/{direction}/frame-{frame:02}&quot;
+        filename = f&quot;{category}-{state}-{direction}-{frame:02}.png&quot;
+        picture = sprite(category, state, facing, frame, total)
+        picture.save(OUTPUT / filename)
+        images[key] = picture
+        entries.append({
+            &quot;key&quot;: key, &quot;file&quot;: filename, &quot;category&quot;: category,
+            &quot;sample_name&quot;: PALETTE[category][2], &quot;state&quot;: state,
+            &quot;facing&quot;: facing, &quot;frame&quot;: frame, &quot;frame_count&quot;: total,
+            &quot;canvas_px&quot;: [SIZE, SIZE], &quot;anchor_px&quot;: [96, 180],
+            &quot;draw_bounds_px&quot;: [12, 12, 180, 180],
+            &quot;precomposed_debug_labels&quot;: True,
+        })
+        return key
+
+    categories = []
+    for category in PALETTE:
+        facing = &quot;north&quot; if category == &quot;npc&quot; else &quot;south&quot; if category == &quot;player&quot; else None
+        categories.append(emit(category, &quot;idle&quot; if facing else &quot;illustration&quot;, facing))
+    walks = [
+        emit(&quot;npc&quot;, &quot;walk&quot;, facing, frame, 3)
+        for frame in range(1, 4) for facing in BAR_RECTS
+    ]
+
+    sheet = Image.new(&quot;RGBA&quot;, (1240, 1116), &quot;#101820&quot;)
+    draw = ImageDraw.Draw(sheet)
+
+    def heading(x, y, value, size=20, bold=False, color=&quot;#DCE7EB&quot;):
+        font = ImageFont.truetype(str(BOLD_FONT if bold else FONT), size)
+        draw.text((x, y), value, font=font, fill=color)
+
+    heading(24, 17, &quot;Diagnostic sprite reference&quot;, 30, bold=True)
+    heading(24, 64, &quot;Generated development stand-ins | Proposed colors | Finished art replaces visual bindings&quot;, 17)
+    for index, key in enumerate(categories):
+        sheet.alpha_composite(images[key], (24 + index * 200, 105))
+    heading(24, 322, &quot;One NPC: three walk frames across four facing directions&quot;, 22, bold=True)
+    heading(24, 360, &quot;Green edge = perception facing. Frame label and white phase dot change with the frame.&quot;, 17)
+    for index, key in enumerate(walks):
+        row, col = divmod(index, 4)
+        sheet.alpha_composite(images[key], (212 + col * 208, 405 + row * 208))
+    heading(24, 1050, &quot;Sample asset sheet only. No game scene, animation playback, or employment controller is implemented.&quot;, 17)
+    sheet.save(OUTPUT / &quot;reference-sheet.png&quot;)
+
+    manifest = {
+        &quot;schema_version&quot;: &quot;diagnostic-reference/0.1&quot;,
+        &quot;purpose&quot;: &quot;Engine-independent precomposed samples, not a runtime asset API&quot;,
+        &quot;animation_runtime_implemented&quot;: False,
+        &quot;reference_projection&quot;: &quot;top-down north-up&quot;,
+        &quot;frame_numbering&quot;: &quot;one-based&quot;,
+        &quot;facing_color&quot;: FACING_COLOR,
+        &quot;palette&quot;: {key: value[0] for key, value in PALETTE.items()},
+        &quot;directions&quot;: list(BAR_RECTS),
+        &quot;pillow_version&quot;: pillow_version,
+        &quot;font_sha256&quot;: {path.name: sha256(path.read_bytes()).hexdigest() for path in (FONT, BOLD_FONT)},
+        &quot;reference_sheet&quot;: &quot;reference-sheet.png&quot;,
+        &quot;entries&quot;: entries,
+    }
+    (OUTPUT / &quot;manifest.json&quot;).write_text(json.dumps(manifest, indent=2) + &quot;\n&quot;)
+    print(f&quot;Generated {len(entries)} sample frames, reference-sheet.png and manifest.json in {OUTPUT}&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

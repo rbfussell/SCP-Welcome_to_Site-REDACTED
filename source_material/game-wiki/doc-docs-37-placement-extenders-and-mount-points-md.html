@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Placement extenders and mount points: the utility hook | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/37-placement-extenders-and-mount-points.md.</aside><h1 id="placement-extenders-and-mount-points-the-utility-hook">Placement extenders and mount points: the utility hook</h1>
+<p>Related interaction: <a href="doc-docs-39-body-drag-fitting-md.html">direct body-fit drops</a> fit wearable items onto the engineering body. Enlarged gear surfaces retain their own attachment/container targets and rotation context; the new body target does not arbitrate provider drops.</p>
+<p>Follow-up: <a href="doc-docs-38-body-fit-cleanup-md.html">body-fit cleanup</a> corrects native body/clothing geometry and adds bounded adjustable belt fitting. Hook/provider contracts below remain; central webbing points retain their local coordinates.</p>
+<p>Implemented October 29, 2026. This extends <a href="doc-docs-32-belt-and-attachment-prototype-md.html">belt attachments</a>, <a href="doc-docs-36-overlay-sublayers-md.html">physical overlays</a> and the <a href="doc-docs-33-fit-ranks-and-worn-stacks-md.html">nested-provider design</a>. The hook is ordinary prototype equipment, not an SCP canon claim. The <a href="mount-points.html">game-wiki guide</a> connects inventory, presentation and persistence.</p>
+<h2 id="try-the-fixture">Try the fixture</h2>
+<p>Start a fresh scene: immutable field-kit content identity has changed. There are now <strong>18 definitions, 38 item instances and 27 compartment states</strong>. The supply crate adds <code>utility-hook</code> at <code>(22,13)</code> and <code>utility-pouch-2</code> at <code>(3,4)</code>.</p>
+<ol>
+<li>Equip the belt through normal handling and inspect its exterior.</li>
+<li>Take the hook into your hand and drag its clip onto the webbing. Preview is read-only; release starts paid mounting.</li>
+<li>Drop a pouch connector onto the hook's lower point, below the belt. The pouch belongs to the hook, not the belt.</li>
+<li>Double-click the hanging pouch. The middle trail follows <strong>belt → hook → pouch</strong>; its snapped interior opens separately on the right through paid handling.</li>
+<li>Use ↑ to return through providers. Dragging/rotating the hook carries its pouch and contents. Taking off the belt carries the whole assembly without rewriting child placements.</li>
+</ol>
+<p>The hook's upper contact is <code>(0,0)</code> and its offered lower mount is <code>(-1,2)</code>, directly downward in the point-up grid. Mounts retain six exact 60° orientations subject to clearance. Inventory storage retains horizontal/vertical rotation. Selecting an orientation never forces a fit through another object.</p>
+<h2 id="data-and-physical-contract">Data and physical contract</h2>
+<p>No hook-only action, extra item parent, loose-item pocket or lid is introduced. An extender is an attachable item that also offers support:</p>
+<table>
+<thead>
+<tr>
+<th>Native field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ItemDefinition.Attachment.Interface</code></td>
+<td>Connector required to attach this item to its parent.</td>
+</tr>
+<tr>
+<td><code>AttachmentProfile.Contacts</code> / <code>Occupancy</code></td>
+<td>Own required mating cells and exterior collision envelope.</td>
+</tr>
+<tr>
+<td><code>StorageRegion.Attachment.Interface</code></td>
+<td>Connector offered to a child; may differ from the required connector.</td>
+</tr>
+<tr>
+<td><code>AttachmentSurface.Cells</code></td>
+<td>Offered points in provider-local coordinates, independent of provider origin.</td>
+</tr>
+<tr>
+<td><code>AttachmentSurface.Surface</code></td>
+<td>Explicit front/back plane or inherited <code>mounted</code> plane.</td>
+</tr>
+<tr>
+<td><code>StorageRegion.MaxMassGrams</code></td>
+<td>Entire child assemblies' load, excluding the provider's own mass.</td>
+</tr>
+<tr>
+<td><code>ItemPlacement.AttachmentPose</code></td>
+<td>Parent-local anchor and sixth-turn rotation.</td>
+</tr>
+</tbody>
+</table>
+<p>The native hook accepts and offers <code>belt-loop</code>; its lower mount supports <strong>500 g</strong>. Its <code>placement-extender</code> tag describes the fixture; interfaces and geometry implement the behavior. It offers no Arrange operation, default interior or invented storage capacity. Future connectors can use different interface IDs and existing category filters. The <a href="doc-templates-gear-data-sheet-md.html">author sheet</a> and <a href="doc-docs-29-gear-data-standard-md.html">gear standard</a> retain a separate proposed public card format; this fixture does not implement a public loader.</p>
+<p><a href="file-src-sitesimulation-inventory-equipment-inventoryattachmentframes-cs.html">Frame composition</a> combines every link's position and rotation. Contents do not enter exterior geometry. Separate packed/held assemblies retain their own frames; worn providers on one person share the corresponding body surface. <a href="file-src-sitesimulation-inventory-equipment-inventoryattachmentclearance-cs.html">Shared clearance</a> compares attachments across regions, hooks and worn belts. Assigning different parents grants no extra physical space. Opposite surfaces remain separate.</p>
+<p>A child may meet its immediate provider only at its required mating contacts; this exception cannot waive collision elsewhere or against cousins/unrelated gear. Compatibility, exposed contacts, fit bands, ancestor access, hierarchy depth and load remain independent checks. Explicit front/back surfaces are inherited through nested providers. Provider movement and clothing closure revalidate the complete graph. Rejection never silently detaches, relocates or opens equipment.</p>
+<h2 id="views-handling-and-persistence">Views, handling and persistence</h2>
+<p>The gear view draws and alpha-picks visible exterior descendants in composed coordinates. Drop targeting includes a hook's lower point while viewing its belt. Inspecting a visible descendant adds the intervening provider trail without opening interiors. Preview rotation carries visible descendants but performs no work. The hook's own view uses its mounted registration and the same 44-pixel diagnostic hex spacing.</p>
+<p>The original transparent hook sprite (asset: ../game/Assets/inventory-objects/utility-hook.png), <a href="evidence-game-assets-inventory-objects-manifest-json.html">atlas/anchor registration</a> and <a href="evidence-game-assets-inventory-objects-attachment-prompts-json.html">exact built-in image-generation prompt</a> are project assets. Source pixels are unchanged; art size does not define physical fit.</p>
+<p>All physical changes use ordinary timed inventory transactions and tactical AP, retain their source until completion, and revalidate at commitment. Each descendant contributes mass once: belt 250 g + hook 80 g + pouch 100 g + dressing 40 g = <strong>470 g</strong>. Matching saves resume exact empty or loaded paid work. Invalid saved contacts or cross-provider intersections fail detached restore atomically.</p>
+<p>No mutable field was added: save schema remains <strong>14</strong>. New immutable fixture identity requires a fresh scene.</p>
+<h2 id="verification-and-bounds">Verification and bounds</h2>
+<pre><code class="language-sh">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/hook.png
+python3 tools/run_spatial_scene.py --hook-smoke work/preview/spatial-scene/hook-focused.png
+python3 tools/check_gear_data.py
+</code></pre>
+<p><a href="evidence-tests-spatialchecks-hookchecks-cs.html">Domain checks</a> cover six composed rotations, narrow mating exceptions, cousin/cross-belt collisions, opposite surfaces/inheritance, recursive load, ancestry, time/AP, saved continuation and invalid restore. <a href="file-game-presentation-spatialscene-hooksmoke-cs.html">Native input checks</a> exercise dragging, lower targets, recursive preview/rotation, trails, closure, occupied-point refusal and loaded detachment. Actual results belong in the <a href="doc-docs-reviews-inventory-runtime-checks-md.html">runtime evidence</a>; the wiki build does not execute gameplay tests.</p>
+<p>This is coarse two-dimensional exterior clearance per surface. Arbitrary 3D depth offsets, swinging/sagging, garment/material volume collision, latching hooks, keyring content, dynamic assembly packing envelopes and world clothing composition remain future work. The native body silhouette and known diagonal limitation are unchanged. An isolated authored geometry fixture qualifies cousin clearance without substituting its shapes for native art.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/37-placement-extenders-and-mount-points.md</footer></main></div></body></html>

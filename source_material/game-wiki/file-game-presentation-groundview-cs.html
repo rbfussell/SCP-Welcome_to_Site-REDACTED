@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/GroundView.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>GroundView.cs</h1><p>game/Presentation/GroundView.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-groundview.html">GroundView</a></li><li><a href="type-groundview-sightstamp.html">SightStamp</a></li><li><a href="type-groundview-batch.html">Batch</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-3c24d0a2933f92e61e40.html">GroundView.Simulation</a> · line 10</li><li><a href="function-b34640ef048ba0e2faed.html">GroundView.Simulation.get</a> · line 10</li><li><a href="function-4f7cae6111d552770ff7.html">GroundView.Simulation.set</a> · line 10</li><li><a href="function-785638218299affa605a.html">GroundView.Textures</a> · line 11</li><li><a href="function-ae81ba192268318a4f00.html">GroundView.Textures.get</a> · line 11</li><li><a href="function-015347fd7b31734f4964.html">GroundView.Textures.set</a> · line 11</li><li><a href="function-2b94e3611cc38a355115.html">GroundView.AuthoredTextures</a> · line 12</li><li><a href="function-28d262c008ab70628b92.html">GroundView.AuthoredTextures.get</a> · line 12</li><li><a href="function-1627c6d22fdf75b97d4b.html">GroundView.AuthoredTextures.set</a> · line 12</li><li><a href="function-b34b5adbfee15ae5a1d7.html">GroundView.ShadingBuilds</a> · line 16</li><li><a href="function-86594462890b42e8d38f.html">GroundView.ShadingBuilds.get</a> · line 16</li><li><a href="function-1c9d185f76a1c41d5c74.html">GroundView.ShadingBuilds.set</a> · line 16</li><li><a href="function-fc27fe1239df9288b626.html">GroundView._Ready</a> · line 22</li><li><a href="function-90877b5fc9b9d4a29c81.html">GroundView.Refresh</a> · line 65</li><li><a href="function-e788e26ac1bbaef0f92a.html">GroundView._Draw</a> · line 101</li><li><a href="function-01c4656ed8f97d5fce6c.html">GroundView._ExitTree</a> · line 106</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Textured floor meshes with shared spatial shading samples, independent of sprite anchors.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class GroundView : Node2D</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private const int Subdivisions = 8;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public SpatialSimulation Simulation { get; set; } = null!;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     public IReadOnlyDictionary&lt;string, Texture2D&gt; Textures { get; set; } = null!;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     public IReadOnlyDictionary&lt;string, Texture2D&gt; AuthoredTextures { get; set; } = new Dictionary&lt;string, Texture2D&gt;();</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private bool _authored = true;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private readonly List&lt;Batch&gt; _batches = [];</span>
+<span id="L15"><a class="line" href="#L15">15</a>     private SightStamp? _stamp;</span>
+<span id="L16"><a class="line" href="#L16">16</a>     public int ShadingBuilds { get; private set; }</span>
+<span id="L17"><a class="line" href="#L17">17</a>     private sealed record SightStamp(Point2 Position, Hex Cell, int Facing, bool Attending, bool EyesOpen,</span>
+<span id="L18"><a class="line" href="#L18">18</a>         bool LightsOn, bool FieldView, bool Authored, string Doors);</span>
+<span id="L19"><a class="line" href="#L19">19</a>     private sealed record Batch(ArrayMesh Mesh, string Key, Texture2D Texture, Vector2[] Vertices, Vector2[] UVs, Vector2[] PlanarUVs,</span>
+<span id="L20"><a class="line" href="#L20">20</a>         int[] Indices, Point2[] Ground, Color[] Tints);</span>
+<span id="L21"><a class="line" href="#L21">21</a> </span>
+<span id="L22"><a class="line" href="#L22">22</a>     public override void _Ready()</span>
+<span id="L23"><a class="line" href="#L23">23</a>     {</span>
+<span id="L24"><a class="line" href="#L24">24</a>         ShowBehindParent = true;</span>
+<span id="L25"><a class="line" href="#L25">25</a>         TextureFilter = TextureFilterEnum.Nearest;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var map = Simulation.Map.Definition;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var tiles = from y in Enumerable.Range(-2, map.Height + 4)</span>
+<span id="L28"><a class="line" href="#L28">28</a>                     from x in Enumerable.Range(-2, map.Width + 4)</span>
+<span id="L29"><a class="line" href="#L29">29</a>                     let indoor = x &gt;= 0 &amp;&amp; y &gt;= 0 &amp;&amp; x &lt; map.Width &amp;&amp; y &lt; map.Height</span>
+<span id="L30"><a class="line" href="#L30">30</a>                     let key = $&quot;{(indoor ? &quot;floor&quot; : &quot;land&quot;)}-{Math.Abs((x * 17 + y * 31) % 6)}&quot;</span>
+<span id="L31"><a class="line" href="#L31">31</a>                     select (x, y, indoor, key);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         foreach (var group in tiles.GroupBy(t =&gt; t.key))</span>
+<span id="L33"><a class="line" href="#L33">33</a>         {</span>
+<span id="L34"><a class="line" href="#L34">34</a>             var vertices = new List&lt;Vector2&gt;(); var uvs = new List&lt;Vector2&gt;(); var indices = new List&lt;int&gt;();</span>
+<span id="L35"><a class="line" href="#L35">35</a>             var planar = new List&lt;Vector2&gt;();</span>
+<span id="L36"><a class="line" href="#L36">36</a>             var ground = new List&lt;Point2&gt;(); var tints = new List&lt;Color&gt;();</span>
+<span id="L37"><a class="line" href="#L37">37</a>             var size = Textures[group.Key].GetSize();</span>
+<span id="L38"><a class="line" href="#L38">38</a>             foreach (var tile in group)</span>
+<span id="L39"><a class="line" href="#L39">39</a>             {</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 var first = vertices.Count;</span>
+<span id="L41"><a class="line" href="#L41">41</a>                 var tint = tile.indoor &amp;&amp; tile.y is &gt;= 3 and &lt; 5 ? new Color(1.09f, 1.03f, 0.86f) : Colors.White;</span>
+<span id="L42"><a class="line" href="#L42">42</a>                 for (var v = 0; v &lt;= Subdivisions; v++)</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 for (var u = 0; u &lt;= Subdivisions; u++)</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 {</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     var offset = new Point2(u / (double)Subdivisions, v / (double)Subdivisions);</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     var point = new Point2(tile.x + offset.X, tile.y + offset.Y);</span>
+<span id="L47"><a class="line" href="#L47">47</a>                     var uv = WorldView.Screen(offset) + new Vector2(0, 12);</span>
+<span id="L48"><a class="line" href="#L48">48</a>                     vertices.Add(WorldView.Screen(point)); uvs.Add(uv / size);</span>
+<span id="L49"><a class="line" href="#L49">49</a>                     planar.Add(new((float)offset.X, (float)offset.Y));</span>
+<span id="L50"><a class="line" href="#L50">50</a>                     ground.Add(point); tints.Add(tint);</span>
+<span id="L51"><a class="line" href="#L51">51</a>                 }</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 for (var v = 0; v &lt; Subdivisions; v++)</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 for (var u = 0; u &lt; Subdivisions; u++)</span>
+<span id="L54"><a class="line" href="#L54">54</a>                 {</span>
+<span id="L55"><a class="line" href="#L55">55</a>                     var a = first + v * (Subdivisions + 1) + u;</span>
+<span id="L56"><a class="line" href="#L56">56</a>                     var b = a + 1; var c = a + Subdivisions + 1; var d = c + 1;</span>
+<span id="L57"><a class="line" href="#L57">57</a>                     indices.AddRange([a, b, c, b, d, c]);</span>
+<span id="L58"><a class="line" href="#L58">58</a>                 }</span>
+<span id="L59"><a class="line" href="#L59">59</a>             }</span>
+<span id="L60"><a class="line" href="#L60">60</a>             _batches.Add(new(new ArrayMesh(), group.Key, Textures[group.Key], vertices.ToArray(), uvs.ToArray(), planar.ToArray(),</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 indices.ToArray(), ground.ToArray(), tints.ToArray()));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         }</span>
+<span id="L63"><a class="line" href="#L63">63</a>     }</span>
+<span id="L64"><a class="line" href="#L64">64</a> </span>
+<span id="L65"><a class="line" href="#L65">65</a>     public void Refresh(bool fieldView, bool authored = true)</span>
+<span id="L66"><a class="line" href="#L66">66</a>     {</span>
+<span id="L67"><a class="line" href="#L67">67</a>         _authored = authored;</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var player = Simulation.Player;</span>
+<span id="L69"><a class="line" href="#L69">69</a>         var stamp = new SightStamp(player.Position, player.Cell, player.Facing, player.Attending,</span>
+<span id="L70"><a class="line" href="#L70">70</a>             Simulation.LocalMs &gt;= player.EyesClosedUntilMs, Simulation.Map.LightsOn, fieldView, authored,</span>
+<span id="L71"><a class="line" href="#L71">71</a>             string.Join(&#x27;,&#x27;, Simulation.Map.OpenDoors.Order(StringComparer.Ordinal)));</span>
+<span id="L72"><a class="line" href="#L72">72</a>         if (stamp == _stamp) return;</span>
+<span id="L73"><a class="line" href="#L73">73</a>         _stamp = stamp;</span>
+<span id="L74"><a class="line" href="#L74">74</a>         var samples = new Dictionary&lt;Point2, Color&gt;();</span>
+<span id="L75"><a class="line" href="#L75">75</a>         var dim = new Color(0.28f, 0.32f, 0.34f); var lit = new Color(0.92f, 1, 0.96f);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         foreach (var batch in _batches)</span>
+<span id="L77"><a class="line" href="#L77">77</a>         {</span>
+<span id="L78"><a class="line" href="#L78">78</a>             var colors = new Color[batch.Ground.Length];</span>
+<span id="L79"><a class="line" href="#L79">79</a>             for (var i = 0; i &lt; colors.Length; i++)</span>
+<span id="L80"><a class="line" href="#L80">80</a>             {</span>
+<span id="L81"><a class="line" href="#L81">81</a>                 var point = batch.Ground[i];</span>
+<span id="L82"><a class="line" href="#L82">82</a>                 if (!samples.TryGetValue(point, out var light))</span>
+<span id="L83"><a class="line" href="#L83">83</a>                 {</span>
+<span id="L84"><a class="line" href="#L84">84</a>                     light = fieldView ? dim.Lerp(lit, FieldPresentation.SightShade(Simulation, point))</span>
+<span id="L85"><a class="line" href="#L85">85</a>                         : stamp.LightsOn ? Colors.White : new Color(0.3f, 0.34f, 0.4f);</span>
+<span id="L86"><a class="line" href="#L86">86</a>                     samples.Add(point, light);</span>
+<span id="L87"><a class="line" href="#L87">87</a>                 }</span>
+<span id="L88"><a class="line" href="#L88">88</a>                 colors[i] = light * batch.Tints[i];</span>
+<span id="L89"><a class="line" href="#L89">89</a>             }</span>
+<span id="L90"><a class="line" href="#L90">90</a>             using var arrays = new Godot.Collections.Array(); arrays.Resize((int)Mesh.ArrayType.Max);</span>
+<span id="L91"><a class="line" href="#L91">91</a>             arrays[(int)Mesh.ArrayType.Vertex] = batch.Vertices;</span>
+<span id="L92"><a class="line" href="#L92">92</a>             arrays[(int)Mesh.ArrayType.TexUV] = authored &amp;&amp; AuthoredTextures.ContainsKey(batch.Key) ? batch.PlanarUVs : batch.UVs;</span>
+<span id="L93"><a class="line" href="#L93">93</a>             arrays[(int)Mesh.ArrayType.Color] = colors;</span>
+<span id="L94"><a class="line" href="#L94">94</a>             arrays[(int)Mesh.ArrayType.Index] = batch.Indices;</span>
+<span id="L95"><a class="line" href="#L95">95</a>             batch.Mesh.ClearSurfaces(); batch.Mesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         }</span>
+<span id="L97"><a class="line" href="#L97">97</a>         ShadingBuilds++;</span>
+<span id="L98"><a class="line" href="#L98">98</a>         QueueRedraw();</span>
+<span id="L99"><a class="line" href="#L99">99</a>     }</span>
+<span id="L100"><a class="line" href="#L100">100</a> </span>
+<span id="L101"><a class="line" href="#L101">101</a>     public override void _Draw()</span>
+<span id="L102"><a class="line" href="#L102">102</a>     {</span>
+<span id="L103"><a class="line" href="#L103">103</a>         foreach (var batch in _batches) DrawMesh(batch.Mesh, _authored &amp;&amp; AuthoredTextures.TryGetValue(batch.Key, out var art) ? art : batch.Texture);</span>
+<span id="L104"><a class="line" href="#L104">104</a>     }</span>
+<span id="L105"><a class="line" href="#L105">105</a> </span>
+<span id="L106"><a class="line" href="#L106">106</a>     public override void _ExitTree()</span>
+<span id="L107"><a class="line" href="#L107">107</a>     {</span>
+<span id="L108"><a class="line" href="#L108">108</a>         foreach (var batch in _batches) batch.Mesh.Dispose();</span>
+<span id="L109"><a class="line" href="#L109">109</a>     }</span>
+<span id="L110"><a class="line" href="#L110">110</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

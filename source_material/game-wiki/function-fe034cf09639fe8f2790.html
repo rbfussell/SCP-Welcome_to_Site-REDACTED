@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryAttachmentClearance.Validate | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryAttachmentClearance.Validate</h1><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a> / <a href="file-src-sitesimulation-inventory-equipment-inventoryattachmentclearance-cs.html#L8">src/SiteSimulation/Inventory/Equipment/InventoryAttachmentClearance.cs:8</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal static void Validate(InventoryState state)</code></pre><h2>Role in the engine</h2><p>Owns one physical item graph, nested containers, rectangular packing, physical closures, ancestor access, paid manipulation, symmetric body-local hex fit, explicit stored-clothing fit drops and bounded strap spans, pocket masks, actual worn order, overlay bands, nested mount providers and shared exterior clearance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-11abfa8796964d4e1f20.html">InventoryState.Region</a></li><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-6f172cad323a98a2b3ea.html">OscpApplications.All</a></li><li><a href="function-7274b193a9a8b15b673e.html">InventoryGrid.Region</a></li><li><a href="function-79dcc7f98b90597467c2.html">InventoryAttachmentFrames.Provider</a></li><li><a href="function-91d8fac6714bdd42c1a4.html">InventoryAttachmentFrames.Compose</a></li><li><a href="function-91f463fa8046959b4b81.html">PaperdollMosaic.Region</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>state.Items.Values.Where(i =&gt; i.Placement.AttachmentPose is not null).Select(item =&gt;
+        {
+            var p = item.Placement;
+            var support = state.Region(p.ParentId, p.RegionId).Attachment!;
+            var provider = InventoryAttachmentFrames.Provider(state, p.ParentId, support.Surface);
+            var frame = provider with { Pose = InventoryAttachmentFrames.Compose(provider.Pose, p.AttachmentPose!) };
+            var profile = state.Definition(item.Id).Attachment!;
+            return new Part(item, frame,
+                profile.Occupancy.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet(),
+                profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet());
+        }).OrderBy(p =&gt; p.Item.Id, StringComparer.Ordinal).ToArray
+state.Items.Values.Where(i =&gt; i.Placement.AttachmentPose is not null).Select(item =&gt;
+        {
+            var p = item.Placement;
+            var support = state.Region(p.ParentId, p.RegionId).Attachment!;
+            var provider = InventoryAttachmentFrames.Provider(state, p.ParentId, support.Surface);
+            var frame = provider with { Pose = InventoryAttachmentFrames.Compose(provider.Pose, p.AttachmentPose!) };
+            var profile = state.Definition(item.Id).Attachment!;
+            return new Part(item, frame,
+                profile.Occupancy.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet(),
+                profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet());
+        }).OrderBy
+state.Items.Values.Where(i =&gt; i.Placement.AttachmentPose is not null).Select
+state.Items.Values.Where
+state.Region
+InventoryAttachmentFrames.Provider
+InventoryAttachmentFrames.Compose
+state.Definition
+profile.Occupancy.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet
+profile.Occupancy.Select
+BodyFitGeometry.Transform
+profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet
+profile.Contacts.Select
+left.Occupancy.Intersect(right.Occupancy).ToArray
+left.Occupancy.Intersect
+overlap.All</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-a8383ef49a6383f66a16.html">InventoryPlacement.Validate</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-inventoryattachmentclearance-part.html">Part</a></li><li><a href="type-inventoryattachmentclearance.html">InventoryAttachmentClearance</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li><li><a href="type-inventorystate.html">InventoryState</a></li></ul><h2>Implementation</h2><pre><code>internal static void Validate(InventoryState state)
+    {
+        var parts = state.Items.Values.Where(i =&gt; i.Placement.AttachmentPose is not null).Select(item =&gt;
+        {
+            var p = item.Placement;
+            var support = state.Region(p.ParentId, p.RegionId).Attachment!;
+            var provider = InventoryAttachmentFrames.Provider(state, p.ParentId, support.Surface);
+            var frame = provider with { Pose = InventoryAttachmentFrames.Compose(provider.Pose, p.AttachmentPose!) };
+            var profile = state.Definition(item.Id).Attachment!;
+            return new Part(item, frame,
+                profile.Occupancy.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet(),
+                profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, frame.Pose)).ToHashSet());
+        }).OrderBy(p =&gt; p.Item.Id, StringComparer.Ordinal).ToArray();
+        for (var a = 0; a &lt; parts.Length; a++)
+        for (var b = a + 1; b &lt; parts.Length; b++)
+        {
+            var left = parts[a]; var right = parts[b];
+            if (left.Frame.AnchorId != right.Frame.AnchorId || left.Frame.Surface != right.Frame.Surface) continue;
+            var overlap = left.Occupancy.Intersect(right.Occupancy).ToArray();
+            if (overlap.Length == 0) continue;
+            // A connector may meet its immediate provider at its own required contacts, never along its whole silhouette.
+            if (left.Item.Placement.ParentId == right.Item.Id &amp;&amp; overlap.All(left.Contacts.Contains)
+                || right.Item.Placement.ParentId == left.Item.Id &amp;&amp; overlap.All(right.Contacts.Contains)) continue;
+            throw new ArgumentException(&quot;Attachment clearance: &quot; + state.Definition(left.Item.Id).Name + &quot; overlaps &quot;
+                + state.Definition(right.Item.Id).Name + &quot; on the same exterior surface.&quot;);
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Equipment/InventoryAttachmentClearance.cs:8</footer></main></div></body></html>

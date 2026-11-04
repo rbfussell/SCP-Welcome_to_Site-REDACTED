@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LookChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>LookChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class LookChecks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Look: &quot; + detail); passed++; }
+        SpatialSimulation Walking(int ticks)
+        {
+            var sim = new SpatialSimulation(json);
+            // Ordinary look must stop travel even with both anomaly interruption settings disabled.
+            sim.Awareness.StopOnDirectSight = sim.Awareness.StopOnReports = false;
+            Check(sim.RequestMove(new(12, 3)), &quot;fixture needs a multi-step corridor route&quot;);
+            for (var i = 0; i &lt; ticks; i++) sim.Tick();
+            Check(sim.Player.Moving &amp;&amp; sim.Player.SegmentMs == ticks * SpatialSimulation.TickMs, &quot;fixture must still be walking&quot;);
+            return sim;
+        }
+        var sim = Walking(2);
+        var position = sim.Player.Position;
+        var origin = sim.Player.Cell;
+        var target = position + (origin.World - sim.Player.Route[0].World) * 3;
+        var expectedFacing = ObservationService.FacingToward(position, target, sim.Player.Facing);
+        var local = sim.LocalMs; var world = sim.WorldMs;
+        sim.Face(target);
+        Check(!sim.Player.Moving &amp;&amp; sim.Player.Route.Count == 0 &amp;&amp; sim.Player.SegmentMs == 0,
+            &quot;ordinary look clears the active path immediately&quot;);
+        Check(sim.Player.Position == position &amp;&amp; sim.Player.StoppedStep?.ProgressMs == 100,
+            &quot;look must not snap or finish the current step&quot;);
+        Check(sim.Player.Facing == expectedFacing &amp;&amp; sim.Player.KeepFacing, &quot;turn uses the actual stopped position&quot;);
+        Check(sim.Player.MoveGoal is null &amp;&amp; sim.Player.BumpedCells.Count == 0, &quot;look clears any automatic goal continuation&quot;);
+        Check(!sim.ManualPause &amp;&amp; !sim.LocalHold &amp;&amp; sim.LocalMs == local &amp;&amp; sim.WorldMs == world,
+            &quot;look changes neither clocks nor pause settings&quot;);
+        Check(sim.Trace.Entries.Any(e =&gt; e.Event == &quot;look-stop&quot;), &quot;trace records an ordinary look stop&quot;);
+        var clone = new SpatialSimulation(json); clone.Restore(sim.Save());
+        Check(clone.Save() == sim.Save(), &quot;fractional look stop must survive save/restore&quot;);
+        for (var i = 0; i &lt; 20; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Player.Position == position &amp;&amp; !sim.Player.Moving &amp;&amp; sim.LocalMs == local + 1000 &amp;&amp; sim.WorldMs == world + 1000,
+            &quot;travel stays stopped while the simulation continues&quot;);
+        Check(sim.Save() == clone.Save(), &quot;stopped replay remains deterministic&quot;);
+        sim.Face(target);
+        Check(sim.Player.Position == position &amp;&amp; sim.Player.StoppedStep?.ProgressMs == 100, &quot;repeated look preserves an already stopped fraction&quot;);
+        Check(sim.RequestMove(origin, true) &amp;&amp; sim.Player.Position == position, &quot;new movement can reverse without snapping&quot;);
+        sim.Tick(); sim.Tick();
+        Check(!sim.Player.Moving &amp;&amp; sim.Player.Cell == origin &amp;&amp; sim.Player.StoppedStep is null, &quot;reverse finishes at original center&quot;);
+        var center = Walking(0); var centerPoint = center.Player.Position;
+        center.Face(target);
+        Check(!center.Player.Moving &amp;&amp; center.Player.Position == centerPoint &amp;&amp; center.Player.StoppedStep is null,
+            &quot;look at a hex center does not invent a fractional step&quot;);
+        var deliberate = new SpatialSimulation(json);
+        deliberate.Awareness.StopOnDirectSight = deliberate.Awareness.StopOnReports = false;
+        deliberate.Face(new(1, 4)); var facing = deliberate.Player.Facing;
+        Check(deliberate.RequestMove(new(12, 3), true), &quot;explicit keep-facing movement remains available&quot;);
+        deliberate.Tick(); deliberate.Tick();
+        Check(deliberate.Player.Moving &amp;&amp; deliberate.Player.Facing == facing, &quot;Shift-click semantics still allow movement with independent facing&quot;);
+        deliberate.LocalHold = true; var held = deliberate.Save();
+        deliberate.Face(target);
+        Check(deliberate.Save() == held, &quot;look cannot mutate a held local simulation&quot;);
+        Console.WriteLine($&quot;LOOK_CHECKS_PASS: {passed} assertions; exact stop/turn, continuing time, persistence, reversal and explicit keep-facing movement.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/LookChecks.cs</footer></main></div></body></html>

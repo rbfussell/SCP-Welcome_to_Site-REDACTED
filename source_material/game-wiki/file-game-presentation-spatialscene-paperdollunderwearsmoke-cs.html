@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PaperdollUnderwearSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PaperdollUnderwearSmoke.cs</h1><p>game/Presentation/SpatialScene.PaperdollUnderwearSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-44f78a6897368e41e985.html">SpatialScene.RunPaperdollUnderwearSmoke</a> · line 12</li><li><a href="function-3ad315fa7a49f27489ee.html">SpatialScene.Check</a> · line 15</li><li><a href="function-27e4634901b893bd127a.html">SpatialScene.Finish</a> · line 16</li><li><a href="function-fe39d4526dbfad08ec88.html">SpatialScene.Act</a> · line 23</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Text.Json;</span>
+<span id="L4"><a class="line" href="#L4">4</a> using System.Text.Json.Nodes;</span>
+<span id="L5"><a class="line" href="#L5">5</a> using System.Threading.Tasks;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> namespace SitePresentation;</span>
+<span id="L8"><a class="line" href="#L8">8</a> </span>
+<span id="L9"><a class="line" href="#L9">9</a> public partial class SpatialScene</span>
+<span id="L10"><a class="line" href="#L10">10</a> {</span>
+<span id="L11"><a class="line" href="#L11">11</a>     /// &lt;summary&gt;Prepared helper-held outer gear is fixture setup only; exposing and removing briefs still uses paid game transactions.&lt;/summary&gt;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private async Task RunPaperdollUnderwearSmoke()</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         var sim = _simulation; var panel = _hud.Inventory; var proof = panel.PaperdollProof; var surface = proof.Surface;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Paperdoll underwear: &quot; + reason); }</span>
+<span id="L16"><a class="line" href="#L16">16</a>         async Task Finish()</span>
+<span id="L17"><a class="line" href="#L17">17</a>         {</span>
+<span id="L18"><a class="line" href="#L18">18</a>             sim.ManualPause = false;</span>
+<span id="L19"><a class="line" href="#L19">19</a>             var deadline = Time.GetTicksMsec() + (ulong)(sim.Inventory.Pending?.RemainingMs ?? 0) + 5000;</span>
+<span id="L20"><a class="line" href="#L20">20</a>             while (sim.Inventory.Pending is not null &amp;&amp; Time.GetTicksMsec() &lt; deadline) await InventoryFrames(1);</span>
+<span id="L21"><a class="line" href="#L21">21</a>             Check(sim.Inventory.Pending is null, $&quot;paid handling did not finish: {sim.Inventory.Pending}&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L22"><a class="line" href="#L22">22</a>         }</span>
+<span id="L23"><a class="line" href="#L23">23</a>         async Task Act(InventoryRequest r) { sim.ManualPause = false; Check(sim.HandleInventory(r), sim.LastMessage); await Finish(); }</span>
+<span id="L24"><a class="line" href="#L24">24</a>         await Act(new(InventoryActionKind.AutoPlace, &quot;avatar-socks&quot;, new(&quot;avatar-backpack&quot;, &quot;main&quot;)));</span>
+<span id="L25"><a class="line" href="#L25">25</a>         var staged = JsonNode.Parse(sim.Save())!;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         foreach (var (id, helper) in new[] { (&quot;avatar-backpack&quot;, &quot;person:observer&quot;), (&quot;avatar-coat&quot;, &quot;person:tech&quot;) })</span>
+<span id="L27"><a class="line" href="#L27">27</a>             staged[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().Single(n =&gt; n![&quot;Id&quot;]!.GetValue&lt;string&gt;() == id)![&quot;Placement&quot;]</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 = JsonSerializer.SerializeToNode(new ItemPlacement(helper, &quot;hand&quot;));</span>
+<span id="L29"><a class="line" href="#L29">29</a>         sim.Restore(staged.ToJsonString()); _runtime.ResetAccumulator(); await InventoryFrames();</span>
+<span id="L30"><a class="line" href="#L30">30</a>         await Act(new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));</span>
+<span id="L31"><a class="line" href="#L31">31</a>         await Act(new(InventoryActionKind.AutoPlace, &quot;avatar-trousers&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;)));</span>
+<span id="L32"><a class="line" href="#L32">32</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-trousers&quot;), &quot;stored trousers remained drawn on body&quot;);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         Vector2? exposed = null; var bounds = proof.Art.Bounds(surface.Size);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         for (var y = .44f; y &lt; .68f &amp;&amp; exposed is null; y += .008f)</span>
+<span id="L35"><a class="line" href="#L35">35</a>         for (var x = .15f; x &lt; .85f; x += .008f)</span>
+<span id="L36"><a class="line" href="#L36">36</a>             if (surface.Pick(bounds.Position + new Vector2(x, y) * bounds.Size) == &quot;avatar-underwear&quot;) { exposed = new(x, y); break; }</span>
+<span id="L37"><a class="line" href="#L37">37</a>         Check(exposed is not null &amp;&amp; sim.InventoryMoveAccess(&quot;avatar-underwear&quot;).Allowed, &quot;real underwear did not become an exposed alpha target&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         var at = surface.GlobalPosition + bounds.Position + exposed!.Value * bounds.Size;</span>
+<span id="L39"><a class="line" href="#L39">39</a>         Input.WarpMouse(at); InventoryClick(at, true); await InventoryFrames();</span>
+<span id="L40"><a class="line" href="#L40">40</a>         Check(panel.SelectedItem == &quot;avatar-underwear&quot; &amp;&amp; panel.Browser.CurrentGear == &quot;avatar-underwear&quot;, &quot;visible briefs did not select/inspect their actual identity&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         Check(new[] { &quot;front&quot;, &quot;back&quot; }.All(side =&gt; !proof.Art.MosaicVisible(sim, side, new(.5f, .55f))),</span>
+<span id="L42"><a class="line" href="#L42">42</a>             &quot;real exposed briefs failed to cover the mosaic&quot;);</span>
+<span id="L43"><a class="line" href="#L43">43</a>         await InventoryCapture(&quot;-paperdoll-underwear&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var request = new InventoryRequest(InventoryActionKind.Move, &quot;avatar-underwear&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;));</span>
+<span id="L45"><a class="line" href="#L45">45</a>         var before = sim.Save(); Check(!sim.HandleInventory(request) &amp;&amp; sim.Save() == before, &quot;paused briefs removal supplied free work&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         Check(proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-underwear&quot;), &quot;briefs vanished before work committed&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         Check(!proof.Art.MosaicVisible(sim, &quot;front&quot;, new(.5f, .55f)), &quot;mosaic revealed before paid removal committed&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L50"><a class="line" href="#L50">50</a>         clone.Restore(saved); Check(clone.Save() == saved, &quot;new loadout removal failed exact restore&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         await Finish();</span>
+<span id="L52"><a class="line" href="#L52">52</a>         Check(!proof.Art.Layers(sim).Any(l =&gt; l.ItemId == &quot;avatar-underwear&quot;)</span>
+<span id="L53"><a class="line" href="#L53">53</a>             &amp;&amp; surface.Pick(bounds.Position + exposed.Value * bounds.Size) is null, &quot;visual base became a false worn underwear item&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         before = sim.Save();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         foreach (var side in new[] { &quot;front&quot;, &quot;back&quot; })</span>
+<span id="L56"><a class="line" href="#L56">56</a>         {</span>
+<span id="L57"><a class="line" href="#L57">57</a>             Check(proof.Art.MosaicVisible(sim, side, new(.5f, .55f))</span>
+<span id="L58"><a class="line" href="#L58">58</a>                 &amp;&amp; !proof.Art.MosaicVisible(sim, side, new(.5f, .8f)), &quot;mosaic exposure did not follow the groin region&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             clone.Restore(before);</span>
+<span id="L60"><a class="line" href="#L60">60</a>             Check(proof.Art.MosaicVisible(clone, side, new(.5f, .55f)), &quot;mosaic did not regenerate from restored outfit&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>             var b = proof.Art.Bounds(new(300, 270));</span>
+<span id="L62"><a class="line" href="#L62">62</a>             Check(proof.Art.Pick(sim, side, new(300, 270), b.Position + new Vector2(.5f, .55f) * b.Size) is null,</span>
+<span id="L63"><a class="line" href="#L63">63</a>                 &quot;resized mosaic acquired an item target&quot;);</span>
+<span id="L64"><a class="line" href="#L64">64</a>         }</span>
+<span id="L65"><a class="line" href="#L65">65</a>         Check(sim.Save() == before &amp;&amp; clone.Save() == before, &quot;privacy inspection changed physical or saved state&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         await InventoryCapture(&quot;-paperdoll-mosaic-front&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         Input.WarpMouse(proof.Flip.GetGlobalRect().GetCenter()); InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L68"><a class="line" href="#L68">68</a>         Check(proof.Side == &quot;back&quot;, &quot;mosaic back capture did not flip&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         await InventoryCapture(&quot;-paperdoll-mosaic-back&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>     }</span>
+<span id="L71"><a class="line" href="#L71">71</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,131 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OperationSaveCodec.Restore | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationSaveCodec.Restore</h1><p><a href="system-operations.html">Personnel orders and recovery</a> / <a href="file-src-sitesimulation-operations-operationsavecodec-cs.html#L6">src/SiteSimulation/Operations/OperationSaveCodec.cs:6</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Restore(SimulationWorld world, OperationSnapshot? saved)</code></pre><h2>Role in the engine</h2><p>Owns authored duties, orders, bounded communications, received reports, trolley loading/pushing/unloading and receiving-footprint compliance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-13c5a9ae4d883c613d0c.html">FacilityMap.Inside</a></li><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a></li><li><a href="function-2674ebc4f15481027064.html">InventoryWornOrder.Order</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-6edf60e779cf0c0972c1.html">Hex.Distance</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-7a17a78d60d2e193b978.html">FacilityMap.CanTraverse</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-acd96b4066463ed0bf8c.html">Hex.FromWorld</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>saved.Radios.Any
+world.Actors.Select(a =&gt; a.Id).ToHashSet
+world.Actors.Select
+saved.Orders.Select(o =&gt; o?.Id ?? 0).Concat(saved.Reports.Select(r =&gt; r?.Id ?? 0)).ToArray
+saved.Orders.Select(o =&gt; o?.Id ?? 0).Concat
+saved.Orders.Select
+saved.Reports.Select
+ids.Any
+ids.Distinct().Count
+ids.Distinct
+saved.Orders.Any
+actorIds.Contains
+Enum.IsDefined
+EmploymentSystem.Owns
+world.Map.Inside
+saved.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy(o =&gt; o.ActorId).Any
+saved.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy
+saved.Orders.Where
+g.Count
+saved.Contacts.Any
+world.Anomalies.Bodies.Single
+saved.Contacts.Select(c =&gt; c.ActorId).Distinct().Count
+saved.Contacts.Select(c =&gt; c.ActorId).Distinct
+saved.Contacts.Select
+saved.Reports.Any
+world.Actors.Any
+saved.Radios.Select(r =&gt; r.ActorId).Order().SequenceEqual
+saved.Radios.Select(r =&gt; r.ActorId).Order
+saved.Radios.Select
+d.RadioActors.Order
+acquired.Distinct().Count
+acquired.Distinct
+acquired.Any
+Hex.FromWorld
+Point2.Distance
+world.Map.Walkable
+world.Map.DynamicBlockers.Add
+world.Actors.SingleOrDefault
+handler.Cell.Distance
+world.Map.CanTraverse
+body.Cell.Distance
+state.AcquiredReports.Clear
+state.AcquiredReports.UnionWith
+saved.Reports.Where(r =&gt; r.Source is not (&quot;radio&quot; or &quot;scipnet&quot;)).Select(r =&gt; r.Id).ToArray
+saved.Reports.Where(r =&gt; r.Source is not (&quot;radio&quot; or &quot;scipnet&quot;)).Select
+saved.Reports.Where
+state.Orders.Clear
+state.Orders.AddRange
+state.Contacts.Clear
+state.Contacts.AddRange
+state.Reports.Clear
+state.Reports.AddRange
+state.Radios.Clear
+state.Radios.AddRange</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-0587fb81855352c26851.html">SpatialScene.RunBodyInspectionSmoke</a></li><li><a href="function-1e02f2cf76c9d57a4e26.html">SpatialScene.RunAttachmentSmoke</a></li><li><a href="function-28a949ca54ec42cb0888.html">SpatialScene.SmokeStep</a></li><li><a href="function-44f78a6897368e41e985.html">SpatialScene.RunPaperdollUnderwearSmoke</a></li><li><a href="function-636936daab561e47bbb5.html">SpatialScene.RunPackingSmoke</a></li><li><a href="function-7dc3091239d038860ec1.html">SpatialScene.RunPaperdollBackpackSmoke</a></li><li><a href="function-81d3911febd43f008c30.html">SpatialScene.Restore</a></li><li><a href="function-8b329c86d66532851768.html">SpatialScene.RunBodyDropSmoke</a></li><li><a href="function-91e5cce849f97425712f.html">AnomalySystem.Restore</a></li><li><a href="function-93a6407d70acd2672df5.html">SpatialScene.RunWearSmoke</a></li><li><a href="function-9740a8032fece880d70c.html">PrototypeSaveCodec.Restore</a></li><li><a href="function-9d6fc5ec3d33e70f7b07.html">SpatialScene.RunHookSmoke</a></li><li><a href="function-a76a747c2b5ca5039f22.html">OscpScene.RunSmoke</a></li><li><a href="function-cf154c80b9ad8ab44959.html">SpatialScene.RunBodyFitSmoke</a></li><li><a href="function-de27d70373ce01fc3861.html">SpatialScene.RunPaperdollSmoke</a></li><li><a href="function-e329ddad01189dd0d8a2.html">SpatialScene.RunCoverageSmoke</a></li><li><a href="function-e573f894f6639244d8ed.html">SpatialScene.RunOverlaySmoke</a></li><li><a href="function-eb11a93a7c0734cc4877.html">SpatialScene.OperationSmokeStep</a></li><li><a href="function-ed52cbde94e2c1e9fbd8.html">SpatialScene.CombatSmokeStep</a></li><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a></li></ul><h2>Related types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-hex.html">Hex</a></li><li><a href="type-observedtransportsystem.html">ObservedTransportSystem</a></li><li><a href="type-operationsavecodec.html">OperationSaveCodec</a></li><li><a href="type-operationsnapshot.html">OperationSnapshot</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-point2.html">Point2</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li><li><a href="type-stoppedstep.html">StoppedStep</a></li></ul><h2>Implementation</h2><pre><code>public static void Restore(SimulationWorld world, OperationSnapshot? saved)
+    {
+        var state = world.Operations;
+        if (state.Definition is not { } d)
+        {
+            if (saved is not null) throw new ArgumentException(&quot;Operation state has no matching scenario.&quot;);
+            return;
+        }
+        if (saved is null || saved.Orders is null || saved.Contacts is null || saved.Reports is null || saved.Radios is null || saved.Radios.Any(r =&gt; r is null)
+            || saved.Trolley is null || saved.NextId &lt; 1 || saved.Orders.Length &gt; 32 || saved.Contacts.Length &gt; world.Actors.Count
+            || saved.Reports.Length &gt; 40 || saved.StableMs &lt; 0 || saved.StableMs &gt; d.StabilizeMs
+            || saved.StableMs % SpatialSimulation.TickMs != 0 || saved.Completed &amp;&amp; !saved.HadBreach
+            || saved.PhysicalStatus is not (&quot;Awaiting coverage&quot; or &quot;Contained · procedure compliant&quot; or &quot;Breach · outside receiving footprint&quot;
+                or &quot;Emergency stabilized · procedure incomplete&quot; or &quot;Coverage lost · unresolved&quot;))
+            throw new ArgumentException(&quot;Invalid operation snapshot.&quot;);
+        var actorIds = world.Actors.Select(a =&gt; a.Id).ToHashSet();
+        var ids = saved.Orders.Select(o =&gt; o?.Id ?? 0).Concat(saved.Reports.Select(r =&gt; r?.Id ?? 0)).ToArray();
+        if (ids.Any(id =&gt; id &lt;= 0 || id &gt;= saved.NextId) || ids.Distinct().Count() != ids.Length
+            || saved.Orders.Any(o =&gt; o is null || o.Issuer != d.CommanderId || !actorIds.Contains(o.ActorId) || o.ActorId == o.Issuer
+                || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status)
+                || o.Task == PersonnelTask.ResumeDuty &amp;&amp; !EmploymentSystem.Owns(world, o.ActorId) || o.Channel is not (&quot;voice&quot; or &quot;terminal&quot; or &quot;phone&quot;)
+                || o.IssuedMs &lt; 0 || o.IssuedMs &gt; world.LocalMs || o.Detail is null || o.Detail.Length &gt; 250
+                || !world.Map.Inside(o.Destination.World) || o.TargetPoint is { } target &amp;&amp; !world.Map.Inside(target))
+            || saved.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy(o =&gt; o.ActorId).Any(g =&gt; g.Count() &gt; 1)
+            || saved.Contacts.Any(c =&gt; c is null || !actorIds.Contains(c.ActorId) || c.SubjectId != d.SubjectId || !world.Map.Inside(c.Position)
+                || c.LocalMs &lt; 0 || c.LocalMs &gt; world.LocalMs || c.Encounter &lt; 0 || c.Encounter &gt; world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Revision)
+            || saved.Contacts.Select(c =&gt; c.ActorId).Distinct().Count() != saved.Contacts.Length
+            || saved.Reports.Any(r =&gt; r is null || r.LocalMs &lt; 0 || r.LocalMs &gt; world.LocalMs || r.Author is null || r.Text is null
+                || r.Author.Length &gt; 100 || r.Text.Length &gt; 500 || r.Source is not (&quot;system&quot; or &quot;voice&quot; or &quot;radio&quot; or &quot;scipnet&quot;)
+                || r.SubjectId is not null &amp;&amp; (r.SubjectId != d.SubjectId || r.Position is null || !world.Actors.Any(a =&gt; a.Name == r.Author)
+                    || r.Encounter &lt; 0 || r.Encounter &gt; world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Revision)
+                || r.Position is { } point &amp;&amp; !world.Map.Inside(point))
+            || !saved.Radios.Select(r =&gt; r.ActorId).Order().SequenceEqual(d.RadioActors.Order()))
+            throw new ArgumentException(&quot;Invalid operation orders, evidence or radios.&quot;);
+        if (saved.RegionalIntakeSent &amp;&amp; !d.RegionalIntakeEnabled) throw new ArgumentException(&quot;Unexpected regional intake state.&quot;);
+        if (saved.Phone is { } phone &amp;&amp; phone.ActorId != d.CommanderId
+            || saved.AcquiredReports is { } acquired &amp;&amp; (acquired.Distinct().Count() != acquired.Length
+                || acquired.Any(id =&gt; !saved.Reports.Any(r =&gt; r.Id == id))))
+            throw new ArgumentException(&quot;Invalid field device or acquired record ledger.&quot;);
+        var cart = saved.Trolley;
+        var cell = Hex.FromWorld(cart.Position);
+        var body = world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId);
+        if (body.Cell == d.Terminal || !world.Map.Inside(cart.Position) || Point2.Distance(cart.Position, cell.World) &gt; 1e-8 || cell == d.Terminal
+            || cart.SubjectId is not null &amp;&amp; (cart.SubjectId != d.SubjectId || body.Cell != cell)
+            || cart.SubjectId is null &amp;&amp; body.Cell == cell || cart.HandlerId is not null &amp;&amp; !actorIds.Contains(cart.HandlerId)
+            || !world.Map.Walkable(cell, new HashSet&lt;Hex&gt; { body.Cell })
+            || world.Actors.Any(a =&gt; a.Cell == cell || a.Moving &amp;&amp; a.Route[0] == cell || a.StoppedStep?.Next == cell))
+            throw new ArgumentException(&quot;Invalid trolley/cargo occupancy.&quot;);
+        world.Map.DynamicBlockers.Add(d.Terminal); world.Map.DynamicBlockers.Add(cell);
+        if (cart.Step is { } step)
+        {
+            var handler = world.Actors.SingleOrDefault(a =&gt; a.Id == cart.HandlerId);
+            var active = saved.Orders.Any(o =&gt; o.ActorId == cart.HandlerId &amp;&amp; o.Task == PersonnelTask.Transport
+                &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked);
+            if (handler is null || !active || handler.Moving || handler.StoppedStep is not null || handler.Cell.Distance(cell) != 1
+                || step.ProgressMs is &lt;= 0 or &gt;= ObservedTransportSystem.WorkMs || step.ProgressMs % SpatialSimulation.TickMs != 0
+                || step.Stage is not (&quot;load&quot; or &quot;push&quot; or &quot;unload&quot;)
+                || step.Stage == &quot;push&quot; &amp;&amp; (step.HandlerNext != cell || !world.Map.CanTraverse(cell, step.Next, new HashSet&lt;Hex&gt; { cell })
+                    || world.Actors.Any(a =&gt; a.Cell == step.Next || a.Moving &amp;&amp; a.Route[0] == step.Next || a.StoppedStep?.Next == step.Next))
+                || step.Stage != &quot;push&quot; &amp;&amp; (step.Next != cell || step.HandlerNext != handler.Cell)
+                || step.Stage == &quot;load&quot; &amp;&amp; (cart.SubjectId is not null || body.Cell.Distance(cell) != 1)
+                || step.Stage == &quot;unload&quot; &amp;&amp; (cart.SubjectId is null || cell != d.Home))
+                throw new ArgumentException(&quot;Invalid in-progress trolley work.&quot;);
+            if (step.Stage == &quot;push&quot;) world.Map.DynamicBlockers.Add(step.Next);
+        }
+        // Older matching saves did not issue a handset or retain a separate OSCP cache.
+        state.RegionalIntakeSent = saved.RegionalIntakeSent;
+        state.Phone = saved.Phone ?? new(d.CommanderId, Issued: false);
+        state.AcquiredReports.Clear();
+        state.AcquiredReports.UnionWith(saved.AcquiredReports ?? saved.Reports.Where(r =&gt; r.Source is not (&quot;radio&quot; or &quot;scipnet&quot;)).Select(r =&gt; r.Id).ToArray());
+        state.Orders.Clear(); state.Orders.AddRange(saved.Orders);
+        state.Contacts.Clear(); state.Contacts.AddRange(saved.Contacts);
+        state.Reports.Clear(); state.Reports.AddRange(saved.Reports);
+        state.Radios.Clear(); state.Radios.AddRange(saved.Radios);
+        state.NextId = saved.NextId; state.Trolley = cart; state.TerminalPowered = saved.TerminalPowered;
+        state.NetworkOnline = saved.NetworkOnline; state.StableMs = saved.StableMs; state.HadBreach = saved.HadBreach;
+        state.Completed = saved.Completed; state.PhysicalStatus = saved.PhysicalStatus;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Operations/OperationSaveCodec.cs:6</footer></main></div></body></html>

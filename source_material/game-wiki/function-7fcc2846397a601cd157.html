@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryBodyFitPanel.UpdatePreview | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitPanel.UpdatePreview</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorybodyfitpanel-cs.html#L108">game/Presentation/Inventory/InventoryBodyFitPanel.cs:108</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private void UpdatePreview()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-5ee50db13cb004b70354.html">SpatialSimulation.PreviewBodyFit</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-d79640f531815bbb772d.html">InventoryBodyFit.Shape</a></li><li><a href="function-ffa1b0e7fe3c7962525a.html">SpatialSimulation.InventoryMoveAccess</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>IsNodeReady
+Panel.Simulation.Inventory.Definition
+InventoryBodyFit.Shape
+Surface.QueueRedraw
+Panel.Simulation.PreviewBodyFit
+ViewSurface.ToUpperInvariant
+Panel.Simulation.InventoryMoveAccess
+pockets.Count</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-bbdc87ed643efb335ecd.html">InventoryBodyFitPanel._Ready</a></li><li><a href="function-c62fffb107e0e7f38b34.html">InventoryBodyFitPanel.RotateDraft</a></li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a></li><li><a href="function-ce313d1fec52b7f570ad.html">InventoryBodyFitPanel.SetDraftAnchor</a></li><li><a href="function-f7f61be8b961e0295ff8.html">InventoryBodyFitPanel.ResetDraft</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodypose.html">BodyPose</a></li><li><a href="type-geometry.html">Geometry</a></li><li><a href="type-inventorybodyfit.html">InventoryBodyFit</a></li><li><a href="type-inventorybodyfitpanel.html">InventoryBodyFitPanel</a></li><li><a href="type-inventorypacking-shape.html">Shape</a></li></ul><h2>Implementation</h2><pre><code>private void UpdatePreview()
+    {
+        if (!IsNodeReady()) return;
+        _default.Disabled = _rotate.Disabled = InspectWorn;
+        _flip.Disabled = !InspectWorn; _flip.Text = ViewSurface == &quot;front&quot; ? &quot;Front · flip&quot; : &quot;Back · flip&quot;;
+        _instructions.Text = InspectWorn ? &quot;Click selects · double-click inspects\nDrag moves · right-click actions&quot; : &quot;Click: anchor · R: 6 body / 2 storage\nWhite: contact · red: failed fit&quot;;
+        if (Surface.IsDropTarget)
+        {
+            _apply.Disabled = true;
+            _status.Text = Surface.DropPreview is { } drop ? $&quot;Drop: {Panel.Simulation.Inventory.Definition(drop.Request.ItemId).Name}\n&quot;
+                + $&quot;Anchor {drop.Request.Destination!.BodyPose!.Q},{drop.Request.Destination.BodyPose.R} · {Panel.BodyRotation * 60}°\n&quot;
+                + (drop.Handling.Allowed ? $&quot;{drop.Handling.DurationMs / 1000.0:0.00}s · {drop.Handling.Ap} AP · release to fit&quot; : Surface.DropReason)
+                : Surface.DropReason;
+            if (Surface.DropPreview is { Geometry.Fits: true } fittedDrop &amp;&amp; InventoryBodyFit.Shape(Panel.Simulation.Inventory, fittedDrop.Request.ItemId)?.LinearSpan is { } spanDrop)
+                _status.Text += $&quot;\nSpan {fittedDrop.Geometry.Cells.Length} cells · range {spanDrop.MinCells}–{spanDrop.MaxCells}&quot;;
+            _pocketStatus.Text = &quot;&quot;; Surface.QueueRedraw(); return;
+        }
+        Preview = _selected is null ? null : Panel.Simulation.PreviewBodyFit(_selected, Draft);
+        _apply.Disabled = InspectWorn || Preview is not { Handling.Allowed: true } || Panel.Simulation.Inventory.Pending is not null || Panel.DragItemId is not null;
+        if (InspectWorn)
+        {
+            _status.Text = $&quot;{ViewSurface.ToUpperInvariant()} · worn material\n&quot; + (_selected is null ? &quot;Choose exposed equipment.&quot; : Panel.Simulation.Inventory.Definition(_selected).Name
+                + &quot;\n&quot; + Panel.Simulation.InventoryMoveAccess(_selected).Reason);
+            _pocketStatus.Text = &quot;Engineering masks · attachments use gear view&quot;; Surface.QueueRedraw(); return;
+        }
+        _status.Text = Preview is null ? &quot;No known clothing is available.&quot;
+            : $&quot;Anchor {Draft.Q},{Draft.R} · {Draft.Rotation * 60}°\n&quot; + (!Preview.Geometry.Fits ? Preview.Geometry.Reason
+                : Preview.Handling.Allowed ? $&quot;Fits · {Preview.Handling.DurationMs / 1000.0:0.00}s · {Preview.Handling.Ap} AP&quot;
+                : &quot;Shape fits · &quot; + Preview.Handling.Reason);
+        if (Preview is { Geometry.Fits: true } fitted &amp;&amp; _selected is { } id &amp;&amp; InventoryBodyFit.Shape(Panel.Simulation.Inventory, id)?.LinearSpan is { } span)
+            _status.Text += $&quot;\nSpan {fitted.Geometry.Cells.Length} cells · range {span.MinCells}–{span.MaxCells}&quot;;
+        var pockets = Pockets;
+        _pocketStatus.Text = pockets.Length == 0 ? &quot;&quot; : $&quot;Pockets now: {pockets.Count(p =&gt; p.Covered)} covered · {pockets.Count(p =&gt; !p.Covered)} clear&quot;;
+        Surface.QueueRedraw();
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryBodyFitPanel.cs:108</footer></main></div></body></html>

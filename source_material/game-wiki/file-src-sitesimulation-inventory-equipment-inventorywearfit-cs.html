@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryWearFit.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryWearFit.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryWearFit.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-wearfitprofile.html">WearFitProfile</a></li><li><a href="type-wearfitresult.html">WearFitResult</a></li><li><a href="type-inventorywearfit.html">InventoryWearFit</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-95135939e345ee1bb56b.html">InventoryWearFit.Token</a> · line 10</li><li><a href="function-67e9932321b6bbf3001b.html">InventoryWearFit.Tokens</a> · line 12</li><li><a href="function-6296f8e07d7e71546a61.html">InventoryWearFit.ProfileValid</a> · line 14</li><li><a href="function-9ae7bbe7acd786e58669.html">InventoryWearFit.Evaluate</a> · line 19</li><li><a href="function-2217a790885805d9ee25.html">InventoryWearFit.ValidateWorn</a> · line 42</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Relative fit units, not worn depth, weight, storage size or the same-band strap allowance.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public sealed record WearFitProfile(string Family, int Bulk, int MaxUnderBulk, string[] FitsOver, string[]? ExcludesUnderTags = null);</span>
+<span id="L5"><a class="line" href="#L5">5</a> public sealed record WearFitResult(bool Fits, string Reason, int UnderBulk, int Capacity);</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> /// &lt;summary&gt;Checks one outer garment against the equipment beneath it at one overlapping body region.&lt;/summary&gt;</span>
+<span id="L8"><a class="line" href="#L8">8</a> public static class InventoryWearFit</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private static bool Token(string? value) =&gt; value is { Length: &gt; 0 and &lt;= 64 }</span>
+<span id="L11"><a class="line" href="#L11">11</a>         &amp;&amp; value.All(c =&gt; char.IsAsciiLetterLower(c) || char.IsAsciiDigit(c) || c is &#x27;:&#x27; or &#x27;-&#x27; or &#x27;_&#x27; or &#x27;.&#x27;);</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static bool Tokens(string[]? values) =&gt; values is { Length: &lt;= 32 }</span>
+<span id="L13"><a class="line" href="#L13">13</a>         &amp;&amp; values.All(Token) &amp;&amp; values.Distinct(StringComparer.Ordinal).Count() == values.Length;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     internal static bool ProfileValid(WearFitProfile? fit) =&gt; fit is not null &amp;&amp; Token(fit.Family)</span>
+<span id="L15"><a class="line" href="#L15">15</a>         &amp;&amp; fit.Bulk is &gt;= 1 and &lt;= 1000 &amp;&amp; fit.MaxUnderBulk is &gt;= 0 and &lt;= 1000</span>
+<span id="L16"><a class="line" href="#L16">16</a>         &amp;&amp; Tokens(fit.FitsOver) &amp;&amp; (fit.ExcludesUnderTags is null || Tokens(fit.ExcludesUnderTags));</span>
+<span id="L17"><a class="line" href="#L17">17</a> </span>
+<span id="L18"><a class="line" href="#L18">18</a>     /// &lt;summary&gt;Pure compatibility query. The caller supplies the chosen order; authored Layer never decides fit.&lt;/summary&gt;</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public static WearFitResult Evaluate(ItemDefinition outer, IReadOnlyList&lt;ItemDefinition&gt; beneath)</span>
+<span id="L20"><a class="line" href="#L20">20</a>     {</span>
+<span id="L21"><a class="line" href="#L21">21</a>         if (outer?.Wear?.Fit is not { } fit || !ProfileValid(fit))</span>
+<span id="L22"><a class="line" href="#L22">22</a>             return new(false, &quot;Outer equipment has no valid authored fit profile.&quot;, 0, 0);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (beneath is null || beneath.Count &gt; 128 || beneath.Any(d =&gt; d?.Wear is null || d.Tags is null || !ProfileValid(d.Wear.Fit)))</span>
+<span id="L24"><a class="line" href="#L24">24</a>             return new(false, &quot;Underlying equipment has no valid authored fit profile, or the fit query exceeds its safety bound.&quot;, 0, fit.MaxUnderBulk);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         // Repeated definitions represent distinct physical garments and each contributes bulk.</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var bulk = beneath.Sum(d =&gt; d.Wear!.Fit!.Bulk);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         foreach (var inner in beneath.OrderBy(d =&gt; d.Id, StringComparer.Ordinal))</span>
+<span id="L28"><a class="line" href="#L28">28</a>         {</span>
+<span id="L29"><a class="line" href="#L29">29</a>             if (inner.Wear!.Outermost)</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 return new(false, &quot;Nothing can cover outermost &quot; + inner.Name + &quot;; remove it first.&quot;, bulk, fit.MaxUnderBulk);</span>
+<span id="L31"><a class="line" href="#L31">31</a>             if (!fit.FitsOver.Contains(inner.Wear.Fit!.Family, StringComparer.Ordinal))</span>
+<span id="L32"><a class="line" href="#L32">32</a>                 return new(false, outer.Name + &quot; cannot fit over &quot; + inner.Name + &quot; (&quot; + inner.Wear.Fit.Family + &quot;).&quot;, bulk, fit.MaxUnderBulk);</span>
+<span id="L33"><a class="line" href="#L33">33</a>             if (fit.ExcludesUnderTags is { } excluded &amp;&amp; inner.Tags.Any(excluded.Contains))</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 return new(false, outer.Name + &quot; excludes the fit traits of &quot; + inner.Name + &quot;.&quot;, bulk, fit.MaxUnderBulk);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         }</span>
+<span id="L36"><a class="line" href="#L36">36</a>         return bulk &gt; fit.MaxUnderBulk</span>
+<span id="L37"><a class="line" href="#L37">37</a>             ? new(false, outer.Name + $&quot; has insufficient room: underlying bulk {bulk} exceeds clearance {fit.MaxUnderBulk}.&quot;, bulk, fit.MaxUnderBulk)</span>
+<span id="L38"><a class="line" href="#L38">38</a>             : new(true, &quot;Fits within the authored clearance.&quot;, bulk, fit.MaxUnderBulk);</span>
+<span id="L39"><a class="line" href="#L39">39</a>     }</span>
+<span id="L40"><a class="line" href="#L40">40</a> </span>
+<span id="L41"><a class="line" href="#L41">41</a>     /// &lt;summary&gt;Validate compatibility beneath the actual saved dressing order at each declared body region.&lt;/summary&gt;</span>
+<span id="L42"><a class="line" href="#L42">42</a>     internal static void ValidateWorn(InventoryState state, IReadOnlyList&lt;InventoryItem&gt; worn)</span>
+<span id="L43"><a class="line" href="#L43">43</a>     {</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var cells = worn.ToDictionary(i =&gt; i.Id, i =&gt; InventoryWornStack.Cells(state, i).ToHashSet(), StringComparer.Ordinal);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         foreach (var outer in worn)</span>
+<span id="L46"><a class="line" href="#L46">46</a>         {</span>
+<span id="L47"><a class="line" href="#L47">47</a>             var definition = state.Definition(outer.Id);</span>
+<span id="L48"><a class="line" href="#L48">48</a>             foreach (var cell in cells[outer.Id])</span>
+<span id="L49"><a class="line" href="#L49">49</a>             {</span>
+<span id="L50"><a class="line" href="#L50">50</a>                 var beneath = worn.Where(i =&gt; i.Id != outer.Id &amp;&amp; InventoryWornOrder.Order(i) &lt; InventoryWornOrder.Order(outer)</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     &amp;&amp; cells[i.Id].Contains(cell)).Select(i =&gt; state.Definition(i.Id)).ToArray();</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 var result = Evaluate(definition, beneath);</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 if (!result.Fits) throw new ArgumentException($&quot;{cell.Surface} {cell.Cell.Q},{cell.Cell.R}: &quot; + result.Reason);</span>
+<span id="L54"><a class="line" href="#L54">54</a>             }</span>
+<span id="L55"><a class="line" href="#L55">55</a>         }</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

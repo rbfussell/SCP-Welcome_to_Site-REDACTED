@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryGearSurface.DrawAttachments | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryGearSurface.DrawAttachments</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorygearsurface-attachments-cs.html#L62">game/Presentation/Inventory/InventoryGearSurface.Attachments.cs:62</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>private void DrawAttachments()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-03048d2e18228c7ab0f8.html">InventoryGearSurface.DrawMounted</a></li><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-1c287cc7954dc95531f5.html">InventoryGearSurface.Descendants</a></li><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-312cc631fe37a855aeb8.html">InventoryGearSurface.MountPoint</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-91d8fac6714bdd42c1a4.html">InventoryAttachmentFrames.Compose</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-d30e0eaa1bbedc457820.html">InventoryAttachmentFrames.RelativePose</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>DrawMounted
+InventoryAttachmentFrames.RelativePose
+InventoryAttachmentFrames.Compose
+new[] { new MountedPart(state.DiagnosticItems.Single(i =&gt; i.Id == id), pose) }.Concat
+state.DiagnosticItems.Single
+Descendants
+state.Definition
+MountPoint
+BodyFitGeometry.Transform
+Enumerable.Range(0, 6).Select(i =&gt; center + Vector2.FromAngle(i * Mathf.Pi / 3 + Mathf.Pi / 6) * MountRadius).ToArray
+Enumerable.Range(0, 6).Select
+Enumerable.Range
+Vector2.FromAngle
+DrawPolyline
+points.Append(points[0]).ToArray
+points.Append
+DrawString</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-67907ecd0d3b01a4bbc1.html">InventoryGearSurface._Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li><li><a href="type-inventorygearsurface-mountedpart.html">MountedPart</a></li><li><a href="type-inventorygearsurface.html">InventoryGearSurface</a></li></ul><h2>Implementation</h2><pre><code>private void DrawAttachments()
+    {
+        var state = Panel.Simulation.Inventory;
+        foreach (var part in Mounted)
+            DrawMounted(part.Item.DefinitionId, part.Pose, Panel.DragItemId is { } moving
+                &amp;&amp; InventoryAttachmentFrames.RelativePose(state, part.Item.Id, moving) is not null ? .3f : 1, _hoveredAttachment == part.Item.Id);
+        if (MountPreview is not { } preview || Panel.DragItemId is not { } id || preview.Request.Destination is not { AttachmentPose: { } local } destination) return;
+        var provider = InventoryAttachmentFrames.RelativePose(state, destination.ParentId, ItemId);
+        if (provider is null) return;
+        var pose = InventoryAttachmentFrames.Compose(provider, local);
+        var color = new Color(preview.Handling.Allowed ? &quot;69d89a&quot; : &quot;ef8275&quot;);
+        var assembly = new[] { new MountedPart(state.DiagnosticItems.Single(i =&gt; i.Id == id), pose) }.Concat(Descendants(id, pose));
+        foreach (var part in assembly)
+        {
+            DrawMounted(part.Item.DefinitionId, part.Pose, .75f);
+            foreach (var cell in state.Definition(part.Item.Id).Attachment?.Occupancy ?? [])
+            {
+                var center = MountPoint(BodyFitGeometry.Transform(cell, part.Pose));
+                var points = Enumerable.Range(0, 6).Select(i =&gt; center + Vector2.FromAngle(i * Mathf.Pi / 3 + Mathf.Pi / 6) * MountRadius).ToArray();
+                DrawPolyline(points.Append(points[0]).ToArray(), color, 1);
+            }
+        }
+        DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), $&quot;{state.Definition(destination.ParentId).Name} · {local.Rotation * 60}° · R rotates&quot;, fontSize: 13, modulate: color);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryGearSurface.Attachments.cs:62</footer></main></div></body></html>

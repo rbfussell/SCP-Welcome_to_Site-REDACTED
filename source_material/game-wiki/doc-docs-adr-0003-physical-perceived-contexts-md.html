@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-0003: Physical authority and per-observer perceived contexts | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/adr/0003-physical-perceived-contexts.md.</aside><h1 id="adr-0003-physical-authority-and-per-observer-perceived-contexts">ADR-0003: Physical authority and per-observer perceived contexts</h1>
+<p><strong>Status:</strong> Proposed<br />
+<strong>Date:</strong> October 22, 2026<br />
+<strong>Decision owner:</strong> Project owner; not yet assigned</p>
+<h2 id="context">Context</h2>
+<p>The user requires modules that transfer actors, alter perceived environments, affect ordinary world state and interact indirectly through shared observation. SCP-1499 is the second demonstration after SCP-650. A separate scene with a self-contained mission result cannot express all requested behavior.</p>
+<h2 id="options-considered">Options considered</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Benefit</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every anomaly is another physical map</td>
+<td>Simple scene switching</td>
+<td>Cannot distinguish perceived identities/geometry or mapped ordinary-world effects</td>
+</tr>
+<tr>
+<td>Effects exist only in a client render layer</td>
+<td>Easy visual experimentation</td>
+<td>Actions, saves, NPC senses and consequences can disagree</td>
+</tr>
+<tr>
+<td>Physical records plus explicit perceived contexts and bindings</td>
+<td>Shared authoritative actions with per-observer experiences</td>
+<td>Requires target mapping, conflict policy, causal tracing and persistence</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proposed-decision">Proposed decision</h2>
+<p>Retain authoritative physical entities/domains and add per-observer perceived contexts, versioned target bindings and scoped cross-context links. Modules use host capabilities to change either or both. Validate mapped actions and commit each consequence once. Knowledge is evidence derived from those experiences, not the underlying world state itself.</p>
+<p>Dependent sensory/anomaly evaluation uses committed location/perception changes before evaluating observer sets. This lets SCP-1499 change SCP-650's observation conditions through shared services. Each module declares qualifying senses/media and context policy.</p>
+<h2 id="consequences-and-bounds">Consequences and bounds</h2>
+<p>Physical transfer, altered perception and hybrid mechanics can share controls, inventories and saves. Diagnostics must show actual and perceived contexts separately. Mapping ambiguities and competing overrides require explicit rejection/composition rather than load-order decisions.</p>
+<p>M2 proves one physical profile and one bounded perception/consequence profile. It does not prove a universal mapping language or unrestricted reality modification. M3 separately qualifies whole-world checkpoint branches; per-observer context changes are not time-rewind operations.</p>
+<p>Related: <a href="doc-docs-adr-0001-shared-simulation-md.html">ADR-0001</a>, <a href="doc-docs-10-world-perception-and-scp-1499-md.html">SCP-1499/context contract</a>, <a href="doc-docs-08-player-controls-time-and-continuation-md.html">continuation rules</a>, and CTX-01 through CTX-05 in <a href="doc-docs-04-scope-and-acceptance-md.html">acceptance</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/adr/0003-physical-perceived-contexts.md</footer></main></div></body></html>

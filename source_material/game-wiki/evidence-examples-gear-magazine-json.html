@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>examples/gear/magazine.json | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>magazine.json</h1><pre>{
+  &quot;schemaVersion&quot;: 1,
+  &quot;status&quot;: &quot;design-contract&quot;,
+  &quot;id&quot;: &quot;example:magazine&quot;,
+  &quot;name&quot;: &quot;Detachable magazine&quot;,
+  &quot;description&quot;: &quot;Authoring example; not registered in the native field-kit profile.&quot;,
+  &quot;massGrams&quot;: 170,
+  &quot;materials&quot;: [
+    {
+      &quot;id&quot;: &quot;core:steel&quot;,
+      &quot;massFraction&quot;: 1,
+      &quot;properties&quot;: {
+        &quot;ferromagnetic&quot;: true
+      }
+    }
+  ],
+  &quot;traits&quot;: [
+    &quot;example:magazine-interface&quot;
+  ],
+  &quot;forms&quot;: [
+    {
+      &quot;id&quot;: &quot;packed&quot;,
+      &quot;envelopeMm&quot;: [
+        100,
+        200,
+        40
+      ],
+      &quot;referenceCellMm&quot;: 100,
+      &quot;squareShape&quot;: {
+        &quot;columns&quot;: 1,
+        &quot;rows&quot;: 2
+      },
+      &quot;orientations&quot;: [
+        0,
+        90
+      ],
+      &quot;sprite&quot;: &quot;example:packed&quot;
+    }
+  ],
+  &quot;defaultForm&quot;: &quot;packed&quot;,
+  &quot;appearance&quot;: {
+    &quot;inventory&quot;: &quot;example:magazine&quot;
+  },
+  &quot;condition&quot;: {
+    &quot;maximum&quot;: 100,
+    &quot;default&quot;: 100,
+    &quot;responses&quot;: [
+      &quot;core:use-wear&quot;,
+      &quot;core:material-damage&quot;
+    ]
+  },
+  &quot;crafting&quot;: {
+    &quot;deconstructable&quot;: false,
+    &quot;crafted&quot;: false,
+    &quot;compositionPolicy&quot;: &quot;none&quot;
+  },
+  &quot;stateDefaults&quot;: {},
+  &quot;sources&quot;: [
+    &quot;Original game design example; no SCP article claim.&quot;
+  ],
+  &quot;compartments&quot;: [
+    {
+      &quot;id&quot;: &quot;feed&quot;,
+      &quot;name&quot;: &quot;Round feed&quot;,
+      &quot;kind&quot;: &quot;feed&quot;,
+      &quot;slot&quot;: {
+        &quot;interface&quot;: &quot;core:round-envelope&quot;,
+        &quot;count&quot;: 10,
+        &quot;maxMassGrams&quot;: 1000
+      },
+      &quot;snug&quot;: true,
+      &quot;defaultOpen&quot;: true,
+      &quot;accessMs&quot;: 500,
+      &quot;accessAp&quot;: 2,
+      &quot;accessFunction&quot;: &quot;core:load-feed&quot;
+    }
+  ],
+  &quot;functions&quot;: [
+    {
+      &quot;id&quot;: &quot;core:feed&quot;,
+      &quot;handler&quot;: &quot;core:ordered-feed&quot;,
+      &quot;capabilities&quot;: [
+        &quot;inventory:validated-transfer&quot;
+      ],
+      &quot;parameters&quot;: {
+        &quot;retention&quot;: &quot;spring&quot;,
+        &quot;caliberUseValidation&quot;: &quot;consumer&quot;
+      }
+    }
+  ]
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

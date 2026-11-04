@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryBrowser.Dismiss | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBrowser.Dismiss</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorybrowser-cs.html#L107">game/Presentation/Inventory/InventoryBrowser.cs:107</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal bool Dismiss(bool gear, bool entire)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-3db0958d9183d75b0bf7.html">InventoryPanel.ShowReceipt</a></li><li><a href="function-46d63be056f4a1d60761.html">InventoryPanel.IsOpen</a></li><li><a href="function-4c30cd1cb2e9a532ba17.html">InventoryBrowser.Build</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-72b928b42032ab22db0d.html">InventoryPanel.CancelDragPreview</a></li><li><a href="function-75551d25882b8f17140e.html">SpatialSimulation.SecureInventory</a></li><li><a href="function-a11f08e3562603d96c8a.html">InventoryState.IsOpen</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-c901c6e186650a485958.html">InventoryBrowser.Placement</a></li><li><a href="function-d6d33fb4a9df7ea50d42.html">OscpWorkspace.IsOpen</a></li><li><a href="function-ef65cf7c43c0f8f68b94.html">InventoryClosures.OnDismissal</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>_gear.ToArray
+Array.Empty&lt;Gear&gt;
+_contents.Any
+removedGear.Any
+_contents.ToArray
+Array.Empty&lt;Interior&gt;
+_visited.Concat
+removedGear.SelectMany
+(Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r =&gt; r.Attachment is null).Select
+(Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where
+Panel.Simulation.Inventory.Definition
+interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
+            .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
+            .Concat(removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })
+                .Select(g =&gt; new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))
+            .Where(r =&gt; Placement(r.ItemId) is not null).ToArray
+interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
+            .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
+            .Concat(removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })
+                .Select(g =&gt; new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))
+            .Where
+interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
+            .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
+            .Concat
+interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
+            .Select
+interiors.Where
+Placement
+Panel.Simulation.Inventory.IsOpen
+removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })
+                .Select
+removedGear.Where
+InventoryClosures.OnDismissal
+Panel.Simulation.SecureInventory
+Panel.ShowReceipt
+Panel.CancelDragPreview
+_gear.RemoveRange
+_contents.RemoveRange
+Build</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-a51ca3f995cec4976c35.html">InventoryBrowser.CloseView</a></li><li><a href="function-ac107e6ffbf0ef0666de.html">InventoryBrowser.Back</a></li><li><a href="function-eb4eecc6250266f4b27f.html">InventoryContainerView.Build</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryactionkind.html">InventoryActionKind</a></li><li><a href="type-inventorybrowser-gear.html">Gear</a></li><li><a href="type-inventorybrowser-interior.html">Interior</a></li><li><a href="type-inventorybrowser.html">InventoryBrowser</a></li><li><a href="type-inventoryclosures.html">InventoryClosures</a></li><li><a href="type-inventoryrequest.html">InventoryRequest</a></li></ul><h2>Implementation</h2><pre><code>internal bool Dismiss(bool gear, bool entire)
+    {
+        if (gear ? _gear.Count == 0 : _contents.Count == 0) return false;
+        var removedGear = gear ? (entire ? _gear.ToArray() : [_gear[^1]]) : Array.Empty&lt;Gear&gt;();
+        var removedContents = !gear || _contents.Any(c =&gt; removedGear.Any(g =&gt; g.Id == c.Owner))
+            ? (entire || gear ? _contents.ToArray() : [_contents[^1]]) : Array.Empty&lt;Interior&gt;();
+        // Dismissing views has a physical default. A busy handler leaves the views in place with an explanation.
+        var interiors = gear &amp;&amp; entire ? _visited.Concat(removedGear.SelectMany(g =&gt; g.Placement is null ? Array.Empty&lt;Interior&gt;()
+            : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r =&gt; r.Attachment is null).Select(r =&gt; new Interior(g.Id, r.Id, g.Placement)))) : removedContents;
+        var requests = interiors.Where(c =&gt; Placement(c.Owner) == c.Placement &amp;&amp; Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
+            .Select(c =&gt; new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
+            .Concat(removedGear.Where(g =&gt; g.Placement is not null &amp;&amp; Panel.Simulation.Inventory.Definition(g.Id).Wear?.OpenExposes is { Length: &gt; 0 })
+                .Select(g =&gt; new InventoryRequest(InventoryActionKind.CloseGarment, g.Id)))
+            .Where(r =&gt; Placement(r.ItemId) is not null).ToArray();
+        var automatic = InventoryClosures.OnDismissal(Panel.Simulation.Inventory, requests);
+        if (automatic.Length != 0 &amp;&amp; !Panel.Simulation.SecureInventory(automatic, automatic: true)) { Panel.ShowReceipt(); return false; }
+        Panel.CancelDragPreview(); _context++; _opening = null;
+        if (gear) _gear.RemoveRange(entire ? 0 : _gear.Count - 1, entire ? _gear.Count : 1);
+        if (removedContents.Length != 0) _contents.RemoveRange(_contents.Count - removedContents.Length, removedContents.Length);
+        Build(); Panel.ShowReceipt(); return true;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryBrowser.cs:107</footer></main></div></body></html>

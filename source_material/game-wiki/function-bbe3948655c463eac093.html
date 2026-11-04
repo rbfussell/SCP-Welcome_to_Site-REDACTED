@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpLocalPlan._Draw | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpLocalPlan._Draw</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscplocalplan-cs.html#L12">game/Presentation/Oscp/OscpLocalPlan.cs:12</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Draw()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-172d1ce25cb5b833acba.html">OscpLocalPlan.At</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-f3bf7cf6e14f35c8340a.html">OscpLocalPlan.Project</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>new[] { new Point2(0, 0), new(map.Width, 0), new(map.Width, map.Height), new(0, map.Height) }.Select(Project).ToArray
+new[] { new Point2(0, 0), new(map.Width, 0), new(map.Width, map.Height), new(0, map.Height) }.Select
+corners.Min
+corners.Max
+Math.Min
+Project
+DrawColoredPolygon
+corners.Select(p =&gt; (p - (min + max) / 2) * scale + Size / 2).ToArray
+corners.Select
+DrawLine
+At
+DrawArc
+DrawCircle
+DrawString</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-oscplocalplan.html">OscpLocalPlan</a></li><li><a href="type-point2.html">Point2</a></li></ul><h2>Implementation</h2><pre><code>public override void _Draw()
+    {
+        var map = Simulation.Map.Definition;
+        var corners = new[] { new Point2(0, 0), new(map.Width, 0), new(map.Width, map.Height), new(0, map.Height) }.Select(Project).ToArray();
+        var min = new Vector2(corners.Min(p =&gt; p.X), corners.Min(p =&gt; p.Y));
+        var max = new Vector2(corners.Max(p =&gt; p.X), corners.Max(p =&gt; p.Y));
+        var scale = Math.Min((Size.X - 28) / (max.X - min.X), (Size.Y - 30) / (max.Y - min.Y));
+        Vector2 At(Point2 point) =&gt; (Project(point) - (min + max) / 2) * scale + Size / 2;
+        DrawColoredPolygon(corners.Select(p =&gt; (p - (min + max) / 2) * scale + Size / 2).ToArray(), new Color(&quot;142622&quot;));
+        foreach (var wall in map.Walls) DrawLine(At(wall.Start), At(wall.End), new Color(wall.Door ? &quot;c59b61&quot; : &quot;718b7d&quot;), wall.Door ? 3 : 2);
+        foreach (var contact in Simulation.Awareness.Evidence)
+        {
+            var p = At(contact.Position);
+            DrawArc(p, 6, 0, Mathf.Tau, 16, new Color(&quot;d5ae75&quot;), 1);
+        }
+        var player = At(Simulation.Player.Position);
+        DrawCircle(player, 4, new Color(&quot;dce8d5&quot;));
+        DrawString(ThemeDB.FallbackFont, player + new Vector2(8, -5), &quot;YOU&quot;, HorizontalAlignment.Left, -1, 10, new Color(&quot;dce8d5&quot;));
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpLocalPlan.cs:12</footer></main></div></body></html>

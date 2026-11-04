@@ -1,0 +1,198 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EmploymentChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>EmploymentChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+internal static class EmploymentChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Employment: &quot; + detail); passed++; }
+        var definition = JsonSerializer.Deserialize&lt;OperationDefinition&gt;(config, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        var employment = definition.Employment!;
+        var chen = employment.Appointments[0] with { CycleMs = 10000, StartMs = 0, DurationMs = 3000, MaxOvertimeMs = 2000 };
+        var ortiz = employment.Appointments[1] with { CycleMs = 10000, StartMs = 0, DurationMs = 9000, MaxOvertimeMs = 500 };
+        string Config(StaffAppointment? first = null, StaffAppointment? second = null) =&gt; JsonSerializer.Serialize(definition with
+        { Employment = employment with { Appointments = [first ?? chen, second ?? ortiz] } });
+        SpatialSimulation Sim(string? fixture = null) =&gt; new(map, fixture ?? Config());
+        void Ticks(SpatialSimulation sim, int count) { for (var i = 0; i &lt; count; i++) sim.Tick(); }
+        StaffDuty Duty(SpatialSimulation sim, string id = &quot;observer&quot;) =&gt; sim.Employment.DiagnosticDuties.Single(s =&gt; s.ActorId == id);
+        var normal = Sim(); normal.Tick();
+        Check(normal.Operations.OrderHistory.Count == 0 &amp;&amp; normal.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 2,
+            &quot;on-post employment supplies real physical coverage without invented orders&quot;);
+        Check(normal.Employment.DeliveredReports.Count == 2 &amp;&amp; normal.OscpRecords.Any(r =&gt; r.Text.StartsWith(&quot;Employment:&quot;)),
+            &quot;personnel publish actual dated status through the communication service&quot;);
+        var interrupted = Sim(); interrupted.Tick();
+        interrupted.Operations.NetworkOnline = false;
+        Check(interrupted.SubmitPreparedPhoneOrder(&quot;observer&quot;, PersonnelTask.Post, new(8, 4)) == false,
+            &quot;offline phone cannot submit a new command&quot;);
+        interrupted.Operations.NetworkOnline = true;
+        interrupted.Operations.Radios[0] = new(&quot;observer&quot;, false);
+        Check(interrupted.SubmitPreparedPhoneOrder(&quot;observer&quot;, PersonnelTask.Post, new(8, 4)), &quot;linked handset can queue a command for an offline recipient&quot;);
+        interrupted.Tick();
+        Check(interrupted.Operations.OrderHistory.Last().Status == OrderStatus.Pending &amp;&amp; Duty(interrupted).Phase == DutyPhase.OnDuty,
+            &quot;undelivered command cannot erase employment or release a post&quot;);
+        interrupted.Operations.Radios[0] = new(&quot;observer&quot;); interrupted.Tick();
+        Check(Duty(interrupted).Phase == DutyPhase.Interrupted &amp;&amp; interrupted.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 1,
+            &quot;acknowledged reassignment removes employment coverage even before leaving the station&quot;);
+        Check(interrupted.OscpRecords.Any(r =&gt; r.Text.Contains(&quot;reassignment may leave&quot;)), &quot;director receives explicit coverage consequence in acknowledgement&quot;);
+        Check(interrupted.SubmitPreparedPhoneOrder(&quot;observer&quot;, PersonnelTask.ResumeDuty, interrupted.Player.Cell), &quot;director can release a standing command&quot;);
+        Ticks(interrupted, 25);
+        Check(interrupted.Operations.OrderHistory.Last().Status == OrderStatus.Complete &amp;&amp; Duty(interrupted).Phase == DutyPhase.OnDuty,
+            &quot;acknowledged return command completes and staff physically return to scheduled station&quot;);
+        Check(interrupted.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell == chen.Station &amp;&amp; !interrupted.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Moving,
+            &quot;employment cannot clock in remotely&quot;);
+
+        var moving = Sim(); moving.Map.OpenDoors.Add(&quot;door-4-3-u&quot;); moving.Tick();
+        Check(moving.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4)), &quot;direct order can temporarily move an employee away from duty&quot;);
+        Ticks(moving, 3);
+        var mover = moving.Actors.Single(a =&gt; a.Id == &quot;tech&quot;);
+        Check(mover.Moving &amp;&amp; mover.SegmentMs &gt; 0, &quot;interruption fixture genuinely reaches a fractional walking step&quot;);
+        var positionBeforeReturn = mover.Position;
+        Check(moving.SubmitPreparedPhoneOrder(&quot;tech&quot;, PersonnelTask.ResumeDuty, moving.Player.Cell), &quot;return command can interrupt travel&quot;);
+        moving.Tick();
+        Check(Point2.Distance(positionBeforeReturn, mover.Position) &lt;= 0.13, &quot;return-to-duty route reverses from the real fractional position without snapping&quot;);
+        var movingClone = Sim(); movingClone.Restore(moving.Save());
+        for (var i = 0; i &lt; 25; i++) { moving.Tick(); movingClone.Tick(); }
+        Check(moving.Save() == movingClone.Save() &amp;&amp; Duty(moving, &quot;tech&quot;).Phase == DutyPhase.OnDuty,
+            &quot;saving during interrupted travel retains exact physical return and employee ownership&quot;);
+
+        var handoff = Sim(Config(second: ortiz with { StartMs = 2000, DurationMs = 7000 }));
+        handoff.Tick();
+        var beforeHandoff = handoff.Save(); var beforeHandoffClone = Sim(Config(second: ortiz with { StartMs = 2000, DurationMs = 7000 }));
+        beforeHandoffClone.Restore(beforeHandoff);
+        Check(beforeHandoffClone.Save() == beforeHandoff &amp;&amp; Duty(handoff, &quot;tech&quot;).ReliefSinceMs is null,
+            &quot;initial off-shift staff have no imaginary pre-campaign overtime&quot;);
+        Ticks(handoff, 58);
+        Check(Duty(handoff, &quot;tech&quot;).Phase == DutyPhase.OnDuty, &quot;incoming employee travels from rest before providing relief&quot;);
+        Ticks(handoff, 2);
+        Check(Duty(handoff).Phase == DutyPhase.OffShift &amp;&amp; handoff.DiagnosticPostCoverage(&quot;receiving-watch&quot;) &gt;= 1,
+            &quot;shift ends only after a real replacement is ready; no gap or imaginary observer&quot;);
+        Ticks(handoff, 20);
+        Check(handoff.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell == chen.Rest, &quot;released employee actually travels to rest&quot;);
+
+        Ticks(handoff, 45);
+        Check(Duty(handoff).Release == DutyRelease.Relieved &amp;&amp; !Duty(handoff).Reason.Contains(&quot;Overtime limit&quot;),
+            &quot;a successful handover cannot later be misreported as expired overtime&quot;);
+
+        var absent = Sim(); absent.Tick(); absent.ToggleNearestDoor();
+        Check(absent.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(4, 6)), &quot;authorized director may knowingly reassign the relief worker&quot;);
+        Ticks(absent, 65);
+        Check(Duty(absent).Phase == DutyPhase.AwaitingRelief &amp;&amp; Duty(absent).ReliefSinceMs == 3000,
+            &quot;missing relief starts bounded overtime at the actual local shift edge&quot;);
+        Check(absent.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 1, &quot;overtime counts only the actual ready observer&quot;);
+        var saved = absent.Save(); var clone = Sim(); clone.Restore(saved);
+        Check(clone.Save() == saved, &quot;pending relief saves without replaying reports or resetting overtime&quot;);
+        for (var i = 0; i &lt; 70; i++) { absent.Tick(); clone.Tick(); }
+        Check(absent.Save() == clone.Save(), &quot;restored relief limit and departure match uninterrupted execution&quot;);
+        Check(Duty(absent).Phase == DutyPhase.OffShift &amp;&amp; absent.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 0,
+            &quot;overtime expiry allows real uncovered post; staff are not compelled forever&quot;);
+        Check(absent.Anomalies.Bodies.Single().Revision == 0,
+            &quot;staffing failure cannot force SCP relocation while a qualifying player still sees it&quot;);
+
+        absent.Face(new Hex(5, 8).World);
+        Ticks(absent, 20);
+        Check(absent.Anomalies.Bodies.Single().Revision &gt; 0,
+            &quot;ordinary shift departure plus lost remaining sight can trigger the module&#x27;s actual relocation without a mission script&quot;);
+
+        var held = Sim(); held.Tick(); held.LocalHold = true;
+        var local = held.LocalMs; var before = JsonSerializer.Serialize(held.Employment.DiagnosticDuties);
+        Ticks(held, 200);
+        Check(held.WorldMs &gt; 10000 &amp;&amp; held.LocalMs == local &amp;&amp; JsonSerializer.Serialize(held.Employment.DiagnosticDuties) == before,
+            &quot;local holds retain duties/relief while the world calendar advances&quot;);
+        held.LocalHold = false; held.Tick();
+        Check(Duty(held).Phase == DutyPhase.OnDuty, &quot;resuming does not replay world-calendar labor or consume a local test shift&quot;);
+        held.ManualPause = true; var paused = held.Save(); Ticks(held, 100);
+        Check(held.Save() == paused, &quot;phone/manual pause freezes all employment and reports&quot;);
+
+        var blocked = Sim(Config(first: chen with { Station = new(8, 4) })); blocked.Tick();
+        Check(Duty(blocked).Phase == DutyPhase.Blocked &amp;&amp; blocked.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 1,
+            &quot;closed access produces blocked duty rather than teleportation or discretionary patrol&quot;);
+        var blockedSave = blocked.Save(); var blockedClone = Sim(Config(first: chen with { Station = new(8, 4) })); blockedClone.Restore(blockedSave);
+        Check(blockedClone.Save() == blockedSave, &quot;blocked duty retains exact continuation&quot;);
+        var blind = Sim(); blind.Tick(); blind.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Attending = false; blind.Tick();
+        Check(Duty(blind).Phase == DutyPhase.Blocked &amp;&amp; blind.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 1,
+            &quot;being assigned and physically present cannot substitute for readiness&quot;);
+        var logs = blind.Trace.Entries.Count; Ticks(blind, 8);
+        Check(blind.Trace.Entries.Count - logs &lt; 8, &quot;stable blocked employment must not toggle/flood duty transitions every tick&quot;);
+
+        var offline = Sim(); offline.Tick();
+        offline.Operations.NetworkOnline = false;
+        // Both voice and radio paths are lost. Keep the director&#x27;s actual knowledge frozen.
+        offline.Player.Cell = new(5, 8);
+        var reports = JsonSerializer.Serialize(offline.Employment.DeliveredReports);
+        offline.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Attending = false; offline.Tick();
+        Check(Duty(offline).Phase == DutyPhase.Blocked &amp;&amp; JsonSerializer.Serialize(offline.Employment.DeliveredReports) == reports,
+            &quot;OSCP keeps old personnel reports instead of reading hidden live state during link loss&quot;);
+        offline.Operations.NetworkOnline = true; offline.Tick();
+        Check(offline.Employment.DeliveredReports.Single(r =&gt; r.ActorId == &quot;observer&quot;).Phase == DutyPhase.Blocked,
+            &quot;link restoration sends current pending employment state without replaying missed labor&quot;);
+
+        var tactical = Sim(); tactical.Tick(); tactical.Player.Facing = 1;
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;employment fixture enters the existing tactical encounter&quot;);
+        tactical.Combat.Roster.RemoveAll(c =&gt; c.ActorId == &quot;observer&quot;); // Reserve only the drill participants in this fixture.
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = 10 };
+        Check(tactical.DiagnosticPostCoverage(&quot;receiving-watch&quot;) == 1, &quot;a tactical participant cannot simultaneously cover an employment post&quot;);
+        var dutyBeforeTurn = JsonSerializer.Serialize(tactical.Employment.DiagnosticDuties);
+        Ticks(tactical, 40);
+        Check(JsonSerializer.Serialize(tactical.Employment.DiagnosticDuties) == dutyBeforeTurn,
+            &quot;input waiting freezes employment alongside other local simulation&quot;);
+        Check(tactical.UseTrainingEquipment(CombatActionKind.ReadyWeapon), &quot;a paid tactical action may resolve local time&quot;);
+        Ticks(tactical, 10);
+        Check(Duty(tactical, &quot;tech&quot;).Phase == DutyPhase.Interrupted &amp;&amp; Duty(tactical).Phase == DutyPhase.OnDuty,
+            &quot;paid tactical ticks reserve participants while nonparticipant staff retain real duties&quot;);
+
+        var recoveryDefinition = definition with
+        {
+            Home = new(9, -1), Trolley = new(9, -2),
+            Starts = [new(&quot;avatar&quot;, new(10, 0), 5), new(&quot;observer&quot;, new(5, 0), 1), new(&quot;tech&quot;, new(8, -2), 1)],
+            Employment = employment with
+            {
+                Posts = [employment.Posts[0] with { LookAt = new Hex(9, -1).World }],
+                Appointments = [employment.Appointments[0], employment.Appointments[1] with { Station = new(8, -2), Rest = new(12, -2) }]
+            }
+        };
+        var recoveryConfig = JsonSerializer.Serialize(recoveryDefinition);
+        var recovery = Sim(recoveryConfig);
+        Check(recovery.IssueOrder(&quot;tech&quot;, PersonnelTask.Transport, recoveryDefinition.Home), &quot;employed technician may accept actual recovery work&quot;);
+        Ticks(recovery, 300);
+        Check(recovery.Operations.OrderHistory.Any(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status == OrderStatus.Complete)
+            &amp;&amp; Duty(recovery, &quot;tech&quot;).Phase == DutyPhase.OnDuty,
+            &quot;a physically completed recovery returns its employed handler to scheduling without an infinite follow-up order&quot;);
+        Check(!recovery.Operations.OrderHistory.Any(o =&gt; o.ActorId == &quot;tech&quot; &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked),
+            &quot;completion releases the employee reservation instead of silently double-booking them&quot;);
+
+        var safe = normal.Save();
+        void Reject(Action&lt;JsonNode&gt; tamper)
+        {
+            var bad = JsonNode.Parse(safe)!; tamper(bad);
+            try { normal.Restore(bad.ToJsonString()); throw new Exception(&quot;Invalid employment accepted&quot;); }
+            catch (ArgumentException) { Check(normal.Save() == safe, &quot;rejected restore must leave all live state intact&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Employment&quot;]![&quot;Duties&quot;]![0]![&quot;ActorId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n[&quot;Employment&quot;]![&quot;Duties&quot;]![0]![&quot;ReliefSinceMs&quot;] = 999999);
+        Reject(n =&gt; n[&quot;Employment&quot;]![&quot;Duties&quot;]![0]![&quot;Phase&quot;] = 999);
+        Reject(n =&gt; n[&quot;Employment&quot;]![&quot;Reports&quot;]![0]![&quot;ActorId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n.AsObject().Remove(&quot;Employment&quot;));
+        try { _ = Sim(Config(first: chen with { ActorId = &quot;avatar&quot; })); throw new Exception(&quot;Player autopilot appointment accepted&quot;); }
+        catch (ArgumentException) { passed++; }
+        try
+        {
+            _ = Sim(JsonSerializer.Serialize(definition with { Employment = employment with { Appointments = [null!] } }));
+            throw new Exception(&quot;Null appointment accepted&quot;);
+        }
+        catch (ArgumentException) { passed++; }
+        var noEmploymentConfig = JsonSerializer.Serialize(definition with { Employment = null });
+        var legacy = new SpatialSimulation(map, noEmploymentConfig);
+        Check(legacy.Employment.Definition is null &amp;&amp; legacy.Operations.OrderHistory.Count == 2, &quot;scenarios without employment retain the existing explicit-duty fixture&quot;);
+        var noEmploymentSave = legacy.Save();
+        var invalidDuty = JsonNode.Parse(noEmploymentSave)!;
+        invalidDuty[&quot;Operations&quot;]![&quot;Orders&quot;]![0]![&quot;Task&quot;] = (int)PersonnelTask.ResumeDuty;
+        try { legacy.Restore(invalidDuty.ToJsonString()); throw new Exception(&quot;Unappointed return-duty restore accepted&quot;); }
+        catch (ArgumentException) { Check(legacy.Save() == noEmploymentSave, &quot;restore rejects a return-duty command without a matching appointment&quot;); }
+        Console.WriteLine($&quot;EMPLOYMENT_CHECKS_PASS: {passed} assertions; duties, actual relief, bounded overtime, orders, holds, delivery and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/EmploymentChecks.cs</footer></main></div></body></html>

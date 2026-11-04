@@ -1,0 +1,192 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SCP module authoring form | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: templates/scp-module-form.md.</aside><h1 id="scp-module-authoring-form">SCP module authoring form</h1>
+<p>Copy this form for each module. Replace all placeholders. A completed form describes required behavior; it does not certify an implementation.</p>
+<h2 id="identity-and-adaptation">Identity and adaptation</h2>
+<ul>
+<li>Module namespace/ID: <code>&lt;author.module&gt;</code></li>
+<li>Display title / SCP designation: <code>&lt;title&gt;</code></li>
+<li>Package version / required host API: <code>&lt;version / range&gt;</code></li>
+<li>Dependencies / incompatibilities: <code>&lt;IDs and versions, or none&gt;</code></li>
+<li>Article title / credited author / source URL: <code>&lt;source&gt;</code></li>
+<li>Content license / asset provenance / adaptation changes: <code>&lt;details&gt;</code></li>
+<li>In-world containment class / independent hazard tags: <code>&lt;values&gt;</code></li>
+<li>Required fiction facts: <code>&lt;observable facts the adaptation must preserve&gt;</code></li>
+<li>Deliberate adaptations, unknowns, exclusions: <code>&lt;explicit list&gt;</code></li>
+<li>Unique, replicated, distributed, place, object, or actor: <code>&lt;existence model&gt;</code></li>
+</ul>
+<h2 id="behavior-and-state">Behavior and state</h2>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Entry condition</th>
+<th>Permitted actions</th>
+<th>Exit/trigger</th>
+<th>Persisted fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;state&gt;</code></td>
+<td><code>&lt;condition&gt;</code></td>
+<td><code>&lt;actions&gt;</code></td>
+<td><code>&lt;transition&gt;</code></td>
+<td><code>&lt;fields&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Spawn/location restrictions: <code>&lt;rules&gt;</code></li>
+<li>Invariants: <code>&lt;conditions that must always hold&gt;</code></li>
+<li>Observer/sense/media policy: <code>&lt;eyes, attention, light, occlusion, cameras, etc.&gt;</code></li>
+<li>Acquired anomaly recognition, contact classification and encounter token: <code>&lt;observable cues, known versus concealed identity; ordinary movement must not create new interruption episodes&gt;</code></li>
+<li>Tactical-entry eligibility and reaction window: <code>&lt;required acquired evidence, action/effect timing, interruption points, zero-response/lethal outcomes; no hidden-approach warning or guaranteed player turn&gt;</code></li>
+<li>Observer-kind profile/default and version: <code>&lt;human, AI, any eligible observer, or explicit authored predicate; unknown-kind handling&gt;</code></li>
+<li>Scenario observer-profile selection/overrides: <code>&lt;compatible variants, source/adaptation notes, save identity and validation&gt;</code></li>
+<li>Eligibility versus information: <code>&lt;who can detect/report the anomaly without counting as a suppressing observer&gt;</code></li>
+<li>Event subscriptions and timer resolution: <code>&lt;events and deadlines&gt;</code></li>
+<li>Timer ownership/clock bases: <code>&lt;world calendar versus local progress; remaining-duration persistence during complete local tactical waiting&gt;</code></li>
+<li>Cross-zone effects during a local hold: <code>&lt;declared boundary/interrupt/merge policy; queued transitions and revalidation; no silent bypass or bulk catch-up&gt;</code></li>
+<li>Named scenario/debug flags, target scope/defaults, validated setters and future-metric boundaries: <code>&lt;explicit policy; do not infer a metric from a placeholder flag&gt;</code></li>
+<li>Persistent state schema/version and seeded randomness: <code>&lt;data&gt;</code></li>
+<li>Creation/restore/disposal and migration: <code>&lt;behavior&gt;</code></li>
+</ul>
+<h2 id="effects-and-rule-changes">Effects and rule changes</h2>
+<table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Target/scope</th>
+<th>Effect/service</th>
+<th>Duration</th>
+<th>Stacking/composition</th>
+<th>Removal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;trigger&gt;</code></td>
+<td><code>&lt;target&gt;</code></td>
+<td><code>&lt;capability&gt;</code></td>
+<td><code>&lt;time&gt;</code></td>
+<td><code>&lt;rule&gt;</code></td>
+<td><code>&lt;condition&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Required capability grants: <code>&lt;versioned capabilities and scopes&gt;</code></li>
+<li>Explicit overrides and compatible/conflicting modules: <code>&lt;relationships&gt;</code></li>
+<li>Unknown item/actor/cross-effect fallback: <code>&lt;reject, ordinary behavior, or authored result&gt;</code></li>
+</ul>
+<h2 id="environment-and-utility-dependencies">Environment and utility dependencies</h2>
+<ul>
+<li>Required environmental quantities/services and affected spaces: <code>&lt;host capability/version; explicit not-applicable fields&gt;</code></li>
+<li>Units, safe/unsafe ranges and inclusive/exclusive boundaries: <code>&lt;actual conditions, separate from procedure compliance&gt;</code></li>
+<li>Rate-of-change sensitivity, exposure duration and event resolution: <code>&lt;rules, local clock and threshold crossing semantics&gt;</code></li>
+<li>Physical equipment, supply/capacity, backup and isolation requirements: <code>&lt;power, thermal output, ventilation, etc.&gt;</code></li>
+<li>Normal operation, treatment and recovery/stabilization modes: <code>&lt;which conditions apply in each mode&gt;</code></li>
+<li>Sensors, control links and actor evidence: <code>&lt;measurement, stale/missing readings, authority, alarm and response behavior&gt;</code></li>
+<li>Permitted environmental/device effects and accounting: <code>&lt;scoped heat sources/sinks, faults, overrides, conflict provenance&gt;</code></li>
+<li>Unattended resolver, cross-zone boundary and unsupported-quantity handling: <code>&lt;certified approximation or explicit rejection&gt;</code></li>
+<li>Environmental save state and supply depletion: <code>&lt;source stores, local timers, pending thresholds and work&gt;</code></li>
+<li>Source facts versus numerical game tuning/uncertain hypotheses: <code>&lt;reviewed distinctions&gt;</code></li>
+</ul>
+<h2 id="spatial-and-inventory-behavior">Spatial and inventory behavior</h2>
+<ul>
+<li>Domains, entry/exit predicates, topology, generator version: <code>&lt;details or not applicable&gt;</code></li>
+<li>Local clock and communication rules: <code>&lt;details&gt;</code></li>
+<li>Physical/perceived contexts, affected observers, apparent identities/geometry and sensory policy: <code>&lt;details or not applicable&gt;</code></li>
+<li>Perceived target/position to authoritative action mapping, stale-binding and cross-context consequence rules: <code>&lt;details or not applicable&gt;</code></li>
+<li>Actor/carried-item transfer and ownership: <code>&lt;transaction semantics&gt;</code></li>
+<li>Return anchor, occupied/destroyed origin, recovery: <code>&lt;policy&gt;</code></li>
+<li>Inputs/outputs, item recipe precedence, output overflow: <code>&lt;rules or not applicable&gt;</code></li>
+<li>Exterior footprint/mount compatibility, interior layout, ancestor access/closures, and mass: <code>&lt;rules or ordinary defaults&gt;</code></li>
+<li>Effects through nested containers and behavior during carrying/hauling: <code>&lt;rules&gt;</code></li>
+<li>Capacity/size changes, blocked placements, descendant reservations and spill/recovery: <code>&lt;rules or not applicable&gt;</code></li>
+<li>Injury, unconsciousness, death, dropped equipment, interrupted actions: <code>&lt;outcomes&gt;</code></li>
+</ul>
+<h2 id="staff-operations">Staff operations</h2>
+<table>
+<thead>
+<tr>
+<th>Procedure</th>
+<th>Roles/knowledge</th>
+<th>Equipment and setup</th>
+<th>Steps/guards</th>
+<th>Success predicate</th>
+<th>Abort/failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discover/investigate</td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;steps&gt;</code></td>
+<td><code>&lt;evidence&gt;</code></td>
+<td><code>&lt;branch&gt;</code></td>
+</tr>
+<tr>
+<td>Contain/mitigate</td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;steps&gt;</code></td>
+<td><code>&lt;world condition&gt;</code></td>
+<td><code>&lt;branch&gt;</code></td>
+</tr>
+<tr>
+<td>Transport or control access</td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;steps&gt;</code></td>
+<td><code>&lt;world condition&gt;</code></td>
+<td><code>&lt;branch&gt;</code></td>
+</tr>
+<tr>
+<td>Maintain/recover</td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;requirements&gt;</code></td>
+<td><code>&lt;steps&gt;</code></td>
+<td><code>&lt;world condition&gt;</code></td>
+<td><code>&lt;branch&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>What can never be solved by “capture the entity”: <code>&lt;limits&gt;</code></li>
+<li>Minimum fidelity / safe unattended approximation: <code>&lt;conditions and proof&gt;</code></li>
+<li>Personal participation or handoff constraints: <code>&lt;rules&gt;</code></li>
+<li>Primary employment roles/qualifications, shift coverage, readiness/relief acknowledgements: <code>&lt;requirements&gt;</code></li>
+<li>Authorized order interruption, panic/compulsion and other explicit override outcomes: <code>&lt;rules&gt;</code></li>
+<li>Foundation/Group of Interest knowledge, access, objectives, and alternative procedures: <code>&lt;rules&gt;</code></li>
+<li>Inter-site release, transport containment, and destination receiving conditions: <code>&lt;rules&gt;</code></li>
+<li>Reports: observed facts, uncertainty, delay, communication loss: <code>&lt;policy&gt;</code></li>
+</ul>
+<h2 id="presentation-and-recovery">Presentation and recovery</h2>
+<ul>
+<li>Required field cues and terminal information: <code>&lt;what the actor can know&gt;</code></li>
+<li>Post-death scene reveal: <code>&lt;actual scene shown only after committed death; presentation audience and continuation transition; no retroactive evidence or living-actor knowledge grants&gt;</code></li>
+<li>Visual state keys, illustrations, facing set, frame totals, anchors and semantic progress bindings: <code>&lt;metadata&gt;</code></li>
+<li>Generated category/name/state/frame/facing placeholders and production-art substitution: <code>&lt;bindings&gt;</code></li>
+<li>Readable equivalent for essential audio/color cues: <code>&lt;UI behavior&gt;</code></li>
+<li>Runtime quotas and fault state: <code>&lt;published defaults and specific needs&gt;</code></li>
+<li>Missing module, invalid state, or failed migration: <code>&lt;recovery policy&gt;</code></li>
+<li>Optional continuation/checkpoint grants, activation/cost, retained state and branch compatibility: <code>&lt;policy or not applicable&gt;</code></li>
+</ul>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2>
+<p>For every scenario, specify starting state, seed/inputs, action/event times, expected state, and evidence. Include:</p>
+<ol>
+<li>Ordinary interaction and rejected interaction.</li>
+<li>Direct participation and equivalent unattended execution.</li>
+<li>Trigger boundary, simultaneous effects, and loss of a required condition.</li>
+<li>Save/load in every critical state and just before completion.</li>
+<li>Injury/death, lost equipment, blocked routes, unavailable supplies, and abort.</li>
+<li>Domain unload/reload and missing/occupied return destination, if applicable.</li>
+<li>Compatible rules and at least one incompatible or unsupported interaction.</li>
+<li>Budget exhaustion and script fault with no partial transaction.</li>
+<li>Location/perception changes affecting another module through shared services, if applicable.</li>
+<li>Distinct pose keys versus animation frames, and branch/context restoration without stale actions, if applicable.</li>
+<li>If environmentally dependent: supply loss, capacity shortfall, upper/lower threshold and sudden changes, sensor/control failure, treatment/recovery, held local time and save/load just before a threshold. Direct and unattended outcomes preserve the same hazard semantics.</li>
+<li>If hostile/lethal: unseen approach with no warning/input hold, actual detection before versus at/after impact, interrupted versus completed lethal action, and save/load around that boundary. Tactical entry preserves deadlines and does not grant a response turn. Post-death scene reveal follows committed death and grants no knowledge to living actors.</li>
+</ol>
+<p>Certification status: <code>&lt;unimplemented / prototype / verified against host version and fixture set&gt;</code>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · templates/scp-module-form.md</footer></main></div></body></html>

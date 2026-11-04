@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OperationLifecycle.Initialize | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationLifecycle.Initialize</h1><p><a href="system-operations.html">Personnel orders and recovery</a> / <a href="file-src-sitesimulation-operations-operationlifecycle-cs.html#L6">src/SiteSimulation/Operations/OperationLifecycle.cs:6</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Initialize(SimulationWorld world)</code></pre><h2>Role in the engine</h2><p>Owns authored duties, orders, bounded communications, received reports, trolley loading/pushing/unloading and receiving-footprint compliance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-70ce2ee60b142b518bc6.html">OperationState.Report</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>d.Starts.Any
+world.Anomalies.Bodies.Any
+world.Actors.Any
+d.Starts.Select(s =&gt; s.ActorId).Distinct().Count
+d.Starts.Select(s =&gt; s.ActorId).Distinct
+d.Starts.Select
+d.RadioActors.Distinct().Count
+d.RadioActors.Distinct
+d.RadioActors.Any
+world.Map.Walkable
+world.Anomalies.Bodies.Select(b =&gt; b.Cell).ToHashSet
+world.Anomalies.Bodies.Select
+d.Posts.Any
+d.AccessDoors.Any
+world.Map.Definition.Walls.Any
+world.Actors.SingleOrDefault
+world.Actors.Select(a =&gt; a.Cell).Distinct().Count
+world.Actors.Select(a =&gt; a.Cell).Distinct
+world.Actors.Select
+world.Map.DynamicBlockers.Add
+world.Actors.Where
+EmploymentSystem.Owns
+state.Orders.Add
+world.Anomalies.Bodies.Single
+state.Report</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-718b2bacfd27f8176d9a.html">OscpScene._Ready</a></li><li><a href="function-cca00ec29dbf08139b4e.html">SpatialScene._Ready</a></li><li><a href="function-d7d18d159ff26c340221.html">SimulationWorld.SimulationWorld</a></li><li><a href="function-f903653729ecd946ab9f.html">SpatialHud.Initialize</a></li></ul><h2>Related types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-operationlifecycle.html">OperationLifecycle</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>public static void Initialize(SimulationWorld world)
+    {
+        var state = world.Operations;
+        if (state.Definition is not { } d) return;
+        if (d.AccessDoors is null || d.Posts is null || d.Starts is null || d.RadioActors is null
+            || d.Posts.Length == 0 || d.Starts.Any(s =&gt; s is null)
+            || d.StabilizeMs is &lt; 500 or &gt; 60000 || d.StabilizeMs % SpatialSimulation.TickMs != 0
+            || !world.Anomalies.Bodies.Any(b =&gt; b.Id == d.SubjectId) || !world.Actors.Any(a =&gt; a.Id == d.CommanderId)
+            || d.Starts.Select(s =&gt; s.ActorId).Distinct().Count() != d.Starts.Length
+            || d.RadioActors.Distinct().Count() != d.RadioActors.Length
+            || d.RadioActors.Any(id =&gt; !world.Actors.Any(a =&gt; a.Id == id))
+            || d.Home == d.Terminal || !world.Map.Walkable(d.Home, world.Anomalies.Bodies.Select(b =&gt; b.Cell).ToHashSet()) || !world.Map.Walkable(d.Terminal) || !world.Map.Walkable(d.Trolley)
+            || d.Terminal == d.Trolley || d.Posts.Any(p =&gt; !world.Map.Walkable(p))
+            || d.AccessDoors.Any(id =&gt; !world.Map.Definition.Walls.Any(w =&gt; w.Id == id &amp;&amp; w.Door)))
+            throw new ArgumentException(&quot;Invalid operation scenario.&quot;);
+        foreach (var start in d.Starts)
+        {
+            var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == start.ActorId);
+            if (actor is null || !world.Map.Walkable(start.Cell) || start.Facing is &lt; 0 or &gt; 5)
+                throw new ArgumentException(&quot;Invalid operation actor start.&quot;);
+            actor.Cell = start.Cell; actor.Facing = start.Facing;
+        }
+        if (world.Actors.Select(a =&gt; a.Cell).Distinct().Count() != world.Actors.Count
+            || world.Actors.Any(a =&gt; a.Cell == d.Terminal || a.Cell == d.Trolley)) throw new ArgumentException(&quot;Operation fixtures overlap.&quot;);
+        world.Map.DynamicBlockers.Add(d.Terminal); world.Map.DynamicBlockers.Add(d.Trolley);
+        foreach (var actor in world.Actors.Where(a =&gt; a.Id != d.CommanderId &amp;&amp; !EmploymentSystem.Owns(world, a.Id)))
+            state.Orders.Add(new(state.NextId++, d.CommanderId, actor.Id, PersonnelTask.Observe, actor.Cell, &quot;voice&quot;, OrderStatus.Active,
+                &quot;Standing observation duty&quot;, 0, world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Position));
+        state.Report(world, &quot;OPERATIONS&quot;, &quot;Observation shift opened. Receiving conditions require three humans, lit room and closed access. One observer can suppress self-relocation.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Operations/OperationLifecycle.cs:6</footer></main></div></body></html>

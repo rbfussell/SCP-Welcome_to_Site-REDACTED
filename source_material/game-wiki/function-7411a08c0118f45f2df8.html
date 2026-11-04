@@ -1,0 +1,175 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ObservedTransportSystem.Advance | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>ObservedTransportSystem.Advance</h1><p><a href="system-operations.html">Personnel orders and recovery</a> / <a href="file-src-sitesimulation-operations-observedtransportsystem-cs.html#L37">src/SiteSimulation/Operations/ObservedTransportSystem.cs:37</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Advance(SimulationWorld world)</code></pre><h2>Role in the engine</h2><p>Owns authored duties, orders, bounded communications, received reports, trolley loading/pushing/unloading and receiving-footprint compliance.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-071659ad9d3f9a08aa48.html">ObservedTransportSystem.Work</a></li><li><a href="function-1bad2f0fcd36810809f9.html">ObservedTransportSystem.ObservedByOther</a></li><li><a href="function-387fe13ac5f7e840c0df.html">Scp650Module.AllowsObservedTransport</a></li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a></li><li><a href="function-4a1e376075486800d5c9.html">ObservedTransportSystem.DetachRelocated</a></li><li><a href="function-4a8b3b1eef40502d85db.html">MovementSystem.PlanRoute</a></li><li><a href="function-4da618d29356ad6c69d6.html">ObservationService.FacingToward</a></li><li><a href="function-586a537b4ef3bf5d3a47.html">ObservedTransportSystem.ClearWork</a></li><li><a href="function-5a329cf2a097eb86678e.html">PersonnelOrderSystem.Travel</a></li><li><a href="function-5aa487db6c37ccdec884.html">Point2.Distance</a></li><li><a href="function-6edf60e779cf0c0972c1.html">Hex.Distance</a></li><li><a href="function-738bc47c82c149139857.html">ObservationService.Inspect</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-7a17a78d60d2e193b978.html">FacilityMap.CanTraverse</a></li><li><a href="function-8351d5a959bbfc9aef60.html">ObservedTransportSystem.OwnCells</a></li><li><a href="function-83c3fd2e7f805cc31781.html">IAnomalyModule.AllowsObservedTransport</a></li><li><a href="function-9ff7a8b53aec93a4f632.html">AnomalySystem.AllowsObservedTransport</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-acd96b4066463ed0bf8c.html">Hex.FromWorld</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-cc087ade8b0b571eab8b.html">SimulationWorld.Log</a></li><li><a href="function-cefd9f0464ac2eff59f2.html">MovementSystem.Occupied</a></li><li><a href="function-d9fb511c19183f2cb461.html">EmploymentSystem.Owns</a></li><li><a href="function-e1e43c48d552a95fac0d.html">PersonnelOrderSystem.Set</a></li><li><a href="function-ef6a6b8d2492a1b8031c.html">ObservedTransportSystem.CartPath</a></li><li><a href="function-fae937bf0b19c862cd32.html">ObservedTransportSystem.Body</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>state.Orders.Where(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked)
+            .OrderBy(o =&gt; o.Id).FirstOrDefault
+state.Orders.Where(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked)
+            .OrderBy
+state.Orders.Where
+ClearWork
+world.Actors.Single
+Body
+Hex.FromWorld
+DetachRelocated
+actor.Cell.Distance
+Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault
+Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy
+Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where
+Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select
+Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where
+Enumerable.Range(0, 6).Select
+Enumerable.Range
+world.Map.Walkable
+MovementSystem.Occupied(world, actor).Contains
+MovementSystem.Occupied
+MovementSystem.PlanRoute
+PersonnelOrderSystem.Set
+PersonnelOrderSystem.Travel
+state.Contacts.SingleOrDefault
+ObservationService.FacingToward
+world.Anomalies.AllowsObservedTransport
+ObservationService.Inspect
+ObservedByOther
+body.Cell.Distance
+world.Map.CanTraverse
+Work
+world.Map.DynamicBlockers.Remove
+world.Map.DynamicBlockers.Add
+world.Log
+Enumerable.Range(0, 6).Select(actor.Cell.Neighbor).FirstOrDefault
+EmploymentSystem.Owns
+state.Orders.RemoveAt
+state.Orders.FindIndex
+state.Orders.Add
+cartCell.Distance
+world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)
+                &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: CartPath(world, cartCell, c, actor))).Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault
+world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)
+                &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: CartPath(world, cartCell, c, actor))).Where(p =&gt; p.Path.Count &gt; 0).OrderBy
+world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)
+                &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: CartPath(world, cartCell, c, actor))).Where
+world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)
+                &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select
+world.Map.Cells.Where
+c.Distance
+CartPath
+OwnCells</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-12f1a5568687a2d2a06a.html">OscpScene._Process</a></li><li><a href="function-4fb173b79d221d6e347c.html">SpatialScene._Process</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li></ul><h2>Related types</h2><ul><li><a href="type-employmentsystem.html">EmploymentSystem</a></li><li><a href="type-hex.html">Hex</a></li><li><a href="type-movementsystem.html">MovementSystem</a></li><li><a href="type-observationservice.html">ObservationService</a></li><li><a href="type-observedtransportsystem.html">ObservedTransportSystem</a></li><li><a href="type-orderstatus.html">OrderStatus</a></li><li><a href="type-personnelordersystem.html">PersonnelOrderSystem</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li><li><a href="type-stoppedstep.html">StoppedStep</a></li></ul><h2>Implementation</h2><pre><code>public static void Advance(SimulationWorld world)
+    {
+        var state = world.Operations;
+        if (state.Definition is not { } d) return;
+        var order = state.Orders.Where(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked)
+            .OrderBy(o =&gt; o.Id).FirstOrDefault();
+        if (order is null)
+        {
+            ClearWork(world); state.Trolley = state.Trolley with { HandlerId = null }; return;
+        }
+        var actor = world.Actors.Single(a =&gt; a.Id == order.ActorId);
+        var body = Body(world);
+        var cart = state.Trolley;
+        if (cart.HandlerId is not null &amp;&amp; cart.HandlerId != actor.Id) { ClearWork(world); cart = state.Trolley; }
+        state.Trolley = cart = cart with { HandlerId = actor.Id };
+        var cartCell = Hex.FromWorld(cart.Position);
+        if (cart.SubjectId is not null &amp;&amp; body.Cell != cartCell) { DetachRelocated(world, body.Id); return; }
+        if (actor.Moving) return;
+        if (actor.StoppedStep is not null || actor.Cell.Distance(cartCell) != 1)
+        {
+            ClearWork(world);
+            var approach = Enumerable.Range(0, 6).Select(cartCell.Neighbor)
+                .Where(c =&gt; world.Map.Walkable(c) &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: MovementSystem.PlanRoute(world, actor, c)))
+                .Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault();
+            if (approach.Path is null) { PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Cannot reach trolley handle&quot;); return; }
+            PersonnelOrderSystem.Travel(world, order, actor, approach.Cell, false); return;
+        }
+        var knownPoint = state.Contacts.SingleOrDefault(c =&gt; c.ActorId == actor.Id)?.Position ?? order.TargetPoint;
+        actor.Facing = ObservationService.FacingToward(actor.Position, cart.SubjectId is null ? knownPoint ?? cart.Position : cart.Position, actor.Facing);
+        if (world.LocalMs &lt; actor.StartledUntilMs || !world.Anomalies.AllowsObservedTransport(body.Id))
+        { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Handler not ready or module disallows transport&quot;); return; }
+        // Requiring real external observation makes the handler&#x27;s own facing insufficient for the procedure.
+        var seesBody = ObservationService.Inspect(world.Map, actor, body.Position, world.LocalMs).Detected;
+        if (cart.SubjectId is not null &amp;&amp; !ObservedByOther(world, actor.Id))
+        { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Observation coverage lost · trolley stopped&quot;); return; }
+        if (cart.SubjectId is null &amp;&amp; seesBody &amp;&amp; body.Cell.Distance(cartCell) == 1)
+        {
+            if (!ObservedByOther(world, actor.Id) || !world.Map.CanTraverse(body.Cell, cartCell, new HashSet&lt;Hex&gt; { body.Cell, cartCell }))
+            { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Loading needs clear access and another observer&quot;); return; }
+            if (!Work(world, order, actor, cartCell, actor.Cell, &quot;load&quot;)) return;
+            world.Map.DynamicBlockers.Remove(body.Cell);
+            body.Cell = cartCell; // External transport preserves anomalous appearance/pose/encounter identity.
+            world.Map.DynamicBlockers.Add(cartCell);
+            state.Trolley = state.Trolley with { SubjectId = body.Id, Step = null };
+            world.Log(&quot;transport&quot;, body.Id, &quot;loaded&quot;, &quot;Observed external loading onto open trolley; module remains active.&quot;);
+            return;
+        }
+        Hex destination;
+        if (cart.SubjectId is not null)
+        {
+            destination = d.Home;
+            if (cartCell == destination)
+            {
+                // Unload into the receiving footprint; the empty trolley is parked at the handler&#x27;s former hex.
+                if (!ObservedByOther(world, actor.Id)) return;
+                var parkedAt = actor.Cell;
+                var exit = Enumerable.Range(0, 6).Select(actor.Cell.Neighbor).FirstOrDefault(c =&gt; c != cartCell &amp;&amp; world.Map.Walkable(c)
+                    &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c) &amp;&amp; world.Map.CanTraverse(actor.Cell, c, new HashSet&lt;Hex&gt; { actor.Cell }));
+                if (exit == default) { PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;No space to park trolley and step clear&quot;); return; }
+                if (!Work(world, order, actor, cartCell, actor.Cell, &quot;unload&quot;)) return;
+                world.Map.DynamicBlockers.Add(parkedAt);
+                state.Trolley = new(parkedAt.World);
+                actor.Cell = exit;
+                actor.Facing = ObservationService.FacingToward(actor.Position, body.Position, actor.Facing);
+                PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Complete, &quot;Delivered and unloaded in receiving footprint&quot;);
+                if (EmploymentSystem.Owns(world, actor.Id))
+                {
+                    world.Log(&quot;employment&quot;, actor.Id, &quot;order-complete&quot;, &quot;Transport complete; return to scheduled duty on next tick.&quot;);
+                    return;
+                }
+                if (state.Orders.Count &gt;= 32) state.Orders.RemoveAt(state.Orders.FindIndex(o =&gt; o.Status is OrderStatus.Complete or OrderStatus.Cancelled));
+                state.Orders.Add(new(state.NextId++, order.Issuer, actor.Id, PersonnelTask.Observe, exit, order.Channel, OrderStatus.Active,
+                    &quot;Procedure follow-up: maintain observation until relieved&quot;, world.LocalMs, body.Position));
+                world.Log(&quot;transport&quot;, body.Id, &quot;unloaded&quot;, &quot;One body retained; empty trolley parked alongside receiving footprint.&quot;);
+                return;
+            }
+        }
+        else
+        {
+            var contact = state.Contacts.SingleOrDefault(c =&gt; c.ActorId == actor.Id);
+            var point = seesBody ? body.Position : contact?.Position ?? order.TargetPoint;
+            if (point is null) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;No acquired location for subject&quot;); return; }
+            if (!seesBody &amp;&amp; cartCell.Distance(Hex.FromWorld(point.Value)) &lt;= 1)
+            { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Last known area reached · reacquire subject&quot;); return; }
+            var options = world.Map.Cells.Where(c =&gt; c.Distance(Hex.FromWorld(point.Value)) == 1 &amp;&amp; world.Map.Walkable(c)
+                &amp;&amp; c != actor.Cell &amp;&amp; !MovementSystem.Occupied(world, actor).Contains(c))
+                .Select(c =&gt; (Cell: c, Path: CartPath(world, cartCell, c, actor))).Where(p =&gt; p.Path.Count &gt; 0).OrderBy(p =&gt; p.Path.Count).FirstOrDefault();
+            if (options.Path is null) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Last known area reached · reacquire subject or clear route&quot;); return; }
+            destination = options.Cell;
+        }
+        var path = CartPath(world, cartCell, destination, actor);
+        if (path.Count == 0) { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Trolley route blocked · open access and clear personnel&quot;); return; }
+        var next = cart.Step?.Stage == &quot;push&quot; ? cart.Step.Next : path[0];
+        var ignored = OwnCells(state);
+        if (!world.Map.CanTraverse(cartCell, next, ignored) || !world.Map.CanTraverse(actor.Cell, cartCell, ignored)
+            || next == actor.Cell || MovementSystem.Occupied(world, actor).Contains(next))
+        { ClearWork(world); PersonnelOrderSystem.Set(world, order.Id, OrderStatus.Blocked, &quot;Push obstructed · reposition handler or clear next hex&quot;); return; }
+        if (!Work(world, order, actor, next, cartCell, &quot;push&quot;)) return;
+        world.Map.DynamicBlockers.Remove(cartCell);
+        world.Map.DynamicBlockers.Add(next);
+        actor.Cell = cartCell; actor.WalkMs += WorkMs;
+        if (state.Trolley.SubjectId is not null) body.Cell = next;
+        actor.Facing = ObservationService.FacingToward(actor.Position, next.World, actor.Facing);
+        state.Trolley = state.Trolley with { Position = next.World, Step = null };
+        world.Log(&quot;transport&quot;, actor.Id, &quot;pushed&quot;, $&quot;Trolley {cartCell} -&gt; {next}; physical path validated; 600ms work.&quot;);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Operations/ObservedTransportSystem.cs:37</footer></main></div></body></html>

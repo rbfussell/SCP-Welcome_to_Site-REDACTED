@@ -1,0 +1,673 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SCP-5810 — local canon snapshot | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Local canon</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SCP-5810 — local SCP Wiki snapshot</h1><aside class="canon-source"><strong>Canon source comparison</strong><div><a data-canon-paired="true" data-canon-hosted="true" href="https://scp-wiki.wikidot.com/scp-5810">Hosted SCP Wiki ↗</a> · <a href="canon-records/scp-5810.json">Local JSON record</a> · <a href="canon-index.html">Canon source directory</a></div><p>This is the local archive snapshot, not a live copy. Open the hosted page alongside it to compare; no automatic equality or freshness claim is made.</p></aside><h2>Back to the game wiki</h2><ul><li><a href="doc-docs-11-oscp-terminal-md.html">OSCP terminal and Foundation communications</a></li><li><a href="doc-docs-13-lore-and-digital-operations-md.html">Lore baseline and digital operations</a></li><li><a href="doc-docs-reviews-oscp-device-source-checks-md.html">OSCP workstation and field-phone source check</a></li><li><a href="scp-5810.html">SCP-5810</a></li></ul><h2>Related in-game SCP entries</h2><ul><li><a href="scp-5810.html">SCP-5810</a></li></ul><h2>Snapshot provenance</h2><dl><dt>Creator metadata</dt><dd><code>Lt Flops</code></dd><dt>Archive revision</dt><dd><code>278a69a68e4b85ac7135d061b9fbd6f1027e1a96</code></dd><dt>Original dataset file</dt><dd><code>../scp-api/docs/data/scp/items/content_series-6.5.json</code></dd><dt>Record key</dt><dd><code>SCP-5810</code></dd><dt>JSON pointer</dt><dd><code>/SCP-5810</code></dd><dt>Dataset SHA-256</dt><dd><code>65d871c148b784e5e7f86fbbcfc8859682de9bd8bcc41050d276816d3fc47f2e</code></dd><dt>Extracted record SHA-256</dt><dd><code>1725ffc349d43a03234d0612bf98f46ed937497b30a1d96dd2f373bc0154723e</code></dd></dl><p><a href="../scp-api/docs/data/scp/items/content_series-6.5.json">Open original dataset JSON shard</a> (find record key <code>SCP-5810</code>; use the wiki server for HTTP access). <a href="canon-records/scp-5810.json">Open exact single-record JSON</a>.</p><p>The linked JSON is an unchanged single-record extraction from that dataset file. It is packaged here so it works when serving just the game wiki and when reading offline. The cloned archive is left untouched.</p><h2>Archived article text</h2><p>Escaped source text; archived scripts and HTML are never executed. Article statements are source fiction, not automatically adopted game mechanics.</p><pre class="canon-text">
+	[[include &lt;a href=&quot;https://scp-wiki.wikidot.com/theme:flopstyle&quot;&gt;:scp-wiki:theme:flopstyle&lt;/a&gt;]]
+
+[[include &lt;a href=&quot;https://scp-wiki.wikidot.com/component:centered-header-sigma-9&quot;&gt;:scp-wiki:component:centered-header-sigma-9&lt;/a&gt;]]
+
+
+
+[[module CSS]]
+
+/* GENERAL */
+
+ :root{
+
+   --lgurl: url(https://scp-wiki.wdfiles.com/local--files/component:pride-highlighter/tg_logo.svg);
+
+}
+
+ #page-title{
+
+     display: none;
+
+}
+
+
+
+/* DIV BLOCKS */
+
+ .oscp{
+
+     margin: 1em 0;
+
+     padding: 0 1em;
+
+
+
+     color: hsl(5, 59%, 66%);
+
+     background-color: hsl(5, 100%, 11%);
+
+     border: 3px ridge hsl(5, 60%, 44%);
+
+     font-size: 1.35em;
+
+}
+
+ table.mimicUpload{
+
+     margin: 0 auto;
+
+}
+
+ table.mimicUpload td{
+
+     vertical-align: top;
+
+     padding: 0.2em 1em;
+
+}
+
+ .typeborder{
+
+     float: right;
+
+     width: 20em;
+
+     padding: 2px;
+
+
+
+     background-color: hsl(0, 100%, 100%);
+
+     border: 1px solid hsl(0, 0%, 47%);
+
+}
+
+ @media (max-width: 479px){
+
+     table.mimicUpload td{
+
+         float: left;
+
+         padding: 0;
+
+    }
+
+}
+
+[[/module]]
+
+
+
+[[include &lt;a href=&quot;https://scp-wiki.wikidot.com/component:info-ayers&quot;&gt;:scp-wiki:component:info-ayers&lt;/a&gt;
+
+|lang=en
+
+|page=scp-5810
+
+|authorPage=/floppyphoenix
+
+|comments=**SCP-5810:** Of Guilt, Fear, and Hollowness of Heart 
+
+**Author:** [[*user Lt Flops]] 
+
+**Published on 26 Feb 2021** 
+
+----
+
+[[include :scp-wiki:more-by:lt-flops]]
+
+[[/div]]
+
+
+
+[[=]]
+
+[[module Rate]]
+
+[[/=]]
+
+
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+
+
+[[div class=&quot;meta-title&quot;]]
+
+SCP-5810
+
+[[/div]]
+
+
+
+[[div class=&quot;justified&quot;]]
+
+[[div class=&quot;oscp centered&quot;]]
+
+{{OSCP BOOT SEQUENCE INITIATED}}
+
+
+
+{{WELCOME, @@_____@@}}
+
+[[/div]]
+
+@@ @@
+
+You jolt awake, pry open your eyes, and yank a clenched fist to your chest.
+
+
+
+//…//
+
+
+
+You&#x27;re still in your chair. Wincing, you release your fingernails from your palm.
+
+
+
+//am i alone?//
+
+
+
+The light at the aged terminal grows, needles piercing.
+
+@@ @@
+
+&gt; **Item Number:** [[span class=&quot;blinkbar&quot;]]|[[/span]]
+
+@@ @@
+
+//not alone.//
+
+
+
+You hunch down, trying to look small — a force of habit. You toggle the display settings and crank the brightness down.
+
+
+
+Unkindly bouts of inner monologue spin through your head. Over, and over, and over again. They&#x27;re yours, of course, but they feel so… //defective//. Your synapses fire and make sense of the noise.
+
+@@ @@
+
+&gt; **Item Number:** SCP-5810
+
+@@ @@
+
+You force yourself to recall.
+
+@@ @@
+
+&gt; **Containment Class:** Keter (Uncontained)
+
+@@ @@
+
+You press the tip of your tongue into the familiar nook behind your front teeth, squeezing.
+
+@@ @@
+
+&gt; **Special Containment Procedures:** In the event of a suspected SCP-5810 sighting, several methods of temporary evasion have been conjectured. To date, the most consistent method involves avoiding SCP-5810-associated thoughts for as long as they persist. This remains sufficient, provided that SCP-5810-A reaffirms any deeply held beliefs by use of self-distraction, to suppress fear or insecurity[[span class=&quot;blinkbar&quot;]]|[[/span]]
+
+@@ @@
+
+With trembling fingers, you herd a stray lock of hair behind your left ear.
+
+@@ @@
+
+&gt; SCP-5810 is localized to the research and residency compound of Area-75; until it is quarantined by SCP-5810-A, it cannot be considered contained.
+
+@@ @@
+
+Bile coats your esophagus. You swallow. You shudder. You continue.
+
+@@ @@
+
+&gt; **Description:** SCP-5810 is [[span class=&quot;blinkbar&quot;]]|[[/span]]
+
+@@ @@
+
+Something creaks. Where — in one of the adjacent workspaces? At the threshold leading into the corridor? Or was it more than a creak — behind you?
+
+
+
+Your veins freeze. You panic. You fall forward and curl up beneath the workstation. A dozen negative thoughts stream through your head.
+
+
+
+@@ @@//why did you come here?//
+
+
+
+@@  @@//pathetic.//
+
+
+
+@@    @@//just face the world.//
+
+
+
+@@        @@//you could fucking end this.//
+
+
+
+@@                @@//why are you wasting everyone&#x27;s time?//
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+After a brief stretch of relative silence, the panic subsides. That was the HVAC kicking in, wasn&#x27;t it? Must&#x27;ve been — you settle with that.
+
+
+
+//get up.//
+
+@@ @@
+
+&gt; **Description:** SCP-5810 is a Type-II Amorphous Entity currently occupying Research Area-75.
+
+@@ @@
+
+You glance across the vacant room out a nearby window, unable to see far into the night. The building&#x27;s lights are off, save for strips of emergency lamps lining the halls. You are alone.
+
+
+
+//…no, i&#x27;m not. i&#x27;m not alone.//
+
+
+
+You maintain focus. You inhale, taking in a film of dust, nearly choking. You flicker your eyes across the screen.
+
+@@ @@
+
+&gt; No complete physical description of SCP-5810 exists; all known information is circumstantial and anecdotal. SCP-5810 is an opportunistic predator, observed stalking prospective prey between sunset and sunrise for a period of three to four weeks, forgoing full emergence until the final few days of predation. This is surmised to[[span class=&quot;blinkbar&quot;]]|[[/span]]
+
+@@ @@
+
+You shudder, a breath escapes from deep in your chest.
+
+@@ @@
+
+@@ @@
+
+You try collecting what comes next, leaning back.
+
+@@ @@
+
+@@ @@
+
+The terminal runs a memetihazard inoculation check while on idle.
+
+@@ @@
+
+@@ @@
+
+How long have you been in the dark?
+
+@@ @@
+
+&gt; SCP-5810 victims (designated **SCP-5810-A**) invariably suffer from mild anxiety, paranoid thoughts, infrequent to frequent panic attacks, and in rare instances, hallucinations and delusional ideation.
+
+@@ @@
+
+How long have you been so afraid?
+
+@@ @@
+
+[[div class=&quot;blockquote&quot;]]
+
+It remains to be seen whether these are:
+
+# In response to SCP-5810,
+
+# A set of behaviours exhibited by its would-be prey, or
+
+# A quality of its prey that it feeds on.
+
+[[/div]]
+
+@@ @@
+
+How long has it pursued you? It was… Since you first transferred in for that long-term research stay — to fill a spot left vacant.
+
+
+
+You can&#x27;t recall how you got //here//, but your last memory is from your bed. You lay there, paralyzed and alone, for the sixth night in a row. Your shirt stuck to your back with sweat. Each night before you, the site looked emptier, until you felt like the last person around.
+
+
+
+Tonight, the shadows in the corner seem broader than ever before.
+
+@@ @@
+
+&gt; SCP-5810 preys on an awareness of its existence; as an understanding of the entity progresses, SCP-5810-A instances suffer from increasing apprehension and physical isolation.
+
+@@ @@
+
+You don&#x27;t look. You distract yourself; opening your personal storage, you search for the image that captures when you first felt truly alone.
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+[[div class=&quot;centered&quot;]]
+
+[[collapsible show=&quot;+ UPLOAD EVIDENCE&quot; hide=&quot;​&quot; hideLocation=&quot;bottom&quot;]]
+
+[[div class=&quot;justified&quot;]]
+
+[[div class=&quot;narration&quot;]]
+
+
+
+[[table class=&quot;mimicUpload&quot;]]
+
+[[row]]
+
+[[cell style=&quot;width: 50%;&quot;]]
+
+**Select a file on your computer**
+
+[[/cell]]
+
+[[cell]]
+
+[[span class=&quot;typeborder&quot;]]IMG_20190113_201633.jpg[[/span]]
+
+[[/cell]]
+
+[[/row]]
+
+[[row]]
+
+[[cell style=&quot;width: 50%;&quot;]]
+
+**Describe the file for others:**
+
+[[/cell]]
+
+[[cell]]
+
+[[span class=&quot;typeborder&quot;]]Taken behind research building. On-site residency is at left of frame. SCP-5810 watches in distance. [[span style=&quot;color: gray;&quot;]]Don&#x27;t look for it.[[/span]][[/span]]
+
+[[span style=&quot;font-size: 90%; color: gray;&quot;]]Max 100 characters (-19 characters left)[[/span]]
+
+[[/cell]]
+
+[[/row]]
+
+[[row]]
+
+[[cell style=&quot;width: 50%;&quot;]]
+
+**Preview:**
+
+[[/cell]]
+
+[[/row]]
+
+[[/table]]
+
+
+
+[[=image https://scp-wiki.wdfiles.com/local--files/scp-5810/IMG_20190113_201633.jpg style=&quot;border: solid 1px black; padding: 1px; width: 300px;&quot;]]
+
+[[/div]]
+
+@@ @@
+
+Is that it? Enough to prove it exists? You upload the file and continue.
+
+@@ @@
+
+&gt; ++ __**DISCOVERY**__
+
+&gt; 
+
+&gt; Containment Specialist @@_____@@ @@____@@ first deduced the existence of SCP-5810 on 11 January 2019 after relaying her experience to Dr. Herman Weber, [[[containment-psychiatry-orientation|Site Psychiatrist]]].
+
+@@ @@
+
+You add what you know, and quick. It doesn&#x27;t matter; just make a record. Someone //has// to.
+
+@@ @@
+
+&gt; In a later mental health diagnostic, @@____@@ alleged the entity pursued her for six days, and that it first targeted her at least three weeks before.
+
+@@ @@
+
+You no longer spot the lights in the hall. Only the light on your screen remains. You assert that you are not alone.
+
+@@ @@
+
+&gt; @@____@@ claimed the entity made its first physical appearance after entering her quarters from beneath a locked door, watching her for hours while she lay frozen in fear.
+
+@@ @@
+
+In your periphery, you swear the door creeps inward.
+
+@@ @@
+
+&gt; @@____@@ requested site transfer — **denied**.
+
+@@ @@
+
+You try not to look. You focus straight ahead, unblinking.
+
+@@ @@
+
+&gt; @@____@@&#x27;s quarters found empty with no signs of a str[[span class=&quot;blinkbar&quot;]]|[[/span]]
+
+@@ @@
+
+Visual snow fills the edges of your vision. You squeeze your eyes shut.
+
+
+
+@@ @@
+
+
+
+@@  @@You&#x27;re still.
+
+
+
+@@ @@
+
+
+
+Erratic heartbeat thrums in your chest. You wish it, too, would go out.
+
+
+
+@@ @@
+
+
+
+@@    @@You&#x27;re silent.
+
+
+
+@@ @@
+
+
+
+Where is it? Creeping across the floor. Glaring at you from a vantage point in the corner. Towering behind you. Where. Is. It?
+
+
+
+@@ @@
+
+
+
+@@        @@You&#x27;re not alone.
+
+
+
+@@ @@
+
+
+
+The terminal light fades. You panic. You cry out. No sound comes. Fear shackles you down. A hundred thoughts rattle through your mind. Your teeth clench like vice grip. You become light-headed. You try focusing--
+
+
+
+Too late. You thrash in the darkness, trying to strike the surface. Stars fill your eyes.
+
+
+
+With one pained choke, you lash out your arm and
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+= **[[size 120%]][*https://scp-wiki.wdfiles.com/local--files/scp-5810/IMG_20190113_201828.jpg + EXAMINE EVIDENCE][[/size]]**
+
+[[/div]]
+
+[[/div]]
+
+[[/collapsible]]
+
+[[/div]]
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+@@ @@
+
+[[div class=&quot;footing&quot;]]
+
+[[/div]]
+
+
+
+[[=]]
+
+[[module Rate]]
+
+[[/=]]
+
+
+
+[[div class=&quot;footer-wikiwalk-nav&quot;]]
+
+= &lt;&lt; [[[SCP-5809]]] | [[[floppyphoenix|Lt Flops]]] | [[[SCP-5811]]] &gt;&gt;
+
+[[/div]]
+
+
+
+[[div class=&quot;centered&quot;]]
+
+[[include &lt;a href=&quot;https://scp-wiki.wikidot.com/component:license-box&quot;&gt;:scp-wiki:component:license-box&lt;/a&gt;]]
+
+[[&lt;]]
+
+=====
+
+&gt; **Filename:** IMG_20190113_201633.jpg
+
+&gt; **Name:** {{N/A}}
+
+&gt; **Author:** [[*user Lt Flops]]
+
+&gt; **License:** [https://creativecommons.org/licenses/by-sa/3.0/ Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)]
+
+&gt; **Source Link:** https://scp-wiki.wdfiles.com/local--files/scp-5810/IMG_20190113_201633.jpg
+
+&gt; **Note:** I took and edited this image.
+
+
+
+&gt; **Filename:** IMG_20190113_201828.jpg
+
+&gt; **Name:** {{N/A}}
+
+&gt; **Author:** [[*user Lt Flops]]
+
+&gt; **License:** [https://creativecommons.org/licenses/by-sa/3.0/ Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)]
+
+&gt; **Source Link:** https://scp-wiki.wdfiles.com/local--files/scp-5810/IMG_20190113_201828.jpg
+
+&gt; **Note:** I took and edited this image.
+
+=====
+
+[[/&lt;]]
+
+[[include &lt;a href=&quot;https://scp-wiki.wikidot.com/component:license-box-end&quot;&gt;:scp-wiki:component:license-box-end&lt;/a&gt;]]
+
+[[/div]]
+</pre><p>Source: <span class="canon-link"><a  href="https://scp-wiki.wikidot.com/scp-5810" data-canon-hosted="true" title="Hosted SCP Wiki; external site">SCP-5810</a> <span class="canon-link-options">[Hosted ↗ · <a href="canon-scp-5810.html">Local snapshot</a> · <a href="canon-records/scp-5810.json">JSON</a>]</span></span>. Archive creator metadata: Lt Flops. SCP Wiki text is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>; consult the article for full credits and any asset-specific notices. No linked article images are imported.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/data/scp/items/content_series-6.5.json # SCP-5810</footer></main></div></body></html>

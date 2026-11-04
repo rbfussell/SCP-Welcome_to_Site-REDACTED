@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Transactions/InventorySecuring.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventorySecuring.cs</h1><p>src/SiteSimulation/Inventory/Transactions/InventorySecuring.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorysecuring.html">InventorySecuring</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-51c207f4e4cb4acd8a8f.html">InventorySecuring.IsSecure</a> · line 7</li><li><a href="function-7ee893b52cadd2354cd0.html">InventorySecuring.Completed</a> · line 8</li><li><a href="function-1f00647ea698d37c4fff.html">InventorySecuring.Prepare</a> · line 11</li><li><a href="function-7edb910498fca9d47d6a.html">InventorySecuring.Depth</a> · line 42</li><li><a href="function-58466c757858e21f7a32.html">InventorySecuring.TryStart</a> · line 48</li><li><a href="function-0cb2cc2221a2912dc2ae.html">InventorySecuring.Stop</a> · line 66</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Explicit close intent, persisted independently of UI lifetime. Each step buys normal handling.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class InventorySecuring</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     internal const int MaxSteps = 256;</span>
+<span id="L7"><a class="line" href="#L7">7</a>     internal static bool IsSecure(InventoryRequest r) =&gt; r.Kind is InventoryActionKind.Close or InventoryActionKind.CloseGarment;</span>
+<span id="L8"><a class="line" href="#L8">8</a>     internal static bool Completed(InventoryState state, InventoryRequest r) =&gt; r.Kind == InventoryActionKind.CloseGarment</span>
+<span id="L9"><a class="line" href="#L9">9</a>         ? !state.Items[r.ItemId].GarmentOpen : !state.IsOpen(r.ItemId, r.RegionId!);</span>
+<span id="L10"><a class="line" href="#L10">10</a> </span>
+<span id="L11"><a class="line" href="#L11">11</a>     public static bool Prepare(SimulationWorld world, IEnumerable&lt;InventoryRequest&gt; requests, out string reason, bool automatic = false)</span>
+<span id="L12"><a class="line" href="#L12">12</a>     {</span>
+<span id="L13"><a class="line" href="#L13">13</a>         reason = &quot;Finish the current handling or securing sequence first.&quot;;</span>
+<span id="L14"><a class="line" href="#L14">14</a>         var state = world.Inventory;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         if (!state.Enabled || state.Pending is not null || state.SecureQueue.Count != 0) return false;</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var entries = requests.Take(MaxSteps + 1).ToArray();</span>
+<span id="L17"><a class="line" href="#L17">17</a>         if (entries.Length &gt; MaxSteps || entries.Any(r =&gt; r is null || !IsSecure(r) || r.Destination is not null</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || !state.Items.ContainsKey(r.ItemId) || (r.Kind == InventoryActionKind.Close) != (r.RegionId is not null)))</span>
+<span id="L19"><a class="line" href="#L19">19</a>         { reason = &quot;Invalid securing targets.&quot;; return false; }</span>
+<span id="L20"><a class="line" href="#L20">20</a>         var steps = new List&lt;InventorySecureStep&gt;();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         foreach (var request in entries.Distinct())</span>
+<span id="L22"><a class="line" href="#L22">22</a>         {</span>
+<span id="L23"><a class="line" href="#L23">23</a>             // Validate even completed requests structurally; only the already-state rejection is harmless.</span>
+<span id="L24"><a class="line" href="#L24">24</a>             var valid = InventoryActions.Validate(world, world.Player.Id, request, out reason, out _, out var ap);</span>
+<span id="L25"><a class="line" href="#L25">25</a>             if (!valid)</span>
+<span id="L26"><a class="line" href="#L26">26</a>             {</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 if (reason is &quot;Compartment is already in that state&quot; or &quot;Garment is already in that state&quot;) continue;</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 return false;</span>
+<span id="L29"><a class="line" href="#L29">29</a>             }</span>
+<span id="L30"><a class="line" href="#L30">30</a>             if (world.Combat.Active &amp;&amp; ap &gt; CombatState.TurnAp)</span>
+<span id="L31"><a class="line" href="#L31">31</a>             { reason = $&quot;This closure needs {ap} AP, more than one supported turn. Close deeper containers separately.&quot;; return false; }</span>
+<span id="L32"><a class="line" href="#L32">32</a>             steps.Add(new(request, state.Items[request.ItemId].Placement, automatic));</span>
+<span id="L33"><a class="line" href="#L33">33</a>         }</span>
+<span id="L34"><a class="line" href="#L34">34</a>         // Contained closures first; open inner garments before outer garments can cover their fastenings.</span>
+<span id="L35"><a class="line" href="#L35">35</a>         state.SecureQueue.AddRange(steps.OrderByDescending(s =&gt; Depth(state, s.Request.ItemId))</span>
+<span id="L36"><a class="line" href="#L36">36</a>             .ThenBy(s =&gt; s.Request.Kind == InventoryActionKind.CloseGarment ? 1 : 0)</span>
+<span id="L37"><a class="line" href="#L37">37</a>             .ThenBy(s =&gt; InventoryWornOrder.Order(state.Items[s.Request.ItemId])));</span>
+<span id="L38"><a class="line" href="#L38">38</a>         reason = steps.Count == 0 ? &quot;These containers are already secured.&quot; : $&quot;Securing queued: {steps.Count} closures; normal time/AP apply. Cancel handling to stop.&quot;;</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (steps.Count != 0) PlayerFeedback.Add(world, MessageKind.Equipment, &quot;Inventory: &quot; + reason);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         return true;</span>
+<span id="L41"><a class="line" href="#L41">41</a>     }</span>
+<span id="L42"><a class="line" href="#L42">42</a>     private static int Depth(InventoryState state, string id)</span>
+<span id="L43"><a class="line" href="#L43">43</a>     {</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var depth = 0;</span>
+<span id="L45"><a class="line" href="#L45">45</a>         while (state.Items.TryGetValue(id, out var item)) { depth++; id = item.Placement.ParentId; }</span>
+<span id="L46"><a class="line" href="#L46">46</a>         return depth;</span>
+<span id="L47"><a class="line" href="#L47">47</a>     }</span>
+<span id="L48"><a class="line" href="#L48">48</a>     public static void TryStart(SimulationWorld world)</span>
+<span id="L49"><a class="line" href="#L49">49</a>     {</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var state = world.Inventory;</span>
+<span id="L51"><a class="line" href="#L51">51</a>         if (state.Pending is not null || state.SecureQueue.Count == 0 || world.LocalMs &lt; world.Player.StartledUntilMs) return;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         if (world.Combat.Active &amp;&amp; !TacticalCombatSystem.CanAct(world, world.Player.Id, out _)) return;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         var step = state.SecureQueue[0];</span>
+<span id="L54"><a class="line" href="#L54">54</a>         if (step.Automatic &amp;&amp; !InventoryClosures.SecureOnClose(state, step.Request.ItemId, step.Request.RegionId))</span>
+<span id="L55"><a class="line" href="#L55">55</a>         { state.SecureQueue.RemoveAt(0); return; }</span>
+<span id="L56"><a class="line" href="#L56">56</a>         if (state.Items[step.Request.ItemId].Placement != step.Placement)</span>
+<span id="L57"><a class="line" href="#L57">57</a>         { Stop(world, &quot;An inspected object moved; inspect it again before securing.&quot;); return; }</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (Completed(state, step.Request)) { state.SecureQueue.RemoveAt(0); return; }</span>
+<span id="L59"><a class="line" href="#L59">59</a>         if (!InventoryActions.Validate(world, world.Player.Id, step.Request, out var reason, out _, out var ap))</span>
+<span id="L60"><a class="line" href="#L60">60</a>         { Stop(world, reason); return; }</span>
+<span id="L61"><a class="line" href="#L61">61</a>         // Wait for a later player turn without ending the current turn or spending partial AP.</span>
+<span id="L62"><a class="line" href="#L62">62</a>         if (world.Combat.Active &amp;&amp; world.Combat.For(world.Player.Id)!.Ap &lt; ap) return;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         if (!InventoryActions.Start(world, step.Request, out reason)) { Stop(world, reason); return; }</span>
+<span id="L64"><a class="line" href="#L64">64</a>         state.SecureQueue.RemoveAt(0);</span>
+<span id="L65"><a class="line" href="#L65">65</a>     }</span>
+<span id="L66"><a class="line" href="#L66">66</a>     private static void Stop(SimulationWorld world, string reason)</span>
+<span id="L67"><a class="line" href="#L67">67</a>     {</span>
+<span id="L68"><a class="line" href="#L68">68</a>         world.Inventory.SecureQueue.Clear();</span>
+<span id="L69"><a class="line" href="#L69">69</a>         PlayerFeedback.Add(world, MessageKind.Warning, &quot;Inventory: securing stopped: &quot; + reason);</span>
+<span id="L70"><a class="line" href="#L70">70</a>     }</span>
+<span id="L71"><a class="line" href="#L71">71</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

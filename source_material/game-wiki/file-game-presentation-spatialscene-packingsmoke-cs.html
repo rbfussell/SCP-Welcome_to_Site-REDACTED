@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PackingSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PackingSmoke.cs</h1><p>game/Presentation/SpatialScene.PackingSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-636936daab561e47bbb5.html">SpatialScene.RunPackingSmoke</a> · line 9</li><li><a href="function-27fc66abf19922bfa212.html">SpatialScene.Check</a> · line 13</li><li><a href="function-1443472b35854bba8dbd.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-cdeb7c893d805bf2e798.html">SpatialScene.Move</a> · line 19</li><li><a href="function-c909cbeba4a18ec02f2e.html">SpatialScene.Surface</a> · line 24</li><li><a href="function-319d2bcd58a732f31a8f.html">SpatialScene.Action</a> · line 25</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunPackingSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Packing UI: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             for (var i = 0; i &lt; 900 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             Check(sim.Inventory.Pending is null, &quot;handling did not finish&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         async Task Move(string id, string parent, string region, int x = 0, int y = 0)</span>
+<span id="L20"><a class="line" href="#L20">20</a>         {</span>
+<span id="L21"><a class="line" href="#L21">21</a>             sim.ManualPause = false;</span>
+<span id="L22"><a class="line" href="#L22">22</a>             Check(sim.HandleInventory(new(InventoryActionKind.Move, id, new(parent, region, x, y))), sim.LastMessage); await Finish();</span>
+<span id="L23"><a class="line" href="#L23">23</a>         }</span>
+<span id="L24"><a class="line" href="#L24">24</a>         InventoryGearSurface Surface() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         Button Action(string label) =&gt; panel.GetChildren().OfType&lt;PanelContainer&gt;().Last().GetChild&lt;VBoxContainer&gt;(0)</span>
+<span id="L26"><a class="line" href="#L26">26</a>             .GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == label);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         await Move(&quot;gum-packet&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 4, 0);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         panel.Inspect(&quot;avatar-backpack&quot;); panel.OpenCompartment(&quot;avatar-backpack&quot;, &quot;main&quot;); await InventoryFrames();</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var grid = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var safe = sim.Save();</span>
+<span id="L31"><a class="line" href="#L31">31</a>         await InventoryDrag(grid.GlobalPosition + new Vector2(130, 59), grid.GlobalPosition + new Vector2(20, 60), async () =&gt;</span>
+<span id="L32"><a class="line" href="#L32">32</a>         {</span>
+<span id="L33"><a class="line" href="#L33">33</a>             Check(panel.DropPreview is { IntoContainer: true, Request.Kind: InventoryActionKind.AutoPlace, Quote.Allowed: true }, &quot;nested case was not a container-target drop&quot;);</span>
+<span id="L34"><a class="line" href="#L34">34</a>             Check(sim.Save() == safe, &quot;hover mutated the graph&quot;); await InventoryCapture(&quot;-container-drop&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         });</span>
+<span id="L36"><a class="line" href="#L36">36</a>         Check(sim.Save() == safe, &quot;paused drop performed free work&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         sim.ManualPause = false;</span>
+<span id="L38"><a class="line" href="#L38">38</a>         await InventoryDrag(grid.GlobalPosition + new Vector2(130, 59), grid.GlobalPosition + new Vector2(20, 60));</span>
+<span id="L39"><a class="line" href="#L39">39</a>         Check(sim.Inventory.Pending is { Request.Kind: InventoryActionKind.AutoPlace, Packing.Moves.Length: 1 }, &quot;native drop did not schedule quoted packing&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         await Finish();</span>
+<span id="L41"><a class="line" href="#L41">41</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;gum-packet&quot;).Placement == new ItemPlacement(&quot;medical-case&quot;, &quot;inside&quot;, 2, 0, true), &quot;case failed to use rotated free space&quot;);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         // Blank grid, contained item, and external pouch all expose the same scoped Arrange command.</span>
+<span id="L43"><a class="line" href="#L43">43</a>         InventoryClick(grid.GlobalPosition + new Vector2(200, 270), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L44"><a class="line" href="#L44">44</a>         Check(Action(&quot;Arrange &quot; + sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;).Name) is not null, &quot;blank grid lacks Arrange&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         InventoryClick(grid.GlobalPosition + new Vector2(20, 60), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Check(Action(&quot;Arrange &quot; + sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;).Name) is not null, &quot;contained item lacks parent-compartment Arrange&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         InventoryClick(Surface().HotspotPosition(&quot;main&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L48"><a class="line" href="#L48">48</a>         Check(Action(&quot;Arrange &quot; + sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;).Name) is not null, &quot;external pouch lacks Arrange&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         InventoryClick(Action(&quot;Arrange &quot; + sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;).Name).GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L50"><a class="line" href="#L50">50</a>         await Move(&quot;medical-case&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 4, 5);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         InventoryClick(grid.GlobalPosition + new Vector2(20, 60), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L52"><a class="line" href="#L52">52</a>         sim.ManualPause = false; InventoryClick(Action(&quot;Arrange &quot; + sim.Inventory.Region(&quot;avatar-backpack&quot;, &quot;main&quot;).Name).GetGlobalRect().GetCenter());</span>
+<span id="L53"><a class="line" href="#L53">53</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Arrange, &quot;explicit native Arrange did not create timed work&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         await Finish();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;medical-case&quot;).Placement == new ItemPlacement(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Arrange did not compact one compartment&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         await Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         ((ScrollContainer)hand.GetParent().GetParent()).EnsureControlVisible(hand); await InventoryFrames();</span>
+<span id="L59"><a class="line" href="#L59">59</a>         sim.ManualPause = false;</span>
+<span id="L60"><a class="line" href="#L60">60</a>         await InventoryDrag(hand.GlobalPosition + new Vector2(20, 70), Surface().HotspotPosition(&quot;side&quot;));</span>
+<span id="L61"><a class="line" href="#L61">61</a>         Check(sim.Inventory.Pending is { Request.Kind: InventoryActionKind.AutoPlace }, &quot;pouch-shaped gear surface did not accept native drop&quot;);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         await Finish();</span>
+<span id="L63"><a class="line" href="#L63">63</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;flashlight&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;gear surface drop failed&quot;);</span>
+<span id="L64"><a class="line" href="#L64">64</a>         await InventoryCapture(&quot;-packing-complete&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L66"><a class="line" href="#L66">66</a>         GD.Print(&quot;PACKING_SMOKE_PASS: exact manual placement preserved; native nested-container and segmented-pouch drops, scoped Arrange menus, paid handling and paused rejection.&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>     }</span>
+<span id="L68"><a class="line" href="#L68">68</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

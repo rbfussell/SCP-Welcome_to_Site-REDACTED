@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.HookSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.HookSmoke.cs</h1><p>game/Presentation/SpatialScene.HookSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-9d6fc5ec3d33e70f7b07.html">SpatialScene.RunHookSmoke</a> · line 9</li><li><a href="function-aa69254c64f3fd01f3f4.html">SpatialScene.Check</a> · line 13</li><li><a href="function-9ce48cd98d897a7a08ac.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-234b6468ec60f82967c3.html">SpatialScene.Act</a> · line 20</li><li><a href="function-5b8fa93adaa9fb6e2ab4.html">SpatialScene.Hand</a> · line 22</li><li><a href="function-fd0cfb7bfdf3350f39cb.html">SpatialScene.Surface</a> · line 27</li><li><a href="function-ee446cd5fa045be5e4be.html">SpatialScene.Up</a> · line 28</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunHookSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save(); sim.Player.Cell = new(13, 6);</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Hook UI: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             for (var i = 0; i &lt; 1000 &amp;&amp; (sim.Inventory.Pending is not null || sim.Inventory.SecuringRemaining != 0); i++) await InventoryFrames(1);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Inventory.SecuringRemaining == 0, &quot;paid work did not finish&quot;);</span>
+<span id="L18"><a class="line" href="#L18">18</a>             sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L19"><a class="line" href="#L19">19</a>         }</span>
+<span id="L20"><a class="line" href="#L20">20</a>         async Task Act(InventoryRequest request)</span>
+<span id="L21"><a class="line" href="#L21">21</a>         { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         async Task&lt;InventoryGrid&gt; Hand()</span>
+<span id="L23"><a class="line" href="#L23">23</a>         {</span>
+<span id="L24"><a class="line" href="#L24">24</a>             var grid = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L25"><a class="line" href="#L25">25</a>             ((ScrollContainer)grid.GetParent().GetParent()).EnsureControlVisible(grid); await InventoryFrames(); return grid;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         }</span>
+<span id="L27"><a class="line" href="#L27">27</a>         InventoryGearSurface Surface() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L28"><a class="line" href="#L28">28</a>         Button Up() =&gt; panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChild&lt;HBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().First();</span>
+<span id="L29"><a class="line" href="#L29">29</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));</span>
+<span id="L30"><a class="line" href="#L30">30</a>         await Act(new(InventoryActionKind.Move, &quot;utility-hook&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));</span>
+<span id="L31"><a class="line" href="#L31">31</a>         panel.Inspect(&quot;utility-belt&quot;); await InventoryFrames(); var hand = await Hand(); var before = sim.Save();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(0, 0)), async () =&gt;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         {</span>
+<span id="L34"><a class="line" href="#L34">34</a>             Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.ParentId == &quot;utility-belt&quot;, &quot;hook did not preview on the belt&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>             Check(sim.Save() == before, &quot;hook preview moved the source&quot;);</span>
+<span id="L36"><a class="line" href="#L36">36</a>             await InventoryCapture(&quot;-hook-mount-preview&quot;); sim.ManualPause = false;</span>
+<span id="L37"><a class="line" href="#L37">37</a>         });</span>
+<span id="L38"><a class="line" href="#L38">38</a>         Check(sim.Inventory.Pending?.Request.ItemId == &quot;utility-hook&quot;, &quot;hook release skipped paid handling&quot;); await Finish();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))); hand = await Hand(); before = sim.Save();</span>
+<span id="L40"><a class="line" href="#L40">40</a>         await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(-1, 2)), async () =&gt;</span>
+<span id="L41"><a class="line" href="#L41">41</a>         {</span>
+<span id="L42"><a class="line" href="#L42">42</a>             Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.ParentId == &quot;utility-hook&quot;</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 &amp;&amp; p.Request.Destination.AttachmentPose == new BodyPose(-1, 2), &quot;root view did not target the hook&#x27;s lower mount&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>             Check(sim.Save() == before, &quot;nested mount preview changed physical state&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>             await InventoryCapture(&quot;-hook-pouch-preview&quot;); sim.ManualPause = false;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         });</span>
+<span id="L47"><a class="line" href="#L47">47</a>         Check(sim.Inventory.Pending?.Request.Destination?.ParentId == &quot;utility-hook&quot;, &quot;pouch release addressed the belt instead of the extender&quot;); await Finish();</span>
+<span id="L48"><a class="line" href="#L48">48</a>         await InventoryCapture(&quot;-hook-assembly&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         InventoryClick(Surface().MountedImagePoint(&quot;utility-pouch&quot;, new(-1, 2), new(.5f, .6f)), true); await InventoryFrames();</span>
+<span id="L50"><a class="line" href="#L50">50</a>         Check(panel.Browser.GearIds.SequenceEqual(new[] { &quot;utility-belt&quot;, &quot;utility-hook&quot;, &quot;utility-pouch&quot; }) &amp;&amp; panel.Browser.CurrentContents is null,</span>
+<span id="L51"><a class="line" href="#L51">51</a>             &quot;direct descendant inspection did not preserve the provider trail&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         sim.ManualPause = false; InventoryClick(Surface().HotspotPosition(&quot;inside&quot;), true);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open, &quot;hooked pouch flap opened without paid work&quot;); await Finish();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         await Act(new(InventoryActionKind.Move, &quot;spare-dressing&quot;, new(&quot;utility-pouch&quot;, &quot;inside&quot;)));</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Check(panel.Browser.CurrentContents == (&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;pouch contents left the right-hand trail&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         await InventoryCapture(&quot;-hook-pouch-contents&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         sim.ManualPause = false; InventoryClick(Up().GetGlobalRect().GetCenter()); await Finish();</span>
+<span id="L58"><a class="line" href="#L58">58</a>         Check(panel.Browser.CurrentGear == &quot;utility-hook&quot; &amp;&amp; !sim.Inventory.IsOpen(&quot;utility-pouch&quot;, &quot;inside&quot;), &quot;up did not return to the hook and secure the pouch&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         await InventoryCapture(&quot;-hook-provider-view&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         InventoryClick(Up().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L61"><a class="line" href="#L61">61</a>         Check(panel.Browser.CurrentGear == &quot;utility-belt&quot;, &quot;hook up did not return to belt&quot;);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var child = sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         before = sim.Save();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         Check(Surface().MountedAt(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(0, 0), new(.36f, .3f))) == &quot;utility-hook&quot;, &quot;loaded hook source is not alpha-picked at its clip&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         await InventoryDrag(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(0, 0), new(.36f, .3f)), Surface().MountPosition(new(2, 0)), async () =&gt;</span>
+<span id="L66"><a class="line" href="#L66">66</a>         {</span>
+<span id="L67"><a class="line" href="#L67">67</a>             InventoryKey(Key.R); await InventoryFrames();</span>
+<span id="L68"><a class="line" href="#L68">68</a>             Check(Surface().MountPreview is { Handling.Allowed: true } p &amp;&amp; p.Request.Destination?.AttachmentPose == new BodyPose(2, 0, 1),</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 &quot;loaded hook did not preview a single sixth-turn with its assembly: drag=&quot; + panel.DragItemId + &quot; angle=&quot; + panel.AttachmentRotation + &quot; preview=&quot; + Surface().MountPreview);</span>
+<span id="L70"><a class="line" href="#L70">70</a>             Check(sim.Save() == before, &quot;loaded provider drag changed child placement&quot;);</span>
+<span id="L71"><a class="line" href="#L71">71</a>             await InventoryCapture(&quot;-hook-loaded-rotation&quot;); sim.ManualPause = false;</span>
+<span id="L72"><a class="line" href="#L72">72</a>         });</span>
+<span id="L73"><a class="line" href="#L73">73</a>         await Finish();</span>
+<span id="L74"><a class="line" href="#L74">74</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement == child</span>
+<span id="L75"><a class="line" href="#L75">75</a>             &amp;&amp; InventoryAttachmentFrames.RelativePose(sim.Inventory, &quot;utility-pouch&quot;, &quot;utility-belt&quot;) == new BodyPose(0, 1, 1), &quot;paid provider movement lost the nested transform&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch-2&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))); hand = await Hand(); before = sim.Save();</span>
+<span id="L77"><a class="line" href="#L77">77</a>         await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), Surface().MountPosition(new(0, 1)), async () =&gt;</span>
+<span id="L78"><a class="line" href="#L78">78</a>         {</span>
+<span id="L79"><a class="line" href="#L79">79</a>             Check(Surface().MountPreview is { Handling.Allowed: false }, &quot;occupied lower hook accepted another pouch&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>             Check(sim.Save() == before, &quot;refused occupied-hook preview changed the assembly&quot;); await InventoryCapture(&quot;-hook-occupied-mount&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         });</span>
+<span id="L82"><a class="line" href="#L82">82</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch-2&quot;).Placement.RegionId == &quot;hand&quot;, &quot;refused mount moved the source&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch-2&quot;, new(&quot;fixture:crate-a&quot;, &quot;store&quot;, 3, 4)));</span>
+<span id="L84"><a class="line" href="#L84">84</a>         hand = await Hand(); sim.ManualPause = false;</span>
+<span id="L85"><a class="line" href="#L85">85</a>         await InventoryDrag(Surface().MountedImagePoint(&quot;utility-hook&quot;, new(2, 0, 1), new(.36f, .3f)), hand.GlobalPosition + new Vector2(12, 55)); await Finish();</span>
+<span id="L86"><a class="line" href="#L86">86</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-hook&quot;).Placement.RegionId == &quot;hand&quot;</span>
+<span id="L87"><a class="line" href="#L87">87</a>             &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;utility-pouch&quot;).Placement == child</span>
+<span id="L88"><a class="line" href="#L88">88</a>             &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;spare-dressing&quot;).Placement.ParentId == &quot;utility-pouch&quot;, &quot;loaded hook detachment lost children&quot;);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L90"><a class="line" href="#L90">90</a>         clone.Restore(saved); Check(clone.Save() == saved, &quot;loaded hook hierarchy did not restore exactly&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L92"><a class="line" href="#L92">92</a>         GD.Print(&quot;HOOK_SMOKE_PASS: native hook/pouch dragging, extended target, recursive preview/rotation, provider trails, closure, blocked mount, loaded detachment and persistence.&quot;);</span>
+<span id="L93"><a class="line" href="#L93">93</a>     }</span>
+<span id="L94"><a class="line" href="#L94">94</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,89 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wear layers and fit standard | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/25-wear-layer-and-fit-standard.md.</aside><h1 id="wear-layers-and-fit-standard">Wear layers and fit standard</h1>
+<p>October 27 revision: the user separates fit compatibility from actual wearing order and adds per-hex same-layer subpositions. See <a href="doc-docs-33-fit-ranks-and-worn-stacks-md.html">fit ranks and actual worn stacks</a>. That contract supersedes fixed authored-layer design assumptions below; the current native runtime has not yet migrated.</p>
+<p>Status: October 25, 2026. User-confirmed direction: base garments occupy layer 0; outer items have a predictable wearing order; fitting something over another item depends on its construction. The example ordering below records the user's intended game behavior. Fit-profile fields, compatibility defaults and discomfort effects are proposed. This document does not add accessory items or a clearance/stretch solver. A subsequent <a href="doc-docs-30-body-fit-prototype-md.html">body-mask/contact fixture</a> now qualifies basic geometric fit separately.</p>
+<p>This extends <a href="doc-docs-24-body-equipment-and-container-navigation-md.html">body equipment and container navigation</a>. The current runtime already validates authored layers, body coverage, fastening, dressing order and outermost packs. It does not yet implement the fit/comfort details described here.</p>
+<p>The subsequent <a href="doc-docs-27-three-view-inventory-and-body-fit-md.html">body-hex shape/contact proposal</a> refines worn placement: closed contact edges must align with the body's boundary while authored openings permit continuation. Packed inventory remains square-grid. This proposal extends the fit standard without claiming that named mounts have already been replaced in the runtime.</p>
+<h2 id="layer-means-position-in-a-wearing-order">Layer means position in a wearing order</h2>
+<p>Layer 0 is the base or closest-to-body position for a particular body location. Examples include underwear, socks, a baseball cap and ordinary glasses. These belong to different anatomical locations, so sharing the number does not make them conflict.</p>
+<p>The number remains stable when optional inner garments are absent. A helmet keeps its outer layer when worn directly on the head; it does not become layer 0 merely because no cap is underneath it. Layer 0 also does not mean all base items must literally touch skin at every point.</p>
+<p>A proposed authoring reference for head/face accessories is:</p>
+<table>
+<thead>
+<tr>
+<th>Location / family</th>
+<th>Layer 0: base</th>
+<th>Layer 1: over the base</th>
+<th>Layer 2: outer protection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headwear</td>
+<td>Baseball cap</td>
+<td>Knit cap / toque / watch cap</td>
+<td>Helmet</td>
+</tr>
+<tr>
+<td>Eyes / face</td>
+<td>Ordinary glasses</td>
+<td>Compatible over-glasses goggles</td>
+<td>Compatible gas mask</td>
+</tr>
+</tbody>
+</table>
+<p>This table describes intended ordering, not blanket permission for every item combination. Larger equipment, enclosing suits and outermost packs continue to use their own authored higher layers and mounting rules. The existing shirt/trousers/coat/suit/pack fixture values remain test content until the wider standard is adopted; this document does not silently renumber saved equipment.</p>
+<h2 id="fit-decides-whether-the-ordered-combination-works">Fit decides whether the ordered combination works</h2>
+<p>Validation must distinguish anatomical location, layer order and actual fit. A higher layer does not guarantee compatibility. Equally, a lower item does not become wearable over a higher one just because the player equipped it last.</p>
+<table>
+<thead>
+<tr>
+<th>User example</th>
+<th>Intended authored result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseball cap, then a suitable knit cap</td>
+<td>Allowed: the outer knit cap can accommodate the cap beneath</td>
+</tr>
+<tr>
+<td>Knit cap, then baseball cap over it</td>
+<td>Rejected: incorrect wearing order and insufficient outer-cap fit</td>
+</tr>
+<tr>
+<td>Suitable knit cap beneath a compatible helmet</td>
+<td>Allowed when the helmet's fit permits it</td>
+</tr>
+<tr>
+<td>Baseball cap beneath a compatible helmet</td>
+<td>Can be allowed but awkward; record discomfort separately from a fit rejection</td>
+</tr>
+<tr>
+<td>Glasses beneath suitable goggles</td>
+<td>Allowed for a compatible over-glasses profile</td>
+</tr>
+<tr>
+<td>Glasses beneath a suitable gas mask</td>
+<td>Can be allowed by that mask's profile</td>
+</tr>
+<tr>
+<td>Ordinary glasses over a gas mask</td>
+<td>Rejected: glasses belong beneath it and do not fit over its outer shape</td>
+</tr>
+</tbody>
+</table>
+<p>These are game-content contracts. The engine should not contain branches for specific named hats, goggles or masks. Content authors select reusable fit families and supply exceptions where required. Some goggles or masks can support glasses underneath while other profiles reject them.</p>
+<p>Proposed fit-profile concepts:</p>
+<ul>
+<li><strong>Location and coverage:</strong> where the item mounts and what it physically covers. Refine the current coarse head/face regions when accessory content needs distinctions such as eyes, crown and mouth/nose; a strap or mounting contact is not automatically full coverage of an entire region.</li>
+<li><strong>Default layer and fit family:</strong> a stable wearing position and a reusable shape/construction class, such as fitted cap, stretch knit headwear, rigid helmet or spectacle frame.</li>
+<li><strong>Fit allowance:</strong> what the outer item can accommodate beneath it, using families, size/bulk, stretch or internal clearance as appropriate. Worn fit allowance is separate from the item's packed inventory dimensions.</li>
+<li><strong>Conflicts and required clearance:</strong> brim/visor obstruction, frame space or another authored incompatibility. Explicit rejection takes precedence over a broad compatible family.</li>
+<li><strong>Allowed but awkward combinations:</strong> a distinct result from refusal. Comfort or handling modifiers can be added later; no numerical penalty is chosen here.</li>
+<li><strong>Coverage, fastening and access:</strong> compatible equipment still obeys the existing rules for covered pockets, supported openings, required removal and timed/AP-bearing dressing.</li>
+</ul>
+<p>Fit checks must consider the complete overlapping worn stack, rather than just the immediately preceding item. A helmet may accommodate one inner layer but fail with the combined bulk of a cap and knit cap. Neither a fit-family match nor an extra layer creates unlimited wearing capacity.</p>
+<h2 id="content-authoring-workflow">Content authoring workflow</h2>
+<p>An author should be able to choose a standard body location and fit family, receive a suggested layer/profile, then describe only the exceptions. The validator should explain refusals in terms of the actual obstruction, such as a fitted cap not accommodating the knit cap beneath it, rather than reporting only an arbitrary slot error.</p>
+<p>Before publishing the accessory standard, each profile needs examples of allowed, rejected and awkward stacks; checks for both attempted wearing orders; overlap with adjacent equipment; total bulk/load; fastening/access changes; and save/restore. Existing outermost-pack rules remain mandatory. A valid final stack does not bypass the physical dressing sequence: placing a cap underneath an already worn toque still requires clearing the outer headwear first.</p>
+<p>Basic body-mask/contact metadata now validates the existing equipment graph in the <a href="doc-docs-30-body-fit-prototype-md.html">first fit slice</a>. The next accessory work is reusable clearance/fit-family metadata and its full-stack checks. A general cloth simulation, bespoke code for every item pair, new art for every combination and completed comfort/protection systems are not prerequisites for that bounded step.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/25-wear-layer-and-fit-standard.md</footer></main></div></body></html>

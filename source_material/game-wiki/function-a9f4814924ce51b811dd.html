@@ -1,0 +1,39 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PlayerFeedback.Sense | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PlayerFeedback.Sense</h1><p><a href="system-feedback.html">Player feedback and journal</a> / <a href="file-src-sitesimulation-feedback-playerfeedback-cs.html#L9">src/SiteSimulation/Feedback/PlayerFeedback.cs:9</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public static void Sense(SimulationWorld world)</code></pre><h2>Role in the engine</h2><p>Owns bounded acquired player messages, visibility episodes, witness/discovery presentation events and delivery feedback.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-1941dc81806c4916cde5.html">InventoryBrowser.Clear</a></li><li><a href="function-2674ebc4f15481027064.html">InventoryWornOrder.Order</a></li><li><a href="function-36f8cfe82d96edb46cf9.html">PlayerEventLog.Once</a></li><li><a href="function-41bba389eb138609411f.html">PlayerFeedback.Sees</a></li><li><a href="function-6ff31f9df45a844db150.html">OscpService.ReceivesRadio</a></li><li><a href="function-738bc47c82c149139857.html">ObservationService.Inspect</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Sees(world, a)).Select(a =&gt; a.Id)
+                .Concat(world.Anomalies.Bodies.Where(b =&gt; ObservationService.Inspect(world.Map, world.Player, b.Cell.World, world.LocalMs).Detected).Select(b =&gt; b.Id)).ToHashSet
+world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Sees(world, a)).Select(a =&gt; a.Id)
+                .Concat
+world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Sees(world, a)).Select
+world.Actors.Where
+Sees
+world.Anomalies.Bodies.Where(b =&gt; ObservationService.Inspect(world.Map, world.Player, b.Cell.World, world.LocalMs).Detected).Select
+world.Anomalies.Bodies.Where
+ObservationService.Inspect
+visible.Where(id =&gt; !world.Events.Visible.Contains(id)).Order
+visible.Where
+world.Events.Visible.Contains
+world.Actors.SingleOrDefault
+Add
+world.Events.Visible.Clear
+world.Events.Visible.UnionWith
+OscpService.ReceivesRadio
+world.Events.Once</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-32803b36e1225b1ba782.html">TacticalCombatSystem.ResolveTick</a></li><li><a href="function-8c0671d84bb342d951cf.html">SpatialSimulation.Tick</a></li><li><a href="function-ab6a6cdf91f3f09dc873.html">SpatialSimulation.EvaluatePlayerAwareness</a></li></ul><h2>Related types</h2><ul><li><a href="type-messagekind.html">MessageKind</a></li><li><a href="type-observationservice.html">ObservationService</a></li><li><a href="type-oscpservice.html">OscpService</a></li><li><a href="type-playerfeedback.html">PlayerFeedback</a></li><li><a href="type-simulationworld.html">SimulationWorld</a></li></ul><h2>Implementation</h2><pre><code>public static void Sense(SimulationWorld world)
+    {
+        if (!world.LocalActive) return;
+        if (world.LocalMs &gt;= world.Player.EyesClosedUntilMs)
+        {
+            var visible = world.Actors.Where(a =&gt; a != world.Player &amp;&amp; Sees(world, a)).Select(a =&gt; a.Id)
+                .Concat(world.Anomalies.Bodies.Where(b =&gt; ObservationService.Inspect(world.Map, world.Player, b.Cell.World, world.LocalMs).Detected).Select(b =&gt; b.Id)).ToHashSet();
+            foreach (var id in visible.Where(id =&gt; !world.Events.Visible.Contains(id)).Order(StringComparer.Ordinal))
+            {
+                var actor = world.Actors.SingleOrDefault(a =&gt; a.Id == id);
+                Add(world, MessageKind.Observation, $&quot;{actor?.Name ?? id} comes into view.&quot;);
+            }
+            world.Events.Visible.Clear(); world.Events.Visible.UnionWith(visible);
+        }
+        foreach (var report in world.Operations.Reports)
+        {
+            if ((report.Source is &quot;radio&quot; or &quot;scipnet&quot;) &amp;&amp; !OscpService.ReceivesRadio(world)) continue;
+            if (!world.Events.Once(&quot;report:&quot; + report.Id)) continue;
+            Add(world, report.SubjectId is null ? MessageKind.Orders : MessageKind.Observation, $&quot;{report.Author}: {report.Text}&quot;);
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Feedback/PlayerFeedback.cs:9</footer></main></div></body></html>

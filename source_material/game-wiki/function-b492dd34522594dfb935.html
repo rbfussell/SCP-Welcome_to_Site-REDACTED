@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OscpWorkspace.Initialize | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OscpWorkspace.Initialize</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-oscp-oscpworkspace-cs.html#L36">game/Presentation/Oscp/OscpWorkspace.cs:36</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public void Initialize(SpatialSimulation sim)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-23e6db1bfb7b83bcccb3.html">OscpWorkspace.Send</a></li><li><a href="function-389326f7387bf8460e4b.html">OscpWorkspace.Button</a></li><li><a href="function-45624d2a4c4f4cab51c5.html">OscpWorkspace.Text</a></li><li><a href="function-66579bf629d43cf4e789.html">OscpWorkspace.Execute</a></li><li><a href="function-92692d40232f74bc928c.html">OscpWorkspace.Style</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Godot.FileAccess.GetFileAsString
+SetAnchorsAndOffsetsPreset
+Theme.SetColor
+Theme.SetStylebox
+Style
+AddChild
+dim.SetAnchorsAndOffsetsPreset
+_frame.AddChild
+_screen.AddChild
+margin.SetAnchorsAndOffsetsPreset
+margin.AddThemeConstantOverride
+margin.AddChild
+column.AddThemeConstantOverride
+header.AddThemeConstantOverride
+column.AddChild
+Text
+_frame.QueueRedraw
+header.AddChild
+Button
+_body.AddThemeConstantOverride
+_body.AddChild
+scroll.AddChild
+content.AddThemeConstantOverride
+content.AddChild
+_toolbar.AddChild
+sim.Actors.Where
+_recipient.AddItem
+_actions.AddChild
+Send
+_document.AddThemeFontSizeOverride
+commandRow.AddChild
+Execute</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-718b2bacfd27f8176d9a.html">OscpScene._Ready</a></li><li><a href="function-cca00ec29dbf08139b4e.html">SpatialScene._Ready</a></li><li><a href="function-f903653729ecd946ab9f.html">SpatialHud.Initialize</a></li></ul><h2>Related types</h2><ul><li><a href="type-oscpdeviceframe.html">OscpDeviceFrame</a></li><li><a href="type-oscplocalplan.html">OscpLocalPlan</a></li><li><a href="type-oscpworkspace.html">OscpWorkspace</a></li><li><a href="type-personneltask.html">PersonnelTask</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>public void Initialize(SpatialSimulation sim)
+    {
+        _sim = sim;
+        _apps = new(Godot.FileAccess.GetFileAsString(&quot;res://Content/oscp-apps.json&quot;));
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Stop;
+        Theme = new Theme { DefaultFontSize = 14 };
+        Theme.SetColor(&quot;font_color&quot;, &quot;Label&quot;, new(&quot;dddcca&quot;));
+        Theme.SetColor(&quot;default_color&quot;, &quot;RichTextLabel&quot;, new(&quot;c7d3c9&quot;));
+        Theme.SetStylebox(&quot;normal&quot;, &quot;Button&quot;, Style(&quot;17211e&quot;, &quot;435249&quot;));
+        Theme.SetStylebox(&quot;hover&quot;, &quot;Button&quot;, Style(&quot;29392e&quot;, &quot;859581&quot;));
+        Theme.SetStylebox(&quot;pressed&quot;, &quot;Button&quot;, Style(&quot;3b2422&quot;, &quot;aa6960&quot;));
+        var dim = new ColorRect { Color = new(0.015f, 0.025f, 0.025f, 0.92f), MouseFilter = MouseFilterEnum.Stop };
+        AddChild(dim); dim.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        _frame = new OscpDeviceFrame { MouseFilter = MouseFilterEnum.Stop }; AddChild(_frame);
+        _screen = new Control { ClipContents = true, MouseFilter = MouseFilterEnum.Stop }; _frame.AddChild(_screen);
+        var margin = new MarginContainer(); _screen.AddChild(margin); margin.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        foreach (var side in new[] { &quot;left&quot;, &quot;right&quot;, &quot;top&quot;, &quot;bottom&quot; }) margin.AddThemeConstantOverride(&quot;margin_&quot; + side, 16);
+        var column = new VBoxContainer(); margin.AddChild(column); column.AddThemeConstantOverride(&quot;separation&quot;, 9);
+        var header = new HBoxContainer(); header.AddThemeConstantOverride(&quot;separation&quot;, 12); _header = header; column.AddChild(header);
+        var brand = Text(header, &quot;OSCP&quot;, 28, new(&quot;db7e75&quot;)); brand.SizeFlagsHorizontal = SizeFlags.ShrinkBegin; brand.AutowrapMode = TextServer.AutowrapMode.Off;
+        _subtitle = Text(header, &quot;INFORMATION &amp; OPERATIONS&quot;, 12, new(&quot;a6b0a0&quot;)); _subtitle.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        var brightness = new HSlider { MinValue = 0.7, MaxValue = 1.1, Step = 0.05, Value = 1, CustomMinimumSize = new(68, 0), TooltipText = &quot;Screen brightness&quot; };
+        brightness.ValueChanged += value =&gt; { _screen.Modulate = new((float)value, (float)value, (float)value); _frame.Brightness = (float)value; _frame.QueueRedraw(); };
+        header.AddChild(brightness);
+        Button(header, &quot;CLOSE&quot;, Close).SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
+        _session = Text(column, &quot;&quot;, 12, new(&quot;c1b6a2&quot;));
+        _link = Text(column, &quot;&quot;, 12, new(&quot;a8c7a4&quot;));
+        _clock = Text(column, &quot;&quot;, 11, new(&quot;9fae9e&quot;));
+        column.AddChild(new HSeparator());
+        _body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; column.AddChild(_body); _body.AddThemeConstantOverride(&quot;separation&quot;, 20);
+        _nav = new VBoxContainer { CustomMinimumSize = new(164, 0) }; _body.AddChild(_nav);
+        var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _contentScroll = scroll; _body.AddChild(scroll);
+        var content = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; scroll.AddChild(content); content.AddThemeConstantOverride(&quot;separation&quot;, 12);
+        _heading = Text(content, &quot;&quot;, 20, new(&quot;dedcca&quot;));
+        _scope = Text(content, &quot;&quot;, 12, new(&quot;9eaf9f&quot;));
+        _toolbar = new HBoxContainer(); content.AddChild(_toolbar);
+        _recipient = new OptionButton { FocusMode = FocusModeEnum.None, SizeFlagsHorizontal = SizeFlags.ExpandFill }; _toolbar.AddChild(_recipient);
+        foreach (var actor in sim.Actors.Where(a =&gt; a != sim.Player)) _recipient.AddItem(actor.Name);
+        _actions = new VBoxContainer(); content.AddChild(_actions);
+        var row = new HBoxContainer(); _actions.AddChild(row);
+        Button(row, &quot;Observe&quot;, () =&gt; Send(PersonnelTask.Observe)); Button(row, &quot;Follow&quot;, () =&gt; Send(PersonnelTask.Follow));
+        row = new HBoxContainer(); _actions.AddChild(row);
+        Button(row, &quot;Take post&quot;, () =&gt; Send(PersonnelTask.Post)); Button(row, &quot;Recover&quot;, () =&gt; Send(PersonnelTask.Transport));
+        row = new HBoxContainer(); _actions.AddChild(row);
+        Button(row, &quot;Return to duty&quot;, () =&gt; Send(PersonnelTask.ResumeDuty));
+        _clearDrafts = Button(_actions, &quot;Clear prepared orders&quot;, ClearPhoneDrafts);
+        _map = new OscpLocalPlan { Simulation = sim, CustomMinimumSize = new(200, 225), SizeFlagsHorizontal = SizeFlags.ExpandFill }; content.AddChild(_map);
+        _document = new RichTextLabel { BbcodeEnabled = false, FitContent = true, ScrollActive = false, CustomMinimumSize = new(170, 80), SizeFlagsHorizontal = SizeFlags.ExpandFill, SelectionEnabled = true };
+        _document.AddThemeFontSizeOverride(&quot;normal_font_size&quot;, 14); content.AddChild(_document);
+        column.AddChild(new HSeparator());
+        _receipt = Text(column, &quot;&quot;, 12, new(&quot;d8b77a&quot;));
+        var commandRow = new HBoxContainer(); column.AddChild(commandRow);
+        var prompt = Text(commandRow, &quot;&gt;&quot;, 16, new(&quot;db7e75&quot;));
+        prompt.SizeFlagsHorizontal = SizeFlags.ShrinkBegin; prompt.AutowrapMode = TextServer.AutowrapMode.Off;
+        _command = new LineEdit { PlaceholderText = &quot;status / team / records / mail / map / help&quot;, SizeFlagsHorizontal = SizeFlags.ExpandFill, MaxLength = 200, KeepEditingOnTextSubmit = true };
+        commandRow.AddChild(_command); _command.TextSubmitted += Execute;
+        Button(commandRow, &quot;ENTER&quot;, () =&gt; Execute(_command.Text)).SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
+        Text(column, &quot;SCiPnet · Esc closes · Space pauses when not typing&quot;, 11, new(&quot;83998b&quot;));
+        Visible = false;
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Oscp/OscpWorkspace.cs:36</footer></main></div></body></html>

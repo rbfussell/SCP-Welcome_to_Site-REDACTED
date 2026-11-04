@@ -1,0 +1,145 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CombatChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>CombatChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class CombatChecks
+{
+    public static int Run(string map, string operation)
+    {
+        var count = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Combat: &quot; + detail); count++; }
+        SpatialSimulation Fixture(bool playerFirst = true)
+        {
+            var sim = new SpatialSimulation(map);
+            sim.Player.Cell = new(8, 3); sim.Player.Facing = 1;
+            var opponent = sim.Actors.Single(a =&gt; a.Id == &quot;tech&quot;); opponent.Cell = new(11, 3); opponent.Facing = 4;
+            sim.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = new(5, 5);
+            sim.Awareness.StopOnDirectSight = sim.Awareness.StopOnReports = false;
+            Check(sim.Map.Walkable(sim.Player.Cell) &amp;&amp; sim.Map.Walkable(opponent.Cell), &quot;fixture positions need physical clearance&quot;);
+            Check(sim.ArmTraining() &amp;&amp; sim.Combat.Active, &quot;visible opposing training contact must enter turns automatically&quot;);
+            if (playerFirst)
+            {
+                var s = sim.Combat; s.Cursor = s.Participants.ToList().FindIndex(c =&gt; c.ActorId == sim.Player.Id);
+                for (var i = 0; i &lt; s.Roster.Count; i++) s.Roster[i] = s.Roster[i] with { Ap = s.Roster[i].ActorId == sim.Player.Id ? 10 : 0, Points = s.Roster[i].ActorId == &quot;observer&quot; ? 0 : 6 };
+            }
+            return sim;
+        }
+        void Resolve(SpatialSimulation sim)
+        {
+            for (var i = 0; sim.Combat.Pending is not null &amp;&amp; i &lt; 200; i++) sim.Tick();
+            Check(sim.Combat.Pending is null, &quot;accepted action must finish in bounded local ticks&quot;);
+        }
+        var sim = Fixture(); var local = sim.LocalMs; var positions = sim.Actors.Select(a =&gt; a.Position).ToArray();
+        for (var i = 0; i &lt; 200; i++) sim.Tick();
+        Check(sim.WorldMs == 10000 &amp;&amp; sim.LocalMs == local &amp;&amp; sim.OffsiteUpdates == 10, &quot;player decision holds all local time but world calendar/offsite continue&quot;);
+        Check(positions.SequenceEqual(sim.Actors.Select(a =&gt; a.Position)), &quot;staff cannot move during input wait&quot;);
+        var before = sim.Save(); var clone = new SpatialSimulation(map); clone.Restore(before);
+        Check(before == clone.Save(), &quot;waiting turn must restore without initiative reroll or AP refill&quot;);
+        sim.ToggleLighting(); sim.ToggleObserverAttention(); sim.BlinkPlayer();
+        Check(sim.Save() == before, &quot;ordinary/debug controls cannot mutate a combat turn for free&quot;);
+        Check(sim.UseTrainingEquipment(CombatActionKind.ReadyWeapon) &amp;&amp; sim.Combat.For(sim.Player.Id)!.Ap == 8, &quot;readying charges two AP once&quot;);
+        Check(!sim.RequestMove(new(9, 3)) &amp;&amp; !sim.FireTraining(&quot;tech&quot;), &quot;pending equipment action forbids overlapping commands&quot;);
+        sim.Tick(); sim.Tick();
+        sim.LocalHold = true; var heldLocal = sim.LocalMs; var heldRemaining = sim.Combat.Pending!.RemainingMs; var heldWorld = sim.WorldMs;
+        for (var i = 0; i &lt; 10; i++) sim.Tick();
+        Check(sim.LocalMs == heldLocal &amp;&amp; sim.Combat.Pending!.RemainingMs == heldRemaining &amp;&amp; sim.WorldMs == heldWorld + 500,
+            &quot;an additional hold preserves the pending action while outside time continues&quot;);
+        sim.LocalHold = false;
+        before = sim.Save(); clone.Restore(before);
+        for (var i = 0; i &lt; 4; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Save() == clone.Save() &amp;&amp; sim.Combat.For(sim.Player.Id)!.WeaponReady, &quot;mid-ready restore must resolve exactly once&quot;);
+        Check(sim.FireTraining(&quot;tech&quot;) &amp;&amp; sim.Combat.For(sim.Player.Id)!.Ammo == 5 &amp;&amp; sim.Combat.For(sim.Player.Id)!.Ap == 4, &quot;accepted shot reserves round/AP once&quot;);
+        sim.Tick(); before = sim.Save(); clone.Restore(before);
+        for (var i = 0; i &lt; 11; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Save() == clone.Save(), &quot;mid-shot restore must preserve roll, ammo, damage, clocks and feedback exactly&quot;);
+        Check(sim.Events.Entries.Count(e =&gt; e.Kind == MessageKind.Combat &amp;&amp; e.Text.StartsWith(&quot;You fire&quot;)) == 1, &quot;one attack produces one outcome message&quot;);
+        Check(sim.Combat.For(&quot;tech&quot;)!.Points is 4 or 6, &quot;training shot changes only training points&quot;);
+        var ap = sim.Combat.For(sim.Player.Id)!.Ap;
+        Check(!sim.UseTrainingEquipment(CombatActionKind.ReadyWeapon) &amp;&amp; sim.Combat.For(sim.Player.Id)!.Ap == ap, &quot;invalid equipment action cannot charge AP&quot;);
+        Check(sim.UseTrainingEquipment(CombatActionKind.Reload), &quot;part-used magazine can reload&quot;); Resolve(sim);
+        Check(sim.Combat.For(sim.Player.Id)!.Ammo == 6 &amp;&amp; sim.Combat.For(sim.Player.Id)!.ReserveAmmo == 11, &quot;reload conserves training rounds&quot;);
+        Check(!sim.FireTraining(&quot;tech&quot;), &quot;attack cannot exceed remaining AP&quot;);
+        Check(sim.EndTurn() &amp;&amp; sim.Combat.Pending?.Kind == CombatActionKind.Wait, &quot;end-turn resolves a short local wait so timers can recover&quot;); Resolve(sim);
+        Check(sim.Combat.CurrentActorId != sim.Player.Id, &quot;turn order must advance after wait resolves&quot;);
+        var progressed = sim.LocalMs;
+        for (var i = 0; sim.Combat.Active &amp;&amp; sim.Combat.CurrentActorId != sim.Player.Id &amp;&amp; i &lt; 3000; i++) sim.Tick();
+        Check(sim.Combat.Active &amp;&amp; sim.Combat.CurrentActorId == sim.Player.Id &amp;&amp; sim.Combat.For(sim.Player.Id)!.Ap == 10, $&quot;autonomous participants act and return a fresh player turn; active={sim.Combat.Active}, current={sim.Combat.CurrentActorId}, pending={sim.Combat.Pending}, points={string.Join(&quot;,&quot;, sim.Combat.Participants.Select(c =&gt; c.ActorId + &quot;:&quot; + c.Points))}&quot;);
+        Check(sim.LocalMs &gt; progressed &amp;&amp; sim.Events.Entries.Any(e =&gt; e.Kind == MessageKind.Combat &amp;&amp; e.Text.Contains(&quot;fires&quot;)), &quot;visible autonomous attack produces acquired combat feedback&quot;);
+
+        var doorUse = Fixture();
+        Check(doorUse.ToggleNearestDoor() &amp;&amp; doorUse.Combat.For(doorUse.Player.Id)!.Ap == 8, &quot;nearby door use is a paid two-AP action&quot;);
+        var doorState = doorUse.Map.OpenDoors.Count;
+        Resolve(doorUse);
+        Check(doorUse.Map.OpenDoors.Count != doorState, &quot;door changes only at its completed action checkpoint&quot;);
+
+        var collision = Fixture();
+        Check(collision.RequestMove(new(10, 4)), &quot;collision fixture needs an accepted paid route&quot;);
+        collision.Map.DynamicBlockers.Add(collision.Player.Route[0]);
+        collision.Tick();
+        Check(collision.Combat.Pending is null &amp;&amp; !collision.Player.Moving &amp;&amp; collision.Combat.For(collision.Player.Id)!.Ap == 10,
+            &quot;new physical obstruction stops the action and refunds all untravelled steps&quot;);
+        Check(collision.Events.Entries[^1].Text == &quot;Movement stopped: the way ahead is blocked.&quot;, &quot;collision feedback cannot identify an unseen obstruction&quot;);
+        var initiative = Fixture(false);
+        Check(initiative.Combat.CurrentActorId != initiative.Player.Id, &quot;initiative can put an autonomous participant first&quot;);
+        var movement = Fixture();
+        Check(movement.RequestMove(new(9, 3), true), &quot;paid hex movement is available&quot;);
+        var moveAp = movement.Combat.For(movement.Player.Id)!.Ap;
+        Check(moveAp == 9, &quot;one hex costs one AP&quot;);
+        movement.Tick(); movement.Tick(); var fractional = movement.Player.Position;
+        var pendingMove = movement.Save();
+        movement.Face(new Hex(8, 3).World);
+        Check(movement.Save() == pendingMove, &quot;look during an already paid tactical move cannot cancel or turn for free&quot;);
+        var movementClone = new SpatialSimulation(map); movementClone.Restore(movement.Save());
+        Check(movementClone.Player.Position == fractional, &quot;tactical save retains interpolation progress&quot;);
+        for (var i = 0; i &lt; 4; i++) { movement.Tick(); movementClone.Tick(); }
+        Check(movement.Save() == movementClone.Save() &amp;&amp; movement.Player.Cell == new Hex(9, 3), &quot;restored paid move cannot replay or diverge&quot;);
+        var oldFacing = movement.Player.Facing;
+        movement.Face(new Hex(8, 3).World); Check(movement.Combat.For(movement.Player.Id)!.Ap == 8 &amp;&amp; movement.Player.Facing != oldFacing, &quot;facing changes are paid independently&quot;); Resolve(movement);
+        Check(movement.EndTraining() &amp;&amp; !movement.Combat.Active &amp;&amp; !movement.Combat.Armed, &quot;drill can end at a player decision boundary&quot;);
+        movement.Tick(); Check(movement.LocalMs &gt; sim.LocalMs || !movement.LocalProgressHeld, &quot;ordinary realtime resumes after drill&quot;);
+
+        var hidden = new SpatialSimulation(map); hidden.Player.Cell = new(8, 3); hidden.Player.Facing = 4;
+        hidden.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(11, 3);
+        hidden.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = new(5, 5);
+        Check(hidden.ArmTraining() &amp;&amp; !hidden.Combat.Active, &quot;hidden nearby opponent cannot force a telltale player hold&quot;);
+        hidden.Face(new Hex(11, 3).World); hidden.Tick();
+        Check(hidden.Combat.Active, &quot;genuine acquired sight starts local combat&quot;);
+
+        var orders = new SpatialSimulation(map, operation);
+        orders.Operations.Radios.Clear();
+        orders.Player.Cell = new(5, 8); orders.Player.Facing = 1;
+        Check(orders.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4)), &quot;out-of-earshot order remains an intent&quot;);
+        for (var i = 0; i &lt; 60; i++) orders.Tick();
+        Check(orders.Events.Entries.Count(e =&gt; e.Text.Contains(&quot;I don&#x27;t think they heard me&quot;)) == 1, &quot;unacknowledged voice gets one tentative feedback message&quot;);
+        Check(orders.Operations.OrderHistory.Last().Status == OrderStatus.Pending, &quot;feedback cannot invent delivery or cancel an unheard order&quot;);
+
+        var badSource = Fixture(); var good = badSource.Save();
+        void Reject(Action&lt;JsonNode&gt; mutate)
+        {
+            var bad = JsonNode.Parse(good)!; mutate(bad);
+            try { badSource.Restore(bad.ToJsonString()); throw new Exception(&quot;corrupt tactical save accepted&quot;); }
+            catch (ArgumentException) { Check(badSource.Save() == good, &quot;failed restore must be atomic&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Combat&quot;]![&quot;Cursor&quot;] = 999);
+        Reject(n =&gt; n[&quot;Combat&quot;]![&quot;Participants&quot;]![0]![&quot;Ap&quot;] = 99);
+        Reject(n =&gt; n[&quot;Combat&quot;]![&quot;Participants&quot;]![0]![&quot;ActorId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n[&quot;Events&quot;]![&quot;Entries&quot;]![0]![&quot;Text&quot;] = &quot;&quot;);
+        Reject(n =&gt; n[&quot;Combat&quot;] = null);
+        var oldOperation = JsonNode.Parse(operation)!; oldOperation.AsObject().Remove(&quot;inventoryProfile&quot;);
+        var oldConfig = oldOperation.ToJsonString();
+        var legacy = JsonNode.Parse(new SpatialSimulation(map, oldConfig).Save())!;
+        legacy[&quot;Version&quot;] = 4; legacy.AsObject().Remove(&quot;Events&quot;); legacy.AsObject().Remove(&quot;Combat&quot;);
+        var migrated = new SpatialSimulation(map, oldConfig); migrated.Restore(legacy.ToJsonString());
+        Check(migrated.Events.Entries.Count == 0 &amp;&amp; !migrated.Combat.Armed, &quot;schema-4 migration starts empty journal and inactive combat&quot;);
+        migrated.Tick();
+        Check(!migrated.Events.Entries.Any(e =&gt; e.Text.Contains(&quot;Observation shift opened&quot;)), &quot;migration cannot replay old already-received reports&quot;);
+        Check(badSource.UseTrainingEquipment(CombatActionKind.ReadyWeapon), &quot;pending corruption fixture needs an action&quot;);
+        var pendingGood = badSource.Save(); var invalidAction = JsonNode.Parse(pendingGood)!;
+        invalidAction[&quot;Combat&quot;]![&quot;Pending&quot;]![&quot;Cost&quot;] = 0;
+        try { badSource.Restore(invalidAction.ToJsonString()); throw new Exception(&quot;invalid AP continuation accepted&quot;); }
+        catch (ArgumentException) { Check(badSource.Save() == pendingGood, &quot;invalid pending action cannot mutate the live turn&quot;); }
+        Check(badSource.FireTraining(&quot;scp-650&quot;) == false, &quot;training fixture must never treat nonaggressive SCP-650 as an enemy&quot;);
+        Console.WriteLine($&quot;COMBAT_CHECKS_PASS: {count} assertions; local turns, AP, equipment, deterministic AI, perception, replay and atomic restores.&quot;);
+        return count;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/CombatChecks.cs</footer></main></div></body></html>

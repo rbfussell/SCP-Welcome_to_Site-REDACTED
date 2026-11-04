@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPackingChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPackingChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class InventoryPackingChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Packing: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryRequest Store(string id, string owner, string region) =&gt; new(InventoryActionKind.AutoPlace, id, new(owner, region));
+        InventoryRequest Arrange(string owner, string region) =&gt; new(InventoryActionKind.Arrange, owner, new(owner, region));
+        void Finish(SpatialSimulation sim)
+        {
+            for (var i = 0; i &lt; 2000 &amp;&amp; sim.Inventory.Pending is not null; i++) sim.Tick();
+            Check(sim.Inventory.Pending is null, &quot;paid packing finishes in bounded simulation time&quot;);
+        }
+        var direct = Sim(); var before = direct.Save();
+        var request = Store(&quot;gum-packet&quot;, &quot;medical-case&quot;, &quot;inside&quot;);
+        var quote = direct.QuoteInventoryPacking(request);
+        Check(quote.Allowed &amp;&amp; quote.Plan is { Repacked: false, Moves.Length: 1 }, &quot;container-target insertion uses existing space first&quot;);
+        Check(quote.Plan!.Moves[0].To == new ItemPlacement(&quot;medical-case&quot;, &quot;inside&quot;, 2, 0, true), &quot;only available rotated slot is selected&quot;);
+        Check(direct.Save() == before, &quot;quoting a fit changes no state&quot;);
+        Check(direct.HandleInventory(request), &quot;start paid insertion&quot;);
+        Check(direct.Inventory.Items[&quot;gum-packet&quot;].Placement.ParentId == &quot;avatar-trousers&quot;, &quot;item stays at source during handling&quot;);
+        direct.Tick(); var mid = direct.Save(); var copy = Sim(); copy.Restore(mid);
+        Check(copy.Save() == mid, &quot;exact pending layout survives restore&quot;);
+        Finish(direct); Finish(copy);
+        Check(direct.Save() == copy.Save(), &quot;restored packing has identical clocks, graph and event results&quot;);
+        Check(direct.Inventory.Items[&quot;gum-packet&quot;].Placement == quote.Plan.Moves[0].To, &quot;paid insertion commits quoted orientation and cell&quot;);
+        Check(direct.Inventory.Items[&quot;gum-1&quot;].Placement.ParentId == &quot;gum-packet&quot;, &quot;moving a container preserves nested identities&quot;);
+        Check(direct.Inventory.Items[&quot;dressing-a&quot;].Placement == new ItemPlacement(&quot;medical-case&quot;, &quot;inside&quot;), &quot;direct fit never moves existing contents&quot;);
+        var same = direct.Save();
+        Check(!direct.QuoteInventoryPacking(request).Allowed &amp;&amp; direct.Save() == same, &quot;same-compartment AutoPlace cannot silently reorganize&quot;);
+        Check(!direct.QuoteInventoryPacking(Store(&quot;medical-case&quot;, &quot;medical-case&quot;, &quot;inside&quot;)).Allowed, &quot;self-containment rejected&quot;);
+        Check(!direct.QuoteInventoryPacking(Store(&quot;avatar-backpack&quot;, &quot;medical-case&quot;, &quot;inside&quot;)).Allowed, &quot;ancestor into descendant rejected&quot;);
+        Check(!direct.QuoteInventoryPacking(Store(&quot;flashlight&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;)).Allowed, &quot;distant fixture cannot receive automatic insertion&quot;);
+        Check(!direct.QuoteInventoryPacking(Store(&quot;flashlight&quot;, &quot;tech-backpack&quot;, &quot;main&quot;)).Allowed, &quot;another person&#x27;s gear is not remotely writable&quot;);
+        Check(!direct.QuoteInventoryPacking(Arrange(&quot;person:avatar&quot;, &quot;hand&quot;)).Allowed, &quot;body mounts are not square storage grids&quot;);
+        Check(!direct.QuoteInventoryPacking(new(InventoryActionKind.AutoPlace, &quot;flashlight&quot;, new(&quot;avatar-backpack&quot;, &quot;main&quot;, 2))).Allowed, &quot;AutoPlace cannot smuggle a manual anchor&quot;);
+        var backpackDefs = direct.Inventory.Content!.Definitions;
+        var backpackIndex = Array.FindIndex(backpackDefs, d =&gt; d.Id == &quot;backpack&quot;);
+        backpackDefs[backpackIndex] = backpackDefs[backpackIndex] with
+        { Regions = backpackDefs[backpackIndex].Regions!.Select(r =&gt; r.Id == &quot;main&quot; ? r with { MaxMassGrams = 205 } : r).ToArray() };
+        Check(direct.QuoteInventoryPacking(Store(&quot;gum-packet&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;)).Allowed,
+            &quot;extracting contents into their outer compartment does not count their mass twice&quot;);
+        var full = Sim().QuoteInventoryPacking(Store(&quot;flashlight&quot;, &quot;gum-packet&quot;, &quot;pieces&quot;));
+        Check(!full.Allowed, &quot;fine packet cannot accept a large object&quot;);
+
+        // Fragmented 4x4 region: every row/column occupied, so a 1x4 torch needs real rearrangement.
+        var world = new SimulationWorld(map, config); var state = world.Inventory;
+        var defs = state.Content!.Definitions;
+        var index = Array.FindIndex(defs, d =&gt; d.Id == &quot;trousers&quot;);
+        defs[index] = defs[index] with { Regions = defs[index].Regions!.Select(r =&gt; r.Id == &quot;left&quot; ? r with { Rows = 4 } : r).ToArray() };
+        state.Items[&quot;gum-packet&quot;] = state.Items[&quot;gum-packet&quot;] with { Placement = new(&quot;avatar-backpack&quot;, &quot;main&quot;, 4, 5) };
+        for (var n = 1; n &lt;= 4; n++) state.Items[$&quot;gum-{n}&quot;] = state.Items[$&quot;gum-{n}&quot;] with { Placement = new(&quot;avatar-trousers&quot;, &quot;left&quot;, n - 1, n - 1) };
+        InventoryPlacement.Validate(state);
+        var originals = state.Items.ToDictionary(p =&gt; p.Key, p =&gt; p.Value);
+        var pack = InventoryPacking.Plan(state, &quot;avatar-trousers&quot;, &quot;left&quot;, &quot;flashlight&quot;);
+        Check(pack.Repacked &amp;&amp; pack.Moves.Length &gt; 1, &quot;fragmentation triggers bounded repacking&quot;);
+        var again = InventoryPacking.Plan(state, &quot;avatar-trousers&quot;, &quot;left&quot;, &quot;flashlight&quot;);
+        Check(InventoryPackingActions.Same(pack, again), &quot;identical state produces a deterministic plan&quot;);
+        Check(state.Items.All(p =&gt; p.Value == originals[p.Key]), &quot;planning never mutates the live graph&quot;);
+        Check(pack.Moves.All(m =&gt; m.To.ParentId == &quot;avatar-trousers&quot; &amp;&amp; m.To.RegionId == &quot;left&quot;), &quot;only destination compartment is repacked&quot;);
+        Check(!InventoryActions.Validate(world, &quot;avatar&quot;, new(InventoryActionKind.Move, &quot;flashlight&quot;, new(&quot;avatar-trousers&quot;, &quot;left&quot;)), out _, out _, out _), &quot;failed exact grid drop does not fall back to rearrangement&quot;);
+        Check(state.Items.All(p =&gt; p.Value == originals[p.Key]), &quot;failed exact placement leaves every item and rotation unchanged&quot;);
+        Check(InventoryActions.Validate(world, &quot;avatar&quot;, Store(&quot;flashlight&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;), out _, out var ms, out var ap), &quot;public packing request validates fragmented fixture&quot;);
+        Check(ms &gt; quote.DurationMs &amp;&amp; ap &gt; quote.Ap, &quot;moving more items pays their handling and ancestor access costs&quot;);
+        Check(InventoryActions.Start(world, Store(&quot;flashlight&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;), out _), &quot;start fragmented multi-item packing&quot;);
+        var revision = state.Revision;
+        while (state.Pending!.RemainingMs &gt; SpatialSimulation.TickMs)
+        {
+            InventoryActions.Advance(world);
+            Check(state.Items.All(p =&gt; p.Value == originals[p.Key]), &quot;no intermediate rearrangement leaks during paid work&quot;);
+        }
+        InventoryActions.Advance(world);
+        Check(state.Pending is null &amp;&amp; state.Revision == revision + 1, &quot;all packing moves commit in one revision&quot;);
+        Check(pack.Moves.All(m =&gt; state.Items[m.ItemId].Placement == m.To), &quot;atomic commit applies the entire quoted layout&quot;);
+        InventoryPlacement.Validate(state);
+        try { InventoryPacking.Plan(state, &quot;avatar-trousers&quot;, &quot;left&quot;, null); throw new Exception(&quot;Repeated Arrange should be a no-op&quot;); }
+        catch (ArgumentException e) { Check(e.Message.Contains(&quot;Already arranged&quot;), &quot;canonical Arrange is idempotent&quot;); }
+        Check(state.Items[&quot;gum-5&quot;] == originals[&quot;gum-5&quot;], &quot;unrelated nested contents stay untouched&quot;);
+        // Area and shape are separate checks: a 1x4 bar has enough area in a 2x2 box, but cannot fit.
+        state.Items[&quot;dressing-a&quot;] = state.Items[&quot;dressing-a&quot;] with { Placement = new(&quot;avatar-backpack&quot;, &quot;main&quot;, 4, 0) };
+        var caseIndex = Array.FindIndex(defs, d =&gt; d.Id == &quot;case&quot;);
+        defs[caseIndex] = defs[caseIndex] with { Regions = [defs[caseIndex].Regions![0] with { Columns = 2, Rows = 2 }] };
+        try { InventoryPacking.Plan(state, &quot;medical-case&quot;, &quot;inside&quot;, &quot;flashlight&quot;); throw new Exception(&quot;Impossible shape accepted&quot;); }
+        catch (ArgumentException e) { Check(e.Message.Contains(&quot;shapes cannot fit&quot;), &quot;enough total cells does not imply geometric fit&quot;); }
+        defs[caseIndex] = defs[caseIndex] with { Regions = [defs[caseIndex].Regions![0] with { Columns = 1, Rows = 2 }] };
+        try { InventoryPacking.Plan(state, &quot;medical-case&quot;, &quot;inside&quot;, &quot;flashlight&quot;); throw new Exception(&quot;Area overflow accepted&quot;); }
+        catch (ArgumentException e) { Check(e.Message.Contains(&quot;insufficient usable cells&quot;), &quot;area overflow rejects before searching&quot;); }
+        defs[caseIndex] = defs[caseIndex] with { Regions = [defs[caseIndex].Regions![0] with { Columns = 4, Rows = 4, Mask = [0, 2, 5, 7, 8, 10, 13, 15] }] };
+        try { InventoryPacking.Plan(state, &quot;medical-case&quot;, &quot;inside&quot;, &quot;flashlight&quot;); throw new Exception(&quot;Masked shape accepted&quot;); }
+        catch (ArgumentException e) { Check(e.Message.Contains(&quot;shapes cannot fit&quot;), &quot;packing respects masked cells rather than their bounding rectangle&quot;); }
+
+        var changed = Sim(); Check(changed.HandleInventory(request), &quot;start stale-plan fixture&quot;);
+        var staleSource = changed.Inventory.Items[&quot;gum-packet&quot;].Placement;
+        changed.Inventory.Revision++; Finish(changed);
+        Check(changed.Inventory.Items[&quot;gum-packet&quot;].Placement == staleSource &amp;&amp; changed.Inventory.Children(&quot;medical-case&quot;, &quot;inside&quot;).Count == 1,
+            &quot;changed revision aborts whole plan without moving incoming or existing contents&quot;);
+        var limitWorld = new SimulationWorld(map, config);
+        var limitedDefs = limitWorld.Inventory.Content!.Definitions;
+        var limitedCase = Array.FindIndex(limitedDefs, d =&gt; d.Id == &quot;case&quot;);
+        limitedDefs[limitedCase] = limitedDefs[limitedCase] with { Regions = [limitedDefs[limitedCase].Regions![0] with { MaxMassGrams = 45 }] };
+        Check(!InventoryActions.Validate(limitWorld, &quot;avatar&quot;, request, out var limitReason, out _, out _) &amp;&amp; limitReason.Contains(&quot;load limit&quot;), &quot;geometric free space never bypasses recursive load limit&quot;);
+        var closed = Sim();
+        Check(closed.HandleInventory(new(InventoryActionKind.Close, &quot;medical-case&quot;, RegionId: &quot;inside&quot;)), &quot;close destination fixture&quot;); Finish(closed);
+        Check(!closed.QuoteInventoryPacking(request).Allowed, &quot;closed destination does not get opened for free&quot;);
+        Check(closed.HandleInventory(new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;side&quot;)), &quot;close source fixture&quot;); Finish(closed);
+        Check(!closed.QuoteInventoryPacking(Store(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;)).Allowed, &quot;closed source blocks automatic insertion&quot;);
+        var held = Sim(); held.ManualPause = true; var heldSave = held.Save();
+        Check(!held.HandleInventory(request) &amp;&amp; held.Save() == heldSave, &quot;pause does not grant free arranging&quot;);
+        held.ManualPause = false; Check(held.HandleInventory(request), &quot;start cancel fixture&quot;); held.Tick();
+        Check(held.CancelInventoryHandling() &amp;&amp; held.Inventory.Items[&quot;gum-packet&quot;].Placement.ParentId == &quot;avatar-trousers&quot;, &quot;cancel preserves source and entire destination layout&quot;);
+
+        var combat = Sim(); combat.Player.Facing = 1; Check(combat.ArmTraining(), &quot;enter tactical fixture&quot;);
+        combat.Combat.Cursor = combat.Combat.Roster.FindIndex(c =&gt; c.ActorId == combat.Player.Id);
+        combat.Combat.Roster[combat.Combat.Cursor] = combat.Combat.Roster[combat.Combat.Cursor] with { Ap = 10 };
+        var tacticalQuote = combat.QuoteInventoryPacking(Store(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;));
+        Check(combat.HandleInventory(Store(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;)) &amp;&amp; combat.Combat.For(combat.Player.Id)!.Ap == 10 - tacticalQuote.Ap, &quot;insertion charges actual handling AP at commitment&quot;);
+        Finish(combat); var stopped = combat.LocalMs; for (var i = 0; i &lt; 10; i++) combat.Tick();
+        Check(combat.LocalMs == stopped, &quot;tactical input wait resumes after paid packing&quot;);
+        combat.Combat.Roster[combat.Combat.Cursor] = combat.Combat.Roster[combat.Combat.Cursor] with { Ap = 1 }; var noAp = combat.Save();
+        Check(!combat.HandleInventory(request) &amp;&amp; combat.Save() == noAp, &quot;insufficient AP rejects without rearranging or partial charging&quot;);
+
+        void Reject(Action&lt;JsonNode&gt; mutate)
+        {
+            var victim = Sim(); var safe = victim.Save(); var bad = JsonNode.Parse(mid)!; mutate(bad);
+            try { victim.Restore(bad.ToJsonString()); throw new Exception(&quot;Forged packing accepted&quot;); }
+            catch (ArgumentException) { Check(victim.Save() == safe, &quot;invalid plan restore is atomic&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;]![&quot;Moves&quot;] = null);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;]![&quot;Moves&quot;]![0]![&quot;To&quot;]![&quot;X&quot;] = 0);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;]![&quot;Moves&quot;]![0]![&quot;ItemId&quot;] = &quot;dressing-a&quot;);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;]![&quot;Moves&quot;]![0] = null);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;]![&quot;Repacked&quot;] = true);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;CostAp&quot;] = 1);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Packing&quot;] = null);
+        Console.WriteLine($&quot;INVENTORY_PACKING_CHECKS_PASS: {passed} assertions.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/InventoryPackingChecks.cs</footer></main></div></body></html>

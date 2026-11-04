@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/PathfindingChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>PathfindingChecks.cs</h1><pre>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class PathfindingChecks
+{
+    public static int Run(string json)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Pathfinding: &quot; + detail); passed++; }
+        var map = JsonNode.Parse(json)!;
+        map[&quot;anomalies&quot;] = new JsonArray(); // Isolate ordinary navigation from relocation/awareness interruptions.
+        var fixture = map.ToJsonString();
+        SpatialSimulation Sim(bool dark = true)
+        {
+            var sim = new SpatialSimulation(fixture); sim.Map.LightsOn = !dark; return sim;
+        }
+        void Ticks(SpatialSimulation sim, int count) { for (var i = 0; i &lt; count; i++) sim.Tick(); }
+        var goal = new Hex(12, 3);
+        var dark = Sim(); dark.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = goal;
+        var empty = Sim();
+        Check(!dark.VisibleToPlayer(goal.World) &amp;&amp; !dark.KnownNavigationBlocked(goal), &quot;dark occupant must not be a planning/cursor fact&quot;);
+        Check(dark.PreviewPath(goal).SequenceEqual(empty.PreviewPath(goal)), &quot;hidden occupancy cannot change the preview&quot;);
+        Check(dark.RequestMove(goal), &quot;clicking an unseen occupied destination must commit travel&quot;);
+        Check(dark.Player.Route[^1] == goal &amp;&amp; dark.Player.MoveGoal == goal, &quot;preserve intended destination rather than guessing where the unseen occupant is&quot;);
+        Ticks(dark, 2);
+        var saved = dark.Save(); var restored = Sim(); restored.Restore(saved);
+        Check(restored.Save() == saved, &quot;in-progress navigation intent must persist&quot;);
+        Ticks(dark, 80); Ticks(restored, 80);
+        Check(dark.Player.Cell != new Hex(5, 6) &amp;&amp; dark.Player.Cell.Distance(goal) == 1 &amp;&amp; !dark.Player.Moving,
+            &quot;walk up to the occupied target and stop before collision&quot;);
+        Check(dark.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell == goal &amp;&amp; dark.Player.Cell != goal, &quot;collision must not displace or overlap the occupant&quot;);
+        Check(dark.LastMessage == &quot;Movement stopped: the way ahead is blocked.&quot; &amp;&amp; dark.Player.MoveGoal is null,
+            &quot;a blocked boundary needs clear feedback and no hidden queued continuation&quot;);
+        Check(dark.WorldMs == 4100 &amp;&amp; dark.LocalMs == 4100, &quot;obstruction does not pause either clock&quot;);
+        Check(restored.Save() == dark.Save(), &quot;restored approach must stop identically&quot;);
+
+        var vacated = Sim(); var occupant = vacated.Actors.Single(a =&gt; a.Id == &quot;observer&quot;); occupant.Cell = goal;
+        Check(vacated.RequestMove(goal), &quot;vacating fixture needs an accepted click&quot;);
+        Ticks(vacated, 3); occupant.Cell = new(5, 0); Ticks(vacated, 80);
+        Check(vacated.Player.Cell == goal, &quot;an occupant leaving before arrival must not leave a shortened phantom route&quot;);
+
+        var visible = Sim(false); visible.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = goal; visible.Face(goal.World);
+        Check(visible.KnownNavigationBlocked(goal), &quot;directly seen occupant can affect planning&quot;);
+        Check(visible.RequestMove(goal) &amp;&amp; visible.Player.Route[^1].Distance(goal) == 1,
+            &quot;even a known occupied destination must produce an approach, not reject a distant click&quot;);
+        Ticks(visible, 80);
+        Check(visible.Player.Cell.Distance(goal) == 1 &amp;&amp; !visible.Player.Moving, &quot;visible occupied goal also stops at its boundary&quot;);
+
+        var acrossWall = new Hex(10, -2);
+        var closed = Sim();
+        Check(closed.Map.FindPath(closed.Player.Cell, acrossWall).Count == 0, &quot;fixture requires an actually closed boundary&quot;);
+        Check(closed.RequestMove(acrossWall), &quot;inaccessible far side still accepts an approach&quot;);
+        Ticks(closed, 100);
+        Check(closed.Player.Cell != new Hex(5, 6) &amp;&amp; closed.Player.Position.Y &gt; 3 &amp;&amp; closed.Player.Cell != acrossWall,
+            &quot;approach the wall without walking through it&quot;);
+        Check(!closed.Player.Moving &amp;&amp; closed.Trace.Entries.Any(e =&gt; e.Event == &quot;blocked&quot;), &quot;unreachable goal stops at the nearest accessible boundary&quot;);
+        var opened = Sim(); opened.Map.OpenDoors.Add(&quot;door-4-3-u&quot;);
+        Check(opened.RequestMove(acrossWall), &quot;a proper route through open access must be used&quot;);
+        Ticks(opened, 100);
+        Check(opened.Player.Cell == acrossWall, &quot;valid route must reach the selected far side&quot;);
+        var opening = Sim(); opening.RequestMove(acrossWall); Ticks(opening, 2);
+        opening.Map.OpenDoors.Add(&quot;door-4-3-u&quot;); Ticks(opening, 100);
+        Check(opening.Player.Cell == acrossWall, &quot;retain the original destination if access opens during the approach&quot;);
+
+        var detour = Sim(); var far = new Hex(15, 1);
+        var originalPath = detour.PreviewPath(far);
+        var obstructed = originalPath[3]; detour.Actors.Single(a =&gt; a.Id == &quot;observer&quot;).Cell = obstructed;
+        Check(detour.PreviewPath(far).SequenceEqual(originalPath), &quot;unseen intermediate blocker cannot cause a preemptive detour&quot;);
+        Check(detour.RequestMove(far), &quot;detour fixture needs movement&quot;);
+        var limit = 80;
+        while (!detour.Trace.Entries.Any(e =&gt; e.Event == &quot;rerouted&quot;) &amp;&amp; limit-- &gt; 0) detour.Tick();
+        Check(limit &gt; 0 &amp;&amp; detour.Player.BumpedCells.Contains(obstructed), &quot;actual contact may establish an identity-free obstruction and alternate route&quot;);
+        Check(detour.Player.MoveGoal == far &amp;&amp; !detour.Player.Route.Contains(obstructed), &quot;reroute preserves destination while avoiding the encountered cell&quot;);
+        var detourSave = detour.Save(); var detourClone = Sim(); detourClone.Restore(detourSave);
+        Check(detourClone.Save() == detourSave, &quot;rerouted intent and encountered cells must round-trip&quot;);
+        Ticks(detour, 100); Ticks(detourClone, 100);
+        Check(detour.Player.Cell == far &amp;&amp; detour.Save() == detourClone.Save(), &quot;take an actual alternate route to completion without overlap&quot;);
+        Check(detour.Player.BumpedCells.Count == 0 &amp;&amp; detour.Player.MoveGoal is null, &quot;completion clears temporary navigation continuation&quot;);
+        var corrupt = JsonNode.Parse(detourSave)!; corrupt[&quot;Actors&quot;]![0]![&quot;MoveGoal&quot;]![&quot;Q&quot;] = 999;
+        var unchanged = detourClone.Save();
+        try { detourClone.Restore(corrupt.ToJsonString()); throw new Exception(&quot;Invalid destination accepted&quot;); }
+        catch (ArgumentException) { Check(detourClone.Save() == unchanged, &quot;invalid navigation restore leaves live state intact&quot;); }
+
+        var cancelled = Sim(); cancelled.RequestMove(far); Ticks(cancelled, 2); cancelled.CancelMove(); Ticks(cancelled, 80);
+        Check(!cancelled.Player.Moving &amp;&amp; cancelled.Player.Cell != far &amp;&amp; cancelled.Player.MoveGoal is null,
+            &quot;cancel must not resume the original destination at a partial endpoint&quot;);
+        var synthetic = Sim(); synthetic.Map.DynamicBlockers.Add(goal);
+        Check(synthetic.PreviewPath(goal).SequenceEqual(empty.PreviewPath(goal)), &quot;anonymous hidden collision cells are not a player sensor&quot;);
+        Check(synthetic.RequestMove(goal), &quot;anonymous blocker also accepts travel&quot;); Ticks(synthetic, 80);
+        Check(synthetic.Player.Cell.Distance(goal) == 1, &quot;real collision remains authoritative for unidentified blockers&quot;);
+        var beforePreview = empty.Save();
+        for (var i = 0; i &lt; 10; i++) { empty.PreviewPath(goal); empty.KnownNavigationBlocked(goal); }
+        Check(empty.Save() == beforePreview, &quot;preview/cursor queries cannot mutate knowledge, routes or RNG&quot;);
+        Check(empty.PreviewPath(new(-100, -100)).Count == 0, &quot;off-map clicks remain invalid&quot;);
+        Console.WriteLine($&quot;PATHFINDING_CHECKS_PASS: {passed} assertions; hidden occupancy, approach, collision, rerouting, access changes and intent persistence.&quot;);
+        return passed;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

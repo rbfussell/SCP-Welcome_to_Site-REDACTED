@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitCatalog.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyFitCatalog.cs</h1><p>src/SiteSimulation/Inventory/Equipment/BodyFit/BodyFitCatalog.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-bodyfitcatalog.html">BodyFitCatalog</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-3166c4eee149cc889949.html">BodyFitCatalog.Source</a> · line 8</li><li><a href="function-4cba78f5e13657b721c0.html">BodyFitCatalog.Source.get</a> · line 8</li><li><a href="function-3f988f37fbdff961b355.html">BodyFitCatalog.Content</a> · line 9</li><li><a href="function-6c274026dc2b66174e16.html">BodyFitCatalog.Content.get</a> · line 9</li><li><a href="function-d1010d4777229602738e.html">BodyFitCatalog.BodyFitCatalog</a> · line 10</li><li><a href="function-2d9ff46f0b163ebb2a2e.html">BodyFitCatalog.Body</a> · line 19</li><li><a href="function-5cd29b7803afdc844ebe.html">BodyFitCatalog.Shape</a> · line 20</li><li><a href="function-5e2b6295a5348f8c7909.html">BodyFitCatalog.SurfaceMasksValid</a> · line 21</li><li><a href="function-f63dee9368b588964d15.html">BodyFitCatalog.Validate</a> · line 25</li><li><a href="function-83563a74a93f2aacffb4.html">BodyFitCatalog.Id</a> · line 27</li><li><a href="function-293fc68714ed12045c70.html">BodyFitCatalog.Rows</a> · line 28</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> namespace SiteSimulation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> /// &lt;summary&gt;Authored, bounded body and garment masks. Loaded independently of Godot, included in content identity.&lt;/summary&gt;</span>
+<span id="L6"><a class="line" href="#L6">6</a> public sealed class BodyFitCatalog</span>
+<span id="L7"><a class="line" href="#L7">7</a> {</span>
+<span id="L8"><a class="line" href="#L8">8</a>     public string Source { get; }</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public BodyFitContent Content { get; }</span>
+<span id="L10"><a class="line" href="#L10">10</a>     internal BodyFitCatalog()</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         using var stream = typeof(BodyFitCatalog).Assembly.GetManifestResourceStream(&quot;SiteSimulation.Inventory.Content.body-fit.json&quot;)</span>
+<span id="L13"><a class="line" href="#L13">13</a>             ?? throw new InvalidOperationException(&quot;Body-fit content is missing.&quot;);</span>
+<span id="L14"><a class="line" href="#L14">14</a>         Source = new StreamReader(stream).ReadToEnd();</span>
+<span id="L15"><a class="line" href="#L15">15</a>         Content = JsonSerializer.Deserialize&lt;BodyFitContent&gt;(Source, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })</span>
+<span id="L16"><a class="line" href="#L16">16</a>             ?? throw new ArgumentException(&quot;Body-fit catalog is empty.&quot;);</span>
+<span id="L17"><a class="line" href="#L17">17</a>         Validate(Content);</span>
+<span id="L18"><a class="line" href="#L18">18</a>     }</span>
+<span id="L19"><a class="line" href="#L19">19</a>     public BodyMask Body(string id) =&gt; Content.Bodies.Single(b =&gt; b.Id == id);</span>
+<span id="L20"><a class="line" href="#L20">20</a>     public BodyFitShape Shape(string id) =&gt; Content.Shapes.Single(s =&gt; s.Id == id);</span>
+<span id="L21"><a class="line" href="#L21">21</a>     internal static bool SurfaceMasksValid(BodySurfaceMask[]? masks, IReadOnlySet&lt;BodyHex&gt; cells)</span>
+<span id="L22"><a class="line" href="#L22">22</a>         =&gt; masks is { Length: &lt;= 3 } &amp;&amp; masks.All(m =&gt; m is not null &amp;&amp; m.Surface is &quot;front&quot; or &quot;back&quot; or &quot;mounted&quot;</span>
+<span id="L23"><a class="line" href="#L23">23</a>             &amp;&amp; m.Cells is { Length: &gt; 0 and &lt;= 1000 } &amp;&amp; m.Cells.Distinct().Count() == m.Cells.Length &amp;&amp; m.Cells.All(cells.Contains))</span>
+<span id="L24"><a class="line" href="#L24">24</a>             &amp;&amp; masks.Select(m =&gt; m.Surface).Distinct().Count() == masks.Length;</span>
+<span id="L25"><a class="line" href="#L25">25</a>     internal static void Validate(BodyFitContent content)</span>
+<span id="L26"><a class="line" href="#L26">26</a>     {</span>
+<span id="L27"><a class="line" href="#L27">27</a>         static bool Id(string? id) =&gt; !string.IsNullOrWhiteSpace(id) &amp;&amp; id.Length &lt;= 100;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         static bool Rows(string[]? rows) =&gt; rows is { Length: &gt; 0 and &lt;= 40 } &amp;&amp; rows.All(r =&gt; r is { Length: &gt; 0 and &lt;= 25 }</span>
+<span id="L29"><a class="line" href="#L29">29</a>             &amp;&amp; r.Length == rows[0].Length &amp;&amp; r.All(c =&gt; c is &#x27;.&#x27; or &#x27;#&#x27;)) &amp;&amp; rows.Any(r =&gt; r.Contains(&#x27;#&#x27;));</span>
+<span id="L30"><a class="line" href="#L30">30</a>         if (content.Version != 1 || content.Bodies is not { Length: &gt; 0 and &lt;= 16 } || content.Shapes is not { Length: &gt; 0 and &lt;= 128 }</span>
+<span id="L31"><a class="line" href="#L31">31</a>             || content.Bodies.Any(b =&gt; b is null || !Id(b.Id) || !Id(b.Name) || !Rows(b.Rows))</span>
+<span id="L32"><a class="line" href="#L32">32</a>             || content.Bodies.Select(b =&gt; b.Id).Distinct().Count() != content.Bodies.Length</span>
+<span id="L33"><a class="line" href="#L33">33</a>             || content.Shapes.Any(s =&gt; s is null || !Id(s.Id) || !Rows(s.Rows) || s.DefaultPose is null</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 || s.DefaultPose.Q is &lt; -64 or &gt; 64 || s.DefaultPose.R is &lt; -64 or &gt; 64 || s.DefaultPose.Rotation != 0</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 || !content.Bodies.Any(b =&gt; b.Id == s.BodyFamily &amp;&amp; b.Rows.Length == s.Rows.Length &amp;&amp; b.Rows[0].Length == s.Rows[0].Length)</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 || s.Rotations is not { Length: &gt; 0 and &lt;= 6 } || !s.Rotations.Contains(0) || s.Rotations.Any(r =&gt; r is &lt; 0 or &gt; 5)</span>
+<span id="L37"><a class="line" href="#L37">37</a>                 || s.Rotations.Distinct().Count() != s.Rotations.Length || s.Contacts is null || s.Contacts.Length &gt; 1000</span>
+<span id="L38"><a class="line" href="#L38">38</a>                 || s.Contacts.Any(e =&gt; e is null || e.Direction is &lt; 0 or &gt; 5) || s.Contacts.Distinct().Count() != s.Contacts.Length)</span>
+<span id="L39"><a class="line" href="#L39">39</a>             || content.Shapes.Select(s =&gt; s.Id).Distinct().Count() != content.Shapes.Length)</span>
+<span id="L40"><a class="line" href="#L40">40</a>             throw new ArgumentException(&quot;Invalid body-fit catalog.&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         foreach (var body in content.Bodies)</span>
+<span id="L42"><a class="line" href="#L42">42</a>             if (body.Zones is not { Length: &gt; 0 and &lt;= 32 } || body.Zones.Any(z =&gt; z is null || !InventoryWear.BodyRegions.Contains(z.Region)</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 || z.Surface is not (&quot;front&quot; or &quot;back&quot;) || z.FirstRow &lt; 0 || z.LastRow &lt; z.FirstRow || z.LastRow &gt;= body.Rows.Length)</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 || BodyFitGeometry.Cells(body.Rows).Any(c =&gt; new[] { &quot;front&quot;, &quot;back&quot; }.Any(surface =&gt;</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     body.Zones.Count(z =&gt; z.Surface == surface &amp;&amp; c.R &gt;= z.FirstRow &amp;&amp; c.R &lt;= z.LastRow) != 1)))</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 throw new ArgumentException(&quot;Body zones must identify every surface cell exactly once.&quot;);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         foreach (var shape in content.Shapes)</span>
+<span id="L48"><a class="line" href="#L48">48</a>         {</span>
+<span id="L49"><a class="line" href="#L49">49</a>             var cells = BodyFitGeometry.Cells(shape.Rows).Select(c =&gt; new BodyHex(c.Q - shape.DefaultPose.Q, c.R - shape.DefaultPose.R)).ToHashSet();</span>
+<span id="L50"><a class="line" href="#L50">50</a>             if (shape.LinearSpan is { } span &amp;&amp; (span.MinCells is &lt; 3 or &gt; 33 || span.MaxCells &lt; span.MinCells || span.MaxCells &gt; 33</span>
+<span id="L51"><a class="line" href="#L51">51</a>                 || cells.Count != span.MinCells || cells.Any(c =&gt; c.R != 0) || !cells.Contains(new(0, 0))</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 || cells.Max(c =&gt; c.Q) - cells.Min(c =&gt; c.Q) + 1 != cells.Count</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 || !shape.Contacts.ToHashSet().SetEquals([new(new(cells.Min(c =&gt; c.Q), 0), 4), new(new(cells.Max(c =&gt; c.Q), 0), 1)])</span>
+<span id="L54"><a class="line" href="#L54">54</a>                 || shape.Coverage is { } spanCoverage &amp;&amp; spanCoverage.Closed.Concat(spanCoverage.Open).Any(m =&gt; !m.Cells.ToHashSet().SetEquals(cells))))</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 throw new ArgumentException(&quot;Invalid adjustable linear span: &quot; + shape.Id);</span>
+<span id="L56"><a class="line" href="#L56">56</a>             if (shape.Coverage is { } coverage &amp;&amp; (!SurfaceMasksValid(coverage.Closed, cells) || !SurfaceMasksValid(coverage.Open, cells)</span>
+<span id="L57"><a class="line" href="#L57">57</a>                     || coverage.Open.Any(open =&gt; !coverage.Closed.Any(closed =&gt; closed.Surface == open.Surface &amp;&amp; open.Cells.All(closed.Cells.Contains)))))</span>
+<span id="L58"><a class="line" href="#L58">58</a>                 throw new ArgumentException(&quot;Invalid closed/open cover masks: &quot; + shape.Id);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             if (shape.Contacts.Any(e =&gt; !cells.Contains(e.Cell) || cells.Contains(e.Cell.Neighbor(e.Direction)))</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 || !BodyFitGeometry.Evaluate(content.Bodies.Single(b =&gt; b.Id == shape.BodyFamily), shape, shape.DefaultPose).Fits)</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 throw new ArgumentException(&quot;Invalid or misaligned authored body contacts: &quot; + shape.Id);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         }</span>
+<span id="L63"><a class="line" href="#L63">63</a>     }</span>
+<span id="L64"><a class="line" href="#L64">64</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

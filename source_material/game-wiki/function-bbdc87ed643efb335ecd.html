@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryBodyFitPanel._Ready | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitPanel._Ready</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorybodyfitpanel-cs.html#L31">game/Presentation/Inventory/InventoryBodyFitPanel.cs:31</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>public override void _Ready()</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-2bf53d21a2feb0c5fdc7.html">InventoryBodyFitPanel.Choose</a></li><li><a href="function-4ca99616ac59b535c7f0.html">InventoryBodyFitSurface.ClearInspection</a></li><li><a href="function-72b928b42032ab22db0d.html">InventoryPanel.CancelDragPreview</a></li><li><a href="function-76f2030de2126bac671b.html">InventoryPanel.Label</a></li><li><a href="function-7fcc2846397a601cd157.html">InventoryBodyFitPanel.UpdatePreview</a></li><li><a href="function-c72db34815a1e0a111c6.html">InventoryBodyFitPanel.Refresh</a></li><li><a href="function-f7d9ce1a9ef5a584806c.html">InventoryPanel.Button</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>AddThemeConstantOverride
+AddChild
+Choose
+views.AddChild
+InventoryPanel.Button
+Panel.CancelDragPreview
+Surface.ClearInspection
+UpdatePreview
+InventoryPanel.Label
+Refresh</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related types</h2><ul><li><a href="type-inventorybodyfitpanel.html">InventoryBodyFitPanel</a></li><li><a href="type-inventorybodyfitsurface.html">InventoryBodyFitSurface</a></li><li><a href="type-inventorypanel.html">InventoryPanel</a></li></ul><h2>Implementation</h2><pre><code>public override void _Ready()
+    {
+        AddThemeConstantOverride(&quot;separation&quot;, 5);
+        _items = new OptionButton { FocusMode = FocusModeEnum.None, CustomMinimumSize = new(234, 0) }; AddChild(_items);
+        _items.ItemSelected += index =&gt; Choose(_ids[(int)index]);
+        var views = new HBoxContainer(); AddChild(views);
+        _inspect = new CheckButton { Text = &quot;Inspect worn&quot;, FocusMode = FocusModeEnum.None }; views.AddChild(_inspect);
+        _flip = InventoryPanel.Button(views, &quot;Front · flip&quot;, () =&gt;
+        {
+            Panel.CancelDragPreview(); ViewSurface = ViewSurface == &quot;front&quot; ? &quot;back&quot; : &quot;front&quot;;
+            Surface.ClearInspection(); UpdatePreview();
+        });
+        _inspect.Toggled += _ =&gt; { Panel.CancelDragPreview(); Surface.ClearInspection(); UpdatePreview(); };
+        InventoryPanel.Label(this, &quot;9-hex shoulders · body-local scale&quot;, 12);
+        Surface = new InventoryBodyFitSurface { Fit = this, CustomMinimumSize = new(234, 285) }; AddChild(Surface);
+        var row = new HBoxContainer(); AddChild(row);
+        _default = InventoryPanel.Button(row, &quot;Default&quot;, ResetDraft);
+        _rotate = InventoryPanel.Button(row, &quot;Rotate 60°&quot;, RotateDraft);
+        _apply = InventoryPanel.Button(row, &quot;Fit / equip&quot;, Apply);
+        _status = InventoryPanel.Label(this, &quot;Choose worn or held clothing.&quot;, 12);
+        _status.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+        _status.CustomMinimumSize = new(234, 65);
+        _pocketStatus = InventoryPanel.Label(this, &quot;&quot;, 11);
+        _instructions = InventoryPanel.Label(this, &quot;&quot;, 11);
+        Refresh();
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryBodyFitPanel.cs:31</footer></main></div></body></html>

@@ -1,0 +1,151 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Transactions/InventoryActions.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryActions.cs</h1><p>src/SiteSimulation/Inventory/Transactions/InventoryActions.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryactions.html">InventoryActions</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-f7528c8783a695ebc7ac.html">InventoryActions.Validate</a> · line 6</li><li><a href="function-aa4026be631dc71dbf02.html">InventoryActions.Validate</a> · line 8</li><li><a href="function-0ad5e56f3a9cc72489bc.html">InventoryActions.AccessAp</a> · line 77</li><li><a href="function-934aa4bd847e64c92842.html">InventoryActions.Start</a> · line 88</li><li><a href="function-d9fc3ff707d11941a8a5.html">InventoryActions.Cancel</a> · line 104</li><li><a href="function-3088d06f83438000424f.html">InventoryActions.Advance</a> · line 112</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Timed handling, final revalidation and atomic item moves. No UI packing rules.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class InventoryActions</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static bool Validate(SimulationWorld world, string actorId, InventoryRequest request, out string reason, out int duration, out int ap)</span>
+<span id="L7"><a class="line" href="#L7">7</a>         =&gt; Validate(world, actorId, request, out reason, out duration, out ap, out _);</span>
+<span id="L8"><a class="line" href="#L8">8</a>     internal static bool Validate(SimulationWorld world, string actorId, InventoryRequest request, out string reason, out int duration, out int ap,</span>
+<span id="L9"><a class="line" href="#L9">9</a>         out InventoryPackingPlan? packing)</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var state = world.Inventory; duration = 0; ap = 0; packing = null;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         reason = &quot;Inventory is unavailable&quot;;</span>
+<span id="L13"><a class="line" href="#L13">13</a>         if (state.Enabled &amp;&amp; request?.Kind is InventoryActionKind.AutoPlace or InventoryActionKind.Arrange)</span>
+<span id="L14"><a class="line" href="#L14">14</a>         {</span>
+<span id="L15"><a class="line" href="#L15">15</a>             try { packing = InventoryPackingActions.Quote(world, actorId, request, out duration, out ap); reason = &quot;Ready&quot;; return true; }</span>
+<span id="L16"><a class="line" href="#L16">16</a>             catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or KeyNotFoundException)</span>
+<span id="L17"><a class="line" href="#L17">17</a>             { reason = ex is ArgumentException ? ex.Message : &quot;Unknown packing destination.&quot;; return false; }</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         if (!state.Enabled || request is null || !Enum.IsDefined(request.Kind) || !state.Items.TryGetValue(request.ItemId, out var item)) return false;</span>
+<span id="L20"><a class="line" href="#L20">20</a>         var access = InventoryAccessService.Placement(world, actorId, item.Placement);</span>
+<span id="L21"><a class="line" href="#L21">21</a>         if (!access.Allowed) { reason = access.Reason; return false; }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         var definition = state.Definition(item.Id);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         duration = definition.HandleMs + InventoryAccessService.HandlingMs(state, item.Placement);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         ap = definition.HandleAp + AccessAp(state, item.Placement);</span>
+<span id="L25"><a class="line" href="#L25">25</a>         try</span>
+<span id="L26"><a class="line" href="#L26">26</a>         {</span>
+<span id="L27"><a class="line" href="#L27">27</a>             switch (request.Kind)</span>
+<span id="L28"><a class="line" href="#L28">28</a>             {</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 case InventoryActionKind.Move:</span>
+<span id="L30"><a class="line" href="#L30">30</a>                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException(&quot;Choose a physical destination&quot;);</span>
+<span id="L31"><a class="line" href="#L31">31</a>                     destination = InventoryWornOrder.Destination(state, item, destination);</span>
+<span id="L32"><a class="line" href="#L32">32</a>                     if (InventoryBodyFit.SamePlace(state, item, destination)) throw new ArgumentException(&quot;Item is already there&quot;);</span>
+<span id="L33"><a class="line" href="#L33">33</a>                     InventoryWear.ValidateAction(state, item, item.Placement);</span>
+<span id="L34"><a class="line" href="#L34">34</a>                     var target = InventoryAccessService.Placement(world, actorId, destination);</span>
+<span id="L35"><a class="line" href="#L35">35</a>                     if (!target.Allowed) throw new ArgumentException(target.Reason);</span>
+<span id="L36"><a class="line" href="#L36">36</a>                     InventoryWear.ValidateAction(state, item, destination);</span>
+<span id="L37"><a class="line" href="#L37">37</a>                     duration += InventoryAccessService.HandlingMs(state, destination);</span>
+<span id="L38"><a class="line" href="#L38">38</a>                     ap += AccessAp(state, destination);</span>
+<span id="L39"><a class="line" href="#L39">39</a>                     var candidate = new InventoryState(state);</span>
+<span id="L40"><a class="line" href="#L40">40</a>                     candidate.Items[item.Id] = item with { Placement = destination };</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     InventoryPlacement.Validate(candidate);</span>
+<span id="L42"><a class="line" href="#L42">42</a>                     break;</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 case InventoryActionKind.Open:</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 case InventoryActionKind.Close:</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     if (request.RegionId is null || request.Destination is not null) throw new ArgumentException(&quot;Choose a compartment&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     var region = state.Region(item.Id, request.RegionId);</span>
+<span id="L47"><a class="line" href="#L47">47</a>                     if (region.Attachment is not null || !region.Sealable) throw new ArgumentException(&quot;This region cannot be sealed; inspect its contents directly.&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>                     var compartmentAccess = InventoryWear.Compartment(state, item.Id, region);</span>
+<span id="L49"><a class="line" href="#L49">49</a>                     if (!compartmentAccess.Allowed) throw new ArgumentException(compartmentAccess.Reason);</span>
+<span id="L50"><a class="line" href="#L50">50</a>                     if (state.IsOpen(item.Id, region.Id) == (request.Kind == InventoryActionKind.Open)) throw new ArgumentException(&quot;Compartment is already in that state&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     duration = Math.Max(150, region.AccessMs + InventoryAccessService.HandlingMs(state, item.Placement));</span>
+<span id="L52"><a class="line" href="#L52">52</a>                     ap = Math.Max(1, region.AccessAp + AccessAp(state, item.Placement));</span>
+<span id="L53"><a class="line" href="#L53">53</a>                     break;</span>
+<span id="L54"><a class="line" href="#L54">54</a>                 case InventoryActionKind.OpenGarment:</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 case InventoryActionKind.CloseGarment:</span>
+<span id="L56"><a class="line" href="#L56">56</a>                     if (definition.Wear is not { OpenExposes.Length: &gt; 0 } wear || request.RegionId is not null || request.Destination is not null)</span>
+<span id="L57"><a class="line" href="#L57">57</a>                         throw new ArgumentException(&quot;This garment has no supported opening&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>                     if (item.GarmentOpen == (request.Kind == InventoryActionKind.OpenGarment)) throw new ArgumentException(&quot;Garment is already in that state&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>                     InventoryWear.ValidateAction(state, item, item.Placement, wear.OpenExposes, fastening: true);</span>
+<span id="L60"><a class="line" href="#L60">60</a>                     var closureCandidate = new InventoryState(state);</span>
+<span id="L61"><a class="line" href="#L61">61</a>                     closureCandidate.Items[item.Id] = item with { GarmentOpen = request.Kind == InventoryActionKind.OpenGarment };</span>
+<span id="L62"><a class="line" href="#L62">62</a>                     InventoryPlacement.Validate(closureCandidate);</span>
+<span id="L63"><a class="line" href="#L63">63</a>                     duration = wear.FastenMs + InventoryAccessService.HandlingMs(state, item.Placement);</span>
+<span id="L64"><a class="line" href="#L64">64</a>                     ap = wear.FastenAp + AccessAp(state, item.Placement);</span>
+<span id="L65"><a class="line" href="#L65">65</a>                     break;</span>
+<span id="L66"><a class="line" href="#L66">66</a>                 case InventoryActionKind.PowerOn:</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 case InventoryActionKind.PowerOff:</span>
+<span id="L68"><a class="line" href="#L68">68</a>                     if (definition.Capability is null || request.Destination is not null || request.RegionId is not null) throw new ArgumentException(&quot;This item has no power control&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>                     if (item.Powered == (request.Kind == InventoryActionKind.PowerOn)) throw new ArgumentException(&quot;Equipment is already in that power state&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>                     break;</span>
+<span id="L71"><a class="line" href="#L71">71</a>             }</span>
+<span id="L72"><a class="line" href="#L72">72</a>         }</span>
+<span id="L73"><a class="line" href="#L73">73</a>         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or KeyNotFoundException or NullReferenceException)</span>
+<span id="L74"><a class="line" href="#L74">74</a>         { reason = ex is ArgumentException ? ex.Message : &quot;Invalid physical destination or compartment&quot;; return false; }</span>
+<span id="L75"><a class="line" href="#L75">75</a>         reason = &quot;Ready&quot;; return true;</span>
+<span id="L76"><a class="line" href="#L76">76</a>     }</span>
+<span id="L77"><a class="line" href="#L77">77</a>     internal static int AccessAp(InventoryState state, ItemPlacement placement)</span>
+<span id="L78"><a class="line" href="#L78">78</a>     {</span>
+<span id="L79"><a class="line" href="#L79">79</a>         var cost = 0;</span>
+<span id="L80"><a class="line" href="#L80">80</a>         for (var depth = 0; depth &lt;= InventoryHierarchy.MaxDepth; depth++)</span>
+<span id="L81"><a class="line" href="#L81">81</a>         {</span>
+<span id="L82"><a class="line" href="#L82">82</a>             cost += state.Region(placement.ParentId, placement.RegionId).AccessAp;</span>
+<span id="L83"><a class="line" href="#L83">83</a>             if (!state.Items.TryGetValue(placement.ParentId, out var parent)) return cost;</span>
+<span id="L84"><a class="line" href="#L84">84</a>             placement = parent.Placement;</span>
+<span id="L85"><a class="line" href="#L85">85</a>         }</span>
+<span id="L86"><a class="line" href="#L86">86</a>         throw new ArgumentException(&quot;Inventory hierarchy is too deep&quot;);</span>
+<span id="L87"><a class="line" href="#L87">87</a>     }</span>
+<span id="L88"><a class="line" href="#L88">88</a>     public static bool Start(SimulationWorld world, InventoryRequest request, out string reason)</span>
+<span id="L89"><a class="line" href="#L89">89</a>     {</span>
+<span id="L90"><a class="line" href="#L90">90</a>         var actor = world.Player;</span>
+<span id="L91"><a class="line" href="#L91">91</a>         reason = world.ManualPause || world.LocalHold ? &quot;Inventory handling waits with the local simulation.&quot;</span>
+<span id="L92"><a class="line" href="#L92">92</a>             : world.Inventory.Pending is not null ? &quot;Finish the current inventory action first.&quot;</span>
+<span id="L93"><a class="line" href="#L93">93</a>             : world.LocalMs &lt; actor.StartledUntilMs ? &quot;Recovering from startle.&quot; : &quot;Ready&quot;;</span>
+<span id="L94"><a class="line" href="#L94">94</a>         if (reason != &quot;Ready&quot;) return false;</span>
+<span id="L95"><a class="line" href="#L95">95</a>         if (!Validate(world, actor.Id, request, out reason, out var duration, out var ap, out var packing)) return false;</span>
+<span id="L96"><a class="line" href="#L96">96</a>         request = InventoryWornOrder.Resolve(world.Inventory, request);</span>
+<span id="L97"><a class="line" href="#L97">97</a>         if (world.Combat.Active &amp;&amp; !TacticalCombatSystem.HandleInventory(world, ap, duration, out reason)) return false;</span>
+<span id="L98"><a class="line" href="#L98">98</a>         MovementSystem.StopInPlace(actor);</span>
+<span id="L99"><a class="line" href="#L99">99</a>         world.Inventory.Pending = new(actor.Id, request, actor.Position, duration, duration, world.Inventory.Revision, ap, world.Combat.Active, Packing: packing);</span>
+<span id="L100"><a class="line" href="#L100">100</a>         reason = $&quot;Handling {world.Inventory.Name(request.ItemId)}: {duration / 1000.0:0.00}s&quot; + (world.Combat.Active ? $&quot; · {ap} AP&quot; : &quot;&quot;);</span>
+<span id="L101"><a class="line" href="#L101">101</a>         PlayerFeedback.Add(world, MessageKind.Equipment, &quot;Inventory: &quot; + reason);</span>
+<span id="L102"><a class="line" href="#L102">102</a>         return true;</span>
+<span id="L103"><a class="line" href="#L103">103</a>     }</span>
+<span id="L104"><a class="line" href="#L104">104</a>     public static void Cancel(SimulationWorld world, string reason)</span>
+<span id="L105"><a class="line" href="#L105">105</a>     {</span>
+<span id="L106"><a class="line" href="#L106">106</a>         world.Inventory.SecureQueue.Clear();</span>
+<span id="L107"><a class="line" href="#L107">107</a>         if (world.Inventory.Pending is not { } pending) return;</span>
+<span id="L108"><a class="line" href="#L108">108</a>         if (pending.Tactical) { world.Inventory.Pending = pending with { AbortReason = reason }; return; }</span>
+<span id="L109"><a class="line" href="#L109">109</a>         world.Inventory.Pending = null;</span>
+<span id="L110"><a class="line" href="#L110">110</a>         PlayerFeedback.Add(world, MessageKind.Warning, &quot;Inventory: action interrupted: &quot; + reason);</span>
+<span id="L111"><a class="line" href="#L111">111</a>     }</span>
+<span id="L112"><a class="line" href="#L112">112</a>     public static void Advance(SimulationWorld world)</span>
+<span id="L113"><a class="line" href="#L113">113</a>     {</span>
+<span id="L114"><a class="line" href="#L114">114</a>         var state = world.Inventory;</span>
+<span id="L115"><a class="line" href="#L115">115</a>         if (state.Pending is not { } work) return;</span>
+<span id="L116"><a class="line" href="#L116">116</a>         var actor = world.Actors.Single(a =&gt; a.Id == work.ActorId);</span>
+<span id="L117"><a class="line" href="#L117">117</a>         var abort = work.AbortReason ?? (actor.Position != work.Position ? &quot;Character moved&quot; : world.LocalMs &lt; actor.StartledUntilMs ? &quot;Startled while handling equipment&quot; : null);</span>
+<span id="L118"><a class="line" href="#L118">118</a>         work = work with { RemainingMs = work.RemainingMs - SpatialSimulation.TickMs, AbortReason = abort };</span>
+<span id="L119"><a class="line" href="#L119">119</a>         state.Pending = work;</span>
+<span id="L120"><a class="line" href="#L120">120</a>         if (work.RemainingMs &gt; 0) return;</span>
+<span id="L121"><a class="line" href="#L121">121</a>         state.Pending = null;</span>
+<span id="L122"><a class="line" href="#L122">122</a>         if (work.AbortReason is not null || work.Revision != state.Revision</span>
+<span id="L123"><a class="line" href="#L123">123</a>             || !Validate(world, work.ActorId, work.Request, out _, out _, out _, out var verified)</span>
+<span id="L124"><a class="line" href="#L124">124</a>             || !InventoryPackingActions.Same(work.Packing, verified))</span>
+<span id="L125"><a class="line" href="#L125">125</a>         { state.SecureQueue.Clear(); PlayerFeedback.Add(world, MessageKind.Warning, &quot;Inventory: action failed: &quot; + (work.AbortReason ?? &quot;Item, access or destination changed&quot;)); return; }</span>
+<span id="L126"><a class="line" href="#L126">126</a>         if (work.Packing is { } plan)</span>
+<span id="L127"><a class="line" href="#L127">127</a>         {</span>
+<span id="L128"><a class="line" href="#L128">128</a>             foreach (var move in plan.Moves) state.Items[move.ItemId] = state.Items[move.ItemId] with { Placement = move.To };</span>
+<span id="L129"><a class="line" href="#L129">129</a>             state.Revision++;</span>
+<span id="L130"><a class="line" href="#L130">130</a>             world.Log(&quot;inventory&quot;, work.Request.ItemId, work.Request.Kind.ToString(), &quot;Atomic region packing committed.&quot;);</span>
+<span id="L131"><a class="line" href="#L131">131</a>             PlayerFeedback.Add(world, MessageKind.Equipment, &quot;Inventory: &quot; + state.Name(work.Request.ItemId) + &quot;: &quot; + work.Request.Kind + &quot; completed.&quot;);</span>
+<span id="L132"><a class="line" href="#L132">132</a>             return;</span>
+<span id="L133"><a class="line" href="#L133">133</a>         }</span>
+<span id="L134"><a class="line" href="#L134">134</a>         var request = work.Request; var item = state.Items[request.ItemId];</span>
+<span id="L135"><a class="line" href="#L135">135</a>         switch (request.Kind)</span>
+<span id="L136"><a class="line" href="#L136">136</a>         {</span>
+<span id="L137"><a class="line" href="#L137">137</a>             case InventoryActionKind.Move: state.Items[item.Id] = item with { Placement = request.Destination! }; break;</span>
+<span id="L138"><a class="line" href="#L138">138</a>             case InventoryActionKind.Open:</span>
+<span id="L139"><a class="line" href="#L139">139</a>             case InventoryActionKind.Close:</span>
+<span id="L140"><a class="line" href="#L140">140</a>                 var index = state.Regions.FindIndex(r =&gt; r.ItemId == item.Id &amp;&amp; r.RegionId == request.RegionId);</span>
+<span id="L141"><a class="line" href="#L141">141</a>                 state.Regions[index] = state.Regions[index] with { Open = request.Kind == InventoryActionKind.Open }; break;</span>
+<span id="L142"><a class="line" href="#L142">142</a>             case InventoryActionKind.PowerOn:</span>
+<span id="L143"><a class="line" href="#L143">143</a>             case InventoryActionKind.PowerOff: state.Items[item.Id] = item with { Powered = request.Kind == InventoryActionKind.PowerOn }; break;</span>
+<span id="L144"><a class="line" href="#L144">144</a>             case InventoryActionKind.OpenGarment:</span>
+<span id="L145"><a class="line" href="#L145">145</a>             case InventoryActionKind.CloseGarment: state.Items[item.Id] = item with { GarmentOpen = request.Kind == InventoryActionKind.OpenGarment }; break;</span>
+<span id="L146"><a class="line" href="#L146">146</a>         }</span>
+<span id="L147"><a class="line" href="#L147">147</a>         state.Revision++;</span>
+<span id="L148"><a class="line" href="#L148">148</a>         world.Log(&quot;inventory&quot;, item.Id, request.Kind.ToString(), &quot;Timed handling committed; one physical item graph.&quot;);</span>
+<span id="L149"><a class="line" href="#L149">149</a>         PlayerFeedback.Add(world, MessageKind.Equipment, &quot;Inventory: &quot; + state.Definition(item.Id).Name + &quot;: &quot; + request.Kind + &quot; completed.&quot;);</span>
+<span id="L150"><a class="line" href="#L150">150</a>     }</span>
+<span id="L151"><a class="line" href="#L151">151</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

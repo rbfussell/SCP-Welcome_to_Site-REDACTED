@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.WearSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.WearSmoke.cs</h1><p>game/Presentation/SpatialScene.WearSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-93a6407d70acd2672df5.html">SpatialScene.RunWearSmoke</a> · line 9</li><li><a href="function-02d793a21dba830161dd.html">SpatialScene.Finish</a> · line 13</li><li><a href="function-c5526d32c709d4ad4f33.html">SpatialScene.Click</a> · line 19</li><li><a href="function-33efb3cfcabbe21ba187.html">SpatialScene.SelectSuit</a> · line 69</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using System.Threading.Tasks;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using SiteSimulation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunWearSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var panel = _hud.Inventory; var sim = _simulation;</span>
+<span id="L12"><a class="line" href="#L12">12</a>         sim.ManualPause = true; var original = sim.Save();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         async Task Finish()</span>
+<span id="L14"><a class="line" href="#L14">14</a>         {</span>
+<span id="L15"><a class="line" href="#L15">15</a>             for (var i = 0; i &lt; 300 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L16"><a class="line" href="#L16">16</a>             if (sim.Inventory.Pending is not null) throw new InvalidOperationException(&quot;Garment UI action failed to resolve.&quot;);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         void Click(Button button) =&gt; InventoryClick(button.GetGlobalRect().GetCenter());</span>
+<span id="L20"><a class="line" href="#L20">20</a>         panel.Inspect(&quot;avatar-trousers&quot;); panel.OpenCompartment(&quot;avatar-trousers&quot;, &quot;left&quot;); panel.Inspect(&quot;gum-packet&quot;); await InventoryFrames();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var coat = panel.FindGrid(&quot;person:avatar&quot;, &quot;outerwear&quot;);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (panel.GarmentToggle.Disabled) throw new InvalidOperationException(&quot;Selecting a supported garment did not enable its physical opening control.&quot;);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         var held = sim.Save(); Click(panel.GarmentToggle); await InventoryFrames();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         if (sim.Save() != held) throw new InvalidOperationException(&quot;Fastening during pause supplied a free clothing change.&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>         sim.ManualPause = false; Click(panel.GarmentToggle);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         if (sim.Inventory.Pending?.Request.Kind != InventoryActionKind.CloseGarment) throw new InvalidOperationException(&quot;Actual fastening button did not begin timed work.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>         await Finish();</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (panel.InspectedContainers.Contains(&quot;gum-packet&quot;) || sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed</span>
+<span id="L30"><a class="line" href="#L30">30</a>             || sim.InventoryContents(&quot;person:avatar&quot;, &quot;torso&quot;).Count != 0)</span>
+<span id="L31"><a class="line" href="#L31">31</a>             throw new InvalidOperationException(&quot;Fastened coat failed to hide its inner shirt/pocket paths and descendant views.&quot;);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         held = sim.Save();</span>
+<span id="L33"><a class="line" href="#L33">33</a>         // The main equipment list replaces the old fixed-layer selector; covered rows remain read-only.</span>
+<span id="L34"><a class="line" href="#L34">34</a>         Click(panel.EngineeringSlots); await InventoryFrames();</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var list = panel.EquipmentList;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         var shirtRow = list.Row(&quot;avatar-shirt&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         if (shirtRow &lt; 0 || !list.GetItemText(shirtRow).Contains(&quot;0&quot;) || !list.GetItemText(shirtRow).Contains(&quot;covered&quot;))</span>
+<span id="L38"><a class="line" href="#L38">38</a>             throw new InvalidOperationException(&quot;Equipment list omitted the covered shirt&#x27;s real layer.&quot;);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter()); await InventoryFrames();</span>
+<span id="L40"><a class="line" href="#L40">40</a>         if (panel.SelectedItem != &quot;avatar-shirt&quot; || sim.Save() != held)</span>
+<span id="L41"><a class="line" href="#L41">41</a>             throw new InvalidOperationException(&quot;Native equipment row selection changed physical state or selected the wrong item.&quot;);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         InventoryClick(list.GlobalPosition + list.GetItemRect(shirtRow).GetCenter(), true); await InventoryFrames();</span>
+<span id="L43"><a class="line" href="#L43">43</a>         if (panel.Browser.CurrentGear == &quot;avatar-shirt&quot; || sim.Save() != held)</span>
+<span id="L44"><a class="line" href="#L44">44</a>             throw new InvalidOperationException(&quot;Double-clicking covered equipment bypassed inspection access.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         await InventoryCapture(&quot;-equipment-layers&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         Click(panel.EngineeringSlots); await InventoryFrames();</span>
+<span id="L47"><a class="line" href="#L47">47</a>         if (!sim.InventoryEquipment.Any(e =&gt; e.ItemId == &quot;avatar-shirt&quot; &amp;&amp; !e.Visible &amp;&amp; e.Layers.Any(l =&gt; l.Layer == 0)))</span>
+<span id="L48"><a class="line" href="#L48">48</a>             throw new InvalidOperationException(&quot;Known covered shirt is missing from actual layer projection.&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         panel.Inspect(&quot;gum-packet&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (panel.InspectedContainers.Contains(&quot;gum-packet&quot;) || sim.Save() != held)</span>
+<span id="L51"><a class="line" href="#L51">51</a>             throw new InvalidOperationException(&quot;Layer inspection uncovered physical storage or mutated the save.&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var shirt = panel.FindGrid(&quot;person:avatar&quot;, &quot;torso&quot;);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         ((ScrollContainer)shirt.GetParent().GetParent()).EnsureControlVisible(shirt); await InventoryFrames();</span>
+<span id="L54"><a class="line" href="#L54">54</a>         InventoryClick(shirt.GlobalPosition + new Vector2(30, 80));</span>
+<span id="L55"><a class="line" href="#L55">55</a>         if (panel.SelectedItem != &quot;avatar-shirt&quot; || shirt._GetDragData(new Vector2(30, 80)).VariantType != Variant.Type.Nil)</span>
+<span id="L56"><a class="line" href="#L56">56</a>             throw new InvalidOperationException(&quot;A known covered shirt could not be inspected or incorrectly became draggable.&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         InventoryClick(panel.TakeInHand.GetGlobalRect().GetCenter());</span>
+<span id="L58"><a class="line" href="#L58">58</a>         if (sim.Save() != held) throw new InvalidOperationException(&quot;Layer-view selection bypassed physical dressing rules.&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         await InventoryCapture(&quot;-layer-inspection&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         ((ScrollContainer)coat.GetParent().GetParent()).EnsureControlVisible(coat); await InventoryFrames();</span>
+<span id="L61"><a class="line" href="#L61">61</a>         InventoryClick(coat.GlobalPosition + new Vector2(30, 80)); await InventoryFrames();</span>
+<span id="L62"><a class="line" href="#L62">62</a>         await InventoryCapture(&quot;-coat-fastened&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         sim.ManualPause = false; Click(panel.GarmentToggle); await Finish();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         if (!sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed || sim.InventoryContents(&quot;person:avatar&quot;, &quot;torso&quot;).Count != 1)</span>
+<span id="L65"><a class="line" href="#L65">65</a>             throw new InvalidOperationException(&quot;Opening a coat failed to expose the underlying paperdoll and storage.&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         await InventoryCapture(&quot;-coat-open&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         sim.Player.Cell = new(13, 6); panel.Inspect(&quot;fixture:crate-a&quot;); panel.OpenCompartment(&quot;fixture:crate-a&quot;, &quot;store&quot;); await InventoryFrames();</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var crate = panel.FindGrid(&quot;fixture:crate-a&quot;, &quot;store&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         void SelectSuit() =&gt; InventoryClick(crate.GlobalPosition + new Vector2(6 * crate.CellPixels + 15, 59));</span>
+<span id="L70"><a class="line" href="#L70">70</a>         SelectSuit();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         if (panel.SelectedItem != &quot;chemical-suit&quot;) throw new InvalidOperationException(&quot;The physical suit could not be selected from the nearby crate.&quot;);</span>
+<span id="L72"><a class="line" href="#L72">72</a>         held = sim.Save(); sim.ManualPause = false; var beforeAttempt = sim.Save(); Click(panel.WearDefault);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         if (sim.Inventory.Pending is not null || sim.Save() != beforeAttempt || !sim.LastMessage.Contains(&quot;backpack&quot;, StringComparison.OrdinalIgnoreCase))</span>
+<span id="L74"><a class="line" href="#L74">74</a>             throw new InvalidOperationException(&quot;The worn pack did not block fitting the suit through the real UI.&quot;);</span>
+<span id="L75"><a class="line" href="#L75">75</a>         var pack = panel.FindGrid(&quot;person:avatar&quot;, &quot;back&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         InventoryClick(pack.GlobalPosition + new Vector2(30, 80)); Click(panel.TakeInHand); await Finish();</span>
+<span id="L77"><a class="line" href="#L77">77</a>         sim.ManualPause = false; SelectSuit(); Click(panel.WearDefault); await Finish();</span>
+<span id="L78"><a class="line" href="#L78">78</a>         if (sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;chemical-suit&quot;).Placement.RegionId != &quot;suit&quot;)</span>
+<span id="L79"><a class="line" href="#L79">79</a>             throw new InvalidOperationException(&quot;The suit was not fitted after clearing the pack.&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         InventoryClick(hand.GlobalPosition + new Vector2(30, 80)); sim.ManualPause = false; Click(panel.WearDefault); await Finish();</span>
+<span id="L82"><a class="line" href="#L82">82</a>         if (sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-backpack&quot;).Placement.RegionId != &quot;back&quot;</span>
+<span id="L83"><a class="line" href="#L83">83</a>             || sim.InventoryAccess(&quot;avatar-trousers&quot;, &quot;left&quot;).Allowed)</span>
+<span id="L84"><a class="line" href="#L84">84</a>             throw new InvalidOperationException(&quot;Refitting a pack failed or incorrectly uncovered inner suit equipment.&quot;);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         var suitGrid = panel.FindGrid(&quot;person:avatar&quot;, &quot;suit&quot;);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         ((ScrollContainer)suitGrid.GetParent().GetParent()).EnsureControlVisible(suitGrid); await InventoryFrames();</span>
+<span id="L87"><a class="line" href="#L87">87</a>         await InventoryCapture(&quot;-suit-fitted&quot;);</span>
+<span id="L88"><a class="line" href="#L88">88</a>         var saved = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L89"><a class="line" href="#L89">89</a>         clone.Restore(saved);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         if (clone.Save() != saved) throw new InvalidOperationException(&quot;Dressed paperdoll and coverage failed to persist.&quot;);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L92"><a class="line" href="#L92">92</a>         GD.Print(&quot;WEAR_SMOKE_PASS: actual paid garment controls, paused rejection, covered pocket/descendant hiding, exposed shirt, explicit pack-off/suit-on/pack-on buttons and save restore.&quot;);</span>
+<span id="L93"><a class="line" href="#L93">93</a>     }</span>
+<span id="L94"><a class="line" href="#L94">94</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

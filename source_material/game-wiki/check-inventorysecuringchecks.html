@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventorySecuringChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventorySecuringChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class InventorySecuringChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool value, string reason) { if (!value) throw new Exception(&quot;Inventory securing: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryRequest Close(string id, string region) =&gt; new(InventoryActionKind.Close, id, RegionId: region);
+        var parent = Close(&quot;avatar-backpack&quot;, &quot;main&quot;); var child = Close(&quot;medical-case&quot;, &quot;inside&quot;);
+        void Finish(SpatialSimulation s)
+        {
+            for (var i = 0; i &lt; 500 &amp;&amp; (s.Inventory.Pending is not null || s.Inventory.SecuringRemaining != 0); i++) s.Tick();
+            Check(s.Inventory.Pending is null &amp;&amp; s.Inventory.SecuringRemaining == 0, &quot;bounded realtime sequence did not finish&quot;);
+        }
+        var sim = Sim(); sim.ManualPause = true;
+        Check(sim.SecureInventory([parent, child]), &quot;valid child/parent closures should prepare during pause&quot;);
+        Check(sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;) &amp;&amp; sim.Inventory.Pending is null,
+            &quot;preparing a close intent must not close anything or purchase work while paused&quot;);
+        var saved = sim.Save(); var clone = Sim(); clone.Restore(saved);
+        Check(clone.Save() == saved, &quot;paused securing queue must round-trip exactly&quot;);
+        var canceledPause = Sim(); canceledPause.Restore(saved);
+        Check(canceledPause.CancelInventoryHandling() &amp;&amp; canceledPause.Inventory.SecuringRemaining == 0 &amp;&amp; canceledPause.ManualPause
+            &amp;&amp; canceledPause.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;unstarted securing intent can be canceled while paused without physical work&quot;);
+        for (var i = 0; i &lt; 20; i++) sim.Tick(); Check(sim.Save() == saved, &quot;manual pause freezes prepared closures&quot;);
+        sim.ManualPause = clone.ManualPause = false; sim.Tick(); clone.Tick();
+        Check(sim.Inventory.Pending?.Request == child &amp;&amp; sim.Inventory.SecuringRemaining == 1, &quot;nested closure must purchase work before its parent regardless of request order&quot;);
+        var midway = sim.Save(); var midClone = Sim(); midClone.Restore(midway);
+        Check(midClone.Save() == midway, &quot;active work plus remaining queue restores as one continuation&quot;);
+        for (var i = 0; i &lt; 100; i++) { sim.Tick(); clone.Tick(); midClone.Tick(); }
+        Check(sim.Save() == clone.Save() &amp;&amp; sim.Save() == midClone.Save(), &quot;restored securing must match uninterrupted simulation exactly&quot;);
+        Check(!sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;) &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.SecuringRemaining == 0,
+            &quot;children and parent must really be secured at completion&quot;);
+        Check(sim.Events.Entries.Count(e =&gt; e.Text == &quot;Inventory: &quot; + sim.Inventory.Definition(&quot;medical-case&quot;).Name + &quot;: Close completed.&quot;) == 1,
+            &quot;a persisted sequence must not duplicate completed work&quot;);
+        var invalid = Sim(); var before = invalid.Save();
+        Check(!invalid.SecureInventory([new(InventoryActionKind.Move, &quot;flashlight&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))]) &amp;&amp; invalid.Save() == before,
+            &quot;secure intent cannot inject a move&quot;);
+        Check(!invalid.SecureInventory([Close(&quot;medical-case&quot;, &quot;missing&quot;)]) &amp;&amp; invalid.Save() == before, &quot;unknown closure must reject atomically&quot;);
+        Check(!invalid.SecureInventory([Close(&quot;tech-backpack&quot;, &quot;main&quot;)]) &amp;&amp; invalid.Save() == before, &quot;securing cannot reach another employee&#x27;s pack&quot;);
+        var canceled = Sim(); Check(canceled.SecureInventory([parent, child]), &quot;cancel fixture prepares&quot;);
+        canceled.Tick(); Check(canceled.CancelInventoryHandling(), &quot;explicit cancel stops automatic work&quot;);
+        Finish(canceled);
+        Check(canceled.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; canceled.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;), &quot;canceling realtime work must not manufacture closures&quot;);
+        var overrideSim = Sim(); overrideSim.SecureInventory([parent]);
+        Check(overrideSim.HandleInventory(new(InventoryActionKind.Move, &quot;flashlight&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))) &amp;&amp; overrideSim.Inventory.SecuringRemaining == 0,
+            &quot;a successful explicit action replaces unstarted automatic work&quot;);
+        var changed = Sim(); changed.SecureInventory([child, parent]);
+        var item = changed.Inventory.Items[&quot;medical-case&quot;];
+        changed.Inventory.Items[item.Id] = item with { Placement = item.Placement with { Y = 4 } };
+        changed.Tick();
+        Check(changed.Inventory.SecuringRemaining == 0 &amp;&amp; changed.Inventory.Pending is null &amp;&amp; changed.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;),
+            &quot;a moved inspected object must abort the remaining sequence safely&quot;);
+        var covered = Sim(); covered.HandleInventory(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;)); Finish(covered);
+        var coveredSave = covered.Save();
+        Check(!covered.SecureInventory([Close(&quot;avatar-trousers&quot;, &quot;left&quot;)]) &amp;&amp; covered.Save() == coveredSave,
+            &quot;closing a covered pocket requires physical access just like opening it&quot;);
+        var tactical = Sim(); tactical.Player.Facing = 1;
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;tactical fixture enters combat&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var cost = tactical.QuoteInventory(child).Ap;
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = cost };
+        Check(tactical.SecureInventory([parent, child]), &quot;prepare tactical sequence&quot;); tactical.Tick();
+        Check(tactical.Combat.For(tactical.Player.Id)!.Ap == 0 &amp;&amp; tactical.Inventory.Pending?.Request == child, &quot;first closure charges its full normal AP once&quot;);
+        for (var i = 0; i &lt; 80; i++) tactical.Tick();
+        var local = tactical.LocalMs; var world = tactical.WorldMs;
+        var waiting = tactical.Save(); var waitClone = Sim(); waitClone.Restore(waiting);
+        Check(waitClone.Save() == waiting, &quot;queue waiting for AP persists without buying unpaid local time&quot;);
+        Check(waitClone.CancelInventoryHandling() &amp;&amp; waitClone.Inventory.SecuringRemaining == 0 &amp;&amp; waitClone.Combat.For(waitClone.Player.Id)!.Ap == 0
+            &amp;&amp; waitClone.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;waiting close intent can be canceled in combat without refunding AP or closing a lid&quot;);
+        for (var i = 0; i &lt; 20; i++) tactical.Tick();
+        Check(tactical.Inventory.Pending is null &amp;&amp; tactical.Inventory.SecuringRemaining == 1 &amp;&amp; tactical.LocalMs == local &amp;&amp; tactical.WorldMs &gt; world
+            &amp;&amp; tactical.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;insufficient AP must wait without auto-ending the turn, advancing local hazards or securing for free&quot;);
+        Check(tactical.EndTurn(), &quot;player may explicitly end turn while securing waits&quot;);
+        for (var i = 0; i &lt; 1500 &amp;&amp; (tactical.Inventory.SecuringRemaining != 0 || tactical.Inventory.Pending is not null); i++) tactical.Tick();
+        Check(!tactical.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; tactical.Inventory.SecuringRemaining == 0, &quot;normal next-turn AP allows the remaining closure&quot;);
+        var corrupt = JsonNode.Parse(saved)!;
+        corrupt[&quot;Inventory&quot;]![&quot;SecureQueue&quot;]![0]![&quot;Request&quot;]![&quot;Kind&quot;] = (int)InventoryActionKind.Open;
+        var protectedSim = Sim(); var protectedSave = protectedSim.Save();
+        try { protectedSim.Restore(corrupt.ToJsonString()); throw new Exception(&quot;Injected open intent accepted&quot;); }
+        catch (ArgumentException) { Check(protectedSim.Save() == protectedSave, &quot;malformed queue rejects without partially restoring world state&quot;); }
+        var legacy = JsonNode.Parse(protectedSave)!; legacy[&quot;Version&quot;] = 8; legacy[&quot;Inventory&quot;]!.AsObject().Remove(&quot;SecureQueue&quot;);
+        try { protectedSim.Restore(legacy.ToJsonString()); throw new Exception(&quot;Pre-order inventory schema accepted&quot;); }
+        catch (ArgumentException) { Check(protectedSim.Save() == protectedSave, &quot;pre-order inventory saves require a fresh scene and reject atomically&quot;); }
+        Console.WriteLine($&quot;INVENTORY_SECURING_CHECKS_PASS: {passed} assertions; child-first closures, time/AP, pause, interruptions, explicit override and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/InventorySecuringChecks.cs</footer></main></div></body></html>

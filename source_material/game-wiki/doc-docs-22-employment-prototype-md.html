@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scheduled employment and relief prototype | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/22-employment-prototype.md.</aside><h1 id="scheduled-employment-and-relief-prototype">Scheduled employment and relief prototype</h1>
+<p>Status: Bounded native implementation, October 25, 2026. This proves one observation-duty routine with two appointments, not the six professions or full EMP-01–08 acceptance in the design contract.</p>
+<h2 id="playing-it">Playing it</h2>
+<p>The normal local scene and standalone OSCP scenario now appoint Chen as <strong>Security observer</strong> and Ortiz as <strong>Observation technician</strong> at the receiving-room observation post. Employment owns their work; they no longer need synthetic standing orders. The director is player-controlled and has no autonomous appointment.</p>
+<p>Both employees start on duty at separate physical stations. The post has a minimum of one ready employed observer. This staffing minimum is distinct from the containment procedure's three actual humans, which includes the director. Staffing alone cannot suppress SCP-650's relocation, and inadequate staffing cannot force it to relocate while somebody still sees it.</p>
+<p>These are deliberately short, repeating <strong>local execution-time test shifts</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Employee</th>
+<th style="text-align: right;">Initial duty ends</th>
+<th style="text-align: right;">Next duty starts</th>
+<th style="text-align: right;">Cycle</th>
+<th style="text-align: right;">Maximum overtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chen</td>
+<td style="text-align: right;">50s</td>
+<td style="text-align: right;">110s</td>
+<td style="text-align: right;">180s</td>
+<td style="text-align: right;">20s</td>
+</tr>
+<tr>
+<td>Ortiz</td>
+<td style="text-align: right;">120s</td>
+<td style="text-align: right;">180s</td>
+<td style="text-align: right;">180s</td>
+<td style="text-align: right;">20s</td>
+</tr>
+</tbody>
+</table>
+<p>Chen's 120-second shift starts at cycle offset 110 and wraps across offset zero. Ortiz's starts at zero and lasts 120 seconds. Each normally relieves the other. They walk to nearby rest points between shifts. This is a timing/work-ownership proof, not realistic working hours, sleep, meals or an in-shift break system. The appointments and post requirements live in the operation JSON.</p>
+<p>Select a worker in the field panel or <strong>OSCP → Personnel</strong>. Existing observe/follow/post/recovery orders remain available. A delivered, acknowledged director order suspends scheduled employment and warns that the post may be uncovered. A message still pending delivery does not suspend it. <strong>Return to scheduled duty</strong> releases the current direct order; the employee travels back if scheduled, or follows the relief/off-shift policy otherwise.</p>
+<p>OSCP command example:</p>
+<pre><code class="language-text">order tech post 8 4
+order tech duty
+</code></pre>
+<p>The phone can prepare either command while paused and send on closing, using its existing validated draft workflow. Workstation commands continue in real time. Persistent follow/post/observe commands need explicit release; a completed trolley recovery returns an employed handler to scheduling on the next local tick. Non-employed legacy recovery fixtures retain their explicit follow-up observation order.</p>
+<h2 id="work-coverage-and-interruption">Work, coverage and interruption</h2>
+<p>The work handler has reporting, on-duty, awaiting-relief, off-shift, interrupted and blocked states, each with a reason. It uses the ordinary movement service and retains fractional walking positions when orders redirect travel. Closed access or occupied routes produce blocked duty and reports; assignment cannot teleport someone to a station. Off-shift employees retain their employment identity and do not fall into the old discretionary patrol.</p>
+<p>An employee provides post coverage only when physically stationary at their assigned station, ready and able to observe the configured point. Actual attention, blink/startle, light and sight matter. An active direct order or tactical participation excludes them from employment coverage even if still standing at the station. The SCP module independently evaluates actual anomaly observation by all eligible humans.</p>
+<p>At shift end, a worker waits for enough other scheduled, physically ready on-duty employees at that post. An absent incoming worker starts bounded overtime. Once its limit expires, the worker leaves and the post can genuinely be uncovered. Returning/reloading cannot reset the deadline or invent a handover. Initial off-shift staff have no imaginary pre-campaign overtime.</p>
+<p>The present authority model remains the scenario director's operations authority. Departmental supervisors, urgency tiers, explicit emergency overrides, panic/injury doctrine, qualifications, negotiated team agreements, equipment prerequisites and safe interruption of arbitrary long tasks remain future work. Trolley interruption releases its pending push reservation while leaving its real cargo/equipment in place.</p>
+<h2 id="information-and-time">Information and time</h2>
+<p>The Personnel app shows authored appointments/schedules and <strong>last delivered employment reports</strong>, including their local timestamp and reason. Its staffing warning counts those reports and is explicitly labeled reported coverage, not a live tracker or containment certificate. Losing both voice and radio leaves old records visible; reconnecting reports the current state without fabricating missed labor. Runtime duty/coverage queries are diagnostic and are not the personnel UI's source.</p>
+<p>Local input waits and diagnostic holds freeze the work handler, movement and relief progress while the world calendar continues. Manual/phone pause freezes both clocks. During paid tactical resolution, participants remain reserved for combat; scheduled nonparticipants can work and move on those local ticks. The current training scenario enrolls all its actors; a separate core fixture qualifies nonparticipant employment.</p>
+<p>This first implementation uses local execution time for shifts and overtime. It does <strong>not</strong> implement the eventual world-calendar-to-held-area scheduling policy. Returning from a long hold does not consume shifts, replay labor or silently finish handoffs. Calendar appointments and cross-area dispatch remain proposed contracts; the clock choice here is fixture scope, not a permanent game-design change.</p>
+<h2 id="ownership-and-persistence">Ownership and persistence</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Owns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="file-src-sitesimulation-employment-employmentstate-cs.html">EmploymentState</a></td>
+<td>Appointment/post definitions, duty continuation and separate delivered reports</td>
+</tr>
+<tr>
+<td><a href="file-src-sitesimulation-employment-employmentsystem-cs.html">EmploymentSystem</a></td>
+<td>Shift evaluation, physical readiness, relief, overtime, duty travel and report delivery</td>
+</tr>
+<tr>
+<td><a href="file-src-sitesimulation-employment-employmentsavecodec-cs.html">EmploymentSaveCodec</a></td>
+<td>Detached validation and restoration without replay</td>
+</tr>
+<tr>
+<td><a href="file-src-sitesimulation-operations-personnelordersystem-cs.html">PersonnelOrderSystem</a></td>
+<td>Authority, delivery, acknowledgement, command replacement and release</td>
+</tr>
+<tr>
+<td><a href="file-game-presentation-oscp-oscpworkspace-personnel-cs.html">OSCP personnel view</a></td>
+<td>Report-based roster and staffing presentation</td>
+</tr>
+</tbody>
+</table>
+<p>Outer save schema <strong>6</strong> adds employment continuation and delivered reports. Definitions remain content, included in the existing content identity; changing the operation JSON makes old scenario saves incompatible. A save matching an employment scenario must include its employment state; the loader does not invent shifts or relief history. Matching scenarios without employment continue to support the existing schema-2–5 migration paths. SCP-650 module schema remains 2.</p>
+<p>Save/load preserves pending orders, interrupted physical routes, blocked work, local shift phase, relief deadline, release state and received information. Invalid restores discard a detached candidate without mutating the live simulation.</p>
+<h2 id="verification">Verification</h2>
+<pre><code class="language-bash">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --oscp-smoke work/preview/spatial-scene/employment-oscp.png
+python3 tools/run_spatial_scene.py --operation-smoke work/preview/spatial-scene/employment-local.png
+</code></pre>
+<p><a href="evidence-tests-spatialchecks-employmentchecks-cs.html">Employment checks</a> exercise real work versus pending orders, reassignment and physical return, actual relief, missing relief and overtime, blocked access, readiness loss, separate information, local/manual/tactical holds, paid combat resolution, continuation and atomic rejection. Godot checks additionally exercise actual command-line Enter for <code>duty</code>, the report-based roster and both device layouts, plus existing physical field/OSCP integration.</p>
+<p>Full hiring, optional-job preferences, six professions, daily calendars/breaks/needs, employment editing, autonomous door operation, vacancies, general reservations, full authority and injury/panic systems are not implemented by this slice. See the broader <a href="doc-docs-07-employment-and-orders-md.html">employment contract</a>.</p>
+<p>The <a href="doc-docs-23-personal-inventory-prototype-md.html">inventory follow-on</a> now supplies actual phone/radio items and shared physical access gates. Outer schema 8 (including garment state) supersedes prior schema references; the changed current scenario/catalog identity requires fresh saves. Earlier device flags remain compatibility service cut-outs.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/22-employment-prototype.md</footer></main></div></body></html>

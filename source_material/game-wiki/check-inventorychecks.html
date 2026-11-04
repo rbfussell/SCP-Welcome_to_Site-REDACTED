@@ -1,0 +1,238 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+internal static class InventoryChecks
+{
+    public static int Run(string map, string config, string artPath)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Inventory: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryItem Item(SpatialSimulation sim, string id) =&gt; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);
+        InventoryRequest Move(string id, string parent, string region, int x = 0, int y = 0, bool rotated = false) =&gt; new(InventoryActionKind.Move, id, new(parent, region, x, y, rotated));
+        void Resolve(SpatialSimulation sim)
+        {
+            for (var i = 0; sim.Inventory.Pending is not null &amp;&amp; i &lt; 1000; i++) sim.Tick();
+            Check(sim.Inventory.Pending is null, &quot;handling must finish in bounded local time&quot;);
+        }
+        void Act(SpatialSimulation sim, InventoryRequest request)
+        { Check(sim.HandleInventory(request), &quot;valid request rejected: &quot; + sim.LastMessage); Resolve(sim); }
+        using var art = JsonDocument.Parse(File.ReadAllText(artPath));
+        var registered = new HashSet&lt;string&gt;();
+        foreach (var asset in art.RootElement.GetProperty(&quot;assets&quot;).EnumerateArray())
+        {
+            var id = asset.GetProperty(&quot;id&quot;).GetString()!; Check(registered.Add(id), &quot;each inventory object has one art binding&quot;);
+            var bytes = File.ReadAllBytes(Path.Combine(Path.GetDirectoryName(artPath)!, asset.GetProperty(&quot;file&quot;).GetString()!));
+            Check(bytes.Length &gt; 26 &amp;&amp; bytes[0] == 137 &amp;&amp; bytes[1] == 80 &amp;&amp; bytes[25] == 6, &quot;each binding resolves to an RGBA PNG&quot;);
+            var width = System.Buffers.Binary.BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(16, 4));
+            var height = System.Buffers.Binary.BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(20, 4));
+            var size = asset.GetProperty(&quot;size&quot;).EnumerateArray().Select(v =&gt; v.GetInt32()).ToArray();
+            var r = asset.GetProperty(&quot;region&quot;).EnumerateArray().Select(v =&gt; v.GetInt32()).ToArray();
+            Check(width == size[0] &amp;&amp; height == size[1], &quot;object art metadata matches original image dimensions&quot;);
+            Check(r[0] &gt;= 0 &amp;&amp; r[1] &gt;= 0 &amp;&amp; r[2] &gt; 0 &amp;&amp; r[3] &gt; 0 &amp;&amp; r[0] + r[2] &lt;= width &amp;&amp; r[1] + r[3] &lt;= height,
+                &quot;object art registration stays within its real source image&quot;);
+        }
+        var sim = Sim();
+        Check(sim.Inventory.Content!.Definitions.All(d =&gt; registered.Contains(d.Id)), &quot;all native item definitions have actual object sprites&quot;);
+        var mountArt = art.RootElement.GetProperty(&quot;attachmentIllustrations&quot;);
+        Check(sim.Inventory.Content.Definitions.Where(d =&gt; d.Attachment is not null).All(d =&gt; mountArt.TryGetProperty(d.Id, out _)),
+            &quot;each attachable native object has an explicit mounting illustration&quot;);
+        foreach (var mount in mountArt.EnumerateObject())
+        {
+            Check(registered.Contains(mount.Name) &amp;&amp; sim.Inventory.Content.Definitions.Single(d =&gt; d.Id == mount.Name).Attachment is not null,
+                &quot;mount registration references an actual attachable sprite&quot;);
+            var anchor = mount.Value.GetProperty(&quot;anchor&quot;).EnumerateArray().Select(v =&gt; v.GetDouble()).ToArray();
+            Check(anchor.Length == 2 &amp;&amp; anchor.All(v =&gt; double.IsFinite(v) &amp;&amp; v &gt;= 0 &amp;&amp; v &lt;= 1), &quot;mounted anchor lies on the registered source image&quot;);
+            var height = mount.Value.GetProperty(&quot;height&quot;).GetDouble(); var rotation = mount.Value.GetProperty(&quot;rotationDegrees&quot;).GetDouble();
+            Check(double.IsFinite(height) &amp;&amp; height is &gt; 0 and &lt;= 256 &amp;&amp; double.IsFinite(rotation) &amp;&amp; Math.Abs(rotation) &lt;= 360,
+                &quot;mounted art has bounded aspect-preserving size and source orientation&quot;);
+        }
+        using var hotspots = JsonDocument.Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(artPath)!, &quot;hotspots.json&quot;)));
+        foreach (var binding in hotspots.RootElement.EnumerateObject())
+        {
+            var definition = sim.Inventory.Content.Definitions.Single(d =&gt; d.Id == binding.Name);
+            foreach (var target in binding.Value.EnumerateArray())
+            {
+                var polygon = target.GetProperty(&quot;polygon&quot;).EnumerateArray().Select(n =&gt; n.EnumerateArray().Select(v =&gt; v.GetDouble()).ToArray()).ToArray();
+                Check(polygon.Length is &gt;= 3 and &lt;= 128 &amp;&amp; polygon.All(p =&gt; p.Length == 2 &amp;&amp; p.All(v =&gt; double.IsFinite(v) &amp;&amp; v &gt;= 0 &amp;&amp; v &lt;= 1)),
+                    &quot;segmented hotspot vertices stay inside source-image registration&quot;);
+                var points = polygon.Select(p =&gt; new Point2(p[0], p[1])).ToArray();
+                var area = Math.Abs(Enumerable.Range(0, points.Length).Sum(i =&gt; points[i].X * points[(i + 1) % points.Length].Y - points[(i + 1) % points.Length].X * points[i].Y));
+                Check(area &gt; 0.00001 &amp;&amp; points.Distinct().Count() == points.Length, &quot;segment has a nondegenerate contour without repeated vertices&quot;);
+                var simple = true;
+                for (var i = 0; i &lt; points.Length; i++)
+                for (var j = i + 1; j &lt; points.Length; j++)
+                    if (j != i + 1 &amp;&amp; !(i == 0 &amp;&amp; j == points.Length - 1)
+                        &amp;&amp; Geometry.Intersects(points[i], points[(i + 1) % points.Length], points[j], points[(j + 1) % points.Length])) simple = false;
+                Check(simple, &quot;segment contour must not cross itself&quot;);
+                var hit = target.GetProperty(&quot;hitPoint&quot;).EnumerateArray().Select(v =&gt; v.GetDouble()).ToArray();
+                Check(hit.Length == 2 &amp;&amp; hit.All(v =&gt; double.IsFinite(v) &amp;&amp; v &gt; 0 &amp;&amp; v &lt; 1), &quot;native interaction sample uses source-image coordinates&quot;);
+                var region = target.GetProperty(&quot;region&quot;);
+                Check(region.ValueKind == JsonValueKind.Null ? definition.Wear?.OpenExposes is { Length: &gt; 0 }
+                    : definition.Regions?.Any(r =&gt; r.Id == region.GetString()) == true, &quot;each illustrated hotspot binds a real fastening or compartment&quot;);
+            }
+        }
+        Check(sim.Inventory.Enabled &amp;&amp; sim.Inventory.DiagnosticItems.Count == 39, &quot;explicit native profile loads unique physical items&quot;);
+        Check(sim.InventoryRoots.Count == 1 &amp;&amp; sim.InventoryRoots[0].ActorId == sim.Player.Id, &quot;UI roots exclude remote fixtures and other personnel&quot;);
+        Check(sim.InventoryContents(&quot;gum-packet&quot;, &quot;pieces&quot;).Count == 6, &quot;fine-scale packet contains six individual pieces&quot;);
+        Check(InventoryHierarchy.Mass(sim.Inventory, &quot;gum-packet&quot;) == 15, &quot;recursive packet mass counts the wrapper and each piece once&quot;);
+        var before = sim.Save();
+        var overlap = Move(&quot;flashlight&quot;, &quot;avatar-trousers&quot;, &quot;right&quot;);
+        Check(!sim.QuoteInventory(overlap).Allowed &amp;&amp; !sim.HandleInventory(overlap) &amp;&amp; sim.Save() == before, &quot;overlap rejection and preview leave all state untouched&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;gum-packet&quot;, &quot;pieces&quot;)).Allowed, &quot;coarser icons cannot fit a large object into a fine physical packet&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;medical-case&quot;, &quot;medical-case&quot;, &quot;inside&quot;)).Allowed, &quot;self-containment rejects atomically&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;avatar-backpack&quot;, &quot;medical-case&quot;, &quot;inside&quot;)).Allowed, &quot;ancestor cannot be stored in its descendant&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;face&quot;)).Allowed, &quot;wearable mounts cannot accept arbitrary small items&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;field-phone&quot;, &quot;person:tech&quot;, &quot;hand&quot;)).Allowed, &quot;personal inventory cannot remotely edit another employee&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;field-phone&quot;, &quot;fixture:crate-a&quot;, &quot;store&quot;)).Allowed, &quot;remote stock cannot be transferred without actual reach&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;missing&quot;, &quot;inside&quot;)).Allowed, &quot;unknown destinations return a reason instead of throwing&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;avatar-coat&quot;, &quot;chest&quot;, 3, 1)).Allowed, &quot;irregular compartment masks retain their unusable corner&quot;);
+        Check(!sim.QuoteInventory(Move(&quot;field-phone&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;, 1, 0, true)).Allowed, &quot;rotation checks the rotated physical envelope&quot;);
+        var rotate = Move(&quot;flashlight&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;, 0, 1, true);
+        Check(sim.QuoteInventory(rotate).Allowed, &quot;a horizontal flashlight fits across the pocket beneath the gum packet&quot;);
+        var old = Item(sim, &quot;flashlight&quot;).Placement;
+        Check(sim.HandleInventory(rotate) &amp;&amp; Item(sim, &quot;flashlight&quot;).Placement == old, &quot;starting a move reserves time without prematurely moving the object&quot;);
+        sim.Tick();
+        Check(sim.Inventory.Pending is { RemainingMs: &gt; 0 } &amp;&amp; Item(sim, &quot;flashlight&quot;).Placement == old, &quot;partially handled equipment remains at its actual source&quot;);
+        var midway = sim.Save(); var clone = Sim(); clone.Restore(midway);
+        Check(clone.Save() == midway, &quot;inventory work and its source location restore without replay&quot;);
+        for (var i = 0; i &lt; 50; i++) { sim.Tick(); clone.Tick(); }
+        Check(sim.Save() == clone.Save() &amp;&amp; Item(sim, &quot;flashlight&quot;).Placement == rotate.Destination, &quot;rotated timed transfer matches uninterrupted execution exactly&quot;);
+        Check(sim.Events.Entries.Count(e =&gt; e.Text == &quot;Inventory: Flashlight: Move completed.&quot;) == 1, &quot;one manipulation produces one completion&quot;);
+        var pocketQuote = sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Act(sim, Move(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;side&quot;));
+        var sideQuote = sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Act(sim, Move(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 5, 0));
+        var mainQuote = sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(pocketQuote.Ap == 2 &amp;&amp; sideQuote.Ap == 3 &amp;&amp; mainQuote.Ap == 4,
+            &quot;pocket, side pocket and main compartment charge distinct data-defined AP&quot;);
+        Check(pocketQuote.DurationMs &lt; sideQuote.DurationMs &amp;&amp; sideQuote.DurationMs &lt; mainQuote.DurationMs,
+            &quot;real-time handling shares the same physical access distinctions&quot;);
+        Act(sim, new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));
+        Check(sim.InventoryContents(&quot;avatar-backpack&quot;, &quot;main&quot;).Count == 0 &amp;&amp; !sim.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)).Allowed,
+            &quot;a closed parent blocks retrieval and hides its live contents&quot;);
+        Check(sim.QuoteInventory(Move(&quot;avatar-backpack&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)).Allowed, &quot;closing the bag does not prevent carrying the bag itself&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));
+        var nested = Move(&quot;dressing-a&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;, 0, 3);
+        Check(sim.QuoteInventory(nested).Ap == 6, &quot;nested access includes the outer backpack and the case interior&quot;);
+        Act(sim, new(InventoryActionKind.Close, &quot;medical-case&quot;, RegionId: &quot;inside&quot;));
+        Check(!sim.QuoteInventory(nested).Allowed, &quot;closed inner case blocks access even while the outer bag is open&quot;);
+        Act(sim, Move(&quot;medical-case&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 0, 4));
+        Check(Item(sim, &quot;dressing-a&quot;).Placement.ParentId == &quot;medical-case&quot;, &quot;moving a full case preserves each descendant&#x27;s unique identity and parent&quot;);
+        Check(InventoryHierarchy.Mass(sim.Inventory, &quot;medical-case&quot;) == 190, &quot;nested mass remains exact after movement&quot;);
+        Act(sim, new(InventoryActionKind.Open, &quot;medical-case&quot;, RegionId: &quot;inside&quot;));
+        Act(sim, nested);
+        Check(InventoryHierarchy.Mass(sim.Inventory, &quot;medical-case&quot;) == 150, &quot;extracting a child removes its mass from the case exactly once&quot;);
+
+        // Authoring variations exercise mass constraints independently of physical size.
+        var loadWorld = new SimulationWorld(map, config);
+        var definitions = loadWorld.Inventory.Content!.Definitions;
+        var trouserIndex = Array.FindIndex(definitions, d =&gt; d.Id == &quot;trousers&quot;);
+        var trousers = definitions[trouserIndex];
+        definitions[trouserIndex] = trousers with { Regions = trousers.Regions!.Select(r =&gt; r.Id == &quot;left&quot; ? r with { MaxMassGrams = 30 } : r).ToArray() };
+        Check(!InventoryActions.Validate(loadWorld, &quot;avatar&quot;, Move(&quot;dressing-a&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;, 0, 1), out var massReason, out _, out _)
+            &amp;&amp; massReason.Contains(&quot;load limit&quot;), &quot;an item that fits geometrically can still exceed a pocket&#x27;s recursive load limit&quot;);
+        var totalWorld = new SimulationWorld(map, config); totalWorld.Player.Cell = new(13, 6);
+        var roots = totalWorld.Inventory.Content!.Roots; var own = Array.FindIndex(roots, r =&gt; r.ActorId == &quot;avatar&quot;);
+        roots[own] = roots[own] with { MaxMassGrams = InventoryHierarchy.CarriedMass(totalWorld.Inventory, roots[own].Id) + 999 };
+        Check(!InventoryActions.Validate(totalWorld, &quot;avatar&quot;, Move(&quot;training-weight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 4, 0), out var totalReason, out _, out _)
+            &amp;&amp; totalReason.Contains(&quot;total load&quot;), &quot;a full container&#x27;s mass also counts against the person&#x27;s total carrying limit&quot;);
+        Check(!InventoryActions.Validate(totalWorld, &quot;avatar&quot;, Move(&quot;training-weight&quot;, &quot;avatar-trousers&quot;, &quot;left&quot;, 0, 1), out var sizeReason, out _, out _)
+            &amp;&amp; sizeReason.Contains(&quot;physically fit&quot;), &quot;thickness prevents bulky objects from fitting in a shallow pocket despite sufficient grid area&quot;);
+
+        var phone = Sim();
+        Check(phone.OscpAccess(OscpDevice.Phone).Available, &quot;handset in a ready pocket is available&quot;);
+        Act(phone, Move(&quot;field-phone&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 4, 0));
+        Check(!phone.OscpAccess(OscpDevice.Phone).Available, &quot;main-pack storage removes quick field-phone access even while open&quot;);
+        Act(phone, Move(&quot;flashlight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 0, 4));
+        Act(phone, Move(&quot;field-phone&quot;, &quot;avatar-backpack&quot;, &quot;side&quot;));
+        Act(phone, new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));
+        Check(phone.OscpAccess(OscpDevice.Phone).Available, &quot;a ready side pocket stays usable while the separate main compartment is closed&quot;);
+        Act(phone, Move(&quot;field-phone&quot;, &quot;avatar-trousers&quot;, &quot;right&quot;));
+        Act(phone, new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));
+        Check(phone.OscpAccess(OscpDevice.Phone).Available, &quot;retrieving the actual phone restores its interface&quot;);
+        Act(phone, new(InventoryActionKind.PowerOff, &quot;field-phone&quot;));
+        Check(!phone.OscpAccess(OscpDevice.Phone).Available, &quot;the real item&#x27;s power state gates the handset service&quot;);
+        Act(phone, new(InventoryActionKind.PowerOn, &quot;field-phone&quot;));
+        Check(phone.OscpAccess(OscpDevice.Phone).Available, &quot;powering the carried device restores access&quot;);
+        Act(phone, Move(&quot;field-phone&quot;, &quot;avatar-backpack&quot;, &quot;side&quot;));
+        Act(phone, new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;side&quot;));
+        Check(!phone.OscpAccess(OscpDevice.Phone).Available, &quot;closing an ancestor compartment propagates equipment inaccessibility&quot;);
+        Act(phone, new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;side&quot;));
+        var radioWorld = new SimulationWorld(map, config);
+        var radio = radioWorld.Inventory.Items[&quot;tech-radio&quot;];
+        radioWorld.Inventory.Items[radio.Id] = radio with { Placement = new(&quot;tech-backpack&quot;, &quot;main&quot;, 0, 0) };
+        Check(!FacilityCommunications.Radio(radioWorld, &quot;tech&quot;), &quot;staff communication uses the employee&#x27;s actual accessible radio&quot;);
+        radioWorld.Inventory.Items[radio.Id] = radio;
+        Check(FacilityCommunications.Radio(radioWorld, &quot;tech&quot;), &quot;returning staff radio to ready storage restores the existing delivery route&quot;);
+
+        var hold = Sim(); Check(hold.HandleInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)), &quot;start hold fixture&quot;);
+        hold.Tick(); var remaining = hold.Inventory.Pending!.RemainingMs; var local = hold.LocalMs; hold.LocalHold = true;
+        for (var i = 0; i &lt; 80; i++) hold.Tick();
+        Check(hold.LocalMs == local &amp;&amp; hold.WorldMs &gt; local &amp;&amp; hold.Inventory.Pending!.RemainingMs == remaining, &quot;local hold freezes handling while the calendar advances&quot;);
+        hold.LocalHold = false; hold.ManualPause = true; var paused = hold.Save();
+        for (var i = 0; i &lt; 10; i++) hold.Tick();
+        Check(hold.Save() == paused &amp;&amp; !hold.HandleInventory(Move(&quot;gum-packet&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)), &quot;manual/phone pause cannot supply free packing actions&quot;);
+        hold.ManualPause = false; Check(hold.CancelInventoryHandling(), &quot;explicit realtime handling cancellation is supported&quot;);
+        Check(Item(hold, &quot;flashlight&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;cancellation leaves the item at source without a teleport or duplication&quot;);
+        var interrupted = Sim(); interrupted.HandleInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)); interrupted.Tick();
+        interrupted.Face(new Hex(12, -2).World);
+        Check(interrupted.Inventory.Pending is null &amp;&amp; Item(interrupted, &quot;flashlight&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;an attention change interrupts real-time handling instead of performing both actions&quot;);
+
+        var tactical = Sim(); tactical.Player.Facing = 1;
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;inventory combat fixture enters actual tactical play&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = 10 };
+        var cost = tactical.QuoteInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;));
+        Check(tactical.HandleInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - cost.Ap,
+            &quot;combat charges source-specific AP once when committing manipulation&quot;);
+        Check(!tactical.HandleInventory(Move(&quot;gum-packet&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)), &quot;paid handling forbids overlapping actions&quot;);
+        tactical.Tick(); var combatSave = tactical.Save(); var combatClone = Sim(); combatClone.Restore(combatSave);
+        Check(combatClone.Save() == combatSave, &quot;paid inventory and tactical continuations restore as one schedule&quot;);
+        for (var i = 0; i &lt; 40; i++) { tactical.Tick(); combatClone.Tick(); }
+        Check(tactical.Save() == combatClone.Save() &amp;&amp; tactical.Combat.Pending is null &amp;&amp; Item(tactical, &quot;flashlight&quot;).Placement.ParentId == &quot;person:avatar&quot;,
+            &quot;paid work advances local time and commits exactly once before input wait returns&quot;);
+        var afterHandling = tactical.LocalMs;
+        for (var i = 0; i &lt; 40; i++) tactical.Tick();
+        Check(tactical.LocalMs == afterHandling &amp;&amp; tactical.WorldMs &gt; tactical.LocalMs, &quot;viewing inventory at a tactical input hold grants no extra local time&quot;);
+        var empty = Sim(); empty.Player.Facing = 1; empty.ArmTraining();
+        empty.Combat.Cursor = empty.Combat.Roster.FindIndex(c =&gt; c.ActorId == empty.Player.Id);
+        empty.Combat.Roster[empty.Combat.Cursor] = empty.Combat.Roster[empty.Combat.Cursor] with { Ap = 1 };
+        var noAp = empty.Save();
+        Check(!empty.HandleInventory(Move(&quot;flashlight&quot;, &quot;person:avatar&quot;, &quot;hand&quot;)) &amp;&amp; empty.Save() == noAp, &quot;insufficient AP rejects without moving items or spending time&quot;);
+
+        var unpaidCombat = JsonNode.Parse(noAp)!;
+        unpaidCombat[&quot;Inventory&quot;]![&quot;Pending&quot;] = JsonNode.Parse(midway)![&quot;Inventory&quot;]![&quot;Pending&quot;]!.DeepClone();
+        try { empty.Restore(unpaidCombat.ToJsonString()); throw new Exception(&quot;Unpaid realtime work accepted inside combat&quot;); }
+        catch (ArgumentException) { Check(empty.Save() == noAp, &quot;restore cannot inject unpaid realtime work into a tactical input hold&quot;); }
+
+        var nearby = Sim(); nearby.Player.Cell = new(13, 6);
+        Check(nearby.InventoryRoots.Any(r =&gt; r.PropId == &quot;crate-a&quot;), &quot;nearby fixture view exposes the same existing physical crate&quot;);
+        Act(nearby, Move(&quot;training-weight&quot;, &quot;avatar-backpack&quot;, &quot;main&quot;, 4, 0));
+        Check(Item(nearby, &quot;training-weight&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;nearby world stock and personal items use the same transfer service&quot;);
+        var safe = sim.Save();
+        void Reject(Action&lt;JsonNode&gt; mutate)
+        {
+            var bad = JsonNode.Parse(safe)!; mutate(bad);
+            try { sim.Restore(bad.ToJsonString()); throw new Exception(&quot;Invalid inventory accepted&quot;); }
+            catch (ArgumentException) { Check(sim.Save() == safe, &quot;invalid inventory restore must leave the whole running simulation intact&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]![0]![&quot;Placement&quot;]![&quot;ParentId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]![0]![&quot;DefinitionId&quot;] = &quot;gum&quot;);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]![0]![&quot;Condition&quot;] = -1);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]![0]![&quot;Placement&quot;]![&quot;X&quot;] = 999);
+        Reject(n =&gt; n[&quot;Inventory&quot;]![&quot;Regions&quot;]![0]![&quot;ItemId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n.AsObject().Remove(&quot;Inventory&quot;));
+        var badWork = JsonNode.Parse(midway)!; badWork[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;CostAp&quot;] = 0;
+        var safeWork = clone.Save();
+        try { clone.Restore(badWork.ToJsonString()); throw new Exception(&quot;Free handling continuation accepted&quot;); }
+        catch (ArgumentException) { Check(clone.Save() == safeWork, &quot;invalid work cost cannot change current items or clocks&quot;); }
+        var oldDefinition = JsonSerializer.Deserialize&lt;OperationDefinition&gt;(config, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })! with { InventoryProfile = null };
+        var legacy = new SpatialSimulation(map, JsonSerializer.Serialize(oldDefinition));
+        Check(!legacy.Inventory.Enabled &amp;&amp; legacy.OscpAccess(OscpDevice.Phone).Available, &quot;matching legacy scenarios retain their explicit device fixture without invented items&quot;);
+        Console.WriteLine($&quot;INVENTORY_CHECKS_PASS: {passed} assertions; physical packing, hierarchy, access, timed work, AP, equipment, fixtures and atomic persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/InventoryChecks.cs</footer></main></div></body></html>

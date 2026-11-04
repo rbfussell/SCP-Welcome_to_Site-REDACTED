@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Operations/OperationSaveCodec.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationSaveCodec.cs</h1><p>src/SiteSimulation/Operations/OperationSaveCodec.cs</p><p><a href="system-operations.html">Personnel orders and recovery</a></p><h2>Types</h2><ul><li><a href="type-operationsavecodec.html">OperationSaveCodec</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-b754b5cade752b4a47cc.html">OperationSaveCodec.Restore</a> · line 6</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Validation for detached operation restores. Does not execute orders or replay reports.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> internal static class OperationSaveCodec</span>
+<span id="L5"><a class="line" href="#L5">5</a> {</span>
+<span id="L6"><a class="line" href="#L6">6</a>     public static void Restore(SimulationWorld world, OperationSnapshot? saved)</span>
+<span id="L7"><a class="line" href="#L7">7</a>     {</span>
+<span id="L8"><a class="line" href="#L8">8</a>         var state = world.Operations;</span>
+<span id="L9"><a class="line" href="#L9">9</a>         if (state.Definition is not { } d)</span>
+<span id="L10"><a class="line" href="#L10">10</a>         {</span>
+<span id="L11"><a class="line" href="#L11">11</a>             if (saved is not null) throw new ArgumentException(&quot;Operation state has no matching scenario.&quot;);</span>
+<span id="L12"><a class="line" href="#L12">12</a>             return;</span>
+<span id="L13"><a class="line" href="#L13">13</a>         }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (saved is null || saved.Orders is null || saved.Contacts is null || saved.Reports is null || saved.Radios is null || saved.Radios.Any(r =&gt; r is null)</span>
+<span id="L15"><a class="line" href="#L15">15</a>             || saved.Trolley is null || saved.NextId &lt; 1 || saved.Orders.Length &gt; 32 || saved.Contacts.Length &gt; world.Actors.Count</span>
+<span id="L16"><a class="line" href="#L16">16</a>             || saved.Reports.Length &gt; 40 || saved.StableMs &lt; 0 || saved.StableMs &gt; d.StabilizeMs</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || saved.StableMs % SpatialSimulation.TickMs != 0 || saved.Completed &amp;&amp; !saved.HadBreach</span>
+<span id="L18"><a class="line" href="#L18">18</a>             || saved.PhysicalStatus is not (&quot;Awaiting coverage&quot; or &quot;Contained · procedure compliant&quot; or &quot;Breach · outside receiving footprint&quot;</span>
+<span id="L19"><a class="line" href="#L19">19</a>                 or &quot;Emergency stabilized · procedure incomplete&quot; or &quot;Coverage lost · unresolved&quot;))</span>
+<span id="L20"><a class="line" href="#L20">20</a>             throw new ArgumentException(&quot;Invalid operation snapshot.&quot;);</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var actorIds = world.Actors.Select(a =&gt; a.Id).ToHashSet();</span>
+<span id="L22"><a class="line" href="#L22">22</a>         var ids = saved.Orders.Select(o =&gt; o?.Id ?? 0).Concat(saved.Reports.Select(r =&gt; r?.Id ?? 0)).ToArray();</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (ids.Any(id =&gt; id &lt;= 0 || id &gt;= saved.NextId) || ids.Distinct().Count() != ids.Length</span>
+<span id="L24"><a class="line" href="#L24">24</a>             || saved.Orders.Any(o =&gt; o is null || o.Issuer != d.CommanderId || !actorIds.Contains(o.ActorId) || o.ActorId == o.Issuer</span>
+<span id="L25"><a class="line" href="#L25">25</a>                 || !Enum.IsDefined(o.Task) || !Enum.IsDefined(o.Status)</span>
+<span id="L26"><a class="line" href="#L26">26</a>                 || o.Task == PersonnelTask.ResumeDuty &amp;&amp; !EmploymentSystem.Owns(world, o.ActorId) || o.Channel is not (&quot;voice&quot; or &quot;terminal&quot; or &quot;phone&quot;)</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 || o.IssuedMs &lt; 0 || o.IssuedMs &gt; world.LocalMs || o.Detail is null || o.Detail.Length &gt; 250</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 || !world.Map.Inside(o.Destination.World) || o.TargetPoint is { } target &amp;&amp; !world.Map.Inside(target))</span>
+<span id="L29"><a class="line" href="#L29">29</a>             || saved.Orders.Where(o =&gt; o.Status is OrderStatus.Active or OrderStatus.Blocked).GroupBy(o =&gt; o.ActorId).Any(g =&gt; g.Count() &gt; 1)</span>
+<span id="L30"><a class="line" href="#L30">30</a>             || saved.Contacts.Any(c =&gt; c is null || !actorIds.Contains(c.ActorId) || c.SubjectId != d.SubjectId || !world.Map.Inside(c.Position)</span>
+<span id="L31"><a class="line" href="#L31">31</a>                 || c.LocalMs &lt; 0 || c.LocalMs &gt; world.LocalMs || c.Encounter &lt; 0 || c.Encounter &gt; world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Revision)</span>
+<span id="L32"><a class="line" href="#L32">32</a>             || saved.Contacts.Select(c =&gt; c.ActorId).Distinct().Count() != saved.Contacts.Length</span>
+<span id="L33"><a class="line" href="#L33">33</a>             || saved.Reports.Any(r =&gt; r is null || r.LocalMs &lt; 0 || r.LocalMs &gt; world.LocalMs || r.Author is null || r.Text is null</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 || r.Author.Length &gt; 100 || r.Text.Length &gt; 500 || r.Source is not (&quot;system&quot; or &quot;voice&quot; or &quot;radio&quot; or &quot;scipnet&quot;)</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 || r.SubjectId is not null &amp;&amp; (r.SubjectId != d.SubjectId || r.Position is null || !world.Actors.Any(a =&gt; a.Name == r.Author)</span>
+<span id="L36"><a class="line" href="#L36">36</a>                     || r.Encounter &lt; 0 || r.Encounter &gt; world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId).Revision)</span>
+<span id="L37"><a class="line" href="#L37">37</a>                 || r.Position is { } point &amp;&amp; !world.Map.Inside(point))</span>
+<span id="L38"><a class="line" href="#L38">38</a>             || !saved.Radios.Select(r =&gt; r.ActorId).Order().SequenceEqual(d.RadioActors.Order()))</span>
+<span id="L39"><a class="line" href="#L39">39</a>             throw new ArgumentException(&quot;Invalid operation orders, evidence or radios.&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         if (saved.RegionalIntakeSent &amp;&amp; !d.RegionalIntakeEnabled) throw new ArgumentException(&quot;Unexpected regional intake state.&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>         if (saved.Phone is { } phone &amp;&amp; phone.ActorId != d.CommanderId</span>
+<span id="L42"><a class="line" href="#L42">42</a>             || saved.AcquiredReports is { } acquired &amp;&amp; (acquired.Distinct().Count() != acquired.Length</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 || acquired.Any(id =&gt; !saved.Reports.Any(r =&gt; r.Id == id))))</span>
+<span id="L44"><a class="line" href="#L44">44</a>             throw new ArgumentException(&quot;Invalid field device or acquired record ledger.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         var cart = saved.Trolley;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var cell = Hex.FromWorld(cart.Position);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var body = world.Anomalies.Bodies.Single(b =&gt; b.Id == d.SubjectId);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         if (body.Cell == d.Terminal || !world.Map.Inside(cart.Position) || Point2.Distance(cart.Position, cell.World) &gt; 1e-8 || cell == d.Terminal</span>
+<span id="L49"><a class="line" href="#L49">49</a>             || cart.SubjectId is not null &amp;&amp; (cart.SubjectId != d.SubjectId || body.Cell != cell)</span>
+<span id="L50"><a class="line" href="#L50">50</a>             || cart.SubjectId is null &amp;&amp; body.Cell == cell || cart.HandlerId is not null &amp;&amp; !actorIds.Contains(cart.HandlerId)</span>
+<span id="L51"><a class="line" href="#L51">51</a>             || !world.Map.Walkable(cell, new HashSet&lt;Hex&gt; { body.Cell })</span>
+<span id="L52"><a class="line" href="#L52">52</a>             || world.Actors.Any(a =&gt; a.Cell == cell || a.Moving &amp;&amp; a.Route[0] == cell || a.StoppedStep?.Next == cell))</span>
+<span id="L53"><a class="line" href="#L53">53</a>             throw new ArgumentException(&quot;Invalid trolley/cargo occupancy.&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         world.Map.DynamicBlockers.Add(d.Terminal); world.Map.DynamicBlockers.Add(cell);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         if (cart.Step is { } step)</span>
+<span id="L56"><a class="line" href="#L56">56</a>         {</span>
+<span id="L57"><a class="line" href="#L57">57</a>             var handler = world.Actors.SingleOrDefault(a =&gt; a.Id == cart.HandlerId);</span>
+<span id="L58"><a class="line" href="#L58">58</a>             var active = saved.Orders.Any(o =&gt; o.ActorId == cart.HandlerId &amp;&amp; o.Task == PersonnelTask.Transport</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 &amp;&amp; o.Status is OrderStatus.Active or OrderStatus.Blocked);</span>
+<span id="L60"><a class="line" href="#L60">60</a>             if (handler is null || !active || handler.Moving || handler.StoppedStep is not null || handler.Cell.Distance(cell) != 1</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 || step.ProgressMs is &lt;= 0 or &gt;= ObservedTransportSystem.WorkMs || step.ProgressMs % SpatialSimulation.TickMs != 0</span>
+<span id="L62"><a class="line" href="#L62">62</a>                 || step.Stage is not (&quot;load&quot; or &quot;push&quot; or &quot;unload&quot;)</span>
+<span id="L63"><a class="line" href="#L63">63</a>                 || step.Stage == &quot;push&quot; &amp;&amp; (step.HandlerNext != cell || !world.Map.CanTraverse(cell, step.Next, new HashSet&lt;Hex&gt; { cell })</span>
+<span id="L64"><a class="line" href="#L64">64</a>                     || world.Actors.Any(a =&gt; a.Cell == step.Next || a.Moving &amp;&amp; a.Route[0] == step.Next || a.StoppedStep?.Next == step.Next))</span>
+<span id="L65"><a class="line" href="#L65">65</a>                 || step.Stage != &quot;push&quot; &amp;&amp; (step.Next != cell || step.HandlerNext != handler.Cell)</span>
+<span id="L66"><a class="line" href="#L66">66</a>                 || step.Stage == &quot;load&quot; &amp;&amp; (cart.SubjectId is not null || body.Cell.Distance(cell) != 1)</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 || step.Stage == &quot;unload&quot; &amp;&amp; (cart.SubjectId is null || cell != d.Home))</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 throw new ArgumentException(&quot;Invalid in-progress trolley work.&quot;);</span>
+<span id="L69"><a class="line" href="#L69">69</a>             if (step.Stage == &quot;push&quot;) world.Map.DynamicBlockers.Add(step.Next);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         }</span>
+<span id="L71"><a class="line" href="#L71">71</a>         // Older matching saves did not issue a handset or retain a separate OSCP cache.</span>
+<span id="L72"><a class="line" href="#L72">72</a>         state.RegionalIntakeSent = saved.RegionalIntakeSent;</span>
+<span id="L73"><a class="line" href="#L73">73</a>         state.Phone = saved.Phone ?? new(d.CommanderId, Issued: false);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         state.AcquiredReports.Clear();</span>
+<span id="L75"><a class="line" href="#L75">75</a>         state.AcquiredReports.UnionWith(saved.AcquiredReports ?? saved.Reports.Where(r =&gt; r.Source is not (&quot;radio&quot; or &quot;scipnet&quot;)).Select(r =&gt; r.Id).ToArray());</span>
+<span id="L76"><a class="line" href="#L76">76</a>         state.Orders.Clear(); state.Orders.AddRange(saved.Orders);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         state.Contacts.Clear(); state.Contacts.AddRange(saved.Contacts);</span>
+<span id="L78"><a class="line" href="#L78">78</a>         state.Reports.Clear(); state.Reports.AddRange(saved.Reports);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         state.Radios.Clear(); state.Radios.AddRange(saved.Radios);</span>
+<span id="L80"><a class="line" href="#L80">80</a>         state.NextId = saved.NextId; state.Trolley = cart; state.TerminalPowered = saved.TerminalPowered;</span>
+<span id="L81"><a class="line" href="#L81">81</a>         state.NetworkOnline = saved.NetworkOnline; state.StableMs = saved.StableMs; state.HadBreach = saved.HadBreach;</span>
+<span id="L82"><a class="line" href="#L82">82</a>         state.Completed = saved.Completed; state.PhysicalStatus = saved.PhysicalStatus;</span>
+<span id="L83"><a class="line" href="#L83">83</a>     }</span>
+<span id="L84"><a class="line" href="#L84">84</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

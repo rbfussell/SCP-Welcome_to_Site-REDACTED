@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wearable fit-rule foundation | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/34-wear-fit-rules.md.</aside><h1 id="wearable-fit-rule-foundation">Wearable fit-rule foundation</h1>
+<p>Implemented October 29, 2026. <strong>Follow-up:</strong> <a href="doc-docs-35-actual-worn-order-md.html">actual worn order</a> now supplies runtime ordering and replaces the temporary fixed-order bridge described below. This is the compatibility foundation for the <a href="doc-docs-33-fit-ranks-and-worn-stacks-md.html">confirmed worn-stack design</a>. It separates fit from order without replacing the current ordering representation in this slice.</p>
+<h2 id="authoring-contract">Authoring contract</h2>
+<p>Every native wearable now has <code>WearProfile.Fit</code>, independent of its body/contact <code>FitProfile</code>, inventory dimensions, mass and existing <code>Layer</code>. The proposed gear cards use the equivalent <code>wear.fit</code> section.</p>
+<pre><code class="language-json">{
+  &quot;family&quot;: &quot;core:light-textile&quot;,
+  &quot;bulk&quot;: 1,
+  &quot;maxUnderBulk&quot;: 5,
+  &quot;fitsOver&quot;: [&quot;core:light-textile&quot;, &quot;core:light-jacket&quot;, &quot;core:flexible-armor&quot;],
+  &quot;excludesUnderTags&quot;: [&quot;core:rigid-shell&quot;]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>family</code></td>
+<td>Reusable fit category presented to the item outside it. Namespaces are recommended; matching is exact and case-sensitive.</td>
+</tr>
+<tr>
+<td><code>bulk</code></td>
+<td>This garment's contribution to the bulk beneath another garment at an overlapping region.</td>
+</tr>
+<tr>
+<td><code>maxUnderBulk</code></td>
+<td>Maximum combined underlying bulk this garment accommodates. Zero allows wearing it against skin.</td>
+</tr>
+<tr>
+<td><code>fitsOver</code></td>
+<td>Explicit underlying family whitelist. Empty means no underlying garments; an unknown family is refused.</td>
+</tr>
+<tr>
+<td><code>excludesUnderTags</code></td>
+<td>Optional trait blacklist, overriding an otherwise accepted family.</td>
+</tr>
+</tbody>
+</table>
+<p>Bulk and clearance use relative integer fit units. They are prototype authoring values, not millimeters, mass, storage cells, permanent balance numbers or the belt's same-band under-limit. Native validation bounds bulk to 1–1000, clearance to 0–1000, and each family/trait list to 32 distinct nonblank tokens. Missing or malformed wearable fit metadata rejects content. The pure evaluator rejects queries above 128 underlying items as a provisional safety bound, rather than reporting that the garment is full.</p>
+<p>The native shirt accommodates the light jacket or flexible armor within its clearance. A bulky parka fails the shirt's family whitelist. A family-compatible shell can still fail an explicit exclusion. A high authored layer does not grant any of these fits. An outermost pack cannot be covered even by another pack with enough numerical clearance.</p>
+<h2 id="evaluation-and-runtime-integration">Evaluation and runtime integration</h2>
+<p><a href="file-src-sitesimulation-inventory-equipment-inventorywearfit-cs.html">InventoryWearFit</a> is a pure, deterministic check of one outer definition against the supplied underlying definitions. It never chooses their order, mutates inventory, reveals contents or performs work. Compatibility is directional: both shirt-over-jacket and jacket-over-shirt can be admitted by their respective profiles. Each actual garment contributes bulk once, even when several instances share a definition. Combined bulk matters independently of pairwise family compatibility.</p>
+<p>The current bridge evaluates each wearable against the lower items overlapping each declared anatomical region. A jacket crossing several regions contributes once per local check, not once per region to a global total. Footwear does not consume torso clearance. Opening a jacket exposes access but does not remove its physical bulk.</p>
+<p>The bridge runs within ordinary inventory graph validation. Move previews, paid starts, final commit checks and saved graph validation therefore use it. An invalid fit rejects before time/AP is spent; a stale destination cannot commit. A valid fit still requires anatomical contacts, a legal mount, physical access, unobstructed dressing, mass capacity and normal time/AP. Existing compartments, attachments, ownership and identity remain authoritative.</p>
+<h2 id="explicit-migration-boundary">Explicit migration boundary</h2>
+<p>The current bridge still receives order from <code>WearProfile.Layer</code>. Same-layer mutual overlap continues to use the existing legacy rule. This slice does <strong>not</strong> persist actual dressing order, implement per-hex bands/subpositions, enforce the belt's base-plus-two under-limit, add multiple belts, or replace the equipment selector. It proves compatibility independently so the later worn-stack projection can supply actual local order without rewriting fit policy. The reversed shirt/jacket proof uses proposed ordering fixtures, not a new native UI action.</p>
+<p>The runtime supplies eight native wearable profiles. Flexible armor and the bulky parka are definition-level test fixtures; no extra item art or catalog entries are claimed. The <a href="doc-templates-gear-data-sheet-md.html">author sheet</a>, <a href="evidence-schemas-gear-definition-schema-json.html">schema</a> and shirt/jacket/backpack example cards carry the matching contract. They remain proposed cards rather than native-loadable mods.</p>
+<p>Fit profiles contribute to the immutable inventory content identity. Earlier field-kit saves require a fresh scene. There are no new mutable instance fields, so outer save schema stays 13; a new revision belongs to the later saved worn-order migration.</p>
+<h2 id="verification">Verification</h2>
+<pre><code class="language-sh">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/wear-fit.png
+python3 tools/check_gear_data.py
+</code></pre>
+<p><a href="evidence-tests-spatialchecks-wearfitchecks-cs.html">Domain checks</a> qualify reversed compatible combinations, incompatible bulky gear, cumulative clearance, duplicate physical garments, directional exclusions, outermost packs, invalid metadata, region isolation, ordinary move rejection, paid commit revalidation, combat AP and exact pending-work continuation. Existing native inventory tests remain required because the new rule participates in their shared graph validation.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/34-wear-fit-rules.md</footer></main></div></body></html>

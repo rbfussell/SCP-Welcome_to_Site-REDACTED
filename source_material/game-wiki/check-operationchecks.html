@@ -1,0 +1,163 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OperationChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>OperationChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
+internal static class OperationChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string detail) { if (!ok) throw new Exception(&quot;Operations: &quot; + detail); passed++; }
+        SpatialSimulation Sim(string? definition = null) =&gt; new(map, definition ?? config);
+        void Ticks(SpatialSimulation sim, int count) { for (var i = 0; i &lt; count; i++) sim.Tick(); }
+        var initial = Sim();
+        Ticks(initial, 65);
+        Check(initial.Operations.PhysicalStatus == &quot;Contained · procedure compliant&quot;, &quot;initial scenario must maintain actual three-person coverage&quot;);
+        Check(!initial.Operations.HadBreach &amp;&amp; !initial.Operations.Completed, &quot;initial compliance is not a completed recovery&quot;);
+        Check(initial.Operations.OrderHistory.Count == 0 &amp;&amp; initial.Employment.DiagnosticDuties.All(d =&gt; d.Phase == DutyPhase.OnDuty), &quot;employment, rather than standing orders, must own observation duties and displace discretionary patrol&quot;);
+        var snapshot = initial.Save(); var clone = Sim(); clone.Restore(snapshot);
+        Check(clone.Save() == snapshot, &quot;operation state must restore without replaying delivery or rewards&quot;);
+        initial.LocalHold = true; var held = initial.Operations.StableMs; var world = initial.WorldMs;
+        Ticks(initial, 20);
+        Check(initial.Operations.StableMs == held &amp;&amp; initial.WorldMs == world + 1000, &quot;held operation work stays local while world time continues&quot;);
+        initial.LocalHold = false;
+        Check(!initial.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4), true), &quot;a remote UI cannot impersonate a usable physical terminal&quot;);
+        var unknown = initial.Save();
+        Check(!initial.IssueOrder(&quot;missing&quot;, PersonnelTask.Post, new(8, 4)) &amp;&amp; initial.Save() == unknown, &quot;unknown personnel reject without state mutation&quot;);
+        Check(initial.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4)), &quot;valid voice intent should be queued&quot;);
+        Check(initial.Operations.OrderHistory.Last().Status == OrderStatus.Pending, &quot;submission is distinct from acknowledgement&quot;);
+        Ticks(initial, 8);
+        Check(initial.Operations.OrderHistory.Last().Status == OrderStatus.Blocked, &quot;closed access must block the post order without teleportation&quot;);
+        Check(initial.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell != new Hex(8, 4), &quot;staff must not teleport to a blocked post&quot;);
+        var before = initial.Save();
+        void Reject(Action&lt;JsonNode&gt; tamper)
+        {
+            var bad = JsonNode.Parse(before)!; tamper(bad);
+            try { initial.Restore(bad.ToJsonString()); throw new Exception(&quot;Corrupt operation accepted&quot;); }
+            catch (ArgumentException) { Check(initial.Save() == before, &quot;invalid operation restore changed live state&quot;); }
+        }
+        Reject(n =&gt; n[&quot;Operations&quot;]![&quot;Trolley&quot;]![&quot;Position&quot;]![&quot;X&quot;] = 999);
+        Reject(n =&gt; n[&quot;Operations&quot;]![&quot;Orders&quot;]![0]![&quot;ActorId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n[&quot;Operations&quot;]![&quot;NextId&quot;] = 1);
+
+        var drill = Sim();
+        Check(drill.ToggleNearestDoor(), &quot;director must physically open the receiving access for relief&quot;);
+        Check(drill.IssueOrder(&quot;observer&quot;, PersonnelTask.Post, new(4, 6))
+            &amp;&amp; drill.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(14, 1)), &quot;ordinary relief orders must be deliverable&quot;);
+        drill.ApproachTerminal();
+        Ticks(drill, 140);
+        Check(drill.Operations.HadBreach &amp;&amp; drill.Anomalies.Bodies.Single().Revision &gt; 0,
+            &quot;actual staff travel and avatar attention loss must permit the native module&#x27;s breach without a mission teleport&quot;);
+        Check(!drill.Operations.Completed, &quot;a genuine breach must stay unresolved until physical recovery conditions hold&quot;);
+
+        var links = Sim();
+        links.Player.Cell = new(9, 3); links.Map.OpenDoors.Add(&quot;door-4-3-u&quot;);
+        Check(links.CanUseTerminal, &quot;physical OSCP approach must provide access&quot;);
+        links.Operations.Radios[1] = links.Operations.Radios[1] with { Powered = false };
+        Check(links.IssueOrder(&quot;tech&quot;, PersonnelTask.Post, new(8, 4), true), &quot;terminal can submit intent while recipient radio is offline&quot;);
+        Ticks(links, 4);
+        Check(links.Operations.OrderHistory.Last().Status == OrderStatus.Pending, &quot;radio outage prevents acknowledgement&quot;);
+        Check(links.Employment.DiagnosticDuties.Single(d =&gt; d.ActorId == &quot;tech&quot;).Phase == DutyPhase.OnDuty, &quot;an undelivered replacement cannot relieve an existing duty&quot;);
+        links.Operations.Radios[1] = links.Operations.Radios[1] with { Powered = true };
+        links.Tick();
+        Check(links.Operations.OrderHistory.Last().Status != OrderStatus.Pending, &quot;restoring a link delivers the pending command once&quot;);
+        var count = links.Operations.ReceivedReports.Count;
+        Ticks(links, 3);
+        Check(links.Operations.ReceivedReports.Count &lt;= count + 3, &quot;continuous execution must not flood identical acknowledgement reports&quot;);
+        links.Operations.TerminalPowered = false;
+        Check(!links.CanUseTerminal, &quot;terminal power loss closes physical service access&quot;);
+
+        // Bounded physical recovery fixture: same native module, open room, no forced move by the mission.
+        var definition = JsonSerializer.Deserialize&lt;OperationDefinition&gt;(config, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        var recoveryConfig = JsonSerializer.Serialize(definition with
+        {
+            Home = new(9, -1), Trolley = new(9, -2), Employment = null,
+            Starts = [new(&quot;avatar&quot;, new(10, 0), 5), new(&quot;observer&quot;, new(5, 0), 1), new(&quot;tech&quot;, new(8, -2), 1)]
+        });
+        var recovery = Sim(recoveryConfig);
+        Check(recovery.IssueOrder(&quot;tech&quot;, PersonnelTask.Transport, new(9, -1)), &quot;recovery procedure must be assignable&quot;);
+        Ticks(recovery, 3);
+        Check(recovery.Operations.Trolley.Step is { Stage: &quot;load&quot;, ProgressMs: &gt; 0 }, &quot;loading consumes real local work time&quot;);
+        var loadedLater = recovery.Save(); var restored = Sim(recoveryConfig); restored.Restore(loadedLater);
+        Check(restored.Save() == loadedLater, &quot;in-progress loading and pending order state must round-trip&quot;);
+        var max = 400;
+        var phases = new HashSet&lt;string&gt;();
+        while (!recovery.Operations.Completed &amp;&amp; max-- &gt; 0)
+        {
+            if (recovery.Operations.Trolley.Step is { } step &amp;&amp; phases.Add(step.Stage))
+            {
+                var continuation = Sim(recoveryConfig); continuation.Restore(recovery.Save());
+                Check(continuation.Save() == recovery.Save(), $&quot;{step.Stage} work must preserve its exact continuation&quot;);
+                if (step.Stage == &quot;push&quot;)
+                {
+                    Check(!recovery.Map.Walkable(step.Next), &quot;pending trolley push reserves its next physical hex&quot;);
+                    Check(recovery.PreviewPath(step.Next).Count &gt; 0, &quot;a trolley reservation must not silently reject a movement click; physical execution still enforces the reservation&quot;);
+                    var corrupt = JsonNode.Parse(recovery.Save())!;
+                    corrupt[&quot;Operations&quot;]![&quot;Trolley&quot;]![&quot;Step&quot;]![&quot;Next&quot;]![&quot;Q&quot;] = 999;
+                    var safe = continuation.Save();
+                    try { continuation.Restore(corrupt.ToJsonString()); throw new Exception(&quot;Invalid push continuation accepted&quot;); }
+                    catch (ArgumentException) { Check(continuation.Save() == safe, &quot;invalid push restore must leave live work intact&quot;); }
+                }
+            }
+            recovery.Tick(); restored.Tick();
+        }
+        Check(phases.Contains(&quot;push&quot;) &amp;&amp; phases.Contains(&quot;unload&quot;), &quot;recovery must exercise both timed push and unloading&quot;);
+        if (!recovery.Operations.Completed)
+            Console.WriteLine(string.Join(&quot;\n&quot;, recovery.Trace.Entries.TakeLast(16).Select(e =&gt; e.Event + &quot;: &quot; + e.Detail)));
+        Check(recovery.Operations.Completed, &quot;observed transport, unloading and staffing must produce actual recovery&quot;);
+        Check(recovery.Save() == restored.Save(), &quot;save/load during work must match uninterrupted recovery&quot;);
+        Check(recovery.Anomalies.Bodies.Single().Cell == new Hex(9, -1) &amp;&amp; recovery.Anomalies.Bodies.Single().Revision == 0,
+            &quot;physical transport preserves the single body and anomalous appearance identity&quot;);
+        Check(recovery.Operations.Trolley.SubjectId is null &amp;&amp; recovery.Operations.Trolley.Position != recovery.Anomalies.Bodies.Single().Position,
+            &quot;unloading separates physical cargo from the parked empty trolley&quot;);
+        Check(recovery.Operations.OrderHistory.Any(o =&gt; o.Task == PersonnelTask.Transport &amp;&amp; o.Status == OrderStatus.Complete), &quot;transport completion must be distinct from acknowledgement&quot;);
+        Check(recovery.Trace.Entries.Any(e =&gt; e.Event == &quot;pushed&quot;) &amp;&amp; recovery.Trace.Entries.Any(e =&gt; e.Event == &quot;unloaded&quot;), &quot;recovery must use actual physical work, not a success flag&quot;);
+        recovery.Player.Attending = false; recovery.Tick();
+        Check(recovery.Operations.StableMs == 0 &amp;&amp; recovery.Operations.Completed, &quot;post-success coverage loss remains a real persistent problem without replaying completion&quot;);
+
+        var oneWatcher = Sim(recoveryConfig);
+        oneWatcher.IssueOrder(&quot;tech&quot;, PersonnelTask.Transport, new(9, -1));
+        var loadingLimit = 60;
+        while (oneWatcher.Operations.Trolley.SubjectId is null &amp;&amp; loadingLimit-- &gt; 0) oneWatcher.Tick();
+        var stoppedAt = oneWatcher.Operations.Trolley.Position;
+        foreach (var actor in oneWatcher.Actors.Where(a =&gt; a.Id != &quot;tech&quot;)) actor.Attending = false;
+        Ticks(oneWatcher, 15);
+        Check(oneWatcher.Anomalies.Bodies.Single().Revision == 0 &amp;&amp; oneWatcher.Operations.Trolley.Position == stoppedAt,
+            &quot;handler sight can suppress relocation while insufficient external coverage stops transport&quot;);
+        Check(oneWatcher.Operations.OrderHistory.Last(o =&gt; o.Task == PersonnelTask.Transport).Status == OrderStatus.Blocked,
+            &quot;stopped transport must report its coverage requirement&quot;);
+        foreach (var actor in oneWatcher.Actors) actor.Attending = true;
+        Ticks(oneWatcher, 120);
+        Check(oneWatcher.Operations.Completed, &quot;restoring coverage must recover the blocked operation&quot;);
+
+        var authority = new SimulationWorld(map, config);
+        Check(!PersonnelOrderSystem.Issue(authority, &quot;observer&quot;, &quot;tech&quot;, PersonnelTask.Post, new(8, 4), &quot;voice&quot;, out _),
+            &quot;being an actor or using the same command service does not grant director authority&quot;);
+        var hidden = new SimulationWorld(map, config);
+        Check(PersonnelOrderSystem.Issue(hidden, &quot;avatar&quot;, &quot;tech&quot;, PersonnelTask.Observe, new(8, 4), &quot;voice&quot;, out _),
+            &quot;observation intent may be submitted without a target location&quot;);
+        PersonnelOrderSystem.Advance(hidden);
+        Check(hidden.Operations.Orders.Last().Detail == &quot;No acquired sighting to investigate&quot;,
+            &quot;an order cannot acquire an unknown subject location from the authoritative entity&quot;);
+
+        var loss = Sim(recoveryConfig);
+        Check(loss.IssueOrder(&quot;tech&quot;, PersonnelTask.Transport, new(9, -1)), &quot;loss fixture needs transport&quot;);
+        var timeout = 60;
+        while (loss.Operations.Trolley.SubjectId is null &amp;&amp; timeout-- &gt; 0) loss.Tick();
+        Check(loss.Operations.Trolley.SubjectId == &quot;scp-650&quot;, &quot;loss fixture must genuinely load first&quot;);
+        var abandonedCart = loss.Operations.Trolley.Position;
+        foreach (var actor in loss.Actors) actor.Attending = false;
+        // The handler cannot restore sight in darkness; let the ordinary module choose a valid relocation.
+        loss.Map.LightsOn = false; loss.Tick();
+        Check(loss.Anomalies.Bodies.Single().Cell.World != abandonedCart &amp;&amp; loss.Operations.Trolley.SubjectId is null,
+            &quot;legal relocation during transport must detach cargo atomically&quot;);
+        Check(loss.Operations.Trolley.Position == abandonedCart &amp;&amp; loss.Map.DynamicBlockers.Contains(Hex.FromWorld(abandonedCart)),
+            &quot;abandoned trolley remains real blocked equipment&quot;);
+        Check(!loss.Operations.Completed &amp;&amp; loss.Operations.HadBreach, &quot;unresolved recovery must persist rather than invent success&quot;);
+        var lostClone = Sim(recoveryConfig); lostClone.Restore(loss.Save());
+        Check(lostClone.Save() == loss.Save(), &quot;unresolved loss state must persist without duplicate cargo&quot;);
+        Console.WriteLine($&quot;OPERATION_CHECKS_PASS: {passed} assertions; delivery, authority, blockage, physical recovery, coverage loss and persistence.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/OperationChecks.cs</footer></main></div></body></html>

@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryAttachments.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryAttachments.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryAttachments.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-attachmentsurface.html">AttachmentSurface</a></li><li><a href="type-attachmentprofile.html">AttachmentProfile</a></li><li><a href="type-attachmentpreview.html">AttachmentPreview</a></li><li><a href="type-inventoryattachments.html">InventoryAttachments</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-e70fb8a56906ca264836.html">InventoryAttachments.CellsValid</a> · line 10</li><li><a href="function-faf62f83df7d5a269574.html">InventoryAttachments.InterfaceValid</a> · line 12</li><li><a href="function-7e2aab1972b873f7d4b5.html">InventoryAttachments.ProfileValid</a> · line 13</li><li><a href="function-c317e7cbe163be8138b8.html">InventoryAttachments.SurfaceValid</a> · line 15</li><li><a href="function-26a3dd8f1e37ccc8f03a.html">InventoryAttachments.Occupancy</a> · line 19</li><li><a href="function-2e8c7905f814ef355775.html">InventoryAttachments.Validate</a> · line 22</li><li><a href="function-6b33f3124d5698c11591.html">InventoryAttachments.BodyPosition</a> · line 46</li><li><a href="function-350e8f37f529bc4a2ec5.html">SpatialSimulation.PreviewAttachment</a> · line 59</li><li><a href="function-780a25774535263eabd7.html">SpatialSimulation.PreviewAttachmentDrop</a> · line 65</li><li><a href="function-e1e9440f5056eb30c415.html">SpatialSimulation.InventoryAttachmentsOn</a> · line 94</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Hexes are local to the support item, independent of square packing and the worn body pose.&lt;/summary&gt;</span>
+<span id="L4"><a class="line" href="#L4">4</a> public sealed record AttachmentSurface(string Interface, BodyHex[] Cells, string Surface = &quot;mounted&quot;);</span>
+<span id="L5"><a class="line" href="#L5">5</a> public sealed record AttachmentProfile(string Interface, BodyHex[] Occupancy, BodyHex[] Contacts);</span>
+<span id="L6"><a class="line" href="#L6">6</a> public sealed record AttachmentPreview(InventoryActionQuote Handling, InventoryRequest Request);</span>
+<span id="L7"><a class="line" href="#L7">7</a> </span>
+<span id="L8"><a class="line" href="#L8">8</a> public static class InventoryAttachments</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private static bool CellsValid(BodyHex[]? cells) =&gt; cells is { Length: &gt; 0 and &lt;= 128 }</span>
+<span id="L11"><a class="line" href="#L11">11</a>         &amp;&amp; cells.Distinct().Count() == cells.Length &amp;&amp; cells.All(c =&gt; c.Q is &gt;= -32 and &lt;= 32 &amp;&amp; c.R is &gt;= -32 and &lt;= 32);</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static bool InterfaceValid(string? value) =&gt; !string.IsNullOrWhiteSpace(value) &amp;&amp; value.Length &lt;= 64;</span>
+<span id="L13"><a class="line" href="#L13">13</a>     internal static bool ProfileValid(AttachmentProfile? profile) =&gt; profile is null || InterfaceValid(profile.Interface)</span>
+<span id="L14"><a class="line" href="#L14">14</a>         &amp;&amp; CellsValid(profile.Occupancy) &amp;&amp; CellsValid(profile.Contacts) &amp;&amp; profile.Contacts.All(profile.Occupancy.Contains);</span>
+<span id="L15"><a class="line" href="#L15">15</a>     internal static bool SurfaceValid(StorageRegion region) =&gt; region.Attachment is not { } surface</span>
+<span id="L16"><a class="line" href="#L16">16</a>         || InterfaceValid(surface.Interface) &amp;&amp; CellsValid(surface.Cells) &amp;&amp; region.MountSlot is null &amp;&amp; region.Mask is null</span>
+<span id="L17"><a class="line" href="#L17">17</a>             &amp;&amp; region.AccessFootprint is null &amp;&amp; surface.Surface is &quot;front&quot; or &quot;back&quot; or &quot;mounted&quot;;</span>
+<span id="L18"><a class="line" href="#L18">18</a> </span>
+<span id="L19"><a class="line" href="#L19">19</a>     public static BodyHex[] Occupancy(InventoryState state, InventoryItem item) =&gt; state.Definition(item.Id).Attachment is { } profile</span>
+<span id="L20"><a class="line" href="#L20">20</a>         &amp;&amp; item.Placement.AttachmentPose is { } pose ? profile.Occupancy.Select(c =&gt; BodyFitGeometry.Transform(c, pose)).ToArray() : [];</span>
+<span id="L21"><a class="line" href="#L21">21</a> </span>
+<span id="L22"><a class="line" href="#L22">22</a>     internal static void Validate(InventoryState state, InventoryItem item)</span>
+<span id="L23"><a class="line" href="#L23">23</a>     {</span>
+<span id="L24"><a class="line" href="#L24">24</a>         var p = item.Placement;</span>
+<span id="L25"><a class="line" href="#L25">25</a>         if (state.Region(p.ParentId, p.RegionId).Attachment is not { } support)</span>
+<span id="L26"><a class="line" href="#L26">26</a>         {</span>
+<span id="L27"><a class="line" href="#L27">27</a>             if (p.AttachmentPose is not null) throw new ArgumentException(&quot;Attachment position requires a support surface.&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>             return;</span>
+<span id="L29"><a class="line" href="#L29">29</a>         }</span>
+<span id="L30"><a class="line" href="#L30">30</a>         if (!state.Items.ContainsKey(p.ParentId) || state.Definition(item.Id).Attachment is not { } profile || profile.Interface != support.Interface)</span>
+<span id="L31"><a class="line" href="#L31">31</a>             throw new ArgumentException(&quot;Item has no compatible attachment interface.&quot;);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (p.AttachmentPose is not { Q: &gt;= -64 and &lt;= 64, R: &gt;= -64 and &lt;= 64, Rotation: &gt;= 0 and &lt;= 5 } pose</span>
+<span id="L33"><a class="line" href="#L33">33</a>             || p.X != 0 || p.Y != 0 || p.Rotated || p.BodyPose is not null)</span>
+<span id="L34"><a class="line" href="#L34">34</a>             throw new ArgumentException(&quot;Choose a six-direction position on the support, separate from storage/body coordinates.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         if (profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, pose)).Any(c =&gt; !support.Cells.Contains(c)))</span>
+<span id="L36"><a class="line" href="#L36">36</a>             throw new ArgumentException(&quot;Attachment contacts must sit on the support surface.&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         var exposure = InventoryAttachmentExposure.Check(state, p.ParentId, state.Region(p.ParentId, p.RegionId),</span>
+<span id="L38"><a class="line" href="#L38">38</a>             profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, pose)));</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (!exposure.Allowed) throw new ArgumentException(exposure.Reason);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var occupied = Occupancy(state, item).ToHashSet();</span>
+<span id="L41"><a class="line" href="#L41">41</a>         if (state.Children(p.ParentId, p.RegionId).Any(other =&gt; other.Id != item.Id &amp;&amp; Occupancy(state, other).Any(occupied.Contains)))</span>
+<span id="L42"><a class="line" href="#L42">42</a>             throw new ArgumentException(&quot;Attachment overlaps equipment already mounted on this surface.&quot;);</span>
+<span id="L43"><a class="line" href="#L43">43</a>     }</span>
+<span id="L44"><a class="line" href="#L44">44</a> </span>
+<span id="L45"><a class="line" href="#L45">45</a>     /// &lt;summary&gt;Resolve through every physical support; parent movement carries local coordinates without rewriting children.&lt;/summary&gt;</span>
+<span id="L46"><a class="line" href="#L46">46</a>     public static BodyPose? BodyPosition(InventoryState state, string id)</span>
+<span id="L47"><a class="line" href="#L47">47</a>     {</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var item = state.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         if (item.Placement.AttachmentPose is not { } local)</span>
+<span id="L50"><a class="line" href="#L50">50</a>             return InventoryWear.Mount(state, item, item.Placement) is null ? null : InventoryBodyFit.Pose(state, item);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         if (BodyPosition(state, item.Placement.ParentId) is not { } parent) return null;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         var cell = BodyFitGeometry.Transform(new(local.Q, local.R), parent);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         return new(cell.Q, cell.R, (parent.Rotation + local.Rotation) % 6);</span>
+<span id="L54"><a class="line" href="#L54">54</a>     }</span>
+<span id="L55"><a class="line" href="#L55">55</a> }</span>
+<span id="L56"><a class="line" href="#L56">56</a> </span>
+<span id="L57"><a class="line" href="#L57">57</a> public sealed partial class SpatialSimulation</span>
+<span id="L58"><a class="line" href="#L58">58</a> {</span>
+<span id="L59"><a class="line" href="#L59">59</a>     public AttachmentPreview PreviewAttachment(string itemId, string owner, string surface, BodyPose pose)</span>
+<span id="L60"><a class="line" href="#L60">60</a>     {</span>
+<span id="L61"><a class="line" href="#L61">61</a>         var request = new InventoryRequest(InventoryActionKind.Move, itemId, new(owner, surface, AttachmentPose: pose));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         return new(QuoteInventory(request), request);</span>
+<span id="L63"><a class="line" href="#L63">63</a>     }</span>
+<span id="L64"><a class="line" href="#L64">64</a>     /// &lt;summary&gt;Container-style exterior drop: choose free support at the requested orientation without moving existing children.&lt;/summary&gt;</span>
+<span id="L65"><a class="line" href="#L65">65</a>     public AttachmentPreview PreviewAttachmentDrop(string itemId, string owner, int rotation = 0)</span>
+<span id="L66"><a class="line" href="#L66">66</a>     {</span>
+<span id="L67"><a class="line" href="#L67">67</a>         var fallback = new InventoryRequest(InventoryActionKind.Move, itemId);</span>
+<span id="L68"><a class="line" href="#L68">68</a>         if (!Inventory.Items.TryGetValue(itemId, out var incoming) || !Inventory.Items.ContainsKey(owner) || rotation is &lt; 0 or &gt; 5)</span>
+<span id="L69"><a class="line" href="#L69">69</a>             return new(new(false, &quot;Choose known equipment and a valid attachment orientation.&quot;, 0, 0), fallback);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         var profile = Inventory.Definition(itemId).Attachment;</span>
+<span id="L71"><a class="line" href="#L71">71</a>         var supports = Inventory.Definition(owner).Regions?.Where(r =&gt; r.Attachment is not null).OrderBy(r =&gt; r.Id, StringComparer.Ordinal).ToArray() ?? [];</span>
+<span id="L72"><a class="line" href="#L72">72</a>         if (profile is null || !supports.Any(s =&gt; s.Attachment!.Interface == profile.Interface))</span>
+<span id="L73"><a class="line" href="#L73">73</a>             return new(new(false, &quot;No compatible exterior attachment surface.&quot;, 0, 0), fallback);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         if (incoming.Placement.ParentId == owner &amp;&amp; incoming.Placement.AttachmentPose is not null)</span>
+<span id="L75"><a class="line" href="#L75">75</a>             return new(new(false, &quot;Already attached here; reposition it on the gear illustration.&quot;, 0, 0), fallback);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         AttachmentPreview? refused = null;</span>
+<span id="L77"><a class="line" href="#L77">77</a>         // A contact need not sit at the authored origin: enumerate every support/contact alignment, not just origins on support.</span>
+<span id="L78"><a class="line" href="#L78">78</a>         foreach (var support in supports.Where(s =&gt; s.Attachment!.Interface == profile.Interface))</span>
+<span id="L79"><a class="line" href="#L79">79</a>         {</span>
+<span id="L80"><a class="line" href="#L80">80</a>             var origins = support.Attachment!.Cells.SelectMany(cell =&gt; profile.Contacts.Select(contact =&gt;</span>
+<span id="L81"><a class="line" href="#L81">81</a>             {</span>
+<span id="L82"><a class="line" href="#L82">82</a>                 var rotated = contact.Rotate(rotation); return new BodyHex(cell.Q - rotated.Q, cell.R - rotated.R);</span>
+<span id="L83"><a class="line" href="#L83">83</a>             })).Distinct().OrderBy(c =&gt; Math.Max(Math.Abs(c.Q), Math.Max(Math.Abs(c.R), Math.Abs(c.Q + c.R))))</span>
+<span id="L84"><a class="line" href="#L84">84</a>                 .ThenBy(c =&gt; c.R).ThenBy(c =&gt; c.Q);</span>
+<span id="L85"><a class="line" href="#L85">85</a>             foreach (var cell in origins)</span>
+<span id="L86"><a class="line" href="#L86">86</a>             {</span>
+<span id="L87"><a class="line" href="#L87">87</a>                 var preview = PreviewAttachment(itemId, owner, support.Id, new(cell.Q, cell.R, rotation));</span>
+<span id="L88"><a class="line" href="#L88">88</a>                 if (preview.Handling.Allowed) return preview;</span>
+<span id="L89"><a class="line" href="#L89">89</a>                 refused ??= preview;</span>
+<span id="L90"><a class="line" href="#L90">90</a>             }</span>
+<span id="L91"><a class="line" href="#L91">91</a>         }</span>
+<span id="L92"><a class="line" href="#L92">92</a>         return refused ?? new(new(false, &quot;No free compatible support; existing attachments stay in place.&quot;, 0, 0), fallback);</span>
+<span id="L93"><a class="line" href="#L93">93</a>     }</span>
+<span id="L94"><a class="line" href="#L94">94</a>     public IReadOnlyList&lt;InventoryItem&gt; InventoryAttachmentsOn(string owner, string surface)</span>
+<span id="L95"><a class="line" href="#L95">95</a>         =&gt; InventoryAccess(owner, surface).Allowed ? Inventory.Children(owner, surface) : [];</span>
+<span id="L96"><a class="line" href="#L96">96</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

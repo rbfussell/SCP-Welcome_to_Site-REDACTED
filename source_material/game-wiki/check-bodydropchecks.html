@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BodyDropChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BodyDropChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class BodyDropChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Body drop: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 2000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;ordinary handling resolves&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest request) { Check(s.HandleInventory(request), s.LastMessage); Finish(s); }
+        var sim = Sim(); var state = sim.Inventory; var pose = state.BodyFits!.Shape(&quot;belt&quot;).DefaultPose;
+        var before = sim.Save();
+        Check(sim.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose) is null &amp;&amp; sim.Save() == before, &quot;out-of-reach stored item exposes no fitting preview&quot;);
+        Check(sim.PreviewBodyFitDrop(&quot;observer-coat&quot;, pose) is null, &quot;other employee&#x27;s gear remains private&quot;);
+        Check(sim.PreviewBodyFitDrop(&quot;missing&quot;, pose) is null &amp;&amp; sim.PreviewBodyFitDrop(&quot;flashlight&quot;, pose) is null,
+            &quot;unknown items and non-wearables cannot become body fits&quot;);
+        sim.Player.Cell = new(13, 6); before = sim.Save();
+        var fit = sim.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose)!;
+        Check(fit is { Geometry.Fits: true, Handling.Allowed: true } &amp;&amp; sim.Save() == before, &quot;explicit accessible stored item previews without moving or scanning&quot;);
+        Check(sim.PreviewBodyFit(&quot;utility-belt&quot;, pose) is null &amp;&amp; !sim.BodyFitItems.Any(i =&gt; i.Id == &quot;utility-belt&quot;),
+            &quot;drop query does not broaden the own-equipment selector&quot;);
+        var direct = new InventoryRequest(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;, BodyPose: pose));
+        Check(fit.Request == direct &amp;&amp; fit.Handling == sim.QuoteInventory(direct), &quot;drop quotes the exact ordinary request and source-dependent cost&quot;);
+        var invalid = sim.PreviewBodyFitDrop(&quot;utility-belt&quot;, new(0, 0))!;
+        Check(!invalid.Geometry.Fits &amp;&amp; !invalid.Handling.Allowed &amp;&amp; !sim.HandleInventory(invalid.Request) &amp;&amp; sim.Save() == before,
+            &quot;bad geometry refuses without auto-placement or rotation&quot;);
+        var blocked = sim.PreviewBodyFitDrop(&quot;utility-belt&quot;, new(-4, 8, 1))!;
+        Check(blocked.Geometry.Fits &amp;&amp; !blocked.Handling.Allowed &amp;&amp; sim.Save() == before, &quot;geometric chest fit cannot pass through the worn outermost pack&quot;);
+        Check(sim.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose, &quot;hand&quot;) is { Handling.Allowed: false }, &quot;a body pose cannot target a service/hand slot&quot;);
+        sim.ManualPause = true; before = sim.Save();
+        Check(!sim.HandleInventory(fit.Request) &amp;&amp; sim.Save() == before, &quot;paused drop cannot grant free dressing&quot;);
+        sim.ManualPause = false;
+        var source = state.Items[&quot;utility-belt&quot;].Placement;
+        Check(sim.HandleInventory(fit.Request) &amp;&amp; state.Items[&quot;utility-belt&quot;].Placement == source, &quot;source remains in storage while fitting is paid&quot;);
+        sim.Tick(); var pending = sim.Save(); var clone = Sim(); clone.Restore(pending);
+        Check(clone.Save() == pending, &quot;pending direct stored-to-body fit restores exactly&quot;); Finish(sim); Finish(clone);
+        Check(sim.Save() == clone.Save() &amp;&amp; state.Items[&quot;utility-belt&quot;].Placement.BodyPose == pose,
+            &quot;direct stored fitting commits the previewed anchor and continues identically&quot;);
+
+        var nested = Sim(); nested.Player.Cell = new(13, 6);
+        Act(nested, new(InventoryActionKind.AutoPlace, &quot;utility-belt&quot;, new(&quot;avatar-backpack&quot;, &quot;main&quot;)));
+        Check(nested.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose) is { Handling.Allowed: true }, &quot;accessible open-parent clothing can be fitted directly&quot;);
+        Act(nested, new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;)); before = nested.Save();
+        Check(nested.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose) is null &amp;&amp; nested.Save() == before, &quot;closed ancestor reveals no drop geometry&quot;);
+        Act(nested, new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));
+        var nestedFit = nested.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose)!;
+        Check(nested.HandleInventory(nestedFit.Request), nested.LastMessage);
+        var regionIndex = nested.Inventory.Regions.FindIndex(r =&gt; r.ItemId == &quot;avatar-backpack&quot; &amp;&amp; r.RegionId == &quot;main&quot;);
+        nested.Inventory.Regions[regionIndex] = nested.Inventory.Regions[regionIndex] with { Open = false };
+        Finish(nested);
+        Check(nested.Inventory.Items[&quot;utility-belt&quot;].Placement.ParentId == &quot;avatar-backpack&quot;, &quot;post-start access loss aborts at commit instead of moving through a closed ancestor&quot;);
+
+        var front = Sim(); front.Player.Cell = new(13, 6);
+        Act(front, new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));
+        var packPose = front.Inventory.BodyFits!.Shape(&quot;backpack&quot;).DefaultPose;
+        Check(front.PreviewBodyFitDrop(&quot;spare-backpack&quot;, packPose)!.Request.Destination!.RegionId == &quot;front&quot;, &quot;refit preserves an existing front mount&quot;);
+
+        var tactical = Sim(); tactical.Player.Cell = new(13, 6);
+        Act(tactical, new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+        tactical.Player.Cell = new(9, 2); tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(10, 2); tactical.Face(new Hex(10, 2).World);
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;tactical fixture starts&quot;);
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var turn = tactical.Combat.Cursor; var tacticalFit = tactical.PreviewBodyFitDrop(&quot;utility-belt&quot;, pose)!;
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = tacticalFit.Handling.Ap - 1 }; before = tactical.Save();
+        Check(!tactical.HandleInventory(tacticalFit.Request) &amp;&amp; tactical.Save() == before, &quot;insufficient AP refuses a body drop atomically&quot;);
+        tactical.Combat.Roster[turn] = tactical.Combat.Roster[turn] with { Ap = 10 };
+        Check(tactical.HandleInventory(tacticalFit.Request) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 10 - tacticalFit.Handling.Ap,
+            &quot;body drop spends normal AP once&quot;); Finish(tactical);
+        Check(tactical.Inventory.Items[&quot;utility-belt&quot;].Placement.BodyPose == pose, &quot;tactical fit commits normally&quot;);
+        Console.WriteLine($&quot;BODY_DROP_CHECKS_PASS: {passed} assertions; explicit accessible source, no hidden scan, exact pose/cost, blockers, pause, AP, commit revalidation and continuation.&quot;);
+        return passed;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/BodyDropChecks.cs</footer></main></div></body></html>

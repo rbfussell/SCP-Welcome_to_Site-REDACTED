@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryEquipmentList.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryEquipmentList.cs</h1><p>game/Presentation/Inventory/InventoryEquipmentList.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventoryequipmentlist.html">InventoryEquipmentList</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-f698317ad98d53466c3c.html">InventoryEquipmentList.Panel</a> · line 9</li><li><a href="function-4fc4539175685da51039.html">InventoryEquipmentList.Panel.get</a> · line 9</li><li><a href="function-a27540718467f2f75a13.html">InventoryEquipmentList.Panel.set</a> · line 9</li><li><a href="function-2ae64841e98569193530.html">InventoryEquipmentList.Row</a> · line 12</li><li><a href="function-a74ea59cdf2b7d174505.html">InventoryEquipmentList._Ready</a> · line 13</li><li><a href="function-5482c1470daa6da93ea5.html">InventoryEquipmentList.LayerText</a> · line 22</li><li><a href="function-66ac8e0dbc9ad81aa3f3.html">InventoryEquipmentList.Text</a> · line 25</li><li><a href="function-50b4b4b455d959a5f4f3.html">InventoryEquipmentList.RefreshEntries</a> · line 28</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Known equipment and current local layers; selecting a covered row never grants physical access.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class InventoryEquipmentList : ItemList</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     internal InventoryPanel Panel { get; set; } = null!;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private readonly List&lt;string?&gt; _ids = [];</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private string _signature = &quot;&quot;;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     internal int Row(string id) =&gt; _ids.IndexOf(id);</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public override void _Ready()</span>
+<span id="L14"><a class="line" href="#L14">14</a>     {</span>
+<span id="L15"><a class="line" href="#L15">15</a>         CustomMinimumSize = new(234, 180); SizeFlagsVertical = SizeFlags.ExpandFill;</span>
+<span id="L16"><a class="line" href="#L16">16</a>         AddThemeFontSizeOverride(&quot;font_size&quot;, 12);</span>
+<span id="L17"><a class="line" href="#L17">17</a>         ItemSelected += index =&gt; { if (_ids[(int)index] is { } id) Panel.Select(id); };</span>
+<span id="L18"><a class="line" href="#L18">18</a>         ItemActivated += index =&gt; { if (_ids[(int)index] is { } id) Panel.Inspect(id); };</span>
+<span id="L19"><a class="line" href="#L19">19</a>         ItemClicked += (index, at, button) =&gt;</span>
+<span id="L20"><a class="line" href="#L20">20</a>         { if (button == (long)MouseButton.Right &amp;&amp; _ids[(int)index] is { } id) Panel.Context(id, null, GlobalPosition + at); };</span>
+<span id="L21"><a class="line" href="#L21">21</a>     }</span>
+<span id="L22"><a class="line" href="#L22">22</a>     internal static string LayerText(IEnumerable&lt;WornLayer&gt; layers)</span>
+<span id="L23"><a class="line" href="#L23">23</a>     {</span>
+<span id="L24"><a class="line" href="#L24">24</a>         var positions = layers.Select(l =&gt; (l.Layer, l.SubLayer)).Distinct().OrderBy(p =&gt; p.Layer).ThenBy(p =&gt; p.SubLayer).ToArray();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         static string Text((int Layer, int SubLayer) p) =&gt; p.SubLayer == 0 ? p.Layer.ToString() : $&quot;{p.Layer}_{p.SubLayer}&quot;;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         return positions.Length == 0 ? &quot;held&quot; : positions.Length == 1 ? Text(positions[0]) : Text(positions[0]) + &quot;…&quot; + Text(positions[^1]);</span>
+<span id="L27"><a class="line" href="#L27">27</a>     }</span>
+<span id="L28"><a class="line" href="#L28">28</a>     internal void RefreshEntries()</span>
+<span id="L29"><a class="line" href="#L29">29</a>     {</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var entries = Panel.Simulation.InventoryEquipment;</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var signature = Panel.Simulation.Inventory.Revision + string.Join(&quot;|&quot;, entries.Select(e =&gt; e.ItemId + e.Group + LayerText(e.Layers) + e.Visible + e.Access.Reason));</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (_signature == signature) return;</span>
+<span id="L33"><a class="line" href="#L33">33</a>         _signature = signature; Clear(); _ids.Clear();</span>
+<span id="L34"><a class="line" href="#L34">34</a>         string? group = null;</span>
+<span id="L35"><a class="line" href="#L35">35</a>         foreach (var entry in entries)</span>
+<span id="L36"><a class="line" href="#L36">36</a>         {</span>
+<span id="L37"><a class="line" href="#L37">37</a>             if (entry.Group != group)</span>
+<span id="L38"><a class="line" href="#L38">38</a>             { group = entry.Group; var header = AddItem(group.ToUpperInvariant()); _ids.Add(null); SetItemSelectable(header, false); }</span>
+<span id="L39"><a class="line" href="#L39">39</a>             var status = !entry.Visible ? &quot;covered&quot; : !entry.Access.Allowed ? &quot;restrained&quot; : &quot;exposed&quot;;</span>
+<span id="L40"><a class="line" href="#L40">40</a>             var row = AddItem($&quot;  {LayerText(entry.Layers)}  {Panel.Simulation.Inventory.EquipmentLabel(entry.ItemId)} · {status}&quot;); _ids.Add(entry.ItemId);</span>
+<span id="L41"><a class="line" href="#L41">41</a>             SetItemCustomFgColor(row, new Color(entry.Visible ? &quot;d8dfcf&quot; : &quot;8fa598&quot;));</span>
+<span id="L42"><a class="line" href="#L42">42</a>             SetItemTooltip(row, Panel.Describe(entry.ItemId) + &quot;\n&quot; + entry.Access.Reason);</span>
+<span id="L43"><a class="line" href="#L43">43</a>             if (Panel.SelectedItem == entry.ItemId) Select(row);</span>
+<span id="L44"><a class="line" href="#L44">44</a>         }</span>
+<span id="L45"><a class="line" href="#L45">45</a>     }</span>
+<span id="L46"><a class="line" href="#L46">46</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.CutawaySmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.CutawaySmoke.cs</h1><p>game/Presentation/SpatialScene.CutawaySmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-5ae9576e6493b79a50f6.html">SpatialScene.CheckPlayerCutaway</a> · line 10</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> using System.Threading.Tasks;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> namespace SitePresentation;</span>
+<span id="L7"><a class="line" href="#L7">7</a> </span>
+<span id="L8"><a class="line" href="#L8">8</a> public partial class SpatialScene</span>
+<span id="L9"><a class="line" href="#L9">9</a> {</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private async Task CheckPlayerCutaway()</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         // Held authoring fixture: stand where a foreground wall covers the avatar&#x27;s torso.</span>
+<span id="L13"><a class="line" href="#L13">13</a>         _simulation.ManualPause = true;</span>
+<span id="L14"><a class="line" href="#L14">14</a>         var player = _simulation.Player;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         player.Route.Clear(); player.SegmentMs = 0; player.StoppedStep = null; player.MoveGoal = null;</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var cell = _simulation.Map.Cells.Where(c =&gt; _simulation.Map.Walkable(c)</span>
+<span id="L17"><a class="line" href="#L17">17</a>             &amp;&amp; !_simulation.Actors.Any(a =&gt; a != player &amp;&amp; a.Cell == c))</span>
+<span id="L18"><a class="line" href="#L18">18</a>             .OrderBy(c =&gt; c.Distance(new(10, 10))).First(c =&gt; _simulation.Map.SolidWalls.Any(w =&gt;</span>
+<span id="L19"><a class="line" href="#L19">19</a>             {</span>
+<span id="L20"><a class="line" href="#L20">20</a>                 var feet = WorldView.Screen(c.World); var start = WorldView.Screen(w.Start); var end = WorldView.Screen(w.End);</span>
+<span id="L21"><a class="line" href="#L21">21</a>                 return !w.Door &amp;&amp; WorldView.Screen(w.Center).Y &gt;= feet.Y &amp;&amp; Geometry2D.IsPointInPolygon(feet - new Vector2(0, 30),</span>
+<span id="L22"><a class="line" href="#L22">22</a>                     [start, end, end - new Vector2(0, 68), start - new Vector2(0, 68)]);</span>
+<span id="L23"><a class="line" href="#L23">23</a>             }));</span>
+<span id="L24"><a class="line" href="#L24">24</a>         player.Cell = cell; player.Facing = 1;</span>
+<span id="L25"><a class="line" href="#L25">25</a>         _world.FieldView = true; _world.Cutaway = true; _world.DiagnosticSprites = false;</span>
+<span id="L26"><a class="line" href="#L26">26</a>         ResetCamera(); RefreshCamera();</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var baseline = _simulation.Save();</span>
+<span id="L28"><a class="line" href="#L28">28</a>         var known = _simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))</span>
+<span id="L29"><a class="line" href="#L29">29</a>             .Concat(_simulation.Anomalies.Bodies.Select(a =&gt; FieldPresentation.ShowAnomaly(_simulation, a, false))).ToArray();</span>
+<span id="L30"><a class="line" href="#L30">30</a>         _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;SOFT WALL CUTAWAY · HELD PRESENTATION FIXTURE&quot;);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         _world.QueueRedraw();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         if (_world.FeatheredWallFaces == 0 || _simulation.Save() != baseline)</span>
+<span id="L34"><a class="line" href="#L34">34</a>             throw new InvalidOperationException(&quot;Foreground-wall fixture must draw a cosmetic opening without changing world state.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var center = _world.GetGlobalTransform() * _world.CutawayCenter;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         var radius = _world.CutawayRadius * _zoom;</span>
+<span id="L37"><a class="line" href="#L37">37</a>         using var opened = GetViewport().GetTexture().GetImage();</span>
+<span id="L38"><a class="line" href="#L38">38</a>         var prefix = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath!));</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (opened.SavePng(prefix + &quot;-cutaway.png&quot;) != Error.Ok) throw new IOException(&quot;Cutaway capture failed.&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         SmokeKey(Key.H); Input.FlushBufferedEvents(); _world.QueueRedraw();</span>
+<span id="L41"><a class="line" href="#L41">41</a>         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L42"><a class="line" href="#L42">42</a>         if (_world.Cutaway || _world.FeatheredWallFaces != 0 || _simulation.Save() != baseline)</span>
+<span id="L43"><a class="line" href="#L43">43</a>             throw new InvalidOperationException(&quot;H must disable only the visual opening.&quot;);</span>
+<span id="L44"><a class="line" href="#L44">44</a>         using var closed = GetViewport().GetTexture().GetImage();</span>
+<span id="L45"><a class="line" href="#L45">45</a>         if (closed.SavePng(prefix + &quot;-cutaway-off.png&quot;) != Error.Ok) throw new IOException(&quot;Uncut wall capture failed.&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var changed = 0;</span>
+<span id="L47"><a class="line" href="#L47">47</a>         for (var y = (int)(center.Y - radius); y &lt; center.Y + radius; y += 2)</span>
+<span id="L48"><a class="line" href="#L48">48</a>         for (var x = (int)(center.X - radius); x &lt; center.X + radius; x += 2)</span>
+<span id="L49"><a class="line" href="#L49">49</a>         {</span>
+<span id="L50"><a class="line" href="#L50">50</a>             if (x &lt; 0 || y &lt; 0 || x &gt;= opened.GetWidth() || y &gt;= opened.GetHeight()) continue;</span>
+<span id="L51"><a class="line" href="#L51">51</a>             var a = opened.GetPixel(x, y); var b = closed.GetPixel(x, y);</span>
+<span id="L52"><a class="line" href="#L52">52</a>             if (Math.Abs(a.R - b.R) + Math.Abs(a.G - b.G) + Math.Abs(a.B - b.B) &gt; 0.04f) changed++;</span>
+<span id="L53"><a class="line" href="#L53">53</a>         }</span>
+<span id="L54"><a class="line" href="#L54">54</a>         if (changed &lt; 50) throw new InvalidOperationException(&quot;Opening must visibly clear the foreground wall around the avatar.&quot;);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         SmokeKey(Key.H); Input.FlushBufferedEvents(); _world.QueueRedraw();</span>
+<span id="L56"><a class="line" href="#L56">56</a>         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         if (!_world.Cutaway || _world.FeatheredWallFaces == 0 || _simulation.Save() != baseline</span>
+<span id="L58"><a class="line" href="#L58">58</a>             || !known.SequenceEqual(_simulation.Actors.Select(a =&gt; FieldPresentation.ShowActor(_simulation, a, false))</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 .Concat(_simulation.Anomalies.Bodies.Select(a =&gt; FieldPresentation.ShowAnomaly(_simulation, a, false)))))</span>
+<span id="L60"><a class="line" href="#L60">60</a>             throw new InvalidOperationException(&quot;Restoring cutaway must leave world state and permitted entities unchanged.&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         // Move within an edge without advancing held simulation; the visual center must follow the exact position.</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var before = _world.CutawayCenter;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         var next = Enumerable.Range(0, 6).Select(player.Cell.Neighbor).First(c =&gt; _simulation.Map.CanTraverse(player.Cell, c));</span>
+<span id="L64"><a class="line" href="#L64">64</a>         player.Route = [next]; player.SegmentMs = 100; player.KeepFacing = true;</span>
+<span id="L65"><a class="line" href="#L65">65</a>         var expected = WorldView.Screen(player.Position) - WorldView.Screen(player.Cell.World);</span>
+<span id="L66"><a class="line" href="#L66">66</a>         _world.QueueRedraw();</span>
+<span id="L67"><a class="line" href="#L67">67</a>         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L68"><a class="line" href="#L68">68</a>         if ((_world.CutawayCenter - before - expected).Length() &gt; 0.01f)</span>
+<span id="L69"><a class="line" href="#L69">69</a>             throw new InvalidOperationException(&quot;Cutaway center must follow fractional movement rather than hex centers.&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         GD.Print($&quot;CUTAWAY_SMOKE_PASS: visible foreground opening ({changed} changed samples), H round-trip, unchanged world/sight and fractional following.&quot;);</span>
+<span id="L71"><a class="line" href="#L71">71</a>     }</span>
+<span id="L72"><a class="line" href="#L72">72</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

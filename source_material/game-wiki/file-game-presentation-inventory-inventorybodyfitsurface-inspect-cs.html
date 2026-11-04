@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryBodyFitSurface.Inspect.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryBodyFitSurface.Inspect.cs</h1><p>game/Presentation/Inventory/InventoryBodyFitSurface.Inspect.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorybodyfitsurface.html">InventoryBodyFitSurface</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-126ede2c1a397a7fd0cb.html">InventoryBodyFitSurface.HoveredItem</a> · line 11</li><li><a href="function-4ca99616ac59b535c7f0.html">InventoryBodyFitSurface.ClearInspection</a> · line 12</li><li><a href="function-888e36591688b2dc390c.html">InventoryBodyFitSurface.PickWorn</a> · line 13</li><li><a href="function-d7bd1fc3086d40a8d066.html">InventoryBodyFitSurface.HoverWorn</a> · line 14</li><li><a href="function-86dc2936a9b81804f3dc.html">InventoryBodyFitSurface._Process</a> · line 21</li><li><a href="function-5d83895d2150d0046faf.html">InventoryBodyFitSurface.InspectInput</a> · line 26</li><li><a href="function-e403ce659fd124205baf.html">InventoryBodyFitSurface._GetDragData</a> · line 43</li><li><a href="function-0311c38cb0ed523578c9.html">InventoryBodyFitSurface._Notification</a> · line 53</li><li><a href="function-7fd4bf0aecb110daf099.html">InventoryBodyFitSurface.DrawOutfit</a> · line 55</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> /// &lt;summary&gt;Exposed worn-item picking and drag sources, separate from fitting drafts and future alpha artwork.&lt;/summary&gt;</span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class InventoryBodyFitSurface</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private string? _hoveredItem, _pressedItem;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private BodyHex? _pressedCell;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     internal string? HoveredItem =&gt; _hoveredItem;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     internal void ClearInspection() { _hoveredItem = _pressedItem = null; _pressedCell = null; TooltipText = &quot;&quot;; MouseDefaultCursorShape = CursorShape.Arrow; QueueRedraw(); }</span>
+<span id="L13"><a class="line" href="#L13">13</a>     private BodyEquipmentTarget? PickWorn(Vector2 at) =&gt; PickCell(at) is { } cell ? Fit.Panel.Simulation.InventoryBodyPick(Fit.ViewSurface, cell) : null;</span>
+<span id="L14"><a class="line" href="#L14">14</a>     private void HoverWorn(Vector2 at)</span>
+<span id="L15"><a class="line" href="#L15">15</a>     {</span>
+<span id="L16"><a class="line" href="#L16">16</a>         var hit = PickWorn(at); _hoveredItem = hit?.ItemId;</span>
+<span id="L17"><a class="line" href="#L17">17</a>         TooltipText = hit is null ? &quot;No exposed worn gear here.&quot; : Fit.Panel.Describe(hit.ItemId) + &quot;\n&quot; + hit.MoveAccess.Reason</span>
+<span id="L18"><a class="line" href="#L18">18</a>             + &quot;\nDouble-click to inspect · right-click for actions · drag to move&quot;;</span>
+<span id="L19"><a class="line" href="#L19">19</a>         MouseDefaultCursorShape = hit is null ? CursorShape.Arrow : CursorShape.PointingHand; QueueRedraw();</span>
+<span id="L20"><a class="line" href="#L20">20</a>     }</span>
+<span id="L21"><a class="line" href="#L21">21</a>     public override void _Process(double delta)</span>
+<span id="L22"><a class="line" href="#L22">22</a>     {</span>
+<span id="L23"><a class="line" href="#L23">23</a>         if (IsVisibleInTree() &amp;&amp; Fit.InspectWorn &amp;&amp; GetViewport().GuiGetHoveredControl() == this &amp;&amp; !GetViewport().GuiIsDragging())</span>
+<span id="L24"><a class="line" href="#L24">24</a>             HoverWorn(GetLocalMousePosition());</span>
+<span id="L25"><a class="line" href="#L25">25</a>     }</span>
+<span id="L26"><a class="line" href="#L26">26</a>     private void InspectInput(InputEvent e)</span>
+<span id="L27"><a class="line" href="#L27">27</a>     {</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (e is InputEventMouseMotion motion) { HoverWorn(motion.Position); return; }</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (e is not InputEventMouseButton mouse) return;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         if (!mouse.Pressed) { _pressedItem = null; _pressedCell = null; return; }</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var hit = PickWorn(mouse.Position);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (mouse.ButtonIndex == MouseButton.Right)</span>
+<span id="L33"><a class="line" href="#L33">33</a>         { if (hit is not null) Fit.Panel.Context(hit.ItemId, null, GetGlobalMousePosition()); AcceptEvent(); return; }</span>
+<span id="L34"><a class="line" href="#L34">34</a>         if (mouse.ButtonIndex != MouseButton.Left) return;</span>
+<span id="L35"><a class="line" href="#L35">35</a>         _pressedItem = hit?.ItemId; _pressedCell = PickCell(mouse.Position);</span>
+<span id="L36"><a class="line" href="#L36">36</a>         if (hit is not null)</span>
+<span id="L37"><a class="line" href="#L37">37</a>         {</span>
+<span id="L38"><a class="line" href="#L38">38</a>             Fit.Choose(hit.ItemId);</span>
+<span id="L39"><a class="line" href="#L39">39</a>             if (mouse.DoubleClick) Fit.Panel.Inspect(hit.ItemId);</span>
+<span id="L40"><a class="line" href="#L40">40</a>         }</span>
+<span id="L41"><a class="line" href="#L41">41</a>         AcceptEvent();</span>
+<span id="L42"><a class="line" href="#L42">42</a>     }</span>
+<span id="L43"><a class="line" href="#L43">43</a>     public override Variant _GetDragData(Vector2 atPosition)</span>
+<span id="L44"><a class="line" href="#L44">44</a>     {</span>
+<span id="L45"><a class="line" href="#L45">45</a>         if (!Fit.InspectWorn || _pressedItem is not { } id || _pressedCell is not { } cell</span>
+<span id="L46"><a class="line" href="#L46">46</a>             || Fit.Panel.Simulation.InventoryBodyPick(Fit.ViewSurface, cell)?.ItemId != id) return default;</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var access = Fit.Panel.Simulation.InventoryMoveAccess(id);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         if (!access.Allowed) { Fit.Panel.ShowQuote(new(false, access.Reason, 0, 0)); TooltipText = access.Reason; return default; }</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Fit.Panel.Select(id); Fit.Panel.BeginDrag(id);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         SetDragPreview(new InventoryDragGhost { Panel = Fit.Panel, ItemId = id, Size = new(90, 110), MouseFilter = MouseFilterEnum.Ignore });</span>
+<span id="L51"><a class="line" href="#L51">51</a>         return id;</span>
+<span id="L52"><a class="line" href="#L52">52</a>     }</span>
+<span id="L53"><a class="line" href="#L53">53</a>     public override void _Notification(int what)</span>
+<span id="L54"><a class="line" href="#L54">54</a>     { if (what == NotificationDragEnd) { _pressedItem = null; _pressedCell = null; } }</span>
+<span id="L55"><a class="line" href="#L55">55</a>     private void DrawOutfit()</span>
+<span id="L56"><a class="line" href="#L56">56</a>     {</span>
+<span id="L57"><a class="line" href="#L57">57</a>         string[] palette = [&quot;697f90&quot;, &quot;8c8271&quot;, &quot;687e60&quot;, &quot;887159&quot;, &quot;7d748a&quot;, &quot;a2976a&quot;, &quot;708783&quot;];</span>
+<span id="L58"><a class="line" href="#L58">58</a>         foreach (var target in Fit.Panel.Simulation.InventoryBodySurface(Fit.ViewSurface))</span>
+<span id="L59"><a class="line" href="#L59">59</a>         {</span>
+<span id="L60"><a class="line" href="#L60">60</a>             var definition = Fit.Panel.Simulation.Inventory.Definition(target.ItemId);</span>
+<span id="L61"><a class="line" href="#L61">61</a>             var color = new Color(palette[definition.Id.Sum(c =&gt; (int)c) % palette.Length]);</span>
+<span id="L62"><a class="line" href="#L62">62</a>             foreach (var cell in target.Cells)</span>
+<span id="L63"><a class="line" href="#L63">63</a>             {</span>
+<span id="L64"><a class="line" href="#L64">64</a>                 var polygon = Polygon(cell); DrawColoredPolygon(polygon, new Color(color, Fit.Panel.DragItemId == target.ItemId ? .3f : .85f));</span>
+<span id="L65"><a class="line" href="#L65">65</a>                 if (target.ItemId == _hoveredItem || target.ItemId == Fit.SelectedId)</span>
+<span id="L66"><a class="line" href="#L66">66</a>                     DrawPolyline(polygon.Append(polygon[0]).ToArray(), target.ItemId == _hoveredItem ? new(&quot;e7e0bd&quot;) : new(&quot;b6cabc&quot;), 1.4f);</span>
+<span id="L67"><a class="line" href="#L67">67</a>             }</span>
+<span id="L68"><a class="line" href="#L68">68</a>         }</span>
+<span id="L69"><a class="line" href="#L69">69</a>     }</span>
+<span id="L70"><a class="line" href="#L70">70</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

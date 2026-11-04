@@ -1,0 +1,121 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.OperationSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.OperationSmoke.cs</h1><p>game/Presentation/SpatialScene.OperationSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-eb11a93a7c0734cc4877.html">SpatialScene.OperationSmokeStep</a> · line 11</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private int _operationWait;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private string? _operationInitialSave;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private async void OperationSmokeStep()</span>
+<span id="L12"><a class="line" href="#L12">12</a>     {</span>
+<span id="L13"><a class="line" href="#L13">13</a>         if (++_smokeFrame != 12) return;</span>
+<span id="L14"><a class="line" href="#L14">14</a>         try</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             switch (_smokeStage)</span>
+<span id="L17"><a class="line" href="#L17">17</a>             {</span>
+<span id="L18"><a class="line" href="#L18">18</a>                 case 0:</span>
+<span id="L19"><a class="line" href="#L19">19</a>                     _operationInitialSave = _simulation.Save();</span>
+<span id="L20"><a class="line" href="#L20">20</a>                     if (_simulation.Operations.Definition is null || _simulation.InspectAnomalies().Single().Observation.EligibleIds.Length != 3)</span>
+<span id="L21"><a class="line" href="#L21">21</a>                         throw new InvalidOperationException(&quot;Operation must start with actual three-person observation.&quot;);</span>
+<span id="L22"><a class="line" href="#L22">22</a>                     SmokeKey(Key.E); // Real door interaction, not a map mutation.</span>
+<span id="L23"><a class="line" href="#L23">23</a>                     break;</span>
+<span id="L24"><a class="line" href="#L24">24</a>                 case 1:</span>
+<span id="L25"><a class="line" href="#L25">25</a>                     _simulation.ApproachTerminal();</span>
+<span id="L26"><a class="line" href="#L26">26</a>                     break;</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 case 2:</span>
+<span id="L28"><a class="line" href="#L28">28</a>                     if (!_simulation.CanUseTerminal)</span>
+<span id="L29"><a class="line" href="#L29">29</a>                     {</span>
+<span id="L30"><a class="line" href="#L30">30</a>                         if (++_operationWait &gt; 120) throw new InvalidOperationException(&quot;Could not physically reach OSCP terminal: &quot; + _simulation.LastMessage);</span>
+<span id="L31"><a class="line" href="#L31">31</a>                         _smokeFrame = 0; return;</span>
+<span id="L32"><a class="line" href="#L32">32</a>                     }</span>
+<span id="L33"><a class="line" href="#L33">33</a>                     SmokeKey(Key.T);</span>
+<span id="L34"><a class="line" href="#L34">34</a>                     break;</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 case 3:</span>
+<span id="L36"><a class="line" href="#L36">36</a>                     if (!_hud.Operations.TerminalOpen) throw new InvalidOperationException(&quot;T did not open reachable OSCP service.&quot;);</span>
+<span id="L37"><a class="line" href="#L37">37</a>                     _smokeStopLocalMs = _simulation.LocalMs;</span>
+<span id="L38"><a class="line" href="#L38">38</a>                     _hud.Operations.SelectedRecipient = 1;</span>
+<span id="L39"><a class="line" href="#L39">39</a>                     _hud.Operations.Send(PersonnelTask.Post);</span>
+<span id="L40"><a class="line" href="#L40">40</a>                     break;</span>
+<span id="L41"><a class="line" href="#L41">41</a>                 case 4:</span>
+<span id="L42"><a class="line" href="#L42">42</a>                     if (_simulation.Operations.OrderHistory.Last().Status == OrderStatus.Pending</span>
+<span id="L43"><a class="line" href="#L43">43</a>                         || !_simulation.Operations.ReceivedReports.Any(r =&gt; r.Text.Contains(&quot;Acknowledged&quot;)))</span>
+<span id="L44"><a class="line" href="#L44">44</a>                         throw new InvalidOperationException(&quot;OSCP did not receive the staff acknowledgement.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>                     if (_simulation.LocalMs &lt;= _smokeStopLocalMs) throw new InvalidOperationException(&quot;Opening OSCP suspended local simulation.&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>                     var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;),</span>
+<span id="L47"><a class="line" href="#L47">47</a>                         Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L48"><a class="line" href="#L48">48</a>                     clone.Restore(_simulation.Save());</span>
+<span id="L49"><a class="line" href="#L49">49</a>                     if (clone.Save() != _simulation.Save()) throw new InvalidOperationException(&quot;Rendered operation save did not round-trip.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>                     _simulation.ManualPause = true;</span>
+<span id="L51"><a class="line" href="#L51">51</a>                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, &quot;OSCP · received acknowledgement / physical site&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L53"><a class="line" href="#L53">53</a>                     using (var texture = GetViewport().GetTexture())</span>
+<span id="L54"><a class="line" href="#L54">54</a>                     using (var image = texture.GetImage())</span>
+<span id="L55"><a class="line" href="#L55">55</a>                         if (image.SavePng(_capturePath!) != Error.Ok) throw new IOException(&quot;OSCP screenshot failed.&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>                     GD.Print(&quot;OPERATION_SMOKE_PASS: initial coverage, E door, physical terminal approach, T access, personnel order acknowledgement and operation save round-trip.&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>                     // A separate input fixture keeps Chen watching, with an unseen ordinary occupant in the corridor.</span>
+<span id="L58"><a class="line" href="#L58">58</a>                     _hud.Workspace.Close();</span>
+<span id="L59"><a class="line" href="#L59">59</a>                     _simulation.Restore(_operationInitialSave!);</span>
+<span id="L60"><a class="line" href="#L60">60</a>                     SmokeKey(Key.P); Input.FlushBufferedEvents();</span>
+<span id="L61"><a class="line" href="#L61">61</a>                     if (!_hud.Workspace.IsOpen || _hud.Workspace.Device != OscpDevice.Phone || !_simulation.ManualPause)</span>
+<span id="L62"><a class="line" href="#L62">62</a>                         throw new InvalidOperationException(&quot;P must open the issued handset and automatically pause local single-player.&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>                     var phoneBaseline = _simulation.Save();</span>
+<span id="L64"><a class="line" href="#L64">64</a>                     SmokeKey(Key.O); Input.FlushBufferedEvents();</span>
+<span id="L65"><a class="line" href="#L65">65</a>                     var covered = _hud.Field.GetGlobalRect().Position + new Vector2(8, 8);</span>
+<span id="L66"><a class="line" href="#L66">66</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = true });</span>
+<span id="L67"><a class="line" href="#L67">67</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = covered, ButtonIndex = MouseButton.Left, Pressed = false });</span>
+<span id="L68"><a class="line" href="#L68">68</a>                     Input.FlushBufferedEvents();</span>
+<span id="L69"><a class="line" href="#L69">69</a>                     if (_simulation.Save() != phoneBaseline) throw new InvalidOperationException(&quot;Modal phone input leaked into field actions.&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>                     var ordersBeforeDraft = _simulation.Operations.OrderHistory.Count;</span>
+<span id="L71"><a class="line" href="#L71">71</a>                     _hud.Workspace.Execute(&quot;order tech follow&quot;);</span>
+<span id="L72"><a class="line" href="#L72">72</a>                     if (_simulation.Operations.OrderHistory.Count != ordersBeforeDraft || _hud.Workspace.PhoneDraftCount != 1)</span>
+<span id="L73"><a class="line" href="#L73">73</a>                         throw new InvalidOperationException(&quot;Phone draft became a world order before closing.&quot;);</span>
+<span id="L74"><a class="line" href="#L74">74</a>                     SmokeKey(Key.Escape); Input.FlushBufferedEvents();</span>
+<span id="L75"><a class="line" href="#L75">75</a>                     if (_hud.Workspace.IsOpen || _simulation.ManualPause || _simulation.Operations.OrderHistory.Last().Channel != &quot;phone&quot;)</span>
+<span id="L76"><a class="line" href="#L76">76</a>                         throw new InvalidOperationException(&quot;Closing the phone must resume its own pause and submit the prepared intent.&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>                     _simulation.Restore(_operationInitialSave!);</span>
+<span id="L78"><a class="line" href="#L78">78</a>                     _simulation.Player.Cell = new(5, 6); _simulation.Player.Facing = 4;</span>
+<span id="L79"><a class="line" href="#L79">79</a>                     var hidden = _simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>                     hidden.Cell = new(12, 3);</span>
+<span id="L81"><a class="line" href="#L81">81</a>                     if (!_simulation.IssueOrder(hidden.Id, PersonnelTask.Post, hidden.Cell))</span>
+<span id="L82"><a class="line" href="#L82">82</a>                         throw new InvalidOperationException(&quot;Navigation fixture could not assign a stationary corridor post.&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>                     _feedback.Reset(_simulation); _audio.Reset(); ResetCamera(); RefreshCamera();</span>
+<span id="L84"><a class="line" href="#L84">84</a>                     var click = _world.GetGlobalTransform() * WorldView.Screen(hidden.Cell.World);</span>
+<span id="L85"><a class="line" href="#L85">85</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, ShiftPressed = true, Pressed = true });</span>
+<span id="L86"><a class="line" href="#L86">86</a>                     Input.ParseInputEvent(new InputEventMouseButton { Position = click, ButtonIndex = MouseButton.Left, ShiftPressed = true, Pressed = false });</span>
+<span id="L87"><a class="line" href="#L87">87</a>                     _operationWait = 0;</span>
+<span id="L88"><a class="line" href="#L88">88</a>                     break;</span>
+<span id="L89"><a class="line" href="#L89">89</a>                 case 5:</span>
+<span id="L90"><a class="line" href="#L90">90</a>                     if (!_simulation.Player.Moving || _simulation.Player.MoveGoal != new Hex(12, 3)</span>
+<span id="L91"><a class="line" href="#L91">91</a>                         || _simulation.VisibleToPlayer(_simulation.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Position))</span>
+<span id="L92"><a class="line" href="#L92">92</a>                         throw new InvalidOperationException(&quot;Click on an unseen occupied destination did not commit ordinary travel.&quot;);</span>
+<span id="L93"><a class="line" href="#L93">93</a>                     break;</span>
+<span id="L94"><a class="line" href="#L94">94</a>                 case 6:</span>
+<span id="L95"><a class="line" href="#L95">95</a>                     if (_simulation.Player.Moving)</span>
+<span id="L96"><a class="line" href="#L96">96</a>                     {</span>
+<span id="L97"><a class="line" href="#L97">97</a>                         if (++_operationWait &gt; 120) throw new InvalidOperationException(&quot;Occupied-goal travel never stopped.&quot;);</span>
+<span id="L98"><a class="line" href="#L98">98</a>                         _smokeFrame = 0; return;</span>
+<span id="L99"><a class="line" href="#L99">99</a>                     }</span>
+<span id="L100"><a class="line" href="#L100">100</a>                     if (_simulation.Player.Cell == new Hex(5, 6) || _simulation.Player.Cell.Distance(new(12, 3)) != 1</span>
+<span id="L101"><a class="line" href="#L101">101</a>                         || _simulation.LastMessage != &quot;Movement stopped: the way ahead is blocked.&quot;)</span>
+<span id="L102"><a class="line" href="#L102">102</a>                         throw new InvalidOperationException(&quot;Occupied-goal click must approach and stop before collision.&quot;);</span>
+<span id="L103"><a class="line" href="#L103">103</a>                     _simulation.ManualPause = true;</span>
+<span id="L104"><a class="line" href="#L104">104</a>                     _audio.Muted = true; _audio.Reset();</span>
+<span id="L105"><a class="line" href="#L105">105</a>                     _hud.Refresh(_simulation, _world, null, new(0, 0), _zoom, _simulation.LastMessage);</span>
+<span id="L106"><a class="line" href="#L106">106</a>                     await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);</span>
+<span id="L107"><a class="line" href="#L107">107</a>                     var navigationPath = Path.Combine(Path.GetDirectoryName(_capturePath!)!, Path.GetFileNameWithoutExtension(_capturePath) + &quot;-navigation.png&quot;);</span>
+<span id="L108"><a class="line" href="#L108">108</a>                     using (var texture = GetViewport().GetTexture())</span>
+<span id="L109"><a class="line" href="#L109">109</a>                     using (var image = texture.GetImage())</span>
+<span id="L110"><a class="line" href="#L110">110</a>                         if (image.SavePng(navigationPath) != Error.Ok) throw new IOException(&quot;Navigation screenshot failed.&quot;);</span>
+<span id="L111"><a class="line" href="#L111">111</a>                     GD.Print(&quot;NAVIGATION_SMOKE_PASS: actual Shift-click on unseen occupied hex committed travel, approached the blocker and stopped before collision.&quot;);</span>
+<span id="L112"><a class="line" href="#L112">112</a>                     break;</span>
+<span id="L113"><a class="line" href="#L113">113</a>                 case 7:</span>
+<span id="L114"><a class="line" href="#L114">114</a>                     // Leave the capture continuation before tearing down Godot&#x27;s native resources.</span>
+<span id="L115"><a class="line" href="#L115">115</a>                     GetTree().Quit(); return;</span>
+<span id="L116"><a class="line" href="#L116">116</a>             }</span>
+<span id="L117"><a class="line" href="#L117">117</a>             _smokeStage++; _smokeFrame = 0;</span>
+<span id="L118"><a class="line" href="#L118">118</a>         }</span>
+<span id="L119"><a class="line" href="#L119">119</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
+<span id="L120"><a class="line" href="#L120">120</a>     }</span>
+<span id="L121"><a class="line" href="#L121">121</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
