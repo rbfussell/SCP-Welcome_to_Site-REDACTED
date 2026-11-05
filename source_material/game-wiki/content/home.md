@@ -19,7 +19,7 @@ Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Sit
 - [Function directory](functions.html): methods, constructors, operators, local functions, properties, and explicit accessors extracted with the C# compiler's syntax parser.
 - [Source files](files.html): complete indexed C# source with stable line anchors.
 - [Design library](documents.html): browsable project design, architecture decisions, reviews, and authoring contracts.
-- [Paperdoll pocket segments](paperdoll-pocket-segments.html): jacket/trouser contours, hip/cargo coverage and pocket-specific actions.
+- [Paperdoll pocket segments](paperdoll-pocket-segments.html): jacket/trouser/backpack contours, coverage and pocket-specific actions.
 - [Worn container drops](worn-container-drops.html): visible bag/pouch material, normal packing and retained source views.
 - [Sprite equipment drops](sprite-equipment-drops.html): free fitting anchors, exposed mounts and paid sprite handling.
 - [Worn attachment chains](worn-attachment-chains.html): composed belt → hook → pouch art, distinct selection and loaded handling.

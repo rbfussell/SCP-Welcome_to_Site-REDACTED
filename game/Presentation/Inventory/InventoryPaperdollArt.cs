@@ -182,7 +182,7 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
                 : layer.ItemId is not null && layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;
             foreach (var part in Parts(layer, side))
             {
-                var partTint = storage is { } target && target.Owner == layer.ItemId && part.DropRegion == target.Region
+                var partTint = storage is { Pocket: null } target && target.Owner == layer.ItemId && part.DropRegion == target.Region
                     ? storageAllowed ? new Color(.6f, 1.5f, .75f) : new Color(1.6f, .5f, .45f) : tint;
                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
                 if (layer.Mounted is { } mounted)

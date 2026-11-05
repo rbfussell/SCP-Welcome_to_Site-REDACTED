@@ -79,7 +79,7 @@ Browse the [visual item catalog](https://rbfussell.github.io/SCP-Welcome_to_Site
 52. [Worn attachment chains](docs/50-worn-attachment-chains.md): composed belt → hook → pouch sprites, distinct alpha selection and loaded handling.
 53. [Sprite equipment drops](docs/51-sprite-equipment-drops.md): free body-hex fitting, exposed mounts and normal paid sprite handling.
 54. [Worn container drops](docs/52-worn-container-drops.md): visible bag/pouch targets, normal paid packing and retained source views.
-55. [Paperdoll pocket segments](docs/53-paperdoll-pocket-segments.md): jacket/trouser contours, hip/cargo coverage, paid opening and direct storage.
+55. [Paperdoll pocket segments](docs/53-paperdoll-pocket-segments.md): jacket/trouser/backpack contours, coverage, independent fastenings and direct storage.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic artwork, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 

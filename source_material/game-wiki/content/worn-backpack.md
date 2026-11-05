@@ -29,3 +29,5 @@ Current floor/persistence follow-up: [ground inventory and piles](ground-storage
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
 
 [Paperdoll pocket segments](paperdoll-pocket-segments.html) now add the jacket chest and four front trouser contours. Topmost bag/harness alpha still hides lower segments where opaque; physical coverage remains an independent access gate. Hip openings are snug/unsealable while cargo flaps use normal paid fastening.
+
+Current [backpack pocket segments](paperdoll-pocket-segments.html#backpack-main-and-side) expose the real zipped main and buckled side compartment directly on the bag side. Hover is contour-local; double-click and menus use normal paid closure services. The painted front pouch remains decorative, and harness-only pixels do not offer interiors.

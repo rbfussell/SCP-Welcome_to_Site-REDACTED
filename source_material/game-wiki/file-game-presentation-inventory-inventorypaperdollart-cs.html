@@ -182,7 +182,7 @@
 <span id="L182"><a class="line" href="#L182">182</a>                 : layer.ItemId is not null &amp;&amp; layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;</span>
 <span id="L183"><a class="line" href="#L183">183</a>             foreach (var part in Parts(layer, side))</span>
 <span id="L184"><a class="line" href="#L184">184</a>             {</span>
-<span id="L185"><a class="line" href="#L185">185</a>                 var partTint = storage is { } target &amp;&amp; target.Owner == layer.ItemId &amp;&amp; part.DropRegion == target.Region</span>
+<span id="L185"><a class="line" href="#L185">185</a>                 var partTint = storage is { Pocket: null } target &amp;&amp; target.Owner == layer.ItemId &amp;&amp; part.DropRegion == target.Region</span>
 <span id="L186"><a class="line" href="#L186">186</a>                     ? storageAllowed ? new Color(.6f, 1.5f, .75f) : new Color(1.6f, .5f, .45f) : tint;</span>
 <span id="L187"><a class="line" href="#L187">187</a>                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;</span>
 <span id="L188"><a class="line" href="#L188">188</a>                 if (layer.Mounted is { } mounted)</span>

@@ -1,6 +1,6 @@
-# Paperdoll pocket segments: jacket and trousers
+# Paperdoll pocket segments: jacket, trousers and backpack
 
-Implemented November 5, 2026. **I → Sprites** now exposes the jacket chest pocket and all four existing front trouser compartments. The viewer-left jacket chest segment follows both open and closed jacket artwork. It extends [worn container drops](52-worn-container-drops.md), [sprite equipment drops](51-sprite-equipment-drops.md), [physical pocket coverage](31-pocket-coverage-prototype.md) and [three-view navigation](27-three-view-inventory-and-body-fit.md). See the [wiki mechanic](../source_material/game-wiki/paperdoll-pocket-segments.html).
+Implemented November 5, 2026. **I → Sprites** now exposes the jacket chest pocket, all four existing front trouser compartments and the backpack main/side compartments. The viewer-left jacket chest segment follows both open and closed jacket artwork. It extends [worn container drops](52-worn-container-drops.md), [sprite equipment drops](51-sprite-equipment-drops.md), [physical pocket coverage](31-pocket-coverage-prototype.md) and [three-view navigation](27-three-view-inventory-and-body-fit.md). See the [wiki mechanic](../source_material/game-wiki/paperdoll-pocket-segments.html).
 
 ## Illustrated parts and real compartments
 
@@ -30,15 +30,24 @@ A zipped coat still covers hip mouths while lower cargo pockets remain accessibl
 
 [Native trouser input checks](../game/Presentation/SpatialScene.PaperdollTrouserPocketSmoke.cs) stage coat/pack through real ground handling; qualify all four contour targets and read-only hover, both hip grids/menus, paused/paid cargo opening, correct cargo menus, direct source-grid storage, covered hip refusal versus visible cargo, unzip access and exact continuation. They run inside the existing `--pocket-smoke` fixture and full inventory regression.
 
+## Backpack extension
+
+Both bag frames register source-local `main` and `side` contours on their mounted side: `back` in frame 8 and `front` in frame 9. The main contour follows the upper zipped panel; the side contour follows the visible buckled side pocket. Harness parts have no pocket/storage registration. The painted front pouch is not a third compartment. Outside explicit contours, the established bag-material drop fallback still targets `main`; clicking that material remains ordinary pack inspection. This fallback does not turn decorative pouches into separate inventories.
+
+The segment takes precedence over the part's `dropRegion`: a closed/full side pocket refuses without trying the main section. Double-clicking a segment opens that named compartment via normal paid handling; right-click uses its Zip/Unzip or Buckle/Unbuckle action and independent preference. Hover/drop tint stays on the chosen contour, even where the enclosing bag part has a default drop region. Holding/dragging moves the owning loaded backpack normally. Front/back registration and actual item IDs keep two simultaneously worn packs distinct.
+
+[Native backpack pocket checks](../game/Presentation/SpatialScene.PaperdollPackPocketSmoke.cs) exercise read-only contour hover, both fastening menus, paused/paid opening, exact pending restore, closed-side drop refusal while main is open, paid side storage with source retention, harness exclusion, both mounting sides and two pack identities. They run alone with `--pack-pocket-smoke`, within `--pocket-smoke`, and in full inventory checks. No extra compartments, source-image edits, fastening animation, simulation rules, content identity or save fields are introduced.
+
 ## Evidence and scope
 
 [Native pocket checks](../game/Presentation/SpatialScene.PaperdollPocketSmoke.cs) qualify hover, paused/paid double-click opening, exact pending restore, the correct context fastening, direct compartment storage, both jacket visual states, rear exclusion and front-pack occlusion. They run alone with `--pocket-smoke` and inside paperdoll/full inventory regressions. The [runtime review](reviews/inventory-runtime-checks.md) records actual results and warnings.
 
 The simulation-domain pocket/access/closure/packing services, native definitions, physical masks, kit identity and save schema **15** are unchanged. UI segments/highlights are reconstructed from presentation registration. World characters still use baked art.
 
-Qualified registrations are the front jacket chest pocket and front trouser hip/cargo pockets. Shirt pockets, rear trouser pockets, additional backpack compartments, arbitrary body variants, animated flaps, automatic source segmentation and world wardrobe composition remain future work. Each later segment must link to an actual region and respect the same access/closure/handling rules.
+Qualified registrations are the front jacket chest pocket, front trouser hip/cargo pockets and backpack main/side on the actual bag side. Shirt pockets, rear trouser pockets, additional backpack compartments beyond main/side, arbitrary body variants, animated flaps, automatic source segmentation and world wardrobe composition remain future work. Each later segment must link to an actual region and respect the same access/closure/handling rules.
 
 ```sh
+python3 tools/run_spatial_scene.py --pack-pocket-smoke work/preview/spatial-scene/pack-pocket.png
 python3 tools/run_spatial_scene.py --pocket-smoke work/preview/spatial-scene/paperdoll-pocket.png
 python3 tools/run_spatial_scene.py --inventory-smoke work/preview/spatial-scene/paperdoll-pocket-full.png
 python3 -m unittest discover -s tests -p test_wiki_items.py

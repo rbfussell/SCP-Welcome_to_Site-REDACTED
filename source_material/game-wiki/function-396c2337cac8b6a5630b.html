@@ -28,7 +28,7 @@ texture.GetSize</pre></details><h2>Candidate incoming calls</h2><ul><li><a href=
                 : layer.ItemId is not null &amp;&amp; layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;
             foreach (var part in Parts(layer, side))
             {
-                var partTint = storage is { } target &amp;&amp; target.Owner == layer.ItemId &amp;&amp; part.DropRegion == target.Region
+                var partTint = storage is { Pocket: null } target &amp;&amp; target.Owner == layer.ItemId &amp;&amp; part.DropRegion == target.Region
                     ? storageAllowed ? new Color(.6f, 1.5f, .75f) : new Color(1.6f, .5f, .45f) : tint;
                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
                 if (layer.Mounted is { } mounted)

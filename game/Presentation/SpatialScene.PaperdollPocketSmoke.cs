@@ -64,6 +64,7 @@ public partial class SpatialScene
         await InventoryCapture("-paperdoll-pocket-covered");
         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect("avatar-shirt"); await InventoryFrames();
         await RunPaperdollTrouserPocketSmoke();
+        await RunPaperdollPackPocketSmoke();
         GD.Print("PAPERDOLL_POCKET_SMOKE_PASS: source-local chest segment, alpha hover, paid double-click/restore, correct fastening menu, exact storage, both jacket states, rear exclusion and front-pack occlusion.");
     }
 }

@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.PaperdollPackPocketSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.PaperdollPackPocketSmoke.cs</h1><p>game/Presentation/SpatialScene.PaperdollPackPocketSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-d1a8f288e5c02fdb2fc1.html">SpatialScene.RunPaperdollPackPocketSmoke</a> · line 10</li><li><a href="function-17e0a9dcabebb82bdee5.html">SpatialScene.Check</a> · line 13</li><li><a href="function-1a7a93872e7424d66c61.html">SpatialScene.Finish</a> · line 14</li><li><a href="function-b12d1dd8e0510ca8678e.html">SpatialScene.Act</a> · line 20</li><li><a href="function-06e01315bc699f0e56b2.html">SpatialScene.Click</a> · line 21</li><li><a href="function-79edefbd6c3a306425ef.html">SpatialScene.Flip</a> · line 22</li><li><a href="function-ce0f8912867278641e43.html">SpatialScene.Target</a> · line 23</li><li><a href="function-39aec1e849d2925b5f0e.html">SpatialScene.Menu</a> · line 36</li><li><a href="function-467dfa642bcde4e9b897.html">SpatialScene.Source</a> · line 62</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     /// &lt;summary&gt;Worn bag segments address independent real closures on either mount, without treating harnesses as storage.&lt;/summary&gt;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     private async Task RunPaperdollPackPocketSmoke()</span>
+<span id="L11"><a class="line" href="#L11">11</a>     {</span>
+<span id="L12"><a class="line" href="#L12">12</a>         var sim = _simulation; var panel = _hud.Inventory; var proof = panel.PaperdollProof; var surface = proof.Surface; var original = sim.Save();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string message) { if (!ok) throw new InvalidOperationException(&quot;Pack pocket: &quot; + message); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         async Task Finish()</span>
+<span id="L15"><a class="line" href="#L15">15</a>         {</span>
+<span id="L16"><a class="line" href="#L16">16</a>             var deadline = Time.GetTicksMsec() + (ulong)(sim.Inventory.Pending?.RemainingMs ?? 0) + 5000;</span>
+<span id="L17"><a class="line" href="#L17">17</a>             while ((sim.Inventory.Pending is not null || sim.Inventory.SecuringRemaining != 0) &amp;&amp; Time.GetTicksMsec() &lt; deadline) await InventoryFrames(1);</span>
+<span id="L18"><a class="line" href="#L18">18</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Inventory.SecuringRemaining == 0, &quot;paid work timed out&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L19"><a class="line" href="#L19">19</a>         }</span>
+<span id="L20"><a class="line" href="#L20">20</a>         async Task Act(InventoryRequest request) { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }</span>
+<span id="L21"><a class="line" href="#L21">21</a>         void Click(Vector2 at, bool twice = false, MouseButton button = MouseButton.Left) { Input.WarpMouse(at); InventoryClick(at, twice, button); }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         async Task Flip() { Click(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames(); }</span>
+<span id="L23"><a class="line" href="#L23">23</a>         Vector2 Target(string region, string owner = &quot;avatar-backpack&quot;)</span>
+<span id="L24"><a class="line" href="#L24">24</a>         {</span>
+<span id="L25"><a class="line" href="#L25">25</a>             var bounds = proof.Art.Bounds(surface.Size);</span>
+<span id="L26"><a class="line" href="#L26">26</a>             for (var y = .24f; y &lt; .51f; y += .003f)</span>
+<span id="L27"><a class="line" href="#L27">27</a>             for (var x = .24f; x &lt; .82f; x += .003f)</span>
+<span id="L28"><a class="line" href="#L28">28</a>             {</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 var global = (surface.GlobalPosition + bounds.Position + new Vector2(x, y) * bounds.Size).Round();</span>
+<span id="L30"><a class="line" href="#L30">30</a>                 var at = global - surface.GlobalPosition;</span>
+<span id="L31"><a class="line" href="#L31">31</a>                 if (new[] { Vector2.Zero, Vector2.Left, Vector2.Right, Vector2.Up, Vector2.Down }.All(offset =&gt;</span>
+<span id="L32"><a class="line" href="#L32">32</a>                     proof.Art.StorageTarget(sim, proof.Side, surface.Size, at + offset) is { Pocket: not null } p &amp;&amp; p.Owner == owner &amp;&amp; p.Region == region)) return global;</span>
+<span id="L33"><a class="line" href="#L33">33</a>             }</span>
+<span id="L34"><a class="line" href="#L34">34</a>             throw new InvalidOperationException(&quot;Pack pocket: missing &quot; + region + &quot; on &quot; + proof.Side);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         }</span>
+<span id="L36"><a class="line" href="#L36">36</a>         Button[] Menu() =&gt; panel.GetChildren().OfType&lt;PanelContainer&gt;().Last().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().ToArray();</span>
+<span id="L37"><a class="line" href="#L37">37</a>         await Flip();</span>
+<span id="L38"><a class="line" href="#L38">38</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot; })</span>
+<span id="L39"><a class="line" href="#L39">39</a>         {</span>
+<span id="L40"><a class="line" href="#L40">40</a>             if (sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, region)) await Act(new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: region));</span>
+<span id="L41"><a class="line" href="#L41">41</a>             var target = Target(region); var before = sim.Save();</span>
+<span id="L42"><a class="line" href="#L42">42</a>             // A native pointer motion dismisses a tooltip left up during paid closure work.</span>
+<span id="L43"><a class="line" href="#L43">43</a>             Input.WarpMouse(target);</span>
+<span id="L44"><a class="line" href="#L44">44</a>             using (var motion = new InputEventMouseMotion { Position = target, GlobalPosition = target }) GetViewport().PushInput(motion);</span>
+<span id="L45"><a class="line" href="#L45">45</a>             await InventoryFrames(4);</span>
+<span id="L46"><a class="line" href="#L46">46</a>             Check(surface.HoveredPocket is { Owner: &quot;avatar-backpack&quot; } p &amp;&amp; p.Region == region &amp;&amp; sim.Save() == before, &quot;hover mismatch: expected &quot; + region + &quot;, actual &quot; + surface.HoveredPocket?.Region + &quot;, state changed=&quot; + (sim.Save() != before));</span>
+<span id="L47"><a class="line" href="#L47">47</a>             await InventoryCapture(&quot;-pack-pocket-&quot; + region);</span>
+<span id="L48"><a class="line" href="#L48">48</a>             Click(target, button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L49"><a class="line" href="#L49">49</a>             var verb = region == &quot;main&quot; ? &quot;Unzip&quot; : &quot;Unbuckle&quot;;</span>
+<span id="L50"><a class="line" href="#L50">50</a>             Check(Menu().Any(b =&gt; b.Text == verb) &amp;&amp; !Menu().Any(b =&gt; b.Text == (region == &quot;main&quot; ? &quot;Unbuckle&quot; : &quot;Unzip&quot;)), &quot;menu selected wrong fastening&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>             Click(new(600, 55)); await InventoryFrames();</span>
+<span id="L52"><a class="line" href="#L52">52</a>             Click(target, true); await InventoryFrames();</span>
+<span id="L53"><a class="line" href="#L53">53</a>             Check(sim.Save() == before &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, region), &quot;paused opening changed closure state&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>             sim.ManualPause = false; Click(target, true);</span>
+<span id="L55"><a class="line" href="#L55">55</a>             Check(sim.Inventory.Pending?.Request is { Kind: InventoryActionKind.Open, RegionId: var r } &amp;&amp; r == region</span>
+<span id="L56"><a class="line" href="#L56">56</a>                 &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, region), &quot;opening bypassed paid work&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>             var pending = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L58"><a class="line" href="#L58">58</a>             clone.Restore(pending); Check(clone.Save() == pending, &quot;paid closure did not restore exactly&quot;); await Finish();</span>
+<span id="L59"><a class="line" href="#L59">59</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, region), &quot;opened wrong contents trail&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         }</span>
+<span id="L61"><a class="line" href="#L61">61</a>         await Act(sim.GroundDropRequest(&quot;spare-dressing&quot;));</span>
+<span id="L62"><a class="line" href="#L62">62</a>         Vector2 Source()</span>
+<span id="L63"><a class="line" href="#L63">63</a>         {</span>
+<span id="L64"><a class="line" href="#L64">64</a>             var item = sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;spare-dressing&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>             var grid = panel.FindGrid(item.Placement.ParentId, item.Placement.RegionId);</span>
+<span id="L66"><a class="line" href="#L66">66</a>             return grid.GlobalPosition + new Vector2(1 + item.Placement.X * grid.CellPixels + 8, 44 + item.Placement.Y * grid.CellPixels + 8);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         }</span>
+<span id="L68"><a class="line" href="#L68">68</a>         await Act(new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;side&quot;));</span>
+<span id="L69"><a class="line" href="#L69">69</a>         var beforeDrop = sim.Save();</span>
+<span id="L70"><a class="line" href="#L70">70</a>         await InventoryDrag(Source(), Target(&quot;side&quot;), async () =&gt;</span>
+<span id="L71"><a class="line" href="#L71">71</a>         { Check(surface.StorageTarget?.Region == &quot;side&quot; &amp;&amp; surface.StoragePreview?.Allowed == false &amp;&amp; surface.DropPreview is null, &quot;closed side fell through to main or fitting&quot;); await InventoryFrames(); });</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(sim.Save() == beforeDrop, &quot;closed side release changed state&quot;);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         await Act(new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;side&quot;));</span>
+<span id="L74"><a class="line" href="#L74">74</a>         await InventoryDrag(Source(), Target(&quot;side&quot;), async () =&gt;</span>
+<span id="L75"><a class="line" href="#L75">75</a>         {</span>
+<span id="L76"><a class="line" href="#L76">76</a>             Check(surface.StorageTarget is { Owner: &quot;avatar-backpack&quot;, Region: &quot;side&quot;, Pocket: not null } &amp;&amp; surface.StoragePreview?.Allowed == true, &quot;drop missed side pocket&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>             await InventoryCapture(&quot;-pack-pocket-side-drop&quot;); sim.ManualPause = false;</span>
+<span id="L78"><a class="line" href="#L78">78</a>         });</span>
+<span id="L79"><a class="line" href="#L79">79</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.AutoPlace</span>
+<span id="L80"><a class="line" href="#L80">80</a>             &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;spare-dressing&quot;).Placement.ParentId.StartsWith(&quot;ground:&quot;, StringComparison.Ordinal), &quot;drop bypassed paid source retention&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         await Finish();</span>
+<span id="L82"><a class="line" href="#L82">82</a>         Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;spare-dressing&quot;).Placement is { ParentId: &quot;avatar-backpack&quot;, RegionId: &quot;side&quot; }, &quot;drop went to main instead of side&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         await Flip();</span>
+<span id="L84"><a class="line" href="#L84">84</a>         var boundsFront = proof.Art.Bounds(surface.Size);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         Check(proof.Art.StorageTarget(sim, &quot;front&quot;, surface.Size, boundsFront.Position + new Vector2(.28f, .3f) * boundsFront.Size)?.Owner != &quot;avatar-backpack&quot;, &quot;harness became a container target&quot;);</span>
+<span id="L86"><a class="line" href="#L86">86</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));</span>
+<span id="L87"><a class="line" href="#L87">87</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot; })</span>
+<span id="L88"><a class="line" href="#L88">88</a>         { Click(Target(region), true); await InventoryFrames(); Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, region), &quot;front mount lost compartment identity&quot;); }</span>
+<span id="L89"><a class="line" href="#L89">89</a>         Input.WarpMouse(Target(&quot;main&quot;)); await InventoryFrames(); await InventoryCapture(&quot;-pack-pocket-front-main&quot;);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;back&quot;)));</span>
+<span id="L91"><a class="line" href="#L91">91</a>         await Act(new(InventoryActionKind.Move, &quot;spare-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));</span>
+<span id="L92"><a class="line" href="#L92">92</a>         Click(Target(&quot;side&quot;, &quot;spare-backpack&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L93"><a class="line" href="#L93">93</a>         Check(panel.SelectedItem == &quot;spare-backpack&quot;, &quot;two packs confused compartment owner&quot;);</span>
+<span id="L94"><a class="line" href="#L94">94</a>         Click(new(600, 55)); await InventoryFrames();</span>
+<span id="L95"><a class="line" href="#L95">95</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect(&quot;avatar-shirt&quot;); await InventoryFrames();</span>
+<span id="L96"><a class="line" href="#L96">96</a>         GD.Print(&quot;PAPERDOLL_PACK_POCKET_SMOKE_PASS: main/side contours, independent zipper/buckle menus, paused/paid opening and restore, side refusal/paid storage, harness exclusion, both mounting sides and two pack identities.&quot;);</span>
+<span id="L97"><a class="line" href="#L97">97</a>     }</span>
+<span id="L98"><a class="line" href="#L98">98</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
