@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPaperdollArt.MountTargets | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.MountTargets</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypaperdollart-drop-cs.html#L60">game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:60</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal IEnumerable&lt;PaperdollMountTarget&gt; MountTargets(SpatialSimulation sim, string side)</code></pre><h2>Source documentation</h2><pre>/// &lt;summary&gt;Only registered, visible providers offer targets. Saved local cells remain the physical authority.&lt;/summary&gt;</pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-11abfa8796964d4e1f20.html">InventoryState.Region</a></li><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-7274b193a9a8b15b673e.html">InventoryGrid.Region</a></li><li><a href="function-7d1a55636251f9e995fe.html">InventoryPaperdollArt.Opaque</a></li><li><a href="function-91f463fa8046959b4b81.html">PaperdollMosaic.Region</a></li><li><a href="function-a63342796dc9c9ed33a3.html">InventoryPaperdollArt.Layers</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-ceb53591e820b4cda7ea.html">InventoryPaperdollArt.HeadOpaque</a></li><li><a href="function-d30e0eaa1bbedc457820.html">InventoryAttachmentFrames.RelativePose</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Layers
+layers.Where
+state.DiagnosticItems.Single
+_manifest.Bindings.SingleOrDefault
+state.Region
+state.Definition(root).Wear!.Mounts.Single
+state.Definition
+InventoryAttachmentFrames.RelativePose
+(state.Definition(id).Regions ?? []).Where
+BodyFitGeometry.Transform
+layers.SkipWhile(l =&gt; l != layer).Skip(1).Where
+layers.SkipWhile(l =&gt; l != layer).Skip
+layers.SkipWhile
+HeadOpaque
+later.Any
+Opaque
+Array.IndexOf</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-24b62cc41812cc31effe.html">SpatialScene.RunPaperdollDropSmoke</a></li><li><a href="function-b2539fbf826da03510ee.html">InventoryPaperdollArt.AttachmentDrop</a></li><li><a href="function-e283f174507acfa4efd9.html">SpatialScene.Mount</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li><li><a href="type-inventoryhierarchy.html">InventoryHierarchy</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdollmounttarget.html">PaperdollMountTarget</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>internal IEnumerable&lt;PaperdollMountTarget&gt; MountTargets(SpatialSimulation sim, string side)
+    {
+        var state = sim.Inventory; var layers = Layers(sim);
+        foreach (var layer in layers.Where(l =&gt; l.ItemId is not null))
+        {
+            var id = layer.ItemId!; var root = id;
+            for (var depth = 0; depth &lt; InventoryHierarchy.MaxDepth; depth++)
+            {
+                var item = state.DiagnosticItems.Single(i =&gt; i.Id == root);
+                if (item.Placement.AttachmentPose is null) break;
+                root = item.Placement.ParentId;
+            }
+            var rootItem = state.DiagnosticItems.Single(i =&gt; i.Id == root);
+            var binding = _manifest.Bindings.SingleOrDefault(b =&gt; b.Definition == rootItem.DefinitionId);
+            if (binding?.AttachmentPlane is not { } plane) continue;
+            var slot = state.Region(rootItem.Placement.ParentId, rootItem.Placement.RegionId).MountSlot;
+            var surface = layer.Mounted?.Surface ?? state.Definition(root).Wear!.Mounts.Single(m =&gt; m.Slot == slot).BodySurface ?? &quot;front&quot;;
+            var pose = InventoryAttachmentFrames.RelativePose(state, id, root)!;
+            foreach (var region in (state.Definition(id).Regions ?? []).Where(r =&gt; r.Attachment is not null))
+            {
+                var offered = region.Attachment!;
+                if ((offered.Surface == &quot;mounted&quot; ? surface : offered.Surface) != side) continue;
+                foreach (var cell in offered.Cells)
+                {
+                    var resolved = BodyFitGeometry.Transform(cell, pose);
+                    var uv = new Vector2(plane.Origin[0], plane.Origin[1]) + new Vector2(resolved.Q + resolved.R * .5f, resolved.R * .8660254f)
+                        * plane.CellPixels / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);
+                    // Existing descendants may occupy this contact: show a refusal rather than hiding the target.
+                    var later = layers.SkipWhile(l =&gt; l != layer).Skip(1).Where(l =&gt; l.ItemId is { } other
+                        &amp;&amp; InventoryAttachmentFrames.RelativePose(state, other, id) is null);
+                    if (HeadOpaque(side, uv) || later.Any(l =&gt; Opaque(l, side, uv))) continue;
+                    yield return new(id, region.Id, cell, uv, plane.CellPixels, Array.IndexOf(layers, layer));
+                }
+            }
+        }
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:60</footer></main></div></body></html>

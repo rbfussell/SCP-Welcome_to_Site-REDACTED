@@ -19,6 +19,7 @@ Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Sit
 - [Function directory](functions.html): methods, constructors, operators, local functions, properties, and explicit accessors extracted with the C# compiler's syntax parser.
 - [Source files](files.html): complete indexed C# source with stable line anchors.
 - [Design library](documents.html): browsable project design, architecture decisions, reviews, and authoring contracts.
+- [Sprite equipment drops](sprite-equipment-drops.html): free fitting anchors, exposed mounts and paid sprite handling.
 - [Worn attachment chains](worn-attachment-chains.html): composed belt → hook → pouch art, distinct selection and loaded handling.
 - [Worn belt and direct pouch](worn-belt-and-pouch.html): actual provider coordinates, front/back, six turns and paid handling.
 - [Worn-only alpha masks](worn-alpha-masks.html): intact loose artwork and context-specific worn-shoe visibility.

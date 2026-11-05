@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPaperdollArt.AttachmentDrop | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.AttachmentDrop</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypaperdollart-drop-cs.html#L96">game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:96</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal PaperdollDrop? AttachmentDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-350e8f37f529bc4a2ec5.html">SpatialSimulation.PreviewAttachment</a></li><li><a href="function-400eeea8cb0959dc6f06.html">InventoryPaperdollArt.Bounds</a></li><li><a href="function-59b36eaf36971345111c.html">InventoryPaperdollArt.Children</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-7ce272e6ea70d49c5cc3.html">InventoryPaperdollArt.Children</a></li><li><a href="function-7e97e2d67a47d956b0ac.html">InventoryPaperdollArt.Children</a></li><li><a href="function-91d8fac6714bdd42c1a4.html">InventoryAttachmentFrames.Compose</a></li><li><a href="function-a1ae44d8208c679b79d5.html">InventoryPaperdollArt.MountTargets</a></li><li><a href="function-a63342796dc9c9ed33a3.html">InventoryPaperdollArt.Layers</a></li><li><a href="function-b78e67390773ac9694af.html">InventoryState.Children</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Bounds
+MountTargets(sim, side).OrderBy(t =&gt; (bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo(at))
+            .ThenByDescending(t =&gt; t.Order).ThenBy(t =&gt; t.Owner, StringComparer.Ordinal).FirstOrDefault
+MountTargets(sim, side).OrderBy(t =&gt; (bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo(at))
+            .ThenByDescending(t =&gt; t.Order).ThenBy
+MountTargets(sim, side).OrderBy(t =&gt; (bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo(at))
+            .ThenByDescending
+MountTargets(sim, side).OrderBy
+MountTargets
+(bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo
+(bounds.Position + target.Origin * bounds.Size).DistanceTo
+sim.PreviewAttachment
+Layers(sim).Single
+Layers
+(_manifest.Attachments ?? []).SingleOrDefault
+sim.Inventory.Definition
+layers.Add
+(sim.Inventory.Definition(parent).Regions ?? []).Where
+sim.Inventory.Children
+InventoryAttachmentFrames.Compose
+Children
+layers.AddRange
+layers.ToArray</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-24b62cc41812cc31effe.html">SpatialScene.RunPaperdollDropSmoke</a></li><li><a href="function-7b7c40c36d35972e7cce.html">InventoryPaperdollSurface.PreviewDrop</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodypose.html">BodyPose</a></li><li><a href="type-inventoryattachmentframes.html">InventoryAttachmentFrames</a></li><li><a href="type-inventoryhierarchy.html">InventoryHierarchy</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdolldrop.html">PaperdollDrop</a></li><li><a href="type-paperdolllayer.html">PaperdollLayer</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>internal PaperdollDrop? AttachmentDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)
+    {
+        var bounds = Bounds(size);
+        var target = MountTargets(sim, side).OrderBy(t =&gt; (bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo(at))
+            .ThenByDescending(t =&gt; t.Order).ThenBy(t =&gt; t.Owner, StringComparer.Ordinal).FirstOrDefault();
+        if (target is null || (bounds.Position + target.Origin * bounds.Size).DistanceTo(at) &gt; target.Step * bounds.Size.X / _manifest.CanvasSize[0] / 1.7320508f) return null;
+        var preview = sim.PreviewAttachment(id, target.Owner, target.Region, new(target.Cell.Q, target.Cell.R, rotation));
+        var owner = Layers(sim).Single(l =&gt; l.ItemId == target.Owner);
+        var inheritedRotation = owner.Mounted?.Rotation ?? 0;
+        var art = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == sim.Inventory.Definition(id).Id &amp;&amp; b.Surface == side);
+        var layers = new List&lt;PaperdollLayer&gt;();
+        if (art is not null)
+        {
+            var baseRotation = (inheritedRotation + rotation) % 6;
+            layers.Add(new(id, art.Column, new(target.Origin, new(art.Anchor[0], art.Anchor[1]), baseRotation, side)));
+            IEnumerable&lt;PaperdollLayer&gt; Children(string parent, BodyPose parentPose, string inheritedSide, int depth)
+            {
+                if (depth &gt;= InventoryHierarchy.MaxDepth) yield break;
+                foreach (var region in (sim.Inventory.Definition(parent).Regions ?? []).Where(r =&gt; r.Attachment is not null))
+                foreach (var child in sim.Inventory.Children(parent, region.Id))
+                {
+                    var childSide = region.Attachment!.Surface == &quot;mounted&quot; ? inheritedSide : region.Attachment.Surface;
+                    var childArt = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == child.DefinitionId &amp;&amp; b.Surface == childSide);
+                    if (childArt is null || child.Placement.AttachmentPose is not { } local) continue;
+                    var pose = InventoryAttachmentFrames.Compose(parentPose, local);
+                    var uv = target.Origin + new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * target.Step
+                        / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);
+                    yield return new(child.Id, childArt.Column, new(uv, new(childArt.Anchor[0], childArt.Anchor[1]), pose.Rotation, childSide));
+                    foreach (var nested in Children(child.Id, pose, childSide, depth + 1)) yield return nested;
+                }
+            }
+            layers.AddRange(Children(id, new(0, 0, baseRotation), side, 0));
+        }
+        return new(preview.Request, preview.Handling, layers.ToArray(), target.Origin);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:96</footer></main></div></body></html>

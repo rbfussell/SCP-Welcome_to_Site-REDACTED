@@ -21,7 +21,7 @@ public partial class InventoryPaperdollProof : VBoxContainer
         Surface = new InventoryPaperdollSurface { Proof = this, CustomMinimumSize = new(234, 350), TextureFilter = TextureFilterEnum.Nearest }; AddChild(Surface);
         Flip = InventoryPanel.Button(this, "Front · flip", () => { Side = Side == "front" ? "back" : "front"; Surface.ClearHover(); Refresh(); });
         Jacket = InventoryPanel.Button(this, "Jacket", () => { if (_jacket is not null) Panel.ToggleClosure(_jacket); });
-        InventoryPanel.Label(this, "Click selects · double-click inspects\nRight-click actions · fit/move in hex view", 11);
+        InventoryPanel.Label(this, "Click selects · double-click inspects\nDrag to move · drop to fit/mount", 11);
         _limits = InventoryPanel.Label(this, "", 11); _limits.AutowrapMode = TextServer.AutowrapMode.WordSmart; _limits.CustomMinimumSize = new(234, 95);
         Refresh();
     }
@@ -52,28 +52,44 @@ public partial class InventoryPaperdollSurface : Control
 {
     public InventoryPaperdollProof Proof { get; set; } = null!;
     internal string? Hovered { get; private set; }
+    private string? _pressedItem;
     private Shader? _cutoutShader;
     private ShaderMaterial? _cutoutMaterial;
     internal string? Pick(Vector2 at) => Proof.Art.Pick(Proof.Panel.Simulation, Proof.Side, Size, at);
-    internal void ClearHover() { Hovered = null; TooltipText = ""; MouseDefaultCursorShape = CursorShape.Arrow; QueueRedraw(); }
-    public override void _Ready() { MouseFilter = MouseFilterEnum.Stop;
+    internal void ClearHover() { ClearDrop(); _pressedItem = null; Hovered = null; TooltipText = ""; MouseDefaultCursorShape = CursorShape.Arrow; QueueRedraw(); }
+    public override void _Ready() { MouseFilter = MouseFilterEnum.Stop; ClipContents = true;
         _cutoutShader = new Shader { Code = "shader_type canvas_item; void fragment() { if (COLOR.a <= 0.1) { discard; } }" };
         _cutoutMaterial = new ShaderMaterial { Shader = _cutoutShader }; Material = _cutoutMaterial;
         MouseExited += ClearHover; }
     public override void _ExitTree() { Material = null; _cutoutMaterial?.Dispose(); _cutoutShader?.Dispose(); }
     public override void _Process(double delta)
     {
-        if (!IsVisibleInTree() || GetViewport().GuiGetHoveredControl() != this) return;
+        if (!IsVisibleInTree() || GetViewport().GuiGetHoveredControl() != this || GetViewport().GuiIsDragging()) return;
         Hovered = Pick(GetLocalMousePosition());
         TooltipText = Hovered is { } id ? Proof.Panel.Describe(id) + "\n" + Proof.Panel.Simulation.InventoryMoveAccess(id).Reason : "Reference body / visual mosaic or transparent space.";
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }
-    public override void _Draw() => Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem);
+    public override void _Draw()
+    { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem);
+        if (DropPreview is { } drop) Proof.Art.DrawDrop(this, Proof.Side, drop); }
     public override void _GuiInput(InputEvent e)
     {
-        if (e is not InputEventMouseButton { Pressed: true } mouse || Pick(mouse.Position) is not { } id) return;
-        if (mouse.ButtonIndex == MouseButton.Left) { Proof.Panel.Select(id); if (mouse.DoubleClick) Proof.Panel.Inspect(id); }
+        if (e is not InputEventMouseButton mouse) return;
+        if (mouse.ButtonIndex == MouseButton.Left) _pressedItem = mouse.Pressed ? Pick(mouse.Position) : null;
+        if (!mouse.Pressed || Pick(mouse.Position) is not { } id) return;
+        if (mouse.ButtonIndex == MouseButton.Left) { _pressedItem = id; Proof.Panel.Select(id); if (mouse.DoubleClick) Proof.Panel.Inspect(id); }
         else if (mouse.ButtonIndex == MouseButton.Right) Proof.Panel.Context(id, null, GetGlobalMousePosition());
         AcceptEvent();
+    }
+    public override void _Notification(int what)
+    { if (what == NotificationDragEnd) { _pressedItem = null; ClearDrop(); } }
+    public override Variant _GetDragData(Vector2 atPosition)
+    {
+        if (_pressedItem is not { } id) return default;
+        var access = Proof.Panel.Simulation.InventoryMoveAccess(id);
+        if (!access.Allowed) { Proof.Panel.ShowQuote(new(false, access.Reason, 0, 0)); return default; }
+        Proof.Panel.Select(id); Proof.Panel.BeginDrag(id);
+        SetDragPreview(new InventoryDragGhost { Panel = Proof.Panel, ItemId = id, Size = new(90, 110), MouseFilter = MouseFilterEnum.Ignore });
+        return id;
     }
 }

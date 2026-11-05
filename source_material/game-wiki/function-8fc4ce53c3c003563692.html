@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPaperdollArt.BodyDrop | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.BodyDrop</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypaperdollart-drop-cs.html#L33">game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:33</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal PaperdollDrop? BodyDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-0d0ba7986c4637c3a29a.html">OperationState.Definition</a></li><li><a href="function-11abfa8796964d4e1f20.html">InventoryState.Region</a></li><li><a href="function-2d9ff46f0b163ebb2a2e.html">BodyFitCatalog.Body</a></li><li><a href="function-31b6086b3fc38a81d269.html">SpatialSimulation.PreviewBodyFitDrop</a></li><li><a href="function-37dfb8d63d17f8f1226b.html">InventoryWornStack.Region</a></li><li><a href="function-400eeea8cb0959dc6f06.html">InventoryPaperdollArt.Bounds</a></li><li><a href="function-4f3abb1fae94501a4d34.html">InventoryContentValidation.Body</a></li><li><a href="function-5d1361c7c592d320da32.html">EmploymentState.Definition</a></li><li><a href="function-7274b193a9a8b15b673e.html">InventoryGrid.Region</a></li><li><a href="function-7850e5f6be281e029702.html">PlayerEventLog.Add</a></li><li><a href="function-909815f23f75d4ae6e59.html">BodyFitGeometry.Cells</a></li><li><a href="function-91f463fa8046959b4b81.html">PaperdollMosaic.Region</a></li><li><a href="function-924ec9c4bdd81f768fdc.html">IAnomalyWorld.Body</a></li><li><a href="function-9e4e0783148dad787a0f.html">AnomalyWorldAccess.Body</a></li><li><a href="function-b7dd3ba0f42ca3cbf610.html">InventoryPaperdollArt.BodyPolygon</a></li><li><a href="function-bca202a7d335777690e2.html">InventoryState.Definition</a></li><li><a href="function-bcf73aecd0f059a757f5.html">PlayerFeedback.Add</a></li><li><a href="function-bff55eb0adaf5375bc57.html">SimulationTrace.Add</a></li><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a></li><li><a href="function-d79640f531815bbb772d.html">InventoryBodyFit.Shape</a></li><li><a href="function-e6d2474f1200070fd7cf.html">InventoryPaperdollArt.BodyPoint</a></li><li><a href="function-ebd809735cda5bbec197.html">InventoryBodyFitPanel.Body</a></li><li><a href="function-fae937bf0b19c862cd32.html">ObservedTransportSystem.Body</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>InventoryBodyFit.Shape
+Bounds
+sim.Inventory.BodyFits!.Body
+BodyFitGeometry.Cells(body.Rows).Where(c =&gt; Geometry2D.IsPointInPolygon(uv, BodyPolygon(c, side))).ToArray
+BodyFitGeometry.Cells(body.Rows).Where
+BodyFitGeometry.Cells
+Geometry2D.IsPointInPolygon
+BodyPolygon
+cells.OrderBy(c =&gt; BodyPoint(c, side).DistanceSquaredTo(uv)).First
+cells.OrderBy
+BodyPoint(c, side).DistanceSquaredTo
+BodyPoint
+sim.Inventory.Definition(id).Wear!.Mounts.FirstOrDefault
+sim.Inventory.Definition
+sim.PreviewBodyFitDrop
+sim.Inventory.Definition(id).Wear!.Mounts.Single
+sim.Inventory.Region
+_manifest.Bindings.SingleOrDefault
+sim.Inventory.DiagnosticItems.Single
+mounts.TryGetValue
+layers.Add
+layers.ToArray</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-24b62cc41812cc31effe.html">SpatialScene.RunPaperdollDropSmoke</a></li><li><a href="function-7b7c40c36d35972e7cce.html">InventoryPaperdollSurface.PreviewDrop</a></li></ul><h2>Related types</h2><ul><li><a href="type-bodyfitgeometry.html">BodyFitGeometry</a></li><li><a href="type-bodypose.html">BodyPose</a></li><li><a href="type-geometry.html">Geometry</a></li><li><a href="type-inventorybodyfit.html">InventoryBodyFit</a></li><li><a href="type-inventorypacking-shape.html">Shape</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdolldrop.html">PaperdollDrop</a></li><li><a href="type-paperdolllayer.html">PaperdollLayer</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Implementation</h2><pre><code>internal PaperdollDrop? BodyDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)
+    {
+        if (_manifest.BodyPlane is null || InventoryBodyFit.Shape(sim.Inventory, id) is not { } shape) return null;
+        var uv = (at - Bounds(size).Position) / Bounds(size).Size;
+        var body = sim.Inventory.BodyFits!.Body(_manifest.BodyFamily);
+        var cells = BodyFitGeometry.Cells(body.Rows).Where(c =&gt; Geometry2D.IsPointInPolygon(uv, BodyPolygon(c, side))).ToArray();
+        if (cells.Length == 0) return null;
+        var cell = cells.OrderBy(c =&gt; BodyPoint(c, side).DistanceSquaredTo(uv)).First();
+        var mount = sim.Inventory.Definition(id).Wear!.Mounts.FirstOrDefault(m =&gt; m.BodySurface == side)?.Slot;
+        var preview = sim.PreviewBodyFitDrop(id, new(cell.Q, cell.R, rotation), mount);
+        if (preview is null) return null;
+        var quote = preview.Handling;
+        var destination = preview.Request.Destination!;
+        var targetSide = sim.Inventory.Definition(id).Wear!.Mounts.Single(m =&gt; m.Slot == sim.Inventory.Region(destination.ParentId, destination.RegionId).MountSlot).BodySurface;
+        if (targetSide is not null &amp;&amp; targetSide != side) quote = quote with { Allowed = false, Reason = &quot;Flip to the item&#x27;s mount side first.&quot; };
+        var binding = _manifest.Bindings.SingleOrDefault(b =&gt; b.Definition == sim.Inventory.Definition(id).Id);
+        var layers = new List&lt;PaperdollLayer&gt;();
+        if (binding is not null &amp;&amp; destination.BodyPose == shape.DefaultPose)
+        {
+            var item = sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);
+            var column = item.GarmentOpen ? binding.OpenColumn ?? binding.Column : binding.Column;
+            if (binding.MountColumns is { } mounts &amp;&amp; mounts.TryGetValue(mount ?? sim.Inventory.Definition(id).WearSlot!, out var mountedColumn)) column = mountedColumn;
+            layers.Add(new(id, column));
+        }
+        return new(preview.Request, quote, layers.ToArray(), BodyPoint(cell, side), preview.Geometry);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:33</footer></main></div></body></html>

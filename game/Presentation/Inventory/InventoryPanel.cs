@@ -58,7 +58,7 @@ public partial class InventoryPanel : Control
         _bodyFitToggle = Button(bodyViews, "Body fit · hex view", ToggleBodyFit);
         _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         PaperdollProofToggle = Button(bodyViews, "Sprites", TogglePaperdollProof);
-        PaperdollProofToggle.TooltipText = "Upper-body clothing sprite qualification; other gear is explicitly omitted.";
+        PaperdollProofToggle.TooltipText = "Reference-body sprites, free fitting and exposed mounts; unsupported artwork is explicitly omitted.";
         EngineeringSlots = new CheckButton { Text = "Engineering slot controls", FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);
         _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);
         EngineeringSlots.Toggled += _ => { CancelDragPreview(); SetBodyFit(false); };
@@ -160,7 +160,7 @@ public partial class InventoryPanel : Control
     {
         if (DragItemId is not null) GetViewport().GuiCancelDrag();
         DragItemId = null; DropPreview = null;
-        _bodyFit?.Surface?.ClearDropPreview();
+        _bodyFit?.Surface?.ClearDropPreview(); PaperdollProof?.Surface?.ClearDrop();
     }
     internal void BeginDrag(string id)
     {
@@ -177,12 +177,14 @@ public partial class InventoryPanel : Control
     private void RefreshDragPreview()
     {
         if (!Visible || !GetViewport().GuiIsDragging())
-        { DragItemId = null; DropPreview = null; _bodyFit?.Surface?.ClearDropPreview(); return; }
+        { DragItemId = null; DropPreview = null; _bodyFit?.Surface?.ClearDropPreview(); PaperdollProof?.Surface?.ClearDrop(); return; }
         if (GetViewport().GuiGetHoveredControl() is InventoryGrid grid && grid.Panel == this)
             PreviewDrop(grid, grid.GetLocalMousePosition());
         else DropPreview = null;
         if (_bodyFit.Surface.IsDropTarget) _bodyFit.Surface.PreviewDrop(_bodyFit.Surface.GetLocalMousePosition());
         else _bodyFit.Surface.ClearDropPreview();
+        if (PaperdollProof.Surface.IsDropTarget) PaperdollProof.Surface.PreviewDrop(PaperdollProof.Surface.GetLocalMousePosition());
+        else PaperdollProof.Surface.ClearDrop();
     }
     public void Toggle() { if (Visible) Close(); else Open(); }
     public void Select(string id)
@@ -217,14 +219,15 @@ public partial class InventoryPanel : Control
     public void Rotate()
     {
         if (_bodyFit.Visible && DragItemId is null) { _bodyFit.RotateDraft(); return; }
-        if (_bodyFit.Surface.IsDropTarget)
+        if (_bodyFit.Surface.IsDropTarget || PaperdollProof.Surface.IsDropTarget && DragItemId is { } dragged
+            && Simulation.Inventory.Definition(dragged).Attachment is null)
         {
             BodyRotation = (BodyRotation + 1) % 6;
             RefreshDragPreview(); Redraw(this); return;
         }
         if (SelectedItem is null) return;
         var supportHover = GetViewport().GuiGetHoveredControl() is InventoryGearSurface { HasAttachmentSurface: true };
-        if (supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)
+        if (PaperdollProof.Surface.IsDropTarget || supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)
         {
             AttachmentRotation = (AttachmentRotation + 1) % 6;
             RefreshDragPreview(); Redraw(this); return;

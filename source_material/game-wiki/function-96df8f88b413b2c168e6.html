@@ -10,7 +10,7 @@ Panel.ToggleClosure</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2
         Surface = new InventoryPaperdollSurface { Proof = this, CustomMinimumSize = new(234, 350), TextureFilter = TextureFilterEnum.Nearest }; AddChild(Surface);
         Flip = InventoryPanel.Button(this, &quot;Front · flip&quot;, () =&gt; { Side = Side == &quot;front&quot; ? &quot;back&quot; : &quot;front&quot;; Surface.ClearHover(); Refresh(); });
         Jacket = InventoryPanel.Button(this, &quot;Jacket&quot;, () =&gt; { if (_jacket is not null) Panel.ToggleClosure(_jacket); });
-        InventoryPanel.Label(this, &quot;Click selects · double-click inspects\nRight-click actions · fit/move in hex view&quot;, 11);
+        InventoryPanel.Label(this, &quot;Click selects · double-click inspects\nDrag to move · drop to fit/mount&quot;, 11);
         _limits = InventoryPanel.Label(this, &quot;&quot;, 11); _limits.AutowrapMode = TextServer.AutowrapMode.WordSmart; _limits.CustomMinimumSize = new(234, 95);
         Refresh();
     }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollProof.cs:17</footer></main></div></body></html>

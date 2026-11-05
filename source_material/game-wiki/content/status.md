@@ -38,3 +38,5 @@ November 4 belt follow-up: [waist belt/direct pouch sprites](worn-belt-and-pouch
 November 4 transfer follow-up: [independent source/destination views](inventory-transfers.html) retain a backpack or pocket source while choosing other gear. Native direct hook/pouch transfers use normal paid handling with an occupied hand; reach, covering, closure and provider dependencies still invalidate unavailable sources. The later [ground-pile follow-up](ground-storage.html) now supplies bounded current-tile clothes staging.
 
 November 4 ground follow-up: [ground storage and piles](ground-storage.html) add a permanent current-tile dock, square packing with overlapping ordered items, top-only access through nested ancestors, physical drop/pickup and schema-15 continuation with matching schema-14 migration. Floating parent-contained inventory windows remain a proposed production-UI direction.
+
+[Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.

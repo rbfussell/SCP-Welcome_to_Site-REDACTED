@@ -55,3 +55,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
 
 [Ground inventory and piles](ground-storage.html) resolve map-local roots without allocating saved empty containers. Physical location, top-only ancestor access, relative pile order and paid handling remain shared simulation facts. The ground dock is always visible; floating parent-contained windows are only a proposed later UI.
+
+[Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.

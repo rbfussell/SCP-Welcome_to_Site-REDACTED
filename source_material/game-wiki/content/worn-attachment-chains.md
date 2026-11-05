@@ -16,6 +16,8 @@ The hook reuses its unchanged source PNG and authored gear-view anchor, scaled t
 
 [Native chain checks](file-game-presentation-spatialscene-paperdollhooksmoke-cs.html) cover six hook rotations, inherited nested rotation/position, separate alpha targets and inspection, resizing, rear exclusion, paid loaded drop/pickup, exact continuation and omission of packed contents/unsupported roots. See [actual run evidence](doc-docs-reviews-inventory-runtime-checks-md.html); wiki generation does not run gameplay tests.
 
-Only the normal waist root and registered front hook/pouch chain are qualified. Back attachment art, crossed-belt/chest art, arbitrary provider artwork, swinging/depth, sprite-drop fitting, closure animation and world clothing composition remain future work.
+Only the normal waist root and registered front hook/pouch chain are qualified. Back attachment art, crossed-belt/chest art, arbitrary provider artwork, swinging/depth, general fitted sprite generation, closure animation and world clothing composition remain future work.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [direct belt/pouch](worn-belt-and-pouch.html), [full-body proof](full-body-paperdoll.html), [appearance](wearable-appearance.html), [transfers](inventory-transfers.html), [ground piles](ground-storage.html), [asset library](asset-library.html), [items](items.html), [ledger](status.html), [design library](documents.html).
+
+[Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.

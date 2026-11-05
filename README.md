@@ -77,6 +77,7 @@ Browse the [visual item catalog](https://rbfussell.github.io/SCP-Welcome_to_Site
 50. [Independent inventory transfers](docs/48-independent-inventory-transfers.md): retained source compartments, direct pocket-to-mount drags and normal paid handling.
 51. [Ground inventory and piles](docs/49-ground-inventory-and-piles.md): permanent current-tile dock, ordered stacking, top-only access, clothes staging and schema-15 continuation.
 52. [Worn attachment chains](docs/50-worn-attachment-chains.md): composed belt → hook → pouch sprites, distinct alpha selection and loaded handling.
+53. [Sprite equipment drops](docs/51-sprite-equipment-drops.md): free body-hex fitting, exposed mounts and normal paid sprite handling.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic artwork, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 

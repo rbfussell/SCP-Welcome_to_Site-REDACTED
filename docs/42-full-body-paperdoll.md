@@ -55,3 +55,5 @@ Both new PNGs are copied unchanged from built-in imagegen. [Full prompts, source
 Current footwear follow-up: [worn-only alpha masks](45-worn-alpha-masks.md) add source-preserving per-part/view holes for shoes, with shared visual picking and unchanged loose/drag art and physical rules.
 
 Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.
+
+Current November 4 follow-up: [sprite equipment drops](51-sprite-equipment-drops.md) add free body-hex fitting, exposed provider targets and worn-sprite drag sources. Earlier sprite-drop-as-future statements describe the earlier slice. Normal physical checks and schema-15 paid continuation remain authoritative; arbitrary fitted artwork remains unqualified.

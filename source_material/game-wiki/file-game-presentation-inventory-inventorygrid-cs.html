@@ -179,7 +179,8 @@
 <span id="L179"><a class="line" href="#L179">179</a>     {</span>
 <span id="L180"><a class="line" href="#L180">180</a>         // Within a compartment the grid itself draws the exact snapped object; never draw a second offset sprite.</span>
 <span id="L181"><a class="line" href="#L181">181</a>         if (Panel.DropPreview is null &amp;&amp; GetViewport().GuiGetHoveredControl() is not InventoryGearSurface { HasAttachmentSurface: true }</span>
-<span id="L182"><a class="line" href="#L182">182</a>             &amp;&amp; GetViewport().GuiGetHoveredControl() is not InventoryBodyFitSurface)</span>
-<span id="L183"><a class="line" href="#L183">183</a>             InventoryArt.Draw(this, Panel.Simulation.Inventory.Definition(ItemId).Id, new Rect2(-Size / 2, Size).Grow(-3), Panel.Rotated, 0.8f);</span>
-<span id="L184"><a class="line" href="#L184">184</a>     }</span>
-<span id="L185"><a class="line" href="#L185">185</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L182"><a class="line" href="#L182">182</a>             &amp;&amp; GetViewport().GuiGetHoveredControl() is not InventoryBodyFitSurface</span>
+<span id="L183"><a class="line" href="#L183">183</a>             &amp;&amp; GetViewport().GuiGetHoveredControl() is not InventoryPaperdollSurface)</span>
+<span id="L184"><a class="line" href="#L184">184</a>             InventoryArt.Draw(this, Panel.Simulation.Inventory.Definition(ItemId).Id, new Rect2(-Size / 2, Size).Grow(-3), Panel.Rotated, 0.8f);</span>
+<span id="L185"><a class="line" href="#L185">185</a>     }</span>
+<span id="L186"><a class="line" href="#L186">186</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

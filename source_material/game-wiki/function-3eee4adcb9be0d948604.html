@@ -50,7 +50,7 @@ scroll.AddChild</pre></details><h2>Candidate incoming calls</h2><ul><li><a href=
         _bodyFitToggle = Button(bodyViews, &quot;Body fit · hex view&quot;, ToggleBodyFit);
         _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         PaperdollProofToggle = Button(bodyViews, &quot;Sprites&quot;, TogglePaperdollProof);
-        PaperdollProofToggle.TooltipText = &quot;Upper-body clothing sprite qualification; other gear is explicitly omitted.&quot;;
+        PaperdollProofToggle.TooltipText = &quot;Reference-body sprites, free fitting and exposed mounts; unsupported artwork is explicitly omitted.&quot;;
         EngineeringSlots = new CheckButton { Text = &quot;Engineering slot controls&quot;, FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);
         _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);
         EngineeringSlots.Toggled += _ =&gt; { CancelDragPreview(); SetBodyFit(false); };

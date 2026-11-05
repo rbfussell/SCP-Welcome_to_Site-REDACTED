@@ -179,7 +179,8 @@ public partial class InventoryDragGhost : Control
     {
         // Within a compartment the grid itself draws the exact snapped object; never draw a second offset sprite.
         if (Panel.DropPreview is null && GetViewport().GuiGetHoveredControl() is not InventoryGearSurface { HasAttachmentSurface: true }
-            && GetViewport().GuiGetHoveredControl() is not InventoryBodyFitSurface)
+            && GetViewport().GuiGetHoveredControl() is not InventoryBodyFitSurface
+            && GetViewport().GuiGetHoveredControl() is not InventoryPaperdollSurface)
             InventoryArt.Draw(this, Panel.Simulation.Inventory.Definition(ItemId).Id, new Rect2(-Size / 2, Size).Grow(-3), Panel.Rotated, 0.8f);
     }
 }

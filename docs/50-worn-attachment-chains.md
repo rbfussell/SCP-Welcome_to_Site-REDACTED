@@ -31,3 +31,5 @@ python3 -m unittest discover -s tests -p test_wiki_items.py
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+Current November 4 follow-up: [sprite equipment drops](51-sprite-equipment-drops.md) add free body-hex fitting, exposed provider targets and worn-sprite drag sources. Earlier sprite-drop-as-future statements describe the earlier slice. Normal physical checks and schema-15 paid continuation remain authoritative; arbitrary fitted artwork remains unqualified.

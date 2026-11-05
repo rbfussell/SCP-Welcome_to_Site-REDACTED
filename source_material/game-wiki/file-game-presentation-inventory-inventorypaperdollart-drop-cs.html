@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.Drop.cs</h1><p>game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-paperdollbodyplane.html">PaperdollBodyPlane</a></li><li><a href="type-paperdollmounttarget.html">PaperdollMountTarget</a></li><li><a href="type-paperdolldrop.html">PaperdollDrop</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-1f311235a8b12ac08e74.html">InventoryPaperdollArt.ValidateBodyPlane</a> · line 12</li><li><a href="function-e6d2474f1200070fd7cf.html">InventoryPaperdollArt.BodyPoint</a> · line 20</li><li><a href="function-b7dd3ba0f42ca3cbf610.html">InventoryPaperdollArt.BodyPolygon</a> · line 26</li><li><a href="function-8fc4ce53c3c003563692.html">InventoryPaperdollArt.BodyDrop</a> · line 33</li><li><a href="function-a1ae44d8208c679b79d5.html">InventoryPaperdollArt.MountTargets</a> · line 60</li><li><a href="function-b2539fbf826da03510ee.html">InventoryPaperdollArt.AttachmentDrop</a> · line 96</li><li><a href="function-7ce272e6ea70d49c5cc3.html">InventoryPaperdollArt.Children</a> · line 111</li><li><a href="function-486339705b0b8aecc480.html">InventoryPaperdollArt.DrawDrop</a> · line 131</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> </span>
+<span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
+<span id="L5"><a class="line" href="#L5">5</a> </span>
+<span id="L6"><a class="line" href="#L6">6</a> internal sealed record PaperdollBodyPlane(float CenterX, float CellWidth, float[] Rows);</span>
+<span id="L7"><a class="line" href="#L7">7</a> internal sealed record PaperdollMountTarget(string Owner, string Region, BodyHex Cell, Vector2 Origin, float Step, int Order);</span>
+<span id="L8"><a class="line" href="#L8">8</a> internal sealed record PaperdollDrop(InventoryRequest Request, InventoryActionQuote Quote, PaperdollLayer[] Layers, Vector2 Anchor, BodyFitResult? Geometry = null);</span>
+<span id="L9"><a class="line" href="#L9">9</a> </span>
+<span id="L10"><a class="line" href="#L10">10</a> internal sealed partial class InventoryPaperdollArt</span>
+<span id="L11"><a class="line" href="#L11">11</a> {</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static void ValidateBodyPlane(PaperdollBodyPlane? plane)</span>
+<span id="L13"><a class="line" href="#L13">13</a>     {</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (plane is null) return;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         if (!float.IsFinite(plane.CenterX) || plane.CenterX is &lt; 0 or &gt; 1 || !float.IsFinite(plane.CellWidth) || plane.CellWidth is &lt;= 0 or &gt; .2f</span>
+<span id="L16"><a class="line" href="#L16">16</a>             || plane.Rows is not { Length: 20 } || plane.Rows.Any(y =&gt; !float.IsFinite(y) || y is &lt; 0 or &gt; 1)</span>
+<span id="L17"><a class="line" href="#L17">17</a>             || !plane.Rows.Zip(plane.Rows.Skip(1)).All(p =&gt; p.First &lt; p.Second))</span>
+<span id="L18"><a class="line" href="#L18">18</a>             throw new InvalidOperationException(&quot;Invalid reference-body fitting projection.&quot;);</span>
+<span id="L19"><a class="line" href="#L19">19</a>     }</span>
+<span id="L20"><a class="line" href="#L20">20</a>     internal Vector2 BodyPoint(BodyHex cell, string side)</span>
+<span id="L21"><a class="line" href="#L21">21</a>     {</span>
+<span id="L22"><a class="line" href="#L22">22</a>         var plane = _manifest.BodyPlane!; var r = Math.Clamp(cell.R, 0, plane.Rows.Length - 1);</span>
+<span id="L23"><a class="line" href="#L23">23</a>         var y = plane.Rows[r] + (cell.R - r) * .05f;</span>
+<span id="L24"><a class="line" href="#L24">24</a>         return new(plane.CenterX + (side == &quot;back&quot; ? -1 : 1) * (cell.Q + cell.R * .5f) * plane.CellWidth, y);</span>
+<span id="L25"><a class="line" href="#L25">25</a>     }</span>
+<span id="L26"><a class="line" href="#L26">26</a>     private Vector2[] BodyPolygon(BodyHex cell, string side)</span>
+<span id="L27"><a class="line" href="#L27">27</a>     {</span>
+<span id="L28"><a class="line" href="#L28">28</a>         var center = BodyPoint(cell, side); var r = Math.Clamp(cell.R, 1, _manifest.BodyPlane!.Rows.Length - 2);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var height = (_manifest.BodyPlane.Rows[r + 1] - _manifest.BodyPlane.Rows[r - 1]) / 3;</span>
+<span id="L30"><a class="line" href="#L30">30</a>         return Enumerable.Range(0, 6).Select(i =&gt; center + new Vector2(Mathf.Cos(Mathf.Pi / 6 + i * Mathf.Pi / 3)</span>
+<span id="L31"><a class="line" href="#L31">31</a>             * _manifest.BodyPlane.CellWidth / 1.7320508f, Mathf.Sin(Mathf.Pi / 6 + i * Mathf.Pi / 3) * height)).ToArray();</span>
+<span id="L32"><a class="line" href="#L32">32</a>     }</span>
+<span id="L33"><a class="line" href="#L33">33</a>     internal PaperdollDrop? BodyDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)</span>
+<span id="L34"><a class="line" href="#L34">34</a>     {</span>
+<span id="L35"><a class="line" href="#L35">35</a>         if (_manifest.BodyPlane is null || InventoryBodyFit.Shape(sim.Inventory, id) is not { } shape) return null;</span>
+<span id="L36"><a class="line" href="#L36">36</a>         var uv = (at - Bounds(size).Position) / Bounds(size).Size;</span>
+<span id="L37"><a class="line" href="#L37">37</a>         var body = sim.Inventory.BodyFits!.Body(_manifest.BodyFamily);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         var cells = BodyFitGeometry.Cells(body.Rows).Where(c =&gt; Geometry2D.IsPointInPolygon(uv, BodyPolygon(c, side))).ToArray();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         if (cells.Length == 0) return null;</span>
+<span id="L40"><a class="line" href="#L40">40</a>         var cell = cells.OrderBy(c =&gt; BodyPoint(c, side).DistanceSquaredTo(uv)).First();</span>
+<span id="L41"><a class="line" href="#L41">41</a>         var mount = sim.Inventory.Definition(id).Wear!.Mounts.FirstOrDefault(m =&gt; m.BodySurface == side)?.Slot;</span>
+<span id="L42"><a class="line" href="#L42">42</a>         var preview = sim.PreviewBodyFitDrop(id, new(cell.Q, cell.R, rotation), mount);</span>
+<span id="L43"><a class="line" href="#L43">43</a>         if (preview is null) return null;</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var quote = preview.Handling;</span>
+<span id="L45"><a class="line" href="#L45">45</a>         var destination = preview.Request.Destination!;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var targetSide = sim.Inventory.Definition(id).Wear!.Mounts.Single(m =&gt; m.Slot == sim.Inventory.Region(destination.ParentId, destination.RegionId).MountSlot).BodySurface;</span>
+<span id="L47"><a class="line" href="#L47">47</a>         if (targetSide is not null &amp;&amp; targetSide != side) quote = quote with { Allowed = false, Reason = &quot;Flip to the item&#x27;s mount side first.&quot; };</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var binding = _manifest.Bindings.SingleOrDefault(b =&gt; b.Definition == sim.Inventory.Definition(id).Id);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var layers = new List&lt;PaperdollLayer&gt;();</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (binding is not null &amp;&amp; destination.BodyPose == shape.DefaultPose)</span>
+<span id="L51"><a class="line" href="#L51">51</a>         {</span>
+<span id="L52"><a class="line" href="#L52">52</a>             var item = sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
+<span id="L53"><a class="line" href="#L53">53</a>             var column = item.GarmentOpen ? binding.OpenColumn ?? binding.Column : binding.Column;</span>
+<span id="L54"><a class="line" href="#L54">54</a>             if (binding.MountColumns is { } mounts &amp;&amp; mounts.TryGetValue(mount ?? sim.Inventory.Definition(id).WearSlot!, out var mountedColumn)) column = mountedColumn;</span>
+<span id="L55"><a class="line" href="#L55">55</a>             layers.Add(new(id, column));</span>
+<span id="L56"><a class="line" href="#L56">56</a>         }</span>
+<span id="L57"><a class="line" href="#L57">57</a>         return new(preview.Request, quote, layers.ToArray(), BodyPoint(cell, side), preview.Geometry);</span>
+<span id="L58"><a class="line" href="#L58">58</a>     }</span>
+<span id="L59"><a class="line" href="#L59">59</a>     /// &lt;summary&gt;Only registered, visible providers offer targets. Saved local cells remain the physical authority.&lt;/summary&gt;</span>
+<span id="L60"><a class="line" href="#L60">60</a>     internal IEnumerable&lt;PaperdollMountTarget&gt; MountTargets(SpatialSimulation sim, string side)</span>
+<span id="L61"><a class="line" href="#L61">61</a>     {</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var state = sim.Inventory; var layers = Layers(sim);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         foreach (var layer in layers.Where(l =&gt; l.ItemId is not null))</span>
+<span id="L64"><a class="line" href="#L64">64</a>         {</span>
+<span id="L65"><a class="line" href="#L65">65</a>             var id = layer.ItemId!; var root = id;</span>
+<span id="L66"><a class="line" href="#L66">66</a>             for (var depth = 0; depth &lt; InventoryHierarchy.MaxDepth; depth++)</span>
+<span id="L67"><a class="line" href="#L67">67</a>             {</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 var item = state.DiagnosticItems.Single(i =&gt; i.Id == root);</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 if (item.Placement.AttachmentPose is null) break;</span>
+<span id="L70"><a class="line" href="#L70">70</a>                 root = item.Placement.ParentId;</span>
+<span id="L71"><a class="line" href="#L71">71</a>             }</span>
+<span id="L72"><a class="line" href="#L72">72</a>             var rootItem = state.DiagnosticItems.Single(i =&gt; i.Id == root);</span>
+<span id="L73"><a class="line" href="#L73">73</a>             var binding = _manifest.Bindings.SingleOrDefault(b =&gt; b.Definition == rootItem.DefinitionId);</span>
+<span id="L74"><a class="line" href="#L74">74</a>             if (binding?.AttachmentPlane is not { } plane) continue;</span>
+<span id="L75"><a class="line" href="#L75">75</a>             var slot = state.Region(rootItem.Placement.ParentId, rootItem.Placement.RegionId).MountSlot;</span>
+<span id="L76"><a class="line" href="#L76">76</a>             var surface = layer.Mounted?.Surface ?? state.Definition(root).Wear!.Mounts.Single(m =&gt; m.Slot == slot).BodySurface ?? &quot;front&quot;;</span>
+<span id="L77"><a class="line" href="#L77">77</a>             var pose = InventoryAttachmentFrames.RelativePose(state, id, root)!;</span>
+<span id="L78"><a class="line" href="#L78">78</a>             foreach (var region in (state.Definition(id).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
+<span id="L79"><a class="line" href="#L79">79</a>             {</span>
+<span id="L80"><a class="line" href="#L80">80</a>                 var offered = region.Attachment!;</span>
+<span id="L81"><a class="line" href="#L81">81</a>                 if ((offered.Surface == &quot;mounted&quot; ? surface : offered.Surface) != side) continue;</span>
+<span id="L82"><a class="line" href="#L82">82</a>                 foreach (var cell in offered.Cells)</span>
+<span id="L83"><a class="line" href="#L83">83</a>                 {</span>
+<span id="L84"><a class="line" href="#L84">84</a>                     var resolved = BodyFitGeometry.Transform(cell, pose);</span>
+<span id="L85"><a class="line" href="#L85">85</a>                     var uv = new Vector2(plane.Origin[0], plane.Origin[1]) + new Vector2(resolved.Q + resolved.R * .5f, resolved.R * .8660254f)</span>
+<span id="L86"><a class="line" href="#L86">86</a>                         * plane.CellPixels / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
+<span id="L87"><a class="line" href="#L87">87</a>                     // Existing descendants may occupy this contact: show a refusal rather than hiding the target.</span>
+<span id="L88"><a class="line" href="#L88">88</a>                     var later = layers.SkipWhile(l =&gt; l != layer).Skip(1).Where(l =&gt; l.ItemId is { } other</span>
+<span id="L89"><a class="line" href="#L89">89</a>                         &amp;&amp; InventoryAttachmentFrames.RelativePose(state, other, id) is null);</span>
+<span id="L90"><a class="line" href="#L90">90</a>                     if (HeadOpaque(side, uv) || later.Any(l =&gt; Opaque(l, side, uv))) continue;</span>
+<span id="L91"><a class="line" href="#L91">91</a>                     yield return new(id, region.Id, cell, uv, plane.CellPixels, Array.IndexOf(layers, layer));</span>
+<span id="L92"><a class="line" href="#L92">92</a>                 }</span>
+<span id="L93"><a class="line" href="#L93">93</a>             }</span>
+<span id="L94"><a class="line" href="#L94">94</a>         }</span>
+<span id="L95"><a class="line" href="#L95">95</a>     }</span>
+<span id="L96"><a class="line" href="#L96">96</a>     internal PaperdollDrop? AttachmentDrop(SpatialSimulation sim, string side, Vector2 size, Vector2 at, string id, int rotation)</span>
+<span id="L97"><a class="line" href="#L97">97</a>     {</span>
+<span id="L98"><a class="line" href="#L98">98</a>         var bounds = Bounds(size);</span>
+<span id="L99"><a class="line" href="#L99">99</a>         var target = MountTargets(sim, side).OrderBy(t =&gt; (bounds.Position + t.Origin * bounds.Size).DistanceSquaredTo(at))</span>
+<span id="L100"><a class="line" href="#L100">100</a>             .ThenByDescending(t =&gt; t.Order).ThenBy(t =&gt; t.Owner, StringComparer.Ordinal).FirstOrDefault();</span>
+<span id="L101"><a class="line" href="#L101">101</a>         if (target is null || (bounds.Position + target.Origin * bounds.Size).DistanceTo(at) &gt; target.Step * bounds.Size.X / _manifest.CanvasSize[0] / 1.7320508f) return null;</span>
+<span id="L102"><a class="line" href="#L102">102</a>         var preview = sim.PreviewAttachment(id, target.Owner, target.Region, new(target.Cell.Q, target.Cell.R, rotation));</span>
+<span id="L103"><a class="line" href="#L103">103</a>         var owner = Layers(sim).Single(l =&gt; l.ItemId == target.Owner);</span>
+<span id="L104"><a class="line" href="#L104">104</a>         var inheritedRotation = owner.Mounted?.Rotation ?? 0;</span>
+<span id="L105"><a class="line" href="#L105">105</a>         var art = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == sim.Inventory.Definition(id).Id &amp;&amp; b.Surface == side);</span>
+<span id="L106"><a class="line" href="#L106">106</a>         var layers = new List&lt;PaperdollLayer&gt;();</span>
+<span id="L107"><a class="line" href="#L107">107</a>         if (art is not null)</span>
+<span id="L108"><a class="line" href="#L108">108</a>         {</span>
+<span id="L109"><a class="line" href="#L109">109</a>             var baseRotation = (inheritedRotation + rotation) % 6;</span>
+<span id="L110"><a class="line" href="#L110">110</a>             layers.Add(new(id, art.Column, new(target.Origin, new(art.Anchor[0], art.Anchor[1]), baseRotation, side)));</span>
+<span id="L111"><a class="line" href="#L111">111</a>             IEnumerable&lt;PaperdollLayer&gt; Children(string parent, BodyPose parentPose, string inheritedSide, int depth)</span>
+<span id="L112"><a class="line" href="#L112">112</a>             {</span>
+<span id="L113"><a class="line" href="#L113">113</a>                 if (depth &gt;= InventoryHierarchy.MaxDepth) yield break;</span>
+<span id="L114"><a class="line" href="#L114">114</a>                 foreach (var region in (sim.Inventory.Definition(parent).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
+<span id="L115"><a class="line" href="#L115">115</a>                 foreach (var child in sim.Inventory.Children(parent, region.Id))</span>
+<span id="L116"><a class="line" href="#L116">116</a>                 {</span>
+<span id="L117"><a class="line" href="#L117">117</a>                     var childSide = region.Attachment!.Surface == &quot;mounted&quot; ? inheritedSide : region.Attachment.Surface;</span>
+<span id="L118"><a class="line" href="#L118">118</a>                     var childArt = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == child.DefinitionId &amp;&amp; b.Surface == childSide);</span>
+<span id="L119"><a class="line" href="#L119">119</a>                     if (childArt is null || child.Placement.AttachmentPose is not { } local) continue;</span>
+<span id="L120"><a class="line" href="#L120">120</a>                     var pose = InventoryAttachmentFrames.Compose(parentPose, local);</span>
+<span id="L121"><a class="line" href="#L121">121</a>                     var uv = target.Origin + new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * target.Step</span>
+<span id="L122"><a class="line" href="#L122">122</a>                         / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
+<span id="L123"><a class="line" href="#L123">123</a>                     yield return new(child.Id, childArt.Column, new(uv, new(childArt.Anchor[0], childArt.Anchor[1]), pose.Rotation, childSide));</span>
+<span id="L124"><a class="line" href="#L124">124</a>                     foreach (var nested in Children(child.Id, pose, childSide, depth + 1)) yield return nested;</span>
+<span id="L125"><a class="line" href="#L125">125</a>                 }</span>
+<span id="L126"><a class="line" href="#L126">126</a>             }</span>
+<span id="L127"><a class="line" href="#L127">127</a>             layers.AddRange(Children(id, new(0, 0, baseRotation), side, 0));</span>
+<span id="L128"><a class="line" href="#L128">128</a>         }</span>
+<span id="L129"><a class="line" href="#L129">129</a>         return new(preview.Request, preview.Handling, layers.ToArray(), target.Origin);</span>
+<span id="L130"><a class="line" href="#L130">130</a>     }</span>
+<span id="L131"><a class="line" href="#L131">131</a>     internal void DrawDrop(Control canvas, string side, PaperdollDrop drop)</span>
+<span id="L132"><a class="line" href="#L132">132</a>     {</span>
+<span id="L133"><a class="line" href="#L133">133</a>         var bounds = Bounds(canvas.Size); var color = drop.Quote.Allowed ? new Color(.5f, 1, .65f, .75f) : new Color(1, .4f, .35f, .75f);</span>
+<span id="L134"><a class="line" href="#L134">134</a>         foreach (var layer in drop.Layers)</span>
+<span id="L135"><a class="line" href="#L135">135</a>         foreach (var part in Parts(layer, side))</span>
+<span id="L136"><a class="line" href="#L136">136</a>         {</span>
+<span id="L137"><a class="line" href="#L137">137</a>             var dest = Destination(part, side); var raster = Raster(layer, part, side);</span>
+<span id="L138"><a class="line" href="#L138">138</a>             if (layer.Mounted is { } mounted) DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, color);</span>
+<span id="L139"><a class="line" href="#L139">139</a>             else canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + dest.Position * bounds.Size, dest.Size * bounds.Size), raster.Source, color);</span>
+<span id="L140"><a class="line" href="#L140">140</a>         }</span>
+<span id="L141"><a class="line" href="#L141">141</a>         if (drop.Geometry is { } geometry)</span>
+<span id="L142"><a class="line" href="#L142">142</a>             foreach (var cell in geometry.Cells)</span>
+<span id="L143"><a class="line" href="#L143">143</a>             {</span>
+<span id="L144"><a class="line" href="#L144">144</a>                 var polygon = BodyPolygon(cell, side).Select(p =&gt; bounds.Position + p * bounds.Size).ToArray();</span>
+<span id="L145"><a class="line" href="#L145">145</a>                 canvas.DrawPolyline(polygon.Append(polygon[0]).ToArray(), color, 1);</span>
+<span id="L146"><a class="line" href="#L146">146</a>             }</span>
+<span id="L147"><a class="line" href="#L147">147</a>         canvas.DrawArc(bounds.Position + drop.Anchor * bounds.Size, 5, 0, Mathf.Tau, 20, color, 2);</span>
+<span id="L148"><a class="line" href="#L148">148</a>     }</span>
+<span id="L149"><a class="line" href="#L149">149</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>InventoryPaperdollArt.DrawDrop | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Function</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.DrawDrop</h1><p><a href="system-presentation.html">Godot presentation and runtime</a> / <a href="file-game-presentation-inventory-inventorypaperdollart-drop-cs.html#L131">game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:131</a></p><p><strong>Declaration kind:</strong> MethodDeclaration. Extracted from current native source; presence does not certify a production feature.</p><h2>Declaration</h2><pre><code>internal void DrawDrop(Control canvas, string side, PaperdollDrop drop)</code></pre><h2>Role in the engine</h2><p>Owns scene lifecycle, input bindings, simulation tick adaptation, sprites, projection, wall cutaways, HUD, inventory windows, OSCP and smoke drivers.</p><p>The source below defines this member’s exact conditions, arguments, effects, and failure paths. The subsystem summary describes its context; it is not an inferred per-function contract.</p><h2>Candidate outgoing calls</h2><p>Syntax-derived links; overloads and dynamic/interface dispatch are not resolved.</p><ul><li><a href="function-400eeea8cb0959dc6f06.html">InventoryPaperdollArt.Bounds</a></li><li><a href="function-4957b651af67e6bb9c50.html">InventoryPaperdollArt.Raster</a></li><li><a href="function-884fca7b1637826341a1.html">InventoryPaperdollArt.Destination</a></li><li><a href="function-95c7d7a795cc6ceb436f.html">InventoryPaperdollArt.Parts</a></li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a></li><li><a href="function-b328616b12cecc02b07c.html">InventoryPaperdollArt.DrawMounted</a></li><li><a href="function-b7dd3ba0f42ca3cbf610.html">InventoryPaperdollArt.BodyPolygon</a></li></ul><details><summary>All invocation expressions, including external calls</summary><pre>Bounds
+Parts
+Destination
+Raster
+DrawMounted
+canvas.DrawTextureRectRegion
+BodyPolygon(cell, side).Select(p =&gt; bounds.Position + p * bounds.Size).ToArray
+BodyPolygon(cell, side).Select
+BodyPolygon
+canvas.DrawPolyline
+polygon.Append(polygon[0]).ToArray
+polygon.Append
+canvas.DrawArc</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-424b14fe24dc6fad3c4b.html">InventoryPaperdollSurface._Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-geometry.html">Geometry</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdolldrop.html">PaperdollDrop</a></li></ul><h2>Implementation</h2><pre><code>internal void DrawDrop(Control canvas, string side, PaperdollDrop drop)
+    {
+        var bounds = Bounds(canvas.Size); var color = drop.Quote.Allowed ? new Color(.5f, 1, .65f, .75f) : new Color(1, .4f, .35f, .75f);
+        foreach (var layer in drop.Layers)
+        foreach (var part in Parts(layer, side))
+        {
+            var dest = Destination(part, side); var raster = Raster(layer, part, side);
+            if (layer.Mounted is { } mounted) DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, color);
+            else canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + dest.Position * bounds.Size, dest.Size * bounds.Size), raster.Source, color);
+        }
+        if (drop.Geometry is { } geometry)
+            foreach (var cell in geometry.Cells)
+            {
+                var polygon = BodyPolygon(cell, side).Select(p =&gt; bounds.Position + p * bounds.Size).ToArray();
+                canvas.DrawPolyline(polygon.Append(polygon[0]).ToArray(), color, 1);
+            }
+        canvas.DrawArc(bounds.Position + drop.Anchor * bounds.Size, 5, 0, Mathf.Tau, 20, color, 2);
+    }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollArt.Drop.cs:131</footer></main></div></body></html>

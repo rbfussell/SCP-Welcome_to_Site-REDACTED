@@ -8,7 +8,7 @@ internal sealed record PaperdollBinding(string Definition, int Column, int? Open
 internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
-    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic, PaperdollAttachmentBinding[]? Attachments = null);
+    PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic, PaperdollAttachmentBinding[]? Attachments = null, PaperdollBodyPlane? BodyPlane = null);
 internal sealed record PaperdollLayer(string? ItemId, int Column, PaperdollMountedArt? Mounted = null);
 
 /// <summary>Registered full-body art fixture. One source/destination transform serves drawing and alpha picking; pixels never grant physical access.</summary>
@@ -25,6 +25,7 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? throw new InvalidOperationException("Missing paperdoll art manifest.");
         Validate(_manifest);
         ValidateAttachments(_manifest);
+        ValidateBodyPlane(_manifest.BodyPlane);
         foreach (var (file, size) in _manifest.Images)
         {
             var texture = GD.Load<Texture2D>("res://Assets/paperdoll-proof/" + file);
