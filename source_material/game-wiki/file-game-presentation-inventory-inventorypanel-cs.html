@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryPanel.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPanel.cs</h1><p>game/Presentation/Inventory/InventoryPanel.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorypanel.html">InventoryPanel</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-e8fed535eed296177937.html">InventoryPanel.Simulation</a> · line 9</li><li><a href="function-1e25091413495b6838f7.html">InventoryPanel.Simulation.get</a> · line 9</li><li><a href="function-70da669a0a487c874d9f.html">InventoryPanel.Simulation.set</a> · line 9</li><li><a href="function-593ffef6e2b43eb9e1dc.html">InventoryPanel.SelectedItem</a> · line 10</li><li><a href="function-67dd7909670d9255debf.html">InventoryPanel.SelectedItem.get</a> · line 10</li><li><a href="function-87dd8b523174a900a8d8.html">InventoryPanel.SelectedItem.set</a> · line 10</li><li><a href="function-86c5014e9a25aec3201e.html">InventoryPanel.Rotated</a> · line 11</li><li><a href="function-6d897dcea4ccdd4a605a.html">InventoryPanel.Rotated.get</a> · line 11</li><li><a href="function-3f8b0d1e6fb857b2d7fe.html">InventoryPanel.Rotated.set</a> · line 11</li><li><a href="function-426593a8b3392f137ae1.html">InventoryPanel.AttachmentRotation</a> · line 12</li><li><a href="function-2b33a2cda45b6ce807c7.html">InventoryPanel.AttachmentRotation.get</a> · line 12</li><li><a href="function-67dc4b3ba36b31bc8b39.html">InventoryPanel.AttachmentRotation.set</a> · line 12</li><li><a href="function-e6fd20cf8833d2c93c21.html">InventoryPanel.BodyRotation</a> · line 13</li><li><a href="function-90c9a628854f017efb3a.html">InventoryPanel.BodyRotation.get</a> · line 13</li><li><a href="function-af9882da9374fe0afc5e.html">InventoryPanel.BodyRotation.set</a> · line 13</li><li><a href="function-46d63be056f4a1d60761.html">InventoryPanel.IsOpen</a> · line 14</li><li><a href="function-91f6ad0e609aef7a33fb.html">InventoryPanel.DragItemId</a> · line 15</li><li><a href="function-e046e0eb6bb6c842ec47.html">InventoryPanel.DragItemId.get</a> · line 15</li><li><a href="function-68c64f9f53a88959fa51.html">InventoryPanel.DragItemId.set</a> · line 15</li><li><a href="function-3e4132d7c9b254c7f8e5.html">InventoryPanel.DropPreview</a> · line 16</li><li><a href="function-96a2aceae702f8d5a126.html">InventoryPanel.DropPreview.get</a> · line 16</li><li><a href="function-04e1945ceb37c748fa4b.html">InventoryPanel.DropPreview.set</a> · line 16</li><li><a href="function-5bbe3dede71dbb839eda.html">InventoryPanel.Browser</a> · line 22</li><li><a href="function-98b6bc00649d5b34f50a.html">InventoryPanel.BodyFit</a> · line 27</li><li><a href="function-8780e2a8b781ea1fbf47.html">InventoryPanel.BodyFitToggle</a> · line 28</li><li><a href="function-ab299d74144e6c4d6e6e.html">InventoryPanel.PaperdollProof</a> · line 29</li><li><a href="function-5b6ba4032d05c274f625.html">InventoryPanel.PaperdollProof.get</a> · line 29</li><li><a href="function-d9cf7bea9ba117b2f62e.html">InventoryPanel.PaperdollProof.set</a> · line 29</li><li><a href="function-4b4da98e12e6db3bd620.html">InventoryPanel.PaperdollProofToggle</a> · line 30</li><li><a href="function-f3dfcf57af5eb417cc75.html">InventoryPanel.PaperdollProofToggle.get</a> · line 30</li><li><a href="function-9585504ce6c7aaa9f8b9.html">InventoryPanel.PaperdollProofToggle.set</a> · line 30</li><li><a href="function-ee2604d7f19599a5f90c.html">InventoryPanel.EquipmentList</a> · line 33</li><li><a href="function-4f594df3506dc64ab198.html">InventoryPanel.EngineeringSlots</a> · line 34</li><li><a href="function-9d397d334b2c45a68153.html">InventoryPanel.EngineeringSlots.get</a> · line 34</li><li><a href="function-cc46883682eec3645bc4.html">InventoryPanel.EngineeringSlots.set</a> · line 34</li><li><a href="function-3eee4adcb9be0d948604.html">InventoryPanel.Initialize</a> · line 36</li><li><a href="function-27ba47d4af72daf8f9ec.html">InventoryPanel.AddGrid</a> · line 103</li><li><a href="function-76f2030de2126bac671b.html">InventoryPanel.Label</a> · line 109</li><li><a href="function-f7d9ce1a9ef5a584806c.html">InventoryPanel.Button</a> · line 113</li><li><a href="function-163ab890ac230eb06416.html">InventoryPanel.Open</a> · line 118</li><li><a href="function-7650ee2a92c12deb1e5b.html">InventoryPanel.SetBodyFit</a> · line 129</li><li><a href="function-0618ca4a7ef87bf0a62d.html">InventoryPanel.TogglePaperdollProof</a> · line 138</li><li><a href="function-6ffd034f5ff0e6ca1b74.html">InventoryPanel.ToggleBodyFit</a> · line 144</li><li><a href="function-8bbc3d6440840ec4667d.html">InventoryPanel.FindGrid</a> · line 145</li><li><a href="function-9dc5b20f480de3471afa.html">InventoryPanel.Grids</a> · line 146</li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a> · line 151</li><li><a href="function-72b928b42032ab22db0d.html">InventoryPanel.CancelDragPreview</a> · line 157</li><li><a href="function-8058b4c2fb191d0237db.html">InventoryPanel.BeginDrag</a> · line 163</li><li><a href="function-9aa307a307089c92a04b.html">InventoryPanel.PreviewDrop</a> · line 169</li><li><a href="function-4d3a00e097b03b343fca.html">InventoryPanel._Process</a> · line 174</li><li><a href="function-a68b7edb4b99a1dae324.html">InventoryPanel.RefreshDragPreview</a> · line 175</li><li><a href="function-021b887f27d58a4c52e6.html">InventoryPanel.Toggle</a> · line 185</li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a> · line 186</li><li><a href="function-e6aa61423b0dbdb8fd27.html">InventoryPanel.GarmentToggle</a> · line 193</li><li><a href="function-6197d02c2b6a8a341b31.html">InventoryPanel.TakeInHand</a> · line 194</li><li><a href="function-091966185e6fe5959f2c.html">InventoryPanel.WearDefault</a> · line 195</li><li><a href="function-0387ead7ac6f07a98f22.html">InventoryPanel.ToggleGarment</a> · line 196</li><li><a href="function-1484e0f1ff3ac68797ce.html">InventoryPanel.MoveSelectedTo</a> · line 202</li><li><a href="function-adb714c78c0f490cba11.html">InventoryPanel.Describe</a> · line 206</li><li><a href="function-047ea98e4d070a9385ca.html">InventoryPanel.Rotate</a> · line 215</li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a> · line 233</li><li><a href="function-815df44ccf2c84be9982.html">InventoryPanel.OpenCompartment</a> · line 237</li><li><a href="function-6b3afaa9ca621000dcb9.html">InventoryPanel.OpenGarment</a> · line 239</li><li><a href="function-5b456df7ad3c9d657ceb.html">InventoryPanel.ToggleClosure</a> · line 244</li><li><a href="function-96fffa13664eb651cba3.html">InventoryPanel.DefaultDropRegion</a> · line 251</li><li><a href="function-46ef399f914732ae2ea4.html">InventoryPanel.PreviewContainerDrop</a> · line 256</li><li><a href="function-0a4c6f4679de281fc511.html">InventoryPanel.StoreInContainer</a> · line 262</li><li><a href="function-9f6e065bef1294992bfd.html">InventoryPanel.Arrange</a> · line 264</li><li><a href="function-99d061f2c6e3664fa63e.html">InventoryPanel.HideContext</a> · line 266</li><li><a href="function-fba84a1a38676809e76c.html">InventoryPanel._Input</a> · line 268</li><li><a href="function-2965afdd61228aa974a4.html">InventoryPanel.BeginContext</a> · line 273</li><li><a href="function-8a48982dd2c0f592f5ef.html">InventoryPanel.PositionContext</a> · line 281</li><li><a href="function-0e89ba8657a3afb1c7b1.html">InventoryPanel.ContainerContext</a> · line 286</li><li><a href="function-5327ca52d036c04b6ba8.html">InventoryPanel.Context</a> · line 292</li><li><a href="function-53df1ca84cdeaa2439da.html">InventoryPanel.Entry</a> · line 296</li><li><a href="function-87994f38de40fe8506cd.html">InventoryPanel.UpdateClosure</a> · line 313</li><li><a href="function-426ff783c33cc55d285c.html">InventoryPanel.InspectedContainers</a> · line 332</li><li><a href="function-0aa72deeb1fe098cdd13.html">InventoryPanel.CloseContainerView</a> · line 333</li><li><a href="function-aa5e133ef29d768e0f58.html">InventoryPanel.ChangeLid</a> · line 334</li><li><a href="function-92136a74a75915eecbaa.html">InventoryPanel.ShowQuote</a> · line 336</li><li><a href="function-3db0958d9183d75b0bf7.html">InventoryPanel.ShowReceipt</a> · line 337</li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a> · line 338</li><li><a href="function-0bde9d370e90c9b8f36b.html">InventoryPanel._ExitTree</a> · line 355</li><li><a href="function-b1a43cd2bb4d136e4eae.html">InventoryPanel.Redraw</a> · line 356</li><li><a href="function-f8835dd960e48c3efdc2.html">InventoryPanel.HandleInput</a> · line 357</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryPanel.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPanel.cs</h1><p>game/Presentation/Inventory/InventoryPanel.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-inventorypanel.html">InventoryPanel</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-e8fed535eed296177937.html">InventoryPanel.Simulation</a> · line 9</li><li><a href="function-1e25091413495b6838f7.html">InventoryPanel.Simulation.get</a> · line 9</li><li><a href="function-70da669a0a487c874d9f.html">InventoryPanel.Simulation.set</a> · line 9</li><li><a href="function-593ffef6e2b43eb9e1dc.html">InventoryPanel.SelectedItem</a> · line 10</li><li><a href="function-67dd7909670d9255debf.html">InventoryPanel.SelectedItem.get</a> · line 10</li><li><a href="function-87dd8b523174a900a8d8.html">InventoryPanel.SelectedItem.set</a> · line 10</li><li><a href="function-86c5014e9a25aec3201e.html">InventoryPanel.Rotated</a> · line 11</li><li><a href="function-6d897dcea4ccdd4a605a.html">InventoryPanel.Rotated.get</a> · line 11</li><li><a href="function-3f8b0d1e6fb857b2d7fe.html">InventoryPanel.Rotated.set</a> · line 11</li><li><a href="function-426593a8b3392f137ae1.html">InventoryPanel.AttachmentRotation</a> · line 12</li><li><a href="function-2b33a2cda45b6ce807c7.html">InventoryPanel.AttachmentRotation.get</a> · line 12</li><li><a href="function-67dc4b3ba36b31bc8b39.html">InventoryPanel.AttachmentRotation.set</a> · line 12</li><li><a href="function-e6fd20cf8833d2c93c21.html">InventoryPanel.BodyRotation</a> · line 13</li><li><a href="function-90c9a628854f017efb3a.html">InventoryPanel.BodyRotation.get</a> · line 13</li><li><a href="function-af9882da9374fe0afc5e.html">InventoryPanel.BodyRotation.set</a> · line 13</li><li><a href="function-46d63be056f4a1d60761.html">InventoryPanel.IsOpen</a> · line 14</li><li><a href="function-91f6ad0e609aef7a33fb.html">InventoryPanel.DragItemId</a> · line 15</li><li><a href="function-e046e0eb6bb6c842ec47.html">InventoryPanel.DragItemId.get</a> · line 15</li><li><a href="function-68c64f9f53a88959fa51.html">InventoryPanel.DragItemId.set</a> · line 15</li><li><a href="function-3e4132d7c9b254c7f8e5.html">InventoryPanel.DropPreview</a> · line 16</li><li><a href="function-96a2aceae702f8d5a126.html">InventoryPanel.DropPreview.get</a> · line 16</li><li><a href="function-04e1945ceb37c748fa4b.html">InventoryPanel.DropPreview.set</a> · line 16</li><li><a href="function-5bbe3dede71dbb839eda.html">InventoryPanel.Browser</a> · line 22</li><li><a href="function-79648cc5a8a62fbecc9b.html">InventoryPanel.GroundView</a> · line 23</li><li><a href="function-3d2f62914d4c92615cae.html">InventoryPanel.GroundView.get</a> · line 23</li><li><a href="function-2d9767b915c8eb7d16f7.html">InventoryPanel.GroundView.set</a> · line 23</li><li><a href="function-98b6bc00649d5b34f50a.html">InventoryPanel.BodyFit</a> · line 28</li><li><a href="function-8780e2a8b781ea1fbf47.html">InventoryPanel.BodyFitToggle</a> · line 29</li><li><a href="function-ab299d74144e6c4d6e6e.html">InventoryPanel.PaperdollProof</a> · line 30</li><li><a href="function-5b6ba4032d05c274f625.html">InventoryPanel.PaperdollProof.get</a> · line 30</li><li><a href="function-d9cf7bea9ba117b2f62e.html">InventoryPanel.PaperdollProof.set</a> · line 30</li><li><a href="function-4b4da98e12e6db3bd620.html">InventoryPanel.PaperdollProofToggle</a> · line 31</li><li><a href="function-f3dfcf57af5eb417cc75.html">InventoryPanel.PaperdollProofToggle.get</a> · line 31</li><li><a href="function-9585504ce6c7aaa9f8b9.html">InventoryPanel.PaperdollProofToggle.set</a> · line 31</li><li><a href="function-ee2604d7f19599a5f90c.html">InventoryPanel.EquipmentList</a> · line 34</li><li><a href="function-4f594df3506dc64ab198.html">InventoryPanel.EngineeringSlots</a> · line 35</li><li><a href="function-9d397d334b2c45a68153.html">InventoryPanel.EngineeringSlots.get</a> · line 35</li><li><a href="function-cc46883682eec3645bc4.html">InventoryPanel.EngineeringSlots.set</a> · line 35</li><li><a href="function-3eee4adcb9be0d948604.html">InventoryPanel.Initialize</a> · line 37</li><li><a href="function-27ba47d4af72daf8f9ec.html">InventoryPanel.AddGrid</a> · line 105</li><li><a href="function-76f2030de2126bac671b.html">InventoryPanel.Label</a> · line 111</li><li><a href="function-f7d9ce1a9ef5a584806c.html">InventoryPanel.Button</a> · line 115</li><li><a href="function-163ab890ac230eb06416.html">InventoryPanel.Open</a> · line 120</li><li><a href="function-7650ee2a92c12deb1e5b.html">InventoryPanel.SetBodyFit</a> · line 131</li><li><a href="function-0618ca4a7ef87bf0a62d.html">InventoryPanel.TogglePaperdollProof</a> · line 140</li><li><a href="function-6ffd034f5ff0e6ca1b74.html">InventoryPanel.ToggleBodyFit</a> · line 146</li><li><a href="function-8bbc3d6440840ec4667d.html">InventoryPanel.FindGrid</a> · line 147</li><li><a href="function-9dc5b20f480de3471afa.html">InventoryPanel.Grids</a> · line 148</li><li><a href="function-0a16a034649ad9272168.html">InventoryPanel.Close</a> · line 153</li><li><a href="function-72b928b42032ab22db0d.html">InventoryPanel.CancelDragPreview</a> · line 159</li><li><a href="function-8058b4c2fb191d0237db.html">InventoryPanel.BeginDrag</a> · line 165</li><li><a href="function-9aa307a307089c92a04b.html">InventoryPanel.PreviewDrop</a> · line 171</li><li><a href="function-4d3a00e097b03b343fca.html">InventoryPanel._Process</a> · line 176</li><li><a href="function-a68b7edb4b99a1dae324.html">InventoryPanel.RefreshDragPreview</a> · line 177</li><li><a href="function-021b887f27d58a4c52e6.html">InventoryPanel.Toggle</a> · line 187</li><li><a href="function-aaee74bf4fdac98efe9d.html">InventoryPanel.Select</a> · line 188</li><li><a href="function-e6aa61423b0dbdb8fd27.html">InventoryPanel.GarmentToggle</a> · line 195</li><li><a href="function-6197d02c2b6a8a341b31.html">InventoryPanel.TakeInHand</a> · line 196</li><li><a href="function-091966185e6fe5959f2c.html">InventoryPanel.WearDefault</a> · line 197</li><li><a href="function-0387ead7ac6f07a98f22.html">InventoryPanel.ToggleGarment</a> · line 198</li><li><a href="function-1484e0f1ff3ac68797ce.html">InventoryPanel.MoveSelectedTo</a> · line 204</li><li><a href="function-adb714c78c0f490cba11.html">InventoryPanel.Describe</a> · line 208</li><li><a href="function-047ea98e4d070a9385ca.html">InventoryPanel.Rotate</a> · line 217</li><li><a href="function-7fb6082d7b0428c321d6.html">InventoryPanel.Inspect</a> · line 235</li><li><a href="function-815df44ccf2c84be9982.html">InventoryPanel.OpenCompartment</a> · line 239</li><li><a href="function-6b3afaa9ca621000dcb9.html">InventoryPanel.OpenGarment</a> · line 241</li><li><a href="function-5b456df7ad3c9d657ceb.html">InventoryPanel.ToggleClosure</a> · line 246</li><li><a href="function-96fffa13664eb651cba3.html">InventoryPanel.DefaultDropRegion</a> · line 253</li><li><a href="function-46ef399f914732ae2ea4.html">InventoryPanel.PreviewContainerDrop</a> · line 258</li><li><a href="function-0a4c6f4679de281fc511.html">InventoryPanel.StoreInContainer</a> · line 264</li><li><a href="function-9f6e065bef1294992bfd.html">InventoryPanel.Arrange</a> · line 266</li><li><a href="function-99d061f2c6e3664fa63e.html">InventoryPanel.HideContext</a> · line 268</li><li><a href="function-fba84a1a38676809e76c.html">InventoryPanel._Input</a> · line 270</li><li><a href="function-2965afdd61228aa974a4.html">InventoryPanel.BeginContext</a> · line 275</li><li><a href="function-8a48982dd2c0f592f5ef.html">InventoryPanel.PositionContext</a> · line 283</li><li><a href="function-0e89ba8657a3afb1c7b1.html">InventoryPanel.ContainerContext</a> · line 288</li><li><a href="function-5327ca52d036c04b6ba8.html">InventoryPanel.Context</a> · line 295</li><li><a href="function-53df1ca84cdeaa2439da.html">InventoryPanel.Entry</a> · line 299</li><li><a href="function-87994f38de40fe8506cd.html">InventoryPanel.UpdateClosure</a> · line 316</li><li><a href="function-426ff783c33cc55d285c.html">InventoryPanel.InspectedContainers</a> · line 337</li><li><a href="function-0aa72deeb1fe098cdd13.html">InventoryPanel.CloseContainerView</a> · line 338</li><li><a href="function-aa5e133ef29d768e0f58.html">InventoryPanel.ChangeLid</a> · line 339</li><li><a href="function-92136a74a75915eecbaa.html">InventoryPanel.ShowQuote</a> · line 341</li><li><a href="function-3db0958d9183d75b0bf7.html">InventoryPanel.ShowReceipt</a> · line 342</li><li><a href="function-d44de8c4323b7d348383.html">InventoryPanel.Refresh</a> · line 343</li><li><a href="function-0bde9d370e90c9b8f36b.html">InventoryPanel._ExitTree</a> · line 360</li><li><a href="function-b1a43cd2bb4d136e4eae.html">InventoryPanel.Redraw</a> · line 361</li><li><a href="function-f8835dd960e48c3efdc2.html">InventoryPanel.HandleInput</a> · line 362</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
 <span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
 <span id="L3"><a class="line" href="#L3">3</a> </span>
 <span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
@@ -20,350 +20,355 @@
 <span id="L20"><a class="line" href="#L20">20</a>     private PanelContainer? _contextMenu;</span>
 <span id="L21"><a class="line" href="#L21">21</a>     private readonly List&lt;Action&gt; _contextUpdates = [];</span>
 <span id="L22"><a class="line" href="#L22">22</a>     internal InventoryBrowser Browser =&gt; _browser;</span>
-<span id="L23"><a class="line" href="#L23">23</a>     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;</span>
-<span id="L24"><a class="line" href="#L24">24</a>     private InventoryBodyFitPanel _bodyFit = null!;</span>
-<span id="L25"><a class="line" href="#L25">25</a>     private Button _bodyFitToggle = null!;</span>
-<span id="L26"><a class="line" href="#L26">26</a>     private VBoxContainer _equipmentActions = null!;</span>
-<span id="L27"><a class="line" href="#L27">27</a>     internal InventoryBodyFitPanel BodyFit =&gt; _bodyFit;</span>
-<span id="L28"><a class="line" href="#L28">28</a>     internal Button BodyFitToggle =&gt; _bodyFitToggle;</span>
-<span id="L29"><a class="line" href="#L29">29</a>     internal InventoryPaperdollProof PaperdollProof { get; private set; } = null!;</span>
-<span id="L30"><a class="line" href="#L30">30</a>     internal Button PaperdollProofToggle { get; private set; } = null!;</span>
-<span id="L31"><a class="line" href="#L31">31</a>     private ScrollContainer _wornScroll = null!;</span>
-<span id="L32"><a class="line" href="#L32">32</a>     private InventoryEquipmentList _equipmentList = null!;</span>
-<span id="L33"><a class="line" href="#L33">33</a>     internal InventoryEquipmentList EquipmentList =&gt; _equipmentList;</span>
-<span id="L34"><a class="line" href="#L34">34</a>     internal CheckButton EngineeringSlots { get; private set; } = null!;</span>
-<span id="L35"><a class="line" href="#L35">35</a>     private long _lastReceiptId = -1;</span>
-<span id="L36"><a class="line" href="#L36">36</a>     public void Initialize(SpatialSimulation simulation)</span>
-<span id="L37"><a class="line" href="#L37">37</a>     {</span>
-<span id="L38"><a class="line" href="#L38">38</a>         Simulation = simulation;</span>
-<span id="L39"><a class="line" href="#L39">39</a>         if (!simulation.Inventory.Enabled) { Visible = false; return; }</span>
-<span id="L40"><a class="line" href="#L40">40</a>         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Stop;</span>
-<span id="L41"><a class="line" href="#L41">41</a>         Theme = new Theme { DefaultFontSize = 13 };</span>
-<span id="L42"><a class="line" href="#L42">42</a>         Theme.SetColor(&quot;font_color&quot;, &quot;Label&quot;, new(&quot;dddcca&quot;));</span>
-<span id="L43"><a class="line" href="#L43">43</a>         var dim = new ColorRect { Color = new(0.018f, 0.025f, 0.025f, 0.90f) }; AddChild(dim); dim.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);</span>
-<span id="L44"><a class="line" href="#L44">44</a>         _window = new PanelContainer(); AddChild(_window);</span>
-<span id="L45"><a class="line" href="#L45">45</a>         _window.AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;101916&quot;), BorderColor = new(&quot;4c5c4d&quot;), BorderWidthTop = 1, BorderWidthBottom = 1, BorderWidthLeft = 1, BorderWidthRight = 1, ContentMarginLeft = 22, ContentMarginRight = 22, ContentMarginTop = 16, ContentMarginBottom = 16 });</span>
-<span id="L46"><a class="line" href="#L46">46</a>         var column = new VBoxContainer(); _window.AddChild(column); column.AddThemeConstantOverride(&quot;separation&quot;, 10);</span>
-<span id="L47"><a class="line" href="#L47">47</a>         var header = new HBoxContainer(); column.AddChild(header);</span>
-<span id="L48"><a class="line" href="#L48">48</a>         Label(header, &quot;PERSONAL EQUIPMENT&quot;, 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
-<span id="L49"><a class="line" href="#L49">49</a>         _clock = Label(header, &quot;&quot;, 13);</span>
-<span id="L50"><a class="line" href="#L50">50</a>         Button(header, &quot;CLOSE  /  I&quot;, Close);</span>
-<span id="L51"><a class="line" href="#L51">51</a>         Label(column, &quot;Double-click opens · contents stay while choosing gear · drag to move · R rotates · right-click for actions · ↑/× secure · Esc hides&quot;, 12);</span>
-<span id="L52"><a class="line" href="#L52">52</a>         column.AddChild(new HSeparator());</span>
-<span id="L53"><a class="line" href="#L53">53</a>         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride(&quot;separation&quot;, 26); column.AddChild(body);</span>
-<span id="L54"><a class="line" href="#L54">54</a>         var worn = new VBoxContainer(); body.AddChild(worn);</span>
-<span id="L55"><a class="line" href="#L55">55</a>         Label(worn, &quot;PAPERDOLL / WORN &amp; HELD&quot;, 16);</span>
-<span id="L56"><a class="line" href="#L56">56</a>         var bodyViews = new HBoxContainer(); worn.AddChild(bodyViews);</span>
-<span id="L57"><a class="line" href="#L57">57</a>         _bodyFitToggle = Button(bodyViews, &quot;Body fit · hex view&quot;, ToggleBodyFit);</span>
-<span id="L58"><a class="line" href="#L58">58</a>         _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
-<span id="L59"><a class="line" href="#L59">59</a>         PaperdollProofToggle = Button(bodyViews, &quot;Sprites&quot;, TogglePaperdollProof);</span>
-<span id="L60"><a class="line" href="#L60">60</a>         PaperdollProofToggle.TooltipText = &quot;Upper-body clothing sprite qualification; other gear is explicitly omitted.&quot;;</span>
-<span id="L61"><a class="line" href="#L61">61</a>         EngineeringSlots = new CheckButton { Text = &quot;Engineering slot controls&quot;, FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);</span>
-<span id="L62"><a class="line" href="#L62">62</a>         _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);</span>
-<span id="L63"><a class="line" href="#L63">63</a>         EngineeringSlots.Toggled += _ =&gt; { CancelDragPreview(); SetBodyFit(false); };</span>
-<span id="L64"><a class="line" href="#L64">64</a>         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,</span>
-<span id="L65"><a class="line" href="#L65">65</a>             CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);</span>
-<span id="L66"><a class="line" href="#L66">66</a>         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride(&quot;h_separation&quot;, 16); _wornScroll.AddChild(mounts);</span>
-<span id="L67"><a class="line" href="#L67">67</a>         foreach (var slot in new[] { &quot;outerwear&quot;, &quot;back&quot;, &quot;legs&quot;, &quot;hand&quot;, &quot;torso&quot;, &quot;suit&quot;, &quot;socks&quot;, &quot;footwear&quot;, &quot;front&quot;, &quot;belt&quot;, &quot;underwear&quot; }) AddGrid(mounts, &quot;person:avatar&quot;, slot, 90);</span>
-<span id="L68"><a class="line" href="#L68">68</a>         _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);</span>
-<span id="L69"><a class="line" href="#L69">69</a>         _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);</span>
-<span id="L70"><a class="line" href="#L70">70</a>         _garmentToggle = new Button { Text = &quot;Open / fasten selected garment&quot;, FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);</span>
-<span id="L71"><a class="line" href="#L71">71</a>         _garmentToggle.Pressed += ToggleGarment;</span>
-<span id="L72"><a class="line" href="#L72">72</a>         _takeInHand = Button(_equipmentActions, &quot;Take selected in hand&quot;, () =&gt; MoveSelectedTo(&quot;hand&quot;));</span>
-<span id="L73"><a class="line" href="#L73">73</a>         _wearDefault = Button(_equipmentActions, &quot;Wear selected (default mount)&quot;, () =&gt;</span>
-<span id="L74"><a class="line" href="#L74">74</a>         {</span>
-<span id="L75"><a class="line" href="#L75">75</a>             if (SelectedItem is { } id &amp;&amp; Simulation.Inventory.Definition(id).WearSlot is { } slot) MoveSelectedTo(slot);</span>
-<span id="L76"><a class="line" href="#L76">76</a>         });</span>
-<span id="L77"><a class="line" href="#L77">77</a>         Button(_equipmentActions, &quot;Rotate selected object  R&quot;, Rotate);</span>
-<span id="L78"><a class="line" href="#L78">78</a>         Button(_equipmentActions, &quot;Inspect selected container&quot;, () =&gt; { if (SelectedItem is { } id) Inspect(id); });</span>
-<span id="L79"><a class="line" href="#L79">79</a>         Button(_equipmentActions, &quot;Switch selected power&quot;, () =&gt;</span>
-<span id="L80"><a class="line" href="#L80">80</a>         {</span>
-<span id="L81"><a class="line" href="#L81">81</a>             if (SelectedItem is not { } id) return;</span>
-<span id="L82"><a class="line" href="#L82">82</a>             var item = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
-<span id="L83"><a class="line" href="#L83">83</a>             Simulation.HandleInventory(new(item.Powered ? InventoryActionKind.PowerOff : InventoryActionKind.PowerOn, id)); ShowReceipt();</span>
-<span id="L84"><a class="line" href="#L84">84</a>         });</span>
-<span id="L85"><a class="line" href="#L85">85</a>         Button(_equipmentActions, &quot;Cancel handling&quot;, () =&gt; { Simulation.CancelInventoryHandling(); ShowReceipt(); });</span>
-<span id="L86"><a class="line" href="#L86">86</a>         Button(_equipmentActions, &quot;Nearby supply crate&quot;, () =&gt; Inspect(&quot;fixture:crate-a&quot;));</span>
-<span id="L87"><a class="line" href="#L87">87</a>         PaperdollProof = new InventoryPaperdollProof { Panel = this, Visible = false }; worn.AddChild(PaperdollProof);</span>
-<span id="L88"><a class="line" href="#L88">88</a>         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);</span>
-<span id="L89"><a class="line" href="#L89">89</a>         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);</span>
-<span id="L90"><a class="line" href="#L90">90</a>         Label(storageHeader, &quot;GEAR &amp; CONTENTS / TWO INDEPENDENT TRAILS&quot;, 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
-<span id="L91"><a class="line" href="#L91">91</a>         Label(storage, &quot;Compartments open individually. ↑/× follow each fastening’s preference. Esc leaves physical closures unchanged.&quot;, 12);</span>
-<span id="L92"><a class="line" href="#L92">92</a>         var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill,</span>
-<span id="L93"><a class="line" href="#L93">93</a>             HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);</span>
-<span id="L94"><a class="line" href="#L94">94</a>         _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };</span>
-<span id="L95"><a class="line" href="#L95">95</a>         _browser.AddThemeConstantOverride(&quot;separation&quot;, 18); scroll.AddChild(_browser);</span>
-<span id="L96"><a class="line" href="#L96">96</a>         column.AddChild(new HSeparator());</span>
-<span id="L97"><a class="line" href="#L97">97</a>         _detail = Label(column, &quot;&quot;, 13); _detail.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
-<span id="L98"><a class="line" href="#L98">98</a>         _progress = Label(column, &quot;&quot;, 13);</span>
-<span id="L99"><a class="line" href="#L99">99</a>         _receipt = Label(column, &quot;Arrange equipment before trouble. The world continues while this view is open.&quot;, 12);</span>
-<span id="L100"><a class="line" href="#L100">100</a>         _receipt.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
-<span id="L101"><a class="line" href="#L101">101</a>         Visible = false;</span>
-<span id="L102"><a class="line" href="#L102">102</a>     }</span>
-<span id="L103"><a class="line" href="#L103">103</a>     internal InventoryGrid AddGrid(Node parent, string parentId, string region, float pixels)</span>
-<span id="L104"><a class="line" href="#L104">104</a>     {</span>
-<span id="L105"><a class="line" href="#L105">105</a>         var grid = new InventoryGrid { Panel = this, ParentId = parentId, RegionId = region, CellPixels = pixels,</span>
-<span id="L106"><a class="line" href="#L106">106</a>             IsPaperdoll = Simulation.Inventory.Content!.Roots.Any(r =&gt; r.Id == parentId &amp;&amp; r.ActorId == Simulation.Player.Id) };</span>
-<span id="L107"><a class="line" href="#L107">107</a>         grid.BindSize(); parent.AddChild(grid); return grid;</span>
-<span id="L108"><a class="line" href="#L108">108</a>     }</span>
-<span id="L109"><a class="line" href="#L109">109</a>     internal static Label Label(Node parent, string text, int size)</span>
-<span id="L110"><a class="line" href="#L110">110</a>     {</span>
-<span id="L111"><a class="line" href="#L111">111</a>         var label = new Label { Text = text, MouseFilter = MouseFilterEnum.Ignore }; label.AddThemeFontSizeOverride(&quot;font_size&quot;, size); parent.AddChild(label); return label;</span>
-<span id="L112"><a class="line" href="#L112">112</a>     }</span>
-<span id="L113"><a class="line" href="#L113">113</a>     internal static Button Button(Node parent, string text, Action action)</span>
-<span id="L114"><a class="line" href="#L114">114</a>     {</span>
-<span id="L115"><a class="line" href="#L115">115</a>         var button = new Button { Text = text, FocusMode = FocusModeEnum.None }; button.Pressed += action; parent.AddChild(button);</span>
-<span id="L116"><a class="line" href="#L116">116</a>         return button;</span>
-<span id="L117"><a class="line" href="#L117">117</a>     }</span>
-<span id="L118"><a class="line" href="#L118">118</a>     public bool Open()</span>
-<span id="L119"><a class="line" href="#L119">119</a>     {</span>
-<span id="L120"><a class="line" href="#L120">120</a>         if (!Simulation.Inventory.Enabled) return false;</span>
-<span id="L121"><a class="line" href="#L121">121</a>         Visible = true; _lastReceiptId = -1; _browser.Clear();</span>
-<span id="L122"><a class="line" href="#L122">122</a>         SetBodyFit(false);</span>
-<span id="L123"><a class="line" href="#L123">123</a>         _bodyFit.ResetInspection(); PaperdollProof.ResetView();</span>
-<span id="L124"><a class="line" href="#L124">124</a>         _wornScroll.ScrollVertical = 0;</span>
-<span id="L125"><a class="line" href="#L125">125</a>         SelectedItem = null; Rotated = false;</span>
-<span id="L126"><a class="line" href="#L126">126</a>         _detail.Text = &quot;Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.&quot;;</span>
-<span id="L127"><a class="line" href="#L127">127</a>         Refresh(); return true;</span>
-<span id="L128"><a class="line" href="#L128">128</a>     }</span>
-<span id="L129"><a class="line" href="#L129">129</a>     private void SetBodyFit(bool enabled)</span>
-<span id="L130"><a class="line" href="#L130">130</a>     {</span>
-<span id="L131"><a class="line" href="#L131">131</a>         PaperdollProof.Visible = false;</span>
-<span id="L132"><a class="line" href="#L132">132</a>         _bodyFit.Visible = enabled; _wornScroll.Visible = !enabled &amp;&amp; EngineeringSlots.ButtonPressed;</span>
-<span id="L133"><a class="line" href="#L133">133</a>         _equipmentList.Visible = !enabled &amp;&amp; !EngineeringSlots.ButtonPressed;</span>
-<span id="L134"><a class="line" href="#L134">134</a>         EngineeringSlots.Visible = _equipmentActions.Visible = !enabled;</span>
-<span id="L135"><a class="line" href="#L135">135</a>         _bodyFitToggle.Text = enabled ? &quot;Equipment slots&quot; : &quot;Body fit · hex view&quot;;</span>
-<span id="L136"><a class="line" href="#L136">136</a>         if (enabled) _bodyFit.Refresh();</span>
-<span id="L137"><a class="line" href="#L137">137</a>     }</span>
-<span id="L138"><a class="line" href="#L138">138</a>     private void TogglePaperdollProof()</span>
-<span id="L139"><a class="line" href="#L139">139</a>     {</span>
-<span id="L140"><a class="line" href="#L140">140</a>         CancelDragPreview(); var show = !PaperdollProof.Visible; SetBodyFit(false);</span>
-<span id="L141"><a class="line" href="#L141">141</a>         PaperdollProof.Visible = show;</span>
-<span id="L142"><a class="line" href="#L142">142</a>         if (show) { _equipmentList.Visible = _wornScroll.Visible = EngineeringSlots.Visible = _equipmentActions.Visible = false; PaperdollProof.Refresh(); }</span>
-<span id="L143"><a class="line" href="#L143">143</a>     }</span>
-<span id="L144"><a class="line" href="#L144">144</a>     private void ToggleBodyFit() { CancelDragPreview(); SetBodyFit(!_bodyFit.Visible); }</span>
-<span id="L145"><a class="line" href="#L145">145</a>     internal InventoryGrid FindGrid(string parentId, string regionId) =&gt; Grids(this).First(g =&gt; g.ParentId == parentId &amp;&amp; g.RegionId == regionId);</span>
-<span id="L146"><a class="line" href="#L146">146</a>     private static IEnumerable&lt;InventoryGrid&gt; Grids(Node parent)</span>
-<span id="L147"><a class="line" href="#L147">147</a>     {</span>
-<span id="L148"><a class="line" href="#L148">148</a>         foreach (var child in parent.GetChildren())</span>
-<span id="L149"><a class="line" href="#L149">149</a>         { if (child is InventoryGrid grid) yield return grid; foreach (var nested in Grids(child)) yield return nested; }</span>
-<span id="L150"><a class="line" href="#L150">150</a>     }</span>
-<span id="L151"><a class="line" href="#L151">151</a>     public void Close()</span>
-<span id="L152"><a class="line" href="#L152">152</a>     {</span>
-<span id="L153"><a class="line" href="#L153">153</a>         HideContext();</span>
-<span id="L154"><a class="line" href="#L154">154</a>         CancelDragPreview();</span>
-<span id="L155"><a class="line" href="#L155">155</a>         _browser.Clear(); Visible = false; GetViewport().GuiReleaseFocus();</span>
-<span id="L156"><a class="line" href="#L156">156</a>     }</span>
-<span id="L157"><a class="line" href="#L157">157</a>     internal void CancelDragPreview()</span>
-<span id="L158"><a class="line" href="#L158">158</a>     {</span>
-<span id="L159"><a class="line" href="#L159">159</a>         if (DragItemId is not null) GetViewport().GuiCancelDrag();</span>
-<span id="L160"><a class="line" href="#L160">160</a>         DragItemId = null; DropPreview = null;</span>
-<span id="L161"><a class="line" href="#L161">161</a>         _bodyFit?.Surface?.ClearDropPreview();</span>
-<span id="L162"><a class="line" href="#L162">162</a>     }</span>
-<span id="L163"><a class="line" href="#L163">163</a>     internal void BeginDrag(string id)</span>
-<span id="L164"><a class="line" href="#L164">164</a>     {</span>
-<span id="L165"><a class="line" href="#L165">165</a>         DragItemId = id; DropPreview = null;</span>
-<span id="L166"><a class="line" href="#L166">166</a>         BodyRotation = InventoryBodyFit.Pose(Simulation.Inventory, Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id))?.Rotation ?? 0;</span>
-<span id="L167"><a class="line" href="#L167">167</a>         _bodyFit.Surface.ClearDropPreview();</span>
-<span id="L168"><a class="line" href="#L168">168</a>     }</span>
-<span id="L169"><a class="line" href="#L169">169</a>     internal void PreviewDrop(InventoryGrid grid, Vector2 position)</span>
-<span id="L170"><a class="line" href="#L170">170</a>     {</span>
-<span id="L171"><a class="line" href="#L171">171</a>         DropPreview = DragItemId is { } id ? grid.PreviewAt(id, position) : null;</span>
-<span id="L172"><a class="line" href="#L172">172</a>         if (DropPreview is { } preview) ShowQuote(preview.Quote);</span>
-<span id="L173"><a class="line" href="#L173">173</a>     }</span>
-<span id="L174"><a class="line" href="#L174">174</a>     public override void _Process(double delta) =&gt; RefreshDragPreview();</span>
-<span id="L175"><a class="line" href="#L175">175</a>     private void RefreshDragPreview()</span>
-<span id="L176"><a class="line" href="#L176">176</a>     {</span>
-<span id="L177"><a class="line" href="#L177">177</a>         if (!Visible || !GetViewport().GuiIsDragging())</span>
-<span id="L178"><a class="line" href="#L178">178</a>         { DragItemId = null; DropPreview = null; _bodyFit?.Surface?.ClearDropPreview(); return; }</span>
-<span id="L179"><a class="line" href="#L179">179</a>         if (GetViewport().GuiGetHoveredControl() is InventoryGrid grid &amp;&amp; grid.Panel == this)</span>
-<span id="L180"><a class="line" href="#L180">180</a>             PreviewDrop(grid, grid.GetLocalMousePosition());</span>
-<span id="L181"><a class="line" href="#L181">181</a>         else DropPreview = null;</span>
-<span id="L182"><a class="line" href="#L182">182</a>         if (_bodyFit.Surface.IsDropTarget) _bodyFit.Surface.PreviewDrop(_bodyFit.Surface.GetLocalMousePosition());</span>
-<span id="L183"><a class="line" href="#L183">183</a>         else _bodyFit.Surface.ClearDropPreview();</span>
-<span id="L184"><a class="line" href="#L184">184</a>     }</span>
-<span id="L185"><a class="line" href="#L185">185</a>     public void Toggle() { if (Visible) Close(); else Open(); }</span>
-<span id="L186"><a class="line" href="#L186">186</a>     public void Select(string id)</span>
-<span id="L187"><a class="line" href="#L187">187</a>     {</span>
-<span id="L188"><a class="line" href="#L188">188</a>         SelectedItem = id;</span>
-<span id="L189"><a class="line" href="#L189">189</a>         var placement = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;</span>
-<span id="L190"><a class="line" href="#L190">190</a>         Rotated = placement.Rotated; AttachmentRotation = placement.AttachmentPose?.Rotation ?? 0;</span>
-<span id="L191"><a class="line" href="#L191">191</a>         _detail.Text = Describe(id);</span>
-<span id="L192"><a class="line" href="#L192">192</a>     }</span>
-<span id="L193"><a class="line" href="#L193">193</a>     internal Button GarmentToggle =&gt; _garmentToggle;</span>
-<span id="L194"><a class="line" href="#L194">194</a>     internal Button TakeInHand =&gt; _takeInHand;</span>
-<span id="L195"><a class="line" href="#L195">195</a>     internal Button WearDefault =&gt; _wearDefault;</span>
-<span id="L196"><a class="line" href="#L196">196</a>     private void ToggleGarment()</span>
-<span id="L197"><a class="line" href="#L197">197</a>     {</span>
-<span id="L198"><a class="line" href="#L198">198</a>         if (SelectedItem is not { } id) return;</span>
-<span id="L199"><a class="line" href="#L199">199</a>         var item = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
-<span id="L200"><a class="line" href="#L200">200</a>         Simulation.HandleInventory(new(item.GarmentOpen ? InventoryActionKind.CloseGarment : InventoryActionKind.OpenGarment, id)); ShowReceipt();</span>
-<span id="L201"><a class="line" href="#L201">201</a>     }</span>
-<span id="L202"><a class="line" href="#L202">202</a>     private void MoveSelectedTo(string slot)</span>
-<span id="L203"><a class="line" href="#L203">203</a>     {</span>
-<span id="L204"><a class="line" href="#L204">204</a>         if (SelectedItem is { } id) { Simulation.HandleInventory(new(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, slot))); ShowReceipt(); }</span>
-<span id="L205"><a class="line" href="#L205">205</a>     }</span>
-<span id="L206"><a class="line" href="#L206">206</a>     public string Describe(string id)</span>
-<span id="L207"><a class="line" href="#L207">207</a>     {</span>
-<span id="L208"><a class="line" href="#L208">208</a>         var state = Simulation.Inventory; var item = state.DiagnosticItems.Single(i =&gt; i.Id == id); var definition = state.Definition(id);</span>
-<span id="L209"><a class="line" href="#L209">209</a>         var layers = InventoryWornOrder.Layers(state, id);</span>
-<span id="L210"><a class="line" href="#L210">210</a>         return $&quot;{definition.Name} · {definition.WidthMm} × {definition.LengthMm} × {definition.ThicknessMm} mm · {InventoryHierarchy.Mass(state, id)} g including contents\n&quot;</span>
-<span id="L211"><a class="line" href="#L211">211</a>             + InventoryHierarchy.Breadcrumb(state, id) + (definition.Wear is { } wear ? (layers.Length &gt; 0 ? &quot; · layer &quot; + InventoryEquipmentList.LayerText(layers) : &quot; · not worn&quot;) + (wear.OpenExposes is null ? &quot;&quot; : item.GarmentOpen ? &quot; · garment open&quot; : &quot; · garment fastened&quot;) : &quot;&quot;)</span>
-<span id="L212"><a class="line" href="#L212">212</a>             + (definition.Capability is null ? &quot;&quot; : item.Powered ? &quot; · powered&quot; : &quot; · switched off&quot;)</span>
-<span id="L213"><a class="line" href="#L213">213</a>             + (definition.Capability is not null &amp;&amp; !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? &quot; · unavailable until accessible and powered&quot; : &quot;&quot;);</span>
-<span id="L214"><a class="line" href="#L214">214</a>     }</span>
-<span id="L215"><a class="line" href="#L215">215</a>     public void Rotate()</span>
-<span id="L216"><a class="line" href="#L216">216</a>     {</span>
-<span id="L217"><a class="line" href="#L217">217</a>         if (_bodyFit.Visible &amp;&amp; DragItemId is null) { _bodyFit.RotateDraft(); return; }</span>
-<span id="L218"><a class="line" href="#L218">218</a>         if (_bodyFit.Surface.IsDropTarget)</span>
-<span id="L219"><a class="line" href="#L219">219</a>         {</span>
-<span id="L220"><a class="line" href="#L220">220</a>             BodyRotation = (BodyRotation + 1) % 6;</span>
-<span id="L221"><a class="line" href="#L221">221</a>             RefreshDragPreview(); Redraw(this); return;</span>
-<span id="L222"><a class="line" href="#L222">222</a>         }</span>
-<span id="L223"><a class="line" href="#L223">223</a>         if (SelectedItem is null) return;</span>
-<span id="L224"><a class="line" href="#L224">224</a>         var supportHover = GetViewport().GuiGetHoveredControl() is InventoryGearSurface { HasAttachmentSurface: true };</span>
-<span id="L225"><a class="line" href="#L225">225</a>         if (supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)</span>
-<span id="L226"><a class="line" href="#L226">226</a>         {</span>
-<span id="L227"><a class="line" href="#L227">227</a>             AttachmentRotation = (AttachmentRotation + 1) % 6;</span>
-<span id="L228"><a class="line" href="#L228">228</a>             RefreshDragPreview(); Redraw(this); return;</span>
-<span id="L229"><a class="line" href="#L229">229</a>         }</span>
-<span id="L230"><a class="line" href="#L230">230</a>         Rotated = !Rotated; RefreshDragPreview();</span>
-<span id="L231"><a class="line" href="#L231">231</a>         _receipt.Text = &quot;Placement preview rotated; drop to begin timed handling.&quot;;</span>
-<span id="L232"><a class="line" href="#L232">232</a>     }</span>
-<span id="L233"><a class="line" href="#L233">233</a>     public void Inspect(string id)</span>
-<span id="L234"><a class="line" href="#L234">234</a>     {</span>
-<span id="L235"><a class="line" href="#L235">235</a>         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;</span>
-<span id="L236"><a class="line" href="#L236">236</a>     }</span>
-<span id="L237"><a class="line" href="#L237">237</a>     internal void OpenCompartment(string id, string region)</span>
-<span id="L238"><a class="line" href="#L238">238</a>     { _browser.OpenRegion(id, region, out var reason); _receipt.Text = reason; }</span>
-<span id="L239"><a class="line" href="#L239">239</a>     internal void OpenGarment(string id)</span>
-<span id="L240"><a class="line" href="#L240">240</a>     {</span>
-<span id="L241"><a class="line" href="#L241">241</a>         if (Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).GarmentOpen) return;</span>
-<span id="L242"><a class="line" href="#L242">242</a>         Simulation.HandleInventory(new(InventoryActionKind.OpenGarment, id)); ShowReceipt();</span>
-<span id="L243"><a class="line" href="#L243">243</a>     }</span>
-<span id="L244"><a class="line" href="#L244">244</a>     internal void ToggleClosure(string id, string? region = null)</span>
-<span id="L245"><a class="line" href="#L245">245</a>     {</span>
-<span id="L246"><a class="line" href="#L246">246</a>         var action = InventoryClosures.Toggle(Simulation.Inventory, id, region);</span>
-<span id="L247"><a class="line" href="#L247">247</a>         if (action.Request.Kind == InventoryActionKind.Open) OpenCompartment(id, region!);</span>
-<span id="L248"><a class="line" href="#L248">248</a>         else if (action.Request.Kind == InventoryActionKind.OpenGarment) OpenGarment(id);</span>
-<span id="L249"><a class="line" href="#L249">249</a>         else { Simulation.HandleInventory(action.Request); ShowReceipt(); }</span>
-<span id="L250"><a class="line" href="#L250">250</a>     }</span>
-<span id="L251"><a class="line" href="#L251">251</a>     internal string? DefaultDropRegion(string id)</span>
-<span id="L252"><a class="line" href="#L252">252</a>     {</span>
-<span id="L253"><a class="line" href="#L253">253</a>         var definition = Simulation.Inventory.Definition(id);</span>
-<span id="L254"><a class="line" href="#L254">254</a>         return definition.DefaultDropRegion ?? (definition.Regions is { Length: 1 } regions &amp;&amp; regions[0].Attachment is null ? regions[0].Id : null);</span>
-<span id="L255"><a class="line" href="#L255">255</a>     }</span>
-<span id="L256"><a class="line" href="#L256">256</a>     internal InventoryPackingQuote PreviewContainerDrop(string item, string owner, string region)</span>
-<span id="L257"><a class="line" href="#L257">257</a>     {</span>
-<span id="L258"><a class="line" href="#L258">258</a>         var quote = Simulation.QuoteInventoryPacking(new(InventoryActionKind.AutoPlace, item, new(owner, region)));</span>
-<span id="L259"><a class="line" href="#L259">259</a>         _receipt.Text = quote.Allowed ? $&quot;{(quote.Plan!.Repacked ? &quot;Arrange and store&quot; : &quot;Store in free space&quot;)} · {quote.Plan.Moves.Length} items handled · {quote.DurationMs / 1000.0:0.00}s · {quote.Ap} AP in combat&quot; : quote.Reason;</span>
-<span id="L260"><a class="line" href="#L260">260</a>         return quote;</span>
-<span id="L261"><a class="line" href="#L261">261</a>     }</span>
-<span id="L262"><a class="line" href="#L262">262</a>     internal void StoreInContainer(string item, string owner, string region)</span>
-<span id="L263"><a class="line" href="#L263">263</a>     { Simulation.HandleInventory(new(InventoryActionKind.AutoPlace, item, new(owner, region))); ShowReceipt(); }</span>
-<span id="L264"><a class="line" href="#L264">264</a>     internal void Arrange(string owner, string region)</span>
-<span id="L265"><a class="line" href="#L265">265</a>     { Simulation.HandleInventory(new(InventoryActionKind.Arrange, owner, new(owner, region))); ShowReceipt(); }</span>
-<span id="L266"><a class="line" href="#L266">266</a>     private void HideContext()</span>
-<span id="L267"><a class="line" href="#L267">267</a>     { _contextUpdates.Clear(); if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }</span>
-<span id="L268"><a class="line" href="#L268">268</a>     public override void _Input(InputEvent e)</span>
-<span id="L269"><a class="line" href="#L269">269</a>     {</span>
-<span id="L270"><a class="line" href="#L270">270</a>         if (Visible &amp;&amp; _contextMenu is not null &amp;&amp; e is InputEventMouseButton { Pressed: true } mouse</span>
-<span id="L271"><a class="line" href="#L271">271</a>             &amp;&amp; !_contextMenu.GetGlobalRect().HasPoint(mouse.Position)) HideContext();</span>
-<span id="L272"><a class="line" href="#L272">272</a>     }</span>
-<span id="L273"><a class="line" href="#L273">273</a>     private VBoxContainer BeginContext()</span>
-<span id="L274"><a class="line" href="#L274">274</a>     {</span>
-<span id="L275"><a class="line" href="#L275">275</a>         HideContext();</span>
-<span id="L276"><a class="line" href="#L276">276</a>         _contextMenu = new PanelContainer { ZIndex = 20 };</span>
-<span id="L277"><a class="line" href="#L277">277</a>         _contextMenu.AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;28372e&quot;), ContentMarginLeft = 8,</span>
-<span id="L278"><a class="line" href="#L278">278</a>             ContentMarginRight = 8, ContentMarginTop = 8, ContentMarginBottom = 8 });</span>
-<span id="L279"><a class="line" href="#L279">279</a>         AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list); return list;</span>
-<span id="L280"><a class="line" href="#L280">280</a>     }</span>
-<span id="L281"><a class="line" href="#L281">281</a>     private void PositionContext(Vector2 position)</span>
-<span id="L282"><a class="line" href="#L282">282</a>     {</span>
-<span id="L283"><a class="line" href="#L283">283</a>         var size = _contextMenu!.GetCombinedMinimumSize();</span>
-<span id="L284"><a class="line" href="#L284">284</a>         _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));</span>
-<span id="L285"><a class="line" href="#L285">285</a>     }</span>
-<span id="L286"><a class="line" href="#L286">286</a>     internal void ContainerContext(string owner, string region, Vector2 position)</span>
-<span id="L287"><a class="line" href="#L287">287</a>     {</span>
-<span id="L288"><a class="line" href="#L288">288</a>         var list = BeginContext();</span>
-<span id="L289"><a class="line" href="#L289">289</a>         Button(list, &quot;Arrange &quot; + Simulation.Inventory.Region(owner, region).Name, () =&gt; { HideContext(); Arrange(owner, region); });</span>
-<span id="L290"><a class="line" href="#L290">290</a>         PositionContext(position);</span>
-<span id="L291"><a class="line" href="#L291">291</a>     }</span>
-<span id="L292"><a class="line" href="#L292">292</a>     internal void Context(string id, string? region, Vector2 position, bool fastening = false)</span>
-<span id="L293"><a class="line" href="#L293">293</a>     {</span>
-<span id="L294"><a class="line" href="#L294">294</a>         Select(id); var list = BeginContext();</span>
-<span id="L295"><a class="line" href="#L295">295</a>         var definition = Simulation.Inventory.Definition(id);</span>
-<span id="L296"><a class="line" href="#L296">296</a>         void Entry(string name, Action action) =&gt; Button(list, name, () =&gt; { HideContext(); action(); });</span>
-<span id="L297"><a class="line" href="#L297">297</a>         if (!fastening &amp;&amp; (region is null || !Simulation.Inventory.Region(id, region).Sealable)) Entry(&quot;Open&quot;, () =&gt; { if (region is not null) OpenCompartment(id, region); else Inspect(id); });</span>
-<span id="L298"><a class="line" href="#L298">298</a>         var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: &gt; 0 } &amp;&amp; definition.Regions is { Length: 1 } regions &amp;&amp; regions[0].Attachment is null ? regions[0].Id : null);</span>
-<span id="L299"><a class="line" href="#L299">299</a>         if (closureRegion is not null &amp;&amp; !Simulation.Inventory.Region(id, closureRegion).Sealable) closureRegion = null;</span>
-<span id="L300"><a class="line" href="#L300">300</a>         if (closureRegion is not null || region is null &amp;&amp; definition.Wear?.OpenExposes is { Length: &gt; 0 })</span>
-<span id="L301"><a class="line" href="#L301">301</a>         {</span>
-<span id="L302"><a class="line" href="#L302">302</a>             var closure = Button(list, &quot;&quot;, () =&gt;</span>
-<span id="L303"><a class="line" href="#L303">303</a>             {</span>
-<span id="L304"><a class="line" href="#L304">304</a>                 HideContext(); ToggleClosure(id, closureRegion);</span>
-<span id="L305"><a class="line" href="#L305">305</a>             });</span>
-<span id="L306"><a class="line" href="#L306">306</a>             var automatic = new CheckButton { Text = &quot;Secure on view close&quot;, FocusMode = FocusModeEnum.None,</span>
-<span id="L307"><a class="line" href="#L307">307</a>                 TooltipText = &quot;Only this fastening. Changing this preference does not physically open or secure it.&quot; }; list.AddChild(automatic);</span>
-<span id="L308"><a class="line" href="#L308">308</a>             automatic.Toggled += value =&gt;</span>
-<span id="L309"><a class="line" href="#L309">309</a>             {</span>
-<span id="L310"><a class="line" href="#L310">310</a>                 Simulation.SetInventorySecureOnClose(id, closureRegion, value); ShowReceipt();</span>
-<span id="L311"><a class="line" href="#L311">311</a>                 automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));</span>
-<span id="L312"><a class="line" href="#L312">312</a>             };</span>
-<span id="L313"><a class="line" href="#L313">313</a>             void UpdateClosure()</span>
-<span id="L314"><a class="line" href="#L314">314</a>             {</span>
-<span id="L315"><a class="line" href="#L315">315</a>                 var action = InventoryClosures.Toggle(Simulation.Inventory, id, closureRegion);</span>
-<span id="L316"><a class="line" href="#L316">316</a>                 closure.Text = action.Verb;</span>
-<span id="L317"><a class="line" href="#L317">317</a>                 closure.Disabled = Simulation.Inventory.Pending is not null || !Simulation.QuoteInventory(action.Request).Allowed;</span>
-<span id="L318"><a class="line" href="#L318">318</a>                 closure.TooltipText = Simulation.InventoryCost(action.Request);</span>
-<span id="L319"><a class="line" href="#L319">319</a>                 automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));</span>
-<span id="L320"><a class="line" href="#L320">320</a>             }</span>
-<span id="L321"><a class="line" href="#L321">321</a>             _contextUpdates.Add(UpdateClosure); UpdateClosure();</span>
-<span id="L322"><a class="line" href="#L322">322</a>         }</span>
-<span id="L323"><a class="line" href="#L323">323</a>         if (region is not null) Entry(&quot;Arrange &quot; + Simulation.Inventory.Region(id, region).Name, () =&gt; Arrange(id, region));</span>
-<span id="L324"><a class="line" href="#L324">324</a>         else foreach (var interior in (definition.Regions ?? []).Where(r =&gt; r.Attachment is null))</span>
-<span id="L325"><a class="line" href="#L325">325</a>             Entry(&quot;Arrange &quot; + interior.Name, () =&gt; Arrange(id, interior.Id));</span>
-<span id="L326"><a class="line" href="#L326">326</a>         var location = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;</span>
-<span id="L327"><a class="line" href="#L327">327</a>         var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);</span>
-<span id="L328"><a class="line" href="#L328">328</a>         if (enclosing.MountSlot is null &amp;&amp; enclosing.Attachment is null) Entry(&quot;Arrange &quot; + enclosing.Name, () =&gt; Arrange(location.ParentId, location.RegionId));</span>
-<span id="L329"><a class="line" href="#L329">329</a>         Entry(&quot;Remove → hand&quot;, () =&gt; { Select(id); MoveSelectedTo(&quot;hand&quot;); });</span>
-<span id="L330"><a class="line" href="#L330">330</a>         PositionContext(position);</span>
-<span id="L331"><a class="line" href="#L331">331</a>     }</span>
-<span id="L332"><a class="line" href="#L332">332</a>     internal IReadOnlyList&lt;string&gt; InspectedContainers =&gt; _browser.ContainerIds;</span>
-<span id="L333"><a class="line" href="#L333">333</a>     internal void CloseContainerView(string id) =&gt; _browser.CloseView(id);</span>
-<span id="L334"><a class="line" href="#L334">334</a>     internal void ChangeLid(string id, string region, bool open)</span>
-<span id="L335"><a class="line" href="#L335">335</a>     { Simulation.HandleInventory(new(open ? InventoryActionKind.Open : InventoryActionKind.Close, id, RegionId: region)); ShowReceipt(); }</span>
-<span id="L336"><a class="line" href="#L336">336</a>     public void ShowQuote(InventoryActionQuote quote) =&gt; _receipt.Text = quote.Allowed ? $&quot;Handling: {quote.DurationMs / 1000.0:0.00}s · {quote.Ap} AP in combat&quot; : quote.Reason;</span>
-<span id="L337"><a class="line" href="#L337">337</a>     public void ShowReceipt() =&gt; _receipt.Text = Simulation.LastMessage;</span>
-<span id="L338"><a class="line" href="#L338">338</a>     public void Refresh()</span>
-<span id="L339"><a class="line" href="#L339">339</a>     {</span>
-<span id="L340"><a class="line" href="#L340">340</a>         if (!Visible) return;</span>
-<span id="L341"><a class="line" href="#L341">341</a>         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);</span>
-<span id="L342"><a class="line" href="#L342">342</a>         _clock.Text = Simulation.ManualPause ? &quot;MANUAL PAUSE&quot; : Simulation.Combat.Active ? $&quot;TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP&quot; : $&quot;REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s&quot;;</span>
-<span id="L343"><a class="line" href="#L343">343</a>         _browser.Refresh(); PaperdollProof.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();</span>
-<span id="L344"><a class="line" href="#L344">344</a>         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: &gt; 0 };</span>
-<span id="L345"><a class="line" href="#L345">345</a>         _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + &quot; selected garment&quot; : &quot;Garment fastening&quot;;</span>
-<span id="L346"><a class="line" href="#L346">346</a>         if (SelectedItem is { } current) _detail.Text = Describe(current);</span>
-<span id="L347"><a class="line" href="#L347">347</a>         foreach (var update in _contextUpdates) update();</span>
-<span id="L348"><a class="line" href="#L348">348</a>         _progress.Text = Simulation.Inventory.Pending is { } work ? $&quot;HANDLING · {(work.TotalMs - work.RemainingMs) / 1000.0:0.00} / {work.TotalMs / 1000.0:0.00}s · {work.Request.Kind}&quot;</span>
-<span id="L349"><a class="line" href="#L349">349</a>             : Simulation.Inventory.SecuringRemaining &gt; 0 ? $&quot;SECURING · {Simulation.Inventory.SecuringRemaining} closures waiting for local progress / your turn and sufficient AP · Cancel handling to stop&quot;</span>
-<span id="L350"><a class="line" href="#L350">350</a>             : $&quot;Carried mass: {InventoryHierarchy.CarriedMass(Simulation.Inventory, &quot;person:avatar&quot;) / 1000.0:0.00} kg · no handling in progress&quot;;</span>
-<span id="L351"><a class="line" href="#L351">351</a>         var receipt = Simulation.Events.Entries.LastOrDefault(e =&gt; e.Text.StartsWith(&quot;Inventory: &quot;, StringComparison.Ordinal));</span>
-<span id="L352"><a class="line" href="#L352">352</a>         if (receipt is not null &amp;&amp; receipt.Id != _lastReceiptId) { _lastReceiptId = receipt.Id; _receipt.Text = receipt.Text; }</span>
-<span id="L353"><a class="line" href="#L353">353</a>         Redraw(this);</span>
-<span id="L354"><a class="line" href="#L354">354</a>     }</span>
-<span id="L355"><a class="line" href="#L355">355</a>     public override void _ExitTree() =&gt; InventoryArt.Release();</span>
-<span id="L356"><a class="line" href="#L356">356</a>     private static void Redraw(Node node) { if (node is CanvasItem item) item.QueueRedraw(); foreach (var child in node.GetChildren()) Redraw(child); }</span>
-<span id="L357"><a class="line" href="#L357">357</a>     public void HandleInput(InputEvent e)</span>
-<span id="L358"><a class="line" href="#L358">358</a>     {</span>
-<span id="L359"><a class="line" href="#L359">359</a>         if (e is InputEventKey { Pressed: true, Echo: false } key)</span>
-<span id="L360"><a class="line" href="#L360">360</a>         {</span>
-<span id="L361"><a class="line" href="#L361">361</a>             if (key.Keycode == Key.I) Close();</span>
-<span id="L362"><a class="line" href="#L362">362</a>             else if (key.Keycode == Key.Escape) Close();</span>
-<span id="L363"><a class="line" href="#L363">363</a>             else if (key.Keycode == Key.R) Rotate();</span>
-<span id="L364"><a class="line" href="#L364">364</a>             else if (key.Keycode == Key.Space) Simulation.ManualPause = !Simulation.ManualPause;</span>
-<span id="L365"><a class="line" href="#L365">365</a>             else if (key.Keycode == Key.Enter &amp;&amp; Simulation.Combat.Active) Simulation.EndTurn();</span>
-<span id="L366"><a class="line" href="#L366">366</a>         }</span>
-<span id="L367"><a class="line" href="#L367">367</a>         GetViewport().SetInputAsHandled();</span>
-<span id="L368"><a class="line" href="#L368">368</a>     }</span>
-<span id="L369"><a class="line" href="#L369">369</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L23"><a class="line" href="#L23">23</a>     internal InventoryGroundView GroundView { get; private set; } = null!;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;</span>
+<span id="L25"><a class="line" href="#L25">25</a>     private InventoryBodyFitPanel _bodyFit = null!;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     private Button _bodyFitToggle = null!;</span>
+<span id="L27"><a class="line" href="#L27">27</a>     private VBoxContainer _equipmentActions = null!;</span>
+<span id="L28"><a class="line" href="#L28">28</a>     internal InventoryBodyFitPanel BodyFit =&gt; _bodyFit;</span>
+<span id="L29"><a class="line" href="#L29">29</a>     internal Button BodyFitToggle =&gt; _bodyFitToggle;</span>
+<span id="L30"><a class="line" href="#L30">30</a>     internal InventoryPaperdollProof PaperdollProof { get; private set; } = null!;</span>
+<span id="L31"><a class="line" href="#L31">31</a>     internal Button PaperdollProofToggle { get; private set; } = null!;</span>
+<span id="L32"><a class="line" href="#L32">32</a>     private ScrollContainer _wornScroll = null!;</span>
+<span id="L33"><a class="line" href="#L33">33</a>     private InventoryEquipmentList _equipmentList = null!;</span>
+<span id="L34"><a class="line" href="#L34">34</a>     internal InventoryEquipmentList EquipmentList =&gt; _equipmentList;</span>
+<span id="L35"><a class="line" href="#L35">35</a>     internal CheckButton EngineeringSlots { get; private set; } = null!;</span>
+<span id="L36"><a class="line" href="#L36">36</a>     private long _lastReceiptId = -1;</span>
+<span id="L37"><a class="line" href="#L37">37</a>     public void Initialize(SpatialSimulation simulation)</span>
+<span id="L38"><a class="line" href="#L38">38</a>     {</span>
+<span id="L39"><a class="line" href="#L39">39</a>         Simulation = simulation;</span>
+<span id="L40"><a class="line" href="#L40">40</a>         if (!simulation.Inventory.Enabled) { Visible = false; return; }</span>
+<span id="L41"><a class="line" href="#L41">41</a>         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Stop;</span>
+<span id="L42"><a class="line" href="#L42">42</a>         Theme = new Theme { DefaultFontSize = 13 };</span>
+<span id="L43"><a class="line" href="#L43">43</a>         Theme.SetColor(&quot;font_color&quot;, &quot;Label&quot;, new(&quot;dddcca&quot;));</span>
+<span id="L44"><a class="line" href="#L44">44</a>         var dim = new ColorRect { Color = new(0.018f, 0.025f, 0.025f, 0.90f) }; AddChild(dim); dim.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         _window = new PanelContainer(); AddChild(_window);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         _window.AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;101916&quot;), BorderColor = new(&quot;4c5c4d&quot;), BorderWidthTop = 1, BorderWidthBottom = 1, BorderWidthLeft = 1, BorderWidthRight = 1, ContentMarginLeft = 22, ContentMarginRight = 22, ContentMarginTop = 16, ContentMarginBottom = 16 });</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var column = new VBoxContainer(); _window.AddChild(column); column.AddThemeConstantOverride(&quot;separation&quot;, 10);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var header = new HBoxContainer(); column.AddChild(header);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Label(header, &quot;PERSONAL EQUIPMENT&quot;, 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         _clock = Label(header, &quot;&quot;, 13);</span>
+<span id="L51"><a class="line" href="#L51">51</a>         Button(header, &quot;CLOSE  /  I&quot;, Close);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         Label(column, &quot;Double-click opens · contents stay while choosing gear · drag to move · R rotates · right-click for actions · ↑/× secure · Esc hides&quot;, 12);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         column.AddChild(new HSeparator());</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride(&quot;separation&quot;, 26); column.AddChild(body);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         var worn = new VBoxContainer(); body.AddChild(worn);</span>
+<span id="L56"><a class="line" href="#L56">56</a>         Label(worn, &quot;PAPERDOLL / WORN &amp; HELD&quot;, 16);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         var bodyViews = new HBoxContainer(); worn.AddChild(bodyViews);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         _bodyFitToggle = Button(bodyViews, &quot;Body fit · hex view&quot;, ToggleBodyFit);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         _bodyFitToggle.SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L60"><a class="line" href="#L60">60</a>         PaperdollProofToggle = Button(bodyViews, &quot;Sprites&quot;, TogglePaperdollProof);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         PaperdollProofToggle.TooltipText = &quot;Upper-body clothing sprite qualification; other gear is explicitly omitted.&quot;;</span>
+<span id="L62"><a class="line" href="#L62">62</a>         EngineeringSlots = new CheckButton { Text = &quot;Engineering slot controls&quot;, FocusMode = FocusModeEnum.None }; worn.AddChild(EngineeringSlots);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         _equipmentList = new InventoryEquipmentList { Panel = this }; worn.AddChild(_equipmentList);</span>
+<span id="L64"><a class="line" href="#L64">64</a>         EngineeringSlots.Toggled += _ =&gt; { CancelDragPreview(); SetBodyFit(false); };</span>
+<span id="L65"><a class="line" href="#L65">65</a>         _wornScroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill,</span>
+<span id="L66"><a class="line" href="#L66">66</a>             CustomMinimumSize = new(234, 180), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; worn.AddChild(_wornScroll);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         var mounts = new GridContainer { Columns = 2 }; mounts.AddThemeConstantOverride(&quot;h_separation&quot;, 16); _wornScroll.AddChild(mounts);</span>
+<span id="L68"><a class="line" href="#L68">68</a>         foreach (var slot in new[] { &quot;outerwear&quot;, &quot;back&quot;, &quot;legs&quot;, &quot;hand&quot;, &quot;torso&quot;, &quot;suit&quot;, &quot;socks&quot;, &quot;footwear&quot;, &quot;front&quot;, &quot;belt&quot;, &quot;underwear&quot; }) AddGrid(mounts, &quot;person:avatar&quot;, slot, 90);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         _bodyFit = new InventoryBodyFitPanel { Panel = this, Visible = false }; worn.AddChild(_bodyFit);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         _equipmentActions = new VBoxContainer(); worn.AddChild(_equipmentActions);</span>
+<span id="L71"><a class="line" href="#L71">71</a>         _garmentToggle = new Button { Text = &quot;Open / fasten selected garment&quot;, FocusMode = FocusModeEnum.None }; _equipmentActions.AddChild(_garmentToggle);</span>
+<span id="L72"><a class="line" href="#L72">72</a>         _garmentToggle.Pressed += ToggleGarment;</span>
+<span id="L73"><a class="line" href="#L73">73</a>         _takeInHand = Button(_equipmentActions, &quot;Take selected in hand&quot;, () =&gt; MoveSelectedTo(&quot;hand&quot;));</span>
+<span id="L74"><a class="line" href="#L74">74</a>         _wearDefault = Button(_equipmentActions, &quot;Wear selected (default mount)&quot;, () =&gt;</span>
+<span id="L75"><a class="line" href="#L75">75</a>         {</span>
+<span id="L76"><a class="line" href="#L76">76</a>             if (SelectedItem is { } id &amp;&amp; Simulation.Inventory.Definition(id).WearSlot is { } slot) MoveSelectedTo(slot);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         });</span>
+<span id="L78"><a class="line" href="#L78">78</a>         Button(_equipmentActions, &quot;Rotate selected object  R&quot;, Rotate);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         Button(_equipmentActions, &quot;Inspect selected container&quot;, () =&gt; { if (SelectedItem is { } id) Inspect(id); });</span>
+<span id="L80"><a class="line" href="#L80">80</a>         Button(_equipmentActions, &quot;Switch selected power&quot;, () =&gt;</span>
+<span id="L81"><a class="line" href="#L81">81</a>         {</span>
+<span id="L82"><a class="line" href="#L82">82</a>             if (SelectedItem is not { } id) return;</span>
+<span id="L83"><a class="line" href="#L83">83</a>             var item = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
+<span id="L84"><a class="line" href="#L84">84</a>             Simulation.HandleInventory(new(item.Powered ? InventoryActionKind.PowerOff : InventoryActionKind.PowerOn, id)); ShowReceipt();</span>
+<span id="L85"><a class="line" href="#L85">85</a>         });</span>
+<span id="L86"><a class="line" href="#L86">86</a>         Button(_equipmentActions, &quot;Cancel handling&quot;, () =&gt; { Simulation.CancelInventoryHandling(); ShowReceipt(); });</span>
+<span id="L87"><a class="line" href="#L87">87</a>         Button(_equipmentActions, &quot;Nearby supply crate&quot;, () =&gt; Inspect(&quot;fixture:crate-a&quot;));</span>
+<span id="L88"><a class="line" href="#L88">88</a>         PaperdollProof = new InventoryPaperdollProof { Panel = this, Visible = false }; worn.AddChild(PaperdollProof);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         var storage = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; body.AddChild(storage);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         var storageHeader = new HBoxContainer(); storage.AddChild(storageHeader);</span>
+<span id="L91"><a class="line" href="#L91">91</a>         Label(storageHeader, &quot;GEAR &amp; CONTENTS / TWO INDEPENDENT TRAILS&quot;, 16).SizeFlagsHorizontal = SizeFlags.ExpandFill;</span>
+<span id="L92"><a class="line" href="#L92">92</a>         Label(storage, &quot;Compartments open individually. ↑/× follow each fastening’s preference. Esc leaves physical closures unchanged.&quot;, 12);</span>
+<span id="L93"><a class="line" href="#L93">93</a>         var scroll = new ScrollContainer { SizeFlagsVertical = SizeFlags.ExpandFill, SizeFlagsHorizontal = SizeFlags.ExpandFill,</span>
+<span id="L94"><a class="line" href="#L94">94</a>             HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);</span>
+<span id="L95"><a class="line" href="#L95">95</a>         _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };</span>
+<span id="L96"><a class="line" href="#L96">96</a>         _browser.AddThemeConstantOverride(&quot;separation&quot;, 18); scroll.AddChild(_browser);</span>
+<span id="L97"><a class="line" href="#L97">97</a>         GroundView = new InventoryGroundView { Panel = this }; body.AddChild(GroundView);</span>
+<span id="L98"><a class="line" href="#L98">98</a>         column.AddChild(new HSeparator());</span>
+<span id="L99"><a class="line" href="#L99">99</a>         _detail = Label(column, &quot;&quot;, 13); _detail.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
+<span id="L100"><a class="line" href="#L100">100</a>         _progress = Label(column, &quot;&quot;, 13);</span>
+<span id="L101"><a class="line" href="#L101">101</a>         _receipt = Label(column, &quot;Arrange equipment before trouble. The world continues while this view is open.&quot;, 12);</span>
+<span id="L102"><a class="line" href="#L102">102</a>         _receipt.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>
+<span id="L103"><a class="line" href="#L103">103</a>         Visible = false;</span>
+<span id="L104"><a class="line" href="#L104">104</a>     }</span>
+<span id="L105"><a class="line" href="#L105">105</a>     internal InventoryGrid AddGrid(Node parent, string parentId, string region, float pixels)</span>
+<span id="L106"><a class="line" href="#L106">106</a>     {</span>
+<span id="L107"><a class="line" href="#L107">107</a>         var grid = new InventoryGrid { Panel = this, ParentId = parentId, RegionId = region, CellPixels = pixels,</span>
+<span id="L108"><a class="line" href="#L108">108</a>             IsPaperdoll = Simulation.Inventory.Content!.Roots.Any(r =&gt; r.Id == parentId &amp;&amp; r.ActorId == Simulation.Player.Id) };</span>
+<span id="L109"><a class="line" href="#L109">109</a>         grid.BindSize(); parent.AddChild(grid); return grid;</span>
+<span id="L110"><a class="line" href="#L110">110</a>     }</span>
+<span id="L111"><a class="line" href="#L111">111</a>     internal static Label Label(Node parent, string text, int size)</span>
+<span id="L112"><a class="line" href="#L112">112</a>     {</span>
+<span id="L113"><a class="line" href="#L113">113</a>         var label = new Label { Text = text, MouseFilter = MouseFilterEnum.Ignore }; label.AddThemeFontSizeOverride(&quot;font_size&quot;, size); parent.AddChild(label); return label;</span>
+<span id="L114"><a class="line" href="#L114">114</a>     }</span>
+<span id="L115"><a class="line" href="#L115">115</a>     internal static Button Button(Node parent, string text, Action action)</span>
+<span id="L116"><a class="line" href="#L116">116</a>     {</span>
+<span id="L117"><a class="line" href="#L117">117</a>         var button = new Button { Text = text, FocusMode = FocusModeEnum.None }; button.Pressed += action; parent.AddChild(button);</span>
+<span id="L118"><a class="line" href="#L118">118</a>         return button;</span>
+<span id="L119"><a class="line" href="#L119">119</a>     }</span>
+<span id="L120"><a class="line" href="#L120">120</a>     public bool Open()</span>
+<span id="L121"><a class="line" href="#L121">121</a>     {</span>
+<span id="L122"><a class="line" href="#L122">122</a>         if (!Simulation.Inventory.Enabled) return false;</span>
+<span id="L123"><a class="line" href="#L123">123</a>         Visible = true; _lastReceiptId = -1; _browser.Clear();</span>
+<span id="L124"><a class="line" href="#L124">124</a>         SetBodyFit(false);</span>
+<span id="L125"><a class="line" href="#L125">125</a>         _bodyFit.ResetInspection(); PaperdollProof.ResetView();</span>
+<span id="L126"><a class="line" href="#L126">126</a>         _wornScroll.ScrollVertical = 0;</span>
+<span id="L127"><a class="line" href="#L127">127</a>         SelectedItem = null; Rotated = false;</span>
+<span id="L128"><a class="line" href="#L128">128</a>         _detail.Text = &quot;Your worn equipment is visible. Inspect a garment or bag to reveal its compartments.&quot;;</span>
+<span id="L129"><a class="line" href="#L129">129</a>         Refresh(); return true;</span>
+<span id="L130"><a class="line" href="#L130">130</a>     }</span>
+<span id="L131"><a class="line" href="#L131">131</a>     private void SetBodyFit(bool enabled)</span>
+<span id="L132"><a class="line" href="#L132">132</a>     {</span>
+<span id="L133"><a class="line" href="#L133">133</a>         PaperdollProof.Visible = false;</span>
+<span id="L134"><a class="line" href="#L134">134</a>         _bodyFit.Visible = enabled; _wornScroll.Visible = !enabled &amp;&amp; EngineeringSlots.ButtonPressed;</span>
+<span id="L135"><a class="line" href="#L135">135</a>         _equipmentList.Visible = !enabled &amp;&amp; !EngineeringSlots.ButtonPressed;</span>
+<span id="L136"><a class="line" href="#L136">136</a>         EngineeringSlots.Visible = _equipmentActions.Visible = !enabled;</span>
+<span id="L137"><a class="line" href="#L137">137</a>         _bodyFitToggle.Text = enabled ? &quot;Equipment slots&quot; : &quot;Body fit · hex view&quot;;</span>
+<span id="L138"><a class="line" href="#L138">138</a>         if (enabled) _bodyFit.Refresh();</span>
+<span id="L139"><a class="line" href="#L139">139</a>     }</span>
+<span id="L140"><a class="line" href="#L140">140</a>     private void TogglePaperdollProof()</span>
+<span id="L141"><a class="line" href="#L141">141</a>     {</span>
+<span id="L142"><a class="line" href="#L142">142</a>         CancelDragPreview(); var show = !PaperdollProof.Visible; SetBodyFit(false);</span>
+<span id="L143"><a class="line" href="#L143">143</a>         PaperdollProof.Visible = show;</span>
+<span id="L144"><a class="line" href="#L144">144</a>         if (show) { _equipmentList.Visible = _wornScroll.Visible = EngineeringSlots.Visible = _equipmentActions.Visible = false; PaperdollProof.Refresh(); }</span>
+<span id="L145"><a class="line" href="#L145">145</a>     }</span>
+<span id="L146"><a class="line" href="#L146">146</a>     private void ToggleBodyFit() { CancelDragPreview(); SetBodyFit(!_bodyFit.Visible); }</span>
+<span id="L147"><a class="line" href="#L147">147</a>     internal InventoryGrid FindGrid(string parentId, string regionId) =&gt; Grids(this).First(g =&gt; g.ParentId == parentId &amp;&amp; g.RegionId == regionId);</span>
+<span id="L148"><a class="line" href="#L148">148</a>     private static IEnumerable&lt;InventoryGrid&gt; Grids(Node parent)</span>
+<span id="L149"><a class="line" href="#L149">149</a>     {</span>
+<span id="L150"><a class="line" href="#L150">150</a>         foreach (var child in parent.GetChildren())</span>
+<span id="L151"><a class="line" href="#L151">151</a>         { if (child is InventoryGrid grid) yield return grid; foreach (var nested in Grids(child)) yield return nested; }</span>
+<span id="L152"><a class="line" href="#L152">152</a>     }</span>
+<span id="L153"><a class="line" href="#L153">153</a>     public void Close()</span>
+<span id="L154"><a class="line" href="#L154">154</a>     {</span>
+<span id="L155"><a class="line" href="#L155">155</a>         HideContext();</span>
+<span id="L156"><a class="line" href="#L156">156</a>         CancelDragPreview();</span>
+<span id="L157"><a class="line" href="#L157">157</a>         _browser.Clear(); Visible = false; GetViewport().GuiReleaseFocus();</span>
+<span id="L158"><a class="line" href="#L158">158</a>     }</span>
+<span id="L159"><a class="line" href="#L159">159</a>     internal void CancelDragPreview()</span>
+<span id="L160"><a class="line" href="#L160">160</a>     {</span>
+<span id="L161"><a class="line" href="#L161">161</a>         if (DragItemId is not null) GetViewport().GuiCancelDrag();</span>
+<span id="L162"><a class="line" href="#L162">162</a>         DragItemId = null; DropPreview = null;</span>
+<span id="L163"><a class="line" href="#L163">163</a>         _bodyFit?.Surface?.ClearDropPreview();</span>
+<span id="L164"><a class="line" href="#L164">164</a>     }</span>
+<span id="L165"><a class="line" href="#L165">165</a>     internal void BeginDrag(string id)</span>
+<span id="L166"><a class="line" href="#L166">166</a>     {</span>
+<span id="L167"><a class="line" href="#L167">167</a>         DragItemId = id; DropPreview = null;</span>
+<span id="L168"><a class="line" href="#L168">168</a>         BodyRotation = InventoryBodyFit.Pose(Simulation.Inventory, Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id))?.Rotation ?? 0;</span>
+<span id="L169"><a class="line" href="#L169">169</a>         _bodyFit.Surface.ClearDropPreview();</span>
+<span id="L170"><a class="line" href="#L170">170</a>     }</span>
+<span id="L171"><a class="line" href="#L171">171</a>     internal void PreviewDrop(InventoryGrid grid, Vector2 position)</span>
+<span id="L172"><a class="line" href="#L172">172</a>     {</span>
+<span id="L173"><a class="line" href="#L173">173</a>         DropPreview = DragItemId is { } id ? grid.PreviewAt(id, position) : null;</span>
+<span id="L174"><a class="line" href="#L174">174</a>         if (DropPreview is { } preview) ShowQuote(preview.Quote);</span>
+<span id="L175"><a class="line" href="#L175">175</a>     }</span>
+<span id="L176"><a class="line" href="#L176">176</a>     public override void _Process(double delta) =&gt; RefreshDragPreview();</span>
+<span id="L177"><a class="line" href="#L177">177</a>     private void RefreshDragPreview()</span>
+<span id="L178"><a class="line" href="#L178">178</a>     {</span>
+<span id="L179"><a class="line" href="#L179">179</a>         if (!Visible || !GetViewport().GuiIsDragging())</span>
+<span id="L180"><a class="line" href="#L180">180</a>         { DragItemId = null; DropPreview = null; _bodyFit?.Surface?.ClearDropPreview(); return; }</span>
+<span id="L181"><a class="line" href="#L181">181</a>         if (GetViewport().GuiGetHoveredControl() is InventoryGrid grid &amp;&amp; grid.Panel == this)</span>
+<span id="L182"><a class="line" href="#L182">182</a>             PreviewDrop(grid, grid.GetLocalMousePosition());</span>
+<span id="L183"><a class="line" href="#L183">183</a>         else DropPreview = null;</span>
+<span id="L184"><a class="line" href="#L184">184</a>         if (_bodyFit.Surface.IsDropTarget) _bodyFit.Surface.PreviewDrop(_bodyFit.Surface.GetLocalMousePosition());</span>
+<span id="L185"><a class="line" href="#L185">185</a>         else _bodyFit.Surface.ClearDropPreview();</span>
+<span id="L186"><a class="line" href="#L186">186</a>     }</span>
+<span id="L187"><a class="line" href="#L187">187</a>     public void Toggle() { if (Visible) Close(); else Open(); }</span>
+<span id="L188"><a class="line" href="#L188">188</a>     public void Select(string id)</span>
+<span id="L189"><a class="line" href="#L189">189</a>     {</span>
+<span id="L190"><a class="line" href="#L190">190</a>         SelectedItem = id;</span>
+<span id="L191"><a class="line" href="#L191">191</a>         var placement = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;</span>
+<span id="L192"><a class="line" href="#L192">192</a>         Rotated = placement.Rotated; AttachmentRotation = placement.AttachmentPose?.Rotation ?? 0;</span>
+<span id="L193"><a class="line" href="#L193">193</a>         _detail.Text = Describe(id);</span>
+<span id="L194"><a class="line" href="#L194">194</a>     }</span>
+<span id="L195"><a class="line" href="#L195">195</a>     internal Button GarmentToggle =&gt; _garmentToggle;</span>
+<span id="L196"><a class="line" href="#L196">196</a>     internal Button TakeInHand =&gt; _takeInHand;</span>
+<span id="L197"><a class="line" href="#L197">197</a>     internal Button WearDefault =&gt; _wearDefault;</span>
+<span id="L198"><a class="line" href="#L198">198</a>     private void ToggleGarment()</span>
+<span id="L199"><a class="line" href="#L199">199</a>     {</span>
+<span id="L200"><a class="line" href="#L200">200</a>         if (SelectedItem is not { } id) return;</span>
+<span id="L201"><a class="line" href="#L201">201</a>         var item = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
+<span id="L202"><a class="line" href="#L202">202</a>         Simulation.HandleInventory(new(item.GarmentOpen ? InventoryActionKind.CloseGarment : InventoryActionKind.OpenGarment, id)); ShowReceipt();</span>
+<span id="L203"><a class="line" href="#L203">203</a>     }</span>
+<span id="L204"><a class="line" href="#L204">204</a>     private void MoveSelectedTo(string slot)</span>
+<span id="L205"><a class="line" href="#L205">205</a>     {</span>
+<span id="L206"><a class="line" href="#L206">206</a>         if (SelectedItem is { } id) { Simulation.HandleInventory(new(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, slot))); ShowReceipt(); }</span>
+<span id="L207"><a class="line" href="#L207">207</a>     }</span>
+<span id="L208"><a class="line" href="#L208">208</a>     public string Describe(string id)</span>
+<span id="L209"><a class="line" href="#L209">209</a>     {</span>
+<span id="L210"><a class="line" href="#L210">210</a>         var state = Simulation.Inventory; var item = state.DiagnosticItems.Single(i =&gt; i.Id == id); var definition = state.Definition(id);</span>
+<span id="L211"><a class="line" href="#L211">211</a>         var layers = InventoryWornOrder.Layers(state, id);</span>
+<span id="L212"><a class="line" href="#L212">212</a>         return $&quot;{definition.Name} · {definition.WidthMm} × {definition.LengthMm} × {definition.ThicknessMm} mm · {InventoryHierarchy.Mass(state, id)} g including contents\n&quot;</span>
+<span id="L213"><a class="line" href="#L213">213</a>             + InventoryHierarchy.Breadcrumb(state, id) + (definition.Wear is { } wear ? (layers.Length &gt; 0 ? &quot; · layer &quot; + InventoryEquipmentList.LayerText(layers) : &quot; · not worn&quot;) + (wear.OpenExposes is null ? &quot;&quot; : item.GarmentOpen ? &quot; · garment open&quot; : &quot; · garment fastened&quot;) : &quot;&quot;)</span>
+<span id="L214"><a class="line" href="#L214">214</a>             + (definition.Capability is null ? &quot;&quot; : item.Powered ? &quot; · powered&quot; : &quot; · switched off&quot;)</span>
+<span id="L215"><a class="line" href="#L215">215</a>             + (definition.Capability is not null &amp;&amp; !Simulation.HasAccessibleEquipment(Simulation.Player.Id, definition.Capability) ? &quot; · unavailable until accessible and powered&quot; : &quot;&quot;);</span>
+<span id="L216"><a class="line" href="#L216">216</a>     }</span>
+<span id="L217"><a class="line" href="#L217">217</a>     public void Rotate()</span>
+<span id="L218"><a class="line" href="#L218">218</a>     {</span>
+<span id="L219"><a class="line" href="#L219">219</a>         if (_bodyFit.Visible &amp;&amp; DragItemId is null) { _bodyFit.RotateDraft(); return; }</span>
+<span id="L220"><a class="line" href="#L220">220</a>         if (_bodyFit.Surface.IsDropTarget)</span>
+<span id="L221"><a class="line" href="#L221">221</a>         {</span>
+<span id="L222"><a class="line" href="#L222">222</a>             BodyRotation = (BodyRotation + 1) % 6;</span>
+<span id="L223"><a class="line" href="#L223">223</a>             RefreshDragPreview(); Redraw(this); return;</span>
+<span id="L224"><a class="line" href="#L224">224</a>         }</span>
+<span id="L225"><a class="line" href="#L225">225</a>         if (SelectedItem is null) return;</span>
+<span id="L226"><a class="line" href="#L226">226</a>         var supportHover = GetViewport().GuiGetHoveredControl() is InventoryGearSurface { HasAttachmentSurface: true };</span>
+<span id="L227"><a class="line" href="#L227">227</a>         if (supportHover || DropPreview?.Request.Destination?.AttachmentPose is not null)</span>
+<span id="L228"><a class="line" href="#L228">228</a>         {</span>
+<span id="L229"><a class="line" href="#L229">229</a>             AttachmentRotation = (AttachmentRotation + 1) % 6;</span>
+<span id="L230"><a class="line" href="#L230">230</a>             RefreshDragPreview(); Redraw(this); return;</span>
+<span id="L231"><a class="line" href="#L231">231</a>         }</span>
+<span id="L232"><a class="line" href="#L232">232</a>         Rotated = !Rotated; RefreshDragPreview();</span>
+<span id="L233"><a class="line" href="#L233">233</a>         _receipt.Text = &quot;Placement preview rotated; drop to begin timed handling.&quot;;</span>
+<span id="L234"><a class="line" href="#L234">234</a>     }</span>
+<span id="L235"><a class="line" href="#L235">235</a>     public void Inspect(string id)</span>
+<span id="L236"><a class="line" href="#L236">236</a>     {</span>
+<span id="L237"><a class="line" href="#L237">237</a>         if (!_browser.Inspect(id, out var reason)) _receipt.Text = reason;</span>
+<span id="L238"><a class="line" href="#L238">238</a>     }</span>
+<span id="L239"><a class="line" href="#L239">239</a>     internal void OpenCompartment(string id, string region)</span>
+<span id="L240"><a class="line" href="#L240">240</a>     { _browser.OpenRegion(id, region, out var reason); _receipt.Text = reason; }</span>
+<span id="L241"><a class="line" href="#L241">241</a>     internal void OpenGarment(string id)</span>
+<span id="L242"><a class="line" href="#L242">242</a>     {</span>
+<span id="L243"><a class="line" href="#L243">243</a>         if (Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).GarmentOpen) return;</span>
+<span id="L244"><a class="line" href="#L244">244</a>         Simulation.HandleInventory(new(InventoryActionKind.OpenGarment, id)); ShowReceipt();</span>
+<span id="L245"><a class="line" href="#L245">245</a>     }</span>
+<span id="L246"><a class="line" href="#L246">246</a>     internal void ToggleClosure(string id, string? region = null)</span>
+<span id="L247"><a class="line" href="#L247">247</a>     {</span>
+<span id="L248"><a class="line" href="#L248">248</a>         var action = InventoryClosures.Toggle(Simulation.Inventory, id, region);</span>
+<span id="L249"><a class="line" href="#L249">249</a>         if (action.Request.Kind == InventoryActionKind.Open) OpenCompartment(id, region!);</span>
+<span id="L250"><a class="line" href="#L250">250</a>         else if (action.Request.Kind == InventoryActionKind.OpenGarment) OpenGarment(id);</span>
+<span id="L251"><a class="line" href="#L251">251</a>         else { Simulation.HandleInventory(action.Request); ShowReceipt(); }</span>
+<span id="L252"><a class="line" href="#L252">252</a>     }</span>
+<span id="L253"><a class="line" href="#L253">253</a>     internal string? DefaultDropRegion(string id)</span>
+<span id="L254"><a class="line" href="#L254">254</a>     {</span>
+<span id="L255"><a class="line" href="#L255">255</a>         var definition = Simulation.Inventory.Definition(id);</span>
+<span id="L256"><a class="line" href="#L256">256</a>         return definition.DefaultDropRegion ?? (definition.Regions is { Length: 1 } regions &amp;&amp; regions[0].Attachment is null ? regions[0].Id : null);</span>
+<span id="L257"><a class="line" href="#L257">257</a>     }</span>
+<span id="L258"><a class="line" href="#L258">258</a>     internal InventoryPackingQuote PreviewContainerDrop(string item, string owner, string region)</span>
+<span id="L259"><a class="line" href="#L259">259</a>     {</span>
+<span id="L260"><a class="line" href="#L260">260</a>         var quote = Simulation.QuoteInventoryPacking(new(InventoryActionKind.AutoPlace, item, new(owner, region)));</span>
+<span id="L261"><a class="line" href="#L261">261</a>         _receipt.Text = quote.Allowed ? $&quot;{(quote.Plan!.Repacked ? &quot;Arrange and store&quot; : &quot;Store in free space&quot;)} · {quote.Plan.Moves.Length} items handled · {quote.DurationMs / 1000.0:0.00}s · {quote.Ap} AP in combat&quot; : quote.Reason;</span>
+<span id="L262"><a class="line" href="#L262">262</a>         return quote;</span>
+<span id="L263"><a class="line" href="#L263">263</a>     }</span>
+<span id="L264"><a class="line" href="#L264">264</a>     internal void StoreInContainer(string item, string owner, string region)</span>
+<span id="L265"><a class="line" href="#L265">265</a>     { Simulation.HandleInventory(new(InventoryActionKind.AutoPlace, item, new(owner, region))); ShowReceipt(); }</span>
+<span id="L266"><a class="line" href="#L266">266</a>     internal void Arrange(string owner, string region)</span>
+<span id="L267"><a class="line" href="#L267">267</a>     { Simulation.HandleInventory(new(InventoryActionKind.Arrange, owner, new(owner, region))); ShowReceipt(); }</span>
+<span id="L268"><a class="line" href="#L268">268</a>     private void HideContext()</span>
+<span id="L269"><a class="line" href="#L269">269</a>     { _contextUpdates.Clear(); if (_contextMenu is not null) { RemoveChild(_contextMenu); _contextMenu.QueueFree(); _contextMenu = null; } }</span>
+<span id="L270"><a class="line" href="#L270">270</a>     public override void _Input(InputEvent e)</span>
+<span id="L271"><a class="line" href="#L271">271</a>     {</span>
+<span id="L272"><a class="line" href="#L272">272</a>         if (Visible &amp;&amp; _contextMenu is not null &amp;&amp; e is InputEventMouseButton { Pressed: true } mouse</span>
+<span id="L273"><a class="line" href="#L273">273</a>             &amp;&amp; !_contextMenu.GetGlobalRect().HasPoint(mouse.Position)) HideContext();</span>
+<span id="L274"><a class="line" href="#L274">274</a>     }</span>
+<span id="L275"><a class="line" href="#L275">275</a>     private VBoxContainer BeginContext()</span>
+<span id="L276"><a class="line" href="#L276">276</a>     {</span>
+<span id="L277"><a class="line" href="#L277">277</a>         HideContext();</span>
+<span id="L278"><a class="line" href="#L278">278</a>         _contextMenu = new PanelContainer { ZIndex = 20 };</span>
+<span id="L279"><a class="line" href="#L279">279</a>         _contextMenu.AddThemeStyleboxOverride(&quot;panel&quot;, new StyleBoxFlat { BgColor = new(&quot;28372e&quot;), ContentMarginLeft = 8,</span>
+<span id="L280"><a class="line" href="#L280">280</a>             ContentMarginRight = 8, ContentMarginTop = 8, ContentMarginBottom = 8 });</span>
+<span id="L281"><a class="line" href="#L281">281</a>         AddChild(_contextMenu); var list = new VBoxContainer(); _contextMenu.AddChild(list); return list;</span>
+<span id="L282"><a class="line" href="#L282">282</a>     }</span>
+<span id="L283"><a class="line" href="#L283">283</a>     private void PositionContext(Vector2 position)</span>
+<span id="L284"><a class="line" href="#L284">284</a>     {</span>
+<span id="L285"><a class="line" href="#L285">285</a>         var size = _contextMenu!.GetCombinedMinimumSize();</span>
+<span id="L286"><a class="line" href="#L286">286</a>         _contextMenu.Position = new(Math.Clamp(position.X + 10, 0, Math.Max(0, Size.X - size.X)), Math.Clamp(position.Y, 0, Math.Max(0, Size.Y - size.Y)));</span>
+<span id="L287"><a class="line" href="#L287">287</a>     }</span>
+<span id="L288"><a class="line" href="#L288">288</a>     internal void ContainerContext(string owner, string region, Vector2 position)</span>
+<span id="L289"><a class="line" href="#L289">289</a>     {</span>
+<span id="L290"><a class="line" href="#L290">290</a>         var list = BeginContext();</span>
+<span id="L291"><a class="line" href="#L291">291</a>         if (Simulation.Inventory.FindRoot(owner)?.GroundCell is not null) Label(list, &quot;Move floor piles manually · top items first&quot;, 12);</span>
+<span id="L292"><a class="line" href="#L292">292</a>         else Button(list, &quot;Arrange &quot; + Simulation.Inventory.Region(owner, region).Name, () =&gt; { HideContext(); Arrange(owner, region); });</span>
+<span id="L293"><a class="line" href="#L293">293</a>         PositionContext(position);</span>
+<span id="L294"><a class="line" href="#L294">294</a>     }</span>
+<span id="L295"><a class="line" href="#L295">295</a>     internal void Context(string id, string? region, Vector2 position, bool fastening = false)</span>
+<span id="L296"><a class="line" href="#L296">296</a>     {</span>
+<span id="L297"><a class="line" href="#L297">297</a>         Select(id); var list = BeginContext();</span>
+<span id="L298"><a class="line" href="#L298">298</a>         var definition = Simulation.Inventory.Definition(id);</span>
+<span id="L299"><a class="line" href="#L299">299</a>         void Entry(string name, Action action) =&gt; Button(list, name, () =&gt; { HideContext(); action(); });</span>
+<span id="L300"><a class="line" href="#L300">300</a>         if (!fastening &amp;&amp; (region is null || !Simulation.Inventory.Region(id, region).Sealable)) Entry(&quot;Open&quot;, () =&gt; { if (region is not null) OpenCompartment(id, region); else Inspect(id); });</span>
+<span id="L301"><a class="line" href="#L301">301</a>         var closureRegion = region ?? (definition.Wear?.OpenExposes is not { Length: &gt; 0 } &amp;&amp; definition.Regions is { Length: 1 } regions &amp;&amp; regions[0].Attachment is null ? regions[0].Id : null);</span>
+<span id="L302"><a class="line" href="#L302">302</a>         if (closureRegion is not null &amp;&amp; !Simulation.Inventory.Region(id, closureRegion).Sealable) closureRegion = null;</span>
+<span id="L303"><a class="line" href="#L303">303</a>         if (closureRegion is not null || region is null &amp;&amp; definition.Wear?.OpenExposes is { Length: &gt; 0 })</span>
+<span id="L304"><a class="line" href="#L304">304</a>         {</span>
+<span id="L305"><a class="line" href="#L305">305</a>             var closure = Button(list, &quot;&quot;, () =&gt;</span>
+<span id="L306"><a class="line" href="#L306">306</a>             {</span>
+<span id="L307"><a class="line" href="#L307">307</a>                 HideContext(); ToggleClosure(id, closureRegion);</span>
+<span id="L308"><a class="line" href="#L308">308</a>             });</span>
+<span id="L309"><a class="line" href="#L309">309</a>             var automatic = new CheckButton { Text = &quot;Secure on view close&quot;, FocusMode = FocusModeEnum.None,</span>
+<span id="L310"><a class="line" href="#L310">310</a>                 TooltipText = &quot;Only this fastening. Changing this preference does not physically open or secure it.&quot; }; list.AddChild(automatic);</span>
+<span id="L311"><a class="line" href="#L311">311</a>             automatic.Toggled += value =&gt;</span>
+<span id="L312"><a class="line" href="#L312">312</a>             {</span>
+<span id="L313"><a class="line" href="#L313">313</a>                 Simulation.SetInventorySecureOnClose(id, closureRegion, value); ShowReceipt();</span>
+<span id="L314"><a class="line" href="#L314">314</a>                 automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));</span>
+<span id="L315"><a class="line" href="#L315">315</a>             };</span>
+<span id="L316"><a class="line" href="#L316">316</a>             void UpdateClosure()</span>
+<span id="L317"><a class="line" href="#L317">317</a>             {</span>
+<span id="L318"><a class="line" href="#L318">318</a>                 var action = InventoryClosures.Toggle(Simulation.Inventory, id, closureRegion);</span>
+<span id="L319"><a class="line" href="#L319">319</a>                 closure.Text = action.Verb;</span>
+<span id="L320"><a class="line" href="#L320">320</a>                 closure.Disabled = Simulation.Inventory.Pending is not null || !Simulation.QuoteInventory(action.Request).Allowed;</span>
+<span id="L321"><a class="line" href="#L321">321</a>                 closure.TooltipText = Simulation.InventoryCost(action.Request);</span>
+<span id="L322"><a class="line" href="#L322">322</a>                 automatic.SetPressedNoSignal(InventoryClosures.SecureOnClose(Simulation.Inventory, id, closureRegion));</span>
+<span id="L323"><a class="line" href="#L323">323</a>             }</span>
+<span id="L324"><a class="line" href="#L324">324</a>             _contextUpdates.Add(UpdateClosure); UpdateClosure();</span>
+<span id="L325"><a class="line" href="#L325">325</a>         }</span>
+<span id="L326"><a class="line" href="#L326">326</a>         if (region is not null) Entry(&quot;Arrange &quot; + Simulation.Inventory.Region(id, region).Name, () =&gt; Arrange(id, region));</span>
+<span id="L327"><a class="line" href="#L327">327</a>         else foreach (var interior in (definition.Regions ?? []).Where(r =&gt; r.Attachment is null))</span>
+<span id="L328"><a class="line" href="#L328">328</a>             Entry(&quot;Arrange &quot; + interior.Name, () =&gt; Arrange(id, interior.Id));</span>
+<span id="L329"><a class="line" href="#L329">329</a>         var location = Simulation.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;</span>
+<span id="L330"><a class="line" href="#L330">330</a>         var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);</span>
+<span id="L331"><a class="line" href="#L331">331</a>         if (enclosing.MountSlot is null &amp;&amp; enclosing.Attachment is null &amp;&amp; Simulation.Inventory.FindRoot(location.ParentId)?.GroundCell is null)</span>
+<span id="L332"><a class="line" href="#L332">332</a>             Entry(&quot;Arrange &quot; + enclosing.Name, () =&gt; Arrange(location.ParentId, location.RegionId));</span>
+<span id="L333"><a class="line" href="#L333">333</a>         Entry(&quot;Remove → hand&quot;, () =&gt; { Select(id); MoveSelectedTo(&quot;hand&quot;); });</span>
+<span id="L334"><a class="line" href="#L334">334</a>         Entry(&quot;Put down → ground&quot;, () =&gt; { Simulation.HandleInventory(Simulation.GroundDropRequest(id, Rotated)); ShowReceipt(); });</span>
+<span id="L335"><a class="line" href="#L335">335</a>         PositionContext(position);</span>
+<span id="L336"><a class="line" href="#L336">336</a>     }</span>
+<span id="L337"><a class="line" href="#L337">337</a>     internal IReadOnlyList&lt;string&gt; InspectedContainers =&gt; _browser.ContainerIds;</span>
+<span id="L338"><a class="line" href="#L338">338</a>     internal void CloseContainerView(string id) =&gt; _browser.CloseView(id);</span>
+<span id="L339"><a class="line" href="#L339">339</a>     internal void ChangeLid(string id, string region, bool open)</span>
+<span id="L340"><a class="line" href="#L340">340</a>     { Simulation.HandleInventory(new(open ? InventoryActionKind.Open : InventoryActionKind.Close, id, RegionId: region)); ShowReceipt(); }</span>
+<span id="L341"><a class="line" href="#L341">341</a>     public void ShowQuote(InventoryActionQuote quote) =&gt; _receipt.Text = quote.Allowed ? $&quot;Handling: {quote.DurationMs / 1000.0:0.00}s · {quote.Ap} AP in combat&quot; : quote.Reason;</span>
+<span id="L342"><a class="line" href="#L342">342</a>     public void ShowReceipt() =&gt; _receipt.Text = Simulation.LastMessage;</span>
+<span id="L343"><a class="line" href="#L343">343</a>     public void Refresh()</span>
+<span id="L344"><a class="line" href="#L344">344</a>     {</span>
+<span id="L345"><a class="line" href="#L345">345</a>         if (!Visible) return;</span>
+<span id="L346"><a class="line" href="#L346">346</a>         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);</span>
+<span id="L347"><a class="line" href="#L347">347</a>         _clock.Text = Simulation.ManualPause ? &quot;MANUAL PAUSE&quot; : Simulation.Combat.Active ? $&quot;TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP&quot; : $&quot;REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s&quot;;</span>
+<span id="L348"><a class="line" href="#L348">348</a>         GroundView.Refresh(); _browser.Refresh(); PaperdollProof.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();</span>
+<span id="L349"><a class="line" href="#L349">349</a>         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: &gt; 0 };</span>
+<span id="L350"><a class="line" href="#L350">350</a>         _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + &quot; selected garment&quot; : &quot;Garment fastening&quot;;</span>
+<span id="L351"><a class="line" href="#L351">351</a>         if (SelectedItem is { } current) _detail.Text = Describe(current);</span>
+<span id="L352"><a class="line" href="#L352">352</a>         foreach (var update in _contextUpdates) update();</span>
+<span id="L353"><a class="line" href="#L353">353</a>         _progress.Text = Simulation.Inventory.Pending is { } work ? $&quot;HANDLING · {(work.TotalMs - work.RemainingMs) / 1000.0:0.00} / {work.TotalMs / 1000.0:0.00}s · {work.Request.Kind}&quot;</span>
+<span id="L354"><a class="line" href="#L354">354</a>             : Simulation.Inventory.SecuringRemaining &gt; 0 ? $&quot;SECURING · {Simulation.Inventory.SecuringRemaining} closures waiting for local progress / your turn and sufficient AP · Cancel handling to stop&quot;</span>
+<span id="L355"><a class="line" href="#L355">355</a>             : $&quot;Carried mass: {InventoryHierarchy.CarriedMass(Simulation.Inventory, &quot;person:avatar&quot;) / 1000.0:0.00} kg · no handling in progress&quot;;</span>
+<span id="L356"><a class="line" href="#L356">356</a>         var receipt = Simulation.Events.Entries.LastOrDefault(e =&gt; e.Text.StartsWith(&quot;Inventory: &quot;, StringComparison.Ordinal));</span>
+<span id="L357"><a class="line" href="#L357">357</a>         if (receipt is not null &amp;&amp; receipt.Id != _lastReceiptId) { _lastReceiptId = receipt.Id; _receipt.Text = receipt.Text; }</span>
+<span id="L358"><a class="line" href="#L358">358</a>         Redraw(this);</span>
+<span id="L359"><a class="line" href="#L359">359</a>     }</span>
+<span id="L360"><a class="line" href="#L360">360</a>     public override void _ExitTree() =&gt; InventoryArt.Release();</span>
+<span id="L361"><a class="line" href="#L361">361</a>     private static void Redraw(Node node) { if (node is CanvasItem item) item.QueueRedraw(); foreach (var child in node.GetChildren()) Redraw(child); }</span>
+<span id="L362"><a class="line" href="#L362">362</a>     public void HandleInput(InputEvent e)</span>
+<span id="L363"><a class="line" href="#L363">363</a>     {</span>
+<span id="L364"><a class="line" href="#L364">364</a>         if (e is InputEventKey { Pressed: true, Echo: false } key)</span>
+<span id="L365"><a class="line" href="#L365">365</a>         {</span>
+<span id="L366"><a class="line" href="#L366">366</a>             if (key.Keycode == Key.I) Close();</span>
+<span id="L367"><a class="line" href="#L367">367</a>             else if (key.Keycode == Key.Escape) Close();</span>
+<span id="L368"><a class="line" href="#L368">368</a>             else if (key.Keycode == Key.R) Rotate();</span>
+<span id="L369"><a class="line" href="#L369">369</a>             else if (key.Keycode == Key.Space) Simulation.ManualPause = !Simulation.ManualPause;</span>
+<span id="L370"><a class="line" href="#L370">370</a>             else if (key.Keycode == Key.Enter &amp;&amp; Simulation.Combat.Active) Simulation.EndTurn();</span>
+<span id="L371"><a class="line" href="#L371">371</a>         }</span>
+<span id="L372"><a class="line" href="#L372">372</a>         GetViewport().SetInputAsHandled();</span>
+<span id="L373"><a class="line" href="#L373">373</a>     }</span>
+<span id="L374"><a class="line" href="#L374">374</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

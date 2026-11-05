@@ -30,7 +30,7 @@
 <span id="L30"><a class="line" href="#L30">30</a>     internal bool Inspect(string id, out string reason)</span>
 <span id="L31"><a class="line" href="#L31">31</a>     {</span>
 <span id="L32"><a class="line" href="#L32">32</a>         var sim = Panel.Simulation; var state = sim.Inventory;</span>
-<span id="L33"><a class="line" href="#L33">33</a>         var root = state.Content!.Roots.FirstOrDefault(r =&gt; r.Id == id);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var root = state.FindRoot(id);</span>
 <span id="L34"><a class="line" href="#L34">34</a>         var item = state.DiagnosticItems.SingleOrDefault(i =&gt; i.Id == id);</span>
 <span id="L35"><a class="line" href="#L35">35</a>         reason = &quot;Inspect its containing compartment first.&quot;;</span>
 <span id="L36"><a class="line" href="#L36">36</a>         if (root is not null)</span>
@@ -41,7 +41,7 @@
 <span id="L41"><a class="line" href="#L41">41</a>         if (item is null) return false;</span>
 <span id="L42"><a class="line" href="#L42">42</a>         var access = sim.InventoryInspectAccess(id);</span>
 <span id="L43"><a class="line" href="#L43">43</a>         if (!access.Allowed) { reason = access.Reason; return false; }</span>
-<span id="L44"><a class="line" href="#L44">44</a>         if (state.Content.Roots.Any(r =&gt; r.Id == item.Placement.ParentId &amp;&amp; r.ActorId == sim.Player.Id))</span>
+<span id="L44"><a class="line" href="#L44">44</a>         if (state.FindRoot(item.Placement.ParentId) is { } location &amp;&amp; (location.ActorId == sim.Player.Id || location.GroundCell is not null))</span>
 <span id="L45"><a class="line" href="#L45">45</a>         { StartGear(id); return true; }</span>
 <span id="L46"><a class="line" href="#L46">46</a>         if (item.Placement.AttachmentPose is not null &amp;&amp; CurrentGear is { } current)</span>
 <span id="L47"><a class="line" href="#L47">47</a>         {</span>
@@ -70,7 +70,7 @@
 <span id="L70"><a class="line" href="#L70">70</a>                 trail.Add(cursor.Id);</span>
 <span id="L71"><a class="line" href="#L71">71</a>                 cursor = state.DiagnosticItems.Single(i =&gt; i.Id == cursor.Placement.ParentId);</span>
 <span id="L72"><a class="line" href="#L72">72</a>             }</span>
-<span id="L73"><a class="line" href="#L73">73</a>             if (cursor.Placement.AttachmentPose is null &amp;&amp; state.Content.Roots.Any(r =&gt; r.ActorId == sim.Player.Id &amp;&amp; r.Id == cursor.Placement.ParentId)</span>
+<span id="L73"><a class="line" href="#L73">73</a>             if (cursor.Placement.AttachmentPose is null &amp;&amp; state.Content!.Roots.Any(r =&gt; r.ActorId == sim.Player.Id &amp;&amp; r.Id == cursor.Placement.ParentId)</span>
 <span id="L74"><a class="line" href="#L74">74</a>                 &amp;&amp; state.Region(cursor.Placement.ParentId, cursor.Placement.RegionId).MountSlot is { } slot</span>
 <span id="L75"><a class="line" href="#L75">75</a>                 &amp;&amp; InventoryWear.Accepts(state.Definition(cursor.Id), slot) &amp;&amp; sim.InventoryInspectAccess(cursor.Id).Allowed)</span>
 <span id="L76"><a class="line" href="#L76">76</a>             {</span>
@@ -178,7 +178,7 @@
 <span id="L178"><a class="line" href="#L178">178</a>         var interior = _contents.LastOrDefault();</span>
 <span id="L179"><a class="line" href="#L179">179</a>         _contentsView.Build(interior?.Owner, interior?.Region, string.Join(&quot; → &quot;, _contents.Select(c =&gt; ItemName(c.Owner) + &quot; · &quot; + Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));</span>
 <span id="L180"><a class="line" href="#L180">180</a>     }</span>
-<span id="L181"><a class="line" href="#L181">181</a>     private string ItemName(string id) =&gt; Panel.Simulation.Inventory.Content!.Roots.SingleOrDefault(r =&gt; r.Id == id)?.Name ?? Panel.Simulation.Inventory.Definition(id).Name;</span>
+<span id="L181"><a class="line" href="#L181">181</a>     private string ItemName(string id) =&gt; Panel.Simulation.Inventory.Name(id);</span>
 <span id="L182"><a class="line" href="#L182">182</a>     internal void Refresh()</span>
 <span id="L183"><a class="line" href="#L183">183</a>     {</span>
 <span id="L184"><a class="line" href="#L184">184</a>         var sim = Panel.Simulation;</span>

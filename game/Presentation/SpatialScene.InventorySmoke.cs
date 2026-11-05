@@ -90,6 +90,10 @@ public partial class SpatialScene
             {
                 await RunTransferSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
             }
+            if (OS.GetCmdlineUserArgs().Contains("--ground-smoke"))
+            {
+                await RunGroundSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             if (OS.GetCmdlineUserArgs().Contains("--body-drop-smoke"))
             {
                 await RunBodyDropSmoke(); await RunBodyInspectionSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
@@ -105,6 +109,7 @@ public partial class SpatialScene
             await RunOverlaySmoke();
             await RunHookSmoke();
             await RunTransferSmoke();
+            await RunGroundSmoke();
             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs > local, "Inspection froze realtime simulation.");
             sim.ManualPause = true; var original = sim.Save();
             await OpenPocket("avatar-backpack", "main");
@@ -267,7 +272,7 @@ public partial class SpatialScene
                 "Per-piece opted-in securing failed to finish.");
             sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); await OpenPocket("avatar-backpack", "main"); panel.Inspect("medical-case");
             await InventoryCapture("");
-            GD.Print("INVENTORY_SMOKE_PASS: exactly three views, gear/contents ancestry, live Zip/Unzip and Button/Unbutton menus, per-piece securing preferences, illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.");
+            GD.Print("INVENTORY_SMOKE_PASS: three inspection panes plus permanent ground dock, gear/contents ancestry, live Zip/Unzip and Button/Unbutton menus, per-piece securing preferences, illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.");
             panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true;
         }
         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }

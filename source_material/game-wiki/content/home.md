@@ -13,6 +13,7 @@ Public reading: [share this wiki](https://rbfussell.github.io/SCP-Welcome_to_Sit
 - [SCP directory](scp-index.html): mechanics, adopted lore, implementation status, and engine dependencies for every SCP referenced in the design.
 - [Engine overview](engine.html): authority, execution order, shared services, and presentation.
 - [Systems directory](systems.html): what each subsystem does and how it connects.
+- [Ground inventory and piles](ground-storage.html): permanent current-tile storage, ordered stacks and clothes staging without a spare hand.
 - [Independent inventory transfers](inventory-transfers.html): retain source storage while choosing belt/hook or other gear destinations.
 - [Mount points and placement extenders](mount-points.html): the belt → hook → pouch fixture, shared clearance, provider trails and paid continuation.
 - [Function directory](functions.html): methods, constructors, operators, local functions, properties, and explicit accessors extracted with the C# compiler's syntax parser.

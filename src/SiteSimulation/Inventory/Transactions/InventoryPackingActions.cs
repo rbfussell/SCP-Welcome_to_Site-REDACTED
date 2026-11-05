@@ -6,7 +6,7 @@ internal static class InventoryPackingActions
     public static InventoryPackingPlan Quote(SimulationWorld world, string actorId, InventoryRequest request, out int duration, out int ap)
     {
         duration = ap = 0;
-        if (request.Destination is not { X: 0, Y: 0, Rotated: false, WornOrder: null, BodyPose: null, AttachmentPose: null } target || request.RegionId is not null)
+        if (request.Destination is not { X: 0, Y: 0, Rotated: false, WornOrder: null, BodyPose: null, AttachmentPose: null, GroundOrder: null } target || request.RegionId is not null)
             throw new ArgumentException("Choose a compartment for packing.");
         var state = world.Inventory;
         if (request.Kind == InventoryActionKind.Arrange && request.ItemId != target.ParentId)
@@ -19,6 +19,8 @@ internal static class InventoryPackingActions
             if (!state.Items.TryGetValue(incoming, out var item)) throw new ArgumentException("Unknown incoming item.");
             var source = InventoryAccessService.Placement(world, actorId, item.Placement);
             if (!source.Allowed) throw new ArgumentException(source.Reason);
+            if (InventoryGround.Covering(state, item).FirstOrDefault() is { } cover)
+                throw new ArgumentException("Covered by " + state.Name(cover.Id) + "; move covering items first");
             InventoryWear.ValidateAction(state, item, item.Placement);
             if (item.Placement.ParentId == target.ParentId && item.Placement.RegionId == target.RegionId)
                 throw new ArgumentException("Item is already in this compartment; place it on the grid or choose Arrange explicitly.");

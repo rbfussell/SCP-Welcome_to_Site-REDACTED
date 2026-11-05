@@ -74,7 +74,8 @@ internal static class InventoryChecks
             }
         }
         Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 39, "explicit native profile loads unique physical items");
-        Check(sim.InventoryRoots.Count == 1 && sim.InventoryRoots[0].ActorId == sim.Player.Id, "UI roots exclude remote fixtures and other personnel");
+        Check(sim.InventoryRoots.Count == 2 && sim.InventoryRoots[0].ActorId == sim.Player.Id && sim.InventoryRoots[1].GroundCell is not null,
+            "UI roots include own equipment and current ground, excluding remote fixtures and other personnel");
         Check(sim.InventoryContents("gum-packet", "pieces").Count == 6, "fine-scale packet contains six individual pieces");
         Check(InventoryHierarchy.Mass(sim.Inventory, "gum-packet") == 15, "recursive packet mass counts the wrapper and each piece once");
         var before = sim.Save();

@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Placement/InventoryGround.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryGround.cs</h1><p>src/SiteSimulation/Inventory/Placement/InventoryGround.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryground.html">InventoryGround</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-ae163b4aa5ce15bff1b5.html">InventoryGround.Id</a> · line 14</li><li><a href="function-d2b3eefd8eb4c63c6a60.html">InventoryGround.FindRoot</a> · line 15</li><li><a href="function-5d76ec80eac1f59523b3.html">InventoryGround.Overlap</a> · line 25</li><li><a href="function-83bc8b7b5460f090452c.html">InventoryGround.Covering</a> · line 35</li><li><a href="function-85916f3b28150b817671.html">InventoryGround.Destination</a> · line 40</li><li><a href="function-96166e853dc2f3458b7c.html">InventoryGround.Validate</a> · line 54</li><li><a href="function-930772ca428cb2d015ec.html">SpatialSimulation.InventoryGroundRoot</a> · line 84</li><li><a href="function-6b58acbe97f489292acd.html">SpatialSimulation.GroundDropRequest</a> · line 85</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Globalization;</span>
+<span id="L2"><a class="line" href="#L2">2</a> </span>
+<span id="L3"><a class="line" href="#L3">3</a> namespace SiteSimulation;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> /// &lt;summary&gt;Map-local floor patches and ordered physical piles. Empty patches are resolved without mutating state.&lt;/summary&gt;</span>
+<span id="L6"><a class="line" href="#L6">6</a> public static class InventoryGround</span>
+<span id="L7"><a class="line" href="#L7">7</a> {</span>
+<span id="L8"><a class="line" href="#L8">8</a>     public const string Prefix = &quot;ground:&quot;;</span>
+<span id="L9"><a class="line" href="#L9">9</a>     public const string RegionId = &quot;floor&quot;;</span>
+<span id="L10"><a class="line" href="#L10">10</a>     public const int Columns = 10, Rows = 10, CellMm = 50;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     private const long MaxOrder = 1_000_000_000;</span>
+<span id="L12"><a class="line" href="#L12">12</a>     private static readonly StorageRegion Floor = new(RegionId, &quot;Ground&quot;, Columns, Rows, CellMm, 1000, 100000,</span>
+<span id="L13"><a class="line" href="#L13">13</a>         AccessMs: 500, AccessAp: 2, Sealable: false, SecureOnClose: false);</span>
+<span id="L14"><a class="line" href="#L14">14</a>     public static string Id(Hex cell) =&gt; FormattableString.Invariant($&quot;{Prefix}{cell.Q}:{cell.R}&quot;);</span>
+<span id="L15"><a class="line" href="#L15">15</a>     internal static InventoryRoot? FindRoot(InventoryState state, string id)</span>
+<span id="L16"><a class="line" href="#L16">16</a>     {</span>
+<span id="L17"><a class="line" href="#L17">17</a>         if (!state.Enabled || id is null || !id.StartsWith(Prefix, StringComparison.Ordinal)) return null;</span>
+<span id="L18"><a class="line" href="#L18">18</a>         var parts = id[Prefix.Length..].Split(&#x27;:&#x27;);</span>
+<span id="L19"><a class="line" href="#L19">19</a>         if (parts.Length != 2 || !int.TryParse(parts[0], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var q)</span>
+<span id="L20"><a class="line" href="#L20">20</a>             || !int.TryParse(parts[1], NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var r)) return null;</span>
+<span id="L21"><a class="line" href="#L21">21</a>         var cell = new Hex(q, r);</span>
+<span id="L22"><a class="line" href="#L22">22</a>         return id == Id(cell) &amp;&amp; state.GroundCells.Contains(cell)</span>
+<span id="L23"><a class="line" href="#L23">23</a>             ? new(id, FormattableString.Invariant($&quot;Ground · {q}, {r}&quot;), [Floor], MaxMassGrams: Floor.MaxMassGrams, GroundCell: cell) : null;</span>
+<span id="L24"><a class="line" href="#L24">24</a>     }</span>
+<span id="L25"><a class="line" href="#L25">25</a>     public static bool Overlap(InventoryState state, InventoryItem first, InventoryItem second)</span>
+<span id="L26"><a class="line" href="#L26">26</a>     {</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var a = first.Placement; var b = second.Placement;</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (a.ParentId != b.ParentId || a.RegionId != b.RegionId) return false;</span>
+<span id="L29"><a class="line" href="#L29">29</a>         var region = state.Region(a.ParentId, a.RegionId);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         var (aw, ah) = InventoryPlacement.Footprint(state.Definition(first.Id), region, a.Rotated);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var (bw, bh) = InventoryPlacement.Footprint(state.Definition(second.Id), region, b.Rotated);</span>
+<span id="L32"><a class="line" href="#L32">32</a>         return a.X &lt; b.X + bw &amp;&amp; a.X + aw &gt; b.X &amp;&amp; a.Y &lt; b.Y + bh &amp;&amp; a.Y + ah &gt; b.Y;</span>
+<span id="L33"><a class="line" href="#L33">33</a>     }</span>
+<span id="L34"><a class="line" href="#L34">34</a>     /// &lt;summary&gt;Direct covering items; callers checking nested contents also traverse their ancestor locations.&lt;/summary&gt;</span>
+<span id="L35"><a class="line" href="#L35">35</a>     public static IReadOnlyList&lt;InventoryItem&gt; Covering(InventoryState state, InventoryItem item)</span>
+<span id="L36"><a class="line" href="#L36">36</a>         =&gt; item.Placement.GroundOrder is not { } order ? [] : state.Children(item.Placement.ParentId, item.Placement.RegionId)</span>
+<span id="L37"><a class="line" href="#L37">37</a>             .Where(other =&gt; other.Placement.GroundOrder &gt; order &amp;&amp; Overlap(state, item, other))</span>
+<span id="L38"><a class="line" href="#L38">38</a>             .OrderByDescending(other =&gt; other.Placement.GroundOrder).ToArray();</span>
+<span id="L39"><a class="line" href="#L39">39</a> </span>
+<span id="L40"><a class="line" href="#L40">40</a>     internal static ItemPlacement Destination(InventoryState state, InventoryItem item, ItemPlacement target)</span>
+<span id="L41"><a class="line" href="#L41">41</a>     {</span>
+<span id="L42"><a class="line" href="#L42">42</a>         if (state.FindRoot(target.ParentId)?.GroundCell is null)</span>
+<span id="L43"><a class="line" href="#L43">43</a>         {</span>
+<span id="L44"><a class="line" href="#L44">44</a>             if (target.GroundOrder is not null) throw new ArgumentException(&quot;Pile order is only valid on the ground.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>             return target;</span>
+<span id="L46"><a class="line" href="#L46">46</a>         }</span>
+<span id="L47"><a class="line" href="#L47">47</a>         var same = item.Placement with { GroundOrder = null } == target with { GroundOrder = null };</span>
+<span id="L48"><a class="line" href="#L48">48</a>         var order = same ? item.Placement.GroundOrder!.Value</span>
+<span id="L49"><a class="line" href="#L49">49</a>             : state.Children(target.ParentId, target.RegionId).Where(i =&gt; i.Id != item.Id).Select(i =&gt; i.Placement.GroundOrder ?? 0).DefaultIfEmpty(0).Max() + 1;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         if (order is &lt; 1 or &gt; MaxOrder || target.GroundOrder is { } supplied &amp;&amp; supplied != order)</span>
+<span id="L51"><a class="line" href="#L51">51</a>             throw new ArgumentException(&quot;Ground placement must go on top of the pile.&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         return target with { GroundOrder = order };</span>
+<span id="L53"><a class="line" href="#L53">53</a>     }</span>
+<span id="L54"><a class="line" href="#L54">54</a>     internal static void Validate(InventoryState state)</span>
+<span id="L55"><a class="line" href="#L55">55</a>     {</span>
+<span id="L56"><a class="line" href="#L56">56</a>         foreach (var item in state.Items.Values)</span>
+<span id="L57"><a class="line" href="#L57">57</a>             if (state.FindRoot(item.Placement.ParentId)?.GroundCell is not null</span>
+<span id="L58"><a class="line" href="#L58">58</a>                 ? item.Placement.GroundOrder is not (&gt;= 1 and &lt;= MaxOrder)</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 : item.Placement.GroundOrder is not null)</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 throw new ArgumentException(&quot;Invalid or missing ground pile order.&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>         foreach (var pile in state.Items.Values.Where(i =&gt; i.Placement.GroundOrder is not null).GroupBy(i =&gt; i.Placement.ParentId))</span>
+<span id="L62"><a class="line" href="#L62">62</a>         {</span>
+<span id="L63"><a class="line" href="#L63">63</a>             var items = pile.ToArray(); var region = state.Region(pile.Key, RegionId);</span>
+<span id="L64"><a class="line" href="#L64">64</a>             if (items.Select(i =&gt; i.Placement.GroundOrder).Distinct().Count() != items.Length)</span>
+<span id="L65"><a class="line" href="#L65">65</a>                 throw new ArgumentException(&quot;Duplicate ground pile order.&quot;);</span>
+<span id="L66"><a class="line" href="#L66">66</a>             if (items.Sum(i =&gt; InventoryHierarchy.Mass(state, i.Id)) &gt; region.MaxMassGrams)</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 throw new ArgumentException(&quot;Ground patch exceeds its load limit.&quot;);</span>
+<span id="L68"><a class="line" href="#L68">68</a>             var height = new int[region.Rows * region.Columns];</span>
+<span id="L69"><a class="line" href="#L69">69</a>             foreach (var item in items)</span>
+<span id="L70"><a class="line" href="#L70">70</a>             {</span>
+<span id="L71"><a class="line" href="#L71">71</a>                 var p = item.Placement; var d = state.Definition(item.Id); var (w, h) = InventoryPlacement.Footprint(d, region, p.Rotated);</span>
+<span id="L72"><a class="line" href="#L72">72</a>                 for (var y = p.Y; y &lt; p.Y + h; y++)</span>
+<span id="L73"><a class="line" href="#L73">73</a>                 for (var x = p.X; x &lt; p.X + w; x++)</span>
+<span id="L74"><a class="line" href="#L74">74</a>                     if ((height[y * region.Columns + x] += d.ThicknessMm) &gt; region.HeightMm)</span>
+<span id="L75"><a class="line" href="#L75">75</a>                         throw new ArgumentException(&quot;Ground pile is too high.&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>             }</span>
+<span id="L77"><a class="line" href="#L77">77</a>         }</span>
+<span id="L78"><a class="line" href="#L78">78</a>     }</span>
+<span id="L79"><a class="line" href="#L79">79</a> }</span>
+<span id="L80"><a class="line" href="#L80">80</a> </span>
+<span id="L81"><a class="line" href="#L81">81</a> public sealed partial class SpatialSimulation</span>
+<span id="L82"><a class="line" href="#L82">82</a> {</span>
+<span id="L83"><a class="line" href="#L83">83</a>     /// &lt;summary&gt;The physical hex beneath the player, not a portable inventory following the actor.&lt;/summary&gt;</span>
+<span id="L84"><a class="line" href="#L84">84</a>     public InventoryRoot? InventoryGroundRoot =&gt; Inventory.FindRoot(InventoryGround.Id(Hex.FromWorld(Player.Position)));</span>
+<span id="L85"><a class="line" href="#L85">85</a>     public InventoryRequest GroundDropRequest(string id, bool rotated = false)</span>
+<span id="L86"><a class="line" href="#L86">86</a>     {</span>
+<span id="L87"><a class="line" href="#L87">87</a>         var root = InventoryGroundRoot;</span>
+<span id="L88"><a class="line" href="#L88">88</a>         if (root is null || !Inventory.Items.TryGetValue(id, out var item)) return new(InventoryActionKind.Move, id);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         var region = root.Regions[0]; var (w, h) = InventoryPlacement.Footprint(Inventory.Definition(id), region, rotated);</span>
+<span id="L90"><a class="line" href="#L90">90</a>         // The explicit Put down shortcut prefers free floor, then the top of an existing pile.</span>
+<span id="L91"><a class="line" href="#L91">91</a>         for (var y = 0; y &lt;= region.Rows - h; y++)</span>
+<span id="L92"><a class="line" href="#L92">92</a>         for (var x = 0; x &lt;= region.Columns - w; x++)</span>
+<span id="L93"><a class="line" href="#L93">93</a>         {</span>
+<span id="L94"><a class="line" href="#L94">94</a>             var placed = item with { Placement = new(root.Id, region.Id, x, y, rotated) };</span>
+<span id="L95"><a class="line" href="#L95">95</a>             if (!Inventory.Children(root.Id, region.Id).Any(other =&gt; other.Id != id &amp;&amp; InventoryGround.Overlap(Inventory, placed, other)))</span>
+<span id="L96"><a class="line" href="#L96">96</a>                 return new(InventoryActionKind.Move, id, placed.Placement);</span>
+<span id="L97"><a class="line" href="#L97">97</a>         }</span>
+<span id="L98"><a class="line" href="#L98">98</a>         return new(InventoryActionKind.Move, id, new(root.Id, region.Id, Rotated: rotated));</span>
+<span id="L99"><a class="line" href="#L99">99</a>     }</span>
+<span id="L100"><a class="line" href="#L100">100</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

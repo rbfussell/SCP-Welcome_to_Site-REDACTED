@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Placement/InventoryPacking.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPacking.cs</h1><p>src/SiteSimulation/Inventory/Placement/InventoryPacking.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorypacking.html">InventoryPacking</a></li><li><a href="type-inventorypacking-shape.html">Shape</a></li><li><a href="type-inventorypacking-spot.html">Spot</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c1ccc815724de2e1aa1b.html">InventoryPacking.Plan</a> · line 10</li><li><a href="function-7128d26e9390322467fe.html">InventoryPacking.Fits</a> · line 36</li><li><a href="function-2852945c0d8307e4367c.html">InventoryPacking.Mark</a> · line 43</li><li><a href="function-16c4e78bd2e912f0d2ee.html">InventoryPacking.Positions</a> · line 49</li><li><a href="function-d9ceaf2b9399bb88ef3c.html">InventoryPacking.Search</a> · line 88</li><li><a href="function-e5a702e895e56dc96c05.html">InventoryPacking.Build</a> · line 107</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Placement/InventoryPacking.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPacking.cs</h1><p>src/SiteSimulation/Inventory/Placement/InventoryPacking.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventorypacking.html">InventoryPacking</a></li><li><a href="type-inventorypacking-shape.html">Shape</a></li><li><a href="type-inventorypacking-spot.html">Spot</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c1ccc815724de2e1aa1b.html">InventoryPacking.Plan</a> · line 10</li><li><a href="function-7128d26e9390322467fe.html">InventoryPacking.Fits</a> · line 37</li><li><a href="function-2852945c0d8307e4367c.html">InventoryPacking.Mark</a> · line 44</li><li><a href="function-16c4e78bd2e912f0d2ee.html">InventoryPacking.Positions</a> · line 50</li><li><a href="function-d9ceaf2b9399bb88ef3c.html">InventoryPacking.Search</a> · line 89</li><li><a href="function-e5a702e895e56dc96c05.html">InventoryPacking.Build</a> · line 108</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
 <span id="L2"><a class="line" href="#L2">2</a> </span>
 <span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Pure rectangular packing in one region. Capacity failures are distinguished from search limits.&lt;/summary&gt;</span>
 <span id="L4"><a class="line" href="#L4">4</a> internal static class InventoryPacking</span>
@@ -10,109 +10,110 @@
 <span id="L10"><a class="line" href="#L10">10</a>     public static InventoryPackingPlan Plan(InventoryState state, string owner, string regionId, string? incoming)</span>
 <span id="L11"><a class="line" href="#L11">11</a>     {</span>
 <span id="L12"><a class="line" href="#L12">12</a>         var region = state.Region(owner, regionId);</span>
-<span id="L13"><a class="line" href="#L13">13</a>         if (region.MountSlot is not null || region.Attachment is not null) throw new ArgumentException(&quot;Arrange applies to storage, not body or attachment mounts.&quot;);</span>
-<span id="L14"><a class="line" href="#L14">14</a>         var ids = state.Children(owner, regionId).Select(i =&gt; i.Id).Where(id =&gt; id != incoming).ToList();</span>
-<span id="L15"><a class="line" href="#L15">15</a>         if (incoming is not null) ids.Add(incoming);</span>
-<span id="L16"><a class="line" href="#L16">16</a>         var shapes = ids.Select(id =&gt;</span>
-<span id="L17"><a class="line" href="#L17">17</a>         {</span>
-<span id="L18"><a class="line" href="#L18">18</a>             var definition = state.Definition(id);</span>
-<span id="L19"><a class="line" href="#L19">19</a>             if (definition.ThicknessMm &gt; region.HeightMm) throw new ArgumentException(&quot;Item is too thick for this compartment.&quot;);</span>
-<span id="L20"><a class="line" href="#L20">20</a>             if (region.AcceptTags is { Length: &gt; 0 } tags &amp;&amp; !definition.Tags.Any(tags.Contains)) throw new ArgumentException(&quot;Compartment rejects this item category.&quot;);</span>
-<span id="L21"><a class="line" href="#L21">21</a>             var size = InventoryPlacement.Footprint(definition, region, false);</span>
-<span id="L22"><a class="line" href="#L22">22</a>             return new Shape(id, size.Width, size.Height, state.Items[id].Placement.Rotated);</span>
-<span id="L23"><a class="line" href="#L23">23</a>         }).ToArray();</span>
-<span id="L24"><a class="line" href="#L24">24</a>         // Moving a child out of a box already in this region must not count it twice.</span>
-<span id="L25"><a class="line" href="#L25">25</a>         var massState = state;</span>
-<span id="L26"><a class="line" href="#L26">26</a>         if (incoming is not null)</span>
-<span id="L27"><a class="line" href="#L27">27</a>         {</span>
-<span id="L28"><a class="line" href="#L28">28</a>             massState = new InventoryState(state);</span>
-<span id="L29"><a class="line" href="#L29">29</a>             massState.Items[incoming] = massState.Items[incoming] with { Placement = new(owner, regionId) };</span>
-<span id="L30"><a class="line" href="#L30">30</a>         }</span>
-<span id="L31"><a class="line" href="#L31">31</a>         if (ids.Sum(id =&gt; InventoryHierarchy.Mass(massState, id)) &gt; region.MaxMassGrams) throw new ArgumentException(&quot;Compartment load limit exceeded.&quot;);</span>
-<span id="L32"><a class="line" href="#L32">32</a>         var available = region.Mask?.Length ?? region.Columns * region.Rows;</span>
-<span id="L33"><a class="line" href="#L33">33</a>         if (shapes.Sum(s =&gt; s.Width * s.Height) &gt; available) throw new ArgumentException(&quot;Container full: insufficient usable cells; rearranging cannot help.&quot;);</span>
-<span id="L34"><a class="line" href="#L34">34</a>         var cells = new bool[region.Columns * region.Rows];</span>
-<span id="L35"><a class="line" href="#L35">35</a>         for (var i = 0; i &lt; cells.Length; i++) cells[i] = region.Mask is not null &amp;&amp; !region.Mask.Contains(i);</span>
-<span id="L36"><a class="line" href="#L36">36</a>         bool Fits(bool[] occupied, int x, int y, int width, int height)</span>
-<span id="L37"><a class="line" href="#L37">37</a>         {</span>
-<span id="L38"><a class="line" href="#L38">38</a>             if (x + width &gt; region.Columns || y + height &gt; region.Rows) return false;</span>
-<span id="L39"><a class="line" href="#L39">39</a>             for (var row = y; row &lt; y + height; row++)</span>
-<span id="L40"><a class="line" href="#L40">40</a>             for (var col = x; col &lt; x + width; col++) if (occupied[row * region.Columns + col]) return false;</span>
-<span id="L41"><a class="line" href="#L41">41</a>             return true;</span>
-<span id="L42"><a class="line" href="#L42">42</a>         }</span>
-<span id="L43"><a class="line" href="#L43">43</a>         void Mark(Spot spot, bool occupied)</span>
-<span id="L44"><a class="line" href="#L44">44</a>         {</span>
-<span id="L45"><a class="line" href="#L45">45</a>             for (var y = spot.Y; y &lt; spot.Y + spot.Height; y++)</span>
-<span id="L46"><a class="line" href="#L46">46</a>             for (var x = spot.X; x &lt; spot.X + spot.Width; x++) cells[y * region.Columns + x] = occupied;</span>
-<span id="L47"><a class="line" href="#L47">47</a>         }</span>
-<span id="L48"><a class="line" href="#L48">48</a>         var examined = 0;</span>
-<span id="L49"><a class="line" href="#L49">49</a>         IEnumerable&lt;Spot&gt; Positions(Shape shape)</span>
-<span id="L50"><a class="line" href="#L50">50</a>         {</span>
-<span id="L51"><a class="line" href="#L51">51</a>             var choices = new List&lt;Spot&gt;();</span>
-<span id="L52"><a class="line" href="#L52">52</a>             foreach (var rotated in new[] { shape.PreferredRotation, !shape.PreferredRotation }.Distinct())</span>
-<span id="L53"><a class="line" href="#L53">53</a>             {</span>
-<span id="L54"><a class="line" href="#L54">54</a>                 if (shape.Width == shape.Height &amp;&amp; rotated != shape.PreferredRotation) continue;</span>
-<span id="L55"><a class="line" href="#L55">55</a>                 var w = rotated ? shape.Height : shape.Width; var h = rotated ? shape.Width : shape.Height;</span>
-<span id="L56"><a class="line" href="#L56">56</a>                 for (var y = 0; y &lt;= region.Rows - h; y++)</span>
-<span id="L57"><a class="line" href="#L57">57</a>                 for (var x = 0; x &lt;= region.Columns - w; x++)</span>
-<span id="L58"><a class="line" href="#L58">58</a>                 {</span>
-<span id="L59"><a class="line" href="#L59">59</a>                     if (++examined &gt; 200000) throw new ArgumentException(&quot;Packing search limit reached; current contents are unchanged. Try arranging a smaller selection.&quot;);</span>
-<span id="L60"><a class="line" href="#L60">60</a>                     if (Fits(cells, x, y, w, h))</span>
-<span id="L61"><a class="line" href="#L61">61</a>                     {</span>
-<span id="L62"><a class="line" href="#L62">62</a>                         // Compact into the upper-left, preferring contact instead of isolated holes.</span>
-<span id="L63"><a class="line" href="#L63">63</a>                         var contact = (x == 0 ? h : 0) + (y == 0 ? w : 0);</span>
-<span id="L64"><a class="line" href="#L64">64</a>                         for (var row = y; row &lt; y + h; row++) if (x &gt; 0 &amp;&amp; cells[row * region.Columns + x - 1]) contact++;</span>
-<span id="L65"><a class="line" href="#L65">65</a>                         for (var col = x; col &lt; x + w; col++) if (y &gt; 0 &amp;&amp; cells[(y - 1) * region.Columns + col]) contact++;</span>
-<span id="L66"><a class="line" href="#L66">66</a>                         choices.Add(new(x, y, rotated, w, h, (y + h) * 100000 + (x + w) * 1000 + y * 32 + x - contact * 5));</span>
-<span id="L67"><a class="line" href="#L67">67</a>                     }</span>
-<span id="L68"><a class="line" href="#L68">68</a>                 }</span>
-<span id="L69"><a class="line" href="#L69">69</a>             }</span>
-<span id="L70"><a class="line" href="#L70">70</a>             return choices.OrderBy(p =&gt; p.Score).ThenBy(p =&gt; p.Rotated == shape.PreferredRotation ? 0 : 1);</span>
-<span id="L71"><a class="line" href="#L71">71</a>         }</span>
-<span id="L72"><a class="line" href="#L72">72</a>         var placements = new Dictionary&lt;string, ItemPlacement&gt;(StringComparer.Ordinal);</span>
-<span id="L73"><a class="line" href="#L73">73</a>         if (incoming is not null)</span>
-<span id="L74"><a class="line" href="#L74">74</a>         {</span>
-<span id="L75"><a class="line" href="#L75">75</a>             foreach (var id in ids.Where(id =&gt; id != incoming))</span>
-<span id="L76"><a class="line" href="#L76">76</a>             {</span>
-<span id="L77"><a class="line" href="#L77">77</a>                 var item = state.Items[id]; var size = InventoryPlacement.Footprint(state.Definition(id), region, item.Placement.Rotated);</span>
-<span id="L78"><a class="line" href="#L78">78</a>                 Mark(new(item.Placement.X, item.Placement.Y, item.Placement.Rotated, size.Width, size.Height, 0), true);</span>
-<span id="L79"><a class="line" href="#L79">79</a>             }</span>
-<span id="L80"><a class="line" href="#L80">80</a>             var direct = Positions(shapes.Single(s =&gt; s.Id == incoming)).FirstOrDefault();</span>
-<span id="L81"><a class="line" href="#L81">81</a>             if (direct is not null) placements[incoming] = new(owner, regionId, direct.X, direct.Y, direct.Rotated);</span>
-<span id="L82"><a class="line" href="#L82">82</a>             if (placements.Count != 0) return Build(false);</span>
-<span id="L83"><a class="line" href="#L83">83</a>             for (var i = 0; i &lt; cells.Length; i++) cells[i] = region.Mask is not null &amp;&amp; !region.Mask.Contains(i);</span>
-<span id="L84"><a class="line" href="#L84">84</a>         }</span>
-<span id="L85"><a class="line" href="#L85">85</a>         var ordered = shapes.OrderByDescending(s =&gt; s.Width * s.Height).ThenByDescending(s =&gt; Math.Max(s.Width, s.Height))</span>
-<span id="L86"><a class="line" href="#L86">86</a>             .ThenBy(s =&gt; state.Definition(s.Id).Id, StringComparer.Ordinal).ThenBy(s =&gt; s.Id, StringComparer.Ordinal).ToArray();</span>
-<span id="L87"><a class="line" href="#L87">87</a>         var nodes = 0; var exhausted = false;</span>
-<span id="L88"><a class="line" href="#L88">88</a>         bool Search(int index)</span>
-<span id="L89"><a class="line" href="#L89">89</a>         {</span>
-<span id="L90"><a class="line" href="#L90">90</a>             if (index == ordered.Length) return true;</span>
-<span id="L91"><a class="line" href="#L91">91</a>             if (++nodes &gt; SearchBudget) { exhausted = true; return false; }</span>
-<span id="L92"><a class="line" href="#L92">92</a>             var shape = ordered[index];</span>
-<span id="L93"><a class="line" href="#L93">93</a>             foreach (var spot in Positions(shape))</span>
-<span id="L94"><a class="line" href="#L94">94</a>             {</span>
-<span id="L95"><a class="line" href="#L95">95</a>                 Mark(spot, true); placements[shape.Id] = new(owner, regionId, spot.X, spot.Y, spot.Rotated);</span>
-<span id="L96"><a class="line" href="#L96">96</a>                 if (Search(index + 1)) return true;</span>
-<span id="L97"><a class="line" href="#L97">97</a>                 placements.Remove(shape.Id); Mark(spot, false);</span>
-<span id="L98"><a class="line" href="#L98">98</a>                 if (exhausted) return false;</span>
-<span id="L99"><a class="line" href="#L99">99</a>             }</span>
-<span id="L100"><a class="line" href="#L100">100</a>             return false;</span>
-<span id="L101"><a class="line" href="#L101">101</a>         }</span>
-<span id="L102"><a class="line" href="#L102">102</a>         if (!Search(0)) throw new ArgumentException(exhausted</span>
-<span id="L103"><a class="line" href="#L103">103</a>             ? &quot;Packing search limit reached; current contents are unchanged. Try arranging a smaller selection.&quot;</span>
-<span id="L104"><a class="line" href="#L104">104</a>             : &quot;Container full: its shapes cannot fit, even after arranging.&quot;);</span>
-<span id="L105"><a class="line" href="#L105">105</a>         return Build(true);</span>
-<span id="L106"><a class="line" href="#L106">106</a> </span>
-<span id="L107"><a class="line" href="#L107">107</a>         InventoryPackingPlan Build(bool repacked)</span>
-<span id="L108"><a class="line" href="#L108">108</a>         {</span>
-<span id="L109"><a class="line" href="#L109">109</a>             var moves = placements.Where(p =&gt; p.Value != state.Items[p.Key].Placement).OrderBy(p =&gt; p.Key, StringComparer.Ordinal)</span>
-<span id="L110"><a class="line" href="#L110">110</a>                 .Select(p =&gt; new InventoryPackingMove(p.Key, state.Items[p.Key].Placement, p.Value)).ToArray();</span>
-<span id="L111"><a class="line" href="#L111">111</a>             var candidate = new InventoryState(state);</span>
-<span id="L112"><a class="line" href="#L112">112</a>             foreach (var move in moves) candidate.Items[move.ItemId] = candidate.Items[move.ItemId] with { Placement = move.To };</span>
-<span id="L113"><a class="line" href="#L113">113</a>             InventoryPlacement.Validate(candidate); // Also checks root load, hierarchy/cycles and all other regions.</span>
-<span id="L114"><a class="line" href="#L114">114</a>             if (moves.Length == 0) throw new ArgumentException(&quot;Already arranged; no handling needed.&quot;);</span>
-<span id="L115"><a class="line" href="#L115">115</a>             return new(moves, repacked);</span>
-<span id="L116"><a class="line" href="#L116">116</a>         }</span>
-<span id="L117"><a class="line" href="#L117">117</a>     }</span>
-<span id="L118"><a class="line" href="#L118">118</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L13"><a class="line" href="#L13">13</a>         if (state.FindRoot(owner)?.GroundCell is not null) throw new ArgumentException(&quot;Place floor items directly; ground piles are not auto-arranged.&quot;);</span>
+<span id="L14"><a class="line" href="#L14">14</a>         if (region.MountSlot is not null || region.Attachment is not null) throw new ArgumentException(&quot;Arrange applies to storage, not body or attachment mounts.&quot;);</span>
+<span id="L15"><a class="line" href="#L15">15</a>         var ids = state.Children(owner, regionId).Select(i =&gt; i.Id).Where(id =&gt; id != incoming).ToList();</span>
+<span id="L16"><a class="line" href="#L16">16</a>         if (incoming is not null) ids.Add(incoming);</span>
+<span id="L17"><a class="line" href="#L17">17</a>         var shapes = ids.Select(id =&gt;</span>
+<span id="L18"><a class="line" href="#L18">18</a>         {</span>
+<span id="L19"><a class="line" href="#L19">19</a>             var definition = state.Definition(id);</span>
+<span id="L20"><a class="line" href="#L20">20</a>             if (definition.ThicknessMm &gt; region.HeightMm) throw new ArgumentException(&quot;Item is too thick for this compartment.&quot;);</span>
+<span id="L21"><a class="line" href="#L21">21</a>             if (region.AcceptTags is { Length: &gt; 0 } tags &amp;&amp; !definition.Tags.Any(tags.Contains)) throw new ArgumentException(&quot;Compartment rejects this item category.&quot;);</span>
+<span id="L22"><a class="line" href="#L22">22</a>             var size = InventoryPlacement.Footprint(definition, region, false);</span>
+<span id="L23"><a class="line" href="#L23">23</a>             return new Shape(id, size.Width, size.Height, state.Items[id].Placement.Rotated);</span>
+<span id="L24"><a class="line" href="#L24">24</a>         }).ToArray();</span>
+<span id="L25"><a class="line" href="#L25">25</a>         // Moving a child out of a box already in this region must not count it twice.</span>
+<span id="L26"><a class="line" href="#L26">26</a>         var massState = state;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         if (incoming is not null)</span>
+<span id="L28"><a class="line" href="#L28">28</a>         {</span>
+<span id="L29"><a class="line" href="#L29">29</a>             massState = new InventoryState(state);</span>
+<span id="L30"><a class="line" href="#L30">30</a>             massState.Items[incoming] = massState.Items[incoming] with { Placement = new(owner, regionId) };</span>
+<span id="L31"><a class="line" href="#L31">31</a>         }</span>
+<span id="L32"><a class="line" href="#L32">32</a>         if (ids.Sum(id =&gt; InventoryHierarchy.Mass(massState, id)) &gt; region.MaxMassGrams) throw new ArgumentException(&quot;Compartment load limit exceeded.&quot;);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var available = region.Mask?.Length ?? region.Columns * region.Rows;</span>
+<span id="L34"><a class="line" href="#L34">34</a>         if (shapes.Sum(s =&gt; s.Width * s.Height) &gt; available) throw new ArgumentException(&quot;Container full: insufficient usable cells; rearranging cannot help.&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         var cells = new bool[region.Columns * region.Rows];</span>
+<span id="L36"><a class="line" href="#L36">36</a>         for (var i = 0; i &lt; cells.Length; i++) cells[i] = region.Mask is not null &amp;&amp; !region.Mask.Contains(i);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         bool Fits(bool[] occupied, int x, int y, int width, int height)</span>
+<span id="L38"><a class="line" href="#L38">38</a>         {</span>
+<span id="L39"><a class="line" href="#L39">39</a>             if (x + width &gt; region.Columns || y + height &gt; region.Rows) return false;</span>
+<span id="L40"><a class="line" href="#L40">40</a>             for (var row = y; row &lt; y + height; row++)</span>
+<span id="L41"><a class="line" href="#L41">41</a>             for (var col = x; col &lt; x + width; col++) if (occupied[row * region.Columns + col]) return false;</span>
+<span id="L42"><a class="line" href="#L42">42</a>             return true;</span>
+<span id="L43"><a class="line" href="#L43">43</a>         }</span>
+<span id="L44"><a class="line" href="#L44">44</a>         void Mark(Spot spot, bool occupied)</span>
+<span id="L45"><a class="line" href="#L45">45</a>         {</span>
+<span id="L46"><a class="line" href="#L46">46</a>             for (var y = spot.Y; y &lt; spot.Y + spot.Height; y++)</span>
+<span id="L47"><a class="line" href="#L47">47</a>             for (var x = spot.X; x &lt; spot.X + spot.Width; x++) cells[y * region.Columns + x] = occupied;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         }</span>
+<span id="L49"><a class="line" href="#L49">49</a>         var examined = 0;</span>
+<span id="L50"><a class="line" href="#L50">50</a>         IEnumerable&lt;Spot&gt; Positions(Shape shape)</span>
+<span id="L51"><a class="line" href="#L51">51</a>         {</span>
+<span id="L52"><a class="line" href="#L52">52</a>             var choices = new List&lt;Spot&gt;();</span>
+<span id="L53"><a class="line" href="#L53">53</a>             foreach (var rotated in new[] { shape.PreferredRotation, !shape.PreferredRotation }.Distinct())</span>
+<span id="L54"><a class="line" href="#L54">54</a>             {</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 if (shape.Width == shape.Height &amp;&amp; rotated != shape.PreferredRotation) continue;</span>
+<span id="L56"><a class="line" href="#L56">56</a>                 var w = rotated ? shape.Height : shape.Width; var h = rotated ? shape.Width : shape.Height;</span>
+<span id="L57"><a class="line" href="#L57">57</a>                 for (var y = 0; y &lt;= region.Rows - h; y++)</span>
+<span id="L58"><a class="line" href="#L58">58</a>                 for (var x = 0; x &lt;= region.Columns - w; x++)</span>
+<span id="L59"><a class="line" href="#L59">59</a>                 {</span>
+<span id="L60"><a class="line" href="#L60">60</a>                     if (++examined &gt; 200000) throw new ArgumentException(&quot;Packing search limit reached; current contents are unchanged. Try arranging a smaller selection.&quot;);</span>
+<span id="L61"><a class="line" href="#L61">61</a>                     if (Fits(cells, x, y, w, h))</span>
+<span id="L62"><a class="line" href="#L62">62</a>                     {</span>
+<span id="L63"><a class="line" href="#L63">63</a>                         // Compact into the upper-left, preferring contact instead of isolated holes.</span>
+<span id="L64"><a class="line" href="#L64">64</a>                         var contact = (x == 0 ? h : 0) + (y == 0 ? w : 0);</span>
+<span id="L65"><a class="line" href="#L65">65</a>                         for (var row = y; row &lt; y + h; row++) if (x &gt; 0 &amp;&amp; cells[row * region.Columns + x - 1]) contact++;</span>
+<span id="L66"><a class="line" href="#L66">66</a>                         for (var col = x; col &lt; x + w; col++) if (y &gt; 0 &amp;&amp; cells[(y - 1) * region.Columns + col]) contact++;</span>
+<span id="L67"><a class="line" href="#L67">67</a>                         choices.Add(new(x, y, rotated, w, h, (y + h) * 100000 + (x + w) * 1000 + y * 32 + x - contact * 5));</span>
+<span id="L68"><a class="line" href="#L68">68</a>                     }</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 }</span>
+<span id="L70"><a class="line" href="#L70">70</a>             }</span>
+<span id="L71"><a class="line" href="#L71">71</a>             return choices.OrderBy(p =&gt; p.Score).ThenBy(p =&gt; p.Rotated == shape.PreferredRotation ? 0 : 1);</span>
+<span id="L72"><a class="line" href="#L72">72</a>         }</span>
+<span id="L73"><a class="line" href="#L73">73</a>         var placements = new Dictionary&lt;string, ItemPlacement&gt;(StringComparer.Ordinal);</span>
+<span id="L74"><a class="line" href="#L74">74</a>         if (incoming is not null)</span>
+<span id="L75"><a class="line" href="#L75">75</a>         {</span>
+<span id="L76"><a class="line" href="#L76">76</a>             foreach (var id in ids.Where(id =&gt; id != incoming))</span>
+<span id="L77"><a class="line" href="#L77">77</a>             {</span>
+<span id="L78"><a class="line" href="#L78">78</a>                 var item = state.Items[id]; var size = InventoryPlacement.Footprint(state.Definition(id), region, item.Placement.Rotated);</span>
+<span id="L79"><a class="line" href="#L79">79</a>                 Mark(new(item.Placement.X, item.Placement.Y, item.Placement.Rotated, size.Width, size.Height, 0), true);</span>
+<span id="L80"><a class="line" href="#L80">80</a>             }</span>
+<span id="L81"><a class="line" href="#L81">81</a>             var direct = Positions(shapes.Single(s =&gt; s.Id == incoming)).FirstOrDefault();</span>
+<span id="L82"><a class="line" href="#L82">82</a>             if (direct is not null) placements[incoming] = new(owner, regionId, direct.X, direct.Y, direct.Rotated);</span>
+<span id="L83"><a class="line" href="#L83">83</a>             if (placements.Count != 0) return Build(false);</span>
+<span id="L84"><a class="line" href="#L84">84</a>             for (var i = 0; i &lt; cells.Length; i++) cells[i] = region.Mask is not null &amp;&amp; !region.Mask.Contains(i);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         }</span>
+<span id="L86"><a class="line" href="#L86">86</a>         var ordered = shapes.OrderByDescending(s =&gt; s.Width * s.Height).ThenByDescending(s =&gt; Math.Max(s.Width, s.Height))</span>
+<span id="L87"><a class="line" href="#L87">87</a>             .ThenBy(s =&gt; state.Definition(s.Id).Id, StringComparer.Ordinal).ThenBy(s =&gt; s.Id, StringComparer.Ordinal).ToArray();</span>
+<span id="L88"><a class="line" href="#L88">88</a>         var nodes = 0; var exhausted = false;</span>
+<span id="L89"><a class="line" href="#L89">89</a>         bool Search(int index)</span>
+<span id="L90"><a class="line" href="#L90">90</a>         {</span>
+<span id="L91"><a class="line" href="#L91">91</a>             if (index == ordered.Length) return true;</span>
+<span id="L92"><a class="line" href="#L92">92</a>             if (++nodes &gt; SearchBudget) { exhausted = true; return false; }</span>
+<span id="L93"><a class="line" href="#L93">93</a>             var shape = ordered[index];</span>
+<span id="L94"><a class="line" href="#L94">94</a>             foreach (var spot in Positions(shape))</span>
+<span id="L95"><a class="line" href="#L95">95</a>             {</span>
+<span id="L96"><a class="line" href="#L96">96</a>                 Mark(spot, true); placements[shape.Id] = new(owner, regionId, spot.X, spot.Y, spot.Rotated);</span>
+<span id="L97"><a class="line" href="#L97">97</a>                 if (Search(index + 1)) return true;</span>
+<span id="L98"><a class="line" href="#L98">98</a>                 placements.Remove(shape.Id); Mark(spot, false);</span>
+<span id="L99"><a class="line" href="#L99">99</a>                 if (exhausted) return false;</span>
+<span id="L100"><a class="line" href="#L100">100</a>             }</span>
+<span id="L101"><a class="line" href="#L101">101</a>             return false;</span>
+<span id="L102"><a class="line" href="#L102">102</a>         }</span>
+<span id="L103"><a class="line" href="#L103">103</a>         if (!Search(0)) throw new ArgumentException(exhausted</span>
+<span id="L104"><a class="line" href="#L104">104</a>             ? &quot;Packing search limit reached; current contents are unchanged. Try arranging a smaller selection.&quot;</span>
+<span id="L105"><a class="line" href="#L105">105</a>             : &quot;Container full: its shapes cannot fit, even after arranging.&quot;);</span>
+<span id="L106"><a class="line" href="#L106">106</a>         return Build(true);</span>
+<span id="L107"><a class="line" href="#L107">107</a> </span>
+<span id="L108"><a class="line" href="#L108">108</a>         InventoryPackingPlan Build(bool repacked)</span>
+<span id="L109"><a class="line" href="#L109">109</a>         {</span>
+<span id="L110"><a class="line" href="#L110">110</a>             var moves = placements.Where(p =&gt; p.Value != state.Items[p.Key].Placement).OrderBy(p =&gt; p.Key, StringComparer.Ordinal)</span>
+<span id="L111"><a class="line" href="#L111">111</a>                 .Select(p =&gt; new InventoryPackingMove(p.Key, state.Items[p.Key].Placement, p.Value)).ToArray();</span>
+<span id="L112"><a class="line" href="#L112">112</a>             var candidate = new InventoryState(state);</span>
+<span id="L113"><a class="line" href="#L113">113</a>             foreach (var move in moves) candidate.Items[move.ItemId] = candidate.Items[move.ItemId] with { Placement = move.To };</span>
+<span id="L114"><a class="line" href="#L114">114</a>             InventoryPlacement.Validate(candidate); // Also checks root load, hierarchy/cycles and all other regions.</span>
+<span id="L115"><a class="line" href="#L115">115</a>             if (moves.Length == 0) throw new ArgumentException(&quot;Already arranged; no handling needed.&quot;);</span>
+<span id="L116"><a class="line" href="#L116">116</a>             return new(moves, repacked);</span>
+<span id="L117"><a class="line" href="#L117">117</a>         }</span>
+<span id="L118"><a class="line" href="#L118">118</a>     }</span>
+<span id="L119"><a class="line" href="#L119">119</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

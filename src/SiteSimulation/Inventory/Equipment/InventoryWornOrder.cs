@@ -22,10 +22,6 @@ public static class InventoryWornOrder
             throw new ArgumentException("Dressing cannot insert or reorder equipment; remove outer gear first.");
         return destination with { WornOrder = order };
     }
-    internal static InventoryRequest Resolve(InventoryState state, InventoryRequest request)
-        => request.Kind == InventoryActionKind.Move && request.Destination is { } destination && state.Items.TryGetValue(request.ItemId, out var item)
-            ? request with { Destination = Destination(state, item, destination) } : request;
-
     /// <summary>Physical surface stacks project to region labels; local bands and subpositions are never stored twice.</summary>
     public static WornLayer[] Layers(InventoryState state, string id)
     {

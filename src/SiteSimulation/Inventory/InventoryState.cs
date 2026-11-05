@@ -10,6 +10,7 @@ public sealed class InventoryState
     public InventoryContent? Content { get; }
     public BodyFitCatalog? BodyFits { get; }
     internal string ContentJson { get; } = "";
+    internal IReadOnlySet<Hex> GroundCells { get; } = new HashSet<Hex>();
     internal Dictionary<string, InventoryItem> Items { get; } = new(StringComparer.Ordinal);
     internal List<RegionState> Regions { get; } = [];
     public long Revision { get; internal set; }
@@ -17,10 +18,11 @@ public sealed class InventoryState
     internal List<InventorySecureStep> SecureQueue { get; } = [];
     public int SecuringRemaining => SecureQueue.Count;
     public IReadOnlyList<InventoryItem> DiagnosticItems => Items.Values.OrderBy(i => i.Id, StringComparer.Ordinal).ToArray();
-    internal InventoryState(string? profile)
+    internal InventoryState(string? profile, FacilityMap? map = null)
     {
         if (profile is null) return;
         if (profile != FieldProfile) throw new ArgumentException("Unknown native inventory profile.");
+        GroundCells = map?.Cells.ToHashSet() ?? [];
         using var stream = typeof(InventoryState).Assembly.GetManifestResourceStream("SiteSimulation.Inventory.Content.field-kit.json")
             ?? throw new InvalidOperationException("Native inventory content is missing.");
         ContentJson = new StreamReader(stream).ReadToEnd();
@@ -33,19 +35,20 @@ public sealed class InventoryState
     }
     internal InventoryState(InventoryState other)
     {
-        Content = other.Content; ContentJson = other.ContentJson; BodyFits = other.BodyFits;
+        Content = other.Content; ContentJson = other.ContentJson; BodyFits = other.BodyFits; GroundCells = other.GroundCells;
         foreach (var item in other.Items.Values) Items.Add(item.Id, item);
         Regions.AddRange(other.Regions); Revision = other.Revision;
     }
     public ItemDefinition Definition(string id) => Content!.Definitions.Single(d => d.Id == Items[id].DefinitionId);
-    public string Name(string id) => Items.ContainsKey(id) ? Definition(id).Name : Content!.Roots.Single(r => r.Id == id).Name;
+    public InventoryRoot? FindRoot(string id) => Content?.Roots.SingleOrDefault(r => r.Id == id) ?? InventoryGround.FindRoot(this, id);
+    public string Name(string id) => Items.ContainsKey(id) ? Definition(id).Name : FindRoot(id)?.Name ?? throw new ArgumentException("Unknown inventory location.");
     public string EquipmentLabel(string id)
     {
         // Authored numeric fixture suffixes distinguish stand-ins without counting unknown copies elsewhere.
         var prefix = Items[id].DefinitionId + "-";
         return Definition(id).Name + (id.StartsWith(prefix, StringComparison.Ordinal) && int.TryParse(id[prefix.Length..], out var number) ? " #" + number : "");
     }
-    public StorageRegion Region(string parentId, string regionId) => (Items.ContainsKey(parentId) ? Definition(parentId).Regions! : Content!.Roots.Single(r => r.Id == parentId).Regions)
+    public StorageRegion Region(string parentId, string regionId) => (Items.ContainsKey(parentId) ? Definition(parentId).Regions! : FindRoot(parentId)?.Regions ?? throw new ArgumentException("Unknown inventory location."))
         .Single(r => r.Id == regionId);
     public bool IsOpen(string parentId, string regionId) => !Items.ContainsKey(parentId) || (Region(parentId, regionId).Attachment is not null || !Region(parentId, regionId).Sealable) || Regions.Single(r => r.ItemId == parentId && r.RegionId == regionId).Open;
     public IReadOnlyList<InventoryItem> Children(string parentId, string regionId) => Items.Values

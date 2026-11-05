@@ -26,7 +26,7 @@ Inspect [the facade's current source](file-src-sitesimulation-spatialsimulation-
 
 [Symmetric body fitting and adjustable straps](body-fit-cleanup.html) use resolved geometry for preview, wearing and access, including a bounded native chest X. Length derives from immutable geometry and saved pose; paid transactions remain authoritative.
 
-Snapshots preserve state and paid continuations, with content identity and version checks. Restore constructs and validates a detached candidate before replacing live state. Current inventory continuation requires **outer schema 14**; SCP-650 uses **module schema 2**. Earlier docs describe the schema at the time they were written and must not override current validation. Matching older non-inventory fixtures have explicit compatibility paths, not universal migration.
+Snapshots preserve state and paid continuations, with content identity and version checks. Restore constructs and validates a detached candidate before replacing live state. Current snapshots use **outer schema 15**, migrating matching schema-14 inventories without ground placements; SCP-650 uses **module schema 2**. Earlier docs describe the schema at the time they were written and must not override current validation. Matching older non-inventory fixtures have explicit compatibility paths, not universal migration.
 
 See [persistence](system-persistence.html) and the source for `PrototypeSaveCodec`, inventory, combat, operation, and employment codecs.
 
@@ -44,7 +44,7 @@ The project baseline pins Godot .NET 4.7.1 and .NET SDK 8.0.128. These are repos
 
 [Body inspection/removal](body-inspection.html) exposes only own worn material through a read-only surface query. Front/back camera changes do no physical work; selected source IDs enter existing paid item transactions with normal access and commitment validation.
 
-[Full-body sprite qualification](full-body-paperdoll.html) now composes seven wearable definitions over actual worn state and paid fastening/removal. The new underwear profile changes kit identity while retaining save schema 14. Explicit omitted gear and unchanged baked world sprites distinguish this art fixture from the future complete wardrobe pipeline.
+[Full-body sprite qualification](full-body-paperdoll.html) now composes eight direct wearable definitions and a bounded direct-pouch binding over actual worn state and paid fastening/removal. The original underwear profile changed kit identity without changing its then-current schema 14; ground support now writes schema 15. Explicit omitted gear and unchanged baked world sprites distinguish this art fixture from the future complete wardrobe pipeline.
 
 Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.
 
@@ -53,3 +53,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Worn waist belt/direct pouch](worn-belt-and-pouch.html) extend the qualified sprite subset to eight wearable definitions and one exterior binding. They read the existing graph without changing physical fit, native content identity or schema.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
+
+[Ground inventory and piles](ground-storage.html) resolve map-local roots without allocating saved empty containers. Physical location, top-only ancestor access, relative pile order and paid handling remain shared simulation facts. The ground dock is always visible; floating parent-contained windows are only a proposed later UI.

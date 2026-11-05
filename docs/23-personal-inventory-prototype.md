@@ -97,3 +97,5 @@ Press **Body fit · hex view** in the left panel to inspect the authored nine-sh
 ## Geometric pocket coverage update
 
 The trousers now have separate hip and cargo regions with authored access footprints. A closed coat blocks the hip mouths while lower cargo stays accessible; opening changes only its authored cover masks. Segmented hover and body diagnostic markers read that same state. See [the coverage guide](31-pocket-coverage-prototype.md) for native fields, fallback behavior and proof limits.
+
+Current ground follow-up: [the permanent current-tile dock and physical piles](49-ground-inventory-and-piles.md) now provide clothes staging without a spare hand. Covered floor items and their contents require moving covering items first. This supersedes earlier ground-as-future statements for this bounded feature; current saves use schema 15 and migrate matching schema-14 inventory saves. The earlier slice’s schema/content claims describe that slice’s qualification. Floating internal inventory windows remain a future production-UI consideration.

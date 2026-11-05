@@ -7,7 +7,7 @@ public static class InventoryHierarchy
     {
         for (var depth = 0; depth <= MaxDepth; depth++)
         {
-            var root = state.Content!.Roots.SingleOrDefault(r => r.Id == id);
+            var root = state.FindRoot(id);
             if (root is not null) return root;
             id = state.Items[id].Placement.ParentId;
         }
@@ -21,7 +21,7 @@ public static class InventoryHierarchy
         var parts = new List<string>();
         while (state.Items.TryGetValue(id, out var item))
         { parts.Add(state.Definition(id).Name); id = item.Placement.ParentId; }
-        parts.Add(state.Content!.Roots.Single(r => r.Id == id).Name); parts.Reverse();
+        parts.Add(state.Name(id)); parts.Reverse();
         return string.Join(" / ", parts);
     }
 }

@@ -7,21 +7,21 @@
 <span id="L7"><a class="line" href="#L7">7</a>     AnomalyBodySnapshot[] Bodies, ModuleSnapshot[] Modules, TraceSnapshot Trace, AwarenessSnapshot? Awareness = null, OperationSnapshot? Operations = null,</span>
 <span id="L8"><a class="line" href="#L8">8</a>     EventLogSnapshot? Events = null, CombatSnapshot? Combat = null, EmploymentSnapshot? Employment = null, InventorySnapshot? Inventory = null);</span>
 <span id="L9"><a class="line" href="#L9">9</a> </span>
-<span id="L10"><a class="line" href="#L10">10</a> /// &lt;summary&gt;Explicit schema and detached restore transaction. Earlier prototype saves are rejected.&lt;/summary&gt;</span>
+<span id="L10"><a class="line" href="#L10">10</a> /// &lt;summary&gt;Versioned snapshots and detached validation, including a guarded schema-14 inventory upgrade.&lt;/summary&gt;</span>
 <span id="L11"><a class="line" href="#L11">11</a> internal static class PrototypeSaveCodec</span>
 <span id="L12"><a class="line" href="#L12">12</a> {</span>
-<span id="L13"><a class="line" href="#L13">13</a>     public static string Capture(SimulationWorld world, string identity) =&gt; JsonSerializer.Serialize(new SpatialSnapshot(14, identity,</span>
+<span id="L13"><a class="line" href="#L13">13</a>     public static string Capture(SimulationWorld world, string identity) =&gt; JsonSerializer.Serialize(new SpatialSnapshot(15, identity,</span>
 <span id="L14"><a class="line" href="#L14">14</a>         world.WorldMs, world.LocalMs, world.LocalHold, world.ManualPause, world.Speed, world.Map.OpenDoors.Order().ToArray(),</span>
 <span id="L15"><a class="line" href="#L15">15</a>         world.Actors.ToArray(), world.PatrolIndex, world.Map.LightsOn, world.Anomalies.CaptureBodies(), world.Anomalies.CaptureModules(), world.Trace.Capture(), world.Awareness.Capture(), world.Operations.Definition is null ? null : world.Operations.Capture(), world.Events.Capture(), world.Combat.Capture(), world.Employment.Definition is null ? null : world.Employment.Capture(), world.Inventory.Enabled ? world.Inventory.Capture() : null));</span>
 <span id="L16"><a class="line" href="#L16">16</a> </span>
 <span id="L17"><a class="line" href="#L17">17</a>     public static SimulationWorld Restore(string json, string mapJson, string identity, string? operationJson = null)</span>
 <span id="L18"><a class="line" href="#L18">18</a>     {</span>
 <span id="L19"><a class="line" href="#L19">19</a>         var s = JsonSerializer.Deserialize&lt;SpatialSnapshot&gt;(json) ?? throw new ArgumentException(&quot;Empty prototype save.&quot;);</span>
-<span id="L20"><a class="line" href="#L20">20</a>         if (s.Version is not (2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14) || s.Version &gt;= 3 &amp;&amp; s.Awareness is null || s.Version &gt;= 5 &amp;&amp; (s.Events is null || s.Combat is null)</span>
+<span id="L20"><a class="line" href="#L20">20</a>         if (s.Version is not (2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14 or 15) || s.Version &gt;= 3 &amp;&amp; s.Awareness is null || s.Version &gt;= 5 &amp;&amp; (s.Events is null || s.Combat is null)</span>
 <span id="L21"><a class="line" href="#L21">21</a>             || operationJson is not null &amp;&amp; s.Version &lt; 4 || s.MapIdentity != identity || s.WorldMs &lt; 0 || s.LocalMs &lt; 0 || s.LocalMs &gt; s.WorldMs</span>
 <span id="L22"><a class="line" href="#L22">22</a>             || s.WorldMs % SpatialSimulation.TickMs != 0 || s.LocalMs % SpatialSimulation.TickMs != 0</span>
 <span id="L23"><a class="line" href="#L23">23</a>             || s.Speed is not (1 or 2 or 4) || s.PatrolIndex &lt; 0 || s.Actors is null || s.OpenDoors is null || s.Actors.Any(a =&gt; a is null))</span>
-<span id="L24"><a class="line" href="#L24">24</a>             throw new ArgumentException(&quot;Incompatible or invalid prototype save (requires schema 2/3/4/5/6/7/8/9/10/11/12/13/14 and matching content).&quot;);</span>
+<span id="L24"><a class="line" href="#L24">24</a>             throw new ArgumentException(&quot;Incompatible or invalid prototype save (requires supported schema 2–15 and matching content).&quot;);</span>
 <span id="L25"><a class="line" href="#L25">25</a>         var candidate = new SimulationWorld(mapJson, operationJson);</span>
 <span id="L26"><a class="line" href="#L26">26</a>         if (!s.Actors.Select(a =&gt; a.Id).Order().SequenceEqual(candidate.Actors.Select(a =&gt; a.Id).Order())</span>
 <span id="L27"><a class="line" href="#L27">27</a>             || s.OpenDoors.Any(id =&gt; !candidate.Map.Definition.Walls.Any(w =&gt; w.Id == id &amp;&amp; w.Door))</span>
@@ -77,7 +77,11 @@
 <span id="L77"><a class="line" href="#L77">77</a>         }</span>
 <span id="L78"><a class="line" href="#L78">78</a>         else foreach (var report in candidate.Operations.ReceivedReports) candidate.Events.Once(&quot;report:&quot; + report.Id);</span>
 <span id="L79"><a class="line" href="#L79">79</a>         if (candidate.Inventory.Enabled &amp;&amp; s.Version &lt; 14) throw new ArgumentException(&quot;Inventory saves require schema 14 and a fresh field-kit scene for worn order.&quot;);</span>
-<span id="L80"><a class="line" href="#L80">80</a>         InventorySaveCodec.Restore(candidate, s.Inventory);</span>
-<span id="L81"><a class="line" href="#L81">81</a>         return candidate;</span>
-<span id="L82"><a class="line" href="#L82">82</a>     }</span>
-<span id="L83"><a class="line" href="#L83">83</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L80"><a class="line" href="#L80">80</a>         if (s.Version &lt; 15 &amp;&amp; s.Inventory is { Items: not null } old &amp;&amp; (old.Items.Any(i =&gt; i?.Placement is { } place &amp;&amp; (place.GroundOrder is not null</span>
+<span id="L81"><a class="line" href="#L81">81</a>             || place.ParentId?.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal) == true))</span>
+<span id="L82"><a class="line" href="#L82">82</a>             || old.Pending?.Request?.Destination is { } target &amp;&amp; (target.GroundOrder is not null || target.ParentId?.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal) == true)))</span>
+<span id="L83"><a class="line" href="#L83">83</a>             throw new ArgumentException(&quot;Ground piles require schema 15.&quot;);</span>
+<span id="L84"><a class="line" href="#L84">84</a>         InventorySaveCodec.Restore(candidate, s.Inventory);</span>
+<span id="L85"><a class="line" href="#L85">85</a>         return candidate;</span>
+<span id="L86"><a class="line" href="#L86">86</a>     }</span>
+<span id="L87"><a class="line" href="#L87">87</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -3,6 +3,11 @@ namespace SiteSimulation;
 /// <summary>Millimetre envelopes and discrete packing footprints. View scale cannot create capacity.</summary>
 public static class InventoryPlacement
 {
+    internal static ItemPlacement Destination(InventoryState state, InventoryItem item, ItemPlacement target)
+        => InventoryGround.Destination(state, item, InventoryWornOrder.Destination(state, item, target));
+    internal static InventoryRequest Resolve(InventoryState state, InventoryRequest request)
+        => request.Kind == InventoryActionKind.Move && request.Destination is { } target && state.Items.TryGetValue(request.ItemId, out var item)
+            ? request with { Destination = Destination(state, item, target) } : request;
     public static (int Width, int Height) Footprint(ItemDefinition item, StorageRegion region, bool rotated)
         => region.MountSlot is not null ? (1, 1) : ((int)Math.Ceiling((rotated ? item.LengthMm : item.WidthMm) / (double)region.CellMm),
             (int)Math.Ceiling((rotated ? item.WidthMm : item.LengthMm) / (double)region.CellMm));
@@ -30,7 +35,8 @@ public static class InventoryPlacement
                     throw new ArgumentException(definition.Name + " does not physically fit in " + region.Name);
                 var cells = Enumerable.Range(p.Y, height).SelectMany(y => Enumerable.Range(p.X, width).Select(x => y * region.Columns + x)).ToArray();
                 if (region.Mask is { } mask && cells.Any(c => !mask.Contains(c))) throw new ArgumentException("Item overlaps the compartment's unusable area");
-                foreach (var other in state.Items.Values.Where(i => i.Id != item.Id && i.Placement.ParentId == p.ParentId && i.Placement.RegionId == p.RegionId))
+                foreach (var other in state.Items.Values.Where(i => i.Id != item.Id && i.Placement.ParentId == p.ParentId && i.Placement.RegionId == p.RegionId
+                    && state.FindRoot(p.ParentId)?.GroundCell is null))
                 {
                     if (region.MountSlot is not null && definition.Wear?.OverlayLimit is not null && state.Definition(other.Id).Wear?.OverlayLimit is not null)
                         continue; // Physical bands govern shared strap mounts, not their temporary 1×1 widget.
@@ -44,6 +50,7 @@ public static class InventoryPlacement
         }
         foreach (var root in state.Content!.Roots)
             if (InventoryHierarchy.CarriedMass(state, root.Id) > root.MaxMassGrams) throw new ArgumentException(root.Name + " exceeds its total load limit");
+        InventoryGround.Validate(state);
         InventoryWear.ValidateGraph(state);
         InventoryAttachmentClearance.Validate(state);
     }

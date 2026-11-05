@@ -10,7 +10,7 @@ internal static class InventorySaveCodec
                 || !content.Items.Any(original => original.Id == i.Id && original.DefinitionId == i.DefinitionId)
                 || i.GarmentOpen && state.Definition(i.Id).Wear?.OpenExposes is not { Length: > 0 }
                 || i.SecureOnClose is not null && state.Definition(i.Id).Wear?.OpenExposes is not { Length: > 0 }
-                || !state.Items.ContainsKey(i.Placement.ParentId) && !content.Roots.Any(r => r.Id == i.Placement.ParentId))
+                || !state.Items.ContainsKey(i.Placement.ParentId) && state.FindRoot(i.Placement.ParentId) is null)
             || state.Regions.Any(r => r is null || !state.Items.ContainsKey(r.ItemId)
                 || state.Definition(r.ItemId).Regions?.Any(region => region.Id == r.RegionId && region.Attachment is null) != true)
             || state.Regions.Any(r => !state.Region(r.ItemId, r.RegionId).Sealable && (!r.Open || r.SecureOnClose is not null))
@@ -45,7 +45,7 @@ internal static class InventorySaveCodec
             if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)
                 || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))
                 throw new ArgumentException("Invalid inventory request or declared cost.");
-            if (InventoryWornOrder.Resolve(state, work.Request) != work.Request)
+            if (InventoryPlacement.Resolve(state, work.Request) != work.Request)
                 throw new ArgumentException("Saved handling is missing its resolved dressing order.");
             var tactical = world.Combat.Pending;
             if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)

@@ -197,3 +197,7 @@ Provide seed replay, event traces, entity inspection, rule provenance, generatio
 Provisional measurement envelope: one site with two floors, one small settlement, 200 named NPCs, 24 locally active actors, four concurrent operations, and five active anomaly instances. The playable slice has lower content counts. These are benchmark targets, not final hardware claims.
 
 M0 records a named reference machine and build configuration, then measures 10,000 representative authoritative steps: target p95 simulation work ≤10 ms per 50 ms step, bounded worst-case events, and 60 FPS presentation at the selected resolution. A representative snapshot should save/load within five seconds. Set memory and chunk-streaming budgets after measurement; do not sign a performance commitment with unspecified hardware.
+
+## Implemented local floor inventory
+
+[Ground patches and piles](49-ground-inventory-and-piles.md) use the same item graph as personal and nested storage. A floor root is a map-local location with neither actor ownership nor a fixture prop. Queries resolve empty patches without changing state; access requires standing on the matching physical navigation hex. Item locations, relative pile order and paid transfers persist in schema 15. Cross-domain ground transfer remains future work.

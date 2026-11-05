@@ -14,7 +14,7 @@ Physical [body geometry](body-fit-cleanup.html), [fitting drops](body-drag-fitti
 
 ## States and evidence
 
-The [native panel](file-game-presentation-inventory-inventorypaperdollproof-cs.html) uses existing commands. Paused controls supply no free fastening. A jacket retains its old sprite until paid completion. Front/back inspection and hover perform no physical work. Reopening resets the transient side; [persistence](system-persistence.html) remains schema 14 with unchanged inventory identity and exact paid continuation.
+The [native panel](file-game-presentation-inventory-inventorypaperdollproof-cs.html) uses existing commands. Paused controls supply no free fastening. A jacket retains its old sprite until paid completion. Front/back inspection and hover perform no physical work. Reopening resets the transient side; [persistence](system-persistence.html) was schema 14 at this slice’s qualification with unchanged inventory identity and exact paid continuation.
 
 [Native checks](file-game-presentation-spatialscene-paperdollsmoke-cs.html) exercise source-alpha overlap/holes, head occlusion, resize, own identity/order, selection, normal restraint, pending/paused fastening, restore and side reset. See [actual runtime evidence](doc-docs-reviews-inventory-runtime-checks-md.html). Building the wiki does not execute game checks.
 
@@ -23,3 +23,5 @@ The [native panel](file-game-presentation-inventory-inventorypaperdollproof-cs.h
 This is a manually registered upper-body stand-in, inspired by the player reference. Packs, full-body clothing, attachments and non-default poses are omitted and disclosed. Loose item illustrations and world actors remain separate baked artwork; universal character matching, appearance variants, world walks/facings, procedural fit and general cloth/transparency are not implemented. [The shared appearance contract](wearable-appearance.html) and rig/surface-mapping proposals retain their future scope. Asset prompts/provenance are linked from the runtime guide.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [appearance](wearable-appearance.html), [body inspection](body-inspection.html), [body drops](body-drag-fitting.html), [fit](body-fit-cleanup.html), [mounts](mount-points.html), [design library](documents.html).
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

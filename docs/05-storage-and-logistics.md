@@ -2,7 +2,7 @@
 
 Status: Proposed implementation contract, revision 0.4. Hierarchical storage, specialized layouts, physical accessibility, console sorting, and consolidation preferences are user-confirmed direction. Numeric implementation limits below are proposals. This document extends [the game design](01-game-design.md), [simulation](02-simulation-and-world.md), and [acceptance plan](04-scope-and-acceptance.md).
 
-The October 25 [personal inventory prototype](23-personal-inventory-prototype.md) implements worn/held mounts, separate pockets, backpack sections, nested cases/packets, physical packing, timed handling and nearby crate transfers. Specialized racks, mixed shelves, pallets and delegated logistics remain proposed.
+The October 25 [personal inventory prototype](23-personal-inventory-prototype.md) implements worn/held mounts, separate pockets, backpack sections, nested cases/packets, physical packing, timed handling and nearby crate transfers. The [current-tile floor follow-up](49-ground-inventory-and-piles.md) now adds real world-rooted piles with overlapping footprints and top-only access. Specialized racks, mixed shelves, pallets and delegated logistics remain proposed; floor pile ordering does not implement pallet bays, structural support physics or hauling.
 
 The confirmed [body equipment and container navigation](24-body-equipment-and-container-navigation.md) direction keeps a permanent paperdoll and reveals storage through deliberate inspection. Inspection navigation and a bounded authored coverage/layer/fastening/front-and-back-pack slice are implemented. Broader attachment and clothing content remains future work.
 

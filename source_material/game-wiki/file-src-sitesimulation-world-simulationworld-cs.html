@@ -35,7 +35,7 @@
 <span id="L35"><a class="line" href="#L35">35</a>         if (Actors.Any(a =&gt; !Map.Walkable(a.Cell))) throw new ArgumentException(&quot;Anomaly overlaps an actor spawn.&quot;);</span>
 <span id="L36"><a class="line" href="#L36">36</a>         Operations = new(operationJson);</span>
 <span id="L37"><a class="line" href="#L37">37</a>         Employment = new(Operations.Definition?.Employment);</span>
-<span id="L38"><a class="line" href="#L38">38</a>         Inventory = new(Operations.Definition?.InventoryProfile);</span>
+<span id="L38"><a class="line" href="#L38">38</a>         Inventory = new(Operations.Definition?.InventoryProfile, Map);</span>
 <span id="L39"><a class="line" href="#L39">39</a>         OperationLifecycle.Initialize(this);</span>
 <span id="L40"><a class="line" href="#L40">40</a>         EmploymentSystem.Initialize(this);</span>
 <span id="L41"><a class="line" href="#L41">41</a>         InventoryContentValidation.Validate(this);</span>

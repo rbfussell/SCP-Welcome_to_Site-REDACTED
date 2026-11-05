@@ -19,6 +19,8 @@ internal static class InventoryActions
         if (!state.Enabled || request is null || !Enum.IsDefined(request.Kind) || !state.Items.TryGetValue(request.ItemId, out var item)) return false;
         var access = InventoryAccessService.Placement(world, actorId, item.Placement);
         if (!access.Allowed) { reason = access.Reason; return false; }
+        if (InventoryGround.Covering(state, item).FirstOrDefault() is { } cover)
+        { reason = "Covered by " + state.Name(cover.Id) + "; move covering items first"; return false; }
         var definition = state.Definition(item.Id);
         duration = definition.HandleMs + InventoryAccessService.HandlingMs(state, item.Placement);
         ap = definition.HandleAp + AccessAp(state, item.Placement);
@@ -28,7 +30,7 @@ internal static class InventoryActions
             {
                 case InventoryActionKind.Move:
                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException("Choose a physical destination");
-                    destination = InventoryWornOrder.Destination(state, item, destination);
+                    destination = InventoryPlacement.Destination(state, item, destination);
                     if (InventoryBodyFit.SamePlace(state, item, destination)) throw new ArgumentException("Item is already there");
                     InventoryWear.ValidateAction(state, item, item.Placement);
                     var target = InventoryAccessService.Placement(world, actorId, destination);
@@ -93,7 +95,7 @@ internal static class InventoryActions
             : world.LocalMs < actor.StartledUntilMs ? "Recovering from startle." : "Ready";
         if (reason != "Ready") return false;
         if (!Validate(world, actor.Id, request, out reason, out var duration, out var ap, out var packing)) return false;
-        request = InventoryWornOrder.Resolve(world.Inventory, request);
+        request = InventoryPlacement.Resolve(world.Inventory, request);
         if (world.Combat.Active && !TacticalCombatSystem.HandleInventory(world, ap, duration, out reason)) return false;
         MovementSystem.StopInPlace(actor);
         world.Inventory.Pending = new(actor.Id, request, actor.Position, duration, duration, world.Inventory.Revision, ap, world.Combat.Active, Packing: packing);

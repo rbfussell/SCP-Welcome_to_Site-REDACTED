@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryWornOrder.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryWornOrder.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryWornOrder.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-wornlayer.html">WornLayer</a></li><li><a href="type-equipmententry.html">EquipmentEntry</a></li><li><a href="type-inventorywornorder.html">InventoryWornOrder</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-2674ebc4f15481027064.html">InventoryWornOrder.Order</a> · line 10</li><li><a href="function-5975560142c17e9ef3fa.html">InventoryWornOrder.Destination</a> · line 11</li><li><a href="function-36f6ada684f5332e2401.html">InventoryWornOrder.Resolve</a> · line 25</li><li><a href="function-c7f6fb2ef36812a55859.html">InventoryWornOrder.Layers</a> · line 30</li><li><a href="function-e215fbbf95b9dd150544.html">InventoryWornOrder.Layers</a> · line 35</li><li><a href="function-f8e7dbcdb5454adaa117.html">InventoryWornOrder.Validate</a> · line 42</li><li><a href="function-1bab14fbdd5649042751.html">SpatialSimulation.InventoryEquipment</a> · line 61</li><li><a href="function-266270f6fb4087bdbc78.html">SpatialSimulation.InventoryEquipment.get</a> · line 63</li><li><a href="function-24246284fc526515a56b.html">SpatialSimulation.InventoryWornCells</a> · line 82</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Equipment/InventoryWornOrder.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryWornOrder.cs</h1><p>src/SiteSimulation/Inventory/Equipment/InventoryWornOrder.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-wornlayer.html">WornLayer</a></li><li><a href="type-equipmententry.html">EquipmentEntry</a></li><li><a href="type-inventorywornorder.html">InventoryWornOrder</a></li><li><a href="type-spatialsimulation.html">SpatialSimulation</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-2674ebc4f15481027064.html">InventoryWornOrder.Order</a> · line 10</li><li><a href="function-5975560142c17e9ef3fa.html">InventoryWornOrder.Destination</a> · line 11</li><li><a href="function-c7f6fb2ef36812a55859.html">InventoryWornOrder.Layers</a> · line 26</li><li><a href="function-e215fbbf95b9dd150544.html">InventoryWornOrder.Layers</a> · line 31</li><li><a href="function-f8e7dbcdb5454adaa117.html">InventoryWornOrder.Validate</a> · line 38</li><li><a href="function-1bab14fbdd5649042751.html">SpatialSimulation.InventoryEquipment</a> · line 57</li><li><a href="function-266270f6fb4087bdbc78.html">SpatialSimulation.InventoryEquipment.get</a> · line 59</li><li><a href="function-24246284fc526515a56b.html">SpatialSimulation.InventoryWornCells</a> · line 78</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
 <span id="L2"><a class="line" href="#L2">2</a> </span>
 <span id="L3"><a class="line" href="#L3">3</a> public sealed record WornLayer(string Region, int Layer, int SubLayer = 0);</span>
 <span id="L4"><a class="line" href="#L4">4</a> public sealed record EquipmentEntry(string ItemId, string Group, WornLayer[] Layers, bool Visible, InventoryAccess Access);</span>
@@ -22,63 +22,59 @@
 <span id="L22"><a class="line" href="#L22">22</a>             throw new ArgumentException(&quot;Dressing cannot insert or reorder equipment; remove outer gear first.&quot;);</span>
 <span id="L23"><a class="line" href="#L23">23</a>         return destination with { WornOrder = order };</span>
 <span id="L24"><a class="line" href="#L24">24</a>     }</span>
-<span id="L25"><a class="line" href="#L25">25</a>     internal static InventoryRequest Resolve(InventoryState state, InventoryRequest request)</span>
-<span id="L26"><a class="line" href="#L26">26</a>         =&gt; request.Kind == InventoryActionKind.Move &amp;&amp; request.Destination is { } destination &amp;&amp; state.Items.TryGetValue(request.ItemId, out var item)</span>
-<span id="L27"><a class="line" href="#L27">27</a>             ? request with { Destination = Destination(state, item, destination) } : request;</span>
-<span id="L28"><a class="line" href="#L28">28</a> </span>
-<span id="L29"><a class="line" href="#L29">29</a>     /// &lt;summary&gt;Physical surface stacks project to region labels; local bands and subpositions are never stored twice.&lt;/summary&gt;</span>
-<span id="L30"><a class="line" href="#L30">30</a>     public static WornLayer[] Layers(InventoryState state, string id)</span>
-<span id="L31"><a class="line" href="#L31">31</a>     {</span>
-<span id="L32"><a class="line" href="#L32">32</a>         if (!state.Items.TryGetValue(id, out var item) || InventoryWear.Mount(state, item, item.Placement) is null) return [];</span>
-<span id="L33"><a class="line" href="#L33">33</a>         return Layers(state, item, InventoryWornStack.Build(state, item.Placement.ParentId));</span>
-<span id="L34"><a class="line" href="#L34">34</a>     }</span>
-<span id="L35"><a class="line" href="#L35">35</a>     internal static WornLayer[] Layers(InventoryState state, InventoryItem item, IReadOnlyList&lt;WornCellLayer&gt; stack)</span>
-<span id="L36"><a class="line" href="#L36">36</a>     {</span>
-<span id="L37"><a class="line" href="#L37">37</a>         var root = state.Content!.Roots.Single(r =&gt; r.Id == item.Placement.ParentId);</span>
-<span id="L38"><a class="line" href="#L38">38</a>         var body = state.BodyFits!.Body(root.BodyFamily!);</span>
-<span id="L39"><a class="line" href="#L39">39</a>         return stack.Where(c =&gt; c.ItemId == item.Id)</span>
-<span id="L40"><a class="line" href="#L40">40</a>             .Select(c =&gt; new WornLayer(InventoryWornStack.Region(body, c.Cell), c.Layer, c.SubLayer)).Distinct().ToArray();</span>
-<span id="L41"><a class="line" href="#L41">41</a>     }</span>
-<span id="L42"><a class="line" href="#L42">42</a>     internal static void Validate(InventoryState state)</span>
-<span id="L43"><a class="line" href="#L43">43</a>     {</span>
-<span id="L44"><a class="line" href="#L44">44</a>         foreach (var item in state.Items.Values)</span>
-<span id="L45"><a class="line" href="#L45">45</a>         {</span>
-<span id="L46"><a class="line" href="#L46">46</a>             var worn = InventoryWear.Mount(state, item, item.Placement) is not null;</span>
-<span id="L47"><a class="line" href="#L47">47</a>             if (worn ? item.Placement.WornOrder is not (&gt;= 1 and &lt;= MaxOrder) : item.Placement.WornOrder is not null)</span>
-<span id="L48"><a class="line" href="#L48">48</a>                 throw new ArgumentException(&quot;Invalid or missing worn dressing order.&quot;);</span>
-<span id="L49"><a class="line" href="#L49">49</a>         }</span>
-<span id="L50"><a class="line" href="#L50">50</a>         foreach (var root in state.Content!.Roots.Where(r =&gt; r.ActorId is not null))</span>
-<span id="L51"><a class="line" href="#L51">51</a>         {</span>
-<span id="L52"><a class="line" href="#L52">52</a>             var orders = InventoryWear.Worn(state, root.Id).Select(Order).ToArray();</span>
-<span id="L53"><a class="line" href="#L53">53</a>             if (orders.Distinct().Count() != orders.Length) throw new ArgumentException(&quot;Duplicate worn dressing order.&quot;);</span>
-<span id="L54"><a class="line" href="#L54">54</a>         }</span>
-<span id="L55"><a class="line" href="#L55">55</a>     }</span>
-<span id="L56"><a class="line" href="#L56">56</a> }</span>
-<span id="L57"><a class="line" href="#L57">57</a> </span>
-<span id="L58"><a class="line" href="#L58">58</a> public sealed partial class SpatialSimulation</span>
-<span id="L59"><a class="line" href="#L59">59</a> {</span>
-<span id="L60"><a class="line" href="#L60">60</a>     /// &lt;summary&gt;Own known equipment only; rows identify clothing but never reveal its stored contents.&lt;/summary&gt;</span>
-<span id="L61"><a class="line" href="#L61">61</a>     public IReadOnlyList&lt;EquipmentEntry&gt; InventoryEquipment</span>
-<span id="L62"><a class="line" href="#L62">62</a>     {</span>
-<span id="L63"><a class="line" href="#L63">63</a>         get</span>
-<span id="L64"><a class="line" href="#L64">64</a>         {</span>
-<span id="L65"><a class="line" href="#L65">65</a>             var root = Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id);</span>
-<span id="L66"><a class="line" href="#L66">66</a>             if (root is null) return [];</span>
-<span id="L67"><a class="line" href="#L67">67</a>             var groups = new (string Name, string[] Regions)[] {</span>
-<span id="L68"><a class="line" href="#L68">68</a>                 (&quot;Head / face&quot;, [&quot;head&quot;, &quot;face&quot;]), (&quot;Chest&quot;, [&quot;torso-front&quot;, &quot;torso-back&quot;, &quot;arms&quot;, &quot;hands&quot;]),</span>
-<span id="L69"><a class="line" href="#L69">69</a>                 (&quot;Lower body&quot;, [&quot;hips-front&quot;, &quot;hips-back&quot;, &quot;legs&quot;]), (&quot;Feet&quot;, [&quot;feet&quot;]) };</span>
-<span id="L70"><a class="line" href="#L70">70</a>             var entries = new List&lt;EquipmentEntry&gt;();</span>
-<span id="L71"><a class="line" href="#L71">71</a>             var stack = InventoryWornStack.Build(Inventory, root.Id);</span>
-<span id="L72"><a class="line" href="#L72">72</a>             foreach (var (name, regions) in groups)</span>
-<span id="L73"><a class="line" href="#L73">73</a>                 foreach (var item in InventoryWear.Worn(Inventory, root.Id).OrderByDescending(InventoryWornOrder.Order).ThenBy(i =&gt; i.Id, StringComparer.Ordinal))</span>
-<span id="L74"><a class="line" href="#L74">74</a>                 {</span>
-<span id="L75"><a class="line" href="#L75">75</a>                     var layers = InventoryWornOrder.Layers(Inventory, item, stack).Where(l =&gt; regions.Contains(l.Region)).ToArray();</span>
-<span id="L76"><a class="line" href="#L76">76</a>                     if (layers.Length &gt; 0) entries.Add(new(item.Id, name, layers, InventoryWear.Visible(Inventory, item), InventoryMoveAccess(item.Id)));</span>
-<span id="L77"><a class="line" href="#L77">77</a>                 }</span>
-<span id="L78"><a class="line" href="#L78">78</a>             entries.AddRange(Inventory.Children(root.Id, &quot;hand&quot;).Select(i =&gt; new EquipmentEntry(i.Id, &quot;Held&quot;, [], true, InventoryMoveAccess(i.Id))));</span>
-<span id="L79"><a class="line" href="#L79">79</a>             return entries;</span>
-<span id="L80"><a class="line" href="#L80">80</a>         }</span>
-<span id="L81"><a class="line" href="#L81">81</a>     }</span>
-<span id="L82"><a class="line" href="#L82">82</a>     public IReadOnlyList&lt;WornCellLayer&gt; InventoryWornCells =&gt; Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id) is { } root</span>
-<span id="L83"><a class="line" href="#L83">83</a>         ? InventoryWornStack.Build(Inventory, root.Id) : [];</span>
-<span id="L84"><a class="line" href="#L84">84</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L25"><a class="line" href="#L25">25</a>     /// &lt;summary&gt;Physical surface stacks project to region labels; local bands and subpositions are never stored twice.&lt;/summary&gt;</span>
+<span id="L26"><a class="line" href="#L26">26</a>     public static WornLayer[] Layers(InventoryState state, string id)</span>
+<span id="L27"><a class="line" href="#L27">27</a>     {</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (!state.Items.TryGetValue(id, out var item) || InventoryWear.Mount(state, item, item.Placement) is null) return [];</span>
+<span id="L29"><a class="line" href="#L29">29</a>         return Layers(state, item, InventoryWornStack.Build(state, item.Placement.ParentId));</span>
+<span id="L30"><a class="line" href="#L30">30</a>     }</span>
+<span id="L31"><a class="line" href="#L31">31</a>     internal static WornLayer[] Layers(InventoryState state, InventoryItem item, IReadOnlyList&lt;WornCellLayer&gt; stack)</span>
+<span id="L32"><a class="line" href="#L32">32</a>     {</span>
+<span id="L33"><a class="line" href="#L33">33</a>         var root = state.Content!.Roots.Single(r =&gt; r.Id == item.Placement.ParentId);</span>
+<span id="L34"><a class="line" href="#L34">34</a>         var body = state.BodyFits!.Body(root.BodyFamily!);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         return stack.Where(c =&gt; c.ItemId == item.Id)</span>
+<span id="L36"><a class="line" href="#L36">36</a>             .Select(c =&gt; new WornLayer(InventoryWornStack.Region(body, c.Cell), c.Layer, c.SubLayer)).Distinct().ToArray();</span>
+<span id="L37"><a class="line" href="#L37">37</a>     }</span>
+<span id="L38"><a class="line" href="#L38">38</a>     internal static void Validate(InventoryState state)</span>
+<span id="L39"><a class="line" href="#L39">39</a>     {</span>
+<span id="L40"><a class="line" href="#L40">40</a>         foreach (var item in state.Items.Values)</span>
+<span id="L41"><a class="line" href="#L41">41</a>         {</span>
+<span id="L42"><a class="line" href="#L42">42</a>             var worn = InventoryWear.Mount(state, item, item.Placement) is not null;</span>
+<span id="L43"><a class="line" href="#L43">43</a>             if (worn ? item.Placement.WornOrder is not (&gt;= 1 and &lt;= MaxOrder) : item.Placement.WornOrder is not null)</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 throw new ArgumentException(&quot;Invalid or missing worn dressing order.&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>         }</span>
+<span id="L46"><a class="line" href="#L46">46</a>         foreach (var root in state.Content!.Roots.Where(r =&gt; r.ActorId is not null))</span>
+<span id="L47"><a class="line" href="#L47">47</a>         {</span>
+<span id="L48"><a class="line" href="#L48">48</a>             var orders = InventoryWear.Worn(state, root.Id).Select(Order).ToArray();</span>
+<span id="L49"><a class="line" href="#L49">49</a>             if (orders.Distinct().Count() != orders.Length) throw new ArgumentException(&quot;Duplicate worn dressing order.&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         }</span>
+<span id="L51"><a class="line" href="#L51">51</a>     }</span>
+<span id="L52"><a class="line" href="#L52">52</a> }</span>
+<span id="L53"><a class="line" href="#L53">53</a> </span>
+<span id="L54"><a class="line" href="#L54">54</a> public sealed partial class SpatialSimulation</span>
+<span id="L55"><a class="line" href="#L55">55</a> {</span>
+<span id="L56"><a class="line" href="#L56">56</a>     /// &lt;summary&gt;Own known equipment only; rows identify clothing but never reveal its stored contents.&lt;/summary&gt;</span>
+<span id="L57"><a class="line" href="#L57">57</a>     public IReadOnlyList&lt;EquipmentEntry&gt; InventoryEquipment</span>
+<span id="L58"><a class="line" href="#L58">58</a>     {</span>
+<span id="L59"><a class="line" href="#L59">59</a>         get</span>
+<span id="L60"><a class="line" href="#L60">60</a>         {</span>
+<span id="L61"><a class="line" href="#L61">61</a>             var root = Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id);</span>
+<span id="L62"><a class="line" href="#L62">62</a>             if (root is null) return [];</span>
+<span id="L63"><a class="line" href="#L63">63</a>             var groups = new (string Name, string[] Regions)[] {</span>
+<span id="L64"><a class="line" href="#L64">64</a>                 (&quot;Head / face&quot;, [&quot;head&quot;, &quot;face&quot;]), (&quot;Chest&quot;, [&quot;torso-front&quot;, &quot;torso-back&quot;, &quot;arms&quot;, &quot;hands&quot;]),</span>
+<span id="L65"><a class="line" href="#L65">65</a>                 (&quot;Lower body&quot;, [&quot;hips-front&quot;, &quot;hips-back&quot;, &quot;legs&quot;]), (&quot;Feet&quot;, [&quot;feet&quot;]) };</span>
+<span id="L66"><a class="line" href="#L66">66</a>             var entries = new List&lt;EquipmentEntry&gt;();</span>
+<span id="L67"><a class="line" href="#L67">67</a>             var stack = InventoryWornStack.Build(Inventory, root.Id);</span>
+<span id="L68"><a class="line" href="#L68">68</a>             foreach (var (name, regions) in groups)</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 foreach (var item in InventoryWear.Worn(Inventory, root.Id).OrderByDescending(InventoryWornOrder.Order).ThenBy(i =&gt; i.Id, StringComparer.Ordinal))</span>
+<span id="L70"><a class="line" href="#L70">70</a>                 {</span>
+<span id="L71"><a class="line" href="#L71">71</a>                     var layers = InventoryWornOrder.Layers(Inventory, item, stack).Where(l =&gt; regions.Contains(l.Region)).ToArray();</span>
+<span id="L72"><a class="line" href="#L72">72</a>                     if (layers.Length &gt; 0) entries.Add(new(item.Id, name, layers, InventoryWear.Visible(Inventory, item), InventoryMoveAccess(item.Id)));</span>
+<span id="L73"><a class="line" href="#L73">73</a>                 }</span>
+<span id="L74"><a class="line" href="#L74">74</a>             entries.AddRange(Inventory.Children(root.Id, &quot;hand&quot;).Select(i =&gt; new EquipmentEntry(i.Id, &quot;Held&quot;, [], true, InventoryMoveAccess(i.Id))));</span>
+<span id="L75"><a class="line" href="#L75">75</a>             return entries;</span>
+<span id="L76"><a class="line" href="#L76">76</a>         }</span>
+<span id="L77"><a class="line" href="#L77">77</a>     }</span>
+<span id="L78"><a class="line" href="#L78">78</a>     public IReadOnlyList&lt;WornCellLayer&gt; InventoryWornCells =&gt; Inventory.Content?.Roots.SingleOrDefault(r =&gt; r.ActorId == Player.Id) is { } root</span>
+<span id="L79"><a class="line" href="#L79">79</a>         ? InventoryWornStack.Build(Inventory, root.Id) : [];</span>
+<span id="L80"><a class="line" href="#L80">80</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

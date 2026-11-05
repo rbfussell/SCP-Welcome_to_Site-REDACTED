@@ -26,6 +26,7 @@ def main():
     parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
     parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
     parser.add_argument('--inventory-smoke', type=Path, metavar='PNG', help='Run realtime packing, rotation, nested inspection and inventory input/render checks.')
+    parser.add_argument('--ground-smoke', type=Path, metavar='PNG', help='Run current-tile floor stacking, clothes staging and pickup checks.')
     parser.add_argument('--transfer-smoke', type=Path, metavar='PNG', help='Run independent source/destination inventory transfer and access checks.')
     parser.add_argument('--hook-smoke', type=Path, metavar='PNG', help='Run only the native placement-extender and nested-mount checks.')
     parser.add_argument('--paperdoll-smoke', type=Path, metavar='PNG', help='Run upper-body sprite alpha, layering, identity and paid fastening checks.')
@@ -38,13 +39,13 @@ def main():
     oscp_smoke = args.oscp_smoke
     if oscp_smoke:
         args.mode = "oscp"
-    if args.mode != 'local' and any((args.smoke, args.operation_smoke, args.combat_smoke, args.inventory_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)):
+    if args.mode != 'local' and any((args.smoke, args.operation_smoke, args.combat_smoke, args.inventory_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)):
         parser.error('Use --oscp-smoke for standalone device checks, or --mode local for spatial checks.')
     operation_smoke = args.operation_smoke
     combat_smoke = args.combat_smoke
-    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke, args.oscp_smoke, args.inventory_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)) > 1:
+    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke, args.oscp_smoke, args.inventory_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)) > 1:
         parser.error('Choose one check or smoke mode.')
-    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke or args.oscp_smoke or args.inventory_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke
+    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke or args.oscp_smoke or args.inventory_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke
     if not shutil.which('dotnet'):
         raise SystemExit('Install the .NET SDK selected in global.json first.')
     godot = args.godot or shutil.which('godot-dotnet')
@@ -92,8 +93,10 @@ def main():
             output = args.smoke.resolve()
             output.parent.mkdir(parents=True, exist_ok=True)
             command += ['--audio-driver', 'Dummy', '--', '--oscp-smoke' if oscp_smoke else '--scene-smoke', str(output)]
-            if args.inventory_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke:
+            if args.inventory_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke:
                 command += ['--inventory-smoke']
+            if args.ground_smoke:
+                command += ['--ground-smoke']
             if args.transfer_smoke:
                 command += ['--transfer-smoke']
             if args.hook_smoke:

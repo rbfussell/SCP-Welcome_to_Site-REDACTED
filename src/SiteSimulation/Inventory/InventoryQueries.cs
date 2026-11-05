@@ -11,9 +11,10 @@ public sealed partial class SpatialSimulation
         { return new(false, "Unknown compartment"); }
     }
     public IReadOnlyList<InventoryRoot> InventoryRoots => Inventory.Content?.Roots
-        .Where(r => InventoryAccessService.Root(_world, Player.Id, r).Allowed).ToArray() ?? [];
+        .Where(r => InventoryAccessService.Root(_world, Player.Id, r).Allowed).Concat(InventoryGroundRoot is { } ground ? [ground] : []).ToArray() ?? [];
     public IReadOnlyList<InventoryItem> InventoryContents(string parentId, string regionId)
-        => InventoryAccess(parentId, regionId).Allowed ? Inventory.Children(parentId, regionId).Where(i => InventoryWear.Visible(Inventory, i)).ToArray() : [];
+        => InventoryAccess(parentId, regionId).Allowed ? Inventory.Children(parentId, regionId).Where(i => InventoryWear.Visible(Inventory, i))
+            .OrderBy(i => i.Placement.GroundOrder ?? 0).ThenBy(i => i.Id, StringComparer.Ordinal).ToArray() : [];
     /// <summary>Own known equipment only. Revealing a layer is inspection, never access to its storage.</summary>
     public IReadOnlyList<InventoryItem> InventoryPaperdollContents(string regionId, bool showCovered = false, int? layer = null)
     {
@@ -28,6 +29,8 @@ public sealed partial class SpatialSimulation
         if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");
         var access = InventoryAccess(item.Placement.ParentId, item.Placement.RegionId);
         if (!access.Allowed) return access;
+        if (InventoryGround.Covering(Inventory, item).FirstOrDefault() is { } cover)
+            return new(false, "Covered by " + Inventory.Name(cover.Id) + "; move covering items first");
         try { InventoryWear.ValidateAction(Inventory, item, item.Placement); return access; }
         catch (ArgumentException ex) { return new(false, ex.Message); }
     }
@@ -47,6 +50,8 @@ public sealed partial class SpatialSimulation
     {
         if (!Inventory.Items.TryGetValue(id, out var item)) return new(false, "Unknown item");
         var access = InventoryAccess(item.Placement.ParentId, item.Placement.RegionId);
+        if (access.Allowed && InventoryGround.Covering(Inventory, item).FirstOrDefault() is { } cover)
+            return new(false, "Covered by " + Inventory.Name(cover.Id) + "; move covering items first");
         return !access.Allowed ? access : InventoryWear.Visible(Inventory, item) ? access : new(false, "Equipment is covered; expose it first");
     }
     public bool HasAccessibleEquipment(string actorId, string capability) => InventoryAccessService.Capability(_world, actorId, capability);

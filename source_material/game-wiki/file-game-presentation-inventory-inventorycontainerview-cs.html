@@ -28,7 +28,7 @@
 <span id="L28"><a class="line" href="#L28">28</a>         if (id is null)</span>
 <span id="L29"><a class="line" href="#L29">29</a>         { InventoryPanel.Label(this, GearView ? &quot;Double-click worn gear to inspect it.&quot; : &quot;Choose a compartment on the gear illustration.&quot;, 12); return; }</span>
 <span id="L30"><a class="line" href="#L30">30</a>         var sim = Panel.Simulation; var state = sim.Inventory;</span>
-<span id="L31"><a class="line" href="#L31">31</a>         var root = state.Content!.Roots.FirstOrDefault(r =&gt; r.Id == id);</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var root = state.FindRoot(id);</span>
 <span id="L32"><a class="line" href="#L32">32</a>         var definition = root is null ? state.Definition(id) : null;</span>
 <span id="L33"><a class="line" href="#L33">33</a>         InventoryPanel.Label(this, root?.Name ?? definition!.Name, 15);</span>
 <span id="L34"><a class="line" href="#L34">34</a>         _state = InventoryPanel.Label(this, &quot;&quot;, 11); _state.AutowrapMode = TextServer.AutowrapMode.WordSmart;</span>

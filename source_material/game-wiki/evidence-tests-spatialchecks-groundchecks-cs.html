@@ -1,0 +1,127 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/GroundChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>GroundChecks.cs</h1><pre>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class GroundChecks
+{
+    public static int Run(string map, string config)
+    {
+        var passed = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Ground: &quot; + reason); passed++; }
+        SpatialSimulation Sim() =&gt; new(map, config);
+        InventoryItem Item(SpatialSimulation s, string id) =&gt; s.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);
+        void Finish(SpatialSimulation s)
+        { for (var i = 0; i &lt; 1000 &amp;&amp; s.Inventory.Pending is not null; i++) s.Tick(); Check(s.Inventory.Pending is null, &quot;handling did not finish&quot;); }
+        void Act(SpatialSimulation s, InventoryRequest r) { Check(s.HandleInventory(r), s.LastMessage); Finish(s); }
+        InventoryRequest At(SpatialSimulation s, string id, int x = 0, int y = 0, bool rotated = false)
+            =&gt; new(InventoryActionKind.Move, id, new(s.InventoryGroundRoot!.Id, InventoryGround.RegionId, x, y, rotated));
+        InventoryRequest Wear(string id, string slot) =&gt; new(InventoryActionKind.Move, id, new(&quot;person:avatar&quot;, slot));
+        var sim = Sim(); var root = sim.InventoryGroundRoot!; var empty = sim.Save();
+        Check(root.GroundCell == Hex.FromWorld(sim.Player.Position) &amp;&amp; root.ActorId is null &amp;&amp; root.PropId is null, &quot;floor must be a world location&quot;);
+        Check(root.Regions[0] is { Sealable: false, Columns: 10, Rows: 10, CellMm: 50 }, &quot;floor grid uses its declared physical scale&quot;);
+        for (var i = 0; i &lt; 10; i++) _ = sim.InventoryGroundRoot;
+        Check(sim.Save() == empty &amp;&amp; sim.Inventory.Content!.Roots.Length == 4, &quot;empty-floor queries must not mutate or preallocate map roots&quot;);
+        Check(sim.Inventory.FindRoot(&quot;ground:0001:2&quot;) is null &amp;&amp; sim.Inventory.FindRoot(&quot;ground:999:999&quot;) is null, &quot;ground IDs must be canonical and map bounded&quot;);
+        var total = InventoryHierarchy.CarriedMass(sim.Inventory, &quot;person:avatar&quot;);
+        var request = At(sim, &quot;avatar-backpack&quot;); var quote = sim.QuoteInventory(request);
+        Check(quote.Allowed &amp;&amp; quote.Ap == sim.Inventory.Definition(&quot;avatar-backpack&quot;).HandleAp + 2 &amp;&amp; quote.DurationMs &gt; 0, &quot;floor drop must quote normal handling and floor access AP&quot;);
+        sim.ManualPause = true; var held = sim.Save();
+        Check(!sim.HandleInventory(request) &amp;&amp; sim.Save() == held, &quot;pause must not permit free dropping&quot;);
+        sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage);
+        Check(Item(sim, &quot;avatar-backpack&quot;).Placement.RegionId == &quot;back&quot; &amp;&amp; sim.Inventory.Pending!.Request.Destination!.GroundOrder == 1,
+            &quot;paid work must retain the worn source and save its resolved pile order&quot;);
+        var mid = sim.Save(); var clone = Sim(); clone.Restore(mid); Check(clone.Save() == mid, &quot;pending ground move must restore exactly&quot;);
+        Finish(sim); Finish(clone); Check(sim.Save() == clone.Save(), &quot;resumed ground move diverged&quot;);
+        Check(Item(sim, &quot;medical-case&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;dropping a full pack must retain its hierarchy&quot;);
+        Act(sim, At(sim, &quot;avatar-coat&quot;)); Act(sim, At(sim, &quot;avatar-shirt&quot;));
+        Check(sim.InventoryContents(root.Id, InventoryGround.RegionId).Select(i =&gt; i.Id).SequenceEqual(new[] { &quot;avatar-backpack&quot;, &quot;avatar-coat&quot;, &quot;avatar-shirt&quot; }), &quot;floor contents must draw in physical pile order&quot;);
+        Check(!sim.InventoryMoveAccess(&quot;avatar-coat&quot;).Allowed &amp;&amp; !sim.InventoryInspectAccess(&quot;avatar-backpack&quot;).Allowed, &quot;covered items must be inaccessible&quot;);
+        Check(!sim.InventoryAccess(&quot;avatar-backpack&quot;, &quot;main&quot;).Allowed &amp;&amp; sim.InventoryContents(&quot;avatar-backpack&quot;, &quot;main&quot;).Count == 0,
+            &quot;a buried bag must not expose its contents&quot;);
+        held = sim.Save();
+        Check(!sim.HandleInventory(Wear(&quot;avatar-coat&quot;, &quot;outerwear&quot;)) &amp;&amp; sim.Save() == held, &quot;cannot pull clothes through covering items&quot;);
+        Check(!sim.QuoteInventory(new(InventoryActionKind.AutoPlace, &quot;medical-case&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;))).Allowed, &quot;packing must not bypass a buried ancestor&quot;);
+        Check(!sim.QuoteInventory(new(InventoryActionKind.Arrange, root.Id, new(root.Id, InventoryGround.RegionId))).Allowed, &quot;Arrange must not reshuffle floor piles&quot;);
+        var floorMass = sim.InventoryContents(root.Id, InventoryGround.RegionId).Sum(i =&gt; InventoryHierarchy.Mass(sim.Inventory, i.Id));
+        Check(InventoryHierarchy.CarriedMass(sim.Inventory, &quot;person:avatar&quot;) + floorMass == total, &quot;dropping loaded gear must conserve mass exactly once&quot;);
+        var cell = root.GroundCell!.Value;
+        var other = sim.Map.Cells.First(c =&gt; sim.Map.CanTraverse(cell, c) &amp;&amp; sim.Actors.All(a =&gt; a.Cell != c));
+        sim.Player.Cell = other;
+        Check(sim.InventoryGroundRoot!.Id != root.Id &amp;&amp; sim.InventoryContents(sim.InventoryGroundRoot.Id, InventoryGround.RegionId).Count == 0, &quot;moving must show a different empty floor&quot;);
+        Check(!sim.InventoryAccess(root.Id, InventoryGround.RegionId).Allowed &amp;&amp; sim.InventoryContents(root.Id, InventoryGround.RegionId).Count == 0, &quot;remote floor items must not be accessible&quot;);
+        Check(!sim.QuoteInventory(Wear(&quot;avatar-shirt&quot;, &quot;torso&quot;)).Allowed, &quot;cannot retrieve gear from another tile&quot;);
+        sim.Player.Cell = cell;
+        Check(sim.InventoryContents(root.Id, InventoryGround.RegionId).Count == 3, &quot;floor items must stay where dropped&quot;);
+        Act(sim, Wear(&quot;avatar-shirt&quot;, &quot;torso&quot;)); Check(Item(sim, &quot;avatar-shirt&quot;).Placement.GroundOrder is null, &quot;equipping must clear floor metadata&quot;);
+        Check(sim.InventoryMoveAccess(&quot;avatar-coat&quot;).Allowed &amp;&amp; !sim.InventoryMoveAccess(&quot;avatar-backpack&quot;).Allowed, &quot;unstacking must expose only the next accessible item&quot;);
+        Act(sim, Wear(&quot;avatar-coat&quot;, &quot;outerwear&quot;)); Act(sim, Wear(&quot;avatar-backpack&quot;, &quot;back&quot;));
+        Check(InventoryHierarchy.CarriedMass(sim.Inventory, &quot;person:avatar&quot;) == total &amp;&amp; sim.InventoryContents(root.Id, InventoryGround.RegionId).Count == 0,
+            &quot;dress again without a staging hand, lost items or duplicated mass&quot;);
+
+        // Real pickup interruption, top-item repositioning and exact stacking validation.
+        Act(sim, At(sim, &quot;avatar-backpack&quot;)); Act(sim, At(sim, &quot;avatar-coat&quot;));
+        Act(sim, At(sim, &quot;avatar-coat&quot;, 2, 1, true));
+        Check(Item(sim, &quot;avatar-coat&quot;).Placement is { X: 2, Y: 1, Rotated: true }, &quot;floor reposition/rotation must retain exact cells&quot;);
+        var invalid = At(sim, &quot;avatar-coat&quot;, 9, 9); held = sim.Save();
+        Check(!sim.HandleInventory(invalid) &amp;&amp; sim.Save() == held, &quot;out-of-bounds floor placement must not spill or arrange items&quot;);
+        var safe = sim.Save();
+        void Reject(Action&lt;JsonNode&gt; edit)
+        {
+            var node = JsonNode.Parse(safe)!; edit(node);
+            try { sim.Restore(node.ToJsonString()); throw new Exception(&quot;Malformed ground save accepted&quot;); }
+            catch (ArgumentException) { Check(sim.Save() == safe, &quot;invalid ground restore must be atomic&quot;); }
+        }
+        JsonNode Place(JsonNode n, string id) =&gt; n[&quot;Inventory&quot;]![&quot;Items&quot;]!.AsArray().Single(i =&gt; i![&quot;Id&quot;]!.GetValue&lt;string&gt;() == id)![&quot;Placement&quot;]!;
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;GroundOrder&quot;] = null);
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;GroundOrder&quot;] = -1);
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;GroundOrder&quot;] = 1_000_000_001);
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;GroundOrder&quot;] = Item(sim, &quot;avatar-backpack&quot;).Placement.GroundOrder);
+        Reject(n =&gt; Place(n, &quot;avatar-shirt&quot;)[&quot;GroundOrder&quot;] = 4);
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;ParentId&quot;] = &quot;ground:999:999&quot;);
+        Reject(n =&gt; Place(n, &quot;avatar-coat&quot;)[&quot;RegionId&quot;] = &quot;missing&quot;);
+        Reject(n =&gt; n[&quot;Version&quot;] = 14);
+        var legacy = Sim(); var legacyJson = JsonNode.Parse(legacy.Save())!; legacyJson[&quot;Version&quot;] = 14;
+        legacy.Restore(legacyJson.ToJsonString());
+        Check(JsonNode.Parse(legacy.Save())![&quot;Version&quot;]!.GetValue&lt;int&gt;() == 15 &amp;&amp; legacy.InventoryGroundRoot is not null,
+            &quot;matching schema-14 saves must migrate to empty ground support&quot;);
+        var legacySafe = legacy.Save(); var brokenLegacy = JsonNode.Parse(mid)!;
+        brokenLegacy[&quot;Version&quot;] = 14; brokenLegacy[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;] = null;
+        try { legacy.Restore(brokenLegacy.ToJsonString()); throw new Exception(&quot;Null legacy handling request accepted&quot;); }
+        catch (ArgumentException) { Check(legacy.Save() == legacySafe, &quot;malformed legacy work must reject atomically&quot;); }
+        var continuation = Sim(); continuation.Restore(mid); var malformed = JsonNode.Parse(mid)!;
+        malformed[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;Destination&quot;]![&quot;GroundOrder&quot;] = 2;
+        try { continuation.Restore(malformed.ToJsonString()); throw new Exception(&quot;Noncanonical pending floor order accepted&quot;); }
+        catch (ArgumentException) { Check(continuation.Save() == mid, &quot;invalid paid floor order must reject atomically&quot;); }
+
+        void RejectPile(bool heavy)
+        {
+            var world = new SimulationWorld(map, config); var state = world.Inventory;
+            var floor = InventoryGround.Id(Hex.FromWorld(world.Player.Position)); var ids = new[] { &quot;flashlight&quot;, &quot;gum-packet&quot; };
+            for (var i = 0; i &lt; ids.Length; i++)
+            {
+                var item = state.Items[ids[i]]; var index = Array.FindIndex(state.Content!.Definitions, d =&gt; d.Id == item.DefinitionId);
+                var d = state.Content.Definitions[index];
+                state.Content.Definitions[index] = d with { MassGrams = heavy ? 60000 : d.MassGrams, ThicknessMm = heavy ? 25 : 600 };
+                state.Items[item.Id] = item with { Placement = new(floor, InventoryGround.RegionId, GroundOrder: i + 1) };
+            }
+            try { InventoryPlacement.Validate(state); throw new Exception(&quot;Unbounded floor pile accepted&quot;); }
+            catch (ArgumentException ex) { Check(ex.Message.Contains(heavy ? &quot;load limit&quot; : &quot;too high&quot;), &quot;pile must enforce declared mass/height independently of icon size&quot;); }
+        }
+        RejectPile(false); RejectPile(true);
+        var interruption = Sim(); Check(interruption.HandleInventory(At(interruption, &quot;avatar-backpack&quot;)), &quot;start interrupted drop&quot;);
+        interruption.Player.Cell = interruption.Map.Cells.First(c =&gt; interruption.Map.CanTraverse(interruption.Player.Cell, c) &amp;&amp; interruption.Actors.All(a =&gt; a.Cell != c));
+        Finish(interruption); Check(Item(interruption, &quot;avatar-backpack&quot;).Placement.RegionId == &quot;back&quot;, &quot;moving away mid-action must leave source intact&quot;);
+
+        var tactical = Sim(); tactical.Player.Facing = 1; tactical.ArmTraining();
+        tactical.Combat.Cursor = tactical.Combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        var action = At(tactical, &quot;avatar-backpack&quot;); var cost = tactical.QuoteInventory(action).Ap;
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = cost - 1 };
+        held = tactical.Save(); Check(!tactical.HandleInventory(action) &amp;&amp; tactical.Save() == held, &quot;insufficient tactical AP must not drop gear&quot;);
+        tactical.Combat.Roster[tactical.Combat.Cursor] = tactical.Combat.Roster[tactical.Combat.Cursor] with { Ap = cost };
+        Check(tactical.HandleInventory(action) &amp;&amp; tactical.Combat.For(tactical.Player.Id)!.Ap == 0, &quot;floor drop must spend tactical AP exactly once&quot;);
+        var combatMid = tactical.Save(); var combatClone = Sim(); combatClone.Restore(combatMid); Check(combatClone.Save() == combatMid, &quot;tactical floor continuation must restore exactly&quot;);
+        Finish(tactical); Check(Item(tactical, &quot;avatar-backpack&quot;).Placement.GroundOrder is not null, &quot;paid combat drop did not commit&quot;);
+        Console.WriteLine($&quot;GROUND_CHECKS_PASS: {passed} assertions; world floor identity, ordered piles, blocking ancestors, clothes staging, mass, time/AP, interruption, legacy migration and atomic restore.&quot;);
+        return passed;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -7,7 +7,7 @@
 <span id="L7"><a class="line" href="#L7">7</a>     {</span>
 <span id="L8"><a class="line" href="#L8">8</a>         for (var depth = 0; depth &lt;= MaxDepth; depth++)</span>
 <span id="L9"><a class="line" href="#L9">9</a>         {</span>
-<span id="L10"><a class="line" href="#L10">10</a>             var root = state.Content!.Roots.SingleOrDefault(r =&gt; r.Id == id);</span>
+<span id="L10"><a class="line" href="#L10">10</a>             var root = state.FindRoot(id);</span>
 <span id="L11"><a class="line" href="#L11">11</a>             if (root is not null) return root;</span>
 <span id="L12"><a class="line" href="#L12">12</a>             id = state.Items[id].Placement.ParentId;</span>
 <span id="L13"><a class="line" href="#L13">13</a>         }</span>
@@ -21,7 +21,7 @@
 <span id="L21"><a class="line" href="#L21">21</a>         var parts = new List&lt;string&gt;();</span>
 <span id="L22"><a class="line" href="#L22">22</a>         while (state.Items.TryGetValue(id, out var item))</span>
 <span id="L23"><a class="line" href="#L23">23</a>         { parts.Add(state.Definition(id).Name); id = item.Placement.ParentId; }</span>
-<span id="L24"><a class="line" href="#L24">24</a>         parts.Add(state.Content!.Roots.Single(r =&gt; r.Id == id).Name); parts.Reverse();</span>
+<span id="L24"><a class="line" href="#L24">24</a>         parts.Add(state.Name(id)); parts.Reverse();</span>
 <span id="L25"><a class="line" href="#L25">25</a>         return string.Join(&quot; / &quot;, parts);</span>
 <span id="L26"><a class="line" href="#L26">26</a>     }</span>
 <span id="L27"><a class="line" href="#L27">27</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

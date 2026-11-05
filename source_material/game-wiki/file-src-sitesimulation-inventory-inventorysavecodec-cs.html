@@ -10,7 +10,7 @@
 <span id="L10"><a class="line" href="#L10">10</a>                 || !content.Items.Any(original =&gt; original.Id == i.Id &amp;&amp; original.DefinitionId == i.DefinitionId)</span>
 <span id="L11"><a class="line" href="#L11">11</a>                 || i.GarmentOpen &amp;&amp; state.Definition(i.Id).Wear?.OpenExposes is not { Length: &gt; 0 }</span>
 <span id="L12"><a class="line" href="#L12">12</a>                 || i.SecureOnClose is not null &amp;&amp; state.Definition(i.Id).Wear?.OpenExposes is not { Length: &gt; 0 }</span>
-<span id="L13"><a class="line" href="#L13">13</a>                 || !state.Items.ContainsKey(i.Placement.ParentId) &amp;&amp; !content.Roots.Any(r =&gt; r.Id == i.Placement.ParentId))</span>
+<span id="L13"><a class="line" href="#L13">13</a>                 || !state.Items.ContainsKey(i.Placement.ParentId) &amp;&amp; state.FindRoot(i.Placement.ParentId) is null)</span>
 <span id="L14"><a class="line" href="#L14">14</a>             || state.Regions.Any(r =&gt; r is null || !state.Items.ContainsKey(r.ItemId)</span>
 <span id="L15"><a class="line" href="#L15">15</a>                 || state.Definition(r.ItemId).Regions?.Any(region =&gt; region.Id == r.RegionId &amp;&amp; region.Attachment is null) != true)</span>
 <span id="L16"><a class="line" href="#L16">16</a>             || state.Regions.Any(r =&gt; !state.Region(r.ItemId, r.RegionId).Sealable &amp;&amp; (!r.Open || r.SecureOnClose is not null))</span>
@@ -45,7 +45,7 @@
 <span id="L45"><a class="line" href="#L45">45</a>             if (!InventoryActions.Validate(world, work.ActorId, work.Request, out _, out var duration, out var ap, out var packing)</span>
 <span id="L46"><a class="line" href="#L46">46</a>                 || duration != work.TotalMs || ap != work.CostAp || !InventoryPackingActions.Same(work.Packing, packing))</span>
 <span id="L47"><a class="line" href="#L47">47</a>                 throw new ArgumentException(&quot;Invalid inventory request or declared cost.&quot;);</span>
-<span id="L48"><a class="line" href="#L48">48</a>             if (InventoryWornOrder.Resolve(state, work.Request) != work.Request)</span>
+<span id="L48"><a class="line" href="#L48">48</a>             if (InventoryPlacement.Resolve(state, work.Request) != work.Request)</span>
 <span id="L49"><a class="line" href="#L49">49</a>                 throw new ArgumentException(&quot;Saved handling is missing its resolved dressing order.&quot;);</span>
 <span id="L50"><a class="line" href="#L50">50</a>             var tactical = world.Combat.Pending;</span>
 <span id="L51"><a class="line" href="#L51">51</a>             if (work.Tactical != world.Combat.Active || work.Tactical != (tactical?.Kind == CombatActionKind.Inventory)</span>

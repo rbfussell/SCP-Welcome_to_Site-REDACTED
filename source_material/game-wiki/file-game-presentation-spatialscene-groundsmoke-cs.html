@@ -1,0 +1,85 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.GroundSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.GroundSmoke.cs</h1><p>game/Presentation/SpatialScene.GroundSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-f0cbfd7fc6730e8f95e4.html">SpatialScene.RunGroundSmoke</a> · line 9</li><li><a href="function-c0c3237ffd212d7f1f82.html">SpatialScene.Check</a> · line 13</li><li><a href="function-bf1797caedb169df8367.html">SpatialScene.Placement</a> · line 14</li><li><a href="function-82e51d4df3e67816bd58.html">SpatialScene.Floor</a> · line 15</li><li><a href="function-58db4d4ce5c87230eeda.html">SpatialScene.Spot</a> · line 16</li><li><a href="function-a24165152d7ed11134b0.html">SpatialScene.Finish</a> · line 17</li><li><a href="function-e8da426b55a23c0e3c02.html">SpatialScene.Act</a> · line 22</li><li><a href="function-9b7e31c4706ebe26512e.html">SpatialScene.Slot</a> · line 23</li><li><a href="function-63f791bffeee025f3ae6.html">SpatialScene.Drop</a> · line 28</li><li><a href="function-5f5d5de7c283849134bd.html">SpatialScene.Wear</a> · line 40</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunGroundSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory; var original = sim.Save();</span>
+<span id="L12"><a class="line" href="#L12">12</a>         panel.Close(); panel.Open(); sim.ManualPause = true; sim.Player.Cell = new(13, 6); await InventoryFrames();</span>
+<span id="L13"><a class="line" href="#L13">13</a>         void Check(bool ok, string reason) { if (!ok) throw new InvalidOperationException(&quot;Ground UI: &quot; + reason); }</span>
+<span id="L14"><a class="line" href="#L14">14</a>         ItemPlacement Placement(string id) =&gt; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id).Placement;</span>
+<span id="L15"><a class="line" href="#L15">15</a>         InventoryGrid Floor() =&gt; panel.GroundView.Grid!;</span>
+<span id="L16"><a class="line" href="#L16">16</a>         Vector2 Spot(int x = 0, int y = 0) =&gt; Floor().GlobalPosition + new Vector2(1 + (x + .5f) * Floor().CellPixels, 44 + (y + .5f) * Floor().CellPixels);</span>
+<span id="L17"><a class="line" href="#L17">17</a>         async Task Finish()</span>
+<span id="L18"><a class="line" href="#L18">18</a>         {</span>
+<span id="L19"><a class="line" href="#L19">19</a>             for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) await InventoryFrames(1);</span>
+<span id="L20"><a class="line" href="#L20">20</a>             Check(sim.Inventory.Pending is null, &quot;paid floor handling timed out&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L21"><a class="line" href="#L21">21</a>         }</span>
+<span id="L22"><a class="line" href="#L22">22</a>         async Task Act(InventoryRequest request) { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }</span>
+<span id="L23"><a class="line" href="#L23">23</a>         async Task&lt;InventoryGrid&gt; Slot(string slot)</span>
+<span id="L24"><a class="line" href="#L24">24</a>         {</span>
+<span id="L25"><a class="line" href="#L25">25</a>             var grid = panel.FindGrid(&quot;person:avatar&quot;, slot);</span>
+<span id="L26"><a class="line" href="#L26">26</a>             ((ScrollContainer)grid.GetParent().GetParent()).EnsureControlVisible(grid); await InventoryFrames(); return grid;</span>
+<span id="L27"><a class="line" href="#L27">27</a>         }</span>
+<span id="L28"><a class="line" href="#L28">28</a>         async Task Drop(string id, string slot)</span>
+<span id="L29"><a class="line" href="#L29">29</a>         {</span>
+<span id="L30"><a class="line" href="#L30">30</a>             var source = await Slot(slot); var before = sim.Save();</span>
+<span id="L31"><a class="line" href="#L31">31</a>             await InventoryDrag(source.GlobalPosition + new Vector2(30, 80), Spot(), async () =&gt;</span>
+<span id="L32"><a class="line" href="#L32">32</a>             {</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 Check(panel.DropPreview is { IntoContainer: false, Quote.Allowed: true } p &amp;&amp; p.Grid == Floor()</span>
+<span id="L34"><a class="line" href="#L34">34</a>                     &amp;&amp; p.Request.Destination?.ParentId == Floor().ParentId, &quot;floor drag did not preview an exact pile placement&quot;);</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 Check(sim.Save() == before, &quot;floor preview changed state&quot;); sim.ManualPause = false;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             });</span>
+<span id="L37"><a class="line" href="#L37">37</a>             Check(sim.Inventory.Pending?.Request.ItemId == id &amp;&amp; Placement(id).ParentId == &quot;person:avatar&quot;, &quot;drop skipped paid source retention&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>             await Finish(); Check(Placement(id).ParentId == Floor().ParentId, &quot;floor drop never committed&quot;);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         }</span>
+<span id="L40"><a class="line" href="#L40">40</a>         async Task Wear(string id, string slot)</span>
+<span id="L41"><a class="line" href="#L41">41</a>         {</span>
+<span id="L42"><a class="line" href="#L42">42</a>             var target = await Slot(slot); var before = Placement(id);</span>
+<span id="L43"><a class="line" href="#L43">43</a>             await InventoryDrag(Spot(), target.GlobalPosition + new Vector2(15, 60), () =&gt; { sim.ManualPause = false; return Task.CompletedTask; });</span>
+<span id="L44"><a class="line" href="#L44">44</a>             Check(sim.Inventory.Pending?.Request.ItemId == id &amp;&amp; Placement(id) == before, &quot;pickup bypassed paid source retention&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>             await Finish(); Check(Placement(id).RegionId == slot &amp;&amp; Placement(id).GroundOrder is null, &quot;floor pickup lost its real worn destination&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>         }</span>
+<span id="L47"><a class="line" href="#L47">47</a>         Check(panel.GroundView.IsVisibleInTree() &amp;&amp; GetViewportRect().Encloses(Floor().GetGlobalRect()), &quot;permanent floor grid is missing or clipped&quot;);</span>
+<span id="L48"><a class="line" href="#L48">48</a>         Check(panel.Browser.CurrentGear is null &amp;&amp; panel.Browser.CurrentContents is null, &quot;floor dock opened inspection trails&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         await Act(new(InventoryActionKind.Move, &quot;spare-dressing&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));</span>
+<span id="L50"><a class="line" href="#L50">50</a>         var held = Placement(&quot;spare-dressing&quot;); var groundId = Floor().ParentId;</span>
+<span id="L51"><a class="line" href="#L51">51</a>         await Drop(&quot;avatar-backpack&quot;, &quot;back&quot;); await Drop(&quot;avatar-coat&quot;, &quot;outerwear&quot;); await Drop(&quot;avatar-shirt&quot;, &quot;torso&quot;);</span>
+<span id="L52"><a class="line" href="#L52">52</a>         Check(Floor().DisplayedItems.Select(i =&gt; i.Id).SequenceEqual(new[] { &quot;avatar-backpack&quot;, &quot;avatar-coat&quot;, &quot;avatar-shirt&quot; }), &quot;floor grid does not retain the ordered clothes pile&quot;);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         InventoryClick(Spot()); await InventoryFrames(); Check(panel.SelectedItem == &quot;avatar-shirt&quot;, &quot;floor picker did not select the top item&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         var safe = sim.Save(); panel.Inspect(&quot;avatar-backpack&quot;); await InventoryFrames();</span>
+<span id="L55"><a class="line" href="#L55">55</a>         Check(panel.Browser.CurrentGear is null &amp;&amp; sim.Save() == safe &amp;&amp; !sim.InventoryAccess(&quot;avatar-backpack&quot;, &quot;main&quot;).Allowed,</span>
+<span id="L56"><a class="line" href="#L56">56</a>             &quot;buried bag inspection revealed its contents&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         Check(!sim.HandleInventory(new(InventoryActionKind.Move, &quot;avatar-coat&quot;, new(&quot;person:avatar&quot;, &quot;outerwear&quot;))) &amp;&amp; sim.Save() == safe,</span>
+<span id="L58"><a class="line" href="#L58">58</a>             &quot;covered clothing was pulled out of the pile&quot;);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         await InventoryCapture(&quot;-ground-clothes-pile&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L61"><a class="line" href="#L61">61</a>         Check(panel.GroundView.IsVisibleInTree() &amp;&amp; GetViewportRect().Encloses(Floor().GetGlobalRect()), &quot;sprite mode hid or clipped the ground dock&quot;);</span>
+<span id="L62"><a class="line" href="#L62">62</a>         await InventoryCapture(&quot;-ground-sprites-pile&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L64"><a class="line" href="#L64">64</a>         await Wear(&quot;avatar-shirt&quot;, &quot;torso&quot;); await Wear(&quot;avatar-coat&quot;, &quot;outerwear&quot;); await Wear(&quot;avatar-backpack&quot;, &quot;back&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         Check(Placement(&quot;spare-dressing&quot;) == held &amp;&amp; Floor().DisplayedItems.Count == 0 &amp;&amp; Placement(&quot;medical-case&quot;).ParentId == &quot;avatar-backpack&quot;,</span>
+<span id="L66"><a class="line" href="#L66">66</a>             &quot;clothes staging borrowed the occupied hand, lost bag contents or left duplicates&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         // A floor bag remains a real inspectable container while destination gear/source trails work normally.</span>
+<span id="L68"><a class="line" href="#L68">68</a>         await Drop(&quot;avatar-backpack&quot;, &quot;back&quot;); InventoryClick(Spot(), true); await InventoryFrames();</span>
+<span id="L69"><a class="line" href="#L69">69</a>         Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot;, &quot;top floor bag did not open the gear view&quot;);</span>
+<span id="L70"><a class="line" href="#L70">70</a>         var gear = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         InventoryClick(gear.HotspotPosition(&quot;main&quot;), true); await InventoryFrames();</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;floor container did not expose its normal accessible interior&quot;);</span>
+<span id="L73"><a class="line" href="#L73">73</a>         var cell = sim.InventoryGroundRoot!.GroundCell!.Value;</span>
+<span id="L74"><a class="line" href="#L74">74</a>         sim.Player.Cell = sim.Map.Cells.First(c =&gt; sim.Map.CanTraverse(cell, c) &amp;&amp; sim.Actors.All(a =&gt; a.Cell != c)); await InventoryFrames();</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(Floor().ParentId != groundId &amp;&amp; Floor().DisplayedItems.Count == 0 &amp;&amp; panel.Browser.CurrentContents is null, &quot;moving carried the floor pile or retained remote contents&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         sim.Player.Cell = cell; await InventoryFrames(); Check(Floor().ParentId == groundId &amp;&amp; Floor().DisplayedItems.Single().Id == &quot;avatar-backpack&quot;, &quot;returning lost the dropped pack&quot;);</span>
+<span id="L77"><a class="line" href="#L77">77</a>         var snapshot = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L78"><a class="line" href="#L78">78</a>         clone.Restore(snapshot); Check(clone.Save() == snapshot, &quot;floor pile did not save/restore exactly&quot;);</span>
+<span id="L79"><a class="line" href="#L79">79</a>         InventoryKey(Key.Escape); await InventoryFrames(); InventoryKey(Key.I); await InventoryFrames();</span>
+<span id="L80"><a class="line" href="#L80">80</a>         Check(panel.GroundView.IsVisibleInTree() &amp;&amp; Floor().DisplayedItems.Count == 1 &amp;&amp; panel.Browser.CurrentGear is null, &quot;reopening hid the floor or resurrected old inspection trails&quot;);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         await InventoryCapture(&quot;-ground-persistent-pack&quot;);</span>
+<span id="L82"><a class="line" href="#L82">82</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); sim.ManualPause = false;</span>
+<span id="L83"><a class="line" href="#L83">83</a>         GD.Print(&quot;GROUND_SMOKE_PASS: permanent current-tile dock, exact stacking drags/top picking, occupied-hand clothes staging and reverse dressing, buried bag access refusal, floor container inspection, sprite mode, tile changes, persistence and interface reopening.&quot;);</span>
+<span id="L84"><a class="line" href="#L84">84</a>     }</span>
+<span id="L85"><a class="line" href="#L85">85</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

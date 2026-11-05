@@ -16,7 +16,7 @@ The five central authored webbing points remain inside the guaranteed core. Exte
 
 [Presentation](system-presentation.html) previews the same geometry and reports span/range. Anchor/R input is read-only; Apply uses paid handling. `tools/author_body_fit_fixture.py` regenerates matching body/clothing/mouth/fastening geometry using odd-row reflection `(q,r) → (-q-r,r)`.
 
-[Persistence](system-persistence.html) derives length from body, shape and saved pose; no duplicate mutable length is stored. Schema stays 14, but content identity changed: start fresh for earlier field-kit content. Exact pending continuation remains qualified.
+[Persistence](system-persistence.html) derives length from body, shape and saved pose; no duplicate mutable length is stored. This slice was qualified on schema 14, but content identity changed: start fresh for earlier field-kit content. Exact pending continuation remains qualified.
 
 ## Evidence and limits
 
@@ -31,3 +31,5 @@ Related: [engine](engine.html), [inventory](system-inventory.html), [presentatio
 Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
 
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

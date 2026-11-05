@@ -14,7 +14,7 @@ In **Body fit · hex view → Inspect worn**, click selects, double-click opens 
 
 Disable inspection to use the existing click/Default/Apply fitting tools. [Incoming body drops](body-drag-fitting.html) keep exact placement and authored mount policy; one-sided inspection targets require the matching view. A flip cancels an unsubmitted drag. Reopening resets transient inspection choices. Normal browser closure preferences and compartment access still apply.
 
-Paid moves retain the source on the body until completion and use exact grid placement, normal time/AP and whole-graph revalidation. [Persistence](system-persistence.html) stays schema 14 with unchanged content identity; matching saves and paid continuations remain compatible. Loaded providers retain their descendants and counted mass.
+Paid moves retain the source on the body until completion and use exact grid placement, normal time/AP and whole-graph revalidation. [Persistence](system-persistence.html) was schema 14 at this slice’s qualification with unchanged content identity; matching saves and paid continuations remain compatible. Loaded providers retain their descendants and counted mass.
 
 ## Evidence and limits
 
@@ -33,3 +33,5 @@ Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

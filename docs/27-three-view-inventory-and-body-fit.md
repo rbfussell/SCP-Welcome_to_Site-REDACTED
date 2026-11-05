@@ -14,7 +14,7 @@ Related: [physical inventory](23-personal-inventory-prototype.md), [body equipme
 | Middle: gear | One enlarged top-level object or the current garment in a worn-layer trail | Replaces its displayed object as the gear trail changes |
 | Right: contents | Current compartment or nested container in a physical containment trail | Replaces its displayed contents as the trail changes |
 
-There are never extra columns for further nesting. Opening a gum packet inside a jacket pocket replaces the right-hand pocket view with the packet view. Its parent remains in the contents trail for Up navigation.
+There are no extra inspection columns for further nesting. The [current-tile ground dock](49-ground-inventory-and-piles.md) is a separate permanent workspace beside these three inspection views; it does not consume the middle or right trail. Opening a gum packet inside a jacket pocket replaces the right-hand pocket view with the packet view. Its parent remains in the contents trail for Up navigation.
 
 The [November 4 independent-transfer follow-up](48-independent-inventory-transfers.md) supersedes the original October 26 rule that switching top-level gear discarded both trails. Choosing another gear object now replaces only the middle trail, retaining an accessible source compartment on the right. The paperdoll remains visible. Explicitly choosing another compartment replaces the contents branch; nested inspection retains its containment ancestry.
 
@@ -175,3 +175,7 @@ Two different booleans must stay separate. `GarmentOpen`/`RegionState.Open` is p
 The rule depends on purpose, not mechanism. A button-up jacket front can stay open by default exactly like a zipped jacket front. A backpack main zipper can default to securing while a different zipper does not. Defaults for a garment front are false and compartment closures true in the native profile; authored data can override either. One jacket's override does not change another jacket or its independent pocket flaps.
 
 Menu text is derived from actual state: zipped → **Unzip**, unzipped → **Zip**; buttoned → **Unbutton**, unbuttoned → **Button**. `OpenVerb` and `SecureVerb` supply these labels. An open menu refreshes its action when physical work completes; a stale label cannot blindly repeat an already completed close. Generic top-level Open is inspection, while a segment's closure action addresses that exact fastening. Both choices still use ordinary access validation and time/AP rules when physical work is needed.
+
+## Ground dock and later production windows
+
+The [ground follow-up](49-ground-inventory-and-piles.md) adds persistent current-tile piles and top-only access, using schema 15 with migration from matching schema 14. The user also proposes expanding an object’s contents as a floating internal window within its parent’s illustration. This remains a production-UI consideration, not an implemented debug layout or a finalized navigation contract. The future layout should stay intuitive and reuse validated handling rather than making inventory organization needlessly restrictive.

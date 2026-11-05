@@ -14,7 +14,7 @@ R over the body uses six orientations. R over storage uses two, even when body m
 
 Release submits ordinary Move with its exact pose. Geometry, [overlay bands](doc-docs-36-overlay-sublayers-md.html), coverage, restraints, outermost packs, [provider exposure/clearance](mount-points.html) and access remain authoritative. Source-dependent time/AP is paid before completion; the source stays put until then. Commitment revalidates the graph. Front-mounted refits preserve their mount; stored clothing uses its authored default.
 
-[Persistence](system-persistence.html) remains schema 14 with unchanged immutable content. UI drafts are transient; accepted paid requests continue through existing saves. Saves matching the preceding body-cleanup content remain supported.
+[Persistence](system-persistence.html) was schema 14 at this slice’s qualification with unchanged immutable content. UI drafts are transient; accepted paid requests continue through existing saves. Saves matching the preceding body-cleanup content remain supported.
 
 ## Evidence and limits
 
@@ -31,3 +31,5 @@ Related: [engine](engine.html), [inventory](system-inventory.html), [presentatio
 Presentation follow-up: [full-body sprite qualification](full-body-paperdoll.html) tests a separate partial outfit with alpha-based picking/highlights. It does not replace this page's physical fit, access, provider or handling contracts.
 
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

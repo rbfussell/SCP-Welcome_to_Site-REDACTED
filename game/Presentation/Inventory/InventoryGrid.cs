@@ -14,6 +14,7 @@ public partial class InventoryGrid : Control
     public string RegionId { get; set; } = "";
     public float CellPixels { get; set; } = 29;
     public bool IsPaperdoll { get; set; }
+    private bool IsGround => Panel.Simulation.Inventory.FindRoot(ParentId)?.GroundCell is not null;
     internal IReadOnlyList<InventoryItem> DisplayedItems => IsPaperdoll
         ? Panel.Simulation.InventoryPaperdollContents(RegionId, true)
         : Panel.Simulation.InventoryContents(ParentId, RegionId);
@@ -31,7 +32,7 @@ public partial class InventoryGrid : Control
         for (var x = 0; x < region.Columns; x++)
         {
             var cell = new Rect2(Origin + new Vector2(x, y) * CellPixels, Vector2.One * CellPixels);
-            if (region.Mask is { } mask && !mask.Contains(y * region.Columns + x)) { DrawRect(cell, new("080d0c")); continue; }
+                if (region.Mask is { } mask && !mask.Contains(y * region.Columns + x)) { DrawRect(cell, new("080d0c")); continue; }
             DrawRect(cell, new("111917")); DrawRect(cell, _grid, false, 1);
         }
         var preview = Panel.DropPreview is { } p && p.Grid == this ? p : null;
@@ -53,7 +54,7 @@ public partial class InventoryGrid : Control
         var access = sim.InventoryAccess(ParentId, RegionId);
         if (!access.Allowed)
         {
-            DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), state.Content!.Roots.Any(r => r.Id == ParentId) ? "Out of reach" : "Closed / unavailable", fontSize: 12, modulate: new("c99c76"));
+            DrawString(ThemeDB.FallbackFont, Origin + new Vector2(5, 20), state.FindRoot(ParentId) is not null ? "Out of reach" : "Closed / unavailable", fontSize: 12, modulate: new("c99c76"));
             TooltipText = access.Reason;
         }
         foreach (var item in DisplayedItems)
@@ -63,6 +64,11 @@ public partial class InventoryGrid : Control
             InventoryArt.Draw(this, item.DefinitionId, bounds.Grow(-3), item.Placement.Rotated,
                 Panel.DragItemId == item.Id ? 0.3f : InventoryWear.Visible(state, item) ? 1 : 0.55f);
             if (Panel.SelectedItem == item.Id) DrawRect(bounds.Grow(-1), new("c8b77a"), false, 1);
+            if (IsGround && !InventoryGround.Covering(state, item).Any())
+            {
+                var count = DisplayedItems.Count(other => other.Id != item.Id && InventoryGround.Overlap(state, item, other));
+                if (count > 0) DrawString(ThemeDB.FallbackFont, bounds.Position + new Vector2(3, 13), "+" + count, fontSize: 12, modulate: new("f0cf88"));
+            }
             if (state.Definition(item.Id).Wear?.OpenExposes is { Length: > 0 })
                 DrawString(ThemeDB.FallbackFont, bounds.Position + new Vector2(3, bounds.Size.Y - 4), item.GarmentOpen ? "OPEN" : "FASTENED", fontSize: 11, modulate: new("d8dfcf"));
         }
@@ -78,18 +84,20 @@ public partial class InventoryGrid : Control
     private InventoryItem? Pick(Vector2 position)
     {
         var (x, y) = Cell(position);
-        return DisplayedItems.FirstOrDefault(i =>
+        var matching = DisplayedItems.Where(i =>
         {
             var (w, h) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(i.Id), Region, i.Placement.Rotated);
             return x >= i.Placement.X && x < i.Placement.X + w && y >= i.Placement.Y && y < i.Placement.Y + h;
         });
+        return IsGround ? matching.LastOrDefault() : matching.FirstOrDefault();
     }
     public override void _GuiInput(InputEvent e)
     {
         if (e is InputEventMouseMotion motion)
         {
             var item = Pick(motion.Position);
-            TooltipText = item is null ? Panel.Simulation.InventoryAccess(ParentId, RegionId).Reason : Panel.Describe(item.Id);
+            TooltipText = item is null ? Panel.Simulation.InventoryAccess(ParentId, RegionId).Reason : Panel.Describe(item.Id)
+                + (IsGround ? "\n" + Panel.Simulation.InventoryMoveAccess(item.Id).Reason + " · move covering items first" : "");
             if (item is null && Panel.SelectedItem is { } selected) Panel.ShowQuote(Panel.Simulation.QuoteInventory(Request(selected, motion.Position)));
         }
         if (e is not InputEventMouseButton { Pressed: true } mouse) return;
@@ -133,7 +141,7 @@ public partial class InventoryGrid : Control
 
     internal InventoryDropPreview? PreviewAt(string id, Vector2 position)
     {
-        if (Pick(position) is { } provider && provider.Id != id && Panel.Simulation.Inventory.Definition(provider.Id).Regions?.Any(r => r.Attachment is not null) == true)
+        if (!IsGround && Pick(position) is { } provider && provider.Id != id && Panel.Simulation.Inventory.Definition(provider.Id).Regions?.Any(r => r.Attachment is not null) == true)
         {
             var region = Region; var p = provider.Placement;
             var size = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(provider.Id), region, p.Rotated);
@@ -141,7 +149,7 @@ public partial class InventoryGrid : Control
             return new(this, id, preview.Request, preview.Handling,
                 new(Origin + new Vector2(p.X, p.Y) * CellPixels, new Vector2(size.Width, size.Height) * CellPixels), IntoContainer: true);
         }
-        if (Pick(position) is { } container && container.Id != id && Panel.DefaultDropRegion(container.Id) is { } interior)
+        if (!IsGround && Pick(position) is { } container && container.Id != id && Panel.DefaultDropRegion(container.Id) is { } interior)
         {
             var (cw, ch) = InventoryPlacement.Footprint(Panel.Simulation.Inventory.Definition(container.Id), Region, container.Placement.Rotated);
             return AutoPreview(id, container.Id, interior,

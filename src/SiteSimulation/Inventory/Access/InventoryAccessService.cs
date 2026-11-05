@@ -4,6 +4,11 @@ internal static class InventoryAccessService
 {
     public static InventoryAccess Root(SimulationWorld world, string actorId, InventoryRoot root)
     {
+        if (root.GroundCell is { } cell)
+        {
+            var here = Hex.FromWorld(world.Actors.Single(a => a.Id == actorId).Position) == cell;
+            return new(here, here ? "Ground beneath you" : "Stand on this ground tile to reach its items");
+        }
         if (root.ActorId is not null) return new(root.ActorId == actorId, root.ActorId == actorId ? "Accessible" : "Another person's equipment; no direct access");
         var actor = world.Actors.Single(a => a.Id == actorId);
         var prop = world.Map.Definition.Props.Single(p => p.Id == root.PropId);
@@ -21,12 +26,14 @@ internal static class InventoryAccessService
         var regionId = placement.RegionId;
         for (var depth = 0; depth <= InventoryHierarchy.MaxDepth; depth++)
         {
+            if (state.Items.TryGetValue(id, out var owner) && InventoryGround.Covering(state, owner).FirstOrDefault() is { } cover)
+                return new(false, state.Name(owner.Id) + " is covered by " + state.Name(cover.Id) + "; move covering items first");
             var region = state.Region(id, regionId);
             var coverage = InventoryWear.Compartment(state, id, region);
             if (!coverage.Allowed) return coverage;
             if (!state.IsOpen(id, regionId)) return new(false, region.Name + " is closed");
             if (equipment && !region.EquipmentReady) return new(false, region.Name + " is packed storage; move equipment to an accessible pocket or hand");
-            var root = state.Content!.Roots.SingleOrDefault(r => r.Id == id);
+            var root = state.FindRoot(id);
             if (root is not null)
             {
                 if (equipment && root.ActorId != actorId) return new(false, "Equipment is not carried by this person");

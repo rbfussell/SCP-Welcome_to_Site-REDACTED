@@ -12,23 +12,24 @@
 <span id="L12"><a class="line" href="#L12">12</a> public sealed record StorageRegion(string Id, string Name, int Columns, int Rows, int CellMm, int HeightMm, int MaxMassGrams,</span>
 <span id="L13"><a class="line" href="#L13">13</a>     string? MountSlot = null, string[]? AcceptTags = null, int[]? Mask = null, bool EquipmentReady = false, int AccessMs = 300, int AccessAp = 1, string[]? AccessBody = null,</span>
 <span id="L14"><a class="line" href="#L14">14</a>     string SecureVerb = &quot;Close&quot;, string OpenVerb = &quot;Open&quot;, bool SecureOnClose = true, BodySurfaceMask[]? AccessFootprint = null, AttachmentSurface? Attachment = null, bool Sealable = true, bool Snug = false);</span>
-<span id="L15"><a class="line" href="#L15">15</a> public sealed record InventoryRoot(string Id, string Name, StorageRegion[] Regions, string? ActorId = null, string? PropId = null, int MaxMassGrams = 20000, string? BodyFamily = null);</span>
-<span id="L16"><a class="line" href="#L16">16</a> public sealed record ItemPlacement(string ParentId, string RegionId, int X = 0, int Y = 0, bool Rotated = false, BodyPose? BodyPose = null, BodyPose? AttachmentPose = null, long? WornOrder = null);</span>
-<span id="L17"><a class="line" href="#L17">17</a> public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement Placement, bool Powered = true, int Condition = 100, bool GarmentOpen = false,</span>
-<span id="L18"><a class="line" href="#L18">18</a>     bool? SecureOnClose = null);</span>
-<span id="L19"><a class="line" href="#L19">19</a> public sealed record RegionState(string ItemId, string RegionId, bool Open = true, bool? SecureOnClose = null);</span>
-<span id="L20"><a class="line" href="#L20">20</a> public sealed record InventoryContent(ItemDefinition[] Definitions, InventoryRoot[] Roots, InventoryItem[] Items, RegionState[] Regions);</span>
-<span id="L21"><a class="line" href="#L21">21</a> public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff, OpenGarment, CloseGarment, AutoPlace, Arrange }</span>
-<span id="L22"><a class="line" href="#L22">22</a> public sealed record InventoryRequest(InventoryActionKind Kind, string ItemId, ItemPlacement? Destination = null, string? RegionId = null);</span>
-<span id="L23"><a class="line" href="#L23">23</a> public sealed record InventoryWork(string ActorId, InventoryRequest Request, Point2 Position, int TotalMs, int RemainingMs,</span>
-<span id="L24"><a class="line" href="#L24">24</a>     long Revision, int CostAp, bool Tactical, string? AbortReason = null, InventoryPackingPlan? Packing = null);</span>
-<span id="L25"><a class="line" href="#L25">25</a> public sealed record InventoryPackingMove(string ItemId, ItemPlacement From, ItemPlacement To);</span>
-<span id="L26"><a class="line" href="#L26">26</a> public sealed record InventoryPackingPlan(InventoryPackingMove[] Moves, bool Repacked);</span>
-<span id="L27"><a class="line" href="#L27">27</a> public sealed record InventoryPackingQuote(bool Allowed, string Reason, int DurationMs, int Ap, InventoryPackingPlan? Plan);</span>
-<span id="L28"><a class="line" href="#L28">28</a> public sealed record InventorySecureStep(InventoryRequest Request, ItemPlacement Placement, bool Automatic = false);</span>
-<span id="L29"><a class="line" href="#L29">29</a> public sealed record InventorySnapshot(long Revision, InventoryItem[] Items, RegionState[] Regions, InventoryWork? Pending,</span>
-<span id="L30"><a class="line" href="#L30">30</a>     InventorySecureStep[]? SecureQueue = null);</span>
-<span id="L31"><a class="line" href="#L31">31</a> public sealed record InventoryAccess(bool Allowed, string Reason);</span>
-<span id="L32"><a class="line" href="#L32">32</a> </span>
-<span id="L33"><a class="line" href="#L33">33</a> public sealed record InventoryActionQuote(bool Allowed, string Reason, int DurationMs, int Ap);</span>
-<span id="L34"><a class="line" href="#L34">34</a> public sealed record InventoryClosureAction(string Verb, InventoryRequest Request);</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L15"><a class="line" href="#L15">15</a> public sealed record InventoryRoot(string Id, string Name, StorageRegion[] Regions, string? ActorId = null, string? PropId = null, int MaxMassGrams = 20000, string? BodyFamily = null, Hex? GroundCell = null);</span>
+<span id="L16"><a class="line" href="#L16">16</a> public sealed record ItemPlacement(string ParentId, string RegionId, int X = 0, int Y = 0, bool Rotated = false, BodyPose? BodyPose = null, BodyPose? AttachmentPose = null, long? WornOrder = null,</span>
+<span id="L17"><a class="line" href="#L17">17</a>     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] long? GroundOrder = null);</span>
+<span id="L18"><a class="line" href="#L18">18</a> public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement Placement, bool Powered = true, int Condition = 100, bool GarmentOpen = false,</span>
+<span id="L19"><a class="line" href="#L19">19</a>     bool? SecureOnClose = null);</span>
+<span id="L20"><a class="line" href="#L20">20</a> public sealed record RegionState(string ItemId, string RegionId, bool Open = true, bool? SecureOnClose = null);</span>
+<span id="L21"><a class="line" href="#L21">21</a> public sealed record InventoryContent(ItemDefinition[] Definitions, InventoryRoot[] Roots, InventoryItem[] Items, RegionState[] Regions);</span>
+<span id="L22"><a class="line" href="#L22">22</a> public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff, OpenGarment, CloseGarment, AutoPlace, Arrange }</span>
+<span id="L23"><a class="line" href="#L23">23</a> public sealed record InventoryRequest(InventoryActionKind Kind, string ItemId, ItemPlacement? Destination = null, string? RegionId = null);</span>
+<span id="L24"><a class="line" href="#L24">24</a> public sealed record InventoryWork(string ActorId, InventoryRequest Request, Point2 Position, int TotalMs, int RemainingMs,</span>
+<span id="L25"><a class="line" href="#L25">25</a>     long Revision, int CostAp, bool Tactical, string? AbortReason = null, InventoryPackingPlan? Packing = null);</span>
+<span id="L26"><a class="line" href="#L26">26</a> public sealed record InventoryPackingMove(string ItemId, ItemPlacement From, ItemPlacement To);</span>
+<span id="L27"><a class="line" href="#L27">27</a> public sealed record InventoryPackingPlan(InventoryPackingMove[] Moves, bool Repacked);</span>
+<span id="L28"><a class="line" href="#L28">28</a> public sealed record InventoryPackingQuote(bool Allowed, string Reason, int DurationMs, int Ap, InventoryPackingPlan? Plan);</span>
+<span id="L29"><a class="line" href="#L29">29</a> public sealed record InventorySecureStep(InventoryRequest Request, ItemPlacement Placement, bool Automatic = false);</span>
+<span id="L30"><a class="line" href="#L30">30</a> public sealed record InventorySnapshot(long Revision, InventoryItem[] Items, RegionState[] Regions, InventoryWork? Pending,</span>
+<span id="L31"><a class="line" href="#L31">31</a>     InventorySecureStep[]? SecureQueue = null);</span>
+<span id="L32"><a class="line" href="#L32">32</a> public sealed record InventoryAccess(bool Allowed, string Reason);</span>
+<span id="L33"><a class="line" href="#L33">33</a> </span>
+<span id="L34"><a class="line" href="#L34">34</a> public sealed record InventoryActionQuote(bool Allowed, string Reason, int DurationMs, int Ap);</span>
+<span id="L35"><a class="line" href="#L35">35</a> public sealed record InventoryClosureAction(string Verb, InventoryRequest Request);</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

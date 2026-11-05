@@ -35,12 +35,13 @@ internal static class InventoryContentValidation
                 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))
             || c.Definitions.Select(d => d.Id).Distinct().Count() != c.Definitions.Length
             || c.Roots.Any(r => r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region => !RegionValid(region))
+                || r.GroundCell is not null || r.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal)
                 || r.Regions.Select(region => region.Id).Distinct().Count() != r.Regions.Length || r.MaxMassGrams is <= 0 or > 100000
                 || (r.ActorId is null) == (r.PropId is null) || r.ActorId is not null && !world.Actors.Any(a => a.Id == r.ActorId)
                 || r.PropId is not null && !world.Map.Definition.Props.Any(p => p.Id == r.PropId))
             || c.Roots.Any(r => r.BodyFamily is not null && !state.BodyFits!.Content.Bodies.Any(b => b.Id == r.BodyFamily))
             || c.Roots.Select(r => r.Id).Distinct().Count() != c.Roots.Length
-            || c.Items.Any(i => i is null || !Id(i.Id) || !c.Definitions.Any(d => d.Id == i.DefinitionId)
+            || c.Items.Any(i => i is null || !Id(i.Id) || i.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal) || !c.Definitions.Any(d => d.Id == i.DefinitionId)
                 || c.Roots.Any(r => r.Id == i.Id)) || c.Items.Select(i => i.Id).Distinct().Count() != c.Items.Length)
             throw new ArgumentException("Invalid inventory content.");
         foreach (var definition in c.Definitions)

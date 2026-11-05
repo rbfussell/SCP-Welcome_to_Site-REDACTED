@@ -30,7 +30,7 @@ public partial class InventoryBrowser : HBoxContainer
     internal bool Inspect(string id, out string reason)
     {
         var sim = Panel.Simulation; var state = sim.Inventory;
-        var root = state.Content!.Roots.FirstOrDefault(r => r.Id == id);
+        var root = state.FindRoot(id);
         var item = state.DiagnosticItems.SingleOrDefault(i => i.Id == id);
         reason = "Inspect its containing compartment first.";
         if (root is not null)
@@ -41,7 +41,7 @@ public partial class InventoryBrowser : HBoxContainer
         if (item is null) return false;
         var access = sim.InventoryInspectAccess(id);
         if (!access.Allowed) { reason = access.Reason; return false; }
-        if (state.Content.Roots.Any(r => r.Id == item.Placement.ParentId && r.ActorId == sim.Player.Id))
+        if (state.FindRoot(item.Placement.ParentId) is { } location && (location.ActorId == sim.Player.Id || location.GroundCell is not null))
         { StartGear(id); return true; }
         if (item.Placement.AttachmentPose is not null && CurrentGear is { } current)
         {
@@ -70,7 +70,7 @@ public partial class InventoryBrowser : HBoxContainer
                 trail.Add(cursor.Id);
                 cursor = state.DiagnosticItems.Single(i => i.Id == cursor.Placement.ParentId);
             }
-            if (cursor.Placement.AttachmentPose is null && state.Content.Roots.Any(r => r.ActorId == sim.Player.Id && r.Id == cursor.Placement.ParentId)
+            if (cursor.Placement.AttachmentPose is null && state.Content!.Roots.Any(r => r.ActorId == sim.Player.Id && r.Id == cursor.Placement.ParentId)
                 && state.Region(cursor.Placement.ParentId, cursor.Placement.RegionId).MountSlot is { } slot
                 && InventoryWear.Accepts(state.Definition(cursor.Id), slot) && sim.InventoryInspectAccess(cursor.Id).Allowed)
             {
@@ -178,7 +178,7 @@ public partial class InventoryBrowser : HBoxContainer
         var interior = _contents.LastOrDefault();
         _contentsView.Build(interior?.Owner, interior?.Region, string.Join(" → ", _contents.Select(c => ItemName(c.Owner) + " · " + Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));
     }
-    private string ItemName(string id) => Panel.Simulation.Inventory.Content!.Roots.SingleOrDefault(r => r.Id == id)?.Name ?? Panel.Simulation.Inventory.Definition(id).Name;
+    private string ItemName(string id) => Panel.Simulation.Inventory.Name(id);
     internal void Refresh()
     {
         var sim = Panel.Simulation;

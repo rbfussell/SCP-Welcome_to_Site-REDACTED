@@ -35,7 +35,7 @@ internal sealed class SimulationWorld
         if (Actors.Any(a => !Map.Walkable(a.Cell))) throw new ArgumentException("Anomaly overlaps an actor spawn.");
         Operations = new(operationJson);
         Employment = new(Operations.Definition?.Employment);
-        Inventory = new(Operations.Definition?.InventoryProfile);
+        Inventory = new(Operations.Definition?.InventoryProfile, Map);
         OperationLifecycle.Initialize(this);
         EmploymentSystem.Initialize(this);
         InventoryContentValidation.Validate(this);

@@ -8,7 +8,7 @@ Visible bag and harness pixels select one actual own worn pack. Double-click ope
 
 [The adapter](file-game-presentation-inventory-inventorypaperdollart-cs.html) supports optional mount-slot-to-frame bindings, choosing pack/harness destinations from the committed mount and worn order. Stored, held, foreign and unqualified poses/mounts stay omitted. Optional per-part `front`/`back` side selection shares one filter between drawing and alpha/letterbox picking; an omitted side means both. The base-body part remains on both sides. The original front harness registration is retained. It does not modify fit, physical coverage, restraint, access or carrying capacity. The [inspection](body-inspection.html), [body fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html) and [provider graph](mount-points.html) retain their authority.
 
-Normal paid handling keeps source art until completion and carries a loaded pack intact. [Persistence](system-persistence.html) reconstructs its appearance from the item graph and retains exact pending work. No content identity, mutable field or schema change: inventory schema remains 14.
+Normal paid handling keeps source art until completion and carries a loaded pack intact. [Persistence](system-persistence.html) reconstructs its appearance from the item graph and retains exact pending work. No content identity, mutable field or schema change: inventory schema was 14 at qualification.
 
 ## Evidence and limits
 
@@ -23,3 +23,5 @@ Related: [full-body paperdoll](full-body-paperdoll.html), [appearance](wearable-
 [Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

@@ -18,7 +18,7 @@ Clothing cover, exposed contacts, fit bands, compatibility, ancestor access, hie
 
 The [gear-view presentation](system-presentation.html) draws and alpha-picks visible exterior descendants in composed coordinates. Drop on the lower hook point while viewing the belt; double-click the hanging pouch to follow **belt → hook → pouch** in the middle view. Contents stay on the right. Preview rotation carries visible descendants without doing work.
 
-Normal inventory transactions charge time/combat AP and revalidate clearance/access at commitment. [Persistence](system-persistence.html) preserves exact empty/loaded paid continuation. Schema remains 14; changed immutable fixture identity requires a fresh scene. Invalid saved collisions fail before replacing live state.
+Normal inventory transactions charge time/combat AP and revalidate clearance/access at commitment. [Persistence](system-persistence.html) preserves exact empty/loaded paid continuation. This slice was qualified on schema 14; changed immutable fixture identity requires a fresh scene. Invalid saved collisions fail before replacing live state.
 
 ## Evidence and limits
 
@@ -41,3 +41,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

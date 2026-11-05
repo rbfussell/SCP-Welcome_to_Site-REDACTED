@@ -18,7 +18,7 @@ Source alpha, layering, optional per-part front/back selection and the same lett
 
 The current base (`full-body-v2.png`) is **shirtless with close-fitting matte tan fabric briefs**. Their compact warm-tan silhouette replaces the original painted tank top/loose shorts without changing real equipment. These pixels are visual reference art, not items, protection or containers. Actual navy underwear can be removed while the engine mosaic/reference remains; the sprite cannot imply it is still equipped. The original PNG is preserved. The earlier featureless mannequin request produced no accepted asset; the user-selected clothed alternative is now accepted, with exact edit prompts/hashes linked from the runtime guide.
 
-Native content now has **19 definitions, 39 instances, 9 fit profiles**. [Persistence](system-persistence.html) stays schema **14**, but immutable content identity changes: older-kit saves need a fresh start. Matching new saves retain exact paid continuation. There is no automatic underwear injection/migration. The native crate is not enlarged; test-only helper-held outer gear provides valid staging for undressing checks without adding a player handoff feature.
+Native content now has **19 definitions, 39 instances, 9 fit profiles**. [Persistence](system-persistence.html) was schema **14** at this slice’s qualification, but immutable content identity changes: older-kit saves need a fresh start. Matching new saves retain exact paid continuation. There is no automatic underwear injection/migration. The native crate is not enlarged; test-only helper-held outer gear provides valid staging for undressing checks without adding a player handoff feature.
 
 ## Evidence
 
@@ -36,3 +36,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
 
 [Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

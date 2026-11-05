@@ -14,7 +14,7 @@ Click selects the actual belt or pouch. Double-click inspects its ordinary gear 
 
 Only the reference body's normal waist pose and direct front pouch are qualified. Held/stored/foreign providers, packed contents, non-default belt fits and nested hook/provider art are omitted. Omission feedback includes exterior children so unsupported gear does not silently disappear. [Physical body fit](body-fit-cleanup.html), six-direction [mounts](mount-points.html) and [inventory](system-inventory.html) still handle unsupported art cases in the engineering views.
 
-A paid loaded-belt removal keeps both images until commitment, then omits the held assembly. Its pouch and packed descendants remain attached/contained normally. Exact pending restore reconstructs the same outfit. No native content identity, physical mask or save schema changes; [persistence](system-persistence.html) remains schema 14.
+A paid loaded-belt removal keeps both images until commitment, then omits the held assembly. Its pouch and packed descendants remain attached/contained normally. Exact pending restore reconstructs the same outfit. No native content identity, physical mask or save schema changes; [persistence](system-persistence.html) was schema 14 at this slice’s qualification.
 
 ## Art, catalog and evidence
 
@@ -27,3 +27,5 @@ The new front/back belt atlas is copied unchanged from built-in imagegen into th
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [backpack/harness](worn-backpack.html), [worn masks](worn-alpha-masks.html), [asset library](asset-library.html), [ledger](status.html), [design library](documents.html).
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
+
+Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.

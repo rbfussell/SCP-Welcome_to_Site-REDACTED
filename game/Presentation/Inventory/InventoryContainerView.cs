@@ -28,7 +28,7 @@ public partial class InventoryContainerView : VBoxContainer
         if (id is null)
         { InventoryPanel.Label(this, GearView ? "Double-click worn gear to inspect it." : "Choose a compartment on the gear illustration.", 12); return; }
         var sim = Panel.Simulation; var state = sim.Inventory;
-        var root = state.Content!.Roots.FirstOrDefault(r => r.Id == id);
+        var root = state.FindRoot(id);
         var definition = root is null ? state.Definition(id) : null;
         InventoryPanel.Label(this, root?.Name ?? definition!.Name, 15);
         _state = InventoryPanel.Label(this, "", 11); _state.AutowrapMode = TextServer.AutowrapMode.WordSmart;

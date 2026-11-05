@@ -20,6 +20,7 @@ public partial class InventoryPanel : Control
     private PanelContainer? _contextMenu;
     private readonly List<Action> _contextUpdates = [];
     internal InventoryBrowser Browser => _browser;
+    internal InventoryGroundView GroundView { get; private set; } = null!;
     private Button _garmentToggle = null!, _takeInHand = null!, _wearDefault = null!;
     private InventoryBodyFitPanel _bodyFit = null!;
     private Button _bodyFitToggle = null!;
@@ -93,6 +94,7 @@ public partial class InventoryPanel : Control
             HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; storage.AddChild(scroll);
         _browser = new InventoryBrowser { Panel = this, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
         _browser.AddThemeConstantOverride("separation", 18); scroll.AddChild(_browser);
+        GroundView = new InventoryGroundView { Panel = this }; body.AddChild(GroundView);
         column.AddChild(new HSeparator());
         _detail = Label(column, "", 13); _detail.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         _progress = Label(column, "", 13);
@@ -286,7 +288,8 @@ public partial class InventoryPanel : Control
     internal void ContainerContext(string owner, string region, Vector2 position)
     {
         var list = BeginContext();
-        Button(list, "Arrange " + Simulation.Inventory.Region(owner, region).Name, () => { HideContext(); Arrange(owner, region); });
+        if (Simulation.Inventory.FindRoot(owner)?.GroundCell is not null) Label(list, "Move floor piles manually · top items first", 12);
+        else Button(list, "Arrange " + Simulation.Inventory.Region(owner, region).Name, () => { HideContext(); Arrange(owner, region); });
         PositionContext(position);
     }
     internal void Context(string id, string? region, Vector2 position, bool fastening = false)
@@ -325,8 +328,10 @@ public partial class InventoryPanel : Control
             Entry("Arrange " + interior.Name, () => Arrange(id, interior.Id));
         var location = Simulation.Inventory.DiagnosticItems.Single(i => i.Id == id).Placement;
         var enclosing = Simulation.Inventory.Region(location.ParentId, location.RegionId);
-        if (enclosing.MountSlot is null && enclosing.Attachment is null) Entry("Arrange " + enclosing.Name, () => Arrange(location.ParentId, location.RegionId));
+        if (enclosing.MountSlot is null && enclosing.Attachment is null && Simulation.Inventory.FindRoot(location.ParentId)?.GroundCell is null)
+            Entry("Arrange " + enclosing.Name, () => Arrange(location.ParentId, location.RegionId));
         Entry("Remove → hand", () => { Select(id); MoveSelectedTo("hand"); });
+        Entry("Put down → ground", () => { Simulation.HandleInventory(Simulation.GroundDropRequest(id, Rotated)); ShowReceipt(); });
         PositionContext(position);
     }
     internal IReadOnlyList<string> InspectedContainers => _browser.ContainerIds;
@@ -340,7 +345,7 @@ public partial class InventoryPanel : Control
         if (!Visible) return;
         var viewport = GetViewportRect().Size; _window.Position = new(24, 28); _window.Size = viewport - new Vector2(48, 56);
         _clock.Text = Simulation.ManualPause ? "MANUAL PAUSE" : Simulation.Combat.Active ? $"TACTICAL · {Simulation.Combat.For(Simulation.Player.Id)?.Ap ?? 0} AP" : $"REAL TIME · {Simulation.LocalMs / 1000.0:0.0}s";
-        _browser.Refresh(); PaperdollProof.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();
+        GroundView.Refresh(); _browser.Refresh(); PaperdollProof.Refresh(); _bodyFit.Refresh(); _equipmentList.RefreshEntries();
         _garmentToggle.Disabled = SelectedItem is not { } selected || Simulation.Inventory.Definition(selected).Wear?.OpenExposes is not { Length: > 0 };
         _garmentToggle.Text = !_garmentToggle.Disabled ? InventoryClosures.Toggle(Simulation.Inventory, SelectedItem!).Verb + " selected garment" : "Garment fastening";
         if (SelectedItem is { } current) _detail.Text = Describe(current);

@@ -1,50 +1,57 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPlacement.cs</h1><p>src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryplacement.html">InventoryPlacement</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-717d7178937d1aaae313.html">InventoryPlacement.Footprint</a> · line 6</li><li><a href="function-a8383ef49a6383f66a16.html">InventoryPlacement.Validate</a> · line 9</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPlacement.cs</h1><p>src/SiteSimulation/Inventory/Placement/InventoryPlacement.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryplacement.html">InventoryPlacement</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-22cd22db825799ec8bab.html">InventoryPlacement.Destination</a> · line 6</li><li><a href="function-e0114c91d51d746b6cd3.html">InventoryPlacement.Resolve</a> · line 8</li><li><a href="function-717d7178937d1aaae313.html">InventoryPlacement.Footprint</a> · line 11</li><li><a href="function-a8383ef49a6383f66a16.html">InventoryPlacement.Validate</a> · line 14</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
 <span id="L2"><a class="line" href="#L2">2</a> </span>
 <span id="L3"><a class="line" href="#L3">3</a> /// &lt;summary&gt;Millimetre envelopes and discrete packing footprints. View scale cannot create capacity.&lt;/summary&gt;</span>
 <span id="L4"><a class="line" href="#L4">4</a> public static class InventoryPlacement</span>
 <span id="L5"><a class="line" href="#L5">5</a> {</span>
-<span id="L6"><a class="line" href="#L6">6</a>     public static (int Width, int Height) Footprint(ItemDefinition item, StorageRegion region, bool rotated)</span>
-<span id="L7"><a class="line" href="#L7">7</a>         =&gt; region.MountSlot is not null ? (1, 1) : ((int)Math.Ceiling((rotated ? item.LengthMm : item.WidthMm) / (double)region.CellMm),</span>
-<span id="L8"><a class="line" href="#L8">8</a>             (int)Math.Ceiling((rotated ? item.WidthMm : item.LengthMm) / (double)region.CellMm));</span>
-<span id="L9"><a class="line" href="#L9">9</a>     internal static void Validate(InventoryState state)</span>
-<span id="L10"><a class="line" href="#L10">10</a>     {</span>
-<span id="L11"><a class="line" href="#L11">11</a>         if (!state.Enabled) return;</span>
-<span id="L12"><a class="line" href="#L12">12</a>         InventoryWornOrder.Validate(state);</span>
-<span id="L13"><a class="line" href="#L13">13</a>         foreach (var item in state.Items.Values)</span>
-<span id="L14"><a class="line" href="#L14">14</a>         {</span>
-<span id="L15"><a class="line" href="#L15">15</a>             _ = InventoryHierarchy.Root(state, item.Id); // Cycle/depth validation precedes recursive mass.</span>
-<span id="L16"><a class="line" href="#L16">16</a>             var definition = state.Definition(item.Id);</span>
-<span id="L17"><a class="line" href="#L17">17</a>             var p = item.Placement;</span>
-<span id="L18"><a class="line" href="#L18">18</a>             var region = state.Region(p.ParentId, p.RegionId);</span>
-<span id="L19"><a class="line" href="#L19">19</a>             if (region.MountSlot is { } mount &amp;&amp; mount != &quot;hand&quot; &amp;&amp; !InventoryWear.Accepts(definition, mount))</span>
-<span id="L20"><a class="line" href="#L20">20</a>                 throw new ArgumentException(region.Name + &quot; accepts only matching wearable equipment&quot;);</span>
-<span id="L21"><a class="line" href="#L21">21</a>             if (region.AcceptTags is { Length: &gt; 0 } tags &amp;&amp; !definition.Tags.Any(tags.Contains))</span>
-<span id="L22"><a class="line" href="#L22">22</a>                 throw new ArgumentException(region.Name + &quot; rejects this item category&quot;);</span>
-<span id="L23"><a class="line" href="#L23">23</a>             InventoryBodyFit.Validate(state, item);</span>
-<span id="L24"><a class="line" href="#L24">24</a>             InventoryAttachments.Validate(state, item);</span>
-<span id="L25"><a class="line" href="#L25">25</a>             if (region.Attachment is null)</span>
-<span id="L26"><a class="line" href="#L26">26</a>             {</span>
-<span id="L27"><a class="line" href="#L27">27</a>                 var (width, height) = Footprint(definition, region, p.Rotated);</span>
-<span id="L28"><a class="line" href="#L28">28</a>                 if (p.X &lt; 0 || p.Y &lt; 0 || p.X + width &gt; region.Columns || p.Y + height &gt; region.Rows</span>
-<span id="L29"><a class="line" href="#L29">29</a>                     || region.MountSlot is null &amp;&amp; definition.ThicknessMm &gt; region.HeightMm)</span>
-<span id="L30"><a class="line" href="#L30">30</a>                     throw new ArgumentException(definition.Name + &quot; does not physically fit in &quot; + region.Name);</span>
-<span id="L31"><a class="line" href="#L31">31</a>                 var cells = Enumerable.Range(p.Y, height).SelectMany(y =&gt; Enumerable.Range(p.X, width).Select(x =&gt; y * region.Columns + x)).ToArray();</span>
-<span id="L32"><a class="line" href="#L32">32</a>                 if (region.Mask is { } mask &amp;&amp; cells.Any(c =&gt; !mask.Contains(c))) throw new ArgumentException(&quot;Item overlaps the compartment&#x27;s unusable area&quot;);</span>
-<span id="L33"><a class="line" href="#L33">33</a>                 foreach (var other in state.Items.Values.Where(i =&gt; i.Id != item.Id &amp;&amp; i.Placement.ParentId == p.ParentId &amp;&amp; i.Placement.RegionId == p.RegionId))</span>
-<span id="L34"><a class="line" href="#L34">34</a>                 {</span>
-<span id="L35"><a class="line" href="#L35">35</a>                     if (region.MountSlot is not null &amp;&amp; definition.Wear?.OverlayLimit is not null &amp;&amp; state.Definition(other.Id).Wear?.OverlayLimit is not null)</span>
-<span id="L36"><a class="line" href="#L36">36</a>                         continue; // Physical bands govern shared strap mounts, not their temporary 1×1 widget.</span>
-<span id="L37"><a class="line" href="#L37">37</a>                     var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);</span>
-<span id="L38"><a class="line" href="#L38">38</a>                     if (p.X &lt; other.Placement.X + w &amp;&amp; p.X + width &gt; other.Placement.X &amp;&amp; p.Y &lt; other.Placement.Y + h &amp;&amp; p.Y + height &gt; other.Placement.Y)</span>
-<span id="L39"><a class="line" href="#L39">39</a>                         throw new ArgumentException(&quot;Packing footprint overlaps another item&quot;);</span>
-<span id="L40"><a class="line" href="#L40">40</a>                 }</span>
-<span id="L41"><a class="line" href="#L41">41</a>             }</span>
-<span id="L42"><a class="line" href="#L42">42</a>             if (state.Children(p.ParentId, p.RegionId).Sum(i =&gt; InventoryHierarchy.Mass(state, i.Id)) &gt; region.MaxMassGrams)</span>
-<span id="L43"><a class="line" href="#L43">43</a>                 throw new ArgumentException(region.Name + &quot; exceeds its load limit&quot;);</span>
-<span id="L44"><a class="line" href="#L44">44</a>         }</span>
-<span id="L45"><a class="line" href="#L45">45</a>         foreach (var root in state.Content!.Roots)</span>
-<span id="L46"><a class="line" href="#L46">46</a>             if (InventoryHierarchy.CarriedMass(state, root.Id) &gt; root.MaxMassGrams) throw new ArgumentException(root.Name + &quot; exceeds its total load limit&quot;);</span>
-<span id="L47"><a class="line" href="#L47">47</a>         InventoryWear.ValidateGraph(state);</span>
-<span id="L48"><a class="line" href="#L48">48</a>         InventoryAttachmentClearance.Validate(state);</span>
-<span id="L49"><a class="line" href="#L49">49</a>     }</span>
-<span id="L50"><a class="line" href="#L50">50</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L6"><a class="line" href="#L6">6</a>     internal static ItemPlacement Destination(InventoryState state, InventoryItem item, ItemPlacement target)</span>
+<span id="L7"><a class="line" href="#L7">7</a>         =&gt; InventoryGround.Destination(state, item, InventoryWornOrder.Destination(state, item, target));</span>
+<span id="L8"><a class="line" href="#L8">8</a>     internal static InventoryRequest Resolve(InventoryState state, InventoryRequest request)</span>
+<span id="L9"><a class="line" href="#L9">9</a>         =&gt; request.Kind == InventoryActionKind.Move &amp;&amp; request.Destination is { } target &amp;&amp; state.Items.TryGetValue(request.ItemId, out var item)</span>
+<span id="L10"><a class="line" href="#L10">10</a>             ? request with { Destination = Destination(state, item, target) } : request;</span>
+<span id="L11"><a class="line" href="#L11">11</a>     public static (int Width, int Height) Footprint(ItemDefinition item, StorageRegion region, bool rotated)</span>
+<span id="L12"><a class="line" href="#L12">12</a>         =&gt; region.MountSlot is not null ? (1, 1) : ((int)Math.Ceiling((rotated ? item.LengthMm : item.WidthMm) / (double)region.CellMm),</span>
+<span id="L13"><a class="line" href="#L13">13</a>             (int)Math.Ceiling((rotated ? item.WidthMm : item.LengthMm) / (double)region.CellMm));</span>
+<span id="L14"><a class="line" href="#L14">14</a>     internal static void Validate(InventoryState state)</span>
+<span id="L15"><a class="line" href="#L15">15</a>     {</span>
+<span id="L16"><a class="line" href="#L16">16</a>         if (!state.Enabled) return;</span>
+<span id="L17"><a class="line" href="#L17">17</a>         InventoryWornOrder.Validate(state);</span>
+<span id="L18"><a class="line" href="#L18">18</a>         foreach (var item in state.Items.Values)</span>
+<span id="L19"><a class="line" href="#L19">19</a>         {</span>
+<span id="L20"><a class="line" href="#L20">20</a>             _ = InventoryHierarchy.Root(state, item.Id); // Cycle/depth validation precedes recursive mass.</span>
+<span id="L21"><a class="line" href="#L21">21</a>             var definition = state.Definition(item.Id);</span>
+<span id="L22"><a class="line" href="#L22">22</a>             var p = item.Placement;</span>
+<span id="L23"><a class="line" href="#L23">23</a>             var region = state.Region(p.ParentId, p.RegionId);</span>
+<span id="L24"><a class="line" href="#L24">24</a>             if (region.MountSlot is { } mount &amp;&amp; mount != &quot;hand&quot; &amp;&amp; !InventoryWear.Accepts(definition, mount))</span>
+<span id="L25"><a class="line" href="#L25">25</a>                 throw new ArgumentException(region.Name + &quot; accepts only matching wearable equipment&quot;);</span>
+<span id="L26"><a class="line" href="#L26">26</a>             if (region.AcceptTags is { Length: &gt; 0 } tags &amp;&amp; !definition.Tags.Any(tags.Contains))</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 throw new ArgumentException(region.Name + &quot; rejects this item category&quot;);</span>
+<span id="L28"><a class="line" href="#L28">28</a>             InventoryBodyFit.Validate(state, item);</span>
+<span id="L29"><a class="line" href="#L29">29</a>             InventoryAttachments.Validate(state, item);</span>
+<span id="L30"><a class="line" href="#L30">30</a>             if (region.Attachment is null)</span>
+<span id="L31"><a class="line" href="#L31">31</a>             {</span>
+<span id="L32"><a class="line" href="#L32">32</a>                 var (width, height) = Footprint(definition, region, p.Rotated);</span>
+<span id="L33"><a class="line" href="#L33">33</a>                 if (p.X &lt; 0 || p.Y &lt; 0 || p.X + width &gt; region.Columns || p.Y + height &gt; region.Rows</span>
+<span id="L34"><a class="line" href="#L34">34</a>                     || region.MountSlot is null &amp;&amp; definition.ThicknessMm &gt; region.HeightMm)</span>
+<span id="L35"><a class="line" href="#L35">35</a>                     throw new ArgumentException(definition.Name + &quot; does not physically fit in &quot; + region.Name);</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 var cells = Enumerable.Range(p.Y, height).SelectMany(y =&gt; Enumerable.Range(p.X, width).Select(x =&gt; y * region.Columns + x)).ToArray();</span>
+<span id="L37"><a class="line" href="#L37">37</a>                 if (region.Mask is { } mask &amp;&amp; cells.Any(c =&gt; !mask.Contains(c))) throw new ArgumentException(&quot;Item overlaps the compartment&#x27;s unusable area&quot;);</span>
+<span id="L38"><a class="line" href="#L38">38</a>                 foreach (var other in state.Items.Values.Where(i =&gt; i.Id != item.Id &amp;&amp; i.Placement.ParentId == p.ParentId &amp;&amp; i.Placement.RegionId == p.RegionId</span>
+<span id="L39"><a class="line" href="#L39">39</a>                     &amp;&amp; state.FindRoot(p.ParentId)?.GroundCell is null))</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 {</span>
+<span id="L41"><a class="line" href="#L41">41</a>                     if (region.MountSlot is not null &amp;&amp; definition.Wear?.OverlayLimit is not null &amp;&amp; state.Definition(other.Id).Wear?.OverlayLimit is not null)</span>
+<span id="L42"><a class="line" href="#L42">42</a>                         continue; // Physical bands govern shared strap mounts, not their temporary 1×1 widget.</span>
+<span id="L43"><a class="line" href="#L43">43</a>                     var (w, h) = Footprint(state.Definition(other.Id), region, other.Placement.Rotated);</span>
+<span id="L44"><a class="line" href="#L44">44</a>                     if (p.X &lt; other.Placement.X + w &amp;&amp; p.X + width &gt; other.Placement.X &amp;&amp; p.Y &lt; other.Placement.Y + h &amp;&amp; p.Y + height &gt; other.Placement.Y)</span>
+<span id="L45"><a class="line" href="#L45">45</a>                         throw new ArgumentException(&quot;Packing footprint overlaps another item&quot;);</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 }</span>
+<span id="L47"><a class="line" href="#L47">47</a>             }</span>
+<span id="L48"><a class="line" href="#L48">48</a>             if (state.Children(p.ParentId, p.RegionId).Sum(i =&gt; InventoryHierarchy.Mass(state, i.Id)) &gt; region.MaxMassGrams)</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 throw new ArgumentException(region.Name + &quot; exceeds its load limit&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         }</span>
+<span id="L51"><a class="line" href="#L51">51</a>         foreach (var root in state.Content!.Roots)</span>
+<span id="L52"><a class="line" href="#L52">52</a>             if (InventoryHierarchy.CarriedMass(state, root.Id) &gt; root.MaxMassGrams) throw new ArgumentException(root.Name + &quot; exceeds its total load limit&quot;);</span>
+<span id="L53"><a class="line" href="#L53">53</a>         InventoryGround.Validate(state);</span>
+<span id="L54"><a class="line" href="#L54">54</a>         InventoryWear.ValidateGraph(state);</span>
+<span id="L55"><a class="line" href="#L55">55</a>         InventoryAttachmentClearance.Validate(state);</span>
+<span id="L56"><a class="line" href="#L56">56</a>     }</span>
+<span id="L57"><a class="line" href="#L57">57</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

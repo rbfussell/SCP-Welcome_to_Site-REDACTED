@@ -23,7 +23,7 @@ InventoryContentValidation.Validate</pre></details><h2>Candidate incoming calls<
         if (Actors.Any(a =&gt; !Map.Walkable(a.Cell))) throw new ArgumentException(&quot;Anomaly overlaps an actor spawn.&quot;);
         Operations = new(operationJson);
         Employment = new(Operations.Definition?.Employment);
-        Inventory = new(Operations.Definition?.InventoryProfile);
+        Inventory = new(Operations.Definition?.InventoryProfile, Map);
         OperationLifecycle.Initialize(this);
         EmploymentSystem.Initialize(this);
         InventoryContentValidation.Validate(this);
