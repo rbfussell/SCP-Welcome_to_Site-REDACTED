@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryPaperdollArt.Attachments.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.Attachments.cs</h1><p>game/Presentation/Inventory/InventoryPaperdollArt.Attachments.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-paperdollattachmentplane.html">PaperdollAttachmentPlane</a></li><li><a href="type-paperdollattachmentbinding.html">PaperdollAttachmentBinding</a></li><li><a href="type-paperdollmountedart.html">PaperdollMountedArt</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-9cdb827cfa7825e589e4.html">InventoryPaperdollArt.AssetFile</a> · line 13</li><li><a href="function-db832ebfa94f242b792f.html">InventoryPaperdollArt.ValidateAttachments</a> · line 21</li><li><a href="function-95bf1595a944a592a407.html">InventoryPaperdollArt.Point</a> · line 23</li><li><a href="function-70c37dcc9f5a87644670.html">InventoryPaperdollArt.AttachedLayers</a> · line 33</li><li><a href="function-14908b45b7c5d07d2ddd.html">InventoryPaperdollArt.OwnExterior</a> · line 52</li><li><a href="function-7e97e2d67a47d956b0ac.html">InventoryPaperdollArt.Children</a> · line 54</li><li><a href="function-56784db7a2b71942fb2e.html">InventoryPaperdollArt.MountedLocal</a> · line 71</li><li><a href="function-b328616b12cecc02b07c.html">InventoryPaperdollArt.DrawMounted</a> · line 76</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/Inventory/InventoryPaperdollArt.Attachments.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryPaperdollArt.Attachments.cs</h1><p>game/Presentation/Inventory/InventoryPaperdollArt.Attachments.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-paperdollattachmentplane.html">PaperdollAttachmentPlane</a></li><li><a href="type-paperdollattachmentbinding.html">PaperdollAttachmentBinding</a></li><li><a href="type-paperdollmountedart.html">PaperdollMountedArt</a></li><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-9cdb827cfa7825e589e4.html">InventoryPaperdollArt.AssetFile</a> · line 13</li><li><a href="function-db832ebfa94f242b792f.html">InventoryPaperdollArt.ValidateAttachments</a> · line 21</li><li><a href="function-95bf1595a944a592a407.html">InventoryPaperdollArt.Point</a> · line 23</li><li><a href="function-70c37dcc9f5a87644670.html">InventoryPaperdollArt.AttachedLayers</a> · line 33</li><li><a href="function-59b36eaf36971345111c.html">InventoryPaperdollArt.Children</a> · line 39</li><li><a href="function-14908b45b7c5d07d2ddd.html">InventoryPaperdollArt.OwnExterior</a> · line 59</li><li><a href="function-7e97e2d67a47d956b0ac.html">InventoryPaperdollArt.Children</a> · line 61</li><li><a href="function-56784db7a2b71942fb2e.html">InventoryPaperdollArt.MountedLocal</a> · line 78</li><li><a href="function-b328616b12cecc02b07c.html">InventoryPaperdollArt.DrawMounted</a> · line 83</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
 <span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
 <span id="L3"><a class="line" href="#L3">3</a> </span>
 <span id="L4"><a class="line" href="#L4">4</a> namespace SitePresentation;</span>
@@ -29,55 +29,62 @@
 <span id="L29"><a class="line" href="#L29">29</a>                 || frame.Parts[0].Destination[0] != 0 || frame.Parts[0].Destination[1] != 0 || frame.Parts[0].BackDestination is not null))</span>
 <span id="L30"><a class="line" href="#L30">30</a>             throw new InvalidOperationException(&quot;Invalid bounded paperdoll attachment registration.&quot;);</span>
 <span id="L31"><a class="line" href="#L31">31</a>     }</span>
-<span id="L32"><a class="line" href="#L32">32</a>     /// &lt;summary&gt;Read actual direct exterior children of a qualified worn provider; packed items and unqualified provider chains are not rendered.&lt;/summary&gt;</span>
+<span id="L32"><a class="line" href="#L32">32</a>     /// &lt;summary&gt;Compose qualified exterior descendants in the worn root&#x27;s plane; never render through an unsupported provider.&lt;/summary&gt;</span>
 <span id="L33"><a class="line" href="#L33">33</a>     private IEnumerable&lt;PaperdollLayer&gt; AttachedLayers(SpatialSimulation sim, InventoryItem owner, PaperdollBinding binding)</span>
 <span id="L34"><a class="line" href="#L34">34</a>     {</span>
 <span id="L35"><a class="line" href="#L35">35</a>         if (binding.AttachmentPlane is not { } plane) yield break;</span>
 <span id="L36"><a class="line" href="#L36">36</a>         var state = sim.Inventory;</span>
 <span id="L37"><a class="line" href="#L37">37</a>         var slot = state.Region(owner.Placement.ParentId, owner.Placement.RegionId).MountSlot;</span>
 <span id="L38"><a class="line" href="#L38">38</a>         var mount = state.Definition(owner.Id).Wear!.Mounts.Single(m =&gt; m.Slot == slot);</span>
-<span id="L39"><a class="line" href="#L39">39</a>         foreach (var region in (state.Definition(owner.Id).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
-<span id="L40"><a class="line" href="#L40">40</a>         foreach (var child in state.Children(owner.Id, region.Id).OrderBy(i =&gt; i.Id, StringComparer.Ordinal))</span>
-<span id="L41"><a class="line" href="#L41">41</a>         {</span>
-<span id="L42"><a class="line" href="#L42">42</a>             if (child.Placement.AttachmentPose is not { } pose) continue;</span>
-<span id="L43"><a class="line" href="#L43">43</a>             var surface = region.Attachment!.Surface == &quot;mounted&quot; ? mount.BodySurface ?? &quot;front&quot; : region.Attachment.Surface;</span>
-<span id="L44"><a class="line" href="#L44">44</a>             var art = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == child.DefinitionId &amp;&amp; b.Surface == surface);</span>
-<span id="L45"><a class="line" href="#L45">45</a>             if (art is null) continue;</span>
-<span id="L46"><a class="line" href="#L46">46</a>             var pixelOffset = new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * plane.CellPixels;</span>
-<span id="L47"><a class="line" href="#L47">47</a>             var origin = new Vector2(plane.Origin[0], plane.Origin[1]) + pixelOffset / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
-<span id="L48"><a class="line" href="#L48">48</a>             yield return new(child.Id, art.Column, new(origin, new(art.Anchor[0], art.Anchor[1]), pose.Rotation, surface));</span>
-<span id="L49"><a class="line" href="#L49">49</a>         }</span>
-<span id="L50"><a class="line" href="#L50">50</a>     }</span>
-<span id="L51"><a class="line" href="#L51">51</a>     /// &lt;summary&gt;Own worn items and exterior descendants for honest omission reporting; never scan pocket contents as outfit.&lt;/summary&gt;</span>
-<span id="L52"><a class="line" href="#L52">52</a>     private static IEnumerable&lt;InventoryItem&gt; OwnExterior(SpatialSimulation sim)</span>
-<span id="L53"><a class="line" href="#L53">53</a>     {</span>
-<span id="L54"><a class="line" href="#L54">54</a>         IEnumerable&lt;InventoryItem&gt; Children(InventoryItem owner, int depth)</span>
-<span id="L55"><a class="line" href="#L55">55</a>         {</span>
-<span id="L56"><a class="line" href="#L56">56</a>             if (depth &gt;= InventoryHierarchy.MaxDepth) yield break;</span>
-<span id="L57"><a class="line" href="#L57">57</a>             foreach (var region in (sim.Inventory.Definition(owner.Id).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
-<span id="L58"><a class="line" href="#L58">58</a>             foreach (var child in sim.Inventory.Children(owner.Id, region.Id))</span>
-<span id="L59"><a class="line" href="#L59">59</a>             {</span>
-<span id="L60"><a class="line" href="#L60">60</a>                 yield return child;</span>
-<span id="L61"><a class="line" href="#L61">61</a>                 foreach (var nested in Children(child, depth + 1)) yield return nested;</span>
-<span id="L62"><a class="line" href="#L62">62</a>             }</span>
-<span id="L63"><a class="line" href="#L63">63</a>         }</span>
-<span id="L64"><a class="line" href="#L64">64</a>         foreach (var item in sim.BodyFitItems.Where(i =&gt; sim.Inventory.Region(i.Placement.ParentId, i.Placement.RegionId).MountSlot is { } slot</span>
-<span id="L65"><a class="line" href="#L65">65</a>             &amp;&amp; InventoryWear.Accepts(sim.Inventory.Definition(i.Id), slot)))</span>
-<span id="L66"><a class="line" href="#L66">66</a>         {</span>
-<span id="L67"><a class="line" href="#L67">67</a>             yield return item;</span>
-<span id="L68"><a class="line" href="#L68">68</a>             foreach (var child in Children(item, 0)) yield return child;</span>
-<span id="L69"><a class="line" href="#L69">69</a>         }</span>
-<span id="L70"><a class="line" href="#L70">70</a>     }</span>
-<span id="L71"><a class="line" href="#L71">71</a>     private Vector2 MountedLocal(PaperdollMountedArt mounted, Rect2 destination, Vector2 uv)</span>
-<span id="L72"><a class="line" href="#L72">72</a>     {</span>
-<span id="L73"><a class="line" href="#L73">73</a>         var canvas = new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
-<span id="L74"><a class="line" href="#L74">74</a>         return ((uv - mounted.Origin) * canvas).Rotated(-mounted.Rotation * Mathf.Pi / 3) / (destination.Size * canvas) + mounted.Anchor;</span>
-<span id="L75"><a class="line" href="#L75">75</a>     }</span>
-<span id="L76"><a class="line" href="#L76">76</a>     private static void DrawMounted(Control target, Rect2 bounds, Rect2 destination, Texture2D texture, Rect2 source, PaperdollMountedArt mounted, Color tint)</span>
-<span id="L77"><a class="line" href="#L77">77</a>     {</span>
-<span id="L78"><a class="line" href="#L78">78</a>         var size = destination.Size * bounds.Size;</span>
-<span id="L79"><a class="line" href="#L79">79</a>         target.DrawSetTransform(bounds.Position + mounted.Origin * bounds.Size, mounted.Rotation * Mathf.Pi / 3);</span>
-<span id="L80"><a class="line" href="#L80">80</a>         target.DrawTextureRectRegion(texture, new(-mounted.Anchor * size, size), source, tint);</span>
-<span id="L81"><a class="line" href="#L81">81</a>         target.DrawSetTransform(Vector2.Zero);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         IEnumerable&lt;PaperdollLayer&gt; Children(InventoryItem provider, BodyPose parentPose, string inheritedSurface, int depth)</span>
+<span id="L40"><a class="line" href="#L40">40</a>         {</span>
+<span id="L41"><a class="line" href="#L41">41</a>             if (depth &gt;= InventoryHierarchy.MaxDepth) yield break;</span>
+<span id="L42"><a class="line" href="#L42">42</a>             foreach (var region in (state.Definition(provider.Id).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
+<span id="L43"><a class="line" href="#L43">43</a>             foreach (var child in state.Children(provider.Id, region.Id).OrderBy(i =&gt; i.Id, StringComparer.Ordinal))</span>
+<span id="L44"><a class="line" href="#L44">44</a>             {</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 if (child.Placement.AttachmentPose is not { } local) continue;</span>
+<span id="L46"><a class="line" href="#L46">46</a>                 var surface = region.Attachment!.Surface == &quot;mounted&quot; ? inheritedSurface : region.Attachment.Surface;</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 var art = (_manifest.Attachments ?? []).SingleOrDefault(b =&gt; b.Definition == child.DefinitionId &amp;&amp; b.Surface == surface);</span>
+<span id="L48"><a class="line" href="#L48">48</a>                 if (art is null) continue;</span>
+<span id="L49"><a class="line" href="#L49">49</a>                 var pose = InventoryAttachmentFrames.Compose(parentPose, local);</span>
+<span id="L50"><a class="line" href="#L50">50</a>                 var pixelOffset = new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * plane.CellPixels;</span>
+<span id="L51"><a class="line" href="#L51">51</a>                 var origin = new Vector2(plane.Origin[0], plane.Origin[1]) + pixelOffset / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
+<span id="L52"><a class="line" href="#L52">52</a>                 yield return new(child.Id, art.Column, new(origin, new(art.Anchor[0], art.Anchor[1]), pose.Rotation, surface));</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 foreach (var nested in Children(child, pose, surface, depth + 1)) yield return nested;</span>
+<span id="L54"><a class="line" href="#L54">54</a>             }</span>
+<span id="L55"><a class="line" href="#L55">55</a>         }</span>
+<span id="L56"><a class="line" href="#L56">56</a>         foreach (var layer in Children(owner, new(0, 0), mount.BodySurface ?? &quot;front&quot;, 0)) yield return layer;</span>
+<span id="L57"><a class="line" href="#L57">57</a>     }</span>
+<span id="L58"><a class="line" href="#L58">58</a>     /// &lt;summary&gt;Own worn items and exterior descendants for honest omission reporting; never scan pocket contents as outfit.&lt;/summary&gt;</span>
+<span id="L59"><a class="line" href="#L59">59</a>     private static IEnumerable&lt;InventoryItem&gt; OwnExterior(SpatialSimulation sim)</span>
+<span id="L60"><a class="line" href="#L60">60</a>     {</span>
+<span id="L61"><a class="line" href="#L61">61</a>         IEnumerable&lt;InventoryItem&gt; Children(InventoryItem owner, int depth)</span>
+<span id="L62"><a class="line" href="#L62">62</a>         {</span>
+<span id="L63"><a class="line" href="#L63">63</a>             if (depth &gt;= InventoryHierarchy.MaxDepth) yield break;</span>
+<span id="L64"><a class="line" href="#L64">64</a>             foreach (var region in (sim.Inventory.Definition(owner.Id).Regions ?? []).Where(r =&gt; r.Attachment is not null))</span>
+<span id="L65"><a class="line" href="#L65">65</a>             foreach (var child in sim.Inventory.Children(owner.Id, region.Id))</span>
+<span id="L66"><a class="line" href="#L66">66</a>             {</span>
+<span id="L67"><a class="line" href="#L67">67</a>                 yield return child;</span>
+<span id="L68"><a class="line" href="#L68">68</a>                 foreach (var nested in Children(child, depth + 1)) yield return nested;</span>
+<span id="L69"><a class="line" href="#L69">69</a>             }</span>
+<span id="L70"><a class="line" href="#L70">70</a>         }</span>
+<span id="L71"><a class="line" href="#L71">71</a>         foreach (var item in sim.BodyFitItems.Where(i =&gt; sim.Inventory.Region(i.Placement.ParentId, i.Placement.RegionId).MountSlot is { } slot</span>
+<span id="L72"><a class="line" href="#L72">72</a>             &amp;&amp; InventoryWear.Accepts(sim.Inventory.Definition(i.Id), slot)))</span>
+<span id="L73"><a class="line" href="#L73">73</a>         {</span>
+<span id="L74"><a class="line" href="#L74">74</a>             yield return item;</span>
+<span id="L75"><a class="line" href="#L75">75</a>             foreach (var child in Children(item, 0)) yield return child;</span>
+<span id="L76"><a class="line" href="#L76">76</a>         }</span>
+<span id="L77"><a class="line" href="#L77">77</a>     }</span>
+<span id="L78"><a class="line" href="#L78">78</a>     private Vector2 MountedLocal(PaperdollMountedArt mounted, Rect2 destination, Vector2 uv)</span>
+<span id="L79"><a class="line" href="#L79">79</a>     {</span>
+<span id="L80"><a class="line" href="#L80">80</a>         var canvas = new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);</span>
+<span id="L81"><a class="line" href="#L81">81</a>         return ((uv - mounted.Origin) * canvas).Rotated(-mounted.Rotation * Mathf.Pi / 3) / (destination.Size * canvas) + mounted.Anchor;</span>
 <span id="L82"><a class="line" href="#L82">82</a>     }</span>
-<span id="L83"><a class="line" href="#L83">83</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L83"><a class="line" href="#L83">83</a>     private static void DrawMounted(Control target, Rect2 bounds, Rect2 destination, Texture2D texture, Rect2 source, PaperdollMountedArt mounted, Color tint)</span>
+<span id="L84"><a class="line" href="#L84">84</a>     {</span>
+<span id="L85"><a class="line" href="#L85">85</a>         var size = destination.Size * bounds.Size;</span>
+<span id="L86"><a class="line" href="#L86">86</a>         target.DrawSetTransform(bounds.Position + mounted.Origin * bounds.Size, mounted.Rotation * Mathf.Pi / 3);</span>
+<span id="L87"><a class="line" href="#L87">87</a>         target.DrawTextureRectRegion(texture, new(-mounted.Anchor * size, size), source, tint);</span>
+<span id="L88"><a class="line" href="#L88">88</a>         target.DrawSetTransform(Vector2.Zero);</span>
+<span id="L89"><a class="line" href="#L89">89</a>     }</span>
+<span id="L90"><a class="line" href="#L90">90</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

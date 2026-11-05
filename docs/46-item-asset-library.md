@@ -85,4 +85,6 @@ python3 tools/build_game_wiki.py --check
 
 Related: [wiki build guide](../source_material/game-wiki/README.md), [wearable appearance](26-wearable-appearance-pipeline.md), [worn mask metadata](45-worn-alpha-masks.md), [asset provenance](../game/Assets/inventory-objects/README.md), [public publishing](12-development-workflow.md#public-wiki-publishing).
 
-Current November 4 presentation follow-up: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.
+Earlier November 4 presentation slice: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.
+
+Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.

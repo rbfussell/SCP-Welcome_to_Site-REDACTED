@@ -14,7 +14,7 @@ The [new attachment presentation helper](../game/Presentation/Inventory/Inventor
 
 `attachments` entries map an attached definition and authored surface to a frame/anchor. The direct pouch has one registered part, front surface, anchor `[0.5,0.12]`. Its actual `AttachmentPose` supplies local Q/R and rotation. The renderer projects the real hex position into that provider plane and rotates the sprite exactly by sixth-turns. It never interprets folded storage width as a worn placement. Rendering, tint and inverse alpha picking share the same transforms, letterboxing and source alpha threshold. Transparent pouch gaps do not gain rectangular hit targets.
 
-Only direct exterior children of a qualified worn provider enter this draw list. They are rendered immediately after that provider, before subsequently worn outer garments; the existing sprite alpha handles visual overlap. Packed contents, held/stored providers, foreign equipment and unqualified body poses never become outfit art. Omission reporting now includes own exterior descendants, without scanning compartments as clothing. The belt's back view keeps its identity while its front-mounted pouch does not appear through the body.
+At this original slice, only direct exterior children of a qualified worn provider entered the draw list; the [later chain adapter](50-worn-attachment-chains.md) now follows registered descendants. They are rendered immediately after that provider, before subsequently worn outer garments; the existing sprite alpha handles visual overlap. Packed contents, held/stored providers, foreign equipment and unqualified body poses never become outfit art. Omission reporting now includes own exterior descendants, without scanning compartments as clothing. The belt's back view keeps its identity while its front-mounted pouch does not appear through the body.
 
 ## Validated navigation and physical authority
 
@@ -32,7 +32,7 @@ The [item catalog](../source_material/game-wiki/items.html) now distinguishes di
 
 ## Bounded scope and verification
 
-Normal waist/default-pose belt and directly mounted front pouch are qualified. A crossed/diagonal belt, nested hook → pouch artwork, arbitrary provider chains, back-mounted pouch art, general garment deformation, closure animation and world outfit composition remain unqualified. Unsupported poses/chains remain explicitly omitted rather than borrowing a waist sprite. Their existing physical mechanics still work in the engineering views.
+This original slice qualified the normal waist/default-pose belt and directly mounted front pouch. Its then-unqualified cases included crossed/diagonal belts, nested hook → pouch artwork, arbitrary provider chains, back-mounted pouch art, general garment deformation, closure animation and world outfit composition. Unsupported poses/chains remain explicitly omitted rather than borrowing a waist sprite. Their existing physical mechanics still work in the engineering views.
 
 [Native belt checks](../game/Presentation/SpatialScene.PaperdollBeltSmoke.cs) cover actual identities, front/back, position change, all six committed rotations, alpha selection/resize, direct inspection from another garment, paused/paid flap actions, loaded removal/source retention, exact pending restore and omission of a non-waist fit. The parent paperdoll suite retains shoe masks, clothing, backpack and closure checks. Actual full regression results belong in [the inventory review](reviews/inventory-runtime-checks.md).
 
@@ -43,3 +43,5 @@ python3 -m unittest discover -s tests -p test_wiki_items.py
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.

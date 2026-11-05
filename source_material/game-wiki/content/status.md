@@ -33,7 +33,7 @@ November 4 footwear follow-up: [worn-only alpha masks](worn-alpha-masks.html) qu
 
 November 4 authoring follow-up: [the item catalog](items.html) indexes all 19 native definitions under 30 type categories with representative artwork, current stats, explicit missing-art coverage and raw data. [Asset bundle organization](asset-library.html) documents future per-item directories and view/state mask names; runtime atlases have not moved.
 
-November 4 belt follow-up: [waist belt/direct pouch sprites](worn-belt-and-pouch.html) add an eighth direct wearable binding and a bounded exterior attachment binding. Normal provider coordinates, six rotations, validated inspection and loaded paid removal remain authoritative; non-waist fits and nested hook art are still omitted. The item catalog now exposes qualified attachment art and worn source sheets.
+November 4 belt follow-up: [waist belt/direct pouch sprites](worn-belt-and-pouch.html) add an eighth direct wearable binding and a bounded exterior attachment binding. Normal provider coordinates, six rotations, validated inspection and loaded paid removal remain authoritative; non-waist fits remain omitted. The [worn hook-chain follow-up](worn-attachment-chains.html) now adds the front nested chain. The item catalog now exposes qualified attachment art and worn source sheets.
 
 November 4 transfer follow-up: [independent source/destination views](inventory-transfers.html) retain a backpack or pocket source while choosing other gear. Native direct hook/pouch transfers use normal paid handling with an occupied hand; reach, covering, closure and provider dependencies still invalidate unavailable sources. The later [ground-pile follow-up](ground-storage.html) now supplies bounded current-tile clothes staging.
 

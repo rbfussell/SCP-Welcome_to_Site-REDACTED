@@ -43,6 +43,9 @@ class ItemCatalogChecks(unittest.TestCase):
             self.assertNotIn(&#x27;storage&#x27;, index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;capabilities&#x27;])
             self.assertTrue(index[&#x27;items&#x27;][&#x27;boots&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;frontWornCutouts&#x27;])
             self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-pouch&#x27;][&#x27;paperdollAttachments&#x27;][0][&#x27;surface&#x27;], &#x27;front&#x27;)
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;paperdollAttachments&#x27;][0][&#x27;anchor&#x27;], [.36, .1])
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;column&#x27;], 12)
+            self.assertIn(&#x27;worn-attachment-chains.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;url&#x27;]][1])
             self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;bundleRegistration&#x27;][&#x27;status&#x27;], &#x27;paperdoll-fixture-bundle&#x27;)
             self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;paperdollBinding&#x27;][&#x27;attachmentPlane&#x27;][&#x27;cellPixels&#x27;], 34)
             for entry in index[&#x27;items&#x27;].values():

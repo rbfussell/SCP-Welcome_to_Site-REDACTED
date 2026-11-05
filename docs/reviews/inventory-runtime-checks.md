@@ -1,5 +1,14 @@
 # Personal inventory runtime evidence
 
+## Worn attachment chain follow-up — November 4, 2026
+
+- `--paperdoll-smoke work/preview/spatial-scene/worn-hook.png`: **PAPERDOLL_HOOK_SMOKE_PASS**, plus existing belt, mask, backpack and parent paperdoll checks, successful native exit. The new fixture checks all six hook orientations, composed nested positions/rotation, independent hook/pouch alpha targets and inspection trails, resizing, rear exclusion, paid loaded floor drop/pickup, source retention, exact pending restore and omission of packed contents/unsupported worn roots. Front chain and rotated loaded captures were visually reviewed at 1440×900.
+- `--inventory-smoke work/preview/spatial-scene/worn-hook-full.png`: **all native inventory checks pass**, seventeen PASS markers including nested paperdoll subfixtures and the new chain fixture, successful native exit. Existing wear, packing, body fit/drop/inspection, masks, backpacks, pocket coverage, direct attachments, overlays, nested providers, independent transfers, floor piles and general navigation/closures pass. Zero compiler errors or runtime errors; the same three existing compiler warnings, software V-Sync warning and two-reference shutdown ObjectDB warning remain.
+- The first new fixture run stopped on a test-only compartment typo (`lower` instead of the authored `hook` region). Correcting that identifier retained all normal physical checks; the next run passed. The later full run uses a smaller alpha-target search area in the fixture; gameplay behavior is unchanged.
+- Five item-catalog tests pass, including hook registration, unchanged original/published PNG bytes and the chain mechanic link. No art was generated or edited; the existing hook and pouch sources are reused. Native definitions, kit identity, physical dimensions and save schema **15** are unchanged. No new domain-service behavior is introduced or separately domain-tested in this presentation slice.
+- The native build reports **three pre-existing compiler warnings** in `SpatialScene.GroundSmoke.cs` (two nullable dereferences and one async callback without await), and zero compiler errors. The focused run retains the existing software V-Sync and shutdown-only two-reference ObjectDB warnings. Earlier zero-warning reports below describe those earlier recorded runs, not this build.
+- See [runtime/registration guide](../50-worn-attachment-chains.md) and [wiki mechanic](../../source_material/game-wiki/worn-attachment-chains.html). Normal waist/front hook/pouch art is qualified; chest/crossed-belt, back attachment art, arbitrary provider artwork and world wardrobe composition remain unqualified.
+
 Verified October 26, 2026. This qualifies the [bounded inventory slice](../23-personal-inventory-prototype.md), not full STO-01–10, crafting, item weapons or automated logistics.
 
 Current ground inventory and physical piles (November 4):

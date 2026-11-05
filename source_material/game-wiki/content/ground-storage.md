@@ -25,3 +25,5 @@ World floor-item sprites/collision, spills, autonomous hauling, count-stack merg
 Floating inventory windows inside their parent object's illustration are a user-proposed production-UI direction. That layout is not implemented or finalized here. Its eventual controls should reuse the same item graph, validated access, physical closures and paid actions. The current debug browser and floor dock remain separate.
 
 Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [world](system-world.html), [body inspection](body-inspection.html), [worn backpacks](worn-backpack.html), [mount points](mount-points.html), [source/destination views](inventory-transfers.html), [ledger](status.html), [design library](documents.html).
+
+[Worn attachment chains](worn-attachment-chains.html) now render and alpha-pick the normal front belt → hook → pouch assembly through shared composed frames. Physical access, paid handling, independent trails and loaded ground transfers remain authoritative.

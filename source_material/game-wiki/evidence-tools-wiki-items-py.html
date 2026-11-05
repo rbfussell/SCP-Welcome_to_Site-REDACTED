@@ -203,12 +203,15 @@ def build_items(root, out, add):
         else:
             detail += &#x27;&lt;p&gt;Future bundle location: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. This is a migration target, not an existing relocated runtime asset.&lt;/p&gt;&#x27;
         detail += &#x27;&lt;h2&gt;Exact native definition&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d, indent=2)) + &#x27;&lt;/pre&gt;&lt;p&gt;&#x27; + link(&#x27;item-catalog.json&#x27;, &#x27;Machine-readable catalog and exact definitions&#x27;) + &#x27; · &#x27; + link(&#x27;doc-docs-46-item-asset-library-md.html&#x27;, &#x27;Naming and migration standard&#x27;) + &#x27;&lt;/p&gt;&#x27; + related
+        if attachment_bindings or binding and binding.get(&#x27;attachmentPlane&#x27;):
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Qualified worn belt/hook/pouch chains&#x27;) + &#x27;: shared composed frames, separate alpha targets and ordinary paid handling.&lt;/p&gt;&#x27;
         add(item_url(item), d[&#x27;name&#x27;] + &#x27; — item&#x27;, detail, &#x27;Item&#x27;, &#x27;Native prototype definition&#x27;, registry[&#x27;definitionSource&#x27;] + &#x27; #&#x27; + item)
         index[&#x27;items&#x27;][item] = {&#x27;url&#x27;: item_url(item), &#x27;category&#x27;: category, &#x27;capabilities&#x27;: traits, &#x27;definition&#x27;: d,
                                 &#x27;art&#x27;: {&#x27;url&#x27;: urls[item], &#x27;source&#x27;: images[item].relative_to(root).as_posix(), &#x27;region&#x27;: assets[item][&#x27;region&#x27;], &#x27;sha256&#x27;: hashes[images[item].relative_to(root).as_posix()]}, &#x27;paperdollBinding&#x27;: binding, &#x27;paperdollFrames&#x27;: registered, &#x27;paperdollAttachments&#x27;: attachment_bindings, &#x27;wornArt&#x27;: worn_assets, &#x27;futureBundle&#x27;: bundle, &#x27;bundleRegistration&#x27;: bundle_registration}
     body += &#x27;&lt;/div&gt;&lt;h2&gt;Capability views&lt;/h2&gt;&#x27;
     for trait in [&#x27;wearable&#x27;, &#x27;storage&#x27;, &#x27;attachment&#x27;, &#x27;mount-provider&#x27;]:
         body += &#x27;&lt;h3&gt;&#x27; + escape(trait) + &#x27;&lt;/h3&gt;&lt;p&gt;&#x27; + &#x27; · &#x27;.join(link(v[&#x27;url&#x27;], definitions[i][&#x27;name&#x27;]) for i, v in index[&#x27;items&#x27;].items() if trait in v[&#x27;capabilities&#x27;]) + &#x27;&lt;/p&gt;&#x27;
+    body += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Worn attachment chain qualification&#x27;) + &#x27; connects registered hook/pouch artwork to physical provider frames.&lt;/p&gt;&#x27;
     add(&#x27;items.html&#x27;, &#x27;Item catalog&#x27;, body + related, &#x27;Directory&#x27;, str(len(definitions)) + &#x27; native definitions&#x27;)
     for key, category in sorted(categories.items()):
         children = [c for c in categories if c.rsplit(&#x27;/&#x27;, 1)[0] == key and c != key]

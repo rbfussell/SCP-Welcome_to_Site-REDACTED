@@ -29,24 +29,31 @@ internal sealed partial class InventoryPaperdollArt
                 || frame.Parts[0].Destination[0] != 0 || frame.Parts[0].Destination[1] != 0 || frame.Parts[0].BackDestination is not null))
             throw new InvalidOperationException("Invalid bounded paperdoll attachment registration.");
     }
-    /// <summary>Read actual direct exterior children of a qualified worn provider; packed items and unqualified provider chains are not rendered.</summary>
+    /// <summary>Compose qualified exterior descendants in the worn root's plane; never render through an unsupported provider.</summary>
     private IEnumerable<PaperdollLayer> AttachedLayers(SpatialSimulation sim, InventoryItem owner, PaperdollBinding binding)
     {
         if (binding.AttachmentPlane is not { } plane) yield break;
         var state = sim.Inventory;
         var slot = state.Region(owner.Placement.ParentId, owner.Placement.RegionId).MountSlot;
         var mount = state.Definition(owner.Id).Wear!.Mounts.Single(m => m.Slot == slot);
-        foreach (var region in (state.Definition(owner.Id).Regions ?? []).Where(r => r.Attachment is not null))
-        foreach (var child in state.Children(owner.Id, region.Id).OrderBy(i => i.Id, StringComparer.Ordinal))
+        IEnumerable<PaperdollLayer> Children(InventoryItem provider, BodyPose parentPose, string inheritedSurface, int depth)
         {
-            if (child.Placement.AttachmentPose is not { } pose) continue;
-            var surface = region.Attachment!.Surface == "mounted" ? mount.BodySurface ?? "front" : region.Attachment.Surface;
-            var art = (_manifest.Attachments ?? []).SingleOrDefault(b => b.Definition == child.DefinitionId && b.Surface == surface);
-            if (art is null) continue;
-            var pixelOffset = new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * plane.CellPixels;
-            var origin = new Vector2(plane.Origin[0], plane.Origin[1]) + pixelOffset / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);
-            yield return new(child.Id, art.Column, new(origin, new(art.Anchor[0], art.Anchor[1]), pose.Rotation, surface));
+            if (depth >= InventoryHierarchy.MaxDepth) yield break;
+            foreach (var region in (state.Definition(provider.Id).Regions ?? []).Where(r => r.Attachment is not null))
+            foreach (var child in state.Children(provider.Id, region.Id).OrderBy(i => i.Id, StringComparer.Ordinal))
+            {
+                if (child.Placement.AttachmentPose is not { } local) continue;
+                var surface = region.Attachment!.Surface == "mounted" ? inheritedSurface : region.Attachment.Surface;
+                var art = (_manifest.Attachments ?? []).SingleOrDefault(b => b.Definition == child.DefinitionId && b.Surface == surface);
+                if (art is null) continue;
+                var pose = InventoryAttachmentFrames.Compose(parentPose, local);
+                var pixelOffset = new Vector2(pose.Q + pose.R * .5f, pose.R * .8660254f) * plane.CellPixels;
+                var origin = new Vector2(plane.Origin[0], plane.Origin[1]) + pixelOffset / new Vector2(_manifest.CanvasSize[0], _manifest.CanvasSize[1]);
+                yield return new(child.Id, art.Column, new(origin, new(art.Anchor[0], art.Anchor[1]), pose.Rotation, surface));
+                foreach (var nested in Children(child, pose, surface, depth + 1)) yield return nested;
+            }
         }
+        foreach (var layer in Children(owner, new(0, 0), mount.BodySurface ?? "front", 0)) yield return layer;
     }
     /// <summary>Own worn items and exterior descendants for honest omission reporting; never scan pocket contents as outfit.</summary>
     private static IEnumerable<InventoryItem> OwnExterior(SpatialSimulation sim)

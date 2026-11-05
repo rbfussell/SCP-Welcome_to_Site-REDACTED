@@ -1385,9 +1385,52 @@
         "sha256": "a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899"
       },
       "paperdollBinding": null,
-      "paperdollFrames": [],
-      "paperdollAttachments": [],
-      "wornArt": [],
+      "paperdollFrames": [
+        {
+          "column": 12,
+          "file": "../inventory-objects/utility-hook.png",
+          "parts": [
+            {
+              "front": [
+                357,
+                225,
+                422,
+                1091
+              ],
+              "back": [
+                357,
+                225,
+                422,
+                1091
+              ],
+              "destination": [
+                0,
+                0,
+                0.07306242998268662,
+                0.085
+              ]
+            }
+          ]
+        }
+      ],
+      "paperdollAttachments": [
+        {
+          "definition": "utility-hook",
+          "column": 12,
+          "anchor": [
+            0.36,
+            0.1
+          ],
+          "surface": "front"
+        }
+      ],
+      "wornArt": [
+        {
+          "file": "../inventory-objects/utility-hook.png",
+          "source": "game/Assets/inventory-objects/utility-hook.png",
+          "url": "assets/items/a4a80681b7b493ec1137e561857b8cbe07f26eba4a860658454e919448e0b899.png"
+        }
+      ],
       "futureBundle": "game/Assets/items/worn/accessories/hooks/utility-hook/",
       "bundleRegistration": null
     },

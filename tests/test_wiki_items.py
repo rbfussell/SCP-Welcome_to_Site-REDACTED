@@ -43,6 +43,9 @@ class ItemCatalogChecks(unittest.TestCase):
             self.assertNotIn('storage', index['items']['utility-hook']['capabilities'])
             self.assertTrue(index['items']['boots']['paperdollFrames'][0]['parts'][0]['frontWornCutouts'])
             self.assertEqual(index['items']['utility-pouch']['paperdollAttachments'][0]['surface'], 'front')
+            self.assertEqual(index['items']['utility-hook']['paperdollAttachments'][0]['anchor'], [.36, .1])
+            self.assertEqual(index['items']['utility-hook']['paperdollFrames'][0]['column'], 12)
+            self.assertIn('worn-attachment-chains.html', pages[index['items']['utility-hook']['url']][1])
             self.assertEqual(index['items']['utility-belt']['bundleRegistration']['status'], 'paperdoll-fixture-bundle')
             self.assertEqual(index['items']['utility-belt']['paperdollBinding']['attachmentPlane']['cellPixels'], 34)
             for entry in index['items'].values():

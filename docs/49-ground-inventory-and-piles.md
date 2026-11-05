@@ -41,3 +41,5 @@ This is a single-map inventory feature. It does not add world floor-item sprites
 ## Future interface direction
 
 The user proposes expanding an inspected object's inventory as a floating internal window within its parent's view. This is a future production-UI consideration, not a debug-mode implementation or a finalized replacement for the current three-pane browser. The goal is intuitive access to nested objects with less navigation friction. Placement, access, pile obstruction, closure state, time/AP and identity must remain simulation services so another window layout can reuse them. The permanent floor dock is independent of those inspection trails.
+
+Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.

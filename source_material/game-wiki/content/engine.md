@@ -44,13 +44,13 @@ The project baseline pins Godot .NET 4.7.1 and .NET SDK 8.0.128. These are repos
 
 [Body inspection/removal](body-inspection.html) exposes only own worn material through a read-only surface query. Front/back camera changes do no physical work; selected source IDs enter existing paid item transactions with normal access and commitment validation.
 
-[Full-body sprite qualification](full-body-paperdoll.html) now composes eight direct wearable definitions and a bounded direct-pouch binding over actual worn state and paid fastening/removal. The original underwear profile changed kit identity without changing its then-current schema 14; ground support now writes schema 15. Explicit omitted gear and unchanged baked world sprites distinguish this art fixture from the future complete wardrobe pipeline.
+[Full-body sprite qualification](full-body-paperdoll.html) now composes eight direct wearable definitions and [bounded hook/pouch exterior bindings](worn-attachment-chains.html) over actual worn state and paid fastening/removal. The original underwear profile changed kit identity without changing its then-current schema 14; ground support now writes schema 15. Explicit omitted gear and unchanged baked world sprites distinguish this art fixture from the future complete wardrobe pipeline.
 
 Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html) now covers the base groin beneath real clothing. The current accepted reference is shirtless with close-fitting tan fabric briefs, replacing the painted undershirt/loose shorts. The earlier featureless mannequin request remains unimplemented. Physical equipment and access rules are unchanged.
 
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
-[Worn waist belt/direct pouch](worn-belt-and-pouch.html) extend the qualified sprite subset to eight wearable definitions and one exterior binding. They read the existing graph without changing physical fit, native content identity or schema.
+[Worn waist belt/direct pouch](worn-belt-and-pouch.html) extend the qualified sprite subset to eight wearable definitions; the [worn-chain follow-up](worn-attachment-chains.html) now supplies two exterior bindings for hook and pouch. They read the existing graph without changing physical fit, native content identity or schema.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
 
