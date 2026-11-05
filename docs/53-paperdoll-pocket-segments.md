@@ -44,7 +44,7 @@ The segment takes precedence over the part's `dropRegion`: a closed/full side po
 
 The simulation-domain pocket/access/closure/packing services, native definitions, physical masks, kit identity and save schema **15** are unchanged. UI segments/highlights are reconstructed from presentation registration. World characters still use baked art.
 
-Qualified registrations are the front jacket chest pocket, front trouser hip/cargo pockets and backpack main/side on the actual bag side. Shirt pockets, rear trouser pockets, additional backpack compartments beyond main/side, arbitrary body variants, animated flaps, automatic source segmentation and world wardrobe composition remain future work. Each later segment must link to an actual region and respect the same access/closure/handling rules.
+Qualified registrations are the front jacket chest pocket, front trouser hip/cargo pockets and backpack main/side on the actual bag side. Rear trouser pockets, additional backpack compartments beyond main/side, arbitrary body variants, animated flaps, automatic source segmentation and world wardrobe composition remain future work. Each later segment must link to an actual region and respect the same access/closure/handling rules.
 
 ```sh
 python3 tools/run_spatial_scene.py --pack-pocket-smoke work/preview/spatial-scene/pack-pocket.png
@@ -54,3 +54,5 @@ python3 -m unittest discover -s tests -p test_wiki_items.py
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+Current [shirt-pocket/badge follow-up](54-shirt-pockets-and-badge.md) adds two real shirt compartments, a clip and a separate badge, with new source art and new immutable kit identity. Earlier unchanged-content claims describe prior pocket-registration slices.

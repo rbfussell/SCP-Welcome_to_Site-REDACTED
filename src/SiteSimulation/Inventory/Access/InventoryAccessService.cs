@@ -29,6 +29,11 @@ internal static class InventoryAccessService
             if (state.Items.TryGetValue(id, out var owner) && InventoryGround.Covering(state, owner).FirstOrDefault() is { } cover)
                 return new(false, state.Name(owner.Id) + " is covered by " + state.Name(cover.Id) + "; move covering items first");
             var region = state.Region(id, regionId);
+            if (region.Attachment is { RequiresExposedAccess: true } support)
+            {
+                var contact = InventoryAttachmentExposure.Check(state, id, region, support.Cells);
+                if (!contact.Allowed) return contact;
+            }
             var coverage = InventoryWear.Compartment(state, id, region);
             if (!coverage.Allowed) return coverage;
             if (!state.IsOpen(id, regionId)) return new(false, region.Name + " is closed");

@@ -1,8 +1,8 @@
 namespace SiteSimulation;
 
 /// <summary>Hexes are local to the support item, independent of square packing and the worn body pose.</summary>
-public sealed record AttachmentSurface(string Interface, BodyHex[] Cells, string Surface = "mounted");
-public sealed record AttachmentProfile(string Interface, BodyHex[] Occupancy, BodyHex[] Contacts);
+public sealed record AttachmentSurface(string Interface, BodyHex[] Cells, string Surface = "mounted", bool RequiresExposedAccess = false);
+public sealed record AttachmentProfile(string Interface, BodyHex[] Occupancy, BodyHex[] Contacts, bool CanBeCovered = false);
 public sealed record AttachmentPreview(InventoryActionQuote Handling, InventoryRequest Request);
 
 public static class InventoryAttachments
@@ -36,7 +36,7 @@ public static class InventoryAttachments
             throw new ArgumentException("Attachment contacts must sit on the support surface.");
         var exposure = InventoryAttachmentExposure.Check(state, p.ParentId, state.Region(p.ParentId, p.RegionId),
             profile.Contacts.Select(c => BodyFitGeometry.Transform(c, pose)));
-        if (!exposure.Allowed) throw new ArgumentException(exposure.Reason);
+        if (!profile.CanBeCovered && !exposure.Allowed) throw new ArgumentException(exposure.Reason);
         var occupied = Occupancy(state, item).ToHashSet();
         if (state.Children(p.ParentId, p.RegionId).Any(other => other.Id != item.Id && Occupancy(state, other).Any(occupied.Contains)))
             throw new ArgumentException("Attachment overlaps equipment already mounted on this surface.");

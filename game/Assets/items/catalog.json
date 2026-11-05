@@ -151,6 +151,11 @@
       "path": "medical/dressings",
       "name": "Dressings",
       "representativeItem": "dressing"
+    },
+    {
+      "path": "worn/accessories/badges",
+      "name": "Identification badges",
+      "representativeItem": "personnel-badge"
     }
   ],
   "items": {
@@ -210,6 +215,9 @@
     },
     "underwear": {
       "category": "worn/clothing/underwear"
+    },
+    "personnel-badge": {
+      "category": "worn/accessories/badges"
     }
   }
 }

@@ -40,8 +40,8 @@ internal static class InventoryChecks
             "each attachable native object has an explicit mounting illustration");
         foreach (var mount in mountArt.EnumerateObject())
         {
-            Check(registered.Contains(mount.Name) && sim.Inventory.Content.Definitions.Single(d => d.Id == mount.Name).Attachment is not null,
-                "mount registration references an actual attachable sprite");
+            Check(registered.Contains(mount.Name) && (sim.Inventory.Content.Definitions.Single(d => d.Id == mount.Name) is { } def && (def.Attachment is not null || def.Regions?.Any(r => r.Attachment is not null) == true)),
+                "mount registration references an actual attachable or provider sprite");
             var anchor = mount.Value.GetProperty("anchor").EnumerateArray().Select(v => v.GetDouble()).ToArray();
             Check(anchor.Length == 2 && anchor.All(v => double.IsFinite(v) && v >= 0 && v <= 1), "mounted anchor lies on the registered source image");
             var height = mount.Value.GetProperty("height").GetDouble(); var rotation = mount.Value.GetProperty("rotationDegrees").GetDouble();
@@ -73,7 +73,7 @@ internal static class InventoryChecks
                     : definition.Regions?.Any(r => r.Id == region.GetString()) == true, "each illustrated hotspot binds a real fastening or compartment");
             }
         }
-        Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 39, "explicit native profile loads unique physical items");
+        Check(sim.Inventory.Enabled && sim.Inventory.DiagnosticItems.Count == 40, "explicit native profile loads unique physical items");
         Check(sim.InventoryRoots.Count == 2 && sim.InventoryRoots[0].ActorId == sim.Player.Id && sim.InventoryRoots[1].GroundCell is not null,
             "UI roots include own equipment and current ground, excluding remote fixtures and other personnel");
         Check(sim.InventoryContents("gum-packet", "pieces").Count == 6, "fine-scale packet contains six individual pieces");

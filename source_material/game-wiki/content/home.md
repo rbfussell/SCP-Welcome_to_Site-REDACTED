@@ -40,3 +40,5 @@ SCP-1499 is the planned second demonstration. SCP-019 tests the infrastructure d
 **Implemented** means there is current native code, not that a production milestone has passed. **Planned** means a documented requirement or proposed contract. **Reference only** means an article informs a design without an adopted playable module. Check pages link to existing verification sources; their presence does not mean those checks were freshly run by this documentation build.
 
 Use the search field to find pages by designation, system, function, or source path. Every document and function has a separate URL, so links can be shared with a person or another coding agent.
+
+- [Shirt pockets and detachable badge](shirt-pockets-and-badge.html): two real compartments, clip mounting, covered access and the future visible-credential rule.

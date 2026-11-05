@@ -27,7 +27,7 @@ Occupancy(state, other).Any</pre></details><h2>Candidate incoming calls</h2><ul>
             throw new ArgumentException(&quot;Attachment contacts must sit on the support surface.&quot;);
         var exposure = InventoryAttachmentExposure.Check(state, p.ParentId, state.Region(p.ParentId, p.RegionId),
             profile.Contacts.Select(c =&gt; BodyFitGeometry.Transform(c, pose)));
-        if (!exposure.Allowed) throw new ArgumentException(exposure.Reason);
+        if (!profile.CanBeCovered &amp;&amp; !exposure.Allowed) throw new ArgumentException(exposure.Reason);
         var occupied = Occupancy(state, item).ToHashSet();
         if (state.Children(p.ParentId, p.RegionId).Any(other =&gt; other.Id != item.Id &amp;&amp; Occupancy(state, other).Any(occupied.Contains)))
             throw new ArgumentException(&quot;Attachment overlaps equipment already mounted on this surface.&quot;);

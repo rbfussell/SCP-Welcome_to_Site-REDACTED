@@ -601,7 +601,90 @@
             &quot;core:rigid-shell&quot;
           ]
         }
-      }
+      },
+      &quot;regions&quot;: [
+        {
+          &quot;id&quot;: &quot;chest-left&quot;,
+          &quot;name&quot;: &quot;Left shirt chest pocket&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 4,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 20,
+          &quot;maxMassGrams&quot;: 300,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 300,
+          &quot;accessAp&quot;: 1,
+          &quot;accessBody&quot;: [
+            &quot;torso-front&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Button&quot;,
+          &quot;openVerb&quot;: &quot;Unbutton&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: 0,
+                  &quot;r&quot;: 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          &quot;id&quot;: &quot;chest-right&quot;,
+          &quot;name&quot;: &quot;Right shirt chest pocket&quot;,
+          &quot;columns&quot;: 3,
+          &quot;rows&quot;: 4,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 20,
+          &quot;maxMassGrams&quot;: 300,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 300,
+          &quot;accessAp&quot;: 1,
+          &quot;accessBody&quot;: [
+            &quot;torso-front&quot;
+          ],
+          &quot;secureVerb&quot;: &quot;Button&quot;,
+          &quot;openVerb&quot;: &quot;Unbutton&quot;,
+          &quot;secureOnClose&quot;: true,
+          &quot;accessFootprint&quot;: [
+            {
+              &quot;surface&quot;: &quot;front&quot;,
+              &quot;cells&quot;: [
+                {
+                  &quot;q&quot;: -2,
+                  &quot;r&quot;: 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          &quot;id&quot;: &quot;badge-clip&quot;,
+          &quot;name&quot;: &quot;Left chest badge clip&quot;,
+          &quot;columns&quot;: 1,
+          &quot;rows&quot;: 1,
+          &quot;cellMm&quot;: 25,
+          &quot;heightMm&quot;: 10,
+          &quot;maxMassGrams&quot;: 100,
+          &quot;equipmentReady&quot;: true,
+          &quot;accessMs&quot;: 250,
+          &quot;accessAp&quot;: 1,
+          &quot;attachment&quot;: {
+            &quot;interface&quot;: &quot;badge-clip&quot;,
+            &quot;surface&quot;: &quot;front&quot;,
+            &quot;cells&quot;: [
+              {
+                &quot;q&quot;: 0,
+                &quot;r&quot;: 2
+              }
+            ],
+            &quot;requiresExposedAccess&quot;: true
+          }
+        }
+      ]
     },
     {
       &quot;id&quot;: &quot;socks&quot;,
@@ -959,6 +1042,35 @@
           &quot;maxUnderBulk&quot;: 0,
           &quot;fitsOver&quot;: []
         }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;personnel-badge&quot;,
+      &quot;name&quot;: &quot;Personnel identification badge&quot;,
+      &quot;widthMm&quot;: 50,
+      &quot;lengthMm&quot;: 75,
+      &quot;thicknessMm&quot;: 5,
+      &quot;massGrams&quot;: 20,
+      &quot;tags&quot;: [
+        &quot;badge&quot;
+      ],
+      &quot;handleMs&quot;: 400,
+      &quot;handleAp&quot;: 1,
+      &quot;attachment&quot;: {
+        &quot;interface&quot;: &quot;badge-clip&quot;,
+        &quot;occupancy&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          }
+        ],
+        &quot;contacts&quot;: [
+          {
+            &quot;q&quot;: 0,
+            &quot;r&quot;: 0
+          }
+        ],
+        &quot;canBeCovered&quot;: true
       }
     }
   ],
@@ -1913,6 +2025,16 @@
         &quot;regionId&quot;: &quot;underwear&quot;,
         &quot;wornOrder&quot;: 1
       }
+    },
+    {
+      &quot;id&quot;: &quot;personnel-badge&quot;,
+      &quot;definitionId&quot;: &quot;personnel-badge&quot;,
+      &quot;placement&quot;: {
+        &quot;parentId&quot;: &quot;spare-backpack&quot;,
+        &quot;regionId&quot;: &quot;main&quot;,
+        &quot;x&quot;: 0,
+        &quot;y&quot;: 0
+      }
     }
   ],
   &quot;regions&quot;: [
@@ -2049,6 +2171,16 @@
     {
       &quot;itemId&quot;: &quot;utility-pouch-2&quot;,
       &quot;regionId&quot;: &quot;inside&quot;,
+      &quot;open&quot;: false
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-shirt&quot;,
+      &quot;regionId&quot;: &quot;chest-left&quot;,
+      &quot;open&quot;: false
+    },
+    {
+      &quot;itemId&quot;: &quot;avatar-shirt&quot;,
+      &quot;regionId&quot;: &quot;chest-right&quot;,
       &quot;open&quot;: false
     }
   ]

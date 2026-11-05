@@ -66,3 +66,5 @@ Earlier November 4 presentation slice: [worn waist belt and direct pouch](47-wor
 Current transfer follow-up: [independent source/destination views](48-independent-inventory-transfers.md) allow dragging a stored hook or pouch directly onto the belt/provider without staging it in the single hand. Choosing destination gear retains the accessible source compartment; source checks, costs, fit and loaded continuation remain unchanged. The original hand-staged procedure above remains valid.
 
 Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.
+
+Current [shirt badge follow-up](54-shirt-pockets-and-badge.md) distinguishes an item allowed to remain covered (`CanBeCovered`) from a support requiring exposed manipulation (`RequiresExposedAccess`). Defaults preserve existing hook/pouch behavior; no door credential system is added.

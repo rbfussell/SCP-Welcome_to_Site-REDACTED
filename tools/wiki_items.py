@@ -203,8 +203,10 @@ def build_items(root, out, add):
         else:
             detail += '<p>Future bundle location: <code>' + escape(bundle) + '</code>. This is a migration target, not an existing relocated runtime asset.</p>'
         detail += '<h2>Exact native definition</h2><pre>' + escape(json.dumps(d, indent=2)) + '</pre><p>' + link('item-catalog.json', 'Machine-readable catalog and exact definitions') + ' · ' + link('doc-docs-46-item-asset-library-md.html', 'Naming and migration standard') + '</p>' + related
-        if attachment_bindings or binding and binding.get('attachmentPlane'):
+        if item in {'utility-belt', 'utility-hook', 'utility-pouch'} and (attachment_bindings or binding and binding.get('attachmentPlane')):
             detail += '<p>' + link('worn-attachment-chains.html', 'Qualified worn belt/hook/pouch chains') + ': shared composed frames, separate alpha targets and ordinary paid handling.</p>'
+        if item in {'shirt', 'personnel-badge'}:
+            detail += '<p>' + link('shirt-pockets-and-badge.html', 'Shirt pockets and detachable badge') + ': real compartments and clip mounting; credential door access remains planned.</p>'
         if any(part.get('pockets') for frame in registered for part in frame['parts']):
             detail += '<p>' + link('paperdoll-pocket-segments.html', 'Paperdoll pocket segments') + ': source-local contours link the illustrated pocket to its real compartment and fastening.</p>'
         if any(part.get('dropRegion') for frame in registered for part in frame['parts']):

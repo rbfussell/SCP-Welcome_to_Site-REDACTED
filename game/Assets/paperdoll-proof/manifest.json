@@ -34,6 +34,14 @@
     "../inventory-objects/utility-hook.png": [
       1024,
       1536
+    ],
+    "../items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png": [
+      1774,
+      887
+    ],
+    "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png": [
+      1086,
+      1448
     ]
   },
   "frames": [
@@ -65,26 +73,80 @@
     },
     {
       "column": 1,
-      "file": "upper-body.png",
+      "file": "../items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
       "parts": [
         {
           "front": [
-            512,
-            80,
-            310,
-            400
+            110,
+            115,
+            735,
+            630
           ],
           "back": [
-            512,
-            480,
-            310,
-            407
+            935,
+            115,
+            735,
+            630
           ],
           "destination": [
             0,
-            0.02,
+            0.18,
             1,
-            0.575
+            0.335
+          ],
+          "pockets": [
+            {
+              "region": "chest-right",
+              "side": "front",
+              "polygon": [
+                [
+                  0.275,
+                  0.33
+                ],
+                [
+                  0.435,
+                  0.33
+                ],
+                [
+                  0.435,
+                  0.55
+                ],
+                [
+                  0.3,
+                  0.55
+                ],
+                [
+                  0.275,
+                  0.52
+                ]
+              ]
+            },
+            {
+              "region": "chest-left",
+              "side": "front",
+              "polygon": [
+                [
+                  0.565,
+                  0.33
+                ],
+                [
+                  0.725,
+                  0.33
+                ],
+                [
+                  0.725,
+                  0.52
+                ],
+                [
+                  0.7,
+                  0.55
+                ],
+                [
+                  0.565,
+                  0.55
+                ]
+              ]
+            }
           ]
         }
       ]
@@ -969,6 +1031,33 @@
           ]
         }
       ]
+    },
+    {
+      "column": 13,
+      "file": "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+      "parts": [
+        {
+          "front": [
+            220,
+            80,
+            620,
+            1280
+          ],
+          "back": [
+            220,
+            80,
+            620,
+            1280
+          ],
+          "destination": [
+            0,
+            0,
+            0.085,
+            0.065
+          ],
+          "side": "front"
+        }
+      ]
     }
   ],
   "bindings": [
@@ -988,7 +1077,14 @@
           0.36,
           0.33
         ]
-      ]
+      ],
+      "attachmentPlane": {
+        "origin": [
+          0.5,
+          0.21
+        ],
+        "cellPixels": 34
+      }
     },
     {
       "definition": "coat",
@@ -1154,6 +1250,15 @@
       "anchor": [
         0.36,
         0.1
+      ],
+      "surface": "front"
+    },
+    {
+      "definition": "personnel-badge",
+      "column": 13,
+      "anchor": [
+        0.5,
+        0
       ],
       "surface": "front"
     }

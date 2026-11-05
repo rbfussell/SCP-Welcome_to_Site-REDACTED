@@ -203,8 +203,10 @@ def build_items(root, out, add):
         else:
             detail += &#x27;&lt;p&gt;Future bundle location: &lt;code&gt;&#x27; + escape(bundle) + &#x27;&lt;/code&gt;. This is a migration target, not an existing relocated runtime asset.&lt;/p&gt;&#x27;
         detail += &#x27;&lt;h2&gt;Exact native definition&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d, indent=2)) + &#x27;&lt;/pre&gt;&lt;p&gt;&#x27; + link(&#x27;item-catalog.json&#x27;, &#x27;Machine-readable catalog and exact definitions&#x27;) + &#x27; · &#x27; + link(&#x27;doc-docs-46-item-asset-library-md.html&#x27;, &#x27;Naming and migration standard&#x27;) + &#x27;&lt;/p&gt;&#x27; + related
-        if attachment_bindings or binding and binding.get(&#x27;attachmentPlane&#x27;):
+        if item in {&#x27;utility-belt&#x27;, &#x27;utility-hook&#x27;, &#x27;utility-pouch&#x27;} and (attachment_bindings or binding and binding.get(&#x27;attachmentPlane&#x27;)):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Qualified worn belt/hook/pouch chains&#x27;) + &#x27;: shared composed frames, separate alpha targets and ordinary paid handling.&lt;/p&gt;&#x27;
+        if item in {&#x27;shirt&#x27;, &#x27;personnel-badge&#x27;}:
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;shirt-pockets-and-badge.html&#x27;, &#x27;Shirt pockets and detachable badge&#x27;) + &#x27;: real compartments and clip mounting; credential door access remains planned.&lt;/p&gt;&#x27;
         if any(part.get(&#x27;pockets&#x27;) for frame in registered for part in frame[&#x27;parts&#x27;]):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;paperdoll-pocket-segments.html&#x27;, &#x27;Paperdoll pocket segments&#x27;) + &#x27;: source-local contours link the illustrated pocket to its real compartment and fastening.&lt;/p&gt;&#x27;
         if any(part.get(&#x27;dropRegion&#x27;) for frame in registered for part in frame[&#x27;parts&#x27;]):

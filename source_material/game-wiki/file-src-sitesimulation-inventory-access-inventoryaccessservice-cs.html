@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Access/InventoryAccessService.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryAccessService.cs</h1><p>src/SiteSimulation/Inventory/Access/InventoryAccessService.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryaccessservice.html">InventoryAccessService</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-b61199fcb2a8f5b67c99.html">InventoryAccessService.Root</a> · line 5</li><li><a href="function-c73f14ce3f6b0fb09b43.html">InventoryAccessService.Placement</a> · line 18</li><li><a href="function-4e92a76c2f9a8667f2c2.html">InventoryAccessService.Capability</a> · line 47</li><li><a href="function-408d2f745838a4aa2ecb.html">InventoryAccessService.HandlingMs</a> · line 50</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/Inventory/Access/InventoryAccessService.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>InventoryAccessService.cs</h1><p>src/SiteSimulation/Inventory/Access/InventoryAccessService.cs</p><p><a href="system-inventory.html">Physical inventory, clothing and body fit</a></p><h2>Types</h2><ul><li><a href="type-inventoryaccessservice.html">InventoryAccessService</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-b61199fcb2a8f5b67c99.html">InventoryAccessService.Root</a> · line 5</li><li><a href="function-c73f14ce3f6b0fb09b43.html">InventoryAccessService.Placement</a> · line 18</li><li><a href="function-4e92a76c2f9a8667f2c2.html">InventoryAccessService.Capability</a> · line 52</li><li><a href="function-408d2f745838a4aa2ecb.html">InventoryAccessService.HandlingMs</a> · line 55</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> namespace SiteSimulation;</span>
 <span id="L2"><a class="line" href="#L2">2</a> </span>
 <span id="L3"><a class="line" href="#L3">3</a> internal static class InventoryAccessService</span>
 <span id="L4"><a class="line" href="#L4">4</a> {</span>
@@ -29,32 +29,37 @@
 <span id="L29"><a class="line" href="#L29">29</a>             if (state.Items.TryGetValue(id, out var owner) &amp;&amp; InventoryGround.Covering(state, owner).FirstOrDefault() is { } cover)</span>
 <span id="L30"><a class="line" href="#L30">30</a>                 return new(false, state.Name(owner.Id) + &quot; is covered by &quot; + state.Name(cover.Id) + &quot;; move covering items first&quot;);</span>
 <span id="L31"><a class="line" href="#L31">31</a>             var region = state.Region(id, regionId);</span>
-<span id="L32"><a class="line" href="#L32">32</a>             var coverage = InventoryWear.Compartment(state, id, region);</span>
-<span id="L33"><a class="line" href="#L33">33</a>             if (!coverage.Allowed) return coverage;</span>
-<span id="L34"><a class="line" href="#L34">34</a>             if (!state.IsOpen(id, regionId)) return new(false, region.Name + &quot; is closed&quot;);</span>
-<span id="L35"><a class="line" href="#L35">35</a>             if (equipment &amp;&amp; !region.EquipmentReady) return new(false, region.Name + &quot; is packed storage; move equipment to an accessible pocket or hand&quot;);</span>
-<span id="L36"><a class="line" href="#L36">36</a>             var root = state.FindRoot(id);</span>
-<span id="L37"><a class="line" href="#L37">37</a>             if (root is not null)</span>
-<span id="L38"><a class="line" href="#L38">38</a>             {</span>
-<span id="L39"><a class="line" href="#L39">39</a>                 if (equipment &amp;&amp; root.ActorId != actorId) return new(false, &quot;Equipment is not carried by this person&quot;);</span>
-<span id="L40"><a class="line" href="#L40">40</a>                 return Root(world, actorId, root);</span>
-<span id="L41"><a class="line" href="#L41">41</a>             }</span>
-<span id="L42"><a class="line" href="#L42">42</a>             var parent = state.Items[id];</span>
-<span id="L43"><a class="line" href="#L43">43</a>             id = parent.Placement.ParentId; regionId = parent.Placement.RegionId;</span>
-<span id="L44"><a class="line" href="#L44">44</a>         }</span>
-<span id="L45"><a class="line" href="#L45">45</a>         return new(false, &quot;Inventory hierarchy is too deep&quot;);</span>
-<span id="L46"><a class="line" href="#L46">46</a>     }</span>
-<span id="L47"><a class="line" href="#L47">47</a>     public static bool Capability(SimulationWorld world, string actorId, string capability) =&gt; world.Inventory.Enabled</span>
-<span id="L48"><a class="line" href="#L48">48</a>         &amp;&amp; world.Inventory.Items.Values.Any(i =&gt; world.Inventory.Definition(i.Id).Capability == capability &amp;&amp; i.Powered &amp;&amp; i.Condition &gt; 0</span>
-<span id="L49"><a class="line" href="#L49">49</a>             &amp;&amp; Placement(world, actorId, i.Placement, true).Allowed);</span>
-<span id="L50"><a class="line" href="#L50">50</a>     public static int HandlingMs(InventoryState state, ItemPlacement placement)</span>
-<span id="L51"><a class="line" href="#L51">51</a>     {</span>
-<span id="L52"><a class="line" href="#L52">52</a>         var total = 0;</span>
-<span id="L53"><a class="line" href="#L53">53</a>         while (true)</span>
-<span id="L54"><a class="line" href="#L54">54</a>         {</span>
-<span id="L55"><a class="line" href="#L55">55</a>             total += state.Region(placement.ParentId, placement.RegionId).AccessMs;</span>
-<span id="L56"><a class="line" href="#L56">56</a>             if (!state.Items.TryGetValue(placement.ParentId, out var parent)) return total;</span>
-<span id="L57"><a class="line" href="#L57">57</a>             placement = parent.Placement;</span>
-<span id="L58"><a class="line" href="#L58">58</a>         }</span>
-<span id="L59"><a class="line" href="#L59">59</a>     }</span>
-<span id="L60"><a class="line" href="#L60">60</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L32"><a class="line" href="#L32">32</a>             if (region.Attachment is { RequiresExposedAccess: true } support)</span>
+<span id="L33"><a class="line" href="#L33">33</a>             {</span>
+<span id="L34"><a class="line" href="#L34">34</a>                 var contact = InventoryAttachmentExposure.Check(state, id, region, support.Cells);</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 if (!contact.Allowed) return contact;</span>
+<span id="L36"><a class="line" href="#L36">36</a>             }</span>
+<span id="L37"><a class="line" href="#L37">37</a>             var coverage = InventoryWear.Compartment(state, id, region);</span>
+<span id="L38"><a class="line" href="#L38">38</a>             if (!coverage.Allowed) return coverage;</span>
+<span id="L39"><a class="line" href="#L39">39</a>             if (!state.IsOpen(id, regionId)) return new(false, region.Name + &quot; is closed&quot;);</span>
+<span id="L40"><a class="line" href="#L40">40</a>             if (equipment &amp;&amp; !region.EquipmentReady) return new(false, region.Name + &quot; is packed storage; move equipment to an accessible pocket or hand&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>             var root = state.FindRoot(id);</span>
+<span id="L42"><a class="line" href="#L42">42</a>             if (root is not null)</span>
+<span id="L43"><a class="line" href="#L43">43</a>             {</span>
+<span id="L44"><a class="line" href="#L44">44</a>                 if (equipment &amp;&amp; root.ActorId != actorId) return new(false, &quot;Equipment is not carried by this person&quot;);</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 return Root(world, actorId, root);</span>
+<span id="L46"><a class="line" href="#L46">46</a>             }</span>
+<span id="L47"><a class="line" href="#L47">47</a>             var parent = state.Items[id];</span>
+<span id="L48"><a class="line" href="#L48">48</a>             id = parent.Placement.ParentId; regionId = parent.Placement.RegionId;</span>
+<span id="L49"><a class="line" href="#L49">49</a>         }</span>
+<span id="L50"><a class="line" href="#L50">50</a>         return new(false, &quot;Inventory hierarchy is too deep&quot;);</span>
+<span id="L51"><a class="line" href="#L51">51</a>     }</span>
+<span id="L52"><a class="line" href="#L52">52</a>     public static bool Capability(SimulationWorld world, string actorId, string capability) =&gt; world.Inventory.Enabled</span>
+<span id="L53"><a class="line" href="#L53">53</a>         &amp;&amp; world.Inventory.Items.Values.Any(i =&gt; world.Inventory.Definition(i.Id).Capability == capability &amp;&amp; i.Powered &amp;&amp; i.Condition &gt; 0</span>
+<span id="L54"><a class="line" href="#L54">54</a>             &amp;&amp; Placement(world, actorId, i.Placement, true).Allowed);</span>
+<span id="L55"><a class="line" href="#L55">55</a>     public static int HandlingMs(InventoryState state, ItemPlacement placement)</span>
+<span id="L56"><a class="line" href="#L56">56</a>     {</span>
+<span id="L57"><a class="line" href="#L57">57</a>         var total = 0;</span>
+<span id="L58"><a class="line" href="#L58">58</a>         while (true)</span>
+<span id="L59"><a class="line" href="#L59">59</a>         {</span>
+<span id="L60"><a class="line" href="#L60">60</a>             total += state.Region(placement.ParentId, placement.RegionId).AccessMs;</span>
+<span id="L61"><a class="line" href="#L61">61</a>             if (!state.Items.TryGetValue(placement.ParentId, out var parent)) return total;</span>
+<span id="L62"><a class="line" href="#L62">62</a>             placement = parent.Placement;</span>
+<span id="L63"><a class="line" href="#L63">63</a>         }</span>
+<span id="L64"><a class="line" href="#L64">64</a>     }</span>
+<span id="L65"><a class="line" href="#L65">65</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

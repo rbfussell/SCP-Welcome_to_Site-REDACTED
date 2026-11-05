@@ -78,6 +78,12 @@ public partial class SpatialScene
             panel.Inspect("medical-case"); Check(panel.InspectedContainers.Count == 0, "Hidden case bypassed parent inspection.");
             await InventoryCapture("-paperdoll");
             InventoryClick(panel.EngineeringSlots.GetGlobalRect().GetCenter()); await InventoryFrames();
+            if (OS.GetCmdlineUserArgs().Contains("--shirt-pocket-smoke"))
+            {
+                sim.ManualPause = true; sim.Player.Cell = new(13, 6);
+                InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
+                await RunPaperdollShirtSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             if (OS.GetCmdlineUserArgs().Contains("--pack-pocket-smoke"))
             {
                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);

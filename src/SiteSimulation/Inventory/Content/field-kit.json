@@ -601,7 +601,90 @@
             "core:rigid-shell"
           ]
         }
-      }
+      },
+      "regions": [
+        {
+          "id": "chest-left",
+          "name": "Left shirt chest pocket",
+          "columns": 3,
+          "rows": 4,
+          "cellMm": 25,
+          "heightMm": 20,
+          "maxMassGrams": 300,
+          "equipmentReady": true,
+          "accessMs": 300,
+          "accessAp": 1,
+          "accessBody": [
+            "torso-front"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "chest-right",
+          "name": "Right shirt chest pocket",
+          "columns": 3,
+          "rows": 4,
+          "cellMm": 25,
+          "heightMm": 20,
+          "maxMassGrams": 300,
+          "equipmentReady": true,
+          "accessMs": 300,
+          "accessAp": 1,
+          "accessBody": [
+            "torso-front"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -2,
+                  "r": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "badge-clip",
+          "name": "Left chest badge clip",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 25,
+          "heightMm": 10,
+          "maxMassGrams": 100,
+          "equipmentReady": true,
+          "accessMs": 250,
+          "accessAp": 1,
+          "attachment": {
+            "interface": "badge-clip",
+            "surface": "front",
+            "cells": [
+              {
+                "q": 0,
+                "r": 2
+              }
+            ],
+            "requiresExposedAccess": true
+          }
+        }
+      ]
     },
     {
       "id": "socks",
@@ -959,6 +1042,35 @@
           "maxUnderBulk": 0,
           "fitsOver": []
         }
+      }
+    },
+    {
+      "id": "personnel-badge",
+      "name": "Personnel identification badge",
+      "widthMm": 50,
+      "lengthMm": 75,
+      "thicknessMm": 5,
+      "massGrams": 20,
+      "tags": [
+        "badge"
+      ],
+      "handleMs": 400,
+      "handleAp": 1,
+      "attachment": {
+        "interface": "badge-clip",
+        "occupancy": [
+          {
+            "q": 0,
+            "r": 0
+          }
+        ],
+        "contacts": [
+          {
+            "q": 0,
+            "r": 0
+          }
+        ],
+        "canBeCovered": true
       }
     }
   ],
@@ -1913,6 +2025,16 @@
         "regionId": "underwear",
         "wornOrder": 1
       }
+    },
+    {
+      "id": "personnel-badge",
+      "definitionId": "personnel-badge",
+      "placement": {
+        "parentId": "spare-backpack",
+        "regionId": "main",
+        "x": 0,
+        "y": 0
+      }
     }
   ],
   "regions": [
@@ -2049,6 +2171,16 @@
     {
       "itemId": "utility-pouch-2",
       "regionId": "inside",
+      "open": false
+    },
+    {
+      "itemId": "avatar-shirt",
+      "regionId": "chest-left",
+      "open": false
+    },
+    {
+      "itemId": "avatar-shirt",
+      "regionId": "chest-right",
       "open": false
     }
   ]

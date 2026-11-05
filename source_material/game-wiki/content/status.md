@@ -31,7 +31,7 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 
 November 4 footwear follow-up: [worn-only alpha masks](worn-alpha-masks.html) qualify source-preserving front/back shoe cutouts. Rendering and picking share derived worn alpha; packing/drag art and physical access remain independent.
 
-November 4 authoring follow-up: [the item catalog](items.html) indexes all 19 native definitions under 30 type categories with representative artwork, current stats, explicit missing-art coverage and raw data. [Asset bundle organization](asset-library.html) documents future per-item directories and view/state mask names; runtime atlases have not moved.
+November 4 authoring follow-up: [the item catalog](items.html) indexed the then-current 19 native definitions under 30 type categories with representative artwork, current stats, explicit missing-art coverage and raw data. [Asset bundle organization](asset-library.html) documents future per-item directories and view/state mask names; runtime atlases have not moved.
 
 November 4 belt follow-up: [waist belt/direct pouch sprites](worn-belt-and-pouch.html) add an eighth direct wearable binding and a bounded exterior attachment binding. Normal provider coordinates, six rotations, validated inspection and loaded paid removal remain authoritative; non-waist fits remain omitted. The [worn hook-chain follow-up](worn-attachment-chains.html) now adds the front nested chain. The item catalog now exposes qualified attachment art and worn source sheets.
 
@@ -44,3 +44,5 @@ November 4 ground follow-up: [ground storage and piles](ground-storage.html) add
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
 
 [Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's front chest pocket and all four front trouser compartments: contour hover, snug/unsealable hip inspection, paid cargo opening, pocket-specific actions and ordinary storage. Jacket coverage still blocks hips while leaving lower cargo accessible. Backpack main/side contours now follow the mounted bag side with independent Zip/Buckle actions; other unregistered compartments and animation remain future work.
+
+[Shirt pockets and detachable badge](shirt-pockets-and-badge.html) add two buttoned chest compartments and a real clip-mounted badge. Covered retention and manipulation are separate; this changes native kit identity to 20 definitions/40 instances while retaining schema 15. Visible-badge automatic entry is selected design; door credential services are not implemented.

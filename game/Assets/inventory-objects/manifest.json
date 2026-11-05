@@ -225,19 +225,19 @@
     },
     {
       "id": "shirt",
-      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-9d323ac4-165a-4e95-9f9e-137fdc679a11.png",
-      "subject": "a single muted grey long-sleeved cotton work shirt, sleeves down, front view, empty unworn garment",
-      "prompt": "Game asset: transparent inventory object sprite for a detailed isometric RPG with the material-rich pixel texture and shaded volume of classic Fallout 2. Subject: a single muted grey long-sleeved cotton work shirt, sleeves down, front view, empty unworn garment. Exactly one inventory item, fully visible, centered with transparent margin, upright longitudinal axis vertical, lighting from upper left. Detailed visibly pixelated bitmap treatment at gameplay scale, restrained realistic colours, readable silhouette. This is the actual object, never a card, badge, tile, coloured rectangle or pictogram. No frame, background, floor, shadow outside silhouette, hands, characters, text, UI, watermark, glow or exploded view. Opaque object interior and genuinely transparent background.",
-      "file": "shirt.png",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-5e5c8305-0f17-4861-a6df-8a00c6a8c754.png",
+      "subject": "Burgundy work shirt with two buttoned chest pockets",
+      "prompt": "Two buttoned chest pockets on reference burgundy work shirt, front/back sprite sheet. Built-in imagegen; see docs/54-shirt-pockets-and-badge.md.",
+      "file": "../items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
       "size": [
-        1312,
-        1199
+        1774,
+        887
       ],
       "region": [
-        114,
-        60,
-        1085,
-        1087
+        110,
+        115,
+        735,
+        630
       ],
       "alphaExtrema": [
         0,
@@ -387,6 +387,27 @@
         0,
         254
       ]
+    },
+    {
+      "id": "personnel-badge",
+      "file": "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+      "size": [
+        1086,
+        1448
+      ],
+      "region": [
+        220,
+        80,
+        620,
+        1280
+      ],
+      "subject": "Personnel badge and spring clip",
+      "prompt": "Single worn white personnel identification badge with spring clip, visibly pixelated, transparent alpha.",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-a48abe91-dfff-4f4a-a3da-08045727b096.png"
     }
   ],
   "attachmentIllustrations": {
@@ -403,6 +424,26 @@
       "anchor": [
         0.36,
         0.1
+      ],
+      "rotationDegrees": 0
+    },
+    "shirt": {
+      "height": 250,
+      "anchor": [
+        0.5,
+        0.026
+      ],
+      "rotationDegrees": 0,
+      "providerOrigin": [
+        0.5,
+        0.08
+      ]
+    },
+    "personnel-badge": {
+      "height": 50,
+      "anchor": [
+        0.5,
+        0
       ],
       "rotationDegrees": 0
     }

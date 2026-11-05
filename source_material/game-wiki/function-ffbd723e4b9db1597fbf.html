@@ -16,8 +16,9 @@ binding.Value.Deserialize&lt;MountIllustration&gt;
 Textures.ContainsKey
 float.IsFinite
 profile.Anchor.Any
+origin.Any
 Math.Abs
-MountIllustrations.Add</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-a155034e04e63e955f0d.html">InventoryArt.Opaque</a></li><li><a href="function-b3ce4b4279b2a1c2ebb0.html">InventoryArt.HasMountIllustration</a></li><li><a href="function-b4bf1a028af6af225fc4.html">InventoryArt.MountedLayout</a></li><li><a href="function-b8207662c8611c8c70c0.html">InventoryPaperdollArt.InventoryPaperdollArt</a></li><li><a href="function-d1bb1d910d7a5beaffe4.html">WorldView._Ready</a></li><li><a href="function-fe9dff7ca9bc3a714ba5.html">InventoryArt.GetLayout</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart-mountillustration.html">MountIllustration</a></li><li><a href="type-inventoryart.html">InventoryArt</a></li></ul><h2>Implementation</h2><pre><code>private static void Load()
+MountIllustrations.Add</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-17adc4627e658766833e.html">InventoryArt.ProviderOrigin</a></li><li><a href="function-a155034e04e63e955f0d.html">InventoryArt.Opaque</a></li><li><a href="function-b3ce4b4279b2a1c2ebb0.html">InventoryArt.HasMountIllustration</a></li><li><a href="function-b4bf1a028af6af225fc4.html">InventoryArt.MountedLayout</a></li><li><a href="function-b8207662c8611c8c70c0.html">InventoryPaperdollArt.InventoryPaperdollArt</a></li><li><a href="function-d1bb1d910d7a5beaffe4.html">WorldView._Ready</a></li><li><a href="function-fe9dff7ca9bc3a714ba5.html">InventoryArt.GetLayout</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventoryart-mountillustration.html">MountIllustration</a></li><li><a href="type-inventoryart.html">InventoryArt</a></li></ul><h2>Implementation</h2><pre><code>private static void Load()
     {
         if (_loaded) return;
         using var json = JsonDocument.Parse(Godot.FileAccess.GetFileAsString(&quot;res://Assets/inventory-objects/manifest.json&quot;));
@@ -32,6 +33,7 @@ MountIllustrations.Add</pre></details><h2>Candidate incoming calls</h2><ul><li><
             var profile = binding.Value.Deserialize&lt;MountIllustration&gt;(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
             if (profile is null || !Textures.ContainsKey(binding.Name) || !float.IsFinite(profile.Height) || profile.Height is &lt;= 0 or &gt; 256
                 || profile.Anchor is not { Length: 2 } || profile.Anchor.Any(v =&gt; !float.IsFinite(v) || v is &lt; 0 or &gt; 1)
+                || profile.ProviderOrigin is { } origin &amp;&amp; (origin.Length != 2 || origin.Any(v =&gt; !float.IsFinite(v) || v is &lt; 0 or &gt; 1))
                 || !float.IsFinite(profile.RotationDegrees) || Math.Abs(profile.RotationDegrees) &gt; 360)
                 throw new InvalidOperationException(&quot;Invalid mounted illustration: &quot; + binding.Name);
             MountIllustrations.Add(binding.Name, profile);

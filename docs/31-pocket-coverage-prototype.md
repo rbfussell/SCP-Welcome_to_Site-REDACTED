@@ -85,3 +85,5 @@ These trousers’ `left`/`right` hip openings are **unsealable and snug**: `Seal
 November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pocket-segments.md) add one authored front contour in both jacket states, with normal paid opening, pocket-specific fastening and existing packing. Earlier body-pocket-as-future statements are superseded for this one segment; other pockets and animation remain unqualified.
 
 November 5 trouser follow-up: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#trouser-extension) now extend to all four front trouser compartments. The same hip/cargo coverage and fastening distinctions apply directly on visible worn artwork; rear painted pockets remain unregistered. This supersedes the preceding one-segment-only presentation limit.
+
+Current [shirt-pocket/badge follow-up](54-shirt-pockets-and-badge.md) adds paired front shirt mouths and a coverable badge whose clip still requires exposed access. The new kit identity supersedes earlier content counts; schema 15 remains current.

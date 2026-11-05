@@ -13,7 +13,7 @@ public partial class InventoryGearSurface
     internal bool HasAttachmentSurface => Panel.Simulation.Inventory.Definition(ItemId).Regions?.Any(r => r.Attachment is not null) == true;
     private bool MountedProviderArt => HasAttachmentSurface && InventoryArt.HasMountIllustration(DefinitionId);
     internal AttachmentPreview? MountPreview { get; private set; }
-    private Vector2 MountOrigin => Size / 2;
+    private Vector2 MountOrigin => InventoryArt.ProviderOrigin(DefinitionId, Size);
     private const float MountStep = 44;
     private const float MountRadius = MountStep / 1.7320508f;
     private Vector2 MountPoint(BodyHex cell) => MountOrigin + new Vector2(cell.Q + cell.R * .5f, cell.R * .8660254f) * MountStep;

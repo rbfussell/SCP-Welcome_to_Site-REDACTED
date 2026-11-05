@@ -40,8 +40,8 @@ internal static class InventoryChecks
             &quot;each attachable native object has an explicit mounting illustration&quot;);
         foreach (var mount in mountArt.EnumerateObject())
         {
-            Check(registered.Contains(mount.Name) &amp;&amp; sim.Inventory.Content.Definitions.Single(d =&gt; d.Id == mount.Name).Attachment is not null,
-                &quot;mount registration references an actual attachable sprite&quot;);
+            Check(registered.Contains(mount.Name) &amp;&amp; (sim.Inventory.Content.Definitions.Single(d =&gt; d.Id == mount.Name) is { } def &amp;&amp; (def.Attachment is not null || def.Regions?.Any(r =&gt; r.Attachment is not null) == true)),
+                &quot;mount registration references an actual attachable or provider sprite&quot;);
             var anchor = mount.Value.GetProperty(&quot;anchor&quot;).EnumerateArray().Select(v =&gt; v.GetDouble()).ToArray();
             Check(anchor.Length == 2 &amp;&amp; anchor.All(v =&gt; double.IsFinite(v) &amp;&amp; v &gt;= 0 &amp;&amp; v &lt;= 1), &quot;mounted anchor lies on the registered source image&quot;);
             var height = mount.Value.GetProperty(&quot;height&quot;).GetDouble(); var rotation = mount.Value.GetProperty(&quot;rotationDegrees&quot;).GetDouble();
@@ -73,7 +73,7 @@ internal static class InventoryChecks
                     : definition.Regions?.Any(r =&gt; r.Id == region.GetString()) == true, &quot;each illustrated hotspot binds a real fastening or compartment&quot;);
             }
         }
-        Check(sim.Inventory.Enabled &amp;&amp; sim.Inventory.DiagnosticItems.Count == 39, &quot;explicit native profile loads unique physical items&quot;);
+        Check(sim.Inventory.Enabled &amp;&amp; sim.Inventory.DiagnosticItems.Count == 40, &quot;explicit native profile loads unique physical items&quot;);
         Check(sim.InventoryRoots.Count == 2 &amp;&amp; sim.InventoryRoots[0].ActorId == sim.Player.Id &amp;&amp; sim.InventoryRoots[1].GroundCell is not null,
             &quot;UI roots include own equipment and current ground, excluding remote fixtures and other personnel&quot;);
         Check(sim.InventoryContents(&quot;gum-packet&quot;, &quot;pieces&quot;).Count == 6, &quot;fine-scale packet contains six individual pieces&quot;);

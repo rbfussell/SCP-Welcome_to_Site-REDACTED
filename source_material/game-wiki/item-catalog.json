@@ -148,6 +148,11 @@
       "path": "medical/dressings",
       "name": "Dressings",
       "representativeItem": "dressing"
+    },
+    {
+      "path": "worn/accessories/badges",
+      "name": "Identification badges",
+      "representativeItem": "personnel-badge"
     }
   ],
   "items": {
@@ -1217,6 +1222,103 @@
       "futureBundle": "game/Assets/items/equipment/training/weight/",
       "bundleRegistration": null
     },
+    "personnel-badge": {
+      "url": "item-personnel-badge.html",
+      "category": "worn/accessories/badges",
+      "capabilities": [
+        "attachment"
+      ],
+      "definition": {
+        "id": "personnel-badge",
+        "name": "Personnel identification badge",
+        "widthMm": 50,
+        "lengthMm": 75,
+        "thicknessMm": 5,
+        "massGrams": 20,
+        "tags": [
+          "badge"
+        ],
+        "handleMs": 400,
+        "handleAp": 1,
+        "attachment": {
+          "interface": "badge-clip",
+          "occupancy": [
+            {
+              "q": 0,
+              "r": 0
+            }
+          ],
+          "contacts": [
+            {
+              "q": 0,
+              "r": 0
+            }
+          ],
+          "canBeCovered": true
+        }
+      },
+      "art": {
+        "url": "assets/items/c217907e89fe97074242465832ec83e1581756b71d43c7c88c880a4f55f262fd.png",
+        "source": "game/Assets/items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+        "region": [
+          220,
+          80,
+          620,
+          1280
+        ],
+        "sha256": "c217907e89fe97074242465832ec83e1581756b71d43c7c88c880a4f55f262fd"
+      },
+      "paperdollBinding": null,
+      "paperdollFrames": [
+        {
+          "column": 13,
+          "file": "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+          "parts": [
+            {
+              "front": [
+                220,
+                80,
+                620,
+                1280
+              ],
+              "back": [
+                220,
+                80,
+                620,
+                1280
+              ],
+              "destination": [
+                0,
+                0,
+                0.085,
+                0.065
+              ],
+              "side": "front"
+            }
+          ]
+        }
+      ],
+      "paperdollAttachments": [
+        {
+          "definition": "personnel-badge",
+          "column": 13,
+          "anchor": [
+            0.5,
+            0
+          ],
+          "surface": "front"
+        }
+      ],
+      "wornArt": [
+        {
+          "file": "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+          "source": "game/Assets/items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png",
+          "url": "assets/items/c217907e89fe97074242465832ec83e1581756b71d43c7c88c880a4f55f262fd.png"
+        }
+      ],
+      "futureBundle": "game/Assets/items/worn/accessories/badges/personnel-badge/",
+      "bundleRegistration": null
+    },
     "phone": {
       "url": "item-phone.html",
       "category": "equipment/communications/phones",
@@ -2252,7 +2354,9 @@
       "url": "item-shirt.html",
       "category": "worn/clothing/shirts",
       "capabilities": [
-        "wearable"
+        "wearable",
+        "storage",
+        "mount-provider"
       ],
       "definition": {
         "id": "shirt",
@@ -2293,18 +2397,101 @@
               "core:rigid-shell"
             ]
           }
-        }
+        },
+        "regions": [
+          {
+            "id": "chest-left",
+            "name": "Left shirt chest pocket",
+            "columns": 3,
+            "rows": 4,
+            "cellMm": 25,
+            "heightMm": 20,
+            "maxMassGrams": 300,
+            "equipmentReady": true,
+            "accessMs": 300,
+            "accessAp": 1,
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": 0,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "chest-right",
+            "name": "Right shirt chest pocket",
+            "columns": 3,
+            "rows": 4,
+            "cellMm": 25,
+            "heightMm": 20,
+            "maxMassGrams": 300,
+            "equipmentReady": true,
+            "accessMs": 300,
+            "accessAp": 1,
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -2,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "badge-clip",
+            "name": "Left chest badge clip",
+            "columns": 1,
+            "rows": 1,
+            "cellMm": 25,
+            "heightMm": 10,
+            "maxMassGrams": 100,
+            "equipmentReady": true,
+            "accessMs": 250,
+            "accessAp": 1,
+            "attachment": {
+              "interface": "badge-clip",
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 2
+                }
+              ],
+              "requiresExposedAccess": true
+            }
+          }
+        ]
       },
       "art": {
-        "url": "assets/items/3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552.png",
-        "source": "game/Assets/inventory-objects/shirt.png",
+        "url": "assets/items/81c0321f3d5739af3943cecf7104fa6524c09a909c7c2ea6a2200acdc9982f59.png",
+        "source": "game/Assets/items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
         "region": [
-          114,
-          60,
-          1085,
-          1087
+          110,
+          115,
+          735,
+          630
         ],
-        "sha256": "3755da3f7cec633ba017bf6ceb07928a79e632b40a2875f1b56bfc1d3aa4c552"
+        "sha256": "81c0321f3d5739af3943cecf7104fa6524c09a909c7c2ea6a2200acdc9982f59"
       },
       "paperdollBinding": {
         "definition": "shirt",
@@ -2322,31 +2509,92 @@
             0.36,
             0.33
           ]
-        ]
+        ],
+        "attachmentPlane": {
+          "origin": [
+            0.5,
+            0.21
+          ],
+          "cellPixels": 34
+        }
       },
       "paperdollFrames": [
         {
           "column": 1,
-          "file": "upper-body.png",
+          "file": "../items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
           "parts": [
             {
               "front": [
-                512,
-                80,
-                310,
-                400
+                110,
+                115,
+                735,
+                630
               ],
               "back": [
-                512,
-                480,
-                310,
-                407
+                935,
+                115,
+                735,
+                630
               ],
               "destination": [
                 0,
-                0.02,
+                0.18,
                 1,
-                0.575
+                0.335
+              ],
+              "pockets": [
+                {
+                  "region": "chest-right",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.275,
+                      0.33
+                    ],
+                    [
+                      0.435,
+                      0.33
+                    ],
+                    [
+                      0.435,
+                      0.55
+                    ],
+                    [
+                      0.3,
+                      0.55
+                    ],
+                    [
+                      0.275,
+                      0.52
+                    ]
+                  ]
+                },
+                {
+                  "region": "chest-left",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.565,
+                      0.33
+                    ],
+                    [
+                      0.725,
+                      0.33
+                    ],
+                    [
+                      0.725,
+                      0.52
+                    ],
+                    [
+                      0.7,
+                      0.55
+                    ],
+                    [
+                      0.565,
+                      0.55
+                    ]
+                  ]
+                }
               ]
             }
           ]
@@ -2355,9 +2603,9 @@
       "paperdollAttachments": [],
       "wornArt": [
         {
-          "file": "upper-body.png",
-          "source": "game/Assets/paperdoll-proof/upper-body.png",
-          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+          "file": "../items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
+          "source": "game/Assets/items/worn/clothing/shirts/work-shirt/work-shirt.paperdoll-v2.png",
+          "url": "assets/items/81c0321f3d5739af3943cecf7104fa6524c09a909c7c2ea6a2200acdc9982f59.png"
         }
       ],
       "futureBundle": "game/Assets/items/worn/clothing/shirts/shirt/",

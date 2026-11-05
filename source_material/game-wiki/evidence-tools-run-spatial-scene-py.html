@@ -26,6 +26,7 @@ def main():
     parser.add_argument(&#x27;--smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run scripted Godot input/render checks and save a screenshot.&#x27;)
     parser.add_argument(&#x27;--operation-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run the orders/OSCP input and render fixture.&#x27;)
     parser.add_argument(&#x27;--inventory-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run realtime packing, rotation, nested inspection and inventory input/render checks.&#x27;)
+    parser.add_argument(&#x27;--shirt-pocket-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run two shirt pockets and the physical badge clip checks.&#x27;)
     parser.add_argument(&#x27;--pack-pocket-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run only worn backpack main/side segment input and closure checks.&#x27;)
     parser.add_argument(&#x27;--pocket-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run paperdoll jacket/trouser/backpack pocket segments, coverage, paid opening and storage checks.&#x27;)
     parser.add_argument(&#x27;--worn-storage-smoke&#x27;, type=Path, metavar=&#x27;PNG&#x27;, help=&#x27;Run worn bag/pouch sprite storage targets and normal packing checks.&#x27;)
@@ -43,13 +44,13 @@ def main():
     oscp_smoke = args.oscp_smoke
     if oscp_smoke:
         args.mode = &quot;oscp&quot;
-    if args.mode != &#x27;local&#x27; and any((args.smoke, args.operation_smoke, args.combat_smoke, args.inventory_smoke, args.pocket_smoke, args.pack_pocket_smoke, args.worn_storage_smoke, args.sprite_drop_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)):
+    if args.mode != &#x27;local&#x27; and any((args.smoke, args.operation_smoke, args.combat_smoke, args.inventory_smoke, args.pocket_smoke, args.pack_pocket_smoke, args.shirt_pocket_smoke, args.worn_storage_smoke, args.sprite_drop_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)):
         parser.error(&#x27;Use --oscp-smoke for standalone device checks, or --mode local for spatial checks.&#x27;)
     operation_smoke = args.operation_smoke
     combat_smoke = args.combat_smoke
-    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke, args.oscp_smoke, args.inventory_smoke, args.pocket_smoke, args.pack_pocket_smoke, args.worn_storage_smoke, args.sprite_drop_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)) &gt; 1:
+    if sum(bool(v) for v in (args.check, args.smoke, args.operation_smoke, args.combat_smoke, args.oscp_smoke, args.inventory_smoke, args.pocket_smoke, args.pack_pocket_smoke, args.shirt_pocket_smoke, args.worn_storage_smoke, args.sprite_drop_smoke, args.ground_smoke, args.transfer_smoke, args.hook_smoke, args.body_drop_smoke, args.paperdoll_smoke)) &gt; 1:
         parser.error(&#x27;Choose one check or smoke mode.&#x27;)
-    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke or args.oscp_smoke or args.inventory_smoke or args.pocket_smoke or args.pack_pocket_smoke or args.worn_storage_smoke or args.sprite_drop_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke
+    args.smoke = args.smoke or args.operation_smoke or args.combat_smoke or args.oscp_smoke or args.inventory_smoke or args.pocket_smoke or args.pack_pocket_smoke or args.shirt_pocket_smoke or args.worn_storage_smoke or args.sprite_drop_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke
     if not shutil.which(&#x27;dotnet&#x27;):
         raise SystemExit(&#x27;Install the .NET SDK selected in global.json first.&#x27;)
     godot = args.godot or shutil.which(&#x27;godot-dotnet&#x27;)
@@ -97,8 +98,10 @@ def main():
             output = args.smoke.resolve()
             output.parent.mkdir(parents=True, exist_ok=True)
             command += [&#x27;--audio-driver&#x27;, &#x27;Dummy&#x27;, &#x27;--&#x27;, &#x27;--oscp-smoke&#x27; if oscp_smoke else &#x27;--scene-smoke&#x27;, str(output)]
-            if args.inventory_smoke or args.pocket_smoke or args.pack_pocket_smoke or args.worn_storage_smoke or args.sprite_drop_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke:
+            if args.inventory_smoke or args.pocket_smoke or args.pack_pocket_smoke or args.shirt_pocket_smoke or args.worn_storage_smoke or args.sprite_drop_smoke or args.ground_smoke or args.transfer_smoke or args.hook_smoke or args.body_drop_smoke or args.paperdoll_smoke:
                 command += [&#x27;--inventory-smoke&#x27;]
+            if args.shirt_pocket_smoke:
+                command += [&#x27;--shirt-pocket-smoke&#x27;]
             if args.pack_pocket_smoke:
                 command += [&#x27;--pack-pocket-smoke&#x27;]
             if args.pocket_smoke:

@@ -8,7 +8,7 @@ internal static class InventoryArt
 {
     private static readonly Dictionary<string, AtlasTexture> Textures = [];
     private static readonly Dictionary<string, Image> Images = [];
-    private sealed record MountIllustration(float Height, float[] Anchor, float RotationDegrees);
+    private sealed record MountIllustration(float Height, float[] Anchor, float RotationDegrees, float[]? ProviderOrigin = null);
     private static readonly Dictionary<string, MountIllustration> MountIllustrations = [];
     private static bool _loaded;
     private static void Load()
@@ -26,6 +26,7 @@ internal static class InventoryArt
             var profile = binding.Value.Deserialize<MountIllustration>(new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
             if (profile is null || !Textures.ContainsKey(binding.Name) || !float.IsFinite(profile.Height) || profile.Height is <= 0 or > 256
                 || profile.Anchor is not { Length: 2 } || profile.Anchor.Any(v => !float.IsFinite(v) || v is < 0 or > 1)
+                || profile.ProviderOrigin is { } origin && (origin.Length != 2 || origin.Any(v => !float.IsFinite(v) || v is < 0 or > 1))
                 || !float.IsFinite(profile.RotationDegrees) || Math.Abs(profile.RotationDegrees) > 360)
                 throw new InvalidOperationException("Invalid mounted illustration: " + binding.Name);
             MountIllustrations.Add(binding.Name, profile);
@@ -91,6 +92,11 @@ internal static class InventoryArt
     }
     internal static Vector2 ProjectMount(string id, int rotation, Vector2 source) => MountedLayout(id, rotation).Project(source);
     internal static Vector2 UnprojectMount(string id, int rotation, Vector2 point) => MountedLayout(id, rotation).Unproject(point);
+    internal static Vector2 ProviderOrigin(string id, Vector2 size)
+    {
+        Load(); return MountIllustrations.TryGetValue(id, out var profile) && profile.ProviderOrigin is { } p
+            ? new Vector2(p[0], p[1]) * size : size / 2;
+    }
     internal static bool HasMountIllustration(string id) { Load(); return MountIllustrations.ContainsKey(id); }
     internal static void DrawMount(Control canvas, string id, Vector2 origin, int rotation, float opacity, bool highlight = false)
     {
