@@ -52,11 +52,12 @@ public partial class InventoryPaperdollSurface : Control
 {
     public InventoryPaperdollProof Proof { get; set; } = null!;
     internal string? Hovered { get; private set; }
+    internal PaperdollStorageTarget? HoveredPocket { get; private set; }
     private string? _pressedItem;
     private Shader? _cutoutShader;
     private ShaderMaterial? _cutoutMaterial;
     internal string? Pick(Vector2 at) => Proof.Art.Pick(Proof.Panel.Simulation, Proof.Side, Size, at);
-    internal void ClearHover() { ClearDrop(); _pressedItem = null; Hovered = null; TooltipText = ""; MouseDefaultCursorShape = CursorShape.Arrow; QueueRedraw(); }
+    internal void ClearHover() { ClearDrop(); _pressedItem = null; HoveredPocket = null; Hovered = null; TooltipText = ""; MouseDefaultCursorShape = CursorShape.Arrow; QueueRedraw(); }
     public override void _Ready() { MouseFilter = MouseFilterEnum.Stop; ClipContents = true;
         _cutoutShader = new Shader { Code = "shader_type canvas_item; void fragment() { if (COLOR.a <= 0.1) { discard; } }" };
         _cutoutMaterial = new ShaderMaterial { Shader = _cutoutShader }; Material = _cutoutMaterial;
@@ -66,19 +67,35 @@ public partial class InventoryPaperdollSurface : Control
     {
         if (!IsVisibleInTree() || GetViewport().GuiGetHoveredControl() != this || GetViewport().GuiIsDragging()) return;
         Hovered = Pick(GetLocalMousePosition());
+        HoveredPocket = Proof.Art.StorageTarget(Proof.Panel.Simulation, Proof.Side, Size, GetLocalMousePosition()) is { Pocket: not null } pocket ? pocket : null;
         TooltipText = Hovered is { } id ? Proof.Panel.Describe(id) + "\n" + Proof.Panel.Simulation.InventoryMoveAccess(id).Reason : "Reference body / visual mosaic or transparent space.";
+        if (HoveredPocket is { } target)
+            TooltipText = Proof.Panel.Simulation.Inventory.Region(target.Owner, target.Region).Name
+                + (Proof.Panel.Simulation.Inventory.IsOpen(target.Owner, target.Region) ? " · open" : " · secured")
+                + "\n" + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + "\nDouble-click opens · right-click fastening actions";
+        QueueRedraw();
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }
     public override void _Draw()
-    { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem, StorageTarget, StoragePreview?.Allowed == true);
-        if (DropPreview is { } drop) Proof.Art.DrawDrop(this, Proof.Side, drop); }
+    {
+        var hover = Proof.Panel.DragItemId is null ? HoveredPocket : null;
+        Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, hover is null ? Hovered : null, Proof.Panel.SelectedItem, StorageTarget ?? hover,
+            StorageTarget is not null ? StoragePreview?.Allowed == true : hover is { } pocket && Proof.Panel.Simulation.InventoryPocketCoverage(pocket.Owner, pocket.Region)?.Covered != true);
+        if (DropPreview is { } drop) Proof.Art.DrawDrop(this, Proof.Side, drop);
+    }
     public override void _GuiInput(InputEvent e)
     {
         if (e is not InputEventMouseButton mouse) return;
         if (mouse.ButtonIndex == MouseButton.Left) _pressedItem = mouse.Pressed ? Pick(mouse.Position) : null;
         if (!mouse.Pressed || Pick(mouse.Position) is not { } id) return;
-        if (mouse.ButtonIndex == MouseButton.Left) { _pressedItem = id; Proof.Panel.Select(id); if (mouse.DoubleClick) Proof.Panel.Inspect(id); }
-        else if (mouse.ButtonIndex == MouseButton.Right) Proof.Panel.Context(id, null, GetGlobalMousePosition());
+        var target = Proof.Art.StorageTarget(Proof.Panel.Simulation, Proof.Side, Size, mouse.Position);
+        var region = target?.Pocket is not null ? target.Region : null;
+        if (mouse.ButtonIndex == MouseButton.Left)
+        {
+            _pressedItem = id; Proof.Panel.Select(id);
+            if (mouse.DoubleClick) { Proof.Panel.Inspect(id); if (region is not null) Proof.Panel.OpenCompartment(id, region); }
+        }
+        else if (mouse.ButtonIndex == MouseButton.Right) Proof.Panel.Context(id, region, GetGlobalMousePosition());
         AcceptEvent();
     }
     public override void _Notification(int what)

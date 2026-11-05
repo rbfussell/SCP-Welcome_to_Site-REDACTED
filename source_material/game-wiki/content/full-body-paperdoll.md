@@ -10,7 +10,7 @@ The [normal waist belt/direct pouch](worn-belt-and-pouch.html) extends this to e
 
 Source alpha, layering, optional per-part front/back selection and the same letterbox transform govern drawing, tint and picking. The backpack harness is drawn behind its mounted-side bag at the same shoulder scale as the opposite view. Transparent gaps/padding do not acquire cell fills or rectangular targets. The fixture's alpha cutoff stays 0.1; it is not a production material policy. Foreground head/neck or hair keeps collars behind the head. Qualified long sleeves use authored base-body cutouts to prevent stand-in arm/shoulder clipping. These suppress only the reference body, never real gear or physical cover, and are not a general transparent/torn-cloth solver.
 
-[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Direct body pocket segments, arbitrary attachment artwork/strap poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
+[The native view](file-game-presentation-inventory-inventorypaperdollproof-cs.html) selects/inspects/opens normal context actions. Shoe removal reveals socks; sock removal reveals feet after paid completion. [Hex fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [inspection/removal](body-inspection.html) and [mount providers](mount-points.html) remain separate authorities. Other body pocket segments, arbitrary attachment artwork/strap poses, all body variants and world wardrobe composition remain future work. Unsupported worn gear is explicitly omitted.
 
 ## Base garment and honest visual fallback
 
@@ -44,3 +44,5 @@ Current floor/persistence follow-up: [ground inventory and piles](ground-storage
 [Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.
 
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
+
+[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's real front chest pocket in open/closed art: contour hover, paid double-click opening, pocket-specific fastening and ordinary storage. Other body pocket registrations remain future work.

@@ -31,3 +31,5 @@ Related: [item directory](items.html), [inventory](system-inventory.html), [pres
 [Worn attachment chains](worn-attachment-chains.html) now render and alpha-pick the normal front belt → hook → pouch assembly through shared composed frames. Physical access, paid handling, independent trails and loaded ground transfers remain authoritative.
 
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
+
+[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's real front chest pocket in open/closed art: contour hover, paid double-click opening, pocket-specific fastening and ordinary storage. Other body pocket registrations remain future work.

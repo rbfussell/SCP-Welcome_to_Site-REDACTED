@@ -35,3 +35,5 @@ The [item asset library standard](../../../docs/46-item-asset-library.md) links 
 [Sprite equipment drops](../../../docs/51-sprite-equipment-drops.md) register an optional twenty-row `bodyPlane` for hidden logical hex picking over the reference artwork. This approximate presentation projection does not modify physical fit masks or source PNGs.
 
 [Worn container drops](../../../docs/52-worn-container-drops.md) add optional per-part `dropRegion` links: backpack bag parts → `main`, pouch → `inside`, harness parts → none. The current part alpha/side/transform selects a real interior; source PNGs remain unchanged and capacity/closures stay authoritative.
+
+[Paperdoll pocket segments](../../../docs/53-paperdoll-pocket-segments.md) add source-local front `chest` polygons to closed/open coat parts. These hand-authored contours only bind an existing region; they neither create physical pockets nor modify source PNGs.

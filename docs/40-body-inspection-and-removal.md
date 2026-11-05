@@ -49,3 +49,5 @@ The focused body launcher now runs both incoming fit drops and inspection/remova
 The complete character-matched paperdoll, general wardrobe alpha presentation, world clothing composition, body attachment targets and general visual/material transparency remain future work. The separate full-body sprite proof qualifies only its explicitly documented reference-body/default-pose subset. This slice adds no SCP canon or anomalous behavior.
 
 Current November 4 follow-up: [sprite equipment drops](51-sprite-equipment-drops.md) add free body-hex fitting, exposed provider targets and worn-sprite drag sources. Earlier sprite-drop-as-future statements describe the earlier slice. Normal physical checks and schema-15 paid continuation remain authoritative; arbitrary fitted artwork remains unqualified.
+
+November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pocket-segments.md) add one authored front contour in both jacket states, with normal paid opening, pocket-specific fastening and existing packing. Earlier body-pocket-as-future statements are superseded for this one segment; other pockets and animation remain unqualified.

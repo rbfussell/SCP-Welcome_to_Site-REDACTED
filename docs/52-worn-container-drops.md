@@ -33,3 +33,5 @@ python3 -m unittest discover -s tests -p test_wiki_items.py
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pocket-segments.md) add one authored front contour in both jacket states, with normal paid opening, pocket-specific fastening and existing packing. Earlier body-pocket-as-future statements are superseded for this one segment; other pockets and animation remain unqualified.

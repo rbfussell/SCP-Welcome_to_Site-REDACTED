@@ -205,6 +205,8 @@ def build_items(root, out, add):
         detail += &#x27;&lt;h2&gt;Exact native definition&lt;/h2&gt;&lt;pre&gt;&#x27; + escape(json.dumps(d, indent=2)) + &#x27;&lt;/pre&gt;&lt;p&gt;&#x27; + link(&#x27;item-catalog.json&#x27;, &#x27;Machine-readable catalog and exact definitions&#x27;) + &#x27; · &#x27; + link(&#x27;doc-docs-46-item-asset-library-md.html&#x27;, &#x27;Naming and migration standard&#x27;) + &#x27;&lt;/p&gt;&#x27; + related
         if attachment_bindings or binding and binding.get(&#x27;attachmentPlane&#x27;):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Qualified worn belt/hook/pouch chains&#x27;) + &#x27;: shared composed frames, separate alpha targets and ordinary paid handling.&lt;/p&gt;&#x27;
+        if any(part.get(&#x27;pockets&#x27;) for frame in registered for part in frame[&#x27;parts&#x27;]):
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;paperdoll-pocket-segments.html&#x27;, &#x27;Paperdoll pocket segments&#x27;) + &#x27;: source-local contours link the illustrated pocket to its real compartment and fastening.&lt;/p&gt;&#x27;
         if any(part.get(&#x27;dropRegion&#x27;) for frame in registered for part in frame[&#x27;parts&#x27;]):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-container-drops.html&#x27;, &#x27;Worn container drop targets&#x27;) + &#x27;: visible registered material uses ordinary paid packing and real compartment access.&lt;/p&gt;&#x27;
         add(item_url(item), d[&#x27;name&#x27;] + &#x27; — item&#x27;, detail, &#x27;Item&#x27;, &#x27;Native prototype definition&#x27;, registry[&#x27;definitionSource&#x27;] + &#x27; #&#x27; + item)
@@ -215,6 +217,7 @@ def build_items(root, out, add):
         body += &#x27;&lt;h3&gt;&#x27; + escape(trait) + &#x27;&lt;/h3&gt;&lt;p&gt;&#x27; + &#x27; · &#x27;.join(link(v[&#x27;url&#x27;], definitions[i][&#x27;name&#x27;]) for i, v in index[&#x27;items&#x27;].items() if trait in v[&#x27;capabilities&#x27;]) + &#x27;&lt;/p&gt;&#x27;
     body += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Worn attachment chain qualification&#x27;) + &#x27; connects registered hook/pouch artwork to physical provider frames.&lt;/p&gt;&#x27;
     body += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-container-drops.html&#x27;, &#x27;Worn container drops&#x27;) + &#x27; connects bag/pouch part registrations to ordinary compartment handling.&lt;/p&gt;&#x27;
+    body += &#x27;&lt;p&gt;&#x27; + link(&#x27;paperdoll-pocket-segments.html&#x27;, &#x27;Paperdoll pocket segments&#x27;) + &#x27; connects registered clothing contours to real compartments.&lt;/p&gt;&#x27;
     add(&#x27;items.html&#x27;, &#x27;Item catalog&#x27;, body + related, &#x27;Directory&#x27;, str(len(definitions)) + &#x27; native definitions&#x27;)
     for key, category in sorted(categories.items()):
         children = [c for c in categories if c.rsplit(&#x27;/&#x27;, 1)[0] == key and c != key]

@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace SitePresentation;
 
 internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null, PaperdollAttachmentPlane? AttachmentPlane = null);
-internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null, string? DropRegion = null);
+internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null, string? DropRegion = null, PaperdollPocket[]? Pockets = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
     PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic, PaperdollAttachmentBinding[]? Attachments = null, PaperdollBodyPlane? BodyPlane = null);
@@ -26,6 +26,7 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
         Validate(_manifest);
         ValidateAttachments(_manifest);
         ValidateBodyPlane(_manifest.BodyPlane);
+        ValidatePockets(_manifest);
         foreach (var (file, size) in _manifest.Images)
         {
             var texture = GD.Load<Texture2D>("res://Assets/paperdoll-proof/" + file);
@@ -185,14 +186,16 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
                     ? storageAllowed ? new Color(.6f, 1.5f, .75f) : new Color(1.6f, .5f, .45f) : tint;
                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
                 if (layer.Mounted is { } mounted)
-                { DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, partTint); continue; }
-                foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })
+                { DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, partTint); }
+                else foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })
                 {
                     var visible = dest.Intersection(clip); if (!visible.HasArea()) continue;
                     var sourceClip = new Rect2(sourcePart.Position + (visible.Position - dest.Position) / dest.Size * sourcePart.Size,
                         visible.Size / dest.Size * sourcePart.Size);
                     canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, partTint);
                 }
+                if (storage is { Pocket: not null } pocket && pocket.Owner == layer.ItemId && pocket.Part == part)
+                    DrawPocket(canvas, bounds, layer, part, side, pocket.Pocket, storageAllowed);
             }
             if (layer.ItemId is null) DrawMosaic(canvas, bounds, side);
         }

@@ -18,8 +18,10 @@ Worn alpha pixels supply drag sources as well as selection/inspection. The press
 
 The focused launcher `--sprite-drop-smoke` runs the new fixture alone; paperdoll/full inventory modes include it in their larger regressions. [Native input checks](file-game-presentation-spatialscene-paperdolldropsmoke-cs.html) cover free anchors/six turns, footprint-only poses, margins, pause, Esc, paid retention/exact restore, belt and nested hook targets, occupied refusal and loaded sprite sources. See [recorded run results](doc-docs-reviews-inventory-runtime-checks-md.html); building the wiki does not run gameplay checks.
 
-General body variants, arbitrary fitted artwork, direct pocket segments, cloth physics and world wardrobe composition remain future work. Enlarged gear/contents views retain detailed storage/mount controls.
+General body variants, arbitrary fitted artwork, other pocket segments, cloth physics and world wardrobe composition remain future work. Enlarged gear/contents views retain detailed storage/mount controls.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [body drops](body-drag-fitting.html), [body fitting](body-fit-cleanup.html), [inspection](body-inspection.html), [mount points](mount-points.html), [worn chains](worn-attachment-chains.html), [full-body proof](full-body-paperdoll.html), [appearance](wearable-appearance.html), [transfers](inventory-transfers.html), [ground](ground-storage.html), [ledger](status.html), [design library](documents.html).
 
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
+
+[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's real front chest pocket in open/closed art: contour hover, paid double-click opening, pocket-specific fastening and ordinary storage. Other body pocket registrations remain future work.
