@@ -432,6 +432,36 @@
                 ]
               }
             ]
+          },
+          {
+            "id": "front",
+            "name": "Backpack front pouch",
+            "columns": 6,
+            "rows": 7,
+            "cellMm": 25,
+            "heightMm": 60,
+            "maxMassGrams": 2000,
+            "equipmentReady": true,
+            "accessMs": 500,
+            "accessAp": 2,
+            "accessBody": [
+              "torso-back",
+              "torso-front"
+            ],
+            "secureVerb": "Buckle",
+            "openVerb": "Unbuckle",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "mounted",
+                "cells": [
+                  {
+                    "q": -1,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
           }
         ],
         "wear": {
@@ -607,6 +637,44 @@
                       0.7
                     ]
                   ]
+                },
+                {
+                  "region": "front",
+                  "side": "back",
+                  "polygon": [
+                    [
+                      0.1,
+                      0.54
+                    ],
+                    [
+                      0.735,
+                      0.54
+                    ],
+                    [
+                      0.77,
+                      0.68
+                    ],
+                    [
+                      0.77,
+                      0.91
+                    ],
+                    [
+                      0.7,
+                      0.97
+                    ],
+                    [
+                      0.12,
+                      0.97
+                    ],
+                    [
+                      0.075,
+                      0.88
+                    ],
+                    [
+                      0.075,
+                      0.68
+                    ]
+                  ]
                 }
               ]
             }
@@ -729,6 +797,44 @@
                       0.7
                     ]
                   ]
+                },
+                {
+                  "region": "front",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.1,
+                      0.54
+                    ],
+                    [
+                      0.735,
+                      0.54
+                    ],
+                    [
+                      0.77,
+                      0.68
+                    ],
+                    [
+                      0.77,
+                      0.91
+                    ],
+                    [
+                      0.7,
+                      0.97
+                    ],
+                    [
+                      0.12,
+                      0.97
+                    ],
+                    [
+                      0.075,
+                      0.88
+                    ],
+                    [
+                      0.075,
+                      0.68
+                    ]
+                  ]
                 }
               ]
             }
@@ -817,6 +923,93 @@
                   {
                     "q": 0,
                     "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "chest-left",
+            "name": "Coat left chest pocket",
+            "columns": 4,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 45,
+            "maxMassGrams": 1500,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 1,
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -2,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "lower-left",
+            "name": "Coat left lower pocket",
+            "columns": 5,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 40,
+            "maxMassGrams": 1000,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 1,
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -1,
+                    "r": 6
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "lower-right",
+            "name": "Coat right lower pocket",
+            "columns": 5,
+            "rows": 5,
+            "cellMm": 25,
+            "heightMm": 40,
+            "maxMassGrams": 1000,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 1,
+            "accessBody": [
+              "torso-front"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "front",
+                "cells": [
+                  {
+                    "q": -4,
+                    "r": 6
                   }
                 ]
               }
@@ -915,15 +1108,15 @@
         }
       },
       "art": {
-        "url": "assets/items/a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016.png",
-        "source": "game/Assets/inventory-objects/coat.png",
+        "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png",
+        "source": "game/Assets/paperdoll-proof/upper-body.png",
         "region": [
-          80,
-          60,
-          1074,
-          1153
+          952,
+          190,
+          310,
+          250
         ],
-        "sha256": "a05875c95012c447d9fa01a38ff43e7ecad788ff5f9c06a3ae57340f252a9016"
+        "sha256": "dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e"
       },
       "paperdollBinding": {
         "definition": "coat",
@@ -994,6 +1187,76 @@
                       0.625
                     ]
                   ]
+                },
+                {
+                  "region": "chest-left",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.575,
+                      0.495
+                    ],
+                    [
+                      0.74,
+                      0.495
+                    ],
+                    [
+                      0.74,
+                      0.63
+                    ],
+                    [
+                      0.71,
+                      0.645
+                    ],
+                    [
+                      0.575,
+                      0.625
+                    ]
+                  ]
+                },
+                {
+                  "region": "lower-right",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.26,
+                      0.69
+                    ],
+                    [
+                      0.425,
+                      0.69
+                    ],
+                    [
+                      0.425,
+                      0.855
+                    ],
+                    [
+                      0.27,
+                      0.855
+                    ]
+                  ]
+                },
+                {
+                  "region": "lower-left",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.575,
+                      0.69
+                    ],
+                    [
+                      0.74,
+                      0.69
+                    ],
+                    [
+                      0.74,
+                      0.855
+                    ],
+                    [
+                      0.58,
+                      0.855
+                    ]
+                  ]
                 }
               ]
             }
@@ -1046,6 +1309,76 @@
                     [
                       0.26,
                       0.625
+                    ]
+                  ]
+                },
+                {
+                  "region": "chest-left",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.575,
+                      0.495
+                    ],
+                    [
+                      0.74,
+                      0.495
+                    ],
+                    [
+                      0.74,
+                      0.63
+                    ],
+                    [
+                      0.71,
+                      0.645
+                    ],
+                    [
+                      0.575,
+                      0.625
+                    ]
+                  ]
+                },
+                {
+                  "region": "lower-right",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.26,
+                      0.69
+                    ],
+                    [
+                      0.425,
+                      0.69
+                    ],
+                    [
+                      0.425,
+                      0.855
+                    ],
+                    [
+                      0.27,
+                      0.855
+                    ]
+                  ]
+                },
+                {
+                  "region": "lower-left",
+                  "side": "front",
+                  "polygon": [
+                    [
+                      0.575,
+                      0.69
+                    ],
+                    [
+                      0.74,
+                      0.69
+                    ],
+                    [
+                      0.74,
+                      0.855
+                    ],
+                    [
+                      0.58,
+                      0.855
                     ]
                   ]
                 }
@@ -2017,6 +2350,64 @@
                 ]
               }
             ]
+          },
+          {
+            "id": "rear-left",
+            "name": "Left rear trouser pocket",
+            "columns": 4,
+            "rows": 4,
+            "cellMm": 25,
+            "heightMm": 30,
+            "maxMassGrams": 600,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 2,
+            "accessBody": [
+              "hips-back"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "back",
+                "cells": [
+                  {
+                    "q": 1,
+                    "r": -1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "rear-right",
+            "name": "Right rear trouser pocket",
+            "columns": 4,
+            "rows": 4,
+            "cellMm": 25,
+            "heightMm": 30,
+            "maxMassGrams": 600,
+            "equipmentReady": true,
+            "accessMs": 350,
+            "accessAp": 2,
+            "accessBody": [
+              "hips-back"
+            ],
+            "secureVerb": "Button",
+            "openVerb": "Unbutton",
+            "secureOnClose": true,
+            "accessFootprint": [
+              {
+                "surface": "back",
+                "cells": [
+                  {
+                    "q": -1,
+                    "r": -1
+                  }
+                ]
+              }
+            ]
           }
         ],
         "wear": {
@@ -2207,6 +2598,102 @@
                     [
                       0.915,
                       0.278
+                    ]
+                  ]
+                },
+                {
+                  "region": "rear-left",
+                  "side": "back",
+                  "polygon": [
+                    [
+                      0.17,
+                      0.115
+                    ],
+                    [
+                      0.4,
+                      0.115
+                    ],
+                    [
+                      0.4,
+                      0.3
+                    ],
+                    [
+                      0.2,
+                      0.3
+                    ],
+                    [
+                      0.17,
+                      0.28
+                    ]
+                  ]
+                },
+                {
+                  "region": "rear-right",
+                  "side": "back",
+                  "polygon": [
+                    [
+                      0.6,
+                      0.115
+                    ],
+                    [
+                      0.83,
+                      0.115
+                    ],
+                    [
+                      0.83,
+                      0.28
+                    ],
+                    [
+                      0.8,
+                      0.3
+                    ],
+                    [
+                      0.6,
+                      0.3
+                    ]
+                  ]
+                },
+                {
+                  "region": "cargo-right",
+                  "side": "back",
+                  "polygon": [
+                    [
+                      0.06,
+                      0.325
+                    ],
+                    [
+                      0.19,
+                      0.325
+                    ],
+                    [
+                      0.19,
+                      0.55
+                    ],
+                    [
+                      0.05,
+                      0.55
+                    ]
+                  ]
+                },
+                {
+                  "region": "cargo-left",
+                  "side": "back",
+                  "polygon": [
+                    [
+                      0.81,
+                      0.325
+                    ],
+                    [
+                      0.94,
+                      0.325
+                    ],
+                    [
+                      0.95,
+                      0.55
+                    ],
+                    [
+                      0.81,
+                      0.55
                     ]
                   ]
                 }

@@ -36,6 +36,8 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 
 [Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.
 
-[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's front chest pocket and all four front trouser compartments: contour hover, snug/unsealable hip inspection, paid cargo opening, pocket-specific actions and ordinary storage. Jacket coverage still blocks hips while leaving lower cargo accessible. Backpack main/side contours now follow the mounted bag side with independent Zip/Buckle actions; other unregistered compartments and animation remain future work.
+[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify four coat pockets, six trouser compartments and backpack main/side/front. [Every depicted pocket is usable](visible-pockets.html); front/back cargo views share storage. Coverage and independent paid fastenings still apply; animation remains future work.
 
 [Shirt pockets and detachable badge](shirt-pockets-and-badge.html) add two buttoned chest compartments and a real clip-mounted badge. Covered retention and manipulation are separate; this changes native kit identity to 20 definitions/40 instances while retaining schema 15. Visible-badge automatic entry is selected design; door credential services are not implemented.
+
+[Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.

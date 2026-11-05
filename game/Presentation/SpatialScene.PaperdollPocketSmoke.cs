@@ -66,6 +66,7 @@ public partial class SpatialScene
         await RunPaperdollTrouserPocketSmoke();
         await RunPaperdollPackPocketSmoke();
         await RunPaperdollShirtSmoke();
+        await RunVisiblePocketSmoke();
         GD.Print("PAPERDOLL_POCKET_SMOKE_PASS: source-local chest segment, alpha hover, paid double-click/restore, correct fastening menu, exact storage, both jacket states, rear exclusion and front-pack occlusion.");
     }
 }

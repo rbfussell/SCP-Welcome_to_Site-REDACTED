@@ -143,6 +143,7 @@ passed += InventorySecuringChecks.Run(json, File.ReadAllText(Path.Combine(Path.G
 passed += InventoryClosureChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += AttachmentChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += ShirtBadgeChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
+passed += VisiblePocketChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += CoverageChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += BodyFitChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));
 passed += BodySymmetryChecks.Run(json, File.ReadAllText(Path.Combine(Path.GetDirectoryName(mapPath)!, "scp650-operation.json")));

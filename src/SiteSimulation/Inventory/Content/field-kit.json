@@ -145,6 +145,64 @@
               ]
             }
           ]
+        },
+        {
+          "id": "rear-left",
+          "name": "Left rear trouser pocket",
+          "columns": 4,
+          "rows": 4,
+          "cellMm": 25,
+          "heightMm": 30,
+          "maxMassGrams": 600,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 2,
+          "accessBody": [
+            "hips-back"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "back",
+              "cells": [
+                {
+                  "q": 1,
+                  "r": -1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rear-right",
+          "name": "Right rear trouser pocket",
+          "columns": 4,
+          "rows": 4,
+          "cellMm": 25,
+          "heightMm": 30,
+          "maxMassGrams": 600,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 2,
+          "accessBody": [
+            "hips-back"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "back",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": -1
+                }
+              ]
+            }
+          ]
         }
       ],
       "wear": {
@@ -229,6 +287,93 @@
                 {
                   "q": 0,
                   "r": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "chest-left",
+          "name": "Coat left chest pocket",
+          "columns": 4,
+          "rows": 5,
+          "cellMm": 25,
+          "heightMm": 45,
+          "maxMassGrams": 1500,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 1,
+          "accessBody": [
+            "torso-front"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -2,
+                  "r": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-left",
+          "name": "Coat left lower pocket",
+          "columns": 5,
+          "rows": 5,
+          "cellMm": 25,
+          "heightMm": 40,
+          "maxMassGrams": 1000,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 1,
+          "accessBody": [
+            "torso-front"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -1,
+                  "r": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lower-right",
+          "name": "Coat right lower pocket",
+          "columns": 5,
+          "rows": 5,
+          "cellMm": 25,
+          "heightMm": 40,
+          "maxMassGrams": 1000,
+          "equipmentReady": true,
+          "accessMs": 350,
+          "accessAp": 1,
+          "accessBody": [
+            "torso-front"
+          ],
+          "secureVerb": "Button",
+          "openVerb": "Unbutton",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "front",
+              "cells": [
+                {
+                  "q": -4,
+                  "r": 6
                 }
               ]
             }
@@ -393,6 +538,36 @@
               "cells": [
                 {
                   "q": 0,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "front",
+          "name": "Backpack front pouch",
+          "columns": 6,
+          "rows": 7,
+          "cellMm": 25,
+          "heightMm": 60,
+          "maxMassGrams": 2000,
+          "equipmentReady": true,
+          "accessMs": 500,
+          "accessAp": 2,
+          "accessBody": [
+            "torso-back",
+            "torso-front"
+          ],
+          "secureVerb": "Buckle",
+          "openVerb": "Unbuckle",
+          "secureOnClose": true,
+          "accessFootprint": [
+            {
+              "surface": "mounted",
+              "cells": [
+                {
+                  "q": -1,
                   "r": 4
                 }
               ]
@@ -2181,6 +2356,101 @@
     {
       "itemId": "avatar-shirt",
       "regionId": "chest-right",
+      "open": false
+    },
+    {
+      "itemId": "avatar-trousers",
+      "regionId": "rear-left",
+      "open": false
+    },
+    {
+      "itemId": "avatar-trousers",
+      "regionId": "rear-right",
+      "open": false
+    },
+    {
+      "itemId": "avatar-coat",
+      "regionId": "chest-left",
+      "open": false
+    },
+    {
+      "itemId": "avatar-coat",
+      "regionId": "lower-left",
+      "open": false
+    },
+    {
+      "itemId": "avatar-coat",
+      "regionId": "lower-right",
+      "open": false
+    },
+    {
+      "itemId": "avatar-backpack",
+      "regionId": "front",
+      "open": false
+    },
+    {
+      "itemId": "observer-trousers",
+      "regionId": "rear-left",
+      "open": false
+    },
+    {
+      "itemId": "observer-trousers",
+      "regionId": "rear-right",
+      "open": false
+    },
+    {
+      "itemId": "observer-coat",
+      "regionId": "chest-left",
+      "open": false
+    },
+    {
+      "itemId": "observer-coat",
+      "regionId": "lower-left",
+      "open": false
+    },
+    {
+      "itemId": "observer-coat",
+      "regionId": "lower-right",
+      "open": false
+    },
+    {
+      "itemId": "observer-backpack",
+      "regionId": "front",
+      "open": false
+    },
+    {
+      "itemId": "tech-trousers",
+      "regionId": "rear-left",
+      "open": false
+    },
+    {
+      "itemId": "tech-trousers",
+      "regionId": "rear-right",
+      "open": false
+    },
+    {
+      "itemId": "tech-coat",
+      "regionId": "chest-left",
+      "open": false
+    },
+    {
+      "itemId": "tech-coat",
+      "regionId": "lower-left",
+      "open": false
+    },
+    {
+      "itemId": "tech-coat",
+      "regionId": "lower-right",
+      "open": false
+    },
+    {
+      "itemId": "tech-backpack",
+      "regionId": "front",
+      "open": false
+    },
+    {
+      "itemId": "spare-backpack",
+      "regionId": "front",
       "open": false
     }
   ]

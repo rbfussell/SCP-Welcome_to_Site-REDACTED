@@ -69,7 +69,7 @@
 <span id="L69"><a class="line" href="#L69">69</a>         ((ScrollContainer)legs.GetParent().GetParent()).EnsureControlVisible(legs); await InventoryFrames();</span>
 <span id="L70"><a class="line" href="#L70">70</a>         InventoryClick(legs.GlobalPosition + new Vector2(30, 80));</span>
 <span id="L71"><a class="line" href="#L71">71</a>         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L72"><a class="line" href="#L72">72</a>         Check(panel.BodyFit.Pockets.Length == 4 &amp;&amp; panel.BodyFit.Pockets.Count(p =&gt; p.Covered) == 2,</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(panel.BodyFit.Pockets.Length == 6 &amp;&amp; panel.BodyFit.Pockets.Count(p =&gt; p.Covered) == 4,</span>
 <span id="L73"><a class="line" href="#L73">73</a>             &quot;body marks disagree with actual hip/cargo access&quot;);</span>
 <span id="L74"><a class="line" href="#L74">74</a>         var diagnosticSave = sim.Save(); await InventoryCapture(&quot;-pocket-overlap&quot;);</span>
 <span id="L75"><a class="line" href="#L75">75</a>         Check(sim.Save() == diagnosticSave, &quot;coverage rendering changed state&quot;);</span>

@@ -4,7 +4,7 @@
 
 ## A view of the existing item graph
 
-Visible bag and harness pixels select one actual own worn pack. Double-click opens its enlarged gear view; right-click uses ordinary actions. Transparent gaps expose lower garment targets. The enlarged illustration retains its existing main/side segments, each opening its own contents view through physical access and paid closure services. Inspecting the pack alone reveals no contents. Decorative art does not add compartments.
+Visible bag and harness pixels select one actual own worn pack. Double-click opens its enlarged gear view; right-click uses ordinary actions. Transparent gaps expose lower garment targets. The enlarged illustration retains its main/side/front segments, each opening its own contents view through physical access and paid closure services. Inspecting the pack alone reveals no contents. Each depicted pocket now has a real authored compartment.
 
 [The adapter](file-game-presentation-inventory-inventorypaperdollart-cs.html) supports optional mount-slot-to-frame bindings, choosing pack/harness destinations from the committed mount and worn order. Stored, held, foreign and unqualified poses/mounts stay omitted. Optional per-part `front`/`back` side selection shares one filter between drawing and alpha/letterbox picking; an omitted side means both. The base-body part remains on both sides. The original front harness registration is retained. It does not modify fit, physical coverage, restraint, access or carrying capacity. The [inspection](body-inspection.html), [body fitting](body-fit-cleanup.html), [body drops](body-drag-fitting.html) and [provider graph](mount-points.html) retain their authority.
 
@@ -30,4 +30,6 @@ Current floor/persistence follow-up: [ground inventory and piles](ground-storage
 
 [Paperdoll pocket segments](paperdoll-pocket-segments.html) now add the jacket chest and four front trouser contours. Topmost bag/harness alpha still hides lower segments where opaque; physical coverage remains an independent access gate. Hip openings are snug/unsealable while cargo flaps use normal paid fastening.
 
-Current [backpack pocket segments](paperdoll-pocket-segments.html#backpack-main-and-side) expose the real zipped main and buckled side compartment directly on the bag side. Hover is contour-local; double-click and menus use normal paid closure services. The painted front pouch remains decorative, and harness-only pixels do not offer interiors.
+Current [backpack pocket segments](paperdoll-pocket-segments.html#backpack-main-and-side) expose the real zipped main and buckled side compartment directly on the bag side. Hover is contour-local; double-click and menus use normal paid closure services. The front pouch now has real independent storage and a buckle; harness-only pixels do not offer interiors.
+
+[Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.

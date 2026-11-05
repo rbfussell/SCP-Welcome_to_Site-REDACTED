@@ -41,8 +41,8 @@ public partial class InventoryContainerView : VBoxContainer
                     _fastening = InventoryPanel.Button(this, "", () => Panel.ToggleClosure(id));
             }
             // Authoring fallback for an unregistered sprite/hotspot; never derive capacity from pixels.
-            if (root is not null || !InventoryGearSurface.Registered(definition!.Id))
-                foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r => r.Attachment is null))
+            foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r => r.Attachment is null
+                && (root is not null || !InventoryGearSurface.RegisteredRegion(definition!.Id, r.Id))))
                     InventoryPanel.Button(this, "Open " + r.Name, () => Panel.OpenCompartment(id, r.Id));
             _lower = new VBoxContainer(); AddChild(_lower);
         }

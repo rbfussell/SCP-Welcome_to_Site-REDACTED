@@ -35,7 +35,7 @@
 <span id="L35"><a class="line" href="#L35">35</a>         }</span>
 <span id="L36"><a class="line" href="#L36">36</a>         Button[] Menu() =&gt; panel.GetChildren().OfType&lt;PanelContainer&gt;().Last().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().ToArray();</span>
 <span id="L37"><a class="line" href="#L37">37</a>         await Flip();</span>
-<span id="L38"><a class="line" href="#L38">38</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot; })</span>
+<span id="L38"><a class="line" href="#L38">38</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot;, &quot;front&quot; })</span>
 <span id="L39"><a class="line" href="#L39">39</a>         {</span>
 <span id="L40"><a class="line" href="#L40">40</a>             if (sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, region)) await Act(new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: region));</span>
 <span id="L41"><a class="line" href="#L41">41</a>             var target = Target(region); var before = sim.Save();</span>
@@ -84,7 +84,7 @@
 <span id="L84"><a class="line" href="#L84">84</a>         var boundsFront = proof.Art.Bounds(surface.Size);</span>
 <span id="L85"><a class="line" href="#L85">85</a>         Check(proof.Art.StorageTarget(sim, &quot;front&quot;, surface.Size, boundsFront.Position + new Vector2(.28f, .3f) * boundsFront.Size)?.Owner != &quot;avatar-backpack&quot;, &quot;harness became a container target&quot;);</span>
 <span id="L86"><a class="line" href="#L86">86</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));</span>
-<span id="L87"><a class="line" href="#L87">87</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot; })</span>
+<span id="L87"><a class="line" href="#L87">87</a>         foreach (var region in new[] { &quot;main&quot;, &quot;side&quot;, &quot;front&quot; })</span>
 <span id="L88"><a class="line" href="#L88">88</a>         { Click(Target(region), true); await InventoryFrames(); Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, region), &quot;front mount lost compartment identity&quot;); }</span>
 <span id="L89"><a class="line" href="#L89">89</a>         Input.WarpMouse(Target(&quot;main&quot;)); await InventoryFrames(); await InventoryCapture(&quot;-pack-pocket-front-main&quot;);</span>
 <span id="L90"><a class="line" href="#L90">90</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;back&quot;)));</span>
@@ -93,6 +93,6 @@
 <span id="L93"><a class="line" href="#L93">93</a>         Check(panel.SelectedItem == &quot;spare-backpack&quot;, &quot;two packs confused compartment owner&quot;);</span>
 <span id="L94"><a class="line" href="#L94">94</a>         Click(new(600, 55)); await InventoryFrames();</span>
 <span id="L95"><a class="line" href="#L95">95</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect(&quot;avatar-shirt&quot;); await InventoryFrames();</span>
-<span id="L96"><a class="line" href="#L96">96</a>         GD.Print(&quot;PAPERDOLL_PACK_POCKET_SMOKE_PASS: main/side contours, independent zipper/buckle menus, paused/paid opening and restore, side refusal/paid storage, harness exclusion, both mounting sides and two pack identities.&quot;);</span>
+<span id="L96"><a class="line" href="#L96">96</a>         GD.Print(&quot;PAPERDOLL_PACK_POCKET_SMOKE_PASS: main/side/front contours, independent zipper/buckle menus, paused/paid opening and restore, side refusal/paid storage, harness exclusion, both mounting sides and two pack identities.&quot;);</span>
 <span id="L97"><a class="line" href="#L97">97</a>     }</span>
 <span id="L98"><a class="line" href="#L98">98</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

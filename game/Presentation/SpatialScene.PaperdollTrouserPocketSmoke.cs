@@ -47,7 +47,7 @@ public partial class SpatialScene
             var target = Target(region); targets.Add(region, target);
             var before = sim.Save(); Input.WarpMouse(target); await InventoryFrames();
             Check(surface.HoveredPocket?.Region == region && sim.Save() == before, "hover changed state or selected another pocket");
-            Check(proof.Art.StorageTarget(sim, "back", surface.Size, target - surface.GlobalPosition)?.Owner != "avatar-trousers", "front-only segment leaked into back art");
+            Check(proof.Art.StorageTarget(sim, "back", surface.Size, target - surface.GlobalPosition)?.Region is not ("left" or "right"), "front hip opening leaked into back art");
         }
         foreach (var region in new[] { "left", "right" })
         {

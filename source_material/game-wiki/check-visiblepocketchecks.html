@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VisiblePocketChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>VisiblePocketChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class VisiblePocketChecks
+{
+    public static int Run(string map, string config)
+    {
+        var count = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Visible pockets: &quot; + reason); count++; }
+        var sim = new SpatialSimulation(map, config); sim.Player.Cell = new(13, 6);
+        void Act(InventoryRequest request)
+        {
+            Check(sim.HandleInventory(request), sim.LastMessage);
+            for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) sim.Tick();
+            Check(sim.Inventory.Pending is null, &quot;handling finishes&quot;);
+        }
+        foreach (var (owner, ids) in new[] {
+            (&quot;avatar-coat&quot;, new[] { &quot;chest&quot;, &quot;chest-left&quot;, &quot;lower-left&quot;, &quot;lower-right&quot; }),
+            (&quot;avatar-trousers&quot;, new[] { &quot;left&quot;, &quot;right&quot;, &quot;cargo-left&quot;, &quot;cargo-right&quot;, &quot;rear-left&quot;, &quot;rear-right&quot; }),
+            (&quot;avatar-backpack&quot;, new[] { &quot;main&quot;, &quot;side&quot;, &quot;front&quot; }) })
+            Check(sim.Inventory.Definition(owner).Regions!.Select(r =&gt; r.Id).SequenceEqual(ids), &quot;complete depicted pocket set: &quot; + owner);
+        Act(new(InventoryActionKind.Move, &quot;spare-dressing&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+        Act(sim.GroundDropRequest(&quot;avatar-backpack&quot;));
+        sim.Player.Cell = new(12, 6);
+        foreach (var rear in new[] { &quot;rear-left&quot;, &quot;rear-right&quot; })
+            Check(sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, rear)!.Covered, &quot;open coat still covers rear mouths&quot;);
+        Act(sim.GroundDropRequest(&quot;avatar-coat&quot;));
+        foreach (var rear in new[] { &quot;rear-left&quot;, &quot;rear-right&quot; })
+            Check(!sim.InventoryPocketCoverage(&quot;avatar-trousers&quot;, rear)!.Covered, &quot;removing coat exposes rear mouths&quot;);
+        sim.Player.Cell = new(13, 6);
+        foreach (var (owner, ids) in new[] {
+            (&quot;avatar-coat&quot;, new[] { &quot;chest-left&quot;, &quot;lower-left&quot;, &quot;lower-right&quot; }),
+            (&quot;avatar-trousers&quot;, new[] { &quot;rear-left&quot;, &quot;rear-right&quot; }),
+            (&quot;avatar-backpack&quot;, new[] { &quot;front&quot; }) })
+        foreach (var id in ids)
+        {
+            sim.Player.Cell = owner == &quot;avatar-coat&quot; ? new(12, 6) : new(13, 6);
+            Check(!sim.Inventory.IsOpen(owner, id), &quot;new pocket initially secured: &quot; + id);
+            Check(!sim.QuoteInventoryPacking(new(InventoryActionKind.AutoPlace, &quot;spare-dressing&quot;, new(owner, id))).Allowed, &quot;closed pocket refuses storage&quot;);
+            Act(new(InventoryActionKind.Open, owner, RegionId: id));
+            Act(new(InventoryActionKind.AutoPlace, &quot;spare-dressing&quot;, new(owner, id)));
+            Check(sim.Inventory.Items[&quot;spare-dressing&quot;].Placement is var p &amp;&amp; p.ParentId == owner &amp;&amp; p.RegionId == id, &quot;storage uses exact compartment&quot;);
+            var saved = sim.Save(); var copy = new SpatialSimulation(map, config); copy.Restore(saved);
+            Check(copy.Save() == saved, &quot;loaded pocket and closure continuation is exact&quot;);
+            Act(new(InventoryActionKind.Move, &quot;spare-dressing&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+            Act(new(InventoryActionKind.Close, owner, RegionId: id));
+        }
+        foreach (var id in new[] { &quot;rear-left&quot;, &quot;rear-right&quot; })
+            Check(sim.Inventory.Region(&quot;avatar-trousers&quot;, id).AccessFootprint!.All(m =&gt; m.Surface == &quot;back&quot;), &quot;rear mouth is on back&quot;);
+        Console.WriteLine($&quot;VISIBLE_POCKET_CHECKS_PASS: {count} assertions; complete region sets, independent closures, paid storage, rear mouths and continuation.&quot;);
+        return count;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/VisiblePocketChecks.cs</footer></main></div></body></html>

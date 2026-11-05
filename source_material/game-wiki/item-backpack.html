@@ -31,7 +31,7 @@
       &quot;core:strap&quot;
     ]
   }
-}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Backpack main section</td><td>storage compartment</td><td>8 × 10 cells @ 25 mm; height 140 mm</td><td>8000 g</td></tr><tr><td>Backpack side pocket</td><td>storage compartment</td><td>3 × 6 cells @ 25 mm; height 45 mm</td><td>1200 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089.png">Full original loose-art PNG</a>; registered source region <code>[145, 83, 935, 1093]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/backpack.png</code>. SHA-256: <code>fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Backpack main section</td><td>storage compartment</td><td>8 × 10 cells @ 25 mm; height 140 mm</td><td>8000 g</td></tr><tr><td>Backpack side pocket</td><td>storage compartment</td><td>3 × 6 cells @ 25 mm; height 45 mm</td><td>1200 g</td></tr><tr><td>Backpack front pouch</td><td>storage compartment</td><td>6 × 7 cells @ 25 mm; height 60 mm</td><td>2000 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089.png">Full original loose-art PNG</a>; registered source region <code>[145, 83, 935, 1093]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/backpack.png</code>. SHA-256: <code>fcc74afa0a137fff24c401eb7715874b28998d84a08f5631548700a0cce3b089</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
   &quot;definition&quot;: &quot;backpack&quot;,
   &quot;column&quot;: 8,
   &quot;mountColumns&quot;: {
@@ -156,6 +156,44 @@
                 0.7
               ]
             ]
+          },
+          {
+            &quot;region&quot;: &quot;front&quot;,
+            &quot;side&quot;: &quot;back&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.1,
+                0.54
+              ],
+              [
+                0.735,
+                0.54
+              ],
+              [
+                0.77,
+                0.68
+              ],
+              [
+                0.77,
+                0.91
+              ],
+              [
+                0.7,
+                0.97
+              ],
+              [
+                0.12,
+                0.97
+              ],
+              [
+                0.075,
+                0.88
+              ],
+              [
+                0.075,
+                0.68
+              ]
+            ]
           }
         ]
       }
@@ -278,6 +316,44 @@
                 0.7
               ]
             ]
+          },
+          {
+            &quot;region&quot;: &quot;front&quot;,
+            &quot;side&quot;: &quot;front&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.1,
+                0.54
+              ],
+              [
+                0.735,
+                0.54
+              ],
+              [
+                0.77,
+                0.68
+              ],
+              [
+                0.77,
+                0.91
+              ],
+              [
+                0.7,
+                0.97
+              ],
+              [
+                0.12,
+                0.97
+              ],
+              [
+                0.075,
+                0.88
+              ],
+              [
+                0.075,
+                0.68
+              ]
+            ]
           }
         ]
       }
@@ -355,6 +431,36 @@
           ]
         }
       ]
+    },
+    {
+      &quot;id&quot;: &quot;front&quot;,
+      &quot;name&quot;: &quot;Backpack front pouch&quot;,
+      &quot;columns&quot;: 6,
+      &quot;rows&quot;: 7,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 60,
+      &quot;maxMassGrams&quot;: 2000,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 500,
+      &quot;accessAp&quot;: 2,
+      &quot;accessBody&quot;: [
+        &quot;torso-back&quot;,
+        &quot;torso-front&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Buckle&quot;,
+      &quot;openVerb&quot;: &quot;Unbuckle&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;mounted&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: -1,
+              &quot;r&quot;: 4
+            }
+          ]
+        }
+      ]
     }
   ],
   &quot;wear&quot;: {
@@ -392,4 +498,4 @@
     }
   },
   &quot;defaultDropRegion&quot;: &quot;main&quot;
-}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p><p><a href="paperdoll-pocket-segments.html">Paperdoll pocket segments</a>: source-local contours link the illustrated pocket to its real compartment and fastening.</p><p><a href="worn-container-drops.html">Worn container drop targets</a>: visible registered material uses ordinary paid packing and real compartment access.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #backpack</footer></main></div></body></html>
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p><p><a href="visible-pockets.html">Every depicted pocket is usable</a>: shared views address real independent compartments.</p><p><a href="paperdoll-pocket-segments.html">Paperdoll pocket segments</a>: source-local contours link the illustrated pocket to its real compartment and fastening.</p><p><a href="worn-container-drops.html">Worn container drop targets</a>: visible registered material uses ordinary paid packing and real compartment access.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #backpack</footer></main></div></body></html>

@@ -41,8 +41,8 @@
 <span id="L41"><a class="line" href="#L41">41</a>                     _fastening = InventoryPanel.Button(this, &quot;&quot;, () =&gt; Panel.ToggleClosure(id));</span>
 <span id="L42"><a class="line" href="#L42">42</a>             }</span>
 <span id="L43"><a class="line" href="#L43">43</a>             // Authoring fallback for an unregistered sprite/hotspot; never derive capacity from pixels.</span>
-<span id="L44"><a class="line" href="#L44">44</a>             if (root is not null || !InventoryGearSurface.Registered(definition!.Id))</span>
-<span id="L45"><a class="line" href="#L45">45</a>                 foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r =&gt; r.Attachment is null))</span>
+<span id="L44"><a class="line" href="#L44">44</a>             foreach (var r in (root?.Regions ?? definition!.Regions ?? []).Where(r =&gt; r.Attachment is null</span>
+<span id="L45"><a class="line" href="#L45">45</a>                 &amp;&amp; (root is not null || !InventoryGearSurface.RegisteredRegion(definition!.Id, r.Id))))</span>
 <span id="L46"><a class="line" href="#L46">46</a>                     InventoryPanel.Button(this, &quot;Open &quot; + r.Name, () =&gt; Panel.OpenCompartment(id, r.Id));</span>
 <span id="L47"><a class="line" href="#L47">47</a>             _lower = new VBoxContainer(); AddChild(_lower);</span>
 <span id="L48"><a class="line" href="#L48">48</a>         }</span>

@@ -17,7 +17,7 @@ internal static class CoverageChecks
         InventoryRequest Coat(bool open) => new(open ? InventoryActionKind.OpenGarment : InventoryActionKind.CloseGarment, "avatar-coat");
         var sim = Sim();
         var pockets = new[] { "left", "right", "cargo-left", "cargo-right" };
-        Check(sim.Inventory.Definition("avatar-trousers").Regions!.Select(r => r.Id).SequenceEqual(pockets), "four distinct regions belong to one trouser item");
+        Check(sim.Inventory.Definition("avatar-trousers").Regions!.Take(4).Select(r => r.Id).SequenceEqual(pockets) && sim.Inventory.Definition("avatar-trousers").Regions!.Length == 6, "four front and two rear regions belong to one trouser item");
         foreach (var id in pockets)
         {
             var coverage = sim.InventoryPocketCoverage("avatar-trousers", id)!;

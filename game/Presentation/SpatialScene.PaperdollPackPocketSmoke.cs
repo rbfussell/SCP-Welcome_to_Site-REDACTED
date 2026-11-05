@@ -35,7 +35,7 @@ public partial class SpatialScene
         }
         Button[] Menu() => panel.GetChildren().OfType<PanelContainer>().Last().GetChild<VBoxContainer>(0).GetChildren().OfType<Button>().ToArray();
         await Flip();
-        foreach (var region in new[] { "main", "side" })
+        foreach (var region in new[] { "main", "side", "front" })
         {
             if (sim.Inventory.IsOpen("avatar-backpack", region)) await Act(new(InventoryActionKind.Close, "avatar-backpack", RegionId: region));
             var target = Target(region); var before = sim.Save();
@@ -84,7 +84,7 @@ public partial class SpatialScene
         var boundsFront = proof.Art.Bounds(surface.Size);
         Check(proof.Art.StorageTarget(sim, "front", surface.Size, boundsFront.Position + new Vector2(.28f, .3f) * boundsFront.Size)?.Owner != "avatar-backpack", "harness became a container target");
         await Act(new(InventoryActionKind.Move, "avatar-backpack", new("person:avatar", "front")));
-        foreach (var region in new[] { "main", "side" })
+        foreach (var region in new[] { "main", "side", "front" })
         { Click(Target(region), true); await InventoryFrames(); Check(panel.Browser.CurrentContents == ("avatar-backpack", region), "front mount lost compartment identity"); }
         Input.WarpMouse(Target("main")); await InventoryFrames(); await InventoryCapture("-pack-pocket-front-main");
         await Act(new(InventoryActionKind.Move, "avatar-backpack", new("person:avatar", "back")));
@@ -93,6 +93,6 @@ public partial class SpatialScene
         Check(panel.SelectedItem == "spare-backpack", "two packs confused compartment owner");
         Click(new(600, 55)); await InventoryFrames();
         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect("avatar-shirt"); await InventoryFrames();
-        GD.Print("PAPERDOLL_PACK_POCKET_SMOKE_PASS: main/side contours, independent zipper/buckle menus, paused/paid opening and restore, side refusal/paid storage, harness exclusion, both mounting sides and two pack identities.");
+        GD.Print("PAPERDOLL_PACK_POCKET_SMOKE_PASS: main/side/front contours, independent zipper/buckle menus, paused/paid opening and restore, side refusal/paid storage, harness exclusion, both mounting sides and two pack identities.");
     }
 }

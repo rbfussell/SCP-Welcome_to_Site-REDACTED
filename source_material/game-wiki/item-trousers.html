@@ -19,7 +19,7 @@
       &quot;core:light-textile&quot;
     ]
   }
-}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Left hip pocket</td><td>storage compartment</td><td>4 × 6 cells @ 25 mm; height 40 mm</td><td>1200 g</td></tr><tr><td>Right hip pocket</td><td>storage compartment</td><td>4 × 6 cells @ 25 mm; height 40 mm</td><td>1200 g</td></tr><tr><td>Left cargo pocket</td><td>storage compartment</td><td>4 × 5 cells @ 25 mm; height 45 mm</td><td>1500 g</td></tr><tr><td>Right cargo pocket</td><td>storage compartment</td><td>4 × 5 cells @ 25 mm; height 45 mm</td><td>1500 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb.png">Full original loose-art PNG</a>; registered source region <code>[159, 72, 726, 1395]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/trousers.png</code>. SHA-256: <code>a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
+}</pre><h2>Compartments and mount surfaces</h2><table><tr><th>Region</th><th>Kind</th><th>Declared geometry</th><th>Load limit</th></tr><tr><td>Left hip pocket</td><td>storage compartment</td><td>4 × 6 cells @ 25 mm; height 40 mm</td><td>1200 g</td></tr><tr><td>Right hip pocket</td><td>storage compartment</td><td>4 × 6 cells @ 25 mm; height 40 mm</td><td>1200 g</td></tr><tr><td>Left cargo pocket</td><td>storage compartment</td><td>4 × 5 cells @ 25 mm; height 45 mm</td><td>1500 g</td></tr><tr><td>Right cargo pocket</td><td>storage compartment</td><td>4 × 5 cells @ 25 mm; height 45 mm</td><td>1500 g</td></tr><tr><td>Left rear trouser pocket</td><td>storage compartment</td><td>4 × 4 cells @ 25 mm; height 30 mm</td><td>600 g</td></tr><tr><td>Right rear trouser pocket</td><td>storage compartment</td><td>4 × 4 cells @ 25 mm; height 30 mm</td><td>600 g</td></tr></table><p>Attachment-surface grid metadata is not loose storage. Region geometry, masks, closure defaults and costs are preserved in the exact definition below.</p><h2>Artwork and authoring coverage</h2><p><a href="assets/items/a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb.png">Full original loose-art PNG</a>; registered source region <code>[159, 72, 726, 1395]</code>. Source preview uses the manifest crop without editing the original PNG. This is not an in-game screenshot.</p><p>Source: <code>game/Assets/inventory-objects/trousers.png</code>. SHA-256: <code>a74beb13c1dc6656fefb1caa94168f68ee52dc18ccc14650e9b66a9b6a9fe9cb</code>.</p><p>Paperdoll: registered for the bounded reference body/default pose; inspect binding below. World outfit composition remains unimplemented.</p><pre>{
   &quot;definition&quot;: &quot;trousers&quot;,
   &quot;column&quot;: 5
 }</pre><p>Registered worn source sheets: <a href="assets/items/84a4ae372fec724eb328c393e828a5552baf3356f28c3f7ff24a643708eaca42.png">game/Assets/paperdoll-proof/lower-clothes-v1.png</a>.</p><details><summary>Registered worn frames, views and masks</summary><pre>[
@@ -174,6 +174,102 @@
                 0.278
               ]
             ]
+          },
+          {
+            &quot;region&quot;: &quot;rear-left&quot;,
+            &quot;side&quot;: &quot;back&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.17,
+                0.115
+              ],
+              [
+                0.4,
+                0.115
+              ],
+              [
+                0.4,
+                0.3
+              ],
+              [
+                0.2,
+                0.3
+              ],
+              [
+                0.17,
+                0.28
+              ]
+            ]
+          },
+          {
+            &quot;region&quot;: &quot;rear-right&quot;,
+            &quot;side&quot;: &quot;back&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.6,
+                0.115
+              ],
+              [
+                0.83,
+                0.115
+              ],
+              [
+                0.83,
+                0.28
+              ],
+              [
+                0.8,
+                0.3
+              ],
+              [
+                0.6,
+                0.3
+              ]
+            ]
+          },
+          {
+            &quot;region&quot;: &quot;cargo-right&quot;,
+            &quot;side&quot;: &quot;back&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.06,
+                0.325
+              ],
+              [
+                0.19,
+                0.325
+              ],
+              [
+                0.19,
+                0.55
+              ],
+              [
+                0.05,
+                0.55
+              ]
+            ]
+          },
+          {
+            &quot;region&quot;: &quot;cargo-left&quot;,
+            &quot;side&quot;: &quot;back&quot;,
+            &quot;polygon&quot;: [
+              [
+                0.81,
+                0.325
+              ],
+              [
+                0.94,
+                0.325
+              ],
+              [
+                0.95,
+                0.55
+              ],
+              [
+                0.81,
+                0.55
+              ]
+            ]
           }
         ]
       }
@@ -324,6 +420,64 @@
           ]
         }
       ]
+    },
+    {
+      &quot;id&quot;: &quot;rear-left&quot;,
+      &quot;name&quot;: &quot;Left rear trouser pocket&quot;,
+      &quot;columns&quot;: 4,
+      &quot;rows&quot;: 4,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 30,
+      &quot;maxMassGrams&quot;: 600,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 350,
+      &quot;accessAp&quot;: 2,
+      &quot;accessBody&quot;: [
+        &quot;hips-back&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Button&quot;,
+      &quot;openVerb&quot;: &quot;Unbutton&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;back&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: 1,
+              &quot;r&quot;: -1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;rear-right&quot;,
+      &quot;name&quot;: &quot;Right rear trouser pocket&quot;,
+      &quot;columns&quot;: 4,
+      &quot;rows&quot;: 4,
+      &quot;cellMm&quot;: 25,
+      &quot;heightMm&quot;: 30,
+      &quot;maxMassGrams&quot;: 600,
+      &quot;equipmentReady&quot;: true,
+      &quot;accessMs&quot;: 350,
+      &quot;accessAp&quot;: 2,
+      &quot;accessBody&quot;: [
+        &quot;hips-back&quot;
+      ],
+      &quot;secureVerb&quot;: &quot;Button&quot;,
+      &quot;openVerb&quot;: &quot;Unbutton&quot;,
+      &quot;secureOnClose&quot;: true,
+      &quot;accessFootprint&quot;: [
+        {
+          &quot;surface&quot;: &quot;back&quot;,
+          &quot;cells&quot;: [
+            {
+              &quot;q&quot;: -1,
+              &quot;r&quot;: -1
+            }
+          ]
+        }
+      ]
     }
   ],
   &quot;wear&quot;: {
@@ -348,4 +502,4 @@
       ]
     }
   }
-}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p><p><a href="paperdoll-pocket-segments.html">Paperdoll pocket segments</a>: source-local contours link the illustrated pocket to its real compartment and fastening.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #trousers</footer></main></div></body></html>
+}</pre><p><a href="item-catalog.json">Machine-readable catalog and exact definitions</a> · <a href="doc-docs-46-item-asset-library-md.html">Naming and migration standard</a></p><p>Related: <a href="asset-library.html">Asset organization and item bundles</a> · <a href="system-inventory.html">Inventory</a> · <a href="system-presentation.html">Presentation</a> · <a href="wearable-appearance.html">Wearable appearance</a> · <a href="worn-alpha-masks.html">Worn-only masks</a> · <a href="doc-docs-29-gear-data-standard-md.html">Gear data standard</a>.</p><p><a href="visible-pockets.html">Every depicted pocket is usable</a>: shared views address real independent compartments.</p><p><a href="paperdoll-pocket-segments.html">Paperdoll pocket segments</a>: source-local contours link the illustrated pocket to its real compartment and fastening.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · src/SiteSimulation/Inventory/Content/field-kit.json #trousers</footer></main></div></body></html>

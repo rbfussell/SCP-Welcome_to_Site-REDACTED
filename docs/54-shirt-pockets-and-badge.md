@@ -29,3 +29,7 @@ The user selected **visibly worn badge required for automatic entry**. A covered
 The kit now has **20 definitions and 40 instances**, with two new mutable pocket states. Immutable content identity changes; start a fresh scene for this kit. Matching continuations use schema **15** with no new mutable save field; older mismatched kits reject rather than silently losing state.
 
 [Domain checks](../tests/SpatialChecks/ShirtBadgeChecks.cs) cover independent pockets, capacity, coverage, covered retention/access, paid mounting, source retention, exact pending/covered continuation and loaded shirt removal. [Native checks](../game/Presentation/SpatialScene.PaperdollShirtSmoke.cs) use real pocket clicks, context menus, storage drags and badge-to-clip input with actual sprite picking and jacket occlusion. Run alone with `--shirt-pocket-smoke` or in pocket/full inventory modes. [Actual results](reviews/inventory-runtime-checks.md) record test runs, initial registration/fixture failures and warnings; wiki building does not run gameplay tests.
+
+## Current visible-pocket contract
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.

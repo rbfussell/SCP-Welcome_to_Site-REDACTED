@@ -42,3 +42,5 @@ SCP-1499 is the planned second demonstration. SCP-019 tests the infrastructure d
 Use the search field to find pages by designation, system, function, or source path. Every document and function has a separate URL, so links can be shared with a person or another coding agent.
 
 - [Shirt pockets and detachable badge](shirt-pockets-and-badge.html): two real compartments, clip mounting, covered access and the future visible-credential rule.
+
+[Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.

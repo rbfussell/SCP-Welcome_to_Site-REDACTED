@@ -93,9 +93,10 @@ def author():
     for definition in kit['definitions']:
         if definition['id'] == 'trousers':
             mouths = {'left': [(-7, 11), (-7, 12)], 'right': [(-4, 11), (-5, 12)],
-                      'cargo-left': [(-8, 14), (-9, 15)], 'cargo-right': [(-6, 14), (-6, 15)]}
+                      'cargo-left': [(-8, 14), (-9, 15)], 'cargo-right': [(-6, 14), (-6, 15)],
+                      'rear-left': [(-5, 11)], 'rear-right': [(-7, 11)]}
             for region in definition['regions']:
-                region['accessFootprint'] = [mask('front', mouths[region['id']], POSES['trousers'])]
+                region['accessFootprint'] = [mask('back' if region['id'].startswith('rear-') else 'front', mouths[region['id']], POSES['trousers'])]
         elif definition['id'] == 'coat':
             center = {(q, r) for q, r in body_points if 4 <= r <= 11 and abs(q + r / 2) <= .5}
             definition['wear']['fasteningFootprint'] = [mask('front', center, POSES['coat'])]

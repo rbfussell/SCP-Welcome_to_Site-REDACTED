@@ -88,3 +88,7 @@ Related: [wiki build guide](../source_material/game-wiki/README.md), [wearable a
 Earlier November 4 presentation slice: [worn waist belt and direct pouch](47-worn-belt-and-pouch-paperdoll.md) qualifies reference-body front/back belt art, direct local-position/six-turn pouch art and own-worn exterior inspection. Nested hook art, other strap poses and a per-bundle JSON runtime loader remain unqualified.
 
 Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains.md) qualify the normal front belt → hook → pouch art, shared composed transforms, distinct alpha targets and loaded ground handling. Earlier direct-only/nested-art limits above describe the prior slice. Other strap poses and world clothing remain unqualified; current saves use schema 15.
+
+## Current visible-pocket contract
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.

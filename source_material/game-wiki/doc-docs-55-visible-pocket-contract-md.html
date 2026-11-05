@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Every depicted pocket is usable | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/55-visible-pocket-contract.md.</aside><h1 id="every-depicted-pocket-is-usable">Every depicted pocket is usable</h1>
+<p>Current contract, November 5, 2026: <strong>if item artwork depicts a pocket or pouch, it must have usable storage</strong>. This supersedes the decorative-pocket limitations in earlier <a href="doc-docs-53-paperdoll-pocket-segments-md.html">pocket slices</a>. It is an equipment authoring rule, not an SCP canon claim or automatic image inference.</p>
+<h2 id="current-reference-kit">Current reference kit</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Real compartments</th>
+<th>Additional views</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Field coat</td>
+<td><code>chest</code>, <code>chest-left</code>, <code>lower-left</code>, <code>lower-right</code></td>
+<td>Open/closed front share the same four inventories. Existing <code>chest</code> ID and contents remain intact.</td>
+</tr>
+<tr>
+<td>Trousers</td>
+<td><code>left</code>, <code>right</code>, <code>cargo-left</code>, <code>cargo-right</code>, <code>rear-left</code>, <code>rear-right</code></td>
+<td>Front/back cargo contours address the same two cargo inventories. Rear seat pockets are separate.</td>
+</tr>
+<tr>
+<td>Backpack</td>
+<td><code>main</code>, <code>side</code>, <code>front</code></td>
+<td>Bag-side segments follow front/back mounting; straps never become storage.</td>
+</tr>
+<tr>
+<td>Shirt</td>
+<td><code>chest-left</code>, <code>chest-right</code></td>
+<td>Existing independent shirt pockets; the badge clip remains an attachment support.</td>
+</tr>
+</tbody>
+</table>
+<p>New coat chest-left and lower pockets are buttoned. Lower pockets have provisional 5×5 cells at 25 mm, 40 mm depth and 1000 g limits. Rear trouser pockets have 4×4 cells at 25 mm, 30 mm depth and 600 g limits, with buttoned closures. Backpack front pouch has 6×7 cells at 25 mm, 60 mm depth and 2000 g limit, with Buckle/Unbuckle controls. All new compartments start secured on every physical instance. These capacities are provisional authored kit values, not final balance.</p>
+<p>Coat loose/enlarged art now references a metadata crop of the existing closed worn coat sheet, eliminating its different pocket layout without modifying source PNGs. New worn contours and enlarged hotspots link to real region IDs. Enlarged views offer explicit Open buttons for any compartment not represented by that view's hotspots, including rear trouser pockets. Every worn-side target still requires actual visible opaque pixels. Covered pockets remain inaccessible through ordinary physical coverage services.</p>
+<h2 id="authoring-and-interaction">Authoring and interaction</h2>
+<p>A depicted pocket needs an ordinary region definition, physical dimensions/load limits, correct front/back access footprint, independent fastening/default state and visual segment/hotspot linking to that region. Add a new compartment only for genuinely separate storage. Multiple illustrations or mounting sides must reuse the existing item/region identity. Review the <a href="doc-docs-29-gear-data-standard-md.html">gear standard</a>, <a href="doc-docs-46-item-asset-library-md.html">asset library</a>, <a href="doc-docs-31-pocket-coverage-prototype-md.html">mapped coverage</a>, <a href="doc-docs-52-worn-container-drops-md.html">worn drops</a> and <a href="doc-docs-54-shirt-pockets-and-badge-md.html">shirt/badge boundary</a>.</p>
+<p>Hover and inspection do not grant storage access. Opening, moving, arranging and securing retain normal time/AP, pause refusal, source retention and commit-time validation. Grid drops remain exact; deliberate container drops use scoped packing. Opening one pocket never opens its siblings. Moving the owning item carries all contents once. Painted badge pixels never grant credentials.</p>
+<p>The kit remains 20 definitions/40 instances; immutable content identity changes because new region definitions and initial states were added. Start a fresh scene. Matching saves remain schema 15; old mismatched kits reject atomically. No new mutable save field or image segmentation service is introduced. The enlarged coat illustration uses closed reference art even when its front is physically open; state labels and commands remain authoritative. World wardrobe art, general body variants, fastening animation and final capacity balance remain future work.</p>
+<h2 id="verification">Verification</h2>
+<p><a href="evidence-tests-spatialchecks-visiblepocketchecks-cs.html">Domain checks</a> cover complete region sets, closed refusal, independent paid storage, rear surfaces and exact loaded continuation. <a href="file-game-presentation-spatialscene-visiblepocketsmoke-cs.html">Native checks</a> exercise all four worn coat contours, both coat states and rear trouser/cargo input. <a href="file-game-presentation-spatialscene-paperdollpackpocketsmoke-cs.html">Backpack checks</a> include all three compartments on both mounts. Run <code>python3 tools/run_spatial_scene.py --check</code>, <code>--pocket-smoke PNG</code> or full <code>--inventory-smoke PNG</code>. Actual results belong in the <a href="doc-docs-reviews-inventory-runtime-checks-md.html">runtime review</a>; a wiki build does not run gameplay checks.</p>
+<p>See the <a href="visible-pockets.html">current wiki contract</a> for linked subsystem context.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/55-visible-pocket-contract.md</footer></main></div></body></html>

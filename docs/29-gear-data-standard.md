@@ -126,3 +126,7 @@ Current native fit follow-up: [symmetric body cleanup and adjustable straps](38-
 Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.
 
 November 5 follow-up: [worn container drops](52-worn-container-drops.md) add bag-only/pouch sprite targets for existing paid scoped packing. This supersedes earlier storage-on-paperdoll-as-future limits for those registered parts; direct pocket segments and arbitrary bodies remain unimplemented.
+
+## Current visible-pocket contract
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.

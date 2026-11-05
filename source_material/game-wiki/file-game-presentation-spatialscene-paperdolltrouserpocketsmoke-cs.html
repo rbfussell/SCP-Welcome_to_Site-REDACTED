@@ -47,7 +47,7 @@
 <span id="L47"><a class="line" href="#L47">47</a>             var target = Target(region); targets.Add(region, target);</span>
 <span id="L48"><a class="line" href="#L48">48</a>             var before = sim.Save(); Input.WarpMouse(target); await InventoryFrames();</span>
 <span id="L49"><a class="line" href="#L49">49</a>             Check(surface.HoveredPocket?.Region == region &amp;&amp; sim.Save() == before, &quot;hover changed state or selected another pocket&quot;);</span>
-<span id="L50"><a class="line" href="#L50">50</a>             Check(proof.Art.StorageTarget(sim, &quot;back&quot;, surface.Size, target - surface.GlobalPosition)?.Owner != &quot;avatar-trousers&quot;, &quot;front-only segment leaked into back art&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>             Check(proof.Art.StorageTarget(sim, &quot;back&quot;, surface.Size, target - surface.GlobalPosition)?.Region is not (&quot;left&quot; or &quot;right&quot;), &quot;front hip opening leaked into back art&quot;);</span>
 <span id="L51"><a class="line" href="#L51">51</a>         }</span>
 <span id="L52"><a class="line" href="#L52">52</a>         foreach (var region in new[] { &quot;left&quot;, &quot;right&quot; })</span>
 <span id="L53"><a class="line" href="#L53">53</a>         {</span>

@@ -18,6 +18,8 @@ public partial class InventoryGearSurface : Control
     private static Dictionary<string, Hotspot[]> Bindings => _bindings ??= JsonSerializer.Deserialize<Dictionary<string, Hotspot[]>>(
         Godot.FileAccess.GetFileAsString("res://Assets/inventory-objects/hotspots.json"), new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
     internal static bool Registered(string definition) => Bindings.ContainsKey(definition);
+    internal static bool RegisteredRegion(string definition, string region) =>
+        Bindings.GetValueOrDefault(definition)?.Any(target => target.Region == region) == true;
     private string DefinitionId => Panel.Simulation.Inventory.Definition(ItemId).Id;
     private Hotspot[] Targets => Bindings.GetValueOrDefault(DefinitionId) ?? [];
     private Rect2 Bounds => new(Vector2.Zero, Size);

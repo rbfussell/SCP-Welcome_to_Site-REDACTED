@@ -39,3 +39,7 @@ November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pock
 Current trouser extension: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#trouser-extension) also register all four existing front hip/cargo compartments. Snug/unsealable hips and paid buttoned cargo retain ordinary coverage; the zipped jacket blocks hips while leaving lower cargo accessible. This supersedes earlier chest-only presentation limits; other unregistered pockets and animation remain future work.
 
 Current backpack pocket follow-up: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#backpack-extension) now register the real main/side compartments on the mounted bag side. Contour hover, independent Zip/Buckle menus, paid opening and side-specific storage supersede earlier direct-backpack-pocket-as-future limits. Harnesses remain inspection-only, and decorative pouches add no compartments.
+
+## Superseding complete-pocket follow-up — November 5
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) replaces the earlier decorative/unregistered-pocket limits. The current kit adds three coat pockets, two rear trouser pockets and a backpack front pouch, with authored mouths and independent closure states. Front/back cargo art shares existing storage. Earlier counts and validation describe their historical slices. Current matching continuation is schema 15 with changed immutable content identity.

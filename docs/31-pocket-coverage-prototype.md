@@ -87,3 +87,7 @@ November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pock
 November 5 trouser follow-up: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#trouser-extension) now extend to all four front trouser compartments. The same hip/cargo coverage and fastening distinctions apply directly on visible worn artwork; rear painted pockets remain unregistered. This supersedes the preceding one-segment-only presentation limit.
 
 Current [shirt-pocket/badge follow-up](54-shirt-pockets-and-badge.md) adds paired front shirt mouths and a coverable badge whose clip still requires exposed access. The new kit identity supersedes earlier content counts; schema 15 remains current.
+
+## Superseding complete-pocket follow-up — November 5
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) replaces the earlier decorative/unregistered-pocket limits. The current kit adds three coat pockets, two rear trouser pockets and a backpack front pouch, with authored mouths and independent closure states. Front/back cargo art shares existing storage. Earlier counts and validation describe their historical slices. Current matching continuation is schema 15 with changed immutable content identity.

@@ -56,3 +56,7 @@ python3 tools/build_game_wiki.py --check
 ```
 
 Current [shirt-pocket/badge follow-up](54-shirt-pockets-and-badge.md) adds two real shirt compartments, a clip and a separate badge, with new source art and new immutable kit identity. Earlier unchanged-content claims describe prior pocket-registration slices.
+
+## Current visible-pocket contract
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.

@@ -1,5 +1,14 @@
 # Personal inventory runtime evidence
 
+## Every depicted pocket is usable — November 5, 2026
+
+- Final domain run (`/tmp/scp-visible-domain7.log`): **21,140 assertions passed**, including **87 visible-pocket checks** for complete region sets, independent closures/storage, rear coverage, paid handling and exact continuation. Build: zero warnings/errors.
+- Focused native pocket run (`/tmp/scp-visible-native.log`) passed jacket, trouser, three-compartment backpack, shirt/badge and new complete-pocket fixtures. Actual captures show all four coat targets, rear trouser targets, front/back cargo identity, enlarged coat art agreement and rear-pocket fallback buttons. This run preceded the final one-row rear-mouth correction; final full regression is recorded separately below.
+- Final full native run (`/tmp/scp-visible-full-final.log`): **24 PASS markers, exit 0, no runtime ERROR/exception**. Includes corrected rear masks and all pocket, coverage, clothing, packing, mount, transfer, floor and closure fixtures. Existing warnings remain: three compiler warnings in GroundSmoke, unsupported V-Sync and two shutdown ObjectDB instances. No new warning was introduced.
+- Catalog: five tests passed. Deterministic body-fixture check passed. Source PNGs were inspected unchanged; coat presentation now references a crop of the existing atlas. New paperdoll regions and hotspot data are authored, not automatically segmented.
+- Initial checks caught incorrect coat atlas dimensions and test staging that put containers under other floor objects or tried accessing a different floor tile. Those failed runs are not qualification evidence. The final rear-mouth test caught openings one row below the coat hem; corrected to the actual covered row. An earlier full run using superseded geometry was stopped and is not counted as a pass.
+- Kit stays 20 definitions/40 instances, schema 15; immutable kit identity changes. [Current pocket contract](../55-visible-pocket-contract.md) supersedes earlier decorative-pocket limitations. Door credential services, flap animation and general body variants remain unimplemented.
+
 ## Shirt pockets and detachable badge — November 5, 2026
 
 - Final `--inventory-smoke work/preview/spatial-scene/shirt-pocket-full-final.png`: **all native inventory checks pass**, twenty-three PASS markers including nested wardrobe fixtures, successful native exit and no runtime errors. This qualifies final kit placement/art and the new shirt fixture alongside packing, fitting/inspection/removal, masks, all prior pockets and pack/belt/hook art, physical coverage, provider/overlay handling, transfers, ground piles and browser closures. Final worn badge capture was visually reviewed at 1440×900. Zero compiler errors; the same three GroundSmoke warnings, software V-Sync warning and two shutdown-only ObjectDB references remain.

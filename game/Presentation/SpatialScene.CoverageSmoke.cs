@@ -69,7 +69,7 @@ public partial class SpatialScene
         ((ScrollContainer)legs.GetParent().GetParent()).EnsureControlVisible(legs); await InventoryFrames();
         InventoryClick(legs.GlobalPosition + new Vector2(30, 80));
         InventoryClick(panel.BodyFitToggle.GetGlobalRect().GetCenter()); await InventoryFrames();
-        Check(panel.BodyFit.Pockets.Length == 4 && panel.BodyFit.Pockets.Count(p => p.Covered) == 2,
+        Check(panel.BodyFit.Pockets.Length == 6 && panel.BodyFit.Pockets.Count(p => p.Covered) == 4,
             "body marks disagree with actual hip/cargo access");
         var diagnosticSave = sim.Save(); await InventoryCapture("-pocket-overlap");
         Check(sim.Save() == diagnosticSave, "coverage rendering changed state");

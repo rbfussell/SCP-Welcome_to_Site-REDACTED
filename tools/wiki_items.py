@@ -207,6 +207,8 @@ def build_items(root, out, add):
             detail += '<p>' + link('worn-attachment-chains.html', 'Qualified worn belt/hook/pouch chains') + ': shared composed frames, separate alpha targets and ordinary paid handling.</p>'
         if item in {'shirt', 'personnel-badge'}:
             detail += '<p>' + link('shirt-pockets-and-badge.html', 'Shirt pockets and detachable badge') + ': real compartments and clip mounting; credential door access remains planned.</p>'
+        if item in {'coat', 'trousers', 'backpack', 'shirt'}:
+            detail += '<p>' + link('visible-pockets.html', 'Every depicted pocket is usable') + ': shared views address real independent compartments.</p>'
         if any(part.get('pockets') for frame in registered for part in frame['parts']):
             detail += '<p>' + link('paperdoll-pocket-segments.html', 'Paperdoll pocket segments') + ': source-local contours link the illustrated pocket to its real compartment and fastening.</p>'
         if any(part.get('dropRegion') for frame in registered for part in frame['parts']):

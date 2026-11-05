@@ -25,3 +25,5 @@ The native kit now has **20 definitions/40 instances** and two extra pocket stat
 A later credential system must establish actual identity, validity, permissions, authorized observation/readers, manual presentation costs and denied/offline behavior. Visible wearing is required for automatic entry, not sufficient permission for every door. Covered/stored badges and painted badge pixels never grant automatic authorization. The badge already painted on jacket art remains decorative; real jacket clips/replacement art are separate work. [OSCP](system-oscp.html) and facility/world permissions must eventually share authoritative credential services without omniscience.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [engine](engine.html), [ledger](status.html), [design library](documents.html), [appearance](wearable-appearance.html), [worn containers](worn-container-drops.html), [sprite drops](sprite-equipment-drops.html).
+
+[Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.

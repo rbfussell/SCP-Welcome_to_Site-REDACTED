@@ -37,3 +37,7 @@ Current November 4 presentation follow-up: [worn waist belt and direct pouch](47
 November 5 follow-up: [worn container drops](52-worn-container-drops.md) add bag-only/pouch sprite targets for existing paid scoped packing. This supersedes earlier storage-on-paperdoll-as-future limits for those registered parts; direct pocket segments and arbitrary bodies remain unimplemented.
 
 Current backpack pocket follow-up: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#backpack-extension) now register the real main/side compartments on the mounted bag side. Contour hover, independent Zip/Buckle menus, paid opening and side-specific storage supersede earlier direct-backpack-pocket-as-future limits. Harnesses remain inspection-only, and decorative pouches add no compartments.
+
+## Superseding complete-pocket follow-up — November 5
+
+[Every depicted pocket is usable](55-visible-pocket-contract.md) replaces the earlier decorative/unregistered-pocket limits. The current kit adds three coat pockets, two rear trouser pockets and a backpack front pouch, with authored mouths and independent closure states. Front/back cargo art shares existing storage. Earlier counts and validation describe their historical slices. Current matching continuation is schema 15 with changed immutable content identity.

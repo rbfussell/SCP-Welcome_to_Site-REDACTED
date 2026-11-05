@@ -93,9 +93,10 @@ def author():
     for definition in kit[&#x27;definitions&#x27;]:
         if definition[&#x27;id&#x27;] == &#x27;trousers&#x27;:
             mouths = {&#x27;left&#x27;: [(-7, 11), (-7, 12)], &#x27;right&#x27;: [(-4, 11), (-5, 12)],
-                      &#x27;cargo-left&#x27;: [(-8, 14), (-9, 15)], &#x27;cargo-right&#x27;: [(-6, 14), (-6, 15)]}
+                      &#x27;cargo-left&#x27;: [(-8, 14), (-9, 15)], &#x27;cargo-right&#x27;: [(-6, 14), (-6, 15)],
+                      &#x27;rear-left&#x27;: [(-5, 11)], &#x27;rear-right&#x27;: [(-7, 11)]}
             for region in definition[&#x27;regions&#x27;]:
-                region[&#x27;accessFootprint&#x27;] = [mask(&#x27;front&#x27;, mouths[region[&#x27;id&#x27;]], POSES[&#x27;trousers&#x27;])]
+                region[&#x27;accessFootprint&#x27;] = [mask(&#x27;back&#x27; if region[&#x27;id&#x27;].startswith(&#x27;rear-&#x27;) else &#x27;front&#x27;, mouths[region[&#x27;id&#x27;]], POSES[&#x27;trousers&#x27;])]
         elif definition[&#x27;id&#x27;] == &#x27;coat&#x27;:
             center = {(q, r) for q, r in body_points if 4 &lt;= r &lt;= 11 and abs(q + r / 2) &lt;= .5}
             definition[&#x27;wear&#x27;][&#x27;fasteningFootprint&#x27;] = [mask(&#x27;front&#x27;, center, POSES[&#x27;coat&#x27;])]
