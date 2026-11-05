@@ -37,4 +37,6 @@ The [item asset library standard](../../../docs/46-item-asset-library.md) links 
 [Worn container drops](../../../docs/52-worn-container-drops.md) add optional per-part `dropRegion` links: backpack bag parts → `main`, pouch → `inside`, harness parts → none. The current part alpha/side/transform selects a real interior; source PNGs remain unchanged and capacity/closures stay authoritative.
 
 [Paperdoll pocket segments](../../../docs/53-paperdoll-pocket-segments.md) add source-local front `chest` polygons to closed/open coat parts. These hand-authored contours only bind an existing region; they neither create physical pockets nor modify source PNGs.
+
+The same `pockets` registration now maps the trouser front to existing `left`, `right`, `cargo-left` and `cargo-right` compartments. Hip openings stay snug/unsealable; cargo flaps stay buttoned. Back painted pockets are unregistered. Source alpha and ordinary physical coverage both apply.
 </pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

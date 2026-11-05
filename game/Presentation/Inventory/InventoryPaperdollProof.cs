@@ -72,7 +72,7 @@ public partial class InventoryPaperdollSurface : Control
         if (HoveredPocket is { } target)
             TooltipText = Proof.Panel.Simulation.Inventory.Region(target.Owner, target.Region).Name
                 + (Proof.Panel.Simulation.Inventory.IsOpen(target.Owner, target.Region) ? " · open" : " · secured")
-                + "\n" + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + "\nDouble-click opens · right-click fastening actions";
+                + "\n" + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + "\nDouble-click opens · right-click actions";
         QueueRedraw();
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }

@@ -38,4 +38,4 @@ Current floor/persistence follow-up: [ground inventory and piles](ground-storage
 
 [Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.
 
-[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's real front chest pocket in open/closed art: contour hover, paid double-click opening, pocket-specific fastening and ordinary storage. Other body pocket registrations remain future work.
+[Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify the jacket's front chest pocket and all four front trouser compartments: contour hover, snug/unsealable hip inspection, paid cargo opening, pocket-specific actions and ordinary storage. Jacket coverage still blocks hips while leaving lower cargo accessible; other body pocket registrations remain future work.

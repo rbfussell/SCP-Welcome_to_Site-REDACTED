@@ -72,7 +72,7 @@
 <span id="L72"><a class="line" href="#L72">72</a>         if (HoveredPocket is { } target)</span>
 <span id="L73"><a class="line" href="#L73">73</a>             TooltipText = Proof.Panel.Simulation.Inventory.Region(target.Owner, target.Region).Name</span>
 <span id="L74"><a class="line" href="#L74">74</a>                 + (Proof.Panel.Simulation.Inventory.IsOpen(target.Owner, target.Region) ? &quot; · open&quot; : &quot; · secured&quot;)</span>
-<span id="L75"><a class="line" href="#L75">75</a>                 + &quot;\n&quot; + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + &quot;\nDouble-click opens · right-click fastening actions&quot;;</span>
+<span id="L75"><a class="line" href="#L75">75</a>                 + &quot;\n&quot; + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + &quot;\nDouble-click opens · right-click actions&quot;;</span>
 <span id="L76"><a class="line" href="#L76">76</a>         QueueRedraw();</span>
 <span id="L77"><a class="line" href="#L77">77</a>         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;</span>
 <span id="L78"><a class="line" href="#L78">78</a>     }</span>

@@ -63,6 +63,7 @@ public partial class SpatialScene
         Check(proof.Art.StorageTarget(sim, "front", surface.Size, target - surface.GlobalPosition)?.Owner != "avatar-coat", "opaque front pack exposed a hidden chest segment");
         await InventoryCapture("-paperdoll-pocket-covered");
         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect("avatar-shirt"); await InventoryFrames();
+        await RunPaperdollTrouserPocketSmoke();
         GD.Print("PAPERDOLL_POCKET_SMOKE_PASS: source-local chest segment, alpha hover, paid double-click/restore, correct fastening menu, exact storage, both jacket states, rear exclusion and front-pack occlusion.");
     }
 }

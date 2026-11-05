@@ -1,5 +1,13 @@
 # Personal inventory runtime evidence
 
+## Paperdoll trouser-pocket extension — November 5, 2026
+
+- `--inventory-smoke work/preview/spatial-scene/trouser-pocket-full.png`: **all native inventory checks pass**, twenty-one PASS markers including nested wardrobe fixtures, successful native exit and no runtime errors. Existing packing, body fitting/inspection/removal, masks, backpack/belt/hook art, provider/overlay handling, direct sprite fitting/storage, physical coverage, independent transfers, ground piles and browser/closure rules pass with the new trouser registrations. Zero compiler errors; the same three GroundSmoke compiler warnings, software V-Sync warning and three shutdown-only ObjectDB references remain.
+- `--pocket-smoke work/preview/spatial-scene/trouser-pocket.png`: **PAPERDOLL_TROUSER_POCKET_SMOKE_PASS** and the existing **PAPERDOLL_POCKET_SMOKE_PASS**, successful native exit. Four front contours, read-only hover/hip inspection, no invented hip fastenings/preferences, paused versus paid cargo opening, real cargo Button menus, source-grid-to-left-cargo transfer, jacket alpha/physical hip occlusion versus usable cargo, unzip access and exact continuation pass. Hip, cargo-drop and zipped-coat captures were generated and visually reviewed at 1440×900.
+- Five item-catalog checks pass, including all four front trouser regions, mechanic discovery and byte-identical artwork copies. No source PNG, simulation-domain rule, native definition, physical mouth mask, content identity or schema-15 field changed. Existing domain authority is reused; no additional domain qualification is claimed.
+- Focused build: zero compiler errors, the same three existing GroundSmoke warnings and software V-Sync warning. No runtime errors or ObjectDB shutdown warning appear in this focused log; older warnings remain recorded in historical runs below.
+- [The current pocket guide](../53-paperdoll-pocket-segments.md#trouser-extension) supersedes the preceding chest-only presentation limit. Rear painted pockets, shirt pockets, arbitrary bodies, flap animation and world wardrobe remain unqualified.
+
 ## Paperdoll chest-pocket segment follow-up — November 5, 2026
 
 - `--pocket-smoke work/preview/spatial-scene/paperdoll-pocket.png`: **PAPERDOLL_POCKET_SMOKE_PASS**, successful native exit. Tests qualify a stable source-alpha chest target, read-only hover, paused/paid double-click opening and exact pending restore, the pocket-specific Button menu rather than garment Zip, direct compartment storage, independent front zipper/pocket state, both jacket frames, rear exclusion and front-pack occlusion. Hover/drop captures were visually reviewed at 1440×900; tint follows the pocket rather than the entire jacket.

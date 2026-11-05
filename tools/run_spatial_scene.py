@@ -26,7 +26,7 @@ def main():
     parser.add_argument('--smoke', type=Path, metavar='PNG', help='Run scripted Godot input/render checks and save a screenshot.')
     parser.add_argument('--operation-smoke', type=Path, metavar='PNG', help='Run the orders/OSCP input and render fixture.')
     parser.add_argument('--inventory-smoke', type=Path, metavar='PNG', help='Run realtime packing, rotation, nested inspection and inventory input/render checks.')
-    parser.add_argument('--pocket-smoke', type=Path, metavar='PNG', help='Run paperdoll chest-pocket segments, paid opening and storage checks.')
+    parser.add_argument('--pocket-smoke', type=Path, metavar='PNG', help='Run paperdoll jacket/trouser pocket segments, coverage, paid opening and storage checks.')
     parser.add_argument('--worn-storage-smoke', type=Path, metavar='PNG', help='Run worn bag/pouch sprite storage targets and normal packing checks.')
     parser.add_argument('--sprite-drop-smoke', type=Path, metavar='PNG', help='Run free sprite body fitting, exposed mounts and worn drag-source checks.')
     parser.add_argument('--ground-smoke', type=Path, metavar='PNG', help='Run current-tile floor stacking, clothes staging and pickup checks.')

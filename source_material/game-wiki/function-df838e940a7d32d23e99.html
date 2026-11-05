@@ -19,7 +19,7 @@ QueueRedraw</pre></details><h2>Candidate incoming calls</h2><ul></ul><h2>Related
         if (HoveredPocket is { } target)
             TooltipText = Proof.Panel.Simulation.Inventory.Region(target.Owner, target.Region).Name
                 + (Proof.Panel.Simulation.Inventory.IsOpen(target.Owner, target.Region) ? &quot; · open&quot; : &quot; · secured&quot;)
-                + &quot;\n&quot; + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + &quot;\nDouble-click opens · right-click fastening actions&quot;;
+                + &quot;\n&quot; + Proof.Panel.Simulation.InventoryAccess(target.Owner, target.Region).Reason + &quot;\nDouble-click opens · right-click actions&quot;;
         QueueRedraw();
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · game/Presentation/Inventory/InventoryPaperdollProof.cs:66</footer></main></div></body></html>

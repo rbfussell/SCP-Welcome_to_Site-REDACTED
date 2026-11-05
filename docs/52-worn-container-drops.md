@@ -35,3 +35,5 @@ python3 tools/build_game_wiki.py --check
 ```
 
 November 5 pocket follow-up: [paperdoll chest-pocket segments](53-paperdoll-pocket-segments.md) add one authored front contour in both jacket states, with normal paid opening, pocket-specific fastening and existing packing. Earlier body-pocket-as-future statements are superseded for this one segment; other pockets and animation remain unqualified.
+
+Current trouser extension: [paperdoll pocket segments](53-paperdoll-pocket-segments.md#trouser-extension) also register all four existing front hip/cargo compartments. Snug/unsealable hips and paid buttoned cargo retain ordinary coverage; the zipped jacket blocks hips while leaving lower cargo accessible. This supersedes earlier chest-only presentation limits; other unregistered pockets and animation remain future work.

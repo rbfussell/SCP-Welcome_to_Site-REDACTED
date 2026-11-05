@@ -56,6 +56,10 @@ class ItemCatalogChecks(unittest.TestCase):
                 self.assertEqual(frame['parts'][0]['pockets'][0]['region'], 'chest')
                 self.assertEqual(frame['parts'][0]['pockets'][0]['side'], 'front')
             self.assertIn('paperdoll-pocket-segments.html', pages[index['items']['coat']['url']][1])
+            pockets = index['items']['trousers']['paperdollFrames'][0]['parts'][0]['pockets']
+            self.assertEqual({p['region'] for p in pockets}, {'left', 'right', 'cargo-left', 'cargo-right'})
+            self.assertTrue(all(p['side'] == 'front' for p in pockets))
+            self.assertIn('paperdoll-pocket-segments.html', pages[index['items']['trousers']['url']][1])
             for item in ['backpack', 'utility-pouch']:
                 self.assertIn('worn-container-drops.html', pages[index['items'][item]['url']][1])
             self.assertIn('worn-attachment-chains.html', pages[index['items']['utility-hook']['url']][1])

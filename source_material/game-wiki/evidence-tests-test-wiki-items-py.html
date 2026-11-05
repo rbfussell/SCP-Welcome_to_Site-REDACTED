@@ -56,6 +56,10 @@ class ItemCatalogChecks(unittest.TestCase):
                 self.assertEqual(frame[&#x27;parts&#x27;][0][&#x27;pockets&#x27;][0][&#x27;region&#x27;], &#x27;chest&#x27;)
                 self.assertEqual(frame[&#x27;parts&#x27;][0][&#x27;pockets&#x27;][0][&#x27;side&#x27;], &#x27;front&#x27;)
             self.assertIn(&#x27;paperdoll-pocket-segments.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;coat&#x27;][&#x27;url&#x27;]][1])
+            pockets = index[&#x27;items&#x27;][&#x27;trousers&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;pockets&#x27;]
+            self.assertEqual({p[&#x27;region&#x27;] for p in pockets}, {&#x27;left&#x27;, &#x27;right&#x27;, &#x27;cargo-left&#x27;, &#x27;cargo-right&#x27;})
+            self.assertTrue(all(p[&#x27;side&#x27;] == &#x27;front&#x27; for p in pockets))
+            self.assertIn(&#x27;paperdoll-pocket-segments.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;trousers&#x27;][&#x27;url&#x27;]][1])
             for item in [&#x27;backpack&#x27;, &#x27;utility-pouch&#x27;]:
                 self.assertIn(&#x27;worn-container-drops.html&#x27;, pages[index[&#x27;items&#x27;][item][&#x27;url&#x27;]][1])
             self.assertIn(&#x27;worn-attachment-chains.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;url&#x27;]][1])
