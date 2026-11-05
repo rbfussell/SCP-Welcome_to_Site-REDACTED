@@ -57,3 +57,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Ground inventory and piles](ground-storage.html) resolve map-local roots without allocating saved empty containers. Physical location, top-only ancestor access, relative pile order and paid handling remain shared simulation facts. The ground dock is always visible; floating parent-contained windows are only a proposed later UI.
 
 [Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.
+
+[Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.

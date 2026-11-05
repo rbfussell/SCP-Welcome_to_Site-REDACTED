@@ -70,7 +70,7 @@
 <span id="L70"><a class="line" href="#L70">70</a>         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;</span>
 <span id="L71"><a class="line" href="#L71">71</a>     }</span>
 <span id="L72"><a class="line" href="#L72">72</a>     public override void _Draw()</span>
-<span id="L73"><a class="line" href="#L73">73</a>     { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem);</span>
+<span id="L73"><a class="line" href="#L73">73</a>     { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem, StorageTarget, StoragePreview?.Allowed == true);</span>
 <span id="L74"><a class="line" href="#L74">74</a>         if (DropPreview is { } drop) Proof.Art.DrawDrop(this, Proof.Side, drop); }</span>
 <span id="L75"><a class="line" href="#L75">75</a>     public override void _GuiInput(InputEvent e)</span>
 <span id="L76"><a class="line" href="#L76">76</a>     {</span>

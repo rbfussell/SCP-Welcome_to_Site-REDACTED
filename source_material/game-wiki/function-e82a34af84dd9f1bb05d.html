@@ -6,7 +6,7 @@ PaperdollMosaic.Tiles
 tile.GetCenter
 _images[body.File].GetPixel
 MathF.Round
-canvas.DrawRect</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-208da63d790a6d018fd2.html">InventoryPaperdollArt.Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdollmosaic.html">PaperdollMosaic</a></li></ul><h2>Implementation</h2><pre><code>private void DrawMosaic(Control canvas, Rect2 bounds, string side)
+canvas.DrawRect</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-396c2337cac8b6a5630b.html">InventoryPaperdollArt.Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdollmosaic.html">PaperdollMosaic</a></li></ul><h2>Implementation</h2><pre><code>private void DrawMosaic(Control canvas, Rect2 bounds, string side)
     {
         var body = Frame(new(null, 0)); var part = body.Parts.Single();
         var source = Source(part, side); var dest = Destination(part, side);

@@ -218,6 +218,8 @@ public partial class InventoryPanel : Control
     }
     public void Rotate()
     {
+        if (PaperdollProof.Surface.IsDropTarget && PaperdollProof.Surface.StorageTarget is not null)
+        { _receipt.Text = "Container drops choose a best-fit storage orientation; body and mount drafts stay unchanged."; return; }
         if (_bodyFit.Visible && DragItemId is null) { _bodyFit.RotateDraft(); return; }
         if (_bodyFit.Surface.IsDropTarget || PaperdollProof.Surface.IsDropTarget && DragItemId is { } dragged
             && Simulation.Inventory.Definition(dragged).Attachment is null)

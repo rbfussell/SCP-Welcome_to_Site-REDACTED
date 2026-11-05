@@ -124,3 +124,5 @@ The [physical overlay slice](36-overlay-sublayers.md) implements per-hex/surface
 Current native fit follow-up: [symmetric body cleanup and adjustable straps](38-body-fit-cleanup.md) qualifies a 5–10-cell straight belt span and human-body X, independently of packed dimensions. The proposed v1 public card has not gained a native span loader.
 
 Authoring follow-up: [item asset bundles and visual catalog](46-item-asset-library.md) standardize taxonomy, future per-item art/mask names and source-backed art/balance review. Existing runtime atlas paths and polygon masks remain active.
+
+November 5 follow-up: [worn container drops](52-worn-container-drops.md) add bag-only/pouch sprite targets for existing paid scoped packing. This supersedes earlier storage-on-paperdoll-as-future limits for those registered parts; direct pocket segments and arbitrary bodies remain unimplemented.

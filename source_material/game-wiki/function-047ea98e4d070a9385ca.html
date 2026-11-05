@@ -5,6 +5,8 @@ Redraw
 GetViewport().GuiGetHoveredControl
 GetViewport</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-261c8ae3a912e7d5a857.html">BodyFitGeometry.Transform</a></li><li><a href="function-780a25774535263eabd7.html">SpatialSimulation.PreviewAttachmentDrop</a></li><li><a href="function-f8835dd960e48c3efdc2.html">InventoryPanel.HandleInput</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorygearsurface.html">InventoryGearSurface</a></li><li><a href="type-inventorypanel.html">InventoryPanel</a></li></ul><h2>Implementation</h2><pre><code>public void Rotate()
     {
+        if (PaperdollProof.Surface.IsDropTarget &amp;&amp; PaperdollProof.Surface.StorageTarget is not null)
+        { _receipt.Text = &quot;Container drops choose a best-fit storage orientation; body and mount drafts stay unchanged.&quot;; return; }
         if (_bodyFit.Visible &amp;&amp; DragItemId is null) { _bodyFit.RotateDraft(); return; }
         if (_bodyFit.Surface.IsDropTarget || PaperdollProof.Surface.IsDropTarget &amp;&amp; DragItemId is { } dragged
             &amp;&amp; Simulation.Inventory.Definition(dragged).Attachment is null)

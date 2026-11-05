@@ -40,3 +40,5 @@ November 4 transfer follow-up: [independent source/destination views](inventory-
 November 4 ground follow-up: [ground storage and piles](ground-storage.html) add a permanent current-tile dock, square packing with overlapping ordered items, top-only access through nested ancestors, physical drop/pickup and schema-15 continuation with matching schema-14 migration. Floating parent-contained inventory windows remain a proposed production-UI direction.
 
 [Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.
+
+[Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.

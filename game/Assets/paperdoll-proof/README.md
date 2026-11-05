@@ -33,3 +33,5 @@ The [item asset library standard](../../../docs/46-item-asset-library.md) links 
 [Worn attachment chains](../../../docs/50-worn-attachment-chains.md) add the unchanged utility-hook source crop, front anchor `(0.36,0.1)` and a 68-pixel reference-canvas height. The helper composes actual attachment frames recursively, only through registered ancestors; hook and pouch keep independent alpha targets. No source PNG was edited or generated for this follow-up.
 
 [Sprite equipment drops](../../../docs/51-sprite-equipment-drops.md) register an optional twenty-row `bodyPlane` for hidden logical hex picking over the reference artwork. This approximate presentation projection does not modify physical fit masks or source PNGs.
+
+[Worn container drops](../../../docs/52-worn-container-drops.md) add optional per-part `dropRegion` links: backpack bag parts → `main`, pouch → `inside`, harness parts → none. The current part alpha/side/transform selects a real interior; source PNGs remain unchanged and capacity/closures stay authoritative.

@@ -528,7 +528,8 @@
                 0.56,
                 0.325
               ],
-              "side": "back"
+              "side": "back",
+              "dropRegion": "main"
             }
           ]
         },
@@ -575,7 +576,8 @@
                 0.56,
                 0.325
               ],
-              "side": "front"
+              "side": "front",
+              "dropRegion": "main"
             }
           ]
         }
@@ -1530,7 +1532,8 @@
                 0,
                 0.14,
                 0.075
-              ]
+              ],
+              "dropRegion": "inside"
             }
           ]
         }

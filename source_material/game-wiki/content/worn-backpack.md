@@ -14,14 +14,16 @@ Normal paid handling keeps source art until completion and carries a loaded pack
 
 [Native pack checks](file-game-presentation-spatialscene-paperdollbackpacksmoke-cs.html) exercise actual identity, both mount directions, independent main/side contents, paused/paid closures, loaded removal/restore, held omission and two distinct packs. [The parent paperdoll suite](file-game-presentation-spatialscene-paperdollsmoke-cs.html) retains clothing picking/closure assertions outside pack alpha. [Recorded results](doc-docs-reviews-inventory-runtime-checks-md.html) distinguish actual checks from requirements; wiki building does not run gameplay tests.
 
-The runtime guide links the untouched built-in-generated atlas and exact prompt/source/hash provenance. Worn bag art is static across lid states; existing menus/contents expose actual closure state. Direct small-body pocket segments, worn closure animations, general cloth fitting, arbitrary poses, body variants, nested attachment body art and world wardrobe composition remain future work.
+The runtime guide links the untouched built-in-generated atlas and exact prompt/source/hash provenance. Worn bag art is static across lid states; existing menus/contents expose actual closure state. Direct small-body pocket segments, worn closure animations, general cloth fitting, arbitrary poses, body variants, unregistered attachment art and world wardrobe composition remain future work.
 
 Related: [full-body paperdoll](full-body-paperdoll.html), [appearance](wearable-appearance.html), [inspection](body-inspection.html), [body fit](body-fit-cleanup.html), [body drops](body-drag-fitting.html), [mounts](mount-points.html), [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [ledger](status.html), [design library](documents.html).
 
 [Worn-only alpha masks](worn-alpha-masks.html) now qualify intact loose-source versus masked worn-shoe appearance, shared drawing/picking and unchanged physical handling.
 
-[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. Nested provider art remains unqualified.
+[Worn waist belt and direct pouch](worn-belt-and-pouch.html) now qualify default-pose front/back belt art and a real direct attachment, with normal access, paid handling and source-backed catalog registration. The [worn chain follow-up](worn-attachment-chains.html) qualifies the normal front hook → pouch chain.
 
 [Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
 
 Current floor/persistence follow-up: [ground inventory and piles](ground-storage.html) now supply persistent clothes staging and top-only pile access through ordinary handling. Current snapshots use schema 15, with matching schema-14 migration; schema-14 statements on this page describe this feature’s earlier qualification. This bounded floor feature supersedes any earlier ground-as-future statement, while world floor-item sprites and general hauling remain unimplemented.
+
+[Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.

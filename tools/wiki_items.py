@@ -205,6 +205,8 @@ def build_items(root, out, add):
         detail += '<h2>Exact native definition</h2><pre>' + escape(json.dumps(d, indent=2)) + '</pre><p>' + link('item-catalog.json', 'Machine-readable catalog and exact definitions') + ' · ' + link('doc-docs-46-item-asset-library-md.html', 'Naming and migration standard') + '</p>' + related
         if attachment_bindings or binding and binding.get('attachmentPlane'):
             detail += '<p>' + link('worn-attachment-chains.html', 'Qualified worn belt/hook/pouch chains') + ': shared composed frames, separate alpha targets and ordinary paid handling.</p>'
+        if any(part.get('dropRegion') for frame in registered for part in frame['parts']):
+            detail += '<p>' + link('worn-container-drops.html', 'Worn container drop targets') + ': visible registered material uses ordinary paid packing and real compartment access.</p>'
         add(item_url(item), d['name'] + ' — item', detail, 'Item', 'Native prototype definition', registry['definitionSource'] + ' #' + item)
         index['items'][item] = {'url': item_url(item), 'category': category, 'capabilities': traits, 'definition': d,
                                 'art': {'url': urls[item], 'source': images[item].relative_to(root).as_posix(), 'region': assets[item]['region'], 'sha256': hashes[images[item].relative_to(root).as_posix()]}, 'paperdollBinding': binding, 'paperdollFrames': registered, 'paperdollAttachments': attachment_bindings, 'wornArt': worn_assets, 'futureBundle': bundle, 'bundleRegistration': bundle_registration}
@@ -212,6 +214,7 @@ def build_items(root, out, add):
     for trait in ['wearable', 'storage', 'attachment', 'mount-provider']:
         body += '<h3>' + escape(trait) + '</h3><p>' + ' · '.join(link(v['url'], definitions[i]['name']) for i, v in index['items'].items() if trait in v['capabilities']) + '</p>'
     body += '<p>' + link('worn-attachment-chains.html', 'Worn attachment chain qualification') + ' connects registered hook/pouch artwork to physical provider frames.</p>'
+    body += '<p>' + link('worn-container-drops.html', 'Worn container drops') + ' connects bag/pouch part registrations to ordinary compartment handling.</p>'
     add('items.html', 'Item catalog', body + related, 'Directory', str(len(definitions)) + ' native definitions')
     for key, category in sorted(categories.items()):
         children = [c for c in categories if c.rsplit('/', 1)[0] == key and c != key]

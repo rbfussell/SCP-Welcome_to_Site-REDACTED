@@ -38,3 +38,5 @@ python3 -m unittest discover -s tests -p test_wiki_items.py
 python3 tools/build_game_wiki.py
 python3 tools/build_game_wiki.py --check
 ```
+
+November 5 follow-up: [worn container drops](52-worn-container-drops.md) add bag-only/pouch sprite targets for existing paid scoped packing. This supersedes earlier storage-on-paperdoll-as-future limits for those registered parts; direct pocket segments and arbitrary bodies remain unimplemented.

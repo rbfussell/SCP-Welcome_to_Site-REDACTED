@@ -70,7 +70,7 @@ public partial class InventoryPaperdollSurface : Control
         MouseDefaultCursorShape = Hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
     }
     public override void _Draw()
-    { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem);
+    { Proof.Art.Draw(this, Proof.Panel.Simulation, Proof.Side, Hovered, Proof.Panel.SelectedItem, StorageTarget, StoragePreview?.Allowed == true);
         if (DropPreview is { } drop) Proof.Art.DrawDrop(this, Proof.Side, drop); }
     public override void _GuiInput(InputEvent e)
     {

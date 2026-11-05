@@ -21,3 +21,5 @@ Only the normal waist root and registered front hook/pouch chain are qualified. 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [direct belt/pouch](worn-belt-and-pouch.html), [full-body proof](full-body-paperdoll.html), [appearance](wearable-appearance.html), [transfers](inventory-transfers.html), [ground piles](ground-storage.html), [asset library](asset-library.html), [items](items.html), [ledger](status.html), [design library](documents.html).
 
 [Sprite equipment drops](sprite-equipment-drops.html) now add free body-hex placement, exact exposed belt/hook targets and worn-sprite drag sources through ordinary paid handling. Unsupported poses retain footprint feedback and explicit missing-art disclosure.
+
+[Worn container drops](worn-container-drops.html) now link visible backpack-bag and pouch material to real interiors through ordinary paid packing. Harness-only pixels do not store items; closed/full refusals do not fall through to body fitting.

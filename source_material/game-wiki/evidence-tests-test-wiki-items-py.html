@@ -48,6 +48,12 @@ class ItemCatalogChecks(unittest.TestCase):
             projection = json.loads((ROOT / &#x27;game/Assets/paperdoll-proof/manifest.json&#x27;).read_text())[&#x27;bodyPlane&#x27;]
             self.assertEqual(len(projection[&#x27;rows&#x27;]), 20)
             self.assertEqual(projection[&#x27;rows&#x27;], sorted(set(projection[&#x27;rows&#x27;])))
+            for frame in index[&#x27;items&#x27;][&#x27;backpack&#x27;][&#x27;paperdollFrames&#x27;]:
+                self.assertEqual(frame[&#x27;parts&#x27;][1][&#x27;dropRegion&#x27;], &#x27;main&#x27;)
+                self.assertNotIn(&#x27;dropRegion&#x27;, frame[&#x27;parts&#x27;][0])
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-pouch&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;dropRegion&#x27;], &#x27;inside&#x27;)
+            for item in [&#x27;backpack&#x27;, &#x27;utility-pouch&#x27;]:
+                self.assertIn(&#x27;worn-container-drops.html&#x27;, pages[index[&#x27;items&#x27;][item][&#x27;url&#x27;]][1])
             self.assertIn(&#x27;worn-attachment-chains.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;utility-hook&#x27;][&#x27;url&#x27;]][1])
             self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;bundleRegistration&#x27;][&#x27;status&#x27;], &#x27;paperdoll-fixture-bundle&#x27;)
             self.assertEqual(index[&#x27;items&#x27;][&#x27;utility-belt&#x27;][&#x27;paperdollBinding&#x27;][&#x27;attachmentPlane&#x27;][&#x27;cellPixels&#x27;], 34)

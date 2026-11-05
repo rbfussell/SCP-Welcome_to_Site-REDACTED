@@ -9,6 +9,7 @@ m.Frames.Select(f =&gt; f.Column).Distinct
 m.Frames.Select
 m.Images.ContainsKey
 f.Parts.Any
+string.IsNullOrWhiteSpace
 Rect
 PaperdollWornMask.Valid
 new[] { p.Front, p.Back }.Any
@@ -23,7 +24,6 @@ m.Bindings.Select(b =&gt; b.Definition).Distinct().Count
 m.Bindings.Select(b =&gt; b.Definition).Distinct
 m.Bindings.Select
 m.Bindings.Any
-string.IsNullOrWhiteSpace
 cuts.Any
 mounts.Any</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-b8207662c8611c8c70c0.html">InventoryPaperdollArt.InventoryPaperdollArt</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdollmanifest.html">PaperdollManifest</a></li><li><a href="type-paperdollwornmask.html">PaperdollWornMask</a></li></ul><h2>Implementation</h2><pre><code>private static void Validate(PaperdollManifest m)
     {
@@ -36,7 +36,7 @@ mounts.Any</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="func
             || m.Frames is not { Length: &gt; 0 and &lt;= 128 } || m.Frames.Any(f =&gt; f.Column is &lt; 0 or &gt; 127)
             || m.Frames.Select(f =&gt; f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f =&gt; f.Column == 0)
             || m.Frames.Any(f =&gt; !m.Images.ContainsKey(f.File) || f.Parts is not { Length: &gt; 0 and &lt;= 8 }
-                || f.Parts.Any(p =&gt; p.Side is not (null or &quot;front&quot; or &quot;back&quot;) || !Rect(p.Destination) || p.BackDestination is { } back &amp;&amp; !Rect(back)
+                || f.Parts.Any(p =&gt; p.Side is not (null or &quot;front&quot; or &quot;back&quot;) || p.DropRegion is { } region &amp;&amp; (string.IsNullOrWhiteSpace(region) || region.Length &gt; 64) || !Rect(p.Destination) || p.BackDestination is { } back &amp;&amp; !Rect(back)
                     || !PaperdollWornMask.Valid(p.FrontWornCutouts) || !PaperdollWornMask.Valid(p.BackWornCutouts)
                     || new[] { p.Front, p.Back }.Any(r =&gt; r is not { Length: 4 } || r[0] &lt; 0 || r[1] &lt; 0 || r[2] &lt;= 0 || r[3] &lt;= 0
                         || (long)r[0] + r[2] &gt; m.Images[f.File][0] || (long)r[1] + r[3] &gt; m.Images[f.File][1])))

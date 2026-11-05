@@ -48,6 +48,12 @@ class ItemCatalogChecks(unittest.TestCase):
             projection = json.loads((ROOT / 'game/Assets/paperdoll-proof/manifest.json').read_text())['bodyPlane']
             self.assertEqual(len(projection['rows']), 20)
             self.assertEqual(projection['rows'], sorted(set(projection['rows'])))
+            for frame in index['items']['backpack']['paperdollFrames']:
+                self.assertEqual(frame['parts'][1]['dropRegion'], 'main')
+                self.assertNotIn('dropRegion', frame['parts'][0])
+            self.assertEqual(index['items']['utility-pouch']['paperdollFrames'][0]['parts'][0]['dropRegion'], 'inside')
+            for item in ['backpack', 'utility-pouch']:
+                self.assertIn('worn-container-drops.html', pages[index['items'][item]['url']][1])
             self.assertIn('worn-attachment-chains.html', pages[index['items']['utility-hook']['url']][1])
             self.assertEqual(index['items']['utility-belt']['bundleRegistration']['status'], 'paperdoll-fixture-bundle')
             self.assertEqual(index['items']['utility-belt']['paperdollBinding']['attachmentPlane']['cellPixels'], 34)

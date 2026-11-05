@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.WornStorageSmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.WornStorageSmoke.cs</h1><p>game/Presentation/SpatialScene.WornStorageSmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-45245c7ab61457591131.html">SpatialScene.RunWornStorageSmoke</a> · line 9</li><li><a href="function-7026f479b5375d019b4f.html">SpatialScene.Check</a> · line 12</li><li><a href="function-78047bd2f66c1c900d6d.html">SpatialScene.Finish</a> · line 13</li><li><a href="function-72c7ba130adafc83f148.html">SpatialScene.Act</a> · line 19</li><li><a href="function-d098c2165d800132afb1.html">SpatialScene.Point</a> · line 20</li><li><a href="function-333c6777c8773afd8e98.html">SpatialScene.Item</a> · line 34</li><li><a href="function-e71274beddcb8101d315.html">SpatialScene.Source</a> · line 35</li><li><a href="function-d025f02bf8177cfa8796.html">SpatialScene.Flip</a> · line 40</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
+<span id="L3"><a class="line" href="#L3">3</a> using System.Threading.Tasks;</span>
+<span id="L4"><a class="line" href="#L4">4</a> </span>
+<span id="L5"><a class="line" href="#L5">5</a> namespace SitePresentation;</span>
+<span id="L6"><a class="line" href="#L6">6</a> </span>
+<span id="L7"><a class="line" href="#L7">7</a> public partial class SpatialScene</span>
+<span id="L8"><a class="line" href="#L8">8</a> {</span>
+<span id="L9"><a class="line" href="#L9">9</a>     private async Task RunWornStorageSmoke()</span>
+<span id="L10"><a class="line" href="#L10">10</a>     {</span>
+<span id="L11"><a class="line" href="#L11">11</a>         var sim = _simulation; var panel = _hud.Inventory; var proof = panel.PaperdollProof; var surface = proof.Surface; var original = sim.Save();</span>
+<span id="L12"><a class="line" href="#L12">12</a>         void Check(bool ok, string message) { if (!ok) throw new InvalidOperationException(&quot;Worn storage: &quot; + message); }</span>
+<span id="L13"><a class="line" href="#L13">13</a>         async Task Finish()</span>
+<span id="L14"><a class="line" href="#L14">14</a>         {</span>
+<span id="L15"><a class="line" href="#L15">15</a>             var deadline = Time.GetTicksMsec() + (ulong)(sim.Inventory.Pending?.RemainingMs ?? 0) + 5000;</span>
+<span id="L16"><a class="line" href="#L16">16</a>             while (sim.Inventory.Pending is not null &amp;&amp; Time.GetTicksMsec() &lt; deadline) await InventoryFrames(1);</span>
+<span id="L17"><a class="line" href="#L17">17</a>             Check(sim.Inventory.Pending is null, &quot;paid work timed out&quot;); sim.ManualPause = true; await InventoryFrames();</span>
+<span id="L18"><a class="line" href="#L18">18</a>         }</span>
+<span id="L19"><a class="line" href="#L19">19</a>         async Task Act(InventoryRequest request) { sim.ManualPause = false; Check(sim.HandleInventory(request), sim.LastMessage); await Finish(); }</span>
+<span id="L20"><a class="line" href="#L20">20</a>         Vector2 Point(string id, bool storage)</span>
+<span id="L21"><a class="line" href="#L21">21</a>         {</span>
+<span id="L22"><a class="line" href="#L22">22</a>             var bounds = proof.Art.Bounds(surface.Size);</span>
+<span id="L23"><a class="line" href="#L23">23</a>             for (var y = .18f; y &lt; .7f; y += .004f)</span>
+<span id="L24"><a class="line" href="#L24">24</a>             for (var x = .2f; x &lt; .85f; x += .004f)</span>
+<span id="L25"><a class="line" href="#L25">25</a>             {</span>
+<span id="L26"><a class="line" href="#L26">26</a>                 var global = (surface.GlobalPosition + bounds.Position + new Vector2(x, y) * bounds.Size).Round();</span>
+<span id="L27"><a class="line" href="#L27">27</a>                 var at = global - surface.GlobalPosition;</span>
+<span id="L28"><a class="line" href="#L28">28</a>                 var neighbors = new[] { Vector2.Zero, Vector2.Left, Vector2.Right, Vector2.Up, Vector2.Down };</span>
+<span id="L29"><a class="line" href="#L29">29</a>                 if (neighbors.All(offset =&gt; surface.Pick(at + offset) == id</span>
+<span id="L30"><a class="line" href="#L30">30</a>                     &amp;&amp; (proof.Art.StorageTarget(sim, proof.Side, surface.Size, at + offset)?.Owner == id) == storage)) return global;</span>
+<span id="L31"><a class="line" href="#L31">31</a>             }</span>
+<span id="L32"><a class="line" href="#L32">32</a>             throw new InvalidOperationException(&quot;Worn storage: missing visible target &quot; + id);</span>
+<span id="L33"><a class="line" href="#L33">33</a>         }</span>
+<span id="L34"><a class="line" href="#L34">34</a>         InventoryItem Item(string id) =&gt; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == id);</span>
+<span id="L35"><a class="line" href="#L35">35</a>         Vector2 Source(string id)</span>
+<span id="L36"><a class="line" href="#L36">36</a>         {</span>
+<span id="L37"><a class="line" href="#L37">37</a>             var p = Item(id).Placement; var grid = panel.FindGrid(p.ParentId, p.RegionId);</span>
+<span id="L38"><a class="line" href="#L38">38</a>             return grid.GlobalPosition + new Vector2(1 + p.X * grid.CellPixels + 8, 44 + p.Y * grid.CellPixels + 8);</span>
+<span id="L39"><a class="line" href="#L39">39</a>         }</span>
+<span id="L40"><a class="line" href="#L40">40</a>         async Task Flip() { InventoryClick(proof.Flip.GetGlobalRect().GetCenter()); await InventoryFrames(); }</span>
+<span id="L41"><a class="line" href="#L41">41</a>         if (sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;)) await Act(new(InventoryActionKind.Close, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;));</span>
+<span id="L42"><a class="line" href="#L42">42</a>         await Act(sim.GroundDropRequest(&quot;spare-dressing&quot;)); var before = sim.Save();</span>
+<span id="L43"><a class="line" href="#L43">43</a>         await InventoryDrag(Source(&quot;spare-dressing&quot;), Point(&quot;avatar-backpack&quot;, false), async () =&gt;</span>
+<span id="L44"><a class="line" href="#L44">44</a>         { Check(surface.StorageTarget is null &amp;&amp; surface.DropPreview is null, &quot;front harness became a storage target&quot;); await InventoryFrames(); });</span>
+<span id="L45"><a class="line" href="#L45">45</a>         Check(sim.Save() == before, &quot;harness release moved item&quot;); await Flip();</span>
+<span id="L46"><a class="line" href="#L46">46</a>         var bag = Point(&quot;avatar-backpack&quot;, true);</span>
+<span id="L47"><a class="line" href="#L47">47</a>         await InventoryDrag(Source(&quot;spare-dressing&quot;), bag, async () =&gt;</span>
+<span id="L48"><a class="line" href="#L48">48</a>         { Check(surface.StoragePreview is { Allowed: false } &amp;&amp; surface.DropPreview is null, &quot;closed main target: &quot; + surface.StorageTarget + &quot; / &quot; + surface.StoragePreview + &quot; / fit=&quot; + surface.DropPreview); await InventoryCapture(&quot;-worn-storage-closed&quot;); });</span>
+<span id="L49"><a class="line" href="#L49">49</a>         Check(sim.Save() == before &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;closed bag drop changed state&quot;);</span>
+<span id="L50"><a class="line" href="#L50">50</a>         await Act(new(InventoryActionKind.Open, &quot;avatar-backpack&quot;, RegionId: &quot;main&quot;)); before = sim.Save();</span>
+<span id="L51"><a class="line" href="#L51">51</a>         await InventoryDrag(Source(&quot;spare-dressing&quot;), bag, async () =&gt;</span>
+<span id="L52"><a class="line" href="#L52">52</a>         {</span>
+<span id="L53"><a class="line" href="#L53">53</a>             Check(surface.StorageTarget is { Owner: &quot;avatar-backpack&quot;, Region: &quot;main&quot; } &amp;&amp; surface.StoragePreview is { Allowed: true }, &quot;open bag missed normal packing preview&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>             var body = panel.BodyRotation; var mount = panel.AttachmentRotation; InventoryKey(Key.R); await InventoryFrames();</span>
+<span id="L55"><a class="line" href="#L55">55</a>             Check(panel.BodyRotation == body &amp;&amp; panel.AttachmentRotation == mount &amp;&amp; sim.Save() == before, &quot;R over storage changed fit/mount state&quot;);</span>
+<span id="L56"><a class="line" href="#L56">56</a>             await InventoryCapture(&quot;-worn-storage-open&quot;);</span>
+<span id="L57"><a class="line" href="#L57">57</a>         }); Check(sim.Save() == before &amp;&amp; sim.Inventory.Pending is null, &quot;paused bag release supplied free storage&quot;);</span>
+<span id="L58"><a class="line" href="#L58">58</a>         sim.ManualPause = false; await InventoryDrag(Source(&quot;spare-dressing&quot;), bag);</span>
+<span id="L59"><a class="line" href="#L59">59</a>         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.AutoPlace &amp;&amp; Item(&quot;spare-dressing&quot;).Placement.ParentId.StartsWith(&quot;ground:&quot;, StringComparison.Ordinal), &quot;storage release bypassed paid source retention&quot;);</span>
+<span id="L60"><a class="line" href="#L60">60</a>         var pending = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L61"><a class="line" href="#L61">61</a>         clone.Restore(pending); Check(clone.Save() == pending, &quot;sprite storage continuation did not restore exactly&quot;); await Finish();</span>
+<span id="L62"><a class="line" href="#L62">62</a>         Check(Item(&quot;spare-dressing&quot;).Placement.ParentId == &quot;avatar-backpack&quot;, &quot;storage commitment addressed another location&quot;);</span>
+<span id="L63"><a class="line" href="#L63">63</a>         before = sim.Save(); await InventoryDrag(bag, bag, async () =&gt;</span>
+<span id="L64"><a class="line" href="#L64">64</a>         { Check(surface.StoragePreview is { Allowed: false }, &quot;bag accepted itself&quot;); await InventoryFrames(); });</span>
+<span id="L65"><a class="line" href="#L65">65</a>         Check(sim.Save() == before, &quot;self-drop changed inventory&quot;); await Flip();</span>
+<span id="L66"><a class="line" href="#L66">66</a>         await Act(new(InventoryActionKind.Move, &quot;utility-belt&quot;, new(&quot;person:avatar&quot;, &quot;belt&quot;)));</span>
+<span id="L67"><a class="line" href="#L67">67</a>         await Act(new(InventoryActionKind.Move, &quot;utility-pouch&quot;, new(&quot;utility-belt&quot;, &quot;webbing&quot;, AttachmentPose: new(2, 0))));</span>
+<span id="L68"><a class="line" href="#L68">68</a>         var pouch = Point(&quot;utility-pouch&quot;, true);</span>
+<span id="L69"><a class="line" href="#L69">69</a>         panel.Inspect(&quot;avatar-backpack&quot;); await InventoryFrames();</span>
+<span id="L70"><a class="line" href="#L70">70</a>         var gear = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0).GetChildren().OfType&lt;InventoryGearSurface&gt;().Single();</span>
+<span id="L71"><a class="line" href="#L71">71</a>         InventoryClick(gear.HotspotPosition(&quot;main&quot;), true); await InventoryFrames();</span>
+<span id="L72"><a class="line" href="#L72">72</a>         Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;source branch was not open&quot;); before = sim.Save();</span>
+<span id="L73"><a class="line" href="#L73">73</a>         await InventoryDrag(Source(&quot;spare-dressing&quot;), pouch, async () =&gt;</span>
+<span id="L74"><a class="line" href="#L74">74</a>         { Check(surface.StoragePreview is { Allowed: false }, &quot;closed pouch auto-opened&quot;); await InventoryFrames(); });</span>
+<span id="L75"><a class="line" href="#L75">75</a>         Check(sim.Save() == before, &quot;closed pouch release changed state&quot;);</span>
+<span id="L76"><a class="line" href="#L76">76</a>         await Act(new(InventoryActionKind.Open, &quot;utility-pouch&quot;, RegionId: &quot;inside&quot;));</span>
+<span id="L77"><a class="line" href="#L77">77</a>         await InventoryDrag(Source(&quot;spare-dressing&quot;), pouch, async () =&gt;</span>
+<span id="L78"><a class="line" href="#L78">78</a>         {</span>
+<span id="L79"><a class="line" href="#L79">79</a>             Check(surface.StoragePreview is { Allowed: true }, &quot;open pouch refused fitting item&quot;);</span>
+<span id="L80"><a class="line" href="#L80">80</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;sprite target replaced source branch&quot;); sim.ManualPause = false; await InventoryFrames();</span>
+<span id="L81"><a class="line" href="#L81">81</a>         }); await Finish();</span>
+<span id="L82"><a class="line" href="#L82">82</a>         Check(Item(&quot;spare-dressing&quot;).Placement.ParentId == &quot;utility-pouch&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;transfer lost source view or exact destination&quot;);</span>
+<span id="L83"><a class="line" href="#L83">83</a>         await Act(sim.GroundDropRequest(&quot;chemical-suit&quot;)); before = sim.Save();</span>
+<span id="L84"><a class="line" href="#L84">84</a>         await InventoryDrag(Source(&quot;chemical-suit&quot;), pouch, async () =&gt;</span>
+<span id="L85"><a class="line" href="#L85">85</a>         { Check(surface.StoragePreview is { Allowed: false } &amp;&amp; surface.DropPreview is null, &quot;oversized clothing fell through to body fitting&quot;); await InventoryCapture(&quot;-worn-storage-full&quot;); });</span>
+<span id="L86"><a class="line" href="#L86">86</a>         Check(sim.Save() == before, &quot;failed packing moved or fitted clothing&quot;);</span>
+<span id="L87"><a class="line" href="#L87">87</a>         await Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));</span>
+<span id="L88"><a class="line" href="#L88">88</a>         Check(proof.Art.StorageTarget(sim, &quot;front&quot;, surface.Size, Point(&quot;avatar-backpack&quot;, true) - surface.GlobalPosition)?.Region == &quot;main&quot;, &quot;front-mounted bag lost storage registration&quot;);</span>
+<span id="L89"><a class="line" href="#L89">89</a>         await Flip(); Point(&quot;avatar-backpack&quot;, false); await Flip();</span>
+<span id="L90"><a class="line" href="#L90">90</a>         sim.Restore(original); _runtime.ResetAccumulator(); panel.Inspect(&quot;avatar-shirt&quot;); await InventoryFrames();</span>
+<span id="L91"><a class="line" href="#L91">91</a>         GD.Print(&quot;WORN_STORAGE_SMOKE_PASS: bag-only front/back alpha targets, closed/paused/full/self refusals, paid packing and exact restore, retained source branch, worn pouch transfer and no body-fit fallback.&quot;);</span>
+<span id="L92"><a class="line" href="#L92">92</a>     }</span>
+<span id="L93"><a class="line" href="#L93">93</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

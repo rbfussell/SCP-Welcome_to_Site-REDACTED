@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace SitePresentation;
 
 internal sealed record PaperdollBinding(string Definition, int Column, int? OpenColumn = null, float[][]? BaseCutouts = null, Dictionary<string, int>? MountColumns = null, PaperdollAttachmentPlane? AttachmentPlane = null);
-internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null);
+internal sealed record PaperdollPart(int[] Front, int[] Back, float[] Destination, float[]? BackDestination = null, string? Side = null, float[][][]? FrontWornCutouts = null, float[][][]? BackWornCutouts = null, string? DropRegion = null);
 internal sealed record PaperdollFrame(int Column, string File, PaperdollPart[] Parts);
 internal sealed record PaperdollManifest(int Version, string Actor, string BodyFamily, int[] CanvasSize, Dictionary<string, int[]> Images,
     PaperdollFrame[] Frames, PaperdollBinding[] Bindings, Dictionary<string, float[][]> HeadCutouts, PaperdollMosaicDefinition Mosaic, PaperdollAttachmentBinding[]? Attachments = null, PaperdollBodyPlane? BodyPlane = null);
@@ -44,7 +44,7 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
             || m.Frames is not { Length: > 0 and <= 128 } || m.Frames.Any(f => f.Column is < 0 or > 127)
             || m.Frames.Select(f => f.Column).Distinct().Count() != m.Frames.Length || !m.Frames.Any(f => f.Column == 0)
             || m.Frames.Any(f => !m.Images.ContainsKey(f.File) || f.Parts is not { Length: > 0 and <= 8 }
-                || f.Parts.Any(p => p.Side is not (null or "front" or "back") || !Rect(p.Destination) || p.BackDestination is { } back && !Rect(back)
+                || f.Parts.Any(p => p.Side is not (null or "front" or "back") || p.DropRegion is { } region && (string.IsNullOrWhiteSpace(region) || region.Length > 64) || !Rect(p.Destination) || p.BackDestination is { } back && !Rect(back)
                     || !PaperdollWornMask.Valid(p.FrontWornCutouts) || !PaperdollWornMask.Valid(p.BackWornCutouts)
                     || new[] { p.Front, p.Back }.Any(r => r is not { Length: 4 } || r[0] < 0 || r[1] < 0 || r[2] <= 0 || r[3] <= 0
                         || (long)r[0] + r[2] > m.Images[f.File][0] || (long)r[1] + r[3] > m.Images[f.File][1])))
@@ -117,16 +117,16 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
     }
     internal bool Opaque(PaperdollLayer layer, string side, Vector2 uv, bool worn = true)
     {
-        foreach (var part in Parts(layer, side))
-        {
-            var dest = Destination(part, side); var local = layer.Mounted is { } mounted
-                ? MountedLocal(mounted, dest, uv) : (uv - dest.Position) / dest.Size;
-            if (local.X is < 0 or >= 1 || local.Y is < 0 or >= 1) continue;
-            var raster = worn ? Raster(layer, part, side) : new PaperdollRaster(_textures[Frame(layer).File], _images[Frame(layer).File], Source(part, side));
-            var pixel = raster.Source.Position + local * raster.Source.Size;
-            if (raster.Pixels.GetPixel((int)pixel.X, (int)pixel.Y).A > .1f) return true;
-        }
-        return false;
+        return Parts(layer, side).Any(part => OpaquePart(layer, part, side, uv, worn));
+    }
+    private bool OpaquePart(PaperdollLayer layer, PaperdollPart part, string side, Vector2 uv, bool worn = true)
+    {
+        var dest = Destination(part, side); var local = layer.Mounted is { } mounted
+            ? MountedLocal(mounted, dest, uv) : (uv - dest.Position) / dest.Size;
+        if (local.X is < 0 or >= 1 || local.Y is < 0 or >= 1) return false;
+        var raster = worn ? Raster(layer, part, side) : new PaperdollRaster(_textures[Frame(layer).File], _images[Frame(layer).File], Source(part, side));
+        var pixel = raster.Source.Position + local * raster.Source.Size;
+        return raster.Pixels.GetPixel((int)pixel.X, (int)pixel.Y).A > .1f;
     }
     private Vector2[] Head(string side) => _manifest.HeadCutouts[side].Select(p => new Vector2(p[0], p[1])).ToArray();
     internal bool HeadOpaque(string side, Vector2 uv) => Geometry2D.IsPointInPolygon(uv, Head(side)) && Opaque(new(null, 0), side, uv);
@@ -171,7 +171,7 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
             canvas.DrawRect(new(bounds.Position + tile.Position * bounds.Size, tile.Size * bounds.Size), color);
         }
     }
-    internal void Draw(Control canvas, SpatialSimulation sim, string side, string? hover, string? selected)
+    internal void Draw(Control canvas, SpatialSimulation sim, string side, string? hover, string? selected, PaperdollStorageTarget? storage = null, bool storageAllowed = false)
     {
         var layers = Layers(sim); if (layers.Length == 0) return;
         var bounds = Bounds(canvas.Size);
@@ -181,15 +181,17 @@ internal sealed partial class InventoryPaperdollArt : IDisposable
                 : layer.ItemId is not null && layer.ItemId == selected ? new Color(1.15f, 1.25f, 1.1f) : Colors.White;
             foreach (var part in Parts(layer, side))
             {
+                var partTint = storage is { } target && target.Owner == layer.ItemId && part.DropRegion == target.Region
+                    ? storageAllowed ? new Color(.6f, 1.5f, .75f) : new Color(1.6f, .5f, .45f) : tint;
                 var dest = Destination(part, side); var raster = Raster(layer, part, side); var sourcePart = raster.Source;
                 if (layer.Mounted is { } mounted)
-                { DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, tint); continue; }
+                { DrawMounted(canvas, bounds, dest, raster.Texture, raster.Source, mounted, partTint); continue; }
                 foreach (var clip in layer.ItemId is null ? BaseRegions(layers) : new[] { dest })
                 {
                     var visible = dest.Intersection(clip); if (!visible.HasArea()) continue;
                     var sourceClip = new Rect2(sourcePart.Position + (visible.Position - dest.Position) / dest.Size * sourcePart.Size,
                         visible.Size / dest.Size * sourcePart.Size);
-                    canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, tint);
+                    canvas.DrawTextureRectRegion(raster.Texture, new(bounds.Position + visible.Position * bounds.Size, visible.Size * bounds.Size), sourceClip, partTint);
                 }
             }
             if (layer.ItemId is null) DrawMosaic(canvas, bounds, side);

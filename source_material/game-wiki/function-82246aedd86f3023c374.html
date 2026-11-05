@@ -24,7 +24,7 @@ cuts.Any
 c.HasPoint
 r.GetCenter
 result.Add
-result.ToArray</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-208da63d790a6d018fd2.html">InventoryPaperdollArt.Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdolllayer.html">PaperdollLayer</a></li></ul><h2>Implementation</h2><pre><code>private Rect2[] BaseRegions(PaperdollLayer[] layers)
+result.ToArray</pre></details><h2>Candidate incoming calls</h2><ul><li><a href="function-396c2337cac8b6a5630b.html">InventoryPaperdollArt.Draw</a></li></ul><h2>Related types</h2><ul><li><a href="type-inventorypaperdollart.html">InventoryPaperdollArt</a></li><li><a href="type-paperdolllayer.html">PaperdollLayer</a></li></ul><h2>Implementation</h2><pre><code>private Rect2[] BaseRegions(PaperdollLayer[] layers)
     {
         var columns = layers.Where(l =&gt; l.ItemId is not null).Select(l =&gt; l.Column).ToHashSet();
         var cuts = _manifest.Bindings.Where(b =&gt; columns.Contains(b.Column) || b.OpenColumn is { } open &amp;&amp; columns.Contains(open))
