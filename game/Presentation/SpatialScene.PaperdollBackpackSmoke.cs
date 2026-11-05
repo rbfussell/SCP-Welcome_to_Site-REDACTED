@@ -66,7 +66,7 @@ public partial class SpatialScene
         Check(sim.Inventory.Pending is not null && sim.Inventory.IsOpen("avatar-backpack", "main"), "zip state changed before completion"); await Finish();
         Check(!sim.Inventory.IsOpen("avatar-backpack", "main"), "paid zip did not secure the actual compartment");
         Click(Gear().HotspotPosition("main"), true); await InventoryFrames();
-        Check(sim.Inventory.Pending is null && panel.Browser.CurrentContents is null, "paused closed main compartment leaked contents");
+        Check(sim.Inventory.Pending is null && panel.Browser.CurrentContents == ("avatar-backpack", "side"), "paused closed main compartment replaced the accessible side source");
         sim.ManualPause = false; Click(Gear().HotspotPosition("main"), true);
         Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open && !sim.Inventory.IsOpen("avatar-backpack", "main"), "main segment bypassed paid unzip");
         await Finish(); Check(panel.Browser.CurrentContents == ("avatar-backpack", "main"), "completed unzip failed to reveal main contents");

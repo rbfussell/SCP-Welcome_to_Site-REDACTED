@@ -16,7 +16,7 @@ Related: [physical inventory](23-personal-inventory-prototype.md), [body equipme
 
 There are never extra columns for further nesting. Opening a gum packet inside a jacket pocket replaces the right-hand pocket view with the packet view. Its parent remains in the contents trail for Up navigation.
 
-Opening another top-level object from the paperdoll starts a new gear trail and clears the prior gear/contents trails. For example, selecting the backpack replaces the jacket view and dismisses its contents view. The paperdoll remains visible.
+The [November 4 independent-transfer follow-up](48-independent-inventory-transfers.md) supersedes the original October 26 rule that switching top-level gear discarded both trails. Choosing another gear object now replaces only the middle trail, retaining an accessible source compartment on the right. The paperdoll remains visible. Explicitly choosing another compartment replaces the contents branch; nested inspection retains its containment ancestry.
 
 Each object view uses its actual object sprite with authored interactive regions. The backpack's compartments appear in the backpack illustration. Jacket pockets and the central fastening appear on the jacket illustration. The current state's flap, zipper or opening should be represented on that object. Grid overlays identify actual interactive/packing areas, rather than replacing the entire object with unrelated inventory cards. Animation is future presentation of these physical actions, using the same authoritative action state.
 
@@ -26,13 +26,13 @@ The middle trail describes layered wearing: jacket → shirt → T-shirt. These 
 
 The right trail describes physical containment: jacket pocket → gum packet interior, or backpack compartment → secure case → ammunition box. Structural compartments may remain regions of their owner rather than portable item instances. Every displayed step retains its owner ID, region ID, expected placement and actual parent relationship.
 
-The right trail is anchored to a particular object in the middle trail, not merely whichever garment is currently drawn there. Thus the jacket's pocket may remain visible while the middle view has descended to the shirt or T-shirt. Being retained in a trail never bypasses current physical access checks.
+The right trail is anchored to its actual physical owner, independently of the current middle trail. Thus a jacket pocket can remain visible while the middle shows a shirt, backpack or belt. Being retained in a trail never bypasses current physical access checks. Its breadcrumb identifies the owner as well as the compartment.
 
 ## Up, × and Esc
 
 Both middle and right views have **↑** and **×** controls.
 
-- **↑ in the middle:** remove its current gear step and display the preceding step. If the trail becomes empty, hide the gear view and its dependent contents. If contents belong to an object removed from the gear trail, clear those contents. Contents anchored to a retained outer garment remain.
+- **↑ in the middle:** remove its current gear step and display the preceding step. If the trail becomes empty, hide the gear view and its dependent contents. If contents physically depend on an object removed from the gear trail, clear those contents. Contents anchored to a retained outer garment or unrelated source remain.
 - **↑ on the right:** remove its current contents step and show its containing step. If the trail becomes empty, hide the contents view.
 - **× in the middle:** dismiss the entire gear trail and dependent contents trail.
 - **× on the right:** dismiss the entire contents trail, retaining the gear trail.
@@ -48,7 +48,8 @@ Examples required by the user:
 | Backpack | Bullet box inside a pocket/case | Middle × | Gear and entire contents trail close |
 | Backpack | Bullet box inside a pocket/case | Right ↑ | Containing pocket/case returns on the right |
 | Backpack | Bullet box inside a pocket/case | Right × | Entire contents trail closes; backpack remains |
-| Jacket with pocket open | Jacket pocket | Open backpack from paperdoll | Backpack replaces jacket; old contents trail closes |
+| Jacket with pocket open | Jacket pocket | Open backpack from paperdoll | Backpack replaces jacket; accessible jacket pocket remains |
+| Belt → hook | Backpack main section | Middle × | Destination closes; unrelated backpack source remains |
 
 These view-lifetime rules are distinct from physical handling. **Esc only closes the interface and leaves physical containers unchanged. ↑/× consult each affected fastening’s `SecureOnClose` preference.** The authored default is overridden only for the specific gear instance/compartment the player changes. There is no global settings switch. A jacket front defaults to staying open during shirt/lower-layer navigation; its buttoned pocket can independently default to securing. Child closures run before parent closures through ordinary time/AP-bearing handling; no UI close supplies a free fastening. [Wearable metadata and surface mapping](28-wearable-metadata-and-surface-mapping.md) records the later clarification and separates overlap, access covering and removal blocking.
 
@@ -70,7 +71,7 @@ The context menu exposes actions appropriate to its target:
 
 The gear object's inspection surface and its physical closures are distinct targets. Opening a backpack's enlarged gear view does not unzip every compartment. Opening a pocket targets that pocket alone. An unfastened/open pocket can be displayed without a new fastening action; a secured pocket requires its own opening work. A container with no fastening exposes contents by inspection when access permits.
 
-Opening the jacket's center fastening exposes the lower clothing in the paperdoll and allows the middle view to descend to the relevant underlying garment. A pocket opened on the right retains its jacket ownership if the jacket remains in the gear trail and that pocket is still physically accessible. Choosing among multiple exposed garments should use authored body-region/hotspot relationships rather than an arbitrary global item order.
+Opening the jacket's center fastening exposes the lower clothing in the paperdoll and allows the middle view to descend to the relevant underlying garment. A pocket opened on the right retains its jacket ownership while that pocket is physically accessible, even if the middle trail switches to unrelated gear. Choosing among multiple exposed garments should use authored body-region/hotspot relationships rather than an arbitrary global item order.
 
 If opening takes time or AP, contents are not exposed immediately. A pending view transition must check that its target still exists, remains accessible and belongs to the same inspection context when the physical work completes. Changing to another top-level object must not cause a late action completion to reopen the old object's UI.
 

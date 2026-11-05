@@ -86,6 +86,10 @@ public partial class SpatialScene
             {
                 await RunHookSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
             }
+            if (OS.GetCmdlineUserArgs().Contains("--transfer-smoke"))
+            {
+                await RunTransferSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             if (OS.GetCmdlineUserArgs().Contains("--body-drop-smoke"))
             {
                 await RunBodyDropSmoke(); await RunBodyInspectionSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
@@ -100,6 +104,7 @@ public partial class SpatialScene
             await RunAttachmentSmoke();
             await RunOverlaySmoke();
             await RunHookSmoke();
+            await RunTransferSmoke();
             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs > local, "Inspection froze realtime simulation.");
             sim.ManualPause = true; var original = sim.Save();
             await OpenPocket("avatar-backpack", "main");
@@ -156,7 +161,7 @@ public partial class SpatialScene
             var context = panel.GetChildren().OfType<PanelContainer>().Last();
             var openButton = context.GetChild<VBoxContainer>(0).GetChildren().OfType<Button>().Single(b => b.Text == "Open");
             InventoryClick(openButton.GetGlobalRect().GetCenter()); await InventoryFrames();
-            Check(panel.Browser.CurrentGear == "avatar-backpack" && panel.Browser.CurrentContents is null, "Context Open must switch gear and clear old contents.");
+            Check(panel.Browser.CurrentGear == "avatar-backpack" && panel.Browser.CurrentContents == ("avatar-trousers", "left"), "Context Open must switch gear while retaining the source pocket.");
             InventoryClick(Surface().HotspotPosition("side"), true); await InventoryFrames();
             var side = panel.FindGrid("avatar-backpack", "side"); var hand = panel.FindGrid("person:avatar", "hand");
             var dragSave = sim.Save();
@@ -195,9 +200,9 @@ public partial class SpatialScene
             var zip = secureMenu.GetChild<VBoxContainer>(0).GetChildren().OfType<Button>().Single(b => b.Text == "Zip");
             InventoryClick(zip.GetGlobalRect().GetCenter()); await Finish();
             await OpenPocket("avatar-backpack", "main");
-            Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open && panel.Browser.CurrentContents is null, "Secured contents were revealed before paid opening.");
+            Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open && panel.Browser.CurrentContents == ("avatar-trousers", "left"), "Pending main opening must retain the source pocket without revealing secured contents.");
             panel.Inspect("avatar-trousers"); await Finish(); await InventoryFrames();
-            Check(panel.Browser.CurrentGear == "avatar-trousers" && panel.Browser.CurrentContents is null && sim.Inventory.IsOpen("avatar-backpack", "main"), "Late opening resurrected an old view.");
+            Check(panel.Browser.CurrentGear == "avatar-trousers" && panel.Browser.CurrentContents == ("avatar-trousers", "left") && sim.Inventory.IsOpen("avatar-backpack", "main"), "Late opening replaced the retained source after switching gear.");
             sim.ManualPause = true; await OpenPocket("avatar-backpack", "main"); panel.Inspect("medical-case"); await InventoryFrames();
             Nav(false, "×"); await InventoryFrames();
             Check(panel.Browser.CurrentContents is null && panel.Browser.CurrentGear == "avatar-backpack" && sim.Inventory.SecuringRemaining == 2

@@ -1,0 +1,23 @@
+# Independent inventory source and destination views
+
+**Implemented bounded inventory interaction, November 4.** The right contents pane remains available while the middle pane changes to another accessible gear object. This is ordinary equipment handling, not an SCP adaptation. See the [runtime contract](doc-docs-48-independent-inventory-transfers-md.html), [inventory](system-inventory.html), [presentation](system-presentation.html) and [ledger](status.html).
+
+## Direct transfers
+
+Open a backpack pocket, then inspect the worn belt: the pocket stays on the right, with its own owner/compartment breadcrumb. Drag its hook directly onto the belt webbing. A stored pouch can then go directly onto the hook's lower mount. The hand can remain occupied. [Provider geometry and clearance](mount-points.html), normal source/destination access and paid handling still decide whether either transfer succeeds. Exact grid drops and scoped container packing retain their existing semantics.
+
+The three panes remain paperdoll, gear and contents. Opening a different compartment explicitly replaces the right branch; opening a container within that branch descends into it. Inspecting destination gear alone neither opens its compartments nor secures the source. A cancelled view callback cannot resurrect an old branch when its physical opening later completes.
+
+## Two trails, physical dependencies
+
+Up/× operate on their respective trails. Closing unrelated destination gear keeps the source. Closing an actual source provider, including an ancestor in an attachment chain, dismisses its dependent contents and queues eligible securing through normal time/AP handling. Right-hand Up returns to the containing compartment; right-hand × closes that contents trail while retaining destination gear. Closure history is scoped to the retained source and current gear. Esc closes the interface and leaves physical closures unchanged.
+
+Source views retain expected placements and normal access checks. Closing an ancestor, covering a pocket or leaving a fixture's reach invalidates its unavailable contents. Merely inspecting another object does not change physical access or grant knowledge of closed storage. [Body inspection](body-inspection.html), [worn backpack inspection](worn-backpack.html) and [belt/pouch sprites](worn-belt-and-pouch.html) continue to select real items through these services.
+
+## Source and evidence
+
+[InventoryBrowser](file-game-presentation-inventory-inventorybrowser-cs.html) owns the independent view trails; [grid input](file-game-presentation-inventory-inventorygrid-cs.html) and [mount targeting](file-game-presentation-inventory-inventorygearsurface-attachments-cs.html) submit existing transactions. [Native transfer checks](file-game-presentation-spatialscene-transfersmoke-cs.html) cover real pointer input with an occupied hand, nested targets, paused refusal, paid source retention and pending restore, independent closure, parent dependencies, reach and coverage. See [recorded results](doc-docs-reviews-inventory-runtime-checks-md.html).
+
+Definitions, physical dimensions, artwork and [save schema 14](system-persistence.html) are unchanged. UI breadcrumbs remain transient. Nearby ground storage for changing clothes, a second hand, two simultaneous contents grids and general transfer planning are not added by this slice.
+
+Related: [engine](engine.html), [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [mount points](mount-points.html), [body inspection](body-inspection.html), [worn backpacks](worn-backpack.html), [worn belt/pouch](worn-belt-and-pouch.html), [design library](documents.html), [ledger](status.html).

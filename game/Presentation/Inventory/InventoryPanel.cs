@@ -48,7 +48,7 @@ public partial class InventoryPanel : Control
         Label(header, "PERSONAL EQUIPMENT", 23).SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _clock = Label(header, "", 13);
         Button(header, "CLOSE  /  I", Close);
-        Label(column, "Double-click opens · right-click for actions · drag to move · R rotates · ↑/× use gear securing preferences · Esc hides interface", 12);
+        Label(column, "Double-click opens · contents stay while choosing gear · drag to move · R rotates · right-click for actions · ↑/× secure · Esc hides", 12);
         column.AddChild(new HSeparator());
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; body.AddThemeConstantOverride("separation", 26); column.AddChild(body);
         var worn = new VBoxContainer(); body.AddChild(worn);

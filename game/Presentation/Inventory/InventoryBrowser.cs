@@ -3,7 +3,7 @@ using SiteSimulation;
 
 namespace SitePresentation;
 
-/// <summary>Two bounded view trails: worn layers in the middle, physical containment on the right.</summary>
+/// <summary>Independent gear and source-compartment trails, both gated by physical access.</summary>
 public partial class InventoryBrowser : HBoxContainer
 {
     public InventoryPanel Panel { get; set; } = null!;
@@ -54,7 +54,7 @@ public partial class InventoryBrowser : HBoxContainer
                 {
                     Panel.CancelDragPreview(); _context++; _opening = null;
                     path.Reverse(); _gear.AddRange(path.Select(next => new Gear(next, Placement(next))));
-                    _contents.Clear(); Build(); return true;
+                    RetainVisited(); Build(); return true;
                 }
                 cursor = state.DiagnosticItems.Single(i => i.Id == cursor.Placement.ParentId);
             }
@@ -85,7 +85,8 @@ public partial class InventoryBrowser : HBoxContainer
     private void StartGear(string id)
     {
         Panel.CancelDragPreview(); _context++; _opening = null;
-        _gear.Clear(); _contents.Clear(); _visited.Clear(); _gear.Add(new(id, Placement(id))); Build();
+        // Choosing a destination must not discard the compartment supplying the dragged item.
+        _gear.Clear(); _gear.Add(new(id, Placement(id))); RetainVisited(); Build();
     }
     internal bool OpenRegion(string owner, string region, out string reason)
     {
@@ -102,19 +103,20 @@ public partial class InventoryBrowser : HBoxContainer
         if (!sim.Inventory.IsOpen(owner, region))
         {
             if (!sim.HandleInventory(new(InventoryActionKind.Open, owner, RegionId: region))) { reason = sim.LastMessage; return false; }
-            _opening = (target, _context); reason = sim.LastMessage; return true;
+            _opening = (target, ++_context); reason = sim.LastMessage; return true;
         }
         if (!access.Allowed) { reason = access.Reason; return false; }
         Enter(target); reason = "Inspecting " + sim.Inventory.Region(owner, region).Name; return true;
     }
     private void Enter(Interior target)
     {
-        Panel.CancelDragPreview();
+        Panel.CancelDragPreview(); _context++; _opening = null;
         if (_gear.Any(g => g.Id == target.Owner)) _contents.Clear();
         var existing = _contents.FindIndex(c => c.Owner == target.Owner && c.Region == target.Region);
         if (existing >= 0) _contents.RemoveRange(existing, _contents.Count - existing);
         _contents.Add(target); Build();
         if (!_visited.Any(c => c.Owner == target.Owner && c.Region == target.Region)) _visited.Add(target);
+        RetainVisited();
     }
     internal void Descend(string id)
     {
@@ -127,10 +129,11 @@ public partial class InventoryBrowser : HBoxContainer
     {
         if (gear ? _gear.Count == 0 : _contents.Count == 0) return false;
         var removedGear = gear ? (entire ? _gear.ToArray() : [_gear[^1]]) : Array.Empty<Gear>();
-        var removedContents = !gear || _contents.Any(c => removedGear.Any(g => g.Id == c.Owner))
+        var removedContents = !gear || _contents.Any(c => removedGear.Any(g => Within(c.Owner, g.Id)))
             ? (entire || gear ? _contents.ToArray() : [_contents[^1]]) : Array.Empty<Interior>();
         // Dismissing views has a physical default. A busy handler leaves the views in place with an explanation.
-        var interiors = gear && entire ? _visited.Concat(removedGear.SelectMany(g => g.Placement is null ? Array.Empty<Interior>()
+        var interiors = gear && entire ? _visited.Where(c => removedGear.Any(g => Within(c.Owner, g.Id)))
+            .Concat(removedContents).Concat(removedGear.SelectMany(g => g.Placement is null ? Array.Empty<Interior>()
             : (Panel.Simulation.Inventory.Definition(g.Id).Regions ?? []).Where(r => r.Attachment is null).Select(r => new Interior(g.Id, r.Id, g.Placement)))) : removedContents;
         var requests = interiors.Where(c => Placement(c.Owner) == c.Placement && Panel.Simulation.Inventory.IsOpen(c.Owner, c.Region))
             .Select(c => new InventoryRequest(InventoryActionKind.Close, c.Owner, RegionId: c.Region))
@@ -142,7 +145,7 @@ public partial class InventoryBrowser : HBoxContainer
         Panel.CancelDragPreview(); _context++; _opening = null;
         if (gear) _gear.RemoveRange(entire ? 0 : _gear.Count - 1, entire ? _gear.Count : 1);
         if (removedContents.Length != 0) _contents.RemoveRange(_contents.Count - removedContents.Length, removedContents.Length);
-        Build(); Panel.ShowReceipt(); return true;
+        RetainVisited(); Build(); Panel.ShowReceipt(); return true;
     }
     internal void CloseView(string id)
     {
@@ -152,12 +155,28 @@ public partial class InventoryBrowser : HBoxContainer
     internal bool Back() => _contents.Count != 0 ? Dismiss(false, false) : Dismiss(true, false);
     internal void Clear()
     { _context++; _opening = null; _gear.Clear(); _contents.Clear(); _visited.Clear(); if (IsNodeReady()) Build(); }
+    private bool Within(string owner, string ancestor)
+    {
+        for (var depth = 0; depth <= InventoryHierarchy.MaxDepth; depth++)
+        {
+            if (owner == ancestor) return true;
+            if (Placement(owner) is not { } placement) return false;
+            owner = placement.ParentId;
+        }
+        return false;
+    }
+    private void RetainVisited()
+    {
+        // Keep closure history only for the current gear and independently retained source branch.
+        _visited.RemoveAll(c => !_gear.Any(g => Within(c.Owner, g.Id))
+            && !(_contents.FirstOrDefault() is { } source && Within(c.Owner, source.Owner)));
+    }
     private void Build()
     {
         if (_gearView is null) return;
         _gearView.Build(CurrentGear, null, string.Join(" → ", _gear.Select(g => ItemName(g.Id))));
         var interior = _contents.LastOrDefault();
-        _contentsView.Build(interior?.Owner, interior?.Region, string.Join(" → ", _contents.Select(c => Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));
+        _contentsView.Build(interior?.Owner, interior?.Region, string.Join(" → ", _contents.Select(c => ItemName(c.Owner) + " · " + Panel.Simulation.Inventory.Region(c.Owner, c.Region).Name)));
     }
     private string ItemName(string id) => Panel.Simulation.Inventory.Content!.Roots.SingleOrDefault(r => r.Id == id)?.Name ?? Panel.Simulation.Inventory.Definition(id).Name;
     internal void Refresh()
@@ -168,13 +187,12 @@ public partial class InventoryBrowser : HBoxContainer
             || g.Placement is null && !sim.InventoryRoots.Any(r => r.Id == g.Id));
         if (badGear >= 0)
         {
-            var removed = _gear.Skip(badGear).Select(g => g.Id).ToArray();
             _gear.RemoveRange(badGear, _gear.Count - badGear);
-            if (_contents.Any(c => removed.Contains(c.Owner))) _contents.Clear();
             _context++; _opening = null; Build();
         }
         var badContents = _contents.FindIndex(c => c.Placement != Placement(c.Owner) || !sim.InventoryAccess(c.Owner, c.Region).Allowed);
         if (badContents >= 0) { _contents.RemoveRange(badContents, _contents.Count - badContents); _context++; _opening = null; Build(); }
+        if (badGear >= 0 || badContents >= 0) RetainVisited();
         if (_opening is { } opening && sim.Inventory.Pending is null)
         {
             _opening = null;

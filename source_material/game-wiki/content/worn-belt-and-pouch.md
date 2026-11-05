@@ -25,3 +25,5 @@ The new front/back belt atlas is copied unchanged from built-in imagegen into th
 [Native belt/pouch checks](file-game-presentation-spatialscene-paperdollbeltsmoke-cs.html) cover positions/rotations, picking, front/back, validated trails, paid contents/removal, loaded restore and unsupported-pose omission. The [runtime review](doc-docs-reviews-inventory-runtime-checks-md.html) records actual runs; this wiki build does not run gameplay tests.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [backpack/harness](worn-backpack.html), [worn masks](worn-alpha-masks.html), [asset library](asset-library.html), [ledger](status.html), [design library](documents.html).
+
+[Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.

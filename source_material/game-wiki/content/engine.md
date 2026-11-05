@@ -51,3 +51,5 @@ Presentation follow-up: [engine-rendered paperdoll mosaic](paperdoll-mosaic.html
 November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) adds mount-aware front/back art and routes visible pack pixels to the existing segmented gear view. Physical fit, access, contents and paid handling remain authoritative.
 
 [Worn waist belt/direct pouch](worn-belt-and-pouch.html) extend the qualified sprite subset to eight wearable definitions and one exterior binding. They read the existing graph without changing physical fit, native content identity or schema.
+
+[Independent source/destination views](inventory-transfers.html) retain an accessible source compartment while inspecting other gear, allowing direct pocket-to-provider transfers. Physical access, exact fit, paid handling and provider-dependent closure remain authoritative.
