@@ -22,6 +22,7 @@ InventoryAttachments.SurfaceValid
 c.Definitions.Any
 WearValid
 state.BodyFits!.Content.Shapes.Any
+world.Actors.Any
 InventoryAttachments.ProfileValid
 .Any
 regions.Any
@@ -38,7 +39,6 @@ r.Id.StartsWith
 r.Regions.Select(region =&gt; region.Id).Distinct().Count
 r.Regions.Select(region =&gt; region.Id).Distinct
 r.Regions.Select
-world.Actors.Any
 world.Map.Definition.Props.Any
 state.BodyFits!.Content.Bodies.Any
 c.Roots.Select(r =&gt; r.Id).Distinct().Count
@@ -87,6 +87,8 @@ InventorySaveCodec.ValidateGraph</pre></details><h2>Candidate incoming calls</h2
                 || d.MassGrams is &lt; 0 or &gt; 100000 || d.HandleMs is &lt; 50 or &gt; 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
                 || d.HandleAp is &lt; 1 or &gt; 5 || d.Wear is not null &amp;&amp; !WearValid(d.Wear)
                 || d.Wear?.FitProfile is { } fit &amp;&amp; !state.BodyFits!.Content.Shapes.Any(s =&gt; s.Id == fit)
+                || d.Credential is { } credential &amp;&amp; (!Id(credential.Issuer) || credential.Clearance is &lt; 0 or &gt; 5
+                    || credential.SubjectId is { } subject &amp;&amp; !world.Actors.Any(a =&gt; a.Id == subject))
                 || !InventoryAttachments.ProfileValid(d.Attachment)
                 || d.DefaultDropRegion is not null &amp;&amp; d.Regions?.Any(r =&gt; r is not null &amp;&amp; r.Id == d.DefaultDropRegion &amp;&amp; r.MountSlot is null &amp;&amp; r.Attachment is null) != true
                 || d.Regions is { } regions &amp;&amp; (regions.Any(r =&gt; !RegionValid(r)) || regions.Select(r =&gt; r.Id).Distinct().Count() != regions.Length))

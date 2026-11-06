@@ -130,3 +130,7 @@ November 5 follow-up: [worn container drops](52-worn-container-drops.md) add bag
 ## Current visible-pocket contract
 
 [Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.
+
+## Native credential item function — November 6
+
+Optional immutable `ItemDefinition.Credential` records issuer, clearance and optional actor subject. `PresentBadge` uses optional `InventoryRequest.TargetId` for a real door reader, with the badge already in hand and normal paid handling. [The bounded reader guide](56-badge-door-access.md) distinguishes this native DTO extension from final public gear-card, credential administration and OSCP permission contracts. Tags and artwork are never credentials.

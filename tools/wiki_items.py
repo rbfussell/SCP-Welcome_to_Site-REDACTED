@@ -206,7 +206,9 @@ def build_items(root, out, add):
         if item in {'utility-belt', 'utility-hook', 'utility-pouch'} and (attachment_bindings or binding and binding.get('attachmentPlane')):
             detail += '<p>' + link('worn-attachment-chains.html', 'Qualified worn belt/hook/pouch chains') + ': shared composed frames, separate alpha targets and ordinary paid handling.</p>'
         if item in {'shirt', 'personnel-badge'}:
-            detail += '<p>' + link('shirt-pockets-and-badge.html', 'Shirt pockets and detachable badge') + ': real compartments and clip mounting; credential door access remains planned.</p>'
+            detail += '<p>' + link('shirt-pockets-and-badge.html', 'Shirt pockets and detachable badge') + ': real compartments and clip mounting.</p>'
+        if item == 'personnel-badge':
+            detail += '<p>' + link('badge-door-access.html', 'Badge-controlled door access') + ': exposed wearing or hand-equipped presentation; authoritative credential metadata.</p>'
         if item in {'coat', 'trousers', 'backpack', 'shirt'}:
             detail += '<p>' + link('visible-pockets.html', 'Every depicted pocket is usable') + ': shared views address real independent compartments.</p>'
         if any(part.get('pockets') for frame in registered for part in frame['parts']):

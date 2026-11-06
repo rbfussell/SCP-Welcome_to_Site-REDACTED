@@ -1,6 +1,6 @@
 # Shirt pockets and detachable badge
 
-**Implemented November 5:** two buttoned shirt chest pockets and a separate badge attached to an exposed clip above the wearer's left pocket. **Selected future design:** only a visibly worn valid badge may support automatic entry; carried badges require manual presentation. Door readers, credential validation and presentation actions are not implemented. This is game equipment design, not an SCP canon claim. See the [current guide](doc-docs-54-shirt-pockets-and-badge-md.html) and [actual evidence](doc-docs-reviews-inventory-runtime-checks-md.html).
+**Implemented November 5:** two buttoned shirt chest pockets and a separate badge attached to an exposed clip above the wearer's left pocket. **Current reader follow-up:** [badge-controlled access](badge-door-access.html) accepts an exposed worn badge automatically during realtime approach; otherwise equip it in hand and present with E. A bounded reader/credential service now exists; full facility identity/credential administration remains future work. This is game equipment design, not an SCP canon claim. See the [current guide](doc-docs-54-shirt-pockets-and-badge-md.html) and [actual evidence](doc-docs-reviews-inventory-runtime-checks-md.html).
 
 ## Physical items and access
 
@@ -22,7 +22,7 @@ The native kit now has **20 definitions/40 instances** and two extra pocket stat
 
 ## Door-access boundary
 
-A later credential system must establish actual identity, validity, permissions, authorized observation/readers, manual presentation costs and denied/offline behavior. Visible wearing is required for automatic entry, not sufficient permission for every door. Covered/stored badges and painted badge pixels never grant automatic authorization. The badge already painted on jacket art remains decorative; real jacket clips/replacement art are separate work. [OSCP](system-oscp.html) and facility/world permissions must eventually share authoritative credential services without omniscience.
+The [bounded local reader](badge-door-access.html) now checks issuer, clearance, optional assigned actor, condition, exposed wearing/hand placement and authored reader power. Manual presentation costs 500 local ms/2 AP. Production issuance, revocation, expiration, network identity and OSCP account authorization remain future work. Visible wearing is required for automatic entry, not sufficient permission for every door. Covered/stored badges and painted badge pixels never grant automatic authorization. The badge already painted on jacket art remains decorative; real jacket clips/replacement art are separate work. [OSCP](system-oscp.html) and facility/world permissions must eventually share authoritative credential services without omniscience.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [engine](engine.html), [ledger](status.html), [design library](documents.html), [appearance](wearable-appearance.html), [worn containers](worn-container-drops.html), [sprite drops](sprite-equipment-drops.html).
 

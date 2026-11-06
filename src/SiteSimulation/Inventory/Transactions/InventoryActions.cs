@@ -10,6 +10,8 @@ internal static class InventoryActions
     {
         var state = world.Inventory; duration = 0; ap = 0; packing = null;
         reason = "Inventory is unavailable";
+        if (request is { TargetId: not null, Kind: not InventoryActionKind.PresentBadge })
+        { reason = "Only badge presentation accepts a reader target."; return false; }
         if (state.Enabled && request?.Kind is InventoryActionKind.AutoPlace or InventoryActionKind.Arrange)
         {
             try { packing = InventoryPackingActions.Quote(world, actorId, request, out duration, out ap); reason = "Ready"; return true; }
@@ -28,6 +30,10 @@ internal static class InventoryActions
         {
             switch (request.Kind)
             {
+                case InventoryActionKind.PresentBadge:
+                    DoorCredentialService.ValidatePresentation(world, actorId, request);
+                    duration = DoorCredentialService.PresentMs; ap = DoorCredentialService.PresentAp;
+                    break;
                 case InventoryActionKind.Move:
                     if (request.Destination is not { } destination || request.RegionId is not null) throw new ArgumentException("Choose a physical destination");
                     destination = InventoryPlacement.Destination(state, item, destination);
@@ -136,6 +142,8 @@ internal static class InventoryActions
         var request = work.Request; var item = state.Items[request.ItemId];
         switch (request.Kind)
         {
+            case InventoryActionKind.PresentBadge:
+                DoorCredentialService.CompletePresentation(world, work.ActorId, request); break;
             case InventoryActionKind.Move: state.Items[item.Id] = item with { Placement = request.Destination! }; break;
             case InventoryActionKind.Open:
             case InventoryActionKind.Close:

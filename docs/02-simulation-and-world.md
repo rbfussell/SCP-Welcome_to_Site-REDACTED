@@ -201,3 +201,5 @@ M0 records a named reference machine and build configuration, then measures 10,0
 ## Implemented local floor inventory
 
 [Ground patches and piles](49-ground-inventory-and-piles.md) use the same item graph as personal and nested storage. A floor root is a map-local location with neither actor ownership nor a fixture prop. Queries resolve empty patches without changing state; access requires standing on the matching physical navigation hex. Item locations, relative pile order and paid transfers persist in schema 15. Cross-domain ground transfer remains future work.
+
+[Badge-controlled door access](56-badge-door-access.md) now supplies one local physical credential proof. Exposed wearing or direct hand placement, issuer/tier/optional identity and reach are shared service checks. Manual presentation uses existing paid inventory/tactical continuation; full authorization infrastructure remains future work.

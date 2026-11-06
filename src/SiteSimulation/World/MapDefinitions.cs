@@ -1,6 +1,6 @@
 namespace SiteSimulation;
 
-public sealed record WallDefinition(string Id, double X, double Y, string Axis, bool Door = false)
+public sealed record WallDefinition(string Id, double X, double Y, string Axis, bool Door = false, DoorReader? Reader = null)
 {
     public Point2 Start => new(X, Y);
     public Point2 End => new(X + (Axis == "u" ? 1 : 0), Y + (Axis == "v" ? 1 : 0));
@@ -14,3 +14,6 @@ public sealed record ActorDefinition(string Id, string Name, string Kind, int Q,
 public sealed record MapDefinition(int Version, int Width, int Height, WallDefinition[] Walls, PropDefinition[] Props, ActorDefinition[] Actors, AnomalyDefinition[]? Anomalies = null);
 
 public sealed record AnomalyDefinition(string Id, string Module, int Q, int R, string ObserverProfile = "human", uint Seed = 650);
+
+/// <summary>Authored local reader policy; not a general Foundation clearance database.</summary>
+public sealed record DoorReader(string Issuer, int Clearance, bool Powered = true);

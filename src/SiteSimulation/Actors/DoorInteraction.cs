@@ -15,6 +15,7 @@ internal static class DoorInteraction
             || a.Moving && Geometry.Intersects(a.Position, a.Route[0].World, selected.Start, selected.End))
             || world.Anomalies.Bodies.Any(b => Geometry.DistanceToSegment(b.Cell.World, selected.Start, selected.End) < 0.18)))
         { reason = "Door obstructed by an actor, anomaly or committed crossing."; return false; }
+        if (!DoorCredentialService.Authorize(world, actor, door, out _, out reason)) return false;
         reason = "accepted"; return true;
     }
     public static void Toggle(SimulationWorld world, WallDefinition door)

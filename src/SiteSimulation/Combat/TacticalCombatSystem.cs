@@ -113,6 +113,12 @@ internal static class TacticalCombatSystem
     public static bool Door(SimulationWorld world, string actorId, out string reason)
     {
         if (!DoorInteraction.Validate(world, Actor(world, actorId), null, out var door, out reason)) return false;
+        if (door!.Reader is not null && !world.Map.OpenDoors.Contains(door.Id)
+            && DoorCredentialService.Authorize(world, Actor(world, actorId), door, out var badge, out _) && badge is not null)
+        {
+            if (actorId != world.Player.Id) { reason = "Manual badge presentation requires this actor's handling controller."; return false; }
+            return InventoryActions.Start(world, new(InventoryActionKind.PresentBadge, badge.Id, TargetId: door.Id), out reason);
+        }
         return Commit(world, actorId, CombatActionKind.Door, 2, 300, out reason, door!.Id);
     }
     public static bool EndTurn(SimulationWorld world, string actorId, out string reason)
@@ -167,9 +173,11 @@ internal static class TacticalCombatSystem
                 Replace(state, c with { Ammo = c.Ammo + rounds, ReserveAmmo = c.ReserveAmmo - rounds });
                 PlayerFeedback.Equipment(world, actor, actor == world.Player ? "reload training rounds." : "reloads training rounds."); break;
             case CombatActionKind.Door:
-                if (DoorInteraction.Validate(world, actor, pending.TargetId, out var door, out var doorReason))
+                if (DoorInteraction.Validate(world, actor, pending.TargetId, out var door, out var doorReason)
+                    && (world.Map.OpenDoors.Contains(door!.Id) || door.Reader is null
+                        || DoorCredentialService.Authorize(world, actor, door, out var held, out _) && held is null))
                 { DoorInteraction.Toggle(world, door!); PlayerFeedback.Equipment(world, actor, actor == world.Player ? "operate the door." : "operates the door."); }
-                else if (PlayerFeedback.Sees(world, actor)) PlayerFeedback.Add(world, MessageKind.Warning, $"Door use interrupted: {doorReason}");
+                else if (PlayerFeedback.Sees(world, actor)) PlayerFeedback.Add(world, MessageKind.Warning, $"Door use interrupted: {(doorReason == "accepted" ? "Visible badge is no longer available." : doorReason)}");
                 break;
             case CombatActionKind.Fire:
                 var victim = Actor(world, pending.TargetId!); var target = state.For(victim.Id)!;

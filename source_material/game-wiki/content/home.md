@@ -44,3 +44,5 @@ Use the search field to find pages by designation, system, function, or source p
 - [Shirt pockets and detachable badge](shirt-pockets-and-badge.html): two real compartments, clip mounting, covered access and the future visible-credential rule.
 
 [Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.
+
+[Badge-controlled test door](badge-door-access.html): exposed worn credentials or equipped-hand presentation use physical inventory and shared security validation.

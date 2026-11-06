@@ -170,6 +170,12 @@ public partial class WorldView : Node2D
         WallStroke(start, end, new Color("252b2b") * light, 2, feather);
     }
 
+    private void ReaderLabel(WallDefinition wall)
+    {
+        if (wall.Reader is not null && (!FieldView || Simulation.VisibleToPlayer(wall.Center)))
+            Tag(Screen(wall.Center) + new Vector2(0, -RenderedWallHeight(wall) - 12), "READER " + wall.Reader.Clearance, Amber, 9);
+    }
+
     private static Vector2[] Corners(Hex h)
     {
         var center = Screen(h.World);
@@ -257,10 +263,12 @@ public partial class WorldView : Node2D
                     WallStroke(Screen(wall.Start), Screen(wall.Start) - new Vector2(0, height), new Color("b4aaa0"), 3, feather);
                     WallStroke(Screen(wall.End), Screen(wall.End) - new Vector2(0, height), new Color("b4aaa0"), 3, feather);
                     WallStroke(Screen(wall.Start) - new Vector2(0, height), Screen(wall.End) - new Vector2(0, height), new Color("888681"), 4, feather);
+                    ReaderLabel(wall);
                     return;
                 }
                 if (!DiagnosticSprites) WallFace(wall, feather);
                 else DiagnosticWall(wall, feather);
+                ReaderLabel(wall);
             }));
         }
         foreach (var prop in map.Definition.Props)

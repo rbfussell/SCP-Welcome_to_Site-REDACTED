@@ -174,7 +174,7 @@ public partial class SpatialHud : Control
         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;
         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);
         _viewHint.Text = world.FieldView ? "FIELD VIEW · direct character sight · F2 exposes diagnostics" : "DEBUG VIEW · full visibility · inspector is not an observer";
-        _status.Text = notice ?? sim.LastMessage;
+        _status.Text = notice ?? (sim.LastMessage + (sim.NearbyReaderStatus is { } reader ? "\n" + reader : ""));
         _toggles[Key.W].SetPressedNoSignal(world.ReducedWalls);
         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);
         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/World/FacilityMap.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>FacilityMap.cs</h1><p>src/SiteSimulation/World/FacilityMap.cs</p><p><a href="system-world.html">World and geometry</a></p><h2>Types</h2><ul><li><a href="type-facilitymap.html">FacilityMap</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a> · line 8</li><li><a href="function-cab9f360f80db3d4ef3f.html">FacilityMap.Definition.get</a> · line 8</li><li><a href="function-8f68e39b53499b972c49.html">FacilityMap.OpenDoors</a> · line 9</li><li><a href="function-9cb9e31cda4f2a1879c9.html">FacilityMap.OpenDoors.get</a> · line 9</li><li><a href="function-f52ab13d0e8a661c02e0.html">FacilityMap.Cells</a> · line 10</li><li><a href="function-c312ffb2dfaa872b6da9.html">FacilityMap.Cells.get</a> · line 10</li><li><a href="function-c2d20562418894dcbb9f.html">FacilityMap.LightsOn</a> · line 11</li><li><a href="function-c0d2cbb5aac80bd71a72.html">FacilityMap.LightsOn.get</a> · line 11</li><li><a href="function-710b54b3c8303e189e6b.html">FacilityMap.LightsOn.set</a> · line 11</li><li><a href="function-06e7d597e7ec1829e0bd.html">FacilityMap.DynamicBlockers</a> · line 12</li><li><a href="function-72ca187c61ed62d26ef9.html">FacilityMap.DynamicBlockers.get</a> · line 12</li><li><a href="function-8c73ab1424ad44ad4dd9.html">FacilityMap.SolidWalls</a> · line 13</li><li><a href="function-e9e229d836f7b7223506.html">FacilityMap.FacilityMap</a> · line 15</li><li><a href="function-5b96d5175dcdb3327eac.html">FacilityMap.Load</a> · line 40</li><li><a href="function-13c5a9ae4d883c613d0c.html">FacilityMap.Inside</a> · line 42</li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a> · line 43</li><li><a href="function-7a17a78d60d2e193b978.html">FacilityMap.CanTraverse</a> · line 48</li><li><a href="function-9bb129b1483b7c569116.html">FacilityMap.ClearSight</a> · line 51</li><li><a href="function-b860ece5c9a2c348a5bb.html">FacilityMap.FindPath</a> · line 54</li><li><a href="function-bfe7f38ac024cce8d53f.html">FacilityMap.Reconstruct</a> · line 77</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>src/SiteSimulation/World/FacilityMap.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>FacilityMap.cs</h1><p>src/SiteSimulation/World/FacilityMap.cs</p><p><a href="system-world.html">World and geometry</a></p><h2>Types</h2><ul><li><a href="type-facilitymap.html">FacilityMap</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-c43bedfb1bcb0a94094b.html">FacilityMap.Definition</a> · line 8</li><li><a href="function-cab9f360f80db3d4ef3f.html">FacilityMap.Definition.get</a> · line 8</li><li><a href="function-8f68e39b53499b972c49.html">FacilityMap.OpenDoors</a> · line 9</li><li><a href="function-9cb9e31cda4f2a1879c9.html">FacilityMap.OpenDoors.get</a> · line 9</li><li><a href="function-f52ab13d0e8a661c02e0.html">FacilityMap.Cells</a> · line 10</li><li><a href="function-c312ffb2dfaa872b6da9.html">FacilityMap.Cells.get</a> · line 10</li><li><a href="function-c2d20562418894dcbb9f.html">FacilityMap.LightsOn</a> · line 11</li><li><a href="function-c0d2cbb5aac80bd71a72.html">FacilityMap.LightsOn.get</a> · line 11</li><li><a href="function-710b54b3c8303e189e6b.html">FacilityMap.LightsOn.set</a> · line 11</li><li><a href="function-06e7d597e7ec1829e0bd.html">FacilityMap.DynamicBlockers</a> · line 12</li><li><a href="function-72ca187c61ed62d26ef9.html">FacilityMap.DynamicBlockers.get</a> · line 12</li><li><a href="function-8c73ab1424ad44ad4dd9.html">FacilityMap.SolidWalls</a> · line 13</li><li><a href="function-e9e229d836f7b7223506.html">FacilityMap.FacilityMap</a> · line 15</li><li><a href="function-5b96d5175dcdb3327eac.html">FacilityMap.Load</a> · line 43</li><li><a href="function-13c5a9ae4d883c613d0c.html">FacilityMap.Inside</a> · line 45</li><li><a href="function-47859e6dc4248f1aebaa.html">FacilityMap.Walkable</a> · line 46</li><li><a href="function-7a17a78d60d2e193b978.html">FacilityMap.CanTraverse</a> · line 51</li><li><a href="function-9bb129b1483b7c569116.html">FacilityMap.ClearSight</a> · line 54</li><li><a href="function-b860ece5c9a2c348a5bb.html">FacilityMap.FindPath</a> · line 57</li><li><a href="function-bfe7f38ac024cce8d53f.html">FacilityMap.Reconstruct</a> · line 80</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using System.Text.Json;</span>
 <span id="L2"><a class="line" href="#L2">2</a> </span>
 <span id="L3"><a class="line" href="#L3">3</a> namespace SiteSimulation;</span>
 <span id="L4"><a class="line" href="#L4">4</a> </span>
@@ -21,65 +21,68 @@
 <span id="L21"><a class="line" href="#L21">21</a>         if (definition.Version != 1 || definition.Width is &lt; 1 or &gt; 64 || definition.Height is &lt; 1 or &gt; 64)</span>
 <span id="L22"><a class="line" href="#L22">22</a>             throw new ArgumentException(&quot;Unsupported map version or dimensions.&quot;);</span>
 <span id="L23"><a class="line" href="#L23">23</a>         if (definition.Walls.Any(w =&gt; w.Axis is not (&quot;u&quot; or &quot;v&quot;))) throw new ArgumentException(&quot;Invalid wall axis.&quot;);</span>
-<span id="L24"><a class="line" href="#L24">24</a>         var ids = definition.Walls.Select(w =&gt; w.Id).Concat(definition.Props.Select(p =&gt; p.Id)).Concat(definition.Actors.Select(a =&gt; a.Id)).Concat((definition.Anomalies ?? []).Select(a =&gt; a.Id)).ToArray();</span>
-<span id="L25"><a class="line" href="#L25">25</a>         if (ids.Distinct().Count() != ids.Length) throw new ArgumentException(&quot;Duplicate fixture identity.&quot;);</span>
-<span id="L26"><a class="line" href="#L26">26</a>         if (definition.Actors.Count(a =&gt; a.Kind == &quot;player&quot;) != 1) throw new ArgumentException(&quot;Exactly one avatar required.&quot;);</span>
-<span id="L27"><a class="line" href="#L27">27</a>         Definition = definition;</span>
-<span id="L28"><a class="line" href="#L28">28</a>         var cells = new List&lt;Hex&gt;();</span>
-<span id="L29"><a class="line" href="#L29">29</a>         for (var q = 0; q &lt;= definition.Width * 2; q++)</span>
-<span id="L30"><a class="line" href="#L30">30</a>         for (var r = -definition.Width; r &lt;= definition.Height * 2; r++)</span>
-<span id="L31"><a class="line" href="#L31">31</a>         {</span>
-<span id="L32"><a class="line" href="#L32">32</a>             var h = new Hex(q, r);</span>
-<span id="L33"><a class="line" href="#L33">33</a>             if (Inside(h.World)) cells.Add(h);</span>
-<span id="L34"><a class="line" href="#L34">34</a>         }</span>
-<span id="L35"><a class="line" href="#L35">35</a>         Cells = cells.ToArray();</span>
-<span id="L36"><a class="line" href="#L36">36</a>         foreach (var actor in definition.Actors)</span>
-<span id="L37"><a class="line" href="#L37">37</a>             if (!Walkable(new(actor.Q, actor.R))) throw new ArgumentException($&quot;Blocked actor spawn: {actor.Id}&quot;);</span>
-<span id="L38"><a class="line" href="#L38">38</a>     }</span>
-<span id="L39"><a class="line" href="#L39">39</a> </span>
-<span id="L40"><a class="line" href="#L40">40</a>     public static FacilityMap Load(string json) =&gt; new(JsonSerializer.Deserialize&lt;MapDefinition&gt;(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })</span>
-<span id="L41"><a class="line" href="#L41">41</a>         ?? throw new ArgumentException(&quot;Empty map definition.&quot;));</span>
-<span id="L42"><a class="line" href="#L42">42</a>     public bool Inside(Point2 p) =&gt; p.X &gt; 0 &amp;&amp; p.Y &gt; 0 &amp;&amp; p.X &lt; Definition.Width &amp;&amp; p.Y &lt; Definition.Height;</span>
-<span id="L43"><a class="line" href="#L43">43</a>     public bool Walkable(Hex h, IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null) =&gt; Inside(h.World)</span>
-<span id="L44"><a class="line" href="#L44">44</a>         &amp;&amp; (!DynamicBlockers.Contains(h) || ignoredBlockers?.Contains(h) == true)</span>
-<span id="L45"><a class="line" href="#L45">45</a>         &amp;&amp; !Definition.Props.Any(p =&gt; p.Cell == h)</span>
-<span id="L46"><a class="line" href="#L46">46</a>         &amp;&amp; !SolidWalls.Any(w =&gt; Geometry.DistanceToSegment(h.World, w.Start, w.End) &lt; 0.18);</span>
-<span id="L47"><a class="line" href="#L47">47</a> </span>
-<span id="L48"><a class="line" href="#L48">48</a>     public bool CanTraverse(Hex a, Hex b, IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null) =&gt; a.Distance(b) == 1 &amp;&amp; Walkable(a, ignoredBlockers) &amp;&amp; Walkable(b, ignoredBlockers)</span>
-<span id="L49"><a class="line" href="#L49">49</a>         &amp;&amp; !SolidWalls.Any(w =&gt; Geometry.Intersects(a.World, b.World, w.Start, w.End));</span>
+<span id="L24"><a class="line" href="#L24">24</a>         if (definition.Walls.Any(w =&gt; w.Reader is { } reader &amp;&amp; (!w.Door || string.IsNullOrWhiteSpace(reader.Issuer)</span>
+<span id="L25"><a class="line" href="#L25">25</a>             || reader.Issuer.Length &gt; 100 || reader.Clearance is &lt; 0 or &gt; 5)))</span>
+<span id="L26"><a class="line" href="#L26">26</a>             throw new ArgumentException(&quot;Invalid door reader policy.&quot;);</span>
+<span id="L27"><a class="line" href="#L27">27</a>         var ids = definition.Walls.Select(w =&gt; w.Id).Concat(definition.Props.Select(p =&gt; p.Id)).Concat(definition.Actors.Select(a =&gt; a.Id)).Concat((definition.Anomalies ?? []).Select(a =&gt; a.Id)).ToArray();</span>
+<span id="L28"><a class="line" href="#L28">28</a>         if (ids.Distinct().Count() != ids.Length) throw new ArgumentException(&quot;Duplicate fixture identity.&quot;);</span>
+<span id="L29"><a class="line" href="#L29">29</a>         if (definition.Actors.Count(a =&gt; a.Kind == &quot;player&quot;) != 1) throw new ArgumentException(&quot;Exactly one avatar required.&quot;);</span>
+<span id="L30"><a class="line" href="#L30">30</a>         Definition = definition;</span>
+<span id="L31"><a class="line" href="#L31">31</a>         var cells = new List&lt;Hex&gt;();</span>
+<span id="L32"><a class="line" href="#L32">32</a>         for (var q = 0; q &lt;= definition.Width * 2; q++)</span>
+<span id="L33"><a class="line" href="#L33">33</a>         for (var r = -definition.Width; r &lt;= definition.Height * 2; r++)</span>
+<span id="L34"><a class="line" href="#L34">34</a>         {</span>
+<span id="L35"><a class="line" href="#L35">35</a>             var h = new Hex(q, r);</span>
+<span id="L36"><a class="line" href="#L36">36</a>             if (Inside(h.World)) cells.Add(h);</span>
+<span id="L37"><a class="line" href="#L37">37</a>         }</span>
+<span id="L38"><a class="line" href="#L38">38</a>         Cells = cells.ToArray();</span>
+<span id="L39"><a class="line" href="#L39">39</a>         foreach (var actor in definition.Actors)</span>
+<span id="L40"><a class="line" href="#L40">40</a>             if (!Walkable(new(actor.Q, actor.R))) throw new ArgumentException($&quot;Blocked actor spawn: {actor.Id}&quot;);</span>
+<span id="L41"><a class="line" href="#L41">41</a>     }</span>
+<span id="L42"><a class="line" href="#L42">42</a> </span>
+<span id="L43"><a class="line" href="#L43">43</a>     public static FacilityMap Load(string json) =&gt; new(JsonSerializer.Deserialize&lt;MapDefinition&gt;(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })</span>
+<span id="L44"><a class="line" href="#L44">44</a>         ?? throw new ArgumentException(&quot;Empty map definition.&quot;));</span>
+<span id="L45"><a class="line" href="#L45">45</a>     public bool Inside(Point2 p) =&gt; p.X &gt; 0 &amp;&amp; p.Y &gt; 0 &amp;&amp; p.X &lt; Definition.Width &amp;&amp; p.Y &lt; Definition.Height;</span>
+<span id="L46"><a class="line" href="#L46">46</a>     public bool Walkable(Hex h, IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null) =&gt; Inside(h.World)</span>
+<span id="L47"><a class="line" href="#L47">47</a>         &amp;&amp; (!DynamicBlockers.Contains(h) || ignoredBlockers?.Contains(h) == true)</span>
+<span id="L48"><a class="line" href="#L48">48</a>         &amp;&amp; !Definition.Props.Any(p =&gt; p.Cell == h)</span>
+<span id="L49"><a class="line" href="#L49">49</a>         &amp;&amp; !SolidWalls.Any(w =&gt; Geometry.DistanceToSegment(h.World, w.Start, w.End) &lt; 0.18);</span>
 <span id="L50"><a class="line" href="#L50">50</a> </span>
-<span id="L51"><a class="line" href="#L51">51</a>     public bool ClearSight(Point2 a, Point2 b) =&gt; !SolidWalls.Any(w =&gt; Geometry.Intersects(a, b, w.Start, w.End))</span>
-<span id="L52"><a class="line" href="#L52">52</a>         &amp;&amp; !Definition.Props.Any(p =&gt; p.Kind == &quot;cabinet&quot; &amp;&amp; Geometry.DistanceToSegment(p.Cell.World, a, b) &lt; 0.17);</span>
+<span id="L51"><a class="line" href="#L51">51</a>     public bool CanTraverse(Hex a, Hex b, IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null) =&gt; a.Distance(b) == 1 &amp;&amp; Walkable(a, ignoredBlockers) &amp;&amp; Walkable(b, ignoredBlockers)</span>
+<span id="L52"><a class="line" href="#L52">52</a>         &amp;&amp; !SolidWalls.Any(w =&gt; Geometry.Intersects(a.World, b.World, w.Start, w.End));</span>
 <span id="L53"><a class="line" href="#L53">53</a> </span>
-<span id="L54"><a class="line" href="#L54">54</a>     public IReadOnlyList&lt;Hex&gt; FindPath(Hex start, Hex end, IReadOnlySet&lt;Hex&gt;? occupied = null,</span>
-<span id="L55"><a class="line" href="#L55">55</a>         IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null, bool approachBlockedGoal = false)</span>
-<span id="L56"><a class="line" href="#L56">56</a>     {</span>
-<span id="L57"><a class="line" href="#L57">57</a>         if (!Inside(end.World) || !approachBlockedGoal &amp;&amp; (!Walkable(end, ignoredBlockers) || occupied?.Contains(end) == true)) return [];</span>
-<span id="L58"><a class="line" href="#L58">58</a>         var queue = new Queue&lt;Hex&gt;();</span>
-<span id="L59"><a class="line" href="#L59">59</a>         var previous = new Dictionary&lt;Hex, Hex&gt; { [start] = start };</span>
-<span id="L60"><a class="line" href="#L60">60</a>         var closest = start;</span>
-<span id="L61"><a class="line" href="#L61">61</a>         queue.Enqueue(start);</span>
-<span id="L62"><a class="line" href="#L62">62</a>         while (queue.TryDequeue(out var current))</span>
-<span id="L63"><a class="line" href="#L63">63</a>         {</span>
-<span id="L64"><a class="line" href="#L64">64</a>             if (current.Distance(end) &lt; closest.Distance(end)) closest = current;</span>
-<span id="L65"><a class="line" href="#L65">65</a>             if (current == end)</span>
-<span id="L66"><a class="line" href="#L66">66</a>                 return Reconstruct(current);</span>
-<span id="L67"><a class="line" href="#L67">67</a>             for (var facing = 0; facing &lt; 6; facing++)</span>
-<span id="L68"><a class="line" href="#L68">68</a>             {</span>
-<span id="L69"><a class="line" href="#L69">69</a>                 var next = current.Neighbor(facing);</span>
-<span id="L70"><a class="line" href="#L70">70</a>                 if (previous.ContainsKey(next) || !CanTraverse(current, next, ignoredBlockers) || occupied?.Contains(next) == true) continue;</span>
-<span id="L71"><a class="line" href="#L71">71</a>                 previous[next] = current;</span>
-<span id="L72"><a class="line" href="#L72">72</a>                 queue.Enqueue(next);</span>
-<span id="L73"><a class="line" href="#L73">73</a>             }</span>
-<span id="L74"><a class="line" href="#L74">74</a>         }</span>
-<span id="L75"><a class="line" href="#L75">75</a>         return approachBlockedGoal ? Reconstruct(closest) : [];</span>
-<span id="L76"><a class="line" href="#L76">76</a> </span>
-<span id="L77"><a class="line" href="#L77">77</a>         IReadOnlyList&lt;Hex&gt; Reconstruct(Hex current)</span>
-<span id="L78"><a class="line" href="#L78">78</a>         {</span>
-<span id="L79"><a class="line" href="#L79">79</a>             var path = new List&lt;Hex&gt;();</span>
-<span id="L80"><a class="line" href="#L80">80</a>             while (current != start) { path.Add(current); current = previous[current]; }</span>
-<span id="L81"><a class="line" href="#L81">81</a>             path.Reverse();</span>
-<span id="L82"><a class="line" href="#L82">82</a>             return path;</span>
-<span id="L83"><a class="line" href="#L83">83</a>         }</span>
-<span id="L84"><a class="line" href="#L84">84</a>     }</span>
-<span id="L85"><a class="line" href="#L85">85</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L54"><a class="line" href="#L54">54</a>     public bool ClearSight(Point2 a, Point2 b) =&gt; !SolidWalls.Any(w =&gt; Geometry.Intersects(a, b, w.Start, w.End))</span>
+<span id="L55"><a class="line" href="#L55">55</a>         &amp;&amp; !Definition.Props.Any(p =&gt; p.Kind == &quot;cabinet&quot; &amp;&amp; Geometry.DistanceToSegment(p.Cell.World, a, b) &lt; 0.17);</span>
+<span id="L56"><a class="line" href="#L56">56</a> </span>
+<span id="L57"><a class="line" href="#L57">57</a>     public IReadOnlyList&lt;Hex&gt; FindPath(Hex start, Hex end, IReadOnlySet&lt;Hex&gt;? occupied = null,</span>
+<span id="L58"><a class="line" href="#L58">58</a>         IReadOnlySet&lt;Hex&gt;? ignoredBlockers = null, bool approachBlockedGoal = false)</span>
+<span id="L59"><a class="line" href="#L59">59</a>     {</span>
+<span id="L60"><a class="line" href="#L60">60</a>         if (!Inside(end.World) || !approachBlockedGoal &amp;&amp; (!Walkable(end, ignoredBlockers) || occupied?.Contains(end) == true)) return [];</span>
+<span id="L61"><a class="line" href="#L61">61</a>         var queue = new Queue&lt;Hex&gt;();</span>
+<span id="L62"><a class="line" href="#L62">62</a>         var previous = new Dictionary&lt;Hex, Hex&gt; { [start] = start };</span>
+<span id="L63"><a class="line" href="#L63">63</a>         var closest = start;</span>
+<span id="L64"><a class="line" href="#L64">64</a>         queue.Enqueue(start);</span>
+<span id="L65"><a class="line" href="#L65">65</a>         while (queue.TryDequeue(out var current))</span>
+<span id="L66"><a class="line" href="#L66">66</a>         {</span>
+<span id="L67"><a class="line" href="#L67">67</a>             if (current.Distance(end) &lt; closest.Distance(end)) closest = current;</span>
+<span id="L68"><a class="line" href="#L68">68</a>             if (current == end)</span>
+<span id="L69"><a class="line" href="#L69">69</a>                 return Reconstruct(current);</span>
+<span id="L70"><a class="line" href="#L70">70</a>             for (var facing = 0; facing &lt; 6; facing++)</span>
+<span id="L71"><a class="line" href="#L71">71</a>             {</span>
+<span id="L72"><a class="line" href="#L72">72</a>                 var next = current.Neighbor(facing);</span>
+<span id="L73"><a class="line" href="#L73">73</a>                 if (previous.ContainsKey(next) || !CanTraverse(current, next, ignoredBlockers) || occupied?.Contains(next) == true) continue;</span>
+<span id="L74"><a class="line" href="#L74">74</a>                 previous[next] = current;</span>
+<span id="L75"><a class="line" href="#L75">75</a>                 queue.Enqueue(next);</span>
+<span id="L76"><a class="line" href="#L76">76</a>             }</span>
+<span id="L77"><a class="line" href="#L77">77</a>         }</span>
+<span id="L78"><a class="line" href="#L78">78</a>         return approachBlockedGoal ? Reconstruct(closest) : [];</span>
+<span id="L79"><a class="line" href="#L79">79</a> </span>
+<span id="L80"><a class="line" href="#L80">80</a>         IReadOnlyList&lt;Hex&gt; Reconstruct(Hex current)</span>
+<span id="L81"><a class="line" href="#L81">81</a>         {</span>
+<span id="L82"><a class="line" href="#L82">82</a>             var path = new List&lt;Hex&gt;();</span>
+<span id="L83"><a class="line" href="#L83">83</a>             while (current != start) { path.Add(current); current = previous[current]; }</span>
+<span id="L84"><a class="line" href="#L84">84</a>             path.Reverse();</span>
+<span id="L85"><a class="line" href="#L85">85</a>             return path;</span>
+<span id="L86"><a class="line" href="#L86">86</a>         }</span>
+<span id="L87"><a class="line" href="#L87">87</a>     }</span>
+<span id="L88"><a class="line" href="#L88">88</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

@@ -66,6 +66,8 @@ class ItemCatalogChecks(unittest.TestCase):
             self.assertIn(&#x27;paperdoll-pocket-segments.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;trousers&#x27;][&#x27;url&#x27;]][1])
             self.assertEqual({p[&#x27;region&#x27;] for p in index[&#x27;items&#x27;][&#x27;shirt&#x27;][&#x27;paperdollFrames&#x27;][0][&#x27;parts&#x27;][0][&#x27;pockets&#x27;]}, {&#x27;chest-left&#x27;, &#x27;chest-right&#x27;})
             self.assertTrue(index[&#x27;items&#x27;][&#x27;personnel-badge&#x27;][&#x27;definition&#x27;][&#x27;attachment&#x27;][&#x27;canBeCovered&#x27;])
+            self.assertEqual(index[&#x27;items&#x27;][&#x27;personnel-badge&#x27;][&#x27;definition&#x27;][&#x27;credential&#x27;], {&#x27;issuer&#x27;: &#x27;site-test&#x27;, &#x27;clearance&#x27;: 1})
+            self.assertIn(&#x27;badge-door-access.html&#x27;, pages[index[&#x27;items&#x27;][&#x27;personnel-badge&#x27;][&#x27;url&#x27;]][1])
             for item in [&#x27;shirt&#x27;, &#x27;personnel-badge&#x27;]:
                 self.assertIn(&#x27;shirt-pockets-and-badge.html&#x27;, pages[index[&#x27;items&#x27;][item][&#x27;url&#x27;]][1])
             for item in [&#x27;backpack&#x27;, &#x27;utility-pouch&#x27;]:

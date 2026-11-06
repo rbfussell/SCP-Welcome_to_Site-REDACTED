@@ -116,3 +116,7 @@ Proposed M1 extension: one authored electrical fixture with a protected branch, 
 M3 adds one bounded ventilation/isolation fixture and an **SCP-019-informed environmental hazard test**, including idle production, a hot treatment cycle and controlled thermal recovery. This can use diagnostic entities and explicitly labeled tuning. Full SCP-019 adaptation, water/service-fluid content and wider engineering jobs remain separately scoped. Electrical and thermal infrastructure are required foundations, rather than optional release decorations.
 
 Acceptance requirements are tracked as FAC-02 through FAC-09 in [scope and acceptance](04-scope-and-acceptance.md). Numeric capacities, routing UX, supported environmental quantities and cross-zone network policy must be resolved or bounded explicitly before their affected implementations are certified.
+
+## Current reader fixture boundary — November 6
+
+[The badge reader proof](56-badge-door-access.md) has an authored power flag and refuses opening when off. This is one test policy, not a connected electrical system or a global power-failure rule. The device-specific fail-mode, power routing and maintenance requirements above remain proposed production infrastructure.

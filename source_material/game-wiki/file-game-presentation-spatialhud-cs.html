@@ -174,7 +174,7 @@
 <span id="L174"><a class="line" href="#L174">174</a>         _tabs.Visible = !world.FieldView; _fieldScroll.Visible = world.FieldView;</span>
 <span id="L175"><a class="line" href="#L175">175</a>         _stopDirect.SetPressedNoSignal(sim.Awareness.StopOnDirectSight); _stopReports.SetPressedNoSignal(sim.Awareness.StopOnReports);</span>
 <span id="L176"><a class="line" href="#L176">176</a>         _viewHint.Text = world.FieldView ? &quot;FIELD VIEW · direct character sight · F2 exposes diagnostics&quot; : &quot;DEBUG VIEW · full visibility · inspector is not an observer&quot;;</span>
-<span id="L177"><a class="line" href="#L177">177</a>         _status.Text = notice ?? sim.LastMessage;</span>
+<span id="L177"><a class="line" href="#L177">177</a>         _status.Text = notice ?? (sim.LastMessage + (sim.NearbyReaderStatus is { } reader ? &quot;\n&quot; + reader : &quot;&quot;));</span>
 <span id="L178"><a class="line" href="#L178">178</a>         _toggles[Key.W].SetPressedNoSignal(world.ReducedWalls);</span>
 <span id="L179"><a class="line" href="#L179">179</a>         _toggles[Key.C].SetPressedNoSignal(world.CollisionOverlay); _toggles[Key.G].SetPressedNoSignal(world.HexGrid);</span>
 <span id="L180"><a class="line" href="#L180">180</a>         _toggles[Key.B].SetPressedNoSignal(world.FloorGrid); _toggles[Key.L].SetPressedNoSignal(world.SightOverlay); _toggles[Key.H].SetPressedNoSignal(world.Cutaway);</span>

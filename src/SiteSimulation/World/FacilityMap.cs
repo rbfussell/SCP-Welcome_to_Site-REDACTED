@@ -21,6 +21,9 @@ public sealed class FacilityMap
         if (definition.Version != 1 || definition.Width is < 1 or > 64 || definition.Height is < 1 or > 64)
             throw new ArgumentException("Unsupported map version or dimensions.");
         if (definition.Walls.Any(w => w.Axis is not ("u" or "v"))) throw new ArgumentException("Invalid wall axis.");
+        if (definition.Walls.Any(w => w.Reader is { } reader && (!w.Door || string.IsNullOrWhiteSpace(reader.Issuer)
+            || reader.Issuer.Length > 100 || reader.Clearance is < 0 or > 5)))
+            throw new ArgumentException("Invalid door reader policy.");
         var ids = definition.Walls.Select(w => w.Id).Concat(definition.Props.Select(p => p.Id)).Concat(definition.Actors.Select(a => a.Id)).Concat((definition.Anomalies ?? []).Select(a => a.Id)).ToArray();
         if (ids.Distinct().Count() != ids.Length) throw new ArgumentException("Duplicate fixture identity.");
         if (definition.Actors.Count(a => a.Kind == "player") != 1) throw new ArgumentException("Exactly one avatar required.");

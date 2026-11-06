@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/SpatialChecks/BadgeDoorChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>BadgeDoorChecks.cs</h1><pre>using SiteSimulation;
+using System.Text.Json.Nodes;
+
+internal static class BadgeDoorChecks
+{
+    public static int Run(string map, string operation)
+    {
+        var count = 0;
+        void Check(bool ok, string message) { if (!ok) throw new Exception(&quot;Badge door: &quot; + message); count++; }
+        string Policy(int clearance = 1, bool powered = true, string issuer = &quot;site-test&quot;)
+        {
+            var doc = JsonNode.Parse(map)!;
+            var door = doc[&quot;walls&quot;]!.AsArray().Single(w =&gt; w![&quot;id&quot;]!.GetValue&lt;string&gt;() == &quot;door-7-5-u&quot;)!;
+            door[&quot;reader&quot;] = new JsonObject { [&quot;issuer&quot;] = issuer, [&quot;clearance&quot;] = clearance, [&quot;powered&quot;] = powered };
+            return doc.ToJsonString();
+        }
+        SpatialSimulation Sim(string? source = null) =&gt; new(source ?? Policy(), operation);
+        void Finish(SpatialSimulation sim)
+        {
+            for (var i = 0; i &lt; 1000 &amp;&amp; (sim.Inventory.Pending is not null || sim.Combat.Pending is not null); i++) sim.Tick();
+            Check(sim.Inventory.Pending is null &amp;&amp; sim.Combat.Pending is null, &quot;paid action finishes&quot;);
+        }
+        void Act(SpatialSimulation sim, InventoryRequest request) { Check(sim.HandleInventory(request), sim.LastMessage); Finish(sim); }
+        InventoryRequest Hand() =&gt; new(InventoryActionKind.Move, &quot;personnel-badge&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;));
+        InventoryRequest Clip() =&gt; new(InventoryActionKind.Move, &quot;personnel-badge&quot;, new(&quot;avatar-shirt&quot;, &quot;badge-clip&quot;, AttachmentPose: new(0, 2)));
+        void Equip(SpatialSimulation sim) { sim.Player.Cell = new(13, 6); Act(sim, Hand()); sim.Player.Cell = new(15, 2); }
+        var sim = Sim(); sim.Player.Cell = new(15, 2);
+        var before = sim.Save(); Check(!sim.ToggleNearestDoor() &amp;&amp; !sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;) &amp;&amp; sim.Save() == before, &quot;badge in spare pack cannot authorize entry&quot;);
+        Equip(sim); sim.ManualPause = true; before = sim.Save();
+        Check(!sim.ToggleNearestDoor() &amp;&amp; sim.Save() == before, &quot;paused presentation refuses without cost or opening&quot;);
+        sim.ManualPause = false; Check(sim.ToggleNearestDoor(), sim.LastMessage);
+        Check(sim.Inventory.Pending is { TotalMs: 500, CostAp: 2, Request.Kind: InventoryActionKind.PresentBadge }
+            &amp;&amp; !sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;held badge purchases real presentation time&quot;);
+        sim.Tick(); var pending = sim.Save(); var clone = Sim(); clone.Restore(pending); Check(clone.Save() == pending, &quot;pending reader use restores exactly&quot;);
+        Finish(sim); Finish(clone); Check(sim.Save() == clone.Save() &amp;&amp; sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;reader opens once after exact continuation&quot;);
+        Check(sim.ToggleNearestDoor() &amp;&amp; !sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;ordinary close remains possible&quot;);
+        Act(sim, new(InventoryActionKind.Move, &quot;personnel-badge&quot;, new(&quot;avatar-trousers&quot;, &quot;cargo-left&quot;)));
+        Check(!sim.ToggleNearestDoor(), &quot;accessible pocket is not an equipped hand&quot;);
+        Act(sim, Hand()); Act(sim, Clip()); Act(sim, new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;));
+        Check(!sim.ToggleNearestDoor(), &quot;covered worn badge refuses&quot;);
+        Act(sim, new(InventoryActionKind.OpenGarment, &quot;avatar-coat&quot;));
+        Check(sim.ToggleNearestDoor() &amp;&amp; sim.Inventory.Pending is null &amp;&amp; sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;exposed worn badge needs no manual presentation&quot;);
+        sim.ToggleNearestDoor(); Check(sim.RequestMove(new(14, 2)), &quot;begin walking near reader&quot;); sim.Tick();
+        Check(sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;moving wearer automatically opens nearby reader&quot;);
+        sim.ManualPause = false; MovementSystem.StopInPlace(sim.Player);
+        Act(sim, Hand()); Check(sim.ToggleNearestDoor(), &quot;close before interrupted presentation&quot;);
+        Check(sim.ToggleNearestDoor(), &quot;begin manual presentation&quot;); sim.Tick();
+        sim.Player.Cell = new(13, 2); Finish(sim);
+        Check(!sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;moving during presentation aborts without opening&quot;);
+        foreach (var source in new[] { Policy(2), Policy(powered: false), Policy(issuer: &quot;other-site&quot;) })
+        {
+            var denied = Sim(source); Equip(denied); before = denied.Save();
+            Check(!denied.ToggleNearestDoor() &amp;&amp; denied.Save() == before &amp;&amp; denied.Inventory.Pending is null, &quot;insufficient clearance, power loss or wrong issuer cannot charge or open&quot;);
+        }
+        var forged = JsonNode.Parse(pending)!; forged[&quot;Inventory&quot;]![&quot;Pending&quot;]![&quot;Request&quot;]![&quot;TargetId&quot;] = &quot;door-4-3-u&quot;;
+        before = clone.Save(); var rejected = false; try { clone.Restore(forged.ToJsonString()); } catch (ArgumentException) { rejected = true; }
+        Check(rejected &amp;&amp; clone.Save() == before, &quot;invalid reader continuation rejects atomically&quot;);
+        var tactical = Sim(); Equip(tactical); tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(15, 1);
+        tactical.Player.Facing = ObservationService.FacingToward(tactical.Player.Position, tactical.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Position, 0);
+        Check(tactical.ArmTraining() &amp;&amp; tactical.Combat.Active, &quot;reader fixture enters local turns&quot;);
+        var combat = tactical.Combat; combat.Cursor = combat.Roster.FindIndex(c =&gt; c.ActorId == tactical.Player.Id);
+        for (var i = 0; i &lt; combat.Roster.Count; i++) combat.Roster[i] = combat.Roster[i] with { Ap = combat.Roster[i].ActorId == tactical.Player.Id ? 10 : 0 };
+        Check(tactical.ToggleNearestDoor() &amp;&amp; combat.Pending is { Kind: CombatActionKind.Inventory, Cost: 2, TotalMs: 500 } &amp;&amp; combat.For(tactical.Player.Id)!.Ap == 8,
+            &quot;manual tactical presentation shares paid inventory schedule&quot;);
+        tactical.Tick(); var tacticalPending = tactical.Save(); var tacticalCopy = Sim(); tacticalCopy.Restore(tacticalPending);
+        Finish(tactical); Finish(tacticalCopy); Check(tactical.Save() == tacticalCopy.Save() &amp;&amp; tactical.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;tactical badge continuation stays synchronized&quot;);
+        var changed = Sim(); Equip(changed); Check(changed.ToggleNearestDoor(), &quot;start presentation before badge damage&quot;);
+        changed.Inventory.Items[&quot;personnel-badge&quot;] = changed.Inventory.Items[&quot;personnel-badge&quot;] with { Condition = 0 };
+        Finish(changed); Check(!changed.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;commit rechecks damaged badge&quot;);
+        var displayedTurn = Sim(); Equip(displayedTurn); Act(displayedTurn, Clip());
+        displayedTurn.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Cell = new(15, 1);
+        displayedTurn.Player.Facing = ObservationService.FacingToward(displayedTurn.Player.Position, displayedTurn.Actors.Single(a =&gt; a.Id == &quot;tech&quot;).Position, 0);
+        Check(displayedTurn.ArmTraining() &amp;&amp; displayedTurn.Combat.Active, &quot;displayed badge fixture enters combat&quot;);
+        var roster = displayedTurn.Combat; roster.Cursor = roster.Roster.FindIndex(c =&gt; c.ActorId == displayedTurn.Player.Id);
+        for (var i = 0; i &lt; roster.Roster.Count; i++) roster.Roster[i] = roster.Roster[i] with { Ap = roster.Roster[i].ActorId == displayedTurn.Player.Id ? 10 : 0 };
+        Check(displayedTurn.ToggleNearestDoor() &amp;&amp; roster.Pending is { Kind: CombatActionKind.Door, Cost: 2, TotalMs: 300 }, &quot;worn badge tactical door still buys normal AP/time&quot;);
+        displayedTurn.Inventory.Items[&quot;avatar-coat&quot;] = displayedTurn.Inventory.Items[&quot;avatar-coat&quot;] with { GarmentOpen = false };
+        Finish(displayedTurn); Check(!displayedTurn.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;tactical commitment rechecks visible wearing&quot;);
+        // Shared service applies issuer/identity policy to any actor, independent of player-only handling UI.
+        var world = new SimulationWorld(Policy(), operation); var badge = world.Inventory.Items[&quot;personnel-badge&quot;];
+        var defs = world.Inventory.Content!.Definitions; var index = Array.FindIndex(defs, d =&gt; d.Id == badge.DefinitionId);
+        var original = defs[index]; defs[index] = original with { Credential = new(&quot;site-test&quot;, 1, &quot;observer&quot;) };
+        world.Inventory.Items[badge.Id] = badge with { Placement = new(&quot;person:avatar&quot;, &quot;hand&quot;) }; world.Player.Cell = new(15, 2);
+        var reader = world.Map.Definition.Walls.Single(w =&gt; w.Id == &quot;door-7-5-u&quot;);
+        Check(!DoorCredentialService.Authorize(world, world.Player, reader, out _, out _), &quot;identity-bound credential rejects another person&quot;);
+        defs[index] = original; Check(DoorCredentialService.Authorize(world, world.Player, reader, out var held, out _) &amp;&amp; held?.Id == badge.Id, &quot;bearer credential accepts physical holder&quot;);
+        world.Inventory.Items[badge.Id] = world.Inventory.Items[badge.Id] with { Condition = 0 };
+        Check(!DoorCredentialService.Authorize(world, world.Player, reader, out _, out _), &quot;destroyed badge refuses&quot;);
+        var observer = world.Actors.Single(a =&gt; a.Id == &quot;observer&quot;); observer.Cell = new(15, 2);
+        defs[index] = original with { Credential = new(&quot;site-test&quot;, 1, observer.Id) };
+        world.Inventory.Items[badge.Id] = badge with { Placement = new(&quot;person:observer&quot;, &quot;hand&quot;) };
+        Check(DoorCredentialService.Authorize(world, observer, reader, out var npcBadge, out _) &amp;&amp; npcBadge?.Id == badge.Id,
+            &quot;the same held credential service accepts an authorized NPC&quot;);
+        Check(!DoorCredentialService.Authorize(world, world.Player, reader, out _, out _), &quot;NPC-held badge does not authorize player&quot;);
+        defs[index] = original;
+        Console.WriteLine($&quot;BADGE_DOOR_CHECKS_PASS: {count} assertions; hand-only presentation, displayed/covered badges, policies, paid AP/time, interruption and exact continuation.&quot;);
+        return count;
+    }
+}
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

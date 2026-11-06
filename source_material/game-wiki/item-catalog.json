@@ -1588,6 +1588,10 @@
             }
           ],
           "canBeCovered": true
+        },
+        "credential": {
+          "issuer": "site-test",
+          "clearance": 1
         }
       },
       "art": {

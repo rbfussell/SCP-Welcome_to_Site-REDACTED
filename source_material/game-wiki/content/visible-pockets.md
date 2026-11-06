@@ -12,10 +12,12 @@ New pockets start secured on every kit instance. Coat enlarged art uses a metada
 
 [Inventory services](system-inventory.html) retain capacity, packing, independent closures, paid time/AP, source retention and completion revalidation. [Coverage](doc-docs-31-pocket-coverage-prototype-md.html) uses the actual front/back mouth: a jacket may cover rear pockets even when its front is open. [Transfers](inventory-transfers.html), [ground staging](ground-storage.html), [body inspection](body-inspection.html), [worn container drops](worn-container-drops.html) and [sprite drops](sprite-equipment-drops.html) keep their normal access rules. Opening one view never duplicates or freely opens another inventory.
 
-The kit remains 20 definitions/40 instances but immutable content identity changes. Use a fresh scene; matching [schema-15 persistence](system-persistence.html) adds no new mutable field. [Shirt/badge design](shirt-pockets-and-badge.html) still distinguishes physical storage/attachment from future credential readers; painted badge pixels grant no permission.
+The kit remains 20 definitions/40 instances but immutable content identity changes. Use a fresh scene; matching [schema-15 persistence](system-persistence.html) adds no new mutable field. [Shirt/badge design](shirt-pockets-and-badge.html) distinguishes physical storage/attachment from the [bounded credential reader](badge-door-access.html) and future production security; painted badge pixels grant no permission.
 
 ## Evidence and limits
 
 [Domain checks](check-visiblepocketchecks.html) verify region sets, closed refusal, paid storage, rear mouths and exact loaded continuation. [Native contour checks](file-game-presentation-spatialscene-visiblepocketsmoke-cs.html) and [pack checks](file-game-presentation-spatialscene-paperdollpackpocketsmoke-cs.html) exercise actual input. See [actual results](doc-docs-reviews-inventory-runtime-checks-md.html). Automatic image segmentation, arbitrary body variants, flap animation, final capacity balance and world wardrobe composition remain future work.
 
 Related: [ledger](status.html), [engine](engine.html), [presentation](system-presentation.html), [appearance](wearable-appearance.html), [full body](full-body-paperdoll.html), [backpacks](worn-backpack.html), [mounts](mount-points.html), [design library](documents.html).
+
+[Badge-controlled test door](badge-door-access.html): exposed worn credentials or equipped-hand presentation use physical inventory and shared security validation.

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.InventorySmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.InventorySmoke.cs</h1><p>game/Presentation/SpatialScene.InventorySmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-972f51d2c02986945d58.html">SpatialScene.InventoryFrames</a> · line 10</li><li><a href="function-f36c6460ad3b70ce1167.html">SpatialScene.InventoryKey</a> · line 12</li><li><a href="function-918554009bb5efb6c491.html">SpatialScene.InventoryClick</a> · line 18</li><li><a href="function-ffb600b5c7467326a3ac.html">SpatialScene.InventoryMouse</a> · line 25</li><li><a href="function-05769794f7f2e546a38f.html">SpatialScene.InventoryDragHover</a> · line 26</li><li><a href="function-c253bc3b21e8fbc8e45f.html">SpatialScene.InventoryDrag</a> · line 33</li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a> · line 47</li><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a> · line 56</li><li><a href="function-8d6ca7964d6a1d5f9859.html">SpatialScene.Check</a> · line 61</li><li><a href="function-7eb300265d6bd70b5e8f.html">SpatialScene.Finish</a> · line 62</li><li><a href="function-e349f2c594941980e27f.html">SpatialScene.Navigation</a> · line 67</li><li><a href="function-7f96a935658a3a1ec7fc.html">SpatialScene.Nav</a> · line 69</li><li><a href="function-bb5785b62bfeca595711.html">SpatialScene.Surface</a> · line 70</li><li><a href="function-d0703f801f3f69795794.html">SpatialScene.OpenPocket</a> · line 71</li><li><a href="function-a1b41fc98a4ecf0bdefd.html">SpatialScene.Hover</a> · line 147</li><li><a href="function-281a72295aceb1558804.html">SpatialScene.Menu</a> · line 259</li><li><a href="function-48f163b3cd0bbddb8b7d.html">SpatialScene.FrontMenu</a> · line 260</li><li><a href="function-28c01338b77ed2c1f65b.html">SpatialScene.MenuAction</a> · line 262</li><li><a href="function-0b7f8cfeaf669bede8cd.html">SpatialScene.Preference</a> · line 263</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>game/Presentation/SpatialScene.InventorySmoke.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>SpatialScene.InventorySmoke.cs</h1><p>game/Presentation/SpatialScene.InventorySmoke.cs</p><p><a href="system-presentation.html">Godot presentation and runtime</a></p><h2>Types</h2><ul><li><a href="type-spatialscene.html">SpatialScene</a></li></ul><h2>Functions and properties</h2><ul><li><a href="function-972f51d2c02986945d58.html">SpatialScene.InventoryFrames</a> · line 10</li><li><a href="function-f36c6460ad3b70ce1167.html">SpatialScene.InventoryKey</a> · line 12</li><li><a href="function-918554009bb5efb6c491.html">SpatialScene.InventoryClick</a> · line 18</li><li><a href="function-ffb600b5c7467326a3ac.html">SpatialScene.InventoryMouse</a> · line 25</li><li><a href="function-05769794f7f2e546a38f.html">SpatialScene.InventoryDragHover</a> · line 26</li><li><a href="function-c253bc3b21e8fbc8e45f.html">SpatialScene.InventoryDrag</a> · line 33</li><li><a href="function-850c8ed481e97c657823.html">SpatialScene.InventoryCapture</a> · line 47</li><li><a href="function-f412789919c7e13a6d0b.html">SpatialScene.RunInventorySmoke</a> · line 56</li><li><a href="function-8d6ca7964d6a1d5f9859.html">SpatialScene.Check</a> · line 61</li><li><a href="function-7eb300265d6bd70b5e8f.html">SpatialScene.Finish</a> · line 62</li><li><a href="function-e349f2c594941980e27f.html">SpatialScene.Navigation</a> · line 67</li><li><a href="function-7f96a935658a3a1ec7fc.html">SpatialScene.Nav</a> · line 69</li><li><a href="function-bb5785b62bfeca595711.html">SpatialScene.Surface</a> · line 70</li><li><a href="function-d0703f801f3f69795794.html">SpatialScene.OpenPocket</a> · line 71</li><li><a href="function-a1b41fc98a4ecf0bdefd.html">SpatialScene.Hover</a> · line 152</li><li><a href="function-281a72295aceb1558804.html">SpatialScene.Menu</a> · line 264</li><li><a href="function-48f163b3cd0bbddb8b7d.html">SpatialScene.FrontMenu</a> · line 265</li><li><a href="function-28c01338b77ed2c1f65b.html">SpatialScene.MenuAction</a> · line 267</li><li><a href="function-0b7f8cfeaf669bede8cd.html">SpatialScene.Preference</a> · line 268</li></ul><h2>Source</h2><pre class="source"><code><span id="L1"><a class="line" href="#L1">1</a> using Godot;</span>
 <span id="L2"><a class="line" href="#L2">2</a> using SiteSimulation;</span>
 <span id="L3"><a class="line" href="#L3">3</a> using System.IO;</span>
 <span id="L4"><a class="line" href="#L4">4</a> using System.Threading.Tasks;</span>
@@ -78,233 +78,238 @@
 <span id="L78"><a class="line" href="#L78">78</a>             panel.Inspect(&quot;medical-case&quot;); Check(panel.InspectedContainers.Count == 0, &quot;Hidden case bypassed parent inspection.&quot;);</span>
 <span id="L79"><a class="line" href="#L79">79</a>             await InventoryCapture(&quot;-paperdoll&quot;);</span>
 <span id="L80"><a class="line" href="#L80">80</a>             InventoryClick(panel.EngineeringSlots.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L81"><a class="line" href="#L81">81</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--shirt-pocket-smoke&quot;))</span>
+<span id="L81"><a class="line" href="#L81">81</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--badge-door-smoke&quot;))</span>
 <span id="L82"><a class="line" href="#L82">82</a>             {</span>
-<span id="L83"><a class="line" href="#L83">83</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
-<span id="L84"><a class="line" href="#L84">84</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L85"><a class="line" href="#L85">85</a>                 await RunPaperdollShirtSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
-<span id="L86"><a class="line" href="#L86">86</a>             }</span>
-<span id="L87"><a class="line" href="#L87">87</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--pack-pocket-smoke&quot;))</span>
-<span id="L88"><a class="line" href="#L88">88</a>             {</span>
-<span id="L89"><a class="line" href="#L89">89</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
-<span id="L90"><a class="line" href="#L90">90</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L91"><a class="line" href="#L91">91</a>                 await RunPaperdollPackPocketSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
-<span id="L92"><a class="line" href="#L92">92</a>             }</span>
-<span id="L93"><a class="line" href="#L93">93</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--pocket-smoke&quot;))</span>
-<span id="L94"><a class="line" href="#L94">94</a>             {</span>
-<span id="L95"><a class="line" href="#L95">95</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
-<span id="L96"><a class="line" href="#L96">96</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L97"><a class="line" href="#L97">97</a>                 await RunPaperdollPocketSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
-<span id="L98"><a class="line" href="#L98">98</a>             }</span>
-<span id="L99"><a class="line" href="#L99">99</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--worn-storage-smoke&quot;))</span>
-<span id="L100"><a class="line" href="#L100">100</a>             {</span>
-<span id="L101"><a class="line" href="#L101">101</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
-<span id="L102"><a class="line" href="#L102">102</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L103"><a class="line" href="#L103">103</a>                 await RunWornStorageSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
-<span id="L104"><a class="line" href="#L104">104</a>             }</span>
-<span id="L105"><a class="line" href="#L105">105</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--sprite-drop-smoke&quot;))</span>
-<span id="L106"><a class="line" href="#L106">106</a>             {</span>
-<span id="L107"><a class="line" href="#L107">107</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
-<span id="L108"><a class="line" href="#L108">108</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L109"><a class="line" href="#L109">109</a>                 await RunPaperdollDropSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
-<span id="L110"><a class="line" href="#L110">110</a>             }</span>
-<span id="L111"><a class="line" href="#L111">111</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--paperdoll-smoke&quot;))</span>
-<span id="L112"><a class="line" href="#L112">112</a>             {</span>
-<span id="L113"><a class="line" href="#L113">113</a>                 await RunPaperdollSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L83"><a class="line" href="#L83">83</a>                 await RunBadgeDoorSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L84"><a class="line" href="#L84">84</a>             }</span>
+<span id="L85"><a class="line" href="#L85">85</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--shirt-pocket-smoke&quot;))</span>
+<span id="L86"><a class="line" href="#L86">86</a>             {</span>
+<span id="L87"><a class="line" href="#L87">87</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
+<span id="L88"><a class="line" href="#L88">88</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L89"><a class="line" href="#L89">89</a>                 await RunPaperdollShirtSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L90"><a class="line" href="#L90">90</a>             }</span>
+<span id="L91"><a class="line" href="#L91">91</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--pack-pocket-smoke&quot;))</span>
+<span id="L92"><a class="line" href="#L92">92</a>             {</span>
+<span id="L93"><a class="line" href="#L93">93</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
+<span id="L94"><a class="line" href="#L94">94</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L95"><a class="line" href="#L95">95</a>                 await RunPaperdollPackPocketSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L96"><a class="line" href="#L96">96</a>             }</span>
+<span id="L97"><a class="line" href="#L97">97</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--pocket-smoke&quot;))</span>
+<span id="L98"><a class="line" href="#L98">98</a>             {</span>
+<span id="L99"><a class="line" href="#L99">99</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
+<span id="L100"><a class="line" href="#L100">100</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L101"><a class="line" href="#L101">101</a>                 await RunPaperdollPocketSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L102"><a class="line" href="#L102">102</a>             }</span>
+<span id="L103"><a class="line" href="#L103">103</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--worn-storage-smoke&quot;))</span>
+<span id="L104"><a class="line" href="#L104">104</a>             {</span>
+<span id="L105"><a class="line" href="#L105">105</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
+<span id="L106"><a class="line" href="#L106">106</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L107"><a class="line" href="#L107">107</a>                 await RunWornStorageSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L108"><a class="line" href="#L108">108</a>             }</span>
+<span id="L109"><a class="line" href="#L109">109</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--sprite-drop-smoke&quot;))</span>
+<span id="L110"><a class="line" href="#L110">110</a>             {</span>
+<span id="L111"><a class="line" href="#L111">111</a>                 sim.ManualPause = true; sim.Player.Cell = new(13, 6);</span>
+<span id="L112"><a class="line" href="#L112">112</a>                 InventoryClick(panel.PaperdollProofToggle.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L113"><a class="line" href="#L113">113</a>                 await RunPaperdollDropSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
 <span id="L114"><a class="line" href="#L114">114</a>             }</span>
-<span id="L115"><a class="line" href="#L115">115</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--hook-smoke&quot;))</span>
+<span id="L115"><a class="line" href="#L115">115</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--paperdoll-smoke&quot;))</span>
 <span id="L116"><a class="line" href="#L116">116</a>             {</span>
-<span id="L117"><a class="line" href="#L117">117</a>                 await RunHookSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L117"><a class="line" href="#L117">117</a>                 await RunPaperdollSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
 <span id="L118"><a class="line" href="#L118">118</a>             }</span>
-<span id="L119"><a class="line" href="#L119">119</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--transfer-smoke&quot;))</span>
+<span id="L119"><a class="line" href="#L119">119</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--hook-smoke&quot;))</span>
 <span id="L120"><a class="line" href="#L120">120</a>             {</span>
-<span id="L121"><a class="line" href="#L121">121</a>                 await RunTransferSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L121"><a class="line" href="#L121">121</a>                 await RunHookSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
 <span id="L122"><a class="line" href="#L122">122</a>             }</span>
-<span id="L123"><a class="line" href="#L123">123</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--ground-smoke&quot;))</span>
+<span id="L123"><a class="line" href="#L123">123</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--transfer-smoke&quot;))</span>
 <span id="L124"><a class="line" href="#L124">124</a>             {</span>
-<span id="L125"><a class="line" href="#L125">125</a>                 await RunGroundSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L125"><a class="line" href="#L125">125</a>                 await RunTransferSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
 <span id="L126"><a class="line" href="#L126">126</a>             }</span>
-<span id="L127"><a class="line" href="#L127">127</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--body-drop-smoke&quot;))</span>
+<span id="L127"><a class="line" href="#L127">127</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--ground-smoke&quot;))</span>
 <span id="L128"><a class="line" href="#L128">128</a>             {</span>
-<span id="L129"><a class="line" href="#L129">129</a>                 await RunBodyDropSmoke(); await RunBodyInspectionSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L129"><a class="line" href="#L129">129</a>                 await RunGroundSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
 <span id="L130"><a class="line" href="#L130">130</a>             }</span>
-<span id="L131"><a class="line" href="#L131">131</a>             await RunWearSmoke();</span>
-<span id="L132"><a class="line" href="#L132">132</a>             await RunPackingSmoke();</span>
-<span id="L133"><a class="line" href="#L133">133</a>             await RunBodyFitSmoke();</span>
-<span id="L134"><a class="line" href="#L134">134</a>             await RunBodyDropSmoke();</span>
-<span id="L135"><a class="line" href="#L135">135</a>             await RunBodyInspectionSmoke();</span>
-<span id="L136"><a class="line" href="#L136">136</a>             await RunPaperdollSmoke();</span>
-<span id="L137"><a class="line" href="#L137">137</a>             await RunCoverageSmoke();</span>
-<span id="L138"><a class="line" href="#L138">138</a>             await RunAttachmentSmoke();</span>
-<span id="L139"><a class="line" href="#L139">139</a>             await RunOverlaySmoke();</span>
-<span id="L140"><a class="line" href="#L140">140</a>             await RunHookSmoke();</span>
-<span id="L141"><a class="line" href="#L141">141</a>             await RunTransferSmoke();</span>
-<span id="L142"><a class="line" href="#L142">142</a>             await RunGroundSmoke();</span>
-<span id="L143"><a class="line" href="#L143">143</a>             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs &gt; local, &quot;Inspection froze realtime simulation.&quot;);</span>
-<span id="L144"><a class="line" href="#L144">144</a>             sim.ManualPause = true; var original = sim.Save();</span>
-<span id="L145"><a class="line" href="#L145">145</a>             await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
-<span id="L146"><a class="line" href="#L146">146</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Gear/contents slots did not open independently.&quot;);</span>
-<span id="L147"><a class="line" href="#L147">147</a>             async Task Hover(Vector2 position)</span>
-<span id="L148"><a class="line" href="#L148">148</a>             {</span>
-<span id="L149"><a class="line" href="#L149">149</a>                 using var motion = new InputEventMouseMotion { Position = position, GlobalPosition = position };</span>
-<span id="L150"><a class="line" href="#L150">150</a>                 GetViewport().PushInput(motion); await InventoryFrames();</span>
-<span id="L151"><a class="line" href="#L151">151</a>             }</span>
-<span id="L152"><a class="line" href="#L152">152</a>             var surface = Surface();</span>
-<span id="L153"><a class="line" href="#L153">153</a>             var segmentSave = sim.Save();</span>
-<span id="L154"><a class="line" href="#L154">154</a>             await Hover(surface.HotspotPosition(&quot;side&quot;));</span>
-<span id="L155"><a class="line" href="#L155">155</a>             Check(surface.HasHighlight &amp;&amp; surface.HoveredRegion == &quot;side&quot;, &quot;Hover did not identify the visible side pouch.&quot;);</span>
-<span id="L156"><a class="line" href="#L156">156</a>             await InventoryCapture(&quot;-side-hover&quot;);</span>
-<span id="L157"><a class="line" href="#L157">157</a>             // Inside the old bounding rectangle but outside the traced contour: it must not be clickable.</span>
-<span id="L158"><a class="line" href="#L158">158</a>             var blank = surface.SourcePosition(new(0.80f, 0.49f));</span>
-<span id="L159"><a class="line" href="#L159">159</a>             await Hover(blank); Check(!surface.HasHighlight, &quot;A polygon bounding-box corner highlighted empty space.&quot;);</span>
-<span id="L160"><a class="line" href="#L160">160</a>             InventoryClick(blank, true); await InventoryFrames();</span>
-<span id="L161"><a class="line" href="#L161">161</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Blank-space double-click opened a compartment.&quot;);</span>
-<span id="L162"><a class="line" href="#L162">162</a>             await Hover(surface.SourcePosition(new(0.02f, 0.02f)));</span>
-<span id="L163"><a class="line" href="#L163">163</a>             Check(!surface.HasHighlight, &quot;Transparent image margin retained a highlight.&quot;);</span>
-<span id="L164"><a class="line" href="#L164">164</a>             await Hover(surface.HotspotPosition(&quot;main&quot;));</span>
-<span id="L165"><a class="line" href="#L165">165</a>             Check(surface.HoveredRegion == &quot;main&quot;, &quot;Main segment hit area drifted from artwork.&quot;);</span>
-<span id="L166"><a class="line" href="#L166">166</a>             await InventoryCapture(&quot;-main-hover&quot;);</span>
-<span id="L167"><a class="line" href="#L167">167</a>             // Same source pixel through a different aspect ratio, matching the real drawing transform.</span>
-<span id="L168"><a class="line" href="#L168">168</a>             var beforeSize = surface.Size;</span>
-<span id="L169"><a class="line" href="#L169">169</a>             surface.Size = new(330, 410); await InventoryFrames();</span>
-<span id="L170"><a class="line" href="#L170">170</a>             await Hover(surface.HotspotPosition(&quot;side&quot;));</span>
-<span id="L171"><a class="line" href="#L171">171</a>             Check(surface.HoveredRegion == &quot;side&quot;, &quot;Segment mapping drifted when the view was resized.&quot;);</span>
-<span id="L172"><a class="line" href="#L172">172</a>             surface.Size = beforeSize; await InventoryFrames();</span>
-<span id="L173"><a class="line" href="#L173">173</a>             await Hover(panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;).GetGlobalRect().GetCenter());</span>
-<span id="L174"><a class="line" href="#L174">174</a>             Check(!surface.HasHighlight &amp;&amp; sim.Save() == segmentSave, &quot;Leaving the illustration retained a highlight or mutated inventory.&quot;);</span>
-<span id="L175"><a class="line" href="#L175">175</a>             var main = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
-<span id="L176"><a class="line" href="#L176">176</a>             InventoryClick(main.GlobalPosition + new Vector2(20, 65), true); await InventoryFrames();</span>
-<span id="L177"><a class="line" href="#L177">177</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;medical-case&quot;, &quot;inside&quot;), &quot;Nested case must replace contents, retaining gear.&quot;);</span>
-<span id="L178"><a class="line" href="#L178">178</a>             await InventoryCapture(&quot;-case&quot;);</span>
-<span id="L179"><a class="line" href="#L179">179</a>             var beforeEscape = sim.Save(); InventoryKey(Key.Escape); await InventoryFrames();</span>
-<span id="L180"><a class="line" href="#L180">180</a>             Check(!panel.IsOpen &amp;&amp; sim.Save() == beforeEscape &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;), &quot;Esc changed physical closure state.&quot;);</span>
-<span id="L181"><a class="line" href="#L181">181</a>             InventoryKey(Key.I); await OpenPocket(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
-<span id="L182"><a class="line" href="#L182">182</a>             var pocket = panel.FindGrid(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
-<span id="L183"><a class="line" href="#L183">183</a>             InventoryClick(pocket.GlobalPosition + new Vector2(15, 59), true); await InventoryFrames();</span>
-<span id="L184"><a class="line" href="#L184">184</a>             Check(panel.Browser.CurrentContents == (&quot;gum-packet&quot;, &quot;pieces&quot;) &amp;&amp; sim.InventoryContents(&quot;gum-packet&quot;, &quot;pieces&quot;).Count == 6, &quot;Packet did not replace the pocket at its own fine grid scale.&quot;);</span>
-<span id="L185"><a class="line" href="#L185">185</a>             var packetPreview = InventoryArt.Project(&quot;gum-pack&quot;, new Rect2(0, 0, 330, 350), new(0.50f, 0.49f));</span>
-<span id="L186"><a class="line" href="#L186">186</a>             var packetSource = InventoryArt.Unproject(&quot;gum-pack&quot;, new Rect2(0, 0, 330, 350), packetPreview);</span>
-<span id="L187"><a class="line" href="#L187">187</a>             Check(packetSource.DistanceTo(new Vector2(0.50f, 0.49f)) &lt; 0.0001f, &quot;Rotated item artwork failed to share its source-image transform.&quot;);</span>
-<span id="L188"><a class="line" href="#L188">188</a>             await InventoryCapture(&quot;-packet&quot;);</span>
-<span id="L189"><a class="line" href="#L189">189</a>             Nav(false, &quot;↑&quot;); await InventoryFrames();</span>
-<span id="L190"><a class="line" href="#L190">190</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;) &amp;&amp; sim.Inventory.SecuringRemaining == 1, &quot;Contents Up must return one level and queue normal securing.&quot;);</span>
-<span id="L191"><a class="line" href="#L191">191</a>             sim.ManualPause = false; await Finish(); sim.ManualPause = true;</span>
-<span id="L192"><a class="line" href="#L192">192</a>             Check(!sim.Inventory.IsOpen(&quot;gum-packet&quot;, &quot;pieces&quot;), &quot;Up supplied a visual-only closure.&quot;);</span>
-<span id="L193"><a class="line" href="#L193">193</a>             // Native context menu, positioned beside the pointer, opens the chosen top-level object.</span>
-<span id="L194"><a class="line" href="#L194">194</a>             var pack = panel.FindGrid(&quot;person:avatar&quot;, &quot;back&quot;);</span>
-<span id="L195"><a class="line" href="#L195">195</a>             InventoryClick(pack.GlobalPosition + new Vector2(30, 80), button: MouseButton.Right); await InventoryFrames();</span>
-<span id="L196"><a class="line" href="#L196">196</a>             var context = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
-<span id="L197"><a class="line" href="#L197">197</a>             var openButton = context.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Open&quot;);</span>
-<span id="L198"><a class="line" href="#L198">198</a>             InventoryClick(openButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L199"><a class="line" href="#L199">199</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;), &quot;Context Open must switch gear while retaining the source pocket.&quot;);</span>
-<span id="L200"><a class="line" href="#L200">200</a>             InventoryClick(Surface().HotspotPosition(&quot;side&quot;), true); await InventoryFrames();</span>
-<span id="L201"><a class="line" href="#L201">201</a>             var side = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;side&quot;); var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
-<span id="L202"><a class="line" href="#L202">202</a>             var dragSave = sim.Save();</span>
-<span id="L203"><a class="line" href="#L203">203</a>             await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), hand.GlobalPosition + new Vector2(20, 70), async () =&gt;</span>
-<span id="L204"><a class="line" href="#L204">204</a>             {</span>
-<span id="L205"><a class="line" href="#L205">205</a>                 Check(panel.DropPreview is { Quote.Allowed: true } p &amp;&amp; p.Grid == hand &amp;&amp; p.Bounds == new Rect2(1, 44, 90, 90), &quot;Native drag footprint did not snap to its actual hand destination.&quot;);</span>
-<span id="L206"><a class="line" href="#L206">206</a>                 Check(sim.Save() == dragSave, &quot;Preview mutated authoritative state.&quot;); await InventoryCapture(&quot;-drag-valid&quot;);</span>
-<span id="L207"><a class="line" href="#L207">207</a>             });</span>
-<span id="L208"><a class="line" href="#L208">208</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == dragSave, &quot;Paused release granted a free move.&quot;);</span>
-<span id="L209"><a class="line" href="#L209">209</a>             sim.ManualPause = false;</span>
-<span id="L210"><a class="line" href="#L210">210</a>             await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), hand.GlobalPosition + new Vector2(20, 70));</span>
-<span id="L211"><a class="line" href="#L211">211</a>             Check(sim.Inventory.Pending?.Request.ItemId == &quot;flashlight&quot;, &quot;Native drag did not begin paid handling.&quot;);</span>
-<span id="L212"><a class="line" href="#L212">212</a>             InventoryKey(Key.Escape); await Finish(); Check(!panel.IsOpen, &quot;Pending action reopened inventory.&quot;);</span>
-<span id="L213"><a class="line" href="#L213">213</a>             InventoryKey(Key.I); sim.ManualPause = true; await OpenPocket(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
-<span id="L214"><a class="line" href="#L214">214</a>             pocket = panel.FindGrid(&quot;avatar-trousers&quot;, &quot;left&quot;); hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
-<span id="L215"><a class="line" href="#L215">215</a>             sim.ManualPause = false;</span>
-<span id="L216"><a class="line" href="#L216">216</a>             await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), pocket.GlobalPosition + new Vector2(15, 90), async () =&gt;</span>
-<span id="L217"><a class="line" href="#L217">217</a>             {</span>
-<span id="L218"><a class="line" href="#L218">218</a>                 InventoryKey(Key.R); await InventoryFrames();</span>
-<span id="L219"><a class="line" href="#L219">219</a>                 Check(panel.DropPreview is { Quote.Allowed: true } p &amp;&amp; p.Bounds == new Rect2(1, 74, 120, 30), &quot;Rotated object preview did not match the exact destination cells.&quot;);</span>
-<span id="L220"><a class="line" href="#L220">220</a>             });</span>
-<span id="L221"><a class="line" href="#L221">221</a>             await Finish(); sim.ManualPause = true;</span>
-<span id="L222"><a class="line" href="#L222">222</a>             Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;flashlight&quot;).Placement == new ItemPlacement(&quot;avatar-trousers&quot;, &quot;left&quot;, 0, 1, true), &quot;Rotated drop committed a different placement.&quot;);</span>
-<span id="L223"><a class="line" href="#L223">223</a>             var blockedSave = sim.Save();</span>
-<span id="L224"><a class="line" href="#L224">224</a>             await InventoryDrag(pocket.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(15, 90), async () =&gt;</span>
-<span id="L225"><a class="line" href="#L225">225</a>             { Check(panel.DropPreview is { Quote.Allowed: false }, &quot;Occupied cells were accepted.&quot;); await InventoryCapture(&quot;-drag-blocked&quot;); });</span>
-<span id="L226"><a class="line" href="#L226">226</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == blockedSave, &quot;Blocked drag mutated inventory.&quot;);</span>
-<span id="L227"><a class="line" href="#L227">227</a>             await InventoryDrag(pocket.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(105, 209), async () =&gt;</span>
-<span id="L228"><a class="line" href="#L228">228</a>             { Check(panel.DropPreview is { Quote.Allowed: false }, &quot;A footprint extending past the compartment edge was accepted.&quot;); await InventoryFrames(); });</span>
-<span id="L229"><a class="line" href="#L229">229</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == blockedSave, &quot;Edge-overflow release mutated inventory.&quot;);</span>
-<span id="L230"><a class="line" href="#L230">230</a>             // A late physical opening cannot resurrect a branch after switching gear.</span>
-<span id="L231"><a class="line" href="#L231">231</a>             panel.ChangeLid(&quot;avatar-backpack&quot;, &quot;main&quot;, false); // paused: rejected</span>
-<span id="L232"><a class="line" href="#L232">232</a>             panel.Inspect(&quot;avatar-backpack&quot;); await InventoryFrames(); sim.ManualPause = false;</span>
-<span id="L233"><a class="line" href="#L233">233</a>             InventoryClick(Surface().HotspotPosition(&quot;main&quot;), button: MouseButton.Right); await InventoryFrames();</span>
-<span id="L234"><a class="line" href="#L234">234</a>             var secureMenu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
-<span id="L235"><a class="line" href="#L235">235</a>             var zip = secureMenu.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Zip&quot;);</span>
-<span id="L236"><a class="line" href="#L236">236</a>             InventoryClick(zip.GetGlobalRect().GetCenter()); await Finish();</span>
-<span id="L237"><a class="line" href="#L237">237</a>             await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
-<span id="L238"><a class="line" href="#L238">238</a>             Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;), &quot;Pending main opening must retain the source pocket without revealing secured contents.&quot;);</span>
-<span id="L239"><a class="line" href="#L239">239</a>             panel.Inspect(&quot;avatar-trousers&quot;); await Finish(); await InventoryFrames();</span>
-<span id="L240"><a class="line" href="#L240">240</a>             Check(panel.Browser.CurrentGear == &quot;avatar-trousers&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Late opening replaced the retained source after switching gear.&quot;);</span>
-<span id="L241"><a class="line" href="#L241">241</a>             sim.ManualPause = true; await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;); panel.Inspect(&quot;medical-case&quot;); await InventoryFrames();</span>
-<span id="L242"><a class="line" href="#L242">242</a>             Nav(false, &quot;×&quot;); await InventoryFrames();</span>
-<span id="L243"><a class="line" href="#L243">243</a>             Check(panel.Browser.CurrentContents is null &amp;&amp; panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; sim.Inventory.SecuringRemaining == 2</span>
-<span id="L244"><a class="line" href="#L244">244</a>                 &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;), &quot;Contents × failed to queue child-before-parent securing without free closure.&quot;);</span>
-<span id="L245"><a class="line" href="#L245">245</a>             var queueSave = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
-<span id="L246"><a class="line" href="#L246">246</a>             clone.Restore(queueSave); Check(clone.Save() == queueSave, &quot;Securing queue did not persist exactly.&quot;);</span>
-<span id="L247"><a class="line" href="#L247">247</a>             InventoryKey(Key.Escape); sim.ManualPause = false; await Finish();</span>
-<span id="L248"><a class="line" href="#L248">248</a>             Check(!sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;) &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Queued closure did not continue after hiding the UI.&quot;);</span>
-<span id="L249"><a class="line" href="#L249">249</a>             // Outer garment contents retain their real owner while the middle descends to an exposed shirt.</span>
-<span id="L250"><a class="line" href="#L250">250</a>             sim.Restore(original); _runtime.ResetAccumulator(); InventoryKey(Key.I); await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
-<span id="L251"><a class="line" href="#L251">251</a>             var gearView = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0);</span>
-<span id="L252"><a class="line" href="#L252">252</a>             var under = gearView.GetChildren().OfType&lt;VBoxContainer&gt;().SelectMany(c =&gt; c.GetChildren().OfType&lt;Button&gt;()).Single(b =&gt; b.Text.Contains(&quot;work shirt&quot;, StringComparison.OrdinalIgnoreCase));</span>
-<span id="L253"><a class="line" href="#L253">253</a>             InventoryClick(under.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L254"><a class="line" href="#L254">254</a>             Check(panel.Browser.CurrentGear == &quot;avatar-shirt&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-coat&quot;, &quot;chest&quot;), &quot;Jacket pocket lost its owner during lower-layer inspection.&quot;);</span>
-<span id="L255"><a class="line" href="#L255">255</a>             Nav(true, &quot;↑&quot;); await InventoryFrames();</span>
-<span id="L256"><a class="line" href="#L256">256</a>             Check(panel.Browser.CurrentGear == &quot;avatar-coat&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-coat&quot;, &quot;chest&quot;), &quot;Middle Up discarded a retained outer-garment pocket.&quot;);</span>
-<span id="L257"><a class="line" href="#L257">257</a>             Check(sim.Inventory.SecuringRemaining == 0 &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen,</span>
-<span id="L258"><a class="line" href="#L258">258</a>                 &quot;Returning from shirt inspection unexpectedly re-fastened the jacket.&quot;);</span>
-<span id="L259"><a class="line" href="#L259">259</a>             PanelContainer Menu() =&gt; panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
-<span id="L260"><a class="line" href="#L260">260</a>             async Task FrontMenu()</span>
-<span id="L261"><a class="line" href="#L261">261</a>             { InventoryClick(Surface().HotspotPosition(null), button: MouseButton.Right); await InventoryFrames(); }</span>
-<span id="L262"><a class="line" href="#L262">262</a>             Button MenuAction(string label) =&gt; Menu().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == label);</span>
-<span id="L263"><a class="line" href="#L263">263</a>             CheckButton Preference() =&gt; Menu().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;CheckButton&gt;().Single();</span>
-<span id="L264"><a class="line" href="#L264">264</a>             await FrontMenu();</span>
-<span id="L265"><a class="line" href="#L265">265</a>             Check(MenuAction(&quot;Zip&quot;) is not null &amp;&amp; !Preference().ButtonPressed, &quot;Open jacket menu must offer Zip and default to leaving the front open.&quot;);</span>
-<span id="L266"><a class="line" href="#L266">266</a>             // Keep the fold-out menu open while another valid command resolves; its label must read live state.</span>
-<span id="L267"><a class="line" href="#L267">267</a>             sim.ManualPause = false;</span>
-<span id="L268"><a class="line" href="#L268">268</a>             Check(sim.HandleInventory(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;)), &quot;Could not close jacket for state-menu check.&quot;);</span>
-<span id="L269"><a class="line" href="#L269">269</a>             await Finish(); await InventoryFrames();</span>
-<span id="L270"><a class="line" href="#L270">270</a>             Check(MenuAction(&quot;Unzip&quot;) is not null, &quot;An already-open menu did not update when the zipper&#x27;s physical boolean changed.&quot;);</span>
-<span id="L271"><a class="line" href="#L271">271</a>             await InventoryCapture(&quot;-menu-unzip&quot;);</span>
-<span id="L272"><a class="line" href="#L272">272</a>             InventoryClick(MenuAction(&quot;Unzip&quot;).GetGlobalRect().GetCenter()); await Finish(); sim.ManualPause = true;</span>
-<span id="L273"><a class="line" href="#L273">273</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
-<span id="L274"><a class="line" href="#L274">274</a>             InventoryClick(Surface().HotspotPosition(&quot;chest&quot;), button: MouseButton.Right); await InventoryFrames();</span>
-<span id="L275"><a class="line" href="#L275">275</a>             Check(Preference().ButtonPressed &amp;&amp; MenuAction(&quot;Button&quot;) is not null, &quot;Open buttoned-pocket menu has the wrong action or default.&quot;);</span>
-<span id="L276"><a class="line" href="#L276">276</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L277"><a class="line" href="#L277">277</a>             Check(!InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;, &quot;chest&quot;)</span>
-<span id="L278"><a class="line" href="#L278">278</a>                 &amp;&amp; !InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;), &quot;Pocket override affected the wrong fastening.&quot;);</span>
-<span id="L279"><a class="line" href="#L279">279</a>             var noAuto = sim.Save();</span>
-<span id="L280"><a class="line" href="#L280">280</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
-<span id="L281"><a class="line" href="#L281">281</a>             Check(panel.Browser.CurrentGear is null &amp;&amp; panel.Browser.CurrentContents is null &amp;&amp; sim.Inventory.SecuringRemaining == 0 &amp;&amp; sim.Save() == noAuto,</span>
-<span id="L282"><a class="line" href="#L282">282</a>                 &quot;Dismissal with both fastening preferences off changed physical state.&quot;);</span>
-<span id="L283"><a class="line" href="#L283">283</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
-<span id="L284"><a class="line" href="#L284">284</a>             InventoryClick(Surface().HotspotPosition(&quot;chest&quot;), button: MouseButton.Right); await InventoryFrames();</span>
-<span id="L285"><a class="line" href="#L285">285</a>             Check(!Preference().ButtonPressed, &quot;Pocket preference reset when its view reopened.&quot;);</span>
-<span id="L286"><a class="line" href="#L286">286</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L287"><a class="line" href="#L287">287</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
-<span id="L288"><a class="line" href="#L288">288</a>             Check(sim.Inventory.SecuringRemaining == 1, &quot;Default pocket securing should leave the separate jacket front open.&quot;);</span>
-<span id="L289"><a class="line" href="#L289">289</a>             sim.ManualPause = false; await Finish();</span>
-<span id="L290"><a class="line" href="#L290">290</a>             Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-coat&quot;, &quot;chest&quot;),</span>
-<span id="L291"><a class="line" href="#L291">291</a>                 &quot;Closing the pocket also fastened the jacket front.&quot;);</span>
-<span id="L292"><a class="line" href="#L292">292</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;); await Finish(); sim.ManualPause = true;</span>
-<span id="L293"><a class="line" href="#L293">293</a>             await FrontMenu();</span>
-<span id="L294"><a class="line" href="#L294">294</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
-<span id="L295"><a class="line" href="#L295">295</a>             Check(InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;) &amp;&amp; !InventoryClosures.SecureOnClose(sim.Inventory, &quot;observer-coat&quot;),</span>
-<span id="L296"><a class="line" href="#L296">296</a>                 &quot;Jacket preference must belong to this gear instance, not a global setting.&quot;);</span>
-<span id="L297"><a class="line" href="#L297">297</a>             await InventoryCapture(&quot;-jacket-preference&quot;);</span>
-<span id="L298"><a class="line" href="#L298">298</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
-<span id="L299"><a class="line" href="#L299">299</a>             Check(sim.Inventory.SecuringRemaining == 2, &quot;Opted-in jacket and pocket must both use normal paid securing.&quot;);</span>
-<span id="L300"><a class="line" href="#L300">300</a>             sim.ManualPause = false; await Finish();</span>
-<span id="L301"><a class="line" href="#L301">301</a>             Check(!sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-coat&quot;, &quot;chest&quot;),</span>
-<span id="L302"><a class="line" href="#L302">302</a>                 &quot;Per-piece opted-in securing failed to finish.&quot;);</span>
-<span id="L303"><a class="line" href="#L303">303</a>             sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;); panel.Inspect(&quot;medical-case&quot;);</span>
-<span id="L304"><a class="line" href="#L304">304</a>             await InventoryCapture(&quot;&quot;);</span>
-<span id="L305"><a class="line" href="#L305">305</a>             GD.Print(&quot;INVENTORY_SMOKE_PASS: three inspection panes plus permanent ground dock, gear/contents ancestry, live Zip/Unzip and Button/Unbutton menus, per-piece securing preferences, illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.&quot;);</span>
-<span id="L306"><a class="line" href="#L306">306</a>             panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true;</span>
-<span id="L307"><a class="line" href="#L307">307</a>         }</span>
-<span id="L308"><a class="line" href="#L308">308</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
-<span id="L309"><a class="line" href="#L309">309</a>     }</span>
-<span id="L310"><a class="line" href="#L310">310</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L131"><a class="line" href="#L131">131</a>             if (OS.GetCmdlineUserArgs().Contains(&quot;--body-drop-smoke&quot;))</span>
+<span id="L132"><a class="line" href="#L132">132</a>             {</span>
+<span id="L133"><a class="line" href="#L133">133</a>                 await RunBodyDropSmoke(); await RunBodyInspectionSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;</span>
+<span id="L134"><a class="line" href="#L134">134</a>             }</span>
+<span id="L135"><a class="line" href="#L135">135</a>             await RunWearSmoke();</span>
+<span id="L136"><a class="line" href="#L136">136</a>             await RunPackingSmoke();</span>
+<span id="L137"><a class="line" href="#L137">137</a>             await RunBodyFitSmoke();</span>
+<span id="L138"><a class="line" href="#L138">138</a>             await RunBodyDropSmoke();</span>
+<span id="L139"><a class="line" href="#L139">139</a>             await RunBodyInspectionSmoke();</span>
+<span id="L140"><a class="line" href="#L140">140</a>             await RunPaperdollSmoke();</span>
+<span id="L141"><a class="line" href="#L141">141</a>             await RunCoverageSmoke();</span>
+<span id="L142"><a class="line" href="#L142">142</a>             await RunAttachmentSmoke();</span>
+<span id="L143"><a class="line" href="#L143">143</a>             await RunOverlaySmoke();</span>
+<span id="L144"><a class="line" href="#L144">144</a>             await RunHookSmoke();</span>
+<span id="L145"><a class="line" href="#L145">145</a>             await RunTransferSmoke();</span>
+<span id="L146"><a class="line" href="#L146">146</a>             await RunGroundSmoke();</span>
+<span id="L147"><a class="line" href="#L147">147</a>             await RunBadgeDoorSmoke();</span>
+<span id="L148"><a class="line" href="#L148">148</a>             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs &gt; local, &quot;Inspection froze realtime simulation.&quot;);</span>
+<span id="L149"><a class="line" href="#L149">149</a>             sim.ManualPause = true; var original = sim.Save();</span>
+<span id="L150"><a class="line" href="#L150">150</a>             await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
+<span id="L151"><a class="line" href="#L151">151</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Gear/contents slots did not open independently.&quot;);</span>
+<span id="L152"><a class="line" href="#L152">152</a>             async Task Hover(Vector2 position)</span>
+<span id="L153"><a class="line" href="#L153">153</a>             {</span>
+<span id="L154"><a class="line" href="#L154">154</a>                 using var motion = new InputEventMouseMotion { Position = position, GlobalPosition = position };</span>
+<span id="L155"><a class="line" href="#L155">155</a>                 GetViewport().PushInput(motion); await InventoryFrames();</span>
+<span id="L156"><a class="line" href="#L156">156</a>             }</span>
+<span id="L157"><a class="line" href="#L157">157</a>             var surface = Surface();</span>
+<span id="L158"><a class="line" href="#L158">158</a>             var segmentSave = sim.Save();</span>
+<span id="L159"><a class="line" href="#L159">159</a>             await Hover(surface.HotspotPosition(&quot;side&quot;));</span>
+<span id="L160"><a class="line" href="#L160">160</a>             Check(surface.HasHighlight &amp;&amp; surface.HoveredRegion == &quot;side&quot;, &quot;Hover did not identify the visible side pouch.&quot;);</span>
+<span id="L161"><a class="line" href="#L161">161</a>             await InventoryCapture(&quot;-side-hover&quot;);</span>
+<span id="L162"><a class="line" href="#L162">162</a>             // Inside the old bounding rectangle but outside the traced contour: it must not be clickable.</span>
+<span id="L163"><a class="line" href="#L163">163</a>             var blank = surface.SourcePosition(new(0.80f, 0.49f));</span>
+<span id="L164"><a class="line" href="#L164">164</a>             await Hover(blank); Check(!surface.HasHighlight, &quot;A polygon bounding-box corner highlighted empty space.&quot;);</span>
+<span id="L165"><a class="line" href="#L165">165</a>             InventoryClick(blank, true); await InventoryFrames();</span>
+<span id="L166"><a class="line" href="#L166">166</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Blank-space double-click opened a compartment.&quot;);</span>
+<span id="L167"><a class="line" href="#L167">167</a>             await Hover(surface.SourcePosition(new(0.02f, 0.02f)));</span>
+<span id="L168"><a class="line" href="#L168">168</a>             Check(!surface.HasHighlight, &quot;Transparent image margin retained a highlight.&quot;);</span>
+<span id="L169"><a class="line" href="#L169">169</a>             await Hover(surface.HotspotPosition(&quot;main&quot;));</span>
+<span id="L170"><a class="line" href="#L170">170</a>             Check(surface.HoveredRegion == &quot;main&quot;, &quot;Main segment hit area drifted from artwork.&quot;);</span>
+<span id="L171"><a class="line" href="#L171">171</a>             await InventoryCapture(&quot;-main-hover&quot;);</span>
+<span id="L172"><a class="line" href="#L172">172</a>             // Same source pixel through a different aspect ratio, matching the real drawing transform.</span>
+<span id="L173"><a class="line" href="#L173">173</a>             var beforeSize = surface.Size;</span>
+<span id="L174"><a class="line" href="#L174">174</a>             surface.Size = new(330, 410); await InventoryFrames();</span>
+<span id="L175"><a class="line" href="#L175">175</a>             await Hover(surface.HotspotPosition(&quot;side&quot;));</span>
+<span id="L176"><a class="line" href="#L176">176</a>             Check(surface.HoveredRegion == &quot;side&quot;, &quot;Segment mapping drifted when the view was resized.&quot;);</span>
+<span id="L177"><a class="line" href="#L177">177</a>             surface.Size = beforeSize; await InventoryFrames();</span>
+<span id="L178"><a class="line" href="#L178">178</a>             await Hover(panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;).GetGlobalRect().GetCenter());</span>
+<span id="L179"><a class="line" href="#L179">179</a>             Check(!surface.HasHighlight &amp;&amp; sim.Save() == segmentSave, &quot;Leaving the illustration retained a highlight or mutated inventory.&quot;);</span>
+<span id="L180"><a class="line" href="#L180">180</a>             var main = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
+<span id="L181"><a class="line" href="#L181">181</a>             InventoryClick(main.GlobalPosition + new Vector2(20, 65), true); await InventoryFrames();</span>
+<span id="L182"><a class="line" href="#L182">182</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;medical-case&quot;, &quot;inside&quot;), &quot;Nested case must replace contents, retaining gear.&quot;);</span>
+<span id="L183"><a class="line" href="#L183">183</a>             await InventoryCapture(&quot;-case&quot;);</span>
+<span id="L184"><a class="line" href="#L184">184</a>             var beforeEscape = sim.Save(); InventoryKey(Key.Escape); await InventoryFrames();</span>
+<span id="L185"><a class="line" href="#L185">185</a>             Check(!panel.IsOpen &amp;&amp; sim.Save() == beforeEscape &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;), &quot;Esc changed physical closure state.&quot;);</span>
+<span id="L186"><a class="line" href="#L186">186</a>             InventoryKey(Key.I); await OpenPocket(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
+<span id="L187"><a class="line" href="#L187">187</a>             var pocket = panel.FindGrid(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
+<span id="L188"><a class="line" href="#L188">188</a>             InventoryClick(pocket.GlobalPosition + new Vector2(15, 59), true); await InventoryFrames();</span>
+<span id="L189"><a class="line" href="#L189">189</a>             Check(panel.Browser.CurrentContents == (&quot;gum-packet&quot;, &quot;pieces&quot;) &amp;&amp; sim.InventoryContents(&quot;gum-packet&quot;, &quot;pieces&quot;).Count == 6, &quot;Packet did not replace the pocket at its own fine grid scale.&quot;);</span>
+<span id="L190"><a class="line" href="#L190">190</a>             var packetPreview = InventoryArt.Project(&quot;gum-pack&quot;, new Rect2(0, 0, 330, 350), new(0.50f, 0.49f));</span>
+<span id="L191"><a class="line" href="#L191">191</a>             var packetSource = InventoryArt.Unproject(&quot;gum-pack&quot;, new Rect2(0, 0, 330, 350), packetPreview);</span>
+<span id="L192"><a class="line" href="#L192">192</a>             Check(packetSource.DistanceTo(new Vector2(0.50f, 0.49f)) &lt; 0.0001f, &quot;Rotated item artwork failed to share its source-image transform.&quot;);</span>
+<span id="L193"><a class="line" href="#L193">193</a>             await InventoryCapture(&quot;-packet&quot;);</span>
+<span id="L194"><a class="line" href="#L194">194</a>             Nav(false, &quot;↑&quot;); await InventoryFrames();</span>
+<span id="L195"><a class="line" href="#L195">195</a>             Check(panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;) &amp;&amp; sim.Inventory.SecuringRemaining == 1, &quot;Contents Up must return one level and queue normal securing.&quot;);</span>
+<span id="L196"><a class="line" href="#L196">196</a>             sim.ManualPause = false; await Finish(); sim.ManualPause = true;</span>
+<span id="L197"><a class="line" href="#L197">197</a>             Check(!sim.Inventory.IsOpen(&quot;gum-packet&quot;, &quot;pieces&quot;), &quot;Up supplied a visual-only closure.&quot;);</span>
+<span id="L198"><a class="line" href="#L198">198</a>             // Native context menu, positioned beside the pointer, opens the chosen top-level object.</span>
+<span id="L199"><a class="line" href="#L199">199</a>             var pack = panel.FindGrid(&quot;person:avatar&quot;, &quot;back&quot;);</span>
+<span id="L200"><a class="line" href="#L200">200</a>             InventoryClick(pack.GlobalPosition + new Vector2(30, 80), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L201"><a class="line" href="#L201">201</a>             var context = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L202"><a class="line" href="#L202">202</a>             var openButton = context.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Open&quot;);</span>
+<span id="L203"><a class="line" href="#L203">203</a>             InventoryClick(openButton.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L204"><a class="line" href="#L204">204</a>             Check(panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;), &quot;Context Open must switch gear while retaining the source pocket.&quot;);</span>
+<span id="L205"><a class="line" href="#L205">205</a>             InventoryClick(Surface().HotspotPosition(&quot;side&quot;), true); await InventoryFrames();</span>
+<span id="L206"><a class="line" href="#L206">206</a>             var side = panel.FindGrid(&quot;avatar-backpack&quot;, &quot;side&quot;); var hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L207"><a class="line" href="#L207">207</a>             var dragSave = sim.Save();</span>
+<span id="L208"><a class="line" href="#L208">208</a>             await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), hand.GlobalPosition + new Vector2(20, 70), async () =&gt;</span>
+<span id="L209"><a class="line" href="#L209">209</a>             {</span>
+<span id="L210"><a class="line" href="#L210">210</a>                 Check(panel.DropPreview is { Quote.Allowed: true } p &amp;&amp; p.Grid == hand &amp;&amp; p.Bounds == new Rect2(1, 44, 90, 90), &quot;Native drag footprint did not snap to its actual hand destination.&quot;);</span>
+<span id="L211"><a class="line" href="#L211">211</a>                 Check(sim.Save() == dragSave, &quot;Preview mutated authoritative state.&quot;); await InventoryCapture(&quot;-drag-valid&quot;);</span>
+<span id="L212"><a class="line" href="#L212">212</a>             });</span>
+<span id="L213"><a class="line" href="#L213">213</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == dragSave, &quot;Paused release granted a free move.&quot;);</span>
+<span id="L214"><a class="line" href="#L214">214</a>             sim.ManualPause = false;</span>
+<span id="L215"><a class="line" href="#L215">215</a>             await InventoryDrag(side.GlobalPosition + new Vector2(15, 59), hand.GlobalPosition + new Vector2(20, 70));</span>
+<span id="L216"><a class="line" href="#L216">216</a>             Check(sim.Inventory.Pending?.Request.ItemId == &quot;flashlight&quot;, &quot;Native drag did not begin paid handling.&quot;);</span>
+<span id="L217"><a class="line" href="#L217">217</a>             InventoryKey(Key.Escape); await Finish(); Check(!panel.IsOpen, &quot;Pending action reopened inventory.&quot;);</span>
+<span id="L218"><a class="line" href="#L218">218</a>             InventoryKey(Key.I); sim.ManualPause = true; await OpenPocket(&quot;avatar-trousers&quot;, &quot;left&quot;);</span>
+<span id="L219"><a class="line" href="#L219">219</a>             pocket = panel.FindGrid(&quot;avatar-trousers&quot;, &quot;left&quot;); hand = panel.FindGrid(&quot;person:avatar&quot;, &quot;hand&quot;);</span>
+<span id="L220"><a class="line" href="#L220">220</a>             sim.ManualPause = false;</span>
+<span id="L221"><a class="line" href="#L221">221</a>             await InventoryDrag(hand.GlobalPosition + new Vector2(30, 80), pocket.GlobalPosition + new Vector2(15, 90), async () =&gt;</span>
+<span id="L222"><a class="line" href="#L222">222</a>             {</span>
+<span id="L223"><a class="line" href="#L223">223</a>                 InventoryKey(Key.R); await InventoryFrames();</span>
+<span id="L224"><a class="line" href="#L224">224</a>                 Check(panel.DropPreview is { Quote.Allowed: true } p &amp;&amp; p.Bounds == new Rect2(1, 74, 120, 30), &quot;Rotated object preview did not match the exact destination cells.&quot;);</span>
+<span id="L225"><a class="line" href="#L225">225</a>             });</span>
+<span id="L226"><a class="line" href="#L226">226</a>             await Finish(); sim.ManualPause = true;</span>
+<span id="L227"><a class="line" href="#L227">227</a>             Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;flashlight&quot;).Placement == new ItemPlacement(&quot;avatar-trousers&quot;, &quot;left&quot;, 0, 1, true), &quot;Rotated drop committed a different placement.&quot;);</span>
+<span id="L228"><a class="line" href="#L228">228</a>             var blockedSave = sim.Save();</span>
+<span id="L229"><a class="line" href="#L229">229</a>             await InventoryDrag(pocket.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(15, 90), async () =&gt;</span>
+<span id="L230"><a class="line" href="#L230">230</a>             { Check(panel.DropPreview is { Quote.Allowed: false }, &quot;Occupied cells were accepted.&quot;); await InventoryCapture(&quot;-drag-blocked&quot;); });</span>
+<span id="L231"><a class="line" href="#L231">231</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == blockedSave, &quot;Blocked drag mutated inventory.&quot;);</span>
+<span id="L232"><a class="line" href="#L232">232</a>             await InventoryDrag(pocket.GlobalPosition + new Vector2(15, 59), pocket.GlobalPosition + new Vector2(105, 209), async () =&gt;</span>
+<span id="L233"><a class="line" href="#L233">233</a>             { Check(panel.DropPreview is { Quote.Allowed: false }, &quot;A footprint extending past the compartment edge was accepted.&quot;); await InventoryFrames(); });</span>
+<span id="L234"><a class="line" href="#L234">234</a>             Check(sim.Inventory.Pending is null &amp;&amp; sim.Save() == blockedSave, &quot;Edge-overflow release mutated inventory.&quot;);</span>
+<span id="L235"><a class="line" href="#L235">235</a>             // A late physical opening cannot resurrect a branch after switching gear.</span>
+<span id="L236"><a class="line" href="#L236">236</a>             panel.ChangeLid(&quot;avatar-backpack&quot;, &quot;main&quot;, false); // paused: rejected</span>
+<span id="L237"><a class="line" href="#L237">237</a>             panel.Inspect(&quot;avatar-backpack&quot;); await InventoryFrames(); sim.ManualPause = false;</span>
+<span id="L238"><a class="line" href="#L238">238</a>             InventoryClick(Surface().HotspotPosition(&quot;main&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L239"><a class="line" href="#L239">239</a>             var secureMenu = panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L240"><a class="line" href="#L240">240</a>             var zip = secureMenu.GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == &quot;Zip&quot;);</span>
+<span id="L241"><a class="line" href="#L241">241</a>             InventoryClick(zip.GetGlobalRect().GetCenter()); await Finish();</span>
+<span id="L242"><a class="line" href="#L242">242</a>             await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;);</span>
+<span id="L243"><a class="line" href="#L243">243</a>             Check(sim.Inventory.Pending?.Request.Kind == InventoryActionKind.Open &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;), &quot;Pending main opening must retain the source pocket without revealing secured contents.&quot;);</span>
+<span id="L244"><a class="line" href="#L244">244</a>             panel.Inspect(&quot;avatar-trousers&quot;); await Finish(); await InventoryFrames();</span>
+<span id="L245"><a class="line" href="#L245">245</a>             Check(panel.Browser.CurrentGear == &quot;avatar-trousers&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-trousers&quot;, &quot;left&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Late opening replaced the retained source after switching gear.&quot;);</span>
+<span id="L246"><a class="line" href="#L246">246</a>             sim.ManualPause = true; await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;); panel.Inspect(&quot;medical-case&quot;); await InventoryFrames();</span>
+<span id="L247"><a class="line" href="#L247">247</a>             Nav(false, &quot;×&quot;); await InventoryFrames();</span>
+<span id="L248"><a class="line" href="#L248">248</a>             Check(panel.Browser.CurrentContents is null &amp;&amp; panel.Browser.CurrentGear == &quot;avatar-backpack&quot; &amp;&amp; sim.Inventory.SecuringRemaining == 2</span>
+<span id="L249"><a class="line" href="#L249">249</a>                 &amp;&amp; sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;) &amp;&amp; sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;), &quot;Contents × failed to queue child-before-parent securing without free closure.&quot;);</span>
+<span id="L250"><a class="line" href="#L250">250</a>             var queueSave = sim.Save(); var clone = new SpatialSimulation(Godot.FileAccess.GetFileAsString(&quot;res://Content/spatial-facility.json&quot;), Godot.FileAccess.GetFileAsString(&quot;res://Content/scp650-operation.json&quot;));</span>
+<span id="L251"><a class="line" href="#L251">251</a>             clone.Restore(queueSave); Check(clone.Save() == queueSave, &quot;Securing queue did not persist exactly.&quot;);</span>
+<span id="L252"><a class="line" href="#L252">252</a>             InventoryKey(Key.Escape); sim.ManualPause = false; await Finish();</span>
+<span id="L253"><a class="line" href="#L253">253</a>             Check(!sim.Inventory.IsOpen(&quot;medical-case&quot;, &quot;inside&quot;) &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-backpack&quot;, &quot;main&quot;), &quot;Queued closure did not continue after hiding the UI.&quot;);</span>
+<span id="L254"><a class="line" href="#L254">254</a>             // Outer garment contents retain their real owner while the middle descends to an exposed shirt.</span>
+<span id="L255"><a class="line" href="#L255">255</a>             sim.Restore(original); _runtime.ResetAccumulator(); InventoryKey(Key.I); await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
+<span id="L256"><a class="line" href="#L256">256</a>             var gearView = panel.Browser.GetChild&lt;InventoryContainerView&gt;(0);</span>
+<span id="L257"><a class="line" href="#L257">257</a>             var under = gearView.GetChildren().OfType&lt;VBoxContainer&gt;().SelectMany(c =&gt; c.GetChildren().OfType&lt;Button&gt;()).Single(b =&gt; b.Text.Contains(&quot;work shirt&quot;, StringComparison.OrdinalIgnoreCase));</span>
+<span id="L258"><a class="line" href="#L258">258</a>             InventoryClick(under.GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L259"><a class="line" href="#L259">259</a>             Check(panel.Browser.CurrentGear == &quot;avatar-shirt&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-coat&quot;, &quot;chest&quot;), &quot;Jacket pocket lost its owner during lower-layer inspection.&quot;);</span>
+<span id="L260"><a class="line" href="#L260">260</a>             Nav(true, &quot;↑&quot;); await InventoryFrames();</span>
+<span id="L261"><a class="line" href="#L261">261</a>             Check(panel.Browser.CurrentGear == &quot;avatar-coat&quot; &amp;&amp; panel.Browser.CurrentContents == (&quot;avatar-coat&quot;, &quot;chest&quot;), &quot;Middle Up discarded a retained outer-garment pocket.&quot;);</span>
+<span id="L262"><a class="line" href="#L262">262</a>             Check(sim.Inventory.SecuringRemaining == 0 &amp;&amp; sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen,</span>
+<span id="L263"><a class="line" href="#L263">263</a>                 &quot;Returning from shirt inspection unexpectedly re-fastened the jacket.&quot;);</span>
+<span id="L264"><a class="line" href="#L264">264</a>             PanelContainer Menu() =&gt; panel.GetChildren().OfType&lt;PanelContainer&gt;().Last();</span>
+<span id="L265"><a class="line" href="#L265">265</a>             async Task FrontMenu()</span>
+<span id="L266"><a class="line" href="#L266">266</a>             { InventoryClick(Surface().HotspotPosition(null), button: MouseButton.Right); await InventoryFrames(); }</span>
+<span id="L267"><a class="line" href="#L267">267</a>             Button MenuAction(string label) =&gt; Menu().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;Button&gt;().Single(b =&gt; b.Text == label);</span>
+<span id="L268"><a class="line" href="#L268">268</a>             CheckButton Preference() =&gt; Menu().GetChild&lt;VBoxContainer&gt;(0).GetChildren().OfType&lt;CheckButton&gt;().Single();</span>
+<span id="L269"><a class="line" href="#L269">269</a>             await FrontMenu();</span>
+<span id="L270"><a class="line" href="#L270">270</a>             Check(MenuAction(&quot;Zip&quot;) is not null &amp;&amp; !Preference().ButtonPressed, &quot;Open jacket menu must offer Zip and default to leaving the front open.&quot;);</span>
+<span id="L271"><a class="line" href="#L271">271</a>             // Keep the fold-out menu open while another valid command resolves; its label must read live state.</span>
+<span id="L272"><a class="line" href="#L272">272</a>             sim.ManualPause = false;</span>
+<span id="L273"><a class="line" href="#L273">273</a>             Check(sim.HandleInventory(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;)), &quot;Could not close jacket for state-menu check.&quot;);</span>
+<span id="L274"><a class="line" href="#L274">274</a>             await Finish(); await InventoryFrames();</span>
+<span id="L275"><a class="line" href="#L275">275</a>             Check(MenuAction(&quot;Unzip&quot;) is not null, &quot;An already-open menu did not update when the zipper&#x27;s physical boolean changed.&quot;);</span>
+<span id="L276"><a class="line" href="#L276">276</a>             await InventoryCapture(&quot;-menu-unzip&quot;);</span>
+<span id="L277"><a class="line" href="#L277">277</a>             InventoryClick(MenuAction(&quot;Unzip&quot;).GetGlobalRect().GetCenter()); await Finish(); sim.ManualPause = true;</span>
+<span id="L278"><a class="line" href="#L278">278</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
+<span id="L279"><a class="line" href="#L279">279</a>             InventoryClick(Surface().HotspotPosition(&quot;chest&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L280"><a class="line" href="#L280">280</a>             Check(Preference().ButtonPressed &amp;&amp; MenuAction(&quot;Button&quot;) is not null, &quot;Open buttoned-pocket menu has the wrong action or default.&quot;);</span>
+<span id="L281"><a class="line" href="#L281">281</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L282"><a class="line" href="#L282">282</a>             Check(!InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;, &quot;chest&quot;)</span>
+<span id="L283"><a class="line" href="#L283">283</a>                 &amp;&amp; !InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;), &quot;Pocket override affected the wrong fastening.&quot;);</span>
+<span id="L284"><a class="line" href="#L284">284</a>             var noAuto = sim.Save();</span>
+<span id="L285"><a class="line" href="#L285">285</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
+<span id="L286"><a class="line" href="#L286">286</a>             Check(panel.Browser.CurrentGear is null &amp;&amp; panel.Browser.CurrentContents is null &amp;&amp; sim.Inventory.SecuringRemaining == 0 &amp;&amp; sim.Save() == noAuto,</span>
+<span id="L287"><a class="line" href="#L287">287</a>                 &quot;Dismissal with both fastening preferences off changed physical state.&quot;);</span>
+<span id="L288"><a class="line" href="#L288">288</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;);</span>
+<span id="L289"><a class="line" href="#L289">289</a>             InventoryClick(Surface().HotspotPosition(&quot;chest&quot;), button: MouseButton.Right); await InventoryFrames();</span>
+<span id="L290"><a class="line" href="#L290">290</a>             Check(!Preference().ButtonPressed, &quot;Pocket preference reset when its view reopened.&quot;);</span>
+<span id="L291"><a class="line" href="#L291">291</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L292"><a class="line" href="#L292">292</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
+<span id="L293"><a class="line" href="#L293">293</a>             Check(sim.Inventory.SecuringRemaining == 1, &quot;Default pocket securing should leave the separate jacket front open.&quot;);</span>
+<span id="L294"><a class="line" href="#L294">294</a>             sim.ManualPause = false; await Finish();</span>
+<span id="L295"><a class="line" href="#L295">295</a>             Check(sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-coat&quot;, &quot;chest&quot;),</span>
+<span id="L296"><a class="line" href="#L296">296</a>                 &quot;Closing the pocket also fastened the jacket front.&quot;);</span>
+<span id="L297"><a class="line" href="#L297">297</a>             await OpenPocket(&quot;avatar-coat&quot;, &quot;chest&quot;); await Finish(); sim.ManualPause = true;</span>
+<span id="L298"><a class="line" href="#L298">298</a>             await FrontMenu();</span>
+<span id="L299"><a class="line" href="#L299">299</a>             InventoryClick(Preference().GetGlobalRect().GetCenter()); await InventoryFrames();</span>
+<span id="L300"><a class="line" href="#L300">300</a>             Check(InventoryClosures.SecureOnClose(sim.Inventory, &quot;avatar-coat&quot;) &amp;&amp; !InventoryClosures.SecureOnClose(sim.Inventory, &quot;observer-coat&quot;),</span>
+<span id="L301"><a class="line" href="#L301">301</a>                 &quot;Jacket preference must belong to this gear instance, not a global setting.&quot;);</span>
+<span id="L302"><a class="line" href="#L302">302</a>             await InventoryCapture(&quot;-jacket-preference&quot;);</span>
+<span id="L303"><a class="line" href="#L303">303</a>             Nav(true, &quot;×&quot;); await InventoryFrames();</span>
+<span id="L304"><a class="line" href="#L304">304</a>             Check(sim.Inventory.SecuringRemaining == 2, &quot;Opted-in jacket and pocket must both use normal paid securing.&quot;);</span>
+<span id="L305"><a class="line" href="#L305">305</a>             sim.ManualPause = false; await Finish();</span>
+<span id="L306"><a class="line" href="#L306">306</a>             Check(!sim.Inventory.DiagnosticItems.Single(i =&gt; i.Id == &quot;avatar-coat&quot;).GarmentOpen &amp;&amp; !sim.Inventory.IsOpen(&quot;avatar-coat&quot;, &quot;chest&quot;),</span>
+<span id="L307"><a class="line" href="#L307">307</a>                 &quot;Per-piece opted-in securing failed to finish.&quot;);</span>
+<span id="L308"><a class="line" href="#L308">308</a>             sim.Restore(original); _runtime.ResetAccumulator(); panel.Close(); panel.Open(); await OpenPocket(&quot;avatar-backpack&quot;, &quot;main&quot;); panel.Inspect(&quot;medical-case&quot;);</span>
+<span id="L309"><a class="line" href="#L309">309</a>             await InventoryCapture(&quot;&quot;);</span>
+<span id="L310"><a class="line" href="#L310">310</a>             GD.Print(&quot;INVENTORY_SMOKE_PASS: three inspection panes plus permanent ground dock, gear/contents ancestry, live Zip/Unzip and Button/Unbutton menus, per-piece securing preferences, illustrated hotspot input, parent/child Up and ×, Esc unchanged physical state, late-opening cancellation, paused closure queue, persistence, native snapped drag/rotation/blocked release, paid work continuing with UI hidden, clothing inspection and coverage.&quot;);</span>
+<span id="L311"><a class="line" href="#L311">311</a>             panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true;</span>
+<span id="L312"><a class="line" href="#L312">312</a>         }</span>
+<span id="L313"><a class="line" href="#L313">313</a>         catch (Exception ex) { GD.PushError(ex.ToString()); GetTree().Quit(1); }</span>
+<span id="L314"><a class="line" href="#L314">314</a>     }</span>
+<span id="L315"><a class="line" href="#L315">315</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

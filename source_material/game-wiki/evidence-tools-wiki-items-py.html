@@ -206,7 +206,9 @@ def build_items(root, out, add):
         if item in {&#x27;utility-belt&#x27;, &#x27;utility-hook&#x27;, &#x27;utility-pouch&#x27;} and (attachment_bindings or binding and binding.get(&#x27;attachmentPlane&#x27;)):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Qualified worn belt/hook/pouch chains&#x27;) + &#x27;: shared composed frames, separate alpha targets and ordinary paid handling.&lt;/p&gt;&#x27;
         if item in {&#x27;shirt&#x27;, &#x27;personnel-badge&#x27;}:
-            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;shirt-pockets-and-badge.html&#x27;, &#x27;Shirt pockets and detachable badge&#x27;) + &#x27;: real compartments and clip mounting; credential door access remains planned.&lt;/p&gt;&#x27;
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;shirt-pockets-and-badge.html&#x27;, &#x27;Shirt pockets and detachable badge&#x27;) + &#x27;: real compartments and clip mounting.&lt;/p&gt;&#x27;
+        if item == &#x27;personnel-badge&#x27;:
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;badge-door-access.html&#x27;, &#x27;Badge-controlled door access&#x27;) + &#x27;: exposed wearing or hand-equipped presentation; authoritative credential metadata.&lt;/p&gt;&#x27;
         if item in {&#x27;coat&#x27;, &#x27;trousers&#x27;, &#x27;backpack&#x27;, &#x27;shirt&#x27;}:
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;visible-pockets.html&#x27;, &#x27;Every depicted pocket is usable&#x27;) + &#x27;: shared views address real independent compartments.&lt;/p&gt;&#x27;
         if any(part.get(&#x27;pockets&#x27;) for frame in registered for part in frame[&#x27;parts&#x27;]):

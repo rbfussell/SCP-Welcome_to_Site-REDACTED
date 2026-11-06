@@ -2,7 +2,7 @@ namespace SiteSimulation;
 
 public sealed record ItemDefinition(string Id, string Name, int WidthMm, int LengthMm, int ThicknessMm, int MassGrams,
     string[] Tags, string? WearSlot = null, string? Capability = null, int HandleMs = 300, int HandleAp = 1, StorageRegion[]? Regions = null, WearProfile? Wear = null,
-    string? DefaultDropRegion = null, AttachmentProfile? Attachment = null);
+    string? DefaultDropRegion = null, AttachmentProfile? Attachment = null, BadgeCredential? Credential = null);
 public sealed record WearMount(string Slot, string[] Coverage, string? BodySurface = null);
 public sealed record WearProfile(int Layer, WearMount[] Mounts, bool Outermost = false,
     string[]? OpenExposes = null, int FastenMs = 700, int FastenAp = 2,
@@ -19,8 +19,9 @@ public sealed record InventoryItem(string Id, string DefinitionId, ItemPlacement
     bool? SecureOnClose = null);
 public sealed record RegionState(string ItemId, string RegionId, bool Open = true, bool? SecureOnClose = null);
 public sealed record InventoryContent(ItemDefinition[] Definitions, InventoryRoot[] Roots, InventoryItem[] Items, RegionState[] Regions);
-public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff, OpenGarment, CloseGarment, AutoPlace, Arrange }
-public sealed record InventoryRequest(InventoryActionKind Kind, string ItemId, ItemPlacement? Destination = null, string? RegionId = null);
+public enum InventoryActionKind { Move, Open, Close, PowerOn, PowerOff, OpenGarment, CloseGarment, AutoPlace, Arrange, PresentBadge }
+public sealed record InventoryRequest(InventoryActionKind Kind, string ItemId, ItemPlacement? Destination = null, string? RegionId = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] string? TargetId = null);
 public sealed record InventoryWork(string ActorId, InventoryRequest Request, Point2 Position, int TotalMs, int RemainingMs,
     long Revision, int CostAp, bool Tactical, string? AbortReason = null, InventoryPackingPlan? Packing = null);
 public sealed record InventoryPackingMove(string ItemId, ItemPlacement From, ItemPlacement To);
@@ -33,3 +34,6 @@ public sealed record InventoryAccess(bool Allowed, string Reason);
 
 public sealed record InventoryActionQuote(bool Allowed, string Reason, int DurationMs, int Ap);
 public sealed record InventoryClosureAction(string Verb, InventoryRequest Request);
+
+/// <summary>Immutable fixture credential, separate from artwork, tags and mutable item condition.</summary>
+public sealed record BadgeCredential(string Issuer, int Clearance, string? SubjectId = null);

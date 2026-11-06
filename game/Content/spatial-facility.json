@@ -197,7 +197,11 @@
       "x": 7,
       "y": 5,
       "axis": "u",
-      "door": true
+      "door": true,
+      "reader": {
+        "issuer": "site-test",
+        "clearance": 1
+      }
     },
     {
       "id": "wall-8-5-u",

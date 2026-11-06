@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Badge-controlled test door | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/56-badge-door-access.md.</aside><h1 id="badge-controlled-test-door">Badge-controlled test door</h1>
+<p>Implemented November 6, 2026. <strong>User-confirmed rule:</strong> an exposed worn badge can be read automatically; otherwise it must be <strong>equipped in hand</strong> before use. An accessible pocket, open backpack, inspection window or painted badge does not count as presentation. This extends the <a href="doc-docs-54-shirt-pockets-and-badge-md.html">physical badge/clip</a>, <a href="doc-docs-31-pocket-coverage-prototype-md.html">coverage</a>, <a href="doc-docs-29-gear-data-standard-md.html">inventory transactions</a> and <a href="doc-docs-20-event-log-and-tactical-training-md.html">tactical scheduler</a>. See the <a href="badge-door-access.html">wiki</a>.</p>
+<h2 id="first-playable-fixture">First playable fixture</h2>
+<p>The existing <code>door-7-5-u</code> is now a reader-controlled doorway. Its authored reader requires issuer <code>site-test</code> and clearance 1; the separate personnel badge supplies that issuer/tier. The badge remains inside the spare backpack at startup. Its kit definition now has immutable credential metadata; no new item, PNG or mutable credential registry is added. The other two doors remain ordinary doors.</p>
+<p>The test uses provisional <strong>bearer access</strong>. Optional <code>BadgeCredential.SubjectId</code> can require a matching actor ID; both modes are checked. The user has been asked whether identity binding should be the default. Until resolved, bearer mode is a fixture choice, not settled facility security design. Clearance 1 and denied tier-2 variants are local test policies, not a comprehensive Foundation authorization model or SCP canon claim.</p>
+<h2 id="use-and-costs">Use and costs</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Walking near a powered reader with an exposed worn valid badge</td>
+<td>Door opens automatically during realtime approach, without an inventory action or movement stop.</td>
+</tr>
+<tr>
+<td>Standing with exposed worn badge, press E</td>
+<td>Ordinary door operation. Realtime remains immediate; tactical door use costs 2 AP and 300 local ms.</td>
+</tr>
+<tr>
+<td>Badge directly equipped in the actor's hand, press E</td>
+<td>Purchases a 500 local ms, 2 AP presentation action. Outside combat AP is quoted, not spent; tactical use pays it. Door opens only on completion.</td>
+</tr>
+<tr>
+<td>Badge stored, covered, damaged, wrong issuer/identity or insufficient clearance</td>
+<td>Closed reader refuses; status explains the requirement. Nothing is extracted automatically and no AP is charged.</td>
+</tr>
+<tr>
+<td>Door already open</td>
+<td>Ordinary close, subject to normal obstruction checks; no credential is required to close this test door.</td>
+</tr>
+</tbody>
+</table>
+<p>Automatic realtime reading applies only while the actor is moving and locally active. Standing idle does not repeatedly reopen a door just closed. Tactical input waits do not cause free opening; use E as a paid action. Range is the existing 1.35 world-unit interaction reach, with other solid walls and blocking cabinets checked. The reader itself is excluded from its own access-ray obstruction. This is a proximity test, not final optical reader orientation/range tuning.</p>
+<p>Worn presentation requires a real attachment chain to the acting person's worn equipment and the badge's entire authored attachment occupancy exposed under the physical body-surface model. A badge clipped to a shirt sitting in a pack or hand is not worn. Closure windows and camera/alpha settings do not establish credentials. Physical exposure is authoritative; general optical visibility, reader facing, lighting and item-condition thresholds need later qualification. The current badge must have condition greater than zero.</p>
+<p>The same credential service validates any actor's issuer, tier, physical wearing/hand and optional identity. The native fixture exercises player E input, shared NPC credential queries and automatic scanning of moving actors. Full NPC reader operation/planning, reader queues and escort/tailgating policies are not implemented. Once open, the doorway is ordinary shared physical space; the reader does not confer collision immunity or reserve the doorway for one person.</p>
+<h2 id="authority-and-continuation">Authority and continuation</h2>
+<p><code>WallDefinition.Reader</code> optionally names <code>DoorReader(Issuer, Clearance, Powered)</code>. Power is an immutable test flag, not connection to a working electrical circuit. This specific fixture refuses opening without power. <a href="doc-docs-17-facility-infrastructure-md.html">Infrastructure design</a> still requires device-specific fail modes and physical maintenance before production utilities; do not generalize this test flag to all doors.</p>
+<p><code>ItemDefinition.Credential</code> optionally names <code>BadgeCredential(Issuer, Clearance, SubjectId)</code>. It is immutable fixture content, separate from item tags/art and condition. The native profile currently validates tiers 0–5. Production credential issuance, revocation, lost/stolen status, expiration, remote identity verification and OSCP account authorization remain future work.</p>
+<p><code>InventoryActionKind.PresentBadge</code> and optional <code>InventoryRequest.TargetId</code> reuse existing paid handling, interruption, tactical Inventory scheduling and detached save validation. The badge stays in hand throughout. Completion rechecks physical reach, actor position, door state, power/policy and badge condition/presentation. Changing any required fact can abort without opening. A normal tactical Door action also rechecks the displayed badge; it cannot silently substitute a newly held badge for paid presentation.</p>
+<p>Schema remains 15. The new enum value is appended and null TargetId is omitted. Pending presentation, open-door state and exact tactical/local time use existing snapshots. Invalid target/cost continuations reject atomically. Map and badge content identity change: <strong>start a fresh scene</strong>; old mismatched kits/maps reject rather than gaining access silently.</p>
+<h2 id="verification-and-limits">Verification and limits</h2>
+<p><a href="evidence-tests-spatialchecks-badgedoorchecks-cs.html">Domain checks</a> cover visible/covered/stored/hand presentation, paused refusal, both clearance variants, issuer, power, damage, identity/bearer modes, NPC queries, interruption, normal and manual tactical costs, commitment rechecks and exact save/load. <a href="file-game-presentation-spatialscene-badgedoorsmoke-cs.html">Native checks</a> use real hand drag and E input, then inspect successful/denied states and automatic approach. Run:</p>
+<pre><code class="language-sh">python3 tools/run_spatial_scene.py --check
+python3 tools/run_spatial_scene.py --badge-door-smoke work/preview/spatial-scene/badge-door.png
+</code></pre>
+<p>Full <code>--inventory-smoke</code> includes the reader fixture. <a href="doc-docs-reviews-badge-door-runtime-checks-md.html">Actual results</a> distinguish passed checks from remaining limitations. World wardrobe art is still baked; physical credential wearing is read from the actual item graph despite that presentation limitation. No general SCiPnet, AIC, faction, door power network or final security UI is implied.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/56-badge-door-access.md</footer></main></div></body></html>

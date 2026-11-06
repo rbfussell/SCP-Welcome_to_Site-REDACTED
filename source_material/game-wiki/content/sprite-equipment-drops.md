@@ -26,6 +26,6 @@ Related: [inventory](system-inventory.html), [presentation](system-presentation.
 
 [Paperdoll pocket segments](paperdoll-pocket-segments.html) now qualify four coat pockets, six trouser compartments and backpack main/side/front. [Every depicted pocket is usable](visible-pockets.html); front/back cargo views share storage. Coverage and independent paid fastenings still apply; animation remains future work.
 
-[Shirt pockets and detachable badge](shirt-pockets-and-badge.html) add two buttoned chest compartments and a real clip-mounted badge. Covered retention and manipulation are separate; this changes native kit identity to 20 definitions/40 instances while retaining schema 15. Visible-badge automatic entry is selected design; door credential services are not implemented.
+[Shirt pockets and detachable badge](shirt-pockets-and-badge.html) add two buttoned chest compartments and a real clip-mounted badge. Covered retention and manipulation are separate; this changes native kit identity to 20 definitions/40 instances while retaining schema 15. [Badge-controlled access](badge-door-access.html) now implements exposed wearing or equipped-hand presentation at one local reader; production credential administration remains future work.
 
 [Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.

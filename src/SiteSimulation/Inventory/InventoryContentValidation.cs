@@ -30,6 +30,8 @@ internal static class InventoryContentValidation
                 || d.MassGrams is < 0 or > 100000 || d.HandleMs is < 50 or > 5000 || d.HandleMs % SpatialSimulation.TickMs != 0
                 || d.HandleAp is < 1 or > 5 || d.Wear is not null && !WearValid(d.Wear)
                 || d.Wear?.FitProfile is { } fit && !state.BodyFits!.Content.Shapes.Any(s => s.Id == fit)
+                || d.Credential is { } credential && (!Id(credential.Issuer) || credential.Clearance is < 0 or > 5
+                    || credential.SubjectId is { } subject && !world.Actors.Any(a => a.Id == subject))
                 || !InventoryAttachments.ProfileValid(d.Attachment)
                 || d.DefaultDropRegion is not null && d.Regions?.Any(r => r is not null && r.Id == d.DefaultDropRegion && r.MountSlot is null && r.Attachment is null) != true
                 || d.Regions is { } regions && (regions.Any(r => !RegionValid(r)) || regions.Select(r => r.Id).Distinct().Count() != regions.Length))

@@ -30,39 +30,41 @@
 <span id="L30"><a class="line" href="#L30">30</a>                 || d.MassGrams is &lt; 0 or &gt; 100000 || d.HandleMs is &lt; 50 or &gt; 5000 || d.HandleMs % SpatialSimulation.TickMs != 0</span>
 <span id="L31"><a class="line" href="#L31">31</a>                 || d.HandleAp is &lt; 1 or &gt; 5 || d.Wear is not null &amp;&amp; !WearValid(d.Wear)</span>
 <span id="L32"><a class="line" href="#L32">32</a>                 || d.Wear?.FitProfile is { } fit &amp;&amp; !state.BodyFits!.Content.Shapes.Any(s =&gt; s.Id == fit)</span>
-<span id="L33"><a class="line" href="#L33">33</a>                 || !InventoryAttachments.ProfileValid(d.Attachment)</span>
-<span id="L34"><a class="line" href="#L34">34</a>                 || d.DefaultDropRegion is not null &amp;&amp; d.Regions?.Any(r =&gt; r is not null &amp;&amp; r.Id == d.DefaultDropRegion &amp;&amp; r.MountSlot is null &amp;&amp; r.Attachment is null) != true</span>
-<span id="L35"><a class="line" href="#L35">35</a>                 || d.Regions is { } regions &amp;&amp; (regions.Any(r =&gt; !RegionValid(r)) || regions.Select(r =&gt; r.Id).Distinct().Count() != regions.Length))</span>
-<span id="L36"><a class="line" href="#L36">36</a>             || c.Definitions.Select(d =&gt; d.Id).Distinct().Count() != c.Definitions.Length</span>
-<span id="L37"><a class="line" href="#L37">37</a>             || c.Roots.Any(r =&gt; r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region =&gt; !RegionValid(region))</span>
-<span id="L38"><a class="line" href="#L38">38</a>                 || r.GroundCell is not null || r.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal)</span>
-<span id="L39"><a class="line" href="#L39">39</a>                 || r.Regions.Select(region =&gt; region.Id).Distinct().Count() != r.Regions.Length || r.MaxMassGrams is &lt;= 0 or &gt; 100000</span>
-<span id="L40"><a class="line" href="#L40">40</a>                 || (r.ActorId is null) == (r.PropId is null) || r.ActorId is not null &amp;&amp; !world.Actors.Any(a =&gt; a.Id == r.ActorId)</span>
-<span id="L41"><a class="line" href="#L41">41</a>                 || r.PropId is not null &amp;&amp; !world.Map.Definition.Props.Any(p =&gt; p.Id == r.PropId))</span>
-<span id="L42"><a class="line" href="#L42">42</a>             || c.Roots.Any(r =&gt; r.BodyFamily is not null &amp;&amp; !state.BodyFits!.Content.Bodies.Any(b =&gt; b.Id == r.BodyFamily))</span>
-<span id="L43"><a class="line" href="#L43">43</a>             || c.Roots.Select(r =&gt; r.Id).Distinct().Count() != c.Roots.Length</span>
-<span id="L44"><a class="line" href="#L44">44</a>             || c.Items.Any(i =&gt; i is null || !Id(i.Id) || i.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal) || !c.Definitions.Any(d =&gt; d.Id == i.DefinitionId)</span>
-<span id="L45"><a class="line" href="#L45">45</a>                 || c.Roots.Any(r =&gt; r.Id == i.Id)) || c.Items.Select(i =&gt; i.Id).Distinct().Count() != c.Items.Length)</span>
-<span id="L46"><a class="line" href="#L46">46</a>             throw new ArgumentException(&quot;Invalid inventory content.&quot;);</span>
-<span id="L47"><a class="line" href="#L47">47</a>         foreach (var definition in c.Definitions)</span>
-<span id="L48"><a class="line" href="#L48">48</a>         {</span>
-<span id="L49"><a class="line" href="#L49">49</a>             var shape = definition.Wear?.FitProfile is { } id ? state.BodyFits!.Shape(id) : null;</span>
-<span id="L50"><a class="line" href="#L50">50</a>             if (definition.Wear is not null &amp;&amp; (shape is null || shape.Coverage?.Closed is { Length: 0 }))</span>
-<span id="L51"><a class="line" href="#L51">51</a>                 throw new ArgumentException(&quot;Wearable equipment requires a nonempty physical body footprint.&quot;);</span>
-<span id="L52"><a class="line" href="#L52">52</a>             var cells = shape is null ? null : BodyFitGeometry.Cells(shape.Rows)</span>
-<span id="L53"><a class="line" href="#L53">53</a>                 .Select(cell =&gt; new BodyHex(cell.Q - shape.DefaultPose.Q, cell.R - shape.DefaultPose.R)).ToHashSet();</span>
-<span id="L54"><a class="line" href="#L54">54</a>             foreach (var region in definition.Regions ?? [])</span>
-<span id="L55"><a class="line" href="#L55">55</a>                 if (region.AccessFootprint is { } masks &amp;&amp; (cells is null || masks.Length == 0 || !BodyFitCatalog.SurfaceMasksValid(masks, cells)))</span>
-<span id="L56"><a class="line" href="#L56">56</a>                     throw new ArgumentException(&quot;Invalid compartment access footprint: &quot; + definition.Id + &quot;/&quot; + region.Id);</span>
-<span id="L57"><a class="line" href="#L57">57</a>             var mounted = shape?.Coverage is { } cover &amp;&amp; cover.Closed.Concat(cover.Open).Any(m =&gt; m.Surface == &quot;mounted&quot;)</span>
-<span id="L58"><a class="line" href="#L58">58</a>                 || definition.Regions?.Any(r =&gt; r.AccessFootprint?.Any(m =&gt; m.Surface == &quot;mounted&quot;) == true) == true</span>
-<span id="L59"><a class="line" href="#L59">59</a>                 || definition.Wear?.FasteningFootprint?.Any(m =&gt; m.Surface == &quot;mounted&quot;) == true;</span>
-<span id="L60"><a class="line" href="#L60">60</a>             if (definition.Wear is { } wear &amp;&amp; (wear.OverlayLimit is not null &amp;&amp; shape?.Coverage?.Closed is not { Length: &gt; 0 }</span>
-<span id="L61"><a class="line" href="#L61">61</a>                 || wear.FasteningFootprint is { } fastening &amp;&amp; (cells is null || fastening.Length == 0 || !BodyFitCatalog.SurfaceMasksValid(fastening, cells))))</span>
-<span id="L62"><a class="line" href="#L62">62</a>                 throw new ArgumentException(&quot;Overlay/fastening geometry requires valid authored body masks.&quot;);</span>
-<span id="L63"><a class="line" href="#L63">63</a>             if (mounted &amp;&amp; definition.Wear!.Mounts.Any(m =&gt; m.BodySurface is null))</span>
-<span id="L64"><a class="line" href="#L64">64</a>                 throw new ArgumentException(&quot;Mounted surface masks require a surface on every worn mount.&quot;);</span>
-<span id="L65"><a class="line" href="#L65">65</a>         }</span>
-<span id="L66"><a class="line" href="#L66">66</a>         InventorySaveCodec.ValidateGraph(state);</span>
-<span id="L67"><a class="line" href="#L67">67</a>     }</span>
-<span id="L68"><a class="line" href="#L68">68</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>
+<span id="L33"><a class="line" href="#L33">33</a>                 || d.Credential is { } credential &amp;&amp; (!Id(credential.Issuer) || credential.Clearance is &lt; 0 or &gt; 5</span>
+<span id="L34"><a class="line" href="#L34">34</a>                     || credential.SubjectId is { } subject &amp;&amp; !world.Actors.Any(a =&gt; a.Id == subject))</span>
+<span id="L35"><a class="line" href="#L35">35</a>                 || !InventoryAttachments.ProfileValid(d.Attachment)</span>
+<span id="L36"><a class="line" href="#L36">36</a>                 || d.DefaultDropRegion is not null &amp;&amp; d.Regions?.Any(r =&gt; r is not null &amp;&amp; r.Id == d.DefaultDropRegion &amp;&amp; r.MountSlot is null &amp;&amp; r.Attachment is null) != true</span>
+<span id="L37"><a class="line" href="#L37">37</a>                 || d.Regions is { } regions &amp;&amp; (regions.Any(r =&gt; !RegionValid(r)) || regions.Select(r =&gt; r.Id).Distinct().Count() != regions.Length))</span>
+<span id="L38"><a class="line" href="#L38">38</a>             || c.Definitions.Select(d =&gt; d.Id).Distinct().Count() != c.Definitions.Length</span>
+<span id="L39"><a class="line" href="#L39">39</a>             || c.Roots.Any(r =&gt; r is null || !Id(r.Id) || !Id(r.Name) || r.Regions is null || r.Regions.Any(region =&gt; !RegionValid(region))</span>
+<span id="L40"><a class="line" href="#L40">40</a>                 || r.GroundCell is not null || r.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal)</span>
+<span id="L41"><a class="line" href="#L41">41</a>                 || r.Regions.Select(region =&gt; region.Id).Distinct().Count() != r.Regions.Length || r.MaxMassGrams is &lt;= 0 or &gt; 100000</span>
+<span id="L42"><a class="line" href="#L42">42</a>                 || (r.ActorId is null) == (r.PropId is null) || r.ActorId is not null &amp;&amp; !world.Actors.Any(a =&gt; a.Id == r.ActorId)</span>
+<span id="L43"><a class="line" href="#L43">43</a>                 || r.PropId is not null &amp;&amp; !world.Map.Definition.Props.Any(p =&gt; p.Id == r.PropId))</span>
+<span id="L44"><a class="line" href="#L44">44</a>             || c.Roots.Any(r =&gt; r.BodyFamily is not null &amp;&amp; !state.BodyFits!.Content.Bodies.Any(b =&gt; b.Id == r.BodyFamily))</span>
+<span id="L45"><a class="line" href="#L45">45</a>             || c.Roots.Select(r =&gt; r.Id).Distinct().Count() != c.Roots.Length</span>
+<span id="L46"><a class="line" href="#L46">46</a>             || c.Items.Any(i =&gt; i is null || !Id(i.Id) || i.Id.StartsWith(InventoryGround.Prefix, StringComparison.Ordinal) || !c.Definitions.Any(d =&gt; d.Id == i.DefinitionId)</span>
+<span id="L47"><a class="line" href="#L47">47</a>                 || c.Roots.Any(r =&gt; r.Id == i.Id)) || c.Items.Select(i =&gt; i.Id).Distinct().Count() != c.Items.Length)</span>
+<span id="L48"><a class="line" href="#L48">48</a>             throw new ArgumentException(&quot;Invalid inventory content.&quot;);</span>
+<span id="L49"><a class="line" href="#L49">49</a>         foreach (var definition in c.Definitions)</span>
+<span id="L50"><a class="line" href="#L50">50</a>         {</span>
+<span id="L51"><a class="line" href="#L51">51</a>             var shape = definition.Wear?.FitProfile is { } id ? state.BodyFits!.Shape(id) : null;</span>
+<span id="L52"><a class="line" href="#L52">52</a>             if (definition.Wear is not null &amp;&amp; (shape is null || shape.Coverage?.Closed is { Length: 0 }))</span>
+<span id="L53"><a class="line" href="#L53">53</a>                 throw new ArgumentException(&quot;Wearable equipment requires a nonempty physical body footprint.&quot;);</span>
+<span id="L54"><a class="line" href="#L54">54</a>             var cells = shape is null ? null : BodyFitGeometry.Cells(shape.Rows)</span>
+<span id="L55"><a class="line" href="#L55">55</a>                 .Select(cell =&gt; new BodyHex(cell.Q - shape.DefaultPose.Q, cell.R - shape.DefaultPose.R)).ToHashSet();</span>
+<span id="L56"><a class="line" href="#L56">56</a>             foreach (var region in definition.Regions ?? [])</span>
+<span id="L57"><a class="line" href="#L57">57</a>                 if (region.AccessFootprint is { } masks &amp;&amp; (cells is null || masks.Length == 0 || !BodyFitCatalog.SurfaceMasksValid(masks, cells)))</span>
+<span id="L58"><a class="line" href="#L58">58</a>                     throw new ArgumentException(&quot;Invalid compartment access footprint: &quot; + definition.Id + &quot;/&quot; + region.Id);</span>
+<span id="L59"><a class="line" href="#L59">59</a>             var mounted = shape?.Coverage is { } cover &amp;&amp; cover.Closed.Concat(cover.Open).Any(m =&gt; m.Surface == &quot;mounted&quot;)</span>
+<span id="L60"><a class="line" href="#L60">60</a>                 || definition.Regions?.Any(r =&gt; r.AccessFootprint?.Any(m =&gt; m.Surface == &quot;mounted&quot;) == true) == true</span>
+<span id="L61"><a class="line" href="#L61">61</a>                 || definition.Wear?.FasteningFootprint?.Any(m =&gt; m.Surface == &quot;mounted&quot;) == true;</span>
+<span id="L62"><a class="line" href="#L62">62</a>             if (definition.Wear is { } wear &amp;&amp; (wear.OverlayLimit is not null &amp;&amp; shape?.Coverage?.Closed is not { Length: &gt; 0 }</span>
+<span id="L63"><a class="line" href="#L63">63</a>                 || wear.FasteningFootprint is { } fastening &amp;&amp; (cells is null || fastening.Length == 0 || !BodyFitCatalog.SurfaceMasksValid(fastening, cells))))</span>
+<span id="L64"><a class="line" href="#L64">64</a>                 throw new ArgumentException(&quot;Overlay/fastening geometry requires valid authored body masks.&quot;);</span>
+<span id="L65"><a class="line" href="#L65">65</a>             if (mounted &amp;&amp; definition.Wear!.Mounts.Any(m =&gt; m.BodySurface is null))</span>
+<span id="L66"><a class="line" href="#L66">66</a>                 throw new ArgumentException(&quot;Mounted surface masks require a surface on every worn mount.&quot;);</span>
+<span id="L67"><a class="line" href="#L67">67</a>         }</span>
+<span id="L68"><a class="line" href="#L68">68</a>         InventorySaveCodec.ValidateGraph(state);</span>
+<span id="L69"><a class="line" href="#L69">69</a>     }</span>
+<span id="L70"><a class="line" href="#L70">70</a> }</span></code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

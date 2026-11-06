@@ -225,6 +225,19 @@ public sealed partial class SpatialSimulation
         Map.LightsOn = !Map.LightsOn;
         Changed("world", "facility", "lighting-changed", $"Prototype lighting {(Map.LightsOn ? "on" : "off")}.");
     }
+    public string? NearbyReaderStatus
+    {
+        get
+        {
+            var door = Map.Definition.Walls.Where(w => w.Reader is not null && DoorCredentialService.Reachable(_world, Player, w))
+                .OrderBy(w => Point2.Distance(Player.Position, w.Center)).FirstOrDefault();
+            if (door is null) return null;
+            if (Map.OpenDoors.Contains(door.Id)) return "Reader · door open · E to close";
+            return "Reader · clearance " + door.Reader!.Clearance + " · "
+                + (DoorCredentialService.Authorize(_world, Player, door, out var hand, out var reason)
+                    ? hand is null ? "visible badge / E" : "badge in hand · E to present" : reason);
+        }
+    }
     public bool ToggleNearestDoor()
     {
         if (Combat.Active)
@@ -233,6 +246,9 @@ public sealed partial class SpatialSimulation
         }
         if (!Ready("Door use")) return false;
         if (!DoorInteraction.Validate(_world, Player, null, out var door, out var reason)) { LastMessage = reason; return false; }
+        if (door!.Reader is not null && !Map.OpenDoors.Contains(door.Id)
+            && DoorCredentialService.Authorize(_world, Player, door, out var badge, out _) && badge is not null)
+            return HandleInventory(new(InventoryActionKind.PresentBadge, badge.Id, TargetId: door.Id));
         DoorInteraction.Toggle(_world, door!);
         Changed("world", door!.Id, "door-used", $"{door.Id}: {(Map.OpenDoors.Contains(door.Id) ? "open" : "closed")}; path and sight updated.");
         PlayerFeedback.Equipment(_world, Player, "operate the door.");
@@ -277,6 +293,7 @@ public sealed partial class SpatialSimulation
         PersonnelOrderSystem.Advance(_world);
         EmploymentSystem.Advance(_world);
         Anomalies.Evaluate(_world, "orders");
+        DoorCredentialService.AdvanceAutomatic(_world);
         if (MovementSystem.Advance(_world))
         {
             LastMessage = "Movement stopped: the way ahead is blocked.";
