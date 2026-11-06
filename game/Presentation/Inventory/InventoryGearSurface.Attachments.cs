@@ -45,7 +45,13 @@ public partial class InventoryGearSurface
                 MountPoint(BodyFitGeometry.Transform(cell, provider.Pose)).DistanceTo(at)))))
             .OrderBy(t => t.Distance).ThenBy(t => t.Owner, StringComparer.Ordinal).ThenBy(t => t.Region.Id, StringComparer.Ordinal).FirstOrDefault();
     }
-    private bool OverSupport(Vector2 at) => NearestMount(at) is { Distance: <= MountRadius };
+    private bool MountIntent(Vector2 at, string itemId)
+    {
+        if (!HasAttachmentSurface || NearestMount(at) is not { Distance: <= MountRadius } target) return false;
+        var pocket = Pick(at)?.Region;
+        return pocket is null || Panel.Simulation.Inventory.Region(ItemId, pocket).Attachment is not null
+            || Panel.Simulation.Inventory.Definition(itemId).Attachment?.Interface == target.Region.Attachment!.Interface;
+    }
     private AttachmentPreview PreviewMount(string id, Vector2 at)
     {
         var target = NearestMount(at);

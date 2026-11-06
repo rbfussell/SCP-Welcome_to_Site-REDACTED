@@ -23,3 +23,5 @@ Only the authored reference body/default shoe pose is qualified. Arbitrary gear 
 Related: [presentation](system-presentation.html), [inventory](system-inventory.html), [full-body proof](full-body-paperdoll.html), [appearance](wearable-appearance.html), [worn backpack](worn-backpack.html), [implementation ledger](status.html), [design library](documents.html).
 
 [Asset organization and item bundles](asset-library.html) connect these authoring requirements to the [visual item catalog](items.html), current native definitions, source artwork and future representation-specific mask filenames.
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

@@ -51,3 +51,5 @@ November 4 ground follow-up: [ground storage and piles](ground-storage.html) add
 [Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.
 
 [Badge-controlled test door](badge-door-access.html): exposed worn credentials or equipped-hand presentation use physical inventory and shared security validation.
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

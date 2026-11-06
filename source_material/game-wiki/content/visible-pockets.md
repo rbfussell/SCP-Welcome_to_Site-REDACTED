@@ -21,3 +21,5 @@ The kit remains 20 definitions/40 instances but immutable content identity chang
 Related: [ledger](status.html), [engine](engine.html), [presentation](system-presentation.html), [appearance](wearable-appearance.html), [full body](full-body-paperdoll.html), [backpacks](worn-backpack.html), [mounts](mount-points.html), [design library](documents.html).
 
 [Badge-controlled test door](badge-door-access.html): exposed worn credentials or equipped-hand presentation use physical inventory and shared security validation.
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

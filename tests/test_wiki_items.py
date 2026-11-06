@@ -60,6 +60,10 @@ class ItemCatalogChecks(unittest.TestCase):
                 self.assertEqual(frame['parts'][0]['pockets'][0]['region'], 'chest')
                 self.assertEqual(frame['parts'][0]['pockets'][0]['side'], 'front')
             self.assertIn('paperdoll-pocket-segments.html', pages[index['items']['coat']['url']][1])
+            self.assertIn('jacket-badge-clip.html', pages[index['items']['coat']['url']][1])
+            self.assertEqual(index['items']['coat']['bundleRegistration']['status'], 'paperdoll-fixture-bundle')
+            self.assertTrue(index['items']['coat']['paperdollBinding']['attachmentPlane'])
+            self.assertIn('coat.paperdoll-v2.png', index['items']['coat']['paperdollFrames'][0]['file'])
             pockets = index['items']['trousers']['paperdollFrames'][0]['parts'][0]['pockets']
             self.assertEqual({p['region'] for p in pockets if p['side'] == 'front'}, {'left', 'right', 'cargo-left', 'cargo-right'})
             self.assertEqual({p['region'] for p in pockets if p['side'] == 'back'}, {'rear-left', 'rear-right', 'cargo-left', 'cargo-right'})

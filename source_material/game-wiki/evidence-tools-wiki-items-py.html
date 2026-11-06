@@ -207,6 +207,8 @@ def build_items(root, out, add):
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;worn-attachment-chains.html&#x27;, &#x27;Qualified worn belt/hook/pouch chains&#x27;) + &#x27;: shared composed frames, separate alpha targets and ordinary paid handling.&lt;/p&gt;&#x27;
         if item in {&#x27;shirt&#x27;, &#x27;personnel-badge&#x27;}:
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;shirt-pockets-and-badge.html&#x27;, &#x27;Shirt pockets and detachable badge&#x27;) + &#x27;: real compartments and clip mounting.&lt;/p&gt;&#x27;
+        if item in {&#x27;coat&#x27;, &#x27;shirt&#x27;, &#x27;personnel-badge&#x27;}:
+            detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;jacket-badge-clip.html&#x27;, &#x27;Real jacket badge clip&#x27;) + &#x27;: separate physical badge, badge-free coat art and hybrid pocket/mount input.&lt;/p&gt;&#x27;
         if item == &#x27;personnel-badge&#x27;:
             detail += &#x27;&lt;p&gt;&#x27; + link(&#x27;badge-door-access.html&#x27;, &#x27;Badge-controlled door access&#x27;) + &#x27;: exposed wearing or hand-equipped presentation; authoritative credential metadata.&lt;/p&gt;&#x27;
         if item in {&#x27;coat&#x27;, &#x27;trousers&#x27;, &#x27;backpack&#x27;, &#x27;shirt&#x27;}:

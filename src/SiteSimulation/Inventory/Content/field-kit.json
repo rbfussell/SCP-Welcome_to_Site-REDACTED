@@ -378,6 +378,29 @@
               ]
             }
           ]
+        },
+        {
+          "id": "badge-clip",
+          "name": "Left chest badge clip",
+          "columns": 1,
+          "rows": 1,
+          "cellMm": 25,
+          "heightMm": 10,
+          "maxMassGrams": 100,
+          "equipmentReady": true,
+          "accessMs": 250,
+          "accessAp": 1,
+          "attachment": {
+            "interface": "badge-clip",
+            "surface": "front",
+            "cells": [
+              {
+                "q": 0,
+                "r": 2
+              }
+            ],
+            "requiresExposedAccess": true
+          }
         }
       ],
       "wear": {

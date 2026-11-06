@@ -1,0 +1,54 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JacketBadgeChecks.cs | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Check source</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>JacketBadgeChecks.cs</h1><p>Existing verification source; this documentation build does not execute this check.</p><pre><code>using SiteSimulation;
+
+internal static class JacketBadgeChecks
+{
+    public static int Run(string map, string config)
+    {
+        var count = 0;
+        void Check(bool ok, string reason) { if (!ok) throw new Exception(&quot;Jacket badge: &quot; + reason); count++; }
+        var sim = new SpatialSimulation(map, config); sim.Player.Cell = new(13, 6);
+        void Finish() { for (var i = 0; i &lt; 1000 &amp;&amp; sim.Inventory.Pending is not null; i++) sim.Tick(); Check(sim.Inventory.Pending is null, &quot;handling finishes&quot;); }
+        void Act(InventoryRequest request) { Check(sim.HandleInventory(request), sim.LastMessage); Finish(); }
+        InventoryRequest Mount(string owner) =&gt; new(InventoryActionKind.Move, &quot;personnel-badge&quot;, new(owner, &quot;badge-clip&quot;, AttachmentPose: new(0, 2)));
+        var definition = sim.Inventory.Definition(&quot;avatar-coat&quot;);
+        Check(definition.Regions!.Count(r =&gt; r.Attachment is null) == 4 &amp;&amp; definition.Regions!.Count(r =&gt; r.Attachment is not null) == 1,
+            &quot;four real pockets and a separate exterior clip&quot;);
+        Check(definition.Regions!.Single(r =&gt; r.Id == &quot;badge-clip&quot;).Attachment is { RequiresExposedAccess: true, Interface: &quot;badge-clip&quot;, Surface: &quot;front&quot; }, &quot;clip shares physical badge interface&quot;);
+        Act(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;));
+        sim.ManualPause = true; var paused = sim.Save();
+        Check(!sim.HandleInventory(Mount(&quot;avatar-coat&quot;)) &amp;&amp; sim.Save() == paused, &quot;paused mounting refuses&quot;); sim.ManualPause = false;
+        Check(sim.HandleInventory(Mount(&quot;avatar-coat&quot;)), sim.LastMessage);
+        Check(sim.Inventory.Pending is { TotalMs: &gt; 0, CostAp: &gt; 0 } &amp;&amp; sim.Inventory.Items[&quot;personnel-badge&quot;].Placement.ParentId == &quot;spare-backpack&quot;, &quot;paid mount retains original badge until commitment&quot;);
+        sim.Tick(); var pending = sim.Save(); var clone = new SpatialSimulation(map, config); clone.Restore(pending); Check(clone.Save() == pending, &quot;pending mount continuation is exact&quot;); Finish();
+        Check(sim.Inventory.Items[&quot;personnel-badge&quot;].Placement is { ParentId: &quot;avatar-coat&quot;, RegionId: &quot;badge-clip&quot; }, &quot;one badge attached to jacket&quot;);
+        sim.Player.Cell = new(15, 2);
+        Check(sim.ToggleNearestDoor() &amp;&amp; sim.Inventory.Pending is null &amp;&amp; sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;closed jacket badge authorizes ordinary reader use&quot;);
+        Check(sim.ToggleNearestDoor(), &quot;close reader for cover test&quot;);
+        Act(new(InventoryActionKind.OpenGarment, &quot;avatar-coat&quot;));
+        Check(sim.InventoryMoveAccess(&quot;personnel-badge&quot;).Allowed, &quot;opening jacket retains exposed badge&quot;);
+        Act(new(InventoryActionKind.CloseGarment, &quot;avatar-coat&quot;));
+        Check(!sim.QuoteInventory(Mount(&quot;avatar-shirt&quot;)).Allowed, &quot;cannot attach through jacket to shirt underneath&quot;);
+        Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;front&quot;)));
+        Check(!sim.InventoryMoveAccess(&quot;personnel-badge&quot;).Allowed &amp;&amp; !sim.ToggleNearestDoor(), &quot;front pack covers real badge and denies access/entry&quot;);
+        var covered = sim.Save(); clone.Restore(covered); Check(clone.Save() == covered, &quot;covered jacket badge persists without detaching&quot;);
+        Act(new(InventoryActionKind.Move, &quot;avatar-backpack&quot;, new(&quot;person:avatar&quot;, &quot;back&quot;)));
+        Check(sim.InventoryMoveAccess(&quot;personnel-badge&quot;).Allowed, &quot;uncover restores access&quot;);
+        Act(new(InventoryActionKind.OpenGarment, &quot;avatar-coat&quot;));
+        Act(Mount(&quot;avatar-shirt&quot;)); Check(sim.Inventory.Items[&quot;personnel-badge&quot;].Placement.ParentId == &quot;avatar-shirt&quot;, &quot;transfer to shirt keeps same physical badge&quot;);
+        Act(Mount(&quot;avatar-coat&quot;));
+        Act(sim.GroundDropRequest(&quot;avatar-backpack&quot;));
+        var badgeCount = sim.Inventory.Items.Values.Count(i =&gt; i.DefinitionId == &quot;personnel-badge&quot;);
+        Check(sim.HandleInventory(sim.GroundDropRequest(&quot;avatar-coat&quot;)), sim.LastMessage);
+        Check(sim.Inventory.Items[&quot;personnel-badge&quot;].Placement.ParentId == &quot;avatar-coat&quot;, &quot;loaded removal retains child during handling&quot;); Finish();
+        Check(sim.Inventory.Items[&quot;personnel-badge&quot;].Placement.ParentId == &quot;avatar-coat&quot; &amp;&amp; sim.Inventory.Items.Values.Count(i =&gt; i.DefinitionId == &quot;personnel-badge&quot;) == badgeCount, &quot;loaded removal never clones or loses badge&quot;);
+        Act(new(InventoryActionKind.Move, &quot;avatar-coat&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+        Check(!sim.ToggleNearestDoor(), &quot;holding a jacket with attached badge does not equip the badge in hand or wear it&quot;);
+        Act(sim.GroundDropRequest(&quot;avatar-coat&quot;));
+        Act(new(InventoryActionKind.Move, &quot;personnel-badge&quot;, new(&quot;person:avatar&quot;, &quot;hand&quot;)));
+        Check(sim.ToggleNearestDoor() &amp;&amp; sim.Inventory.Pending?.Request.Kind == InventoryActionKind.PresentBadge, &quot;removed badge directly in hand buys manual presentation&quot;); Finish();
+        Check(sim.Map.OpenDoors.Contains(&quot;door-7-5-u&quot;), &quot;manual held badge remains functional&quot;);
+        Console.WriteLine($&quot;JACKET_BADGE_CHECKS_PASS: {count} assertions; separate clip, paid attachment/transfer, cover, reader use, loaded removal and continuation.&quot;);
+        return count;
+    }
+}
+</code></pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · tests/SpatialChecks/JacketBadgeChecks.cs</footer></main></div></body></html>

@@ -17,7 +17,7 @@ internal static class VisiblePocketChecks
             ("avatar-coat", new[] { "chest", "chest-left", "lower-left", "lower-right" }),
             ("avatar-trousers", new[] { "left", "right", "cargo-left", "cargo-right", "rear-left", "rear-right" }),
             ("avatar-backpack", new[] { "main", "side", "front" }) })
-            Check(sim.Inventory.Definition(owner).Regions!.Select(r => r.Id).SequenceEqual(ids), "complete depicted pocket set: " + owner);
+            Check(sim.Inventory.Definition(owner).Regions!.Where(r => r.Attachment is null).Select(r => r.Id).SequenceEqual(ids), "complete depicted pocket set: " + owner);
         Act(new(InventoryActionKind.Move, "spare-dressing", new("person:avatar", "hand")));
         Act(sim.GroundDropRequest("avatar-backpack"));
         sim.Player.Cell = new(12, 6);

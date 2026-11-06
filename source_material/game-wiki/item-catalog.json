@@ -862,7 +862,8 @@
       "category": "worn/clothing/coats",
       "capabilities": [
         "wearable",
-        "storage"
+        "storage",
+        "mount-provider"
       ],
       "definition": {
         "id": "coat",
@@ -1014,6 +1015,29 @@
                 ]
               }
             ]
+          },
+          {
+            "id": "badge-clip",
+            "name": "Left chest badge clip",
+            "columns": 1,
+            "rows": 1,
+            "cellMm": 25,
+            "heightMm": 10,
+            "maxMassGrams": 100,
+            "equipmentReady": true,
+            "accessMs": 250,
+            "accessAp": 1,
+            "attachment": {
+              "interface": "badge-clip",
+              "surface": "front",
+              "cells": [
+                {
+                  "q": 0,
+                  "r": 2
+                }
+              ],
+              "requiresExposedAccess": true
+            }
           }
         ],
         "wear": {
@@ -1108,15 +1132,15 @@
         }
       },
       "art": {
-        "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png",
-        "source": "game/Assets/paperdoll-proof/upper-body.png",
+        "url": "assets/items/c67a6c35e0cae675510e83e795899382cddaa88b007d71654173621b52b27187.png",
+        "source": "game/Assets/items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
         "region": [
           952,
           190,
           310,
           250
         ],
-        "sha256": "dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e"
+        "sha256": "c67a6c35e0cae675510e83e795899382cddaa88b007d71654173621b52b27187"
       },
       "paperdollBinding": {
         "definition": "coat",
@@ -1135,12 +1159,19 @@
             0.36,
             0.33
           ]
-        ]
+        ],
+        "attachmentPlane": {
+          "origin": [
+            0.5,
+            0.223
+          ],
+          "cellPixels": 34
+        }
       },
       "paperdollFrames": [
         {
           "column": 2,
-          "file": "upper-body.png",
+          "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
           "parts": [
             {
               "front": [
@@ -1264,7 +1295,7 @@
         },
         {
           "column": 3,
-          "file": "upper-body.png",
+          "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
           "parts": [
             {
               "front": [
@@ -1390,18 +1421,26 @@
       "paperdollAttachments": [],
       "wornArt": [
         {
-          "file": "upper-body.png",
-          "source": "game/Assets/paperdoll-proof/upper-body.png",
-          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+          "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
+          "source": "game/Assets/items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
+          "url": "assets/items/c67a6c35e0cae675510e83e795899382cddaa88b007d71654173621b52b27187.png"
         },
         {
-          "file": "upper-body.png",
-          "source": "game/Assets/paperdoll-proof/upper-body.png",
-          "url": "assets/items/dd57a205eb113f6adc7970a3e8b414f4b3a4dcc9f3a6e72b43a23712f138311e.png"
+          "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
+          "source": "game/Assets/items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
+          "url": "assets/items/c67a6c35e0cae675510e83e795899382cddaa88b007d71654173621b52b27187.png"
         }
       ],
       "futureBundle": "game/Assets/items/worn/clothing/coats/coat/",
-      "bundleRegistration": null
+      "bundleRegistration": {
+        "version": 1,
+        "status": "paperdoll-fixture-bundle",
+        "definition": "coat",
+        "runtimeRegistration": "game/Assets/paperdoll-proof/manifest.json # columns 2/3; game/Assets/inventory-objects/manifest.json # coat",
+        "paperdoll": "coat.paperdoll-v2.png",
+        "provenance": "PROVENANCE.md",
+        "note": "Badge-free coat crops only. Original shared atlas remains preserved; item.art.json is authoring evidence, existing manifests remain the runtime loaders."
+      }
     },
     "torch": {
       "url": "item-torch.html",

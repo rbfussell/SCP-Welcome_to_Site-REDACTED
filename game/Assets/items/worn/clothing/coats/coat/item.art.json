@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "status": "paperdoll-fixture-bundle",
+  "definition": "coat",
+  "runtimeRegistration": "game/Assets/paperdoll-proof/manifest.json # columns 2/3; game/Assets/inventory-objects/manifest.json # coat",
+  "paperdoll": "coat.paperdoll-v2.png",
+  "provenance": "PROVENANCE.md",
+  "note": "Badge-free coat crops only. Original shared atlas remains preserved; item.art.json is authoring evidence, existing manifests remain the runtime loaders."
+}

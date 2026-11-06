@@ -28,3 +28,7 @@ The kit remains 20 definitions/40 instances; immutable content identity changes 
 [Domain checks](../tests/SpatialChecks/VisiblePocketChecks.cs) cover complete region sets, closed refusal, independent paid storage, rear surfaces and exact loaded continuation. [Native checks](../game/Presentation/SpatialScene.VisiblePocketSmoke.cs) exercise all four worn coat contours, both coat states and rear trouser/cargo input. [Backpack checks](../game/Presentation/SpatialScene.PaperdollPackPocketSmoke.cs) include all three compartments on both mounts. Run `python3 tools/run_spatial_scene.py --check`, `--pocket-smoke PNG` or full `--inventory-smoke PNG`. Actual results belong in the [runtime review](reviews/inventory-runtime-checks.md); a wiki build does not run gameplay checks.
 
 See the [current wiki contract](../source_material/game-wiki/visible-pockets.html) for linked subsystem context.
+
+## Current jacket badge follow-up — November 6
+
+[The real jacket clip](57-jacket-badge-clip.md) replaces the painted stand-in in new versioned art, accepts the same physical badge as the shirt and preserves all four pocket interactions alongside mounting. Existing reader policies remain authoritative. Earlier painted-badge/future-jacket statements describe their historical slices.

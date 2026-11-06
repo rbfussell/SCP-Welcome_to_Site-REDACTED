@@ -85,9 +85,9 @@
     },
     {
       "id": "coat",
-      "source": "game/Assets/paperdoll-proof/upper-body.png",
-      "subject": "Four-pocket field coat matching the worn sprite",
-      "file": "../paperdoll-proof/upper-body.png",
+      "source": "/home/robf/.codex/generated_images/01a1614d-06c5-7533-9e41-7451ef31e8db/exec-828a3c42-d3f9-4e8a-8cdc-1a71cb47c19e.png",
+      "subject": "Four-pocket field coat without a painted badge",
+      "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
       "size": [
         1774,
         887
@@ -102,7 +102,7 @@
         0,
         255
       ],
-      "prompt": "Source crop from the existing upper-body sprite atlas; no new image generation."
+      "prompt": "Use case: precise-object-edit. Asset type: existing transparent RPG clothing sprite atlas. Edit target: the supplied upper-body atlas. Change ONLY the two small white identification badges and their red clips painted over the wearer's left chest pocket on the two dark grey jacket FRONT sprites in the upper row (closed front and open front). Remove the entire white cards and red clips; reconstruct the underlying charcoal cloth, pocket seam, and flap so both chest pockets are empty and symmetrical. Keep the four usable jacket pockets, collar, stitching, buttons, zipper, cuffs, lighting, detailed visibly pixelated Fallout 2-like sprite treatment, silhouettes, alpha edges, all back views, shirt and reference figure COMPLETELY unchanged. Preserve the exact atlas layout, view positions, scale, transparent margins and canvas aspect ratio. No new badge, patch, text, hanger, body, or pocket. This is an empty jacket ready for a separately rendered physical badge item. Preserve genuine alpha transparency, no checkerboard or solid backdrop."
     },
     {
       "id": "torch",
@@ -447,6 +447,18 @@
         0
       ],
       "rotationDegrees": 0
+    },
+    "coat": {
+      "height": 250,
+      "anchor": [
+        0.45,
+        0.026
+      ],
+      "rotationDegrees": 0,
+      "providerOrigin": [
+        0.5,
+        0.08
+      ]
     }
   }
 }

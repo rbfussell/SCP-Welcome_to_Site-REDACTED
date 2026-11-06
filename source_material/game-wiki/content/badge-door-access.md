@@ -23,3 +23,5 @@ This specific reader's authored power flag refuses opening when off. Working cir
 [Domain checks](check-badgedoorchecks.html) cover policy, presentation, NPC queries, AP/time, interruption and exact continuation. [Native checks](file-game-presentation-spatialscene-badgedoorsmoke-cs.html) exercise real inventory drag/E/approach. The [item catalog](item-personnel-badge.html) exposes the immutable credential field.
 
 Related: [security service](system-security.html), [actors](system-actors.html), [world geometry](system-world.html), [presentation](system-presentation.html), [engine](engine.html), [ledger](status.html), [OSCP boundary](system-oscp.html), [mount points](mount-points.html), [appearance](wearable-appearance.html), [every depicted pocket](visible-pockets.html), [design library](documents.html).
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

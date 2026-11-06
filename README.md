@@ -83,6 +83,7 @@ Browse the [visual item catalog](https://rbfussell.github.io/SCP-Welcome_to_Site
 56. [Shirt pockets and detachable badge](docs/54-shirt-pockets-and-badge.md): two real pockets, clip mounting and covered access.
 57. [Every depicted pocket is usable](docs/55-visible-pocket-contract.md): four coat, six trouser and three backpack compartments with shared-view identities.
 58. [Badge-controlled test door](docs/56-badge-door-access.md): exposed wearing for automatic entry; otherwise equip in hand and present with E.
+59. [Real jacket badge clip](docs/57-jacket-badge-clip.md): badge-free coat art, real exterior credential and four usable pockets alongside mounting.
 
 [Simulation code map](src/SiteSimulation/README.md) identifies the movement, perception, anomaly, diagnostics and persistence boundaries. The scene starts in a closer direct-sight field view with textured SCP-650 poses and restrained discovery feedback. **F2** opens diagnostics: **SCP-650** shows observation reasons and module flags; **Trace** shows causal events. **J** toggles the avatar's explicit module-owned complacency flag; its automatic metric is undecided. **F4** returns diagnostic artwork, **M** mutes audio and **R** reduces effects. **O** changes Chen's attention, **K** blinks the avatar, **F8** changes fixture lighting and **F6** holds local progress. This uses native C# rules; public sandboxed scripts and full containment procedures remain future work.
 
@@ -145,3 +146,5 @@ The [first body-fit slice](docs/30-body-fit-prototype.md) is available through *
 [Geometric pocket coverage](docs/31-pocket-coverage-prototype.md) now gives the trousers two hip pockets, two cargo pouches and two rear pockets. Zip the coat to block hip access while cargo stays usable; unzip it to expose the front mouths again. Hover highlights explain blockers, and the body fit view marks exact covered mouth cells. Phones, nested contents and all packing/closure commands use the same overlap check.
 
 [The badge-controlled test door](docs/56-badge-door-access.md) uses a visibly worn badge automatically during realtime approach. Otherwise equip the badge directly in hand, then press **E**: presentation takes 500 local ms and 2 AP in combat. Covered or stored badges do not authorize entry. Start a fresh scene for the updated kit/map identity.
+
+[The jacket now has a real badge clip](docs/57-jacket-badge-clip.md): drag the existing personnel badge onto its chest support in the sprite or enlarged gear view. Open/zipped jackets display the same child item; covering it with a front-worn pack blocks reader use. The four jacket pockets keep their own contours, menus and storage drops.

@@ -37,3 +37,5 @@ Related: [item directory](items.html), [inventory](system-inventory.html), [pres
 [Shirt pockets and detachable badge](shirt-pockets-and-badge.html) add two buttoned chest compartments and a real clip-mounted badge. Covered retention and manipulation are separate; this changes native kit identity to 20 definitions/40 instances while retaining schema 15. [Badge-controlled access](badge-door-access.html) now implements exposed wearing or equipped-hand presentation at one local reader; production credential administration remains future work.
 
 [Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

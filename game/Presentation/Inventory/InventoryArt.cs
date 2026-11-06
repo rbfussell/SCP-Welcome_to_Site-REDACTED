@@ -107,6 +107,16 @@ internal static class InventoryArt
             highlight ? new(1.3f, 1.5f, 1.25f, opacity) : new(1, 1, 1, opacity));
         canvas.DrawSetTransform(Vector2.Zero);
     }
+    /// <summary>Contour tint shares the mounted provider projection used by its sprite and hotspot picking.</summary>
+    internal static void HighlightMount(Control canvas, string id, Vector2 origin, int rotation, Vector2[] polygon, bool blocked = false)
+    {
+        var layout = MountedLayout(id, rotation);
+        var points = polygon.Select(p => origin + layout.Project(p)).ToArray();
+        var texture = layout.Texture;
+        var uv = polygon.Select(p => (texture.Region.Position + p * texture.Region.Size) / texture.Atlas.GetSize()).ToArray();
+        canvas.DrawPolygon(points, new[] { blocked ? new Color(1.8f, 1.0f, .85f, .65f) : new Color(1.45f, 1.65f, 1.35f, .65f) }, uv, texture.Atlas);
+        canvas.DrawPolyline(points.Append(points[0]).ToArray(), new Color(blocked ? "ff8c78" : "b5d2a1", .75f), 1, false);
+    }
     internal static void Highlight(Control canvas, string id, Rect2 bounds, Vector2[] polygon, bool blocked = false)
     {
         if (GetLayout(id, bounds) is not { } layout) return;

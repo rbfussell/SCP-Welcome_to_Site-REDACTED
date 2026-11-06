@@ -207,6 +207,8 @@ def build_items(root, out, add):
             detail += '<p>' + link('worn-attachment-chains.html', 'Qualified worn belt/hook/pouch chains') + ': shared composed frames, separate alpha targets and ordinary paid handling.</p>'
         if item in {'shirt', 'personnel-badge'}:
             detail += '<p>' + link('shirt-pockets-and-badge.html', 'Shirt pockets and detachable badge') + ': real compartments and clip mounting.</p>'
+        if item in {'coat', 'shirt', 'personnel-badge'}:
+            detail += '<p>' + link('jacket-badge-clip.html', 'Real jacket badge clip') + ': separate physical badge, badge-free coat art and hybrid pocket/mount input.</p>'
         if item == 'personnel-badge':
             detail += '<p>' + link('badge-door-access.html', 'Badge-controlled door access') + ': exposed wearing or hand-equipped presentation; authoritative credential metadata.</p>'
         if item in {'coat', 'trousers', 'backpack', 'shirt'}:

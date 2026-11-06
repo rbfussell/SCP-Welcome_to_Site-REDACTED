@@ -37,3 +37,7 @@ The kit now has **20 definitions and 40 instances**, with two new mutable pocket
 ## Superseding reader follow-up — November 6
 
 [Badge-controlled door access](56-badge-door-access.md) now implements one issuer/tier-controlled reader. Automatic entry requires exposed wearing; otherwise the badge must be equipped in hand and presented with E. Earlier reader-as-future statements describe this original clip slice. Production credential administration and OSCP account authorization remain future work.
+
+## Current jacket badge follow-up — November 6
+
+[The real jacket clip](57-jacket-badge-clip.md) replaces the painted stand-in in new versioned art, accepts the same physical badge as the shirt and preserves all four pocket interactions alongside mounting. Existing reader policies remain authoritative. Earlier painted-badge/future-jacket statements describe their historical slices.

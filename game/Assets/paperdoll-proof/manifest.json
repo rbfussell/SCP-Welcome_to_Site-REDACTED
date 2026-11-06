@@ -42,6 +42,10 @@
     "../items/worn/accessories/badges/personnel-badge/personnel-badge.inventory-v1.png": [
       1086,
       1448
+    ],
+    "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png": [
+      1774,
+      887
     ]
   },
   "frames": [
@@ -153,7 +157,7 @@
     },
     {
       "column": 2,
-      "file": "upper-body.png",
+      "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
       "parts": [
         {
           "front": [
@@ -277,7 +281,7 @@
     },
     {
       "column": 3,
-      "file": "upper-body.png",
+      "file": "../items/worn/clothing/coats/coat/coat.paperdoll-v2.png",
       "parts": [
         {
           "front": [
@@ -1415,7 +1419,14 @@
           0.36,
           0.33
         ]
-      ]
+      ],
+      "attachmentPlane": {
+        "origin": [
+          0.5,
+          0.223
+        ],
+        "cellPixels": 34
+      }
     },
     {
       "definition": "underwear",

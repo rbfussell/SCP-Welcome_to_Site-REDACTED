@@ -92,3 +92,7 @@ Current November 4 follow-up: [worn attachment chains](50-worn-attachment-chains
 ## Current visible-pocket contract
 
 [Every depicted pocket is usable](55-visible-pocket-contract.md) supersedes earlier decorative-pocket limits and records the current region set, aliasing, art agreement and kit identity.
+
+## Current jacket badge follow-up — November 6
+
+[The real jacket clip](57-jacket-badge-clip.md) replaces the painted stand-in in new versioned art, accepts the same physical badge as the shirt and preserves all four pocket interactions alongside mounting. Existing reader policies remain authoritative. Earlier painted-badge/future-jacket statements describe their historical slices.

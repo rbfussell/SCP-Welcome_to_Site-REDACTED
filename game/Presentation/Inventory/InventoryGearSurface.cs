@@ -67,34 +67,40 @@ public partial class InventoryGearSurface : Control
         : Panel.Simulation.Inventory.IsOpen(ItemId, target.Region);
     public override void _Draw()
     {
-        if (MountedProviderArt) DrawMounted(DefinitionId, new(0, 0), 1, _hovered is not null);
+        if (MountedProviderArt)
+        {
+            DrawMounted(DefinitionId, new(0, 0), 1);
+            if (_hovered is not null) InventoryArt.HighlightMount(this, DefinitionId, MountOrigin, 0, _hovered.Points, _coverage?.Covered == true);
+        }
         else
         {
             InventoryArt.Draw(this, DefinitionId, Bounds, false);
             if (_hovered is not null) InventoryArt.Highlight(this, DefinitionId, Bounds, _hovered.Points, _coverage?.Covered == true);
         }
         DrawAttachments();
-        if (!HasAttachmentSurface && _dropAllowed is { } allowed)
+        if (_dropAllowed is { } allowed)
             DrawString(ThemeDB.FallbackFont, new(8, Size.Y - 8), allowed ? "Store in this compartment" : "Cannot store here", fontSize: 13,
                 modulate: new(allowed ? "69d89a" : "ef8275"));
     }
     public override bool _CanDropData(Vector2 atPosition, Variant data)
     {
         if (data.VariantType != Variant.Type.String || data.AsString() != Panel.DragItemId) return false;
-        if (HasAttachmentSurface)
+        if (MountIntent(atPosition, data.AsString()))
         {
+            _dropAllowed = null;
             MountPreview = PreviewMount(data.AsString(), atPosition); Panel.ShowQuote(MountPreview.Handling); QueueRedraw();
             return MountPreview.Handling.Allowed;
         }
-        var target = Pick(atPosition); SetHover(target);
+        MountPreview = null;
+        var target = PickMounted(atPosition) is null ? Pick(atPosition) : null; SetHover(target);
         _dropAllowed = target?.Region is { } region && Panel.PreviewContainerDrop(data.AsString(), ItemId, region).Allowed;
         return _dropAllowed.Value;
     }
     public override void _DropData(Vector2 atPosition, Variant data)
     {
-        if (HasAttachmentSurface)
+        if (MountIntent(atPosition, data.AsString()))
         { var preview = PreviewMount(data.AsString(), atPosition); if (preview.Handling.Allowed) Panel.Simulation.HandleInventory(preview.Request); Panel.ShowReceipt(); MountPreview = null; QueueRedraw(); return; }
-        if (Pick(atPosition)?.Region is { } region) Panel.StoreInContainer(data.AsString(), ItemId, region);
+        if (PickMounted(atPosition) is null && Pick(atPosition)?.Region is { } region) Panel.StoreInContainer(data.AsString(), ItemId, region);
         _dropAllowed = null; QueueRedraw();
     }
     public override void _Notification(int what)
@@ -114,12 +120,12 @@ public partial class InventoryGearSurface : Control
             else if (mouse.ButtonIndex == MouseButton.Left) Panel.Select(mounted.Id);
             AcceptEvent(); return;
         }
-        if (HasAttachmentSurface && mouse.ButtonIndex == MouseButton.Left && !mouse.DoubleClick && Panel.SelectedItem is { } selected && selected != ItemId && OverSupport(mouse.Position))
+        if (HasAttachmentSurface && mouse.ButtonIndex == MouseButton.Left && !mouse.DoubleClick && Panel.SelectedItem is { } selected && selected != ItemId && MountIntent(mouse.Position, selected))
         { var preview = PreviewMount(selected, mouse.Position); Panel.Simulation.HandleInventory(preview.Request); Panel.ShowReceipt(); AcceptEvent(); return; }
         var spot = Pick(mouse.Position); SetHover(spot);
-        if (HasAttachmentSurface)
+        if (spot?.Region is { } support && Panel.Simulation.Inventory.Region(ItemId, support).Attachment is not null)
         {
-            if (spot is not null && mouse.ButtonIndex == MouseButton.Right) Panel.Context(ItemId, null, GetGlobalMousePosition());
+            if (mouse.ButtonIndex == MouseButton.Right) Panel.Context(ItemId, null, GetGlobalMousePosition());
             else if (mouse.ButtonIndex == MouseButton.Left) Panel.Select(ItemId);
             AcceptEvent(); return;
         }

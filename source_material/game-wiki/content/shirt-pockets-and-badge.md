@@ -22,8 +22,10 @@ The native kit now has **20 definitions/40 instances** and two extra pocket stat
 
 ## Door-access boundary
 
-The [bounded local reader](badge-door-access.html) now checks issuer, clearance, optional assigned actor, condition, exposed wearing/hand placement and authored reader power. Manual presentation costs 500 local ms/2 AP. Production issuance, revocation, expiration, network identity and OSCP account authorization remain future work. Visible wearing is required for automatic entry, not sufficient permission for every door. Covered/stored badges and painted badge pixels never grant automatic authorization. The badge already painted on jacket art remains decorative; real jacket clips/replacement art are separate work. [OSCP](system-oscp.html) and facility/world permissions must eventually share authoritative credential services without omniscience.
+The [bounded local reader](badge-door-access.html) now checks issuer, clearance, optional assigned actor, condition, exposed wearing/hand placement and authored reader power. Manual presentation costs 500 local ms/2 AP. Production issuance, revocation, expiration, network identity and OSCP account authorization remain future work. Visible wearing is required for automatic entry, not sufficient permission for every door. Covered/stored badges and painted badge pixels never grant automatic authorization. The [jacket follow-up](jacket-badge-clip.html) removes the painted card from a new art version and supplies a real exterior clip for this same badge. Original source art is preserved. [OSCP](system-oscp.html) and facility/world permissions must eventually share authoritative credential services without omniscience.
 
 Related: [inventory](system-inventory.html), [presentation](system-presentation.html), [persistence](system-persistence.html), [engine](engine.html), [ledger](status.html), [design library](documents.html), [appearance](wearable-appearance.html), [worn containers](worn-container-drops.html), [sprite drops](sprite-equipment-drops.html).
 
 [Current visible-pocket contract](visible-pockets.html): depicted pockets require real storage; multiple views share one inventory.
+
+[Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.

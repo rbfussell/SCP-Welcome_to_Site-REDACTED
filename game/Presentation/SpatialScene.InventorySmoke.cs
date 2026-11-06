@@ -78,6 +78,10 @@ public partial class SpatialScene
             panel.Inspect("medical-case"); Check(panel.InspectedContainers.Count == 0, "Hidden case bypassed parent inspection.");
             await InventoryCapture("-paperdoll");
             InventoryClick(panel.EngineeringSlots.GetGlobalRect().GetCenter()); await InventoryFrames();
+            if (OS.GetCmdlineUserArgs().Contains("--jacket-badge-smoke"))
+            {
+                await RunJacketBadgeSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
+            }
             if (OS.GetCmdlineUserArgs().Contains("--badge-door-smoke"))
             {
                 await RunBadgeDoorSmoke(); panel.Close(); await InventoryFrames(3); _inventorySmokeQuit = true; return;
@@ -145,6 +149,7 @@ public partial class SpatialScene
             await RunTransferSmoke();
             await RunGroundSmoke();
             await RunBadgeDoorSmoke();
+            await RunJacketBadgeSmoke();
             var local = sim.LocalMs; await InventoryFrames(20); Check(sim.LocalMs > local, "Inspection froze realtime simulation.");
             sim.ManualPause = true; var original = sim.Save();
             await OpenPocket("avatar-backpack", "main");
