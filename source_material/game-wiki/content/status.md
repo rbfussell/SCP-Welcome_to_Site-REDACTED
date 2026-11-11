@@ -53,3 +53,5 @@ November 4 ground follow-up: [ground storage and piles](ground-storage.html) add
 [Badge-controlled test door](badge-door-access.html): exposed worn credentials or equipped-hand presentation use physical inventory and shared security validation.
 
 [Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.
+
+Development tooling: [software project management](project-management.html) adds a lightweight evidence-backed slice board and reinstallable outer-root entry point. Imported game results remain historical; this tooling does not close M0 or qualify new gameplay.

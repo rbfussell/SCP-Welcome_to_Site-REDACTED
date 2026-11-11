@@ -1,0 +1,22 @@
+{"command": ["python3", "../scripts/manage_game.py", "status"], "cwd": "game repository", "started": "2026-11-11T07:08:09.539292+00:00"}
+{
+  "profile": "software-game",
+  "game_root": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "tasks": [
+    {
+      "id": "equipment-loop-qualification",
+      "title": "Qualify the existing clothing, ground, attachments and badge loop",
+      "status": "proposed"
+    },
+    {
+      "id": "facility-utilities-proof",
+      "title": "Implement the bounded existing facility-utilities proof",
+      "status": "proposed"
+    },
+    {
+      "id": "pm-integration",
+      "title": "Integrate the software management profile without changing the game workflow",
+      "status": "active"
+    }
+  ]
+}

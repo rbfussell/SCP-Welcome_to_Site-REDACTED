@@ -1,0 +1,19 @@
+{
+  "id": "facility-utilities-proof",
+  "title": "Implement the bounded existing facility-utilities proof",
+  "status": "proposed",
+  "scope": "Proposed scope from the existing infrastructure contract; refine into smaller implementation slices when selected. Not authorization to add full utilities or SCP-019 content.",
+  "acceptance": [
+    "Resolve required circuits, backup and two-room thermal acceptance into bounded slices"
+  ],
+  "depends_on": [],
+  "blocking_questions": [],
+  "wiki_pages": [
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/content/engine.md"
+  ],
+  "inputs": [
+    "docs/17-facility-infrastructure.md"
+  ],
+  "history": []
+}

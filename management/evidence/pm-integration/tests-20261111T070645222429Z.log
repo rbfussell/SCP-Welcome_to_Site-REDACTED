@@ -1,0 +1,6 @@
+{"command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_project_management.py"], "cwd": "game repository", "started": "2026-11-11T07:06:45.222569+00:00"}
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.450s
+
+OK

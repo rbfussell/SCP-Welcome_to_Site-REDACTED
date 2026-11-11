@@ -1,0 +1,120 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Software project management | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: management/README.md.</aside><h1 id="software-project-management">Software project management</h1>
+<p>This is the active management profile for the existing SCP game. The outer portable
+harness supplies the workspace entry point; the game remains its own checkout in
+<code>Project/</code>. Nothing moves the engine, assets, canon archive or GitHub workflow again.</p>
+<h2 id="authority-and-records">Authority and records</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Authoritative location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Work selection, scope, dependencies, blockers, acceptance and evidence</td>
+<td><code>management/tasks/*.json</code></td>
+</tr>
+<tr>
+<td>Current mechanics and implementation limits</td>
+<td><a href="index.html">Game wiki</a>, starting at <a href="status.html">the ledger</a></td>
+</tr>
+<tr>
+<td>Requirements, scope and milestone gates</td>
+<td><a href="doc-docs-04-scope-and-acceptance-md.html">Scope and acceptance</a></td>
+</tr>
+<tr>
+<td>Design contracts, ADRs and historical reviews</td>
+<td><a href="doc-docs-12-development-workflow-md.html">Development documents</a> and <code>docs/</code></td>
+</tr>
+<tr>
+<td>Source, assets, saves and tests</td>
+<td>Existing game directories; no competing management copy</td>
+</tr>
+<tr>
+<td>Change history and published game wiki</td>
+<td>Existing <code>Project/.git</code> and <code>.github/workflows/game-wiki-pages.yml</code></td>
+</tr>
+</tbody>
+</table>
+<p>The imported baseline is commit <code>cac3555</code>. Its earlier checks remain historical;
+importing it does not pass M0, M1 or any new qualification gate. Proposed tasks are
+candidates, not silently approved features. This board need not reproduce every
+paragraph of the long-term scope document. Add the next selected slice explicitly.</p>
+<p>The generic harness's <code>wiki/</code> JSON publication store is an optional strict-workflow
+process record. It does not replace, override or regenerate the game knowledge base.
+This adapter does not initialize that store or pretend to have completed strict
+preflight, a dispatched crew or independent Internal Affairs.</p>
+<h2 id="a-slice">A slice</h2>
+<ol>
+<li>Read <a href="evidence-agents-md.html">game agent rules</a>, relevant wiki pages and linked design/source
+   evidence. Check wiki freshness. Write a small task JSON from <a href="evidence-management-task-template-json.html">the template</a>,
+   marking it <code>ready</code> only when selected. Specify measurable acceptance criteria,
+   affected wiki pages, dependency IDs, blocking questions and <strong>all changed input files</strong>.</li>
+<li>Create context JSON listing <code>wiki_read</code> and <code>docs_read</code>, each with <code>path</code> and real
+   reading <code>notes</code>. Include the implementation ledger and development page. Start the
+   slice. Reading receipts are developer attestations with hashes, not proof of cognition.</li>
+<li>Implement, ask focused questions when design is ambiguous, and preserve unrelated
+   work. Update the wiki's authored sources and affected Markdown alongside the change.
+   Use actual research when needed; existing accepted decisions do not require a new
+   three-turn startup sequence. Block dependent work when an answer is required.</li>
+<li>Record appropriate real tests and documentation checks, then rebuild/check the wiki.
+   Logs go to versioned <code>management/evidence/&lt;slice&gt;/</code>; inspect them for credentials or
+   personal data before committing. Check commands use argv, without a shell.</li>
+<li>Compare behavior, requirements, actual results, wiki and other documentation. Inspect
+   generated pages and reciprocal links. Complete with a review JSON declaring its
+   actual mode, every acceptance criterion's evidence, and remaining limitations.</li>
+<li>Review the Git diff. Commit the slice, records, docs and wiki together. Push reviewed
+   work using the existing remote policy. No management command commits or deploys.</li>
+</ol>
+<p>From the <strong>game root</strong> (<code>Project/</code>):</p>
+<pre><code class="language-sh">python3 tools/manage_project.py status
+python3 tools/manage_project.py start SLICE-ID --context management/contexts/SLICE-ID.json
+python3 tools/manage_project.py record SLICE-ID tests -- python3 tools/run_spatial_scene.py --check
+python3 tools/manage_project.py record SLICE-ID docs -- python3 tools/check_management_docs.py
+python3 tools/manage_project.py record SLICE-ID wiki-build -- python3 tools/build_game_wiki.py
+python3 tools/manage_project.py record SLICE-ID wiki-check -- python3 tools/build_game_wiki.py --check
+python3 tools/manage_project.py complete SLICE-ID --review management/reviews/SLICE-ID.json
+python3 tools/manage_project.py check
+</code></pre>
+<p>Choose tests appropriate to the slice; the example domain test is not sufficient for
+changed rendered behavior. The management-document check covers this integration's
+links/records only, and is not a universal game-document checker. <code>block SLICE-ID
+--reason "specific blocker"</code> releases the single active slot. Resolve its question
+record, then <code>start</code> with updated context to resume; earlier logs remain on disk.</p>
+<p><code>proposed → ready → active → done</code> is the usual lifecycle. <code>active/ready → blocked</code>
+records unavailable work. Edit proposed task scope/selection deliberately; do not
+mark it done by hand. Completion needs four passing labels (<code>tests</code>, <code>docs</code>,
+<code>wiki-build</code>, <code>wiki-check</code>), unchanged declared inputs since those checks, intact
+logs, a post-build wiki check and explicit semantic review. Exit zero reports the
+command's result, not the truth of every assertion one could make about the game.
+All changed source/data/docs, new files and management tooling must be in <code>inputs</code>;
+exclude the task's own evolving record, logs and generated wiki outputs to avoid
+self-reference. Completed snapshots are historical: later slices may change their
+inputs without invalidating the recorded past result. Hashes are not tamper-proof.</p>
+<p>One developer performs coordination, implementation, evidence collection, self-review
+and documentation by default. Optional QA, canon/design, art, audio or independent
+review workers are selected only when explicitly requested by the user or applicable
+instructions. Declare actual receipts for independent review; never manufacture them.
+No manufacturing roles, sales presenter, model API, MCP installation or paid account
+is required. Self-review is useful but does not claim independent assurance. The CLI
+is for one coordinator at a time; it is not a concurrent distributed task service.</p>
+<h2 id="outer-root-installation-and-recovery">Outer-root installation and recovery</h2>
+<p>The outer root has an empty protected <code>.git</code> mount, not the game's Git history.
+Authoritative tools, profile, overlay templates and task/evidence records therefore
+live <strong>inside the game repository</strong>. The installed outer files are convenience copies.</p>
+<pre><code class="language-sh"># From the outer workspace root; safe to repeat, preserves unmanaged text.
+python3 Project/tools/configure_project_harness.py --root .
+python3 Project/tools/configure_project_harness.py --root . --check
+python3 scripts/manage_game.py status
+python3 scripts/manage_game.py check
+</code></pre>
+<p>The installer adds marked blocks to the root <code>AGENTS.md</code>/<code>README.md</code>, a small
+<code>config/software-project.json</code> pointer and <code>scripts/manage_game.py</code> wrapper. Other
+harness files and strict runtime are left intact. Reinstall after changing overlay
+templates. A standalone game clone uses <code>tools/manage_project.py</code> directly and needs
+no outer harness. Recreating the outer generic harness still requires the original
+harness distribution; this repository versions the overlay, not that full release.</p>
+<p>See <a href="doc-docs-58-software-project-management-md.html">the integration contract</a>,
+<a href="project-management.html">the game-wiki explanation</a>,
+and <a href="evidence-management-profile-json.html">profile</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · management/README.md</footer></main></div></body></html>

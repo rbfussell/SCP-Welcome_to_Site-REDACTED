@@ -1,0 +1,12 @@
+{
+  "id": "replace-with-slice-id",
+  "title": "Replace with the selected concrete behavior",
+  "status": "proposed",
+  "scope": "Describe the bounded change, exclusions and dependency interfaces.",
+  "acceptance": ["One observable acceptance criterion"],
+  "depends_on": [],
+  "blocking_questions": [],
+  "wiki_pages": ["source_material/game-wiki/content/status.md", "source_material/game-wiki/content/development.md"],
+  "inputs": ["management/profile.json"],
+  "history": []
+}

@@ -1,0 +1,39 @@
+{
+  "mode": "self-review",
+  "summary": "Compared software adapter and installed outer profile against the requested existing-game workflow. Verified preserved Git/layout/wiki authority, scoped evidence records, real failing/stale-input tests, standalone and wrapper use, current docs, generated cross-links, 31 strict harness tests and 21,258 existing domain assertions. This is developer self-review, not independent IA or M0 acceptance.",
+  "implementation_docs_agree": true,
+  "acceptance": [
+    {
+      "criterion": "Shared root and standalone game entry points",
+      "result": "PASS",
+      "evidence": "management/evidence/pm-integration/root-entry-20261111T070809539126Z.log; standalone CLI and wrapper covered by 13 adapter tests."
+    },
+    {
+      "criterion": "Non-destructive repeatable overlay installation",
+      "result": "PASS",
+      "evidence": "management/evidence/pm-integration/overlay-20261111T070809419305Z.log; temporary-root tests preserve original strict content and reject malformed blocks."
+    },
+    {
+      "criterion": "Real check evidence and stale-input completion guards",
+      "result": "PASS",
+      "evidence": "management/evidence/pm-integration/tests-20261111T070645222429Z.log; failures, stale inputs, modified logs, missing checks, review receipts and acceptance coverage are tested."
+    },
+    {
+      "criterion": "Preserved game wiki and documentation consistency",
+      "result": "PASS",
+      "evidence": "management/evidence/pm-integration/docs-20261111T071004362916Z.log; management/evidence/pm-integration/wiki-build-20261111T070659209576Z.log; management/evidence/pm-integration/wiki-check-20261111T070821690887Z.log; inspected generated management, development, guide and contract pages for reciprocal links and current limits."
+    },
+    {
+      "criterion": "Existing game and strict harness remain separate",
+      "result": "PASS",
+      "evidence": "management/evidence/pm-integration/game-domain-20261111T070907068525Z.log; management/evidence/pm-integration/strict-harness-regression.log; existing game Git root and .github workflow retained; original strict runtime and registry unchanged."
+    }
+  ],
+  "limitations": [
+    "Checks hash declared task inputs only; completeness and semantic claims require human/developer review.",
+    "One coordinator/CLI mutation at a time; this is not a concurrent task service.",
+    "Self-review is not independent assurance or strict-harness certification.",
+    "Only the small outer overlay is versioned in the game repository; restoring the generic outer harness still requires its separate distribution.",
+    "Proposed backlog entries are not approved scope, and existing game milestone gaps remain open."
+  ]
+}

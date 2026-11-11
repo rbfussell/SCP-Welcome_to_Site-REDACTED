@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Software project management integration | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/58-software-project-management.md.</aside><h1 id="software-project-management-integration">Software project management integration</h1>
+<p>Status: implemented development-tooling profile. Game mechanics and acceptance
+milestone status remain unchanged. The existing game checkout now resides under
+<code>Project/</code> inside a portable project harness workspace.</p>
+<h2 id="selected-workflow">Selected workflow</h2>
+<p>Use the <a href="doc-management-readme-md.html">software management guide</a> and
+<a href="evidence-management-profile-json.html">profile</a> for the active workflow. Coordination records
+live with the game in Git. Relevant wiki reading, small bounded changes, appropriate
+runtime checks, design/document maintenance and the final semantic consistency gate
+remain mandatory. The outer harness is a convenience entry point, not another game
+state store or source of mechanics truth.</p>
+<p>The generic harness's mandatory crew, specialist ownership, independent IA and
+three-stage new-product preflight remain available through its original strict
+workflow. The user requested adapting the workflow for this existing software game,
+so these are not active requirements for ordinary slices. A single developer records
+self-review honestly; optional independent review needs an actual receipt. No claim
+is made that the adapter passed strict-harness preflight or independent assurance.</p>
+<p><a href="evidence-tools-manage-project-py.html">The software adapter</a> provides status, record checks, start, complete, block and
+integrity validation. It records actual subprocess argv, logs, exit codes and SHA-256
+hashes. Completion requires four passing check categories, stable <strong>declared inputs</strong>,
+a wiki check after rebuilding, every acceptance criterion's evidence and a semantic
+consistency review. It does not authenticate workers, verify the meaning of test
+claims, spawn agents, install dependencies, commit, push or deploy. Missing input
+coverage remains a review concern. Later changes do not erase accepted historical
+snapshots. Concurrent coordinators are outside this bounded adapter.</p>
+<h2 id="layout-and-portability">Layout and portability</h2>
+<p><code>Project/.git</code> remains the game repository, with its original GitHub origin and
+Actions/Pages workflow. The outer <code>.git</code> path is an empty protected mount, not an
+initialized repository. Do not flatten or reinitialize the game to make the wrapper
+work. The authoritative adapter, profile, overlay templates and records are committed
+under the game checkout; the outer harness distribution is separate.</p>
+<p><a href="evidence-tools-configure-project-harness-py.html">The overlay installer</a> installs/checks the versioned overlay into a
+containing harness. It preserves text outside marked blocks and does not alter the
+strict engine, crew catalog or release manifest. Run game commands from <code>Project/</code>;
+the outer <code>scripts/manage_game.py</code> wrapper forwards to the same versioned CLI and
+resolves the game root independently of the calling directory. A standalone clone
+continues to work without the outer harness or its Python packages.</p>
+<h2 id="documentation-and-verification">Documentation and verification</h2>
+<p>The <a href="project-management.html">game wiki</a> explains these
+boundaries and links back to the existing <a href="doc-docs-12-development-workflow-md.html">development workflow</a>.
+Its builder includes management guide/profile/overlay/tool sources as evidence and
+makes the new concept discoverable through navigation and related pages. Evolving
+task/evidence records are intentionally not copied into the generated mechanics wiki;
+this avoids recursive hashes and keeps process history separate from mechanics claims.</p>
+<p><a href="evidence-tests-test-project-management-py.html">Management tests</a> exercise closure failures, stale inputs, evidence
+integrity, truthful review modes, context requirements, path containment, independent
+standalone use and repeatable non-destructive overlay installation.
+<a href="evidence-tools-check-management-docs-py.html">The documentation check</a> checks integration links/fences/board integrity.
+Existing game runtime checks, wiki rebuild/freshness checks and semantic inspection
+remain separate. This tooling change does not itself requalify gameplay or close M0.</p>
+<p>Acceptance: both root/game CLI entry points share one board; original generic files
+remain available; the game is independently runnable/versioned; completed slices have
+real evidence and honest review; wiki and development docs agree with the profile.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/58-software-project-management.md</footer></main></div></body></html>

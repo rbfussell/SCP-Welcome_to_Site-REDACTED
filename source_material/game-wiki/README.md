@@ -48,3 +48,12 @@ Freshness includes `binary_hashes` for original/copied item artwork, alongside t
 The bounded [waist belt/direct pouch](worn-belt-and-pouch.html) adds exterior attachment bindings and the first registered reference-art bundle. Catalog pages distinguish direct worn bindings from attachment bindings and expose registered worn source sheets; both loose and worn PNGs are copied byte-identically and hashed. Bundle metadata/provenance remain authoring evidence, with runtime registration in the existing paperdoll manifest.
 
 [Worn attachment chains](worn-attachment-chains.html) add the front utility-hook binding, reusing unchanged source art and shared composed frames. The catalog exposes both hook and pouch attachment registrations.
+
+## Project-management workspace
+
+The game is still an independent Git checkout, now nested under the outer workspace
+as `Project/`. Run the wiki commands above from this game root. See the
+[software management guide](../../management/README.md) and
+[wiki management page](project-management.html). The outer strict harness's JSON wiki
+is not this game knowledge base. Evolving task logs stay in `management/`; guide,
+profile, overlay and adapter sources are included in the wiki's evidence hashes.

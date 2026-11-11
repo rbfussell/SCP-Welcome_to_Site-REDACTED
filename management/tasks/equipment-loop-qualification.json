@@ -1,0 +1,22 @@
+{
+  "id": "equipment-loop-qualification",
+  "title": "Qualify the existing clothing, ground, attachments and badge loop",
+  "status": "proposed",
+  "scope": "Proposed regression/integration pass over existing mechanics before extending content; select scope with user. No new free access, storage or credential policies.",
+  "acceptance": [
+    "Observe paid clothing changes via floor storage",
+    "Move pocket item to belt/hook without losing its source",
+    "Verify visible-worn and hand badge reader behavior"
+  ],
+  "depends_on": [],
+  "blocking_questions": [],
+  "wiki_pages": [
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/content/engine.md"
+  ],
+  "inputs": [
+    "docs/57-jacket-badge-clip.md",
+    "docs/58-software-project-management.md"
+  ],
+  "history": []
+}

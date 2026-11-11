@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "profile": "software-game",
+  "execution": "single-developer",
+  "project": "SCP: Welcome to Site-[REDACTED]",
+  "coordination": "management/tasks/*.json",
+  "mechanics_authority": "source_material/game-wiki/content/",
+  "requirements": "docs/04-scope-and-acceptance.md",
+  "baseline": {"commit": "cac3555185c32650bc93864517bf35b33e143f37", "status": "imported history; not newly qualified; M0 remains open"},
+  "responsibilities": ["scope and dependencies", "implementation", "verification and evidence", "consistency review", "wiki and development documentation"],
+  "optional_specialists": ["software", "QA", "game design and canon research", "sprite art", "audio", "independent review"],
+  "delegation": "Only when explicitly requested by the user or applicable instructions; never fabricate worker receipts.",
+  "required_checks": ["tests", "docs", "wiki-build", "wiki-check"],
+  "strict_harness": "Available separately through scripts/select_agents.py; not the active game workflow."
+}

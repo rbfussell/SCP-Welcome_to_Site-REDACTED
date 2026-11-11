@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AGENTS.md | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>AGENTS.md</h1><pre># Repository development rules
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AGENTS.md | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>AGENTS.md</h1><pre># Repository development rules
 
 ## Required game-wiki workflow
 
@@ -35,4 +35,29 @@ Before declaring the work complete:
 - Keep the change and its documentation together in the reviewed Git work. Preserve unrelated local changes. In the completion report, identify the documentation updated, verification performed, and any remaining limitation. If rebuilding or validation is blocked, report the exact gap and do not claim the wiki is current or the consistency gate passed.
 
 See the [development workflow](docs/12-development-workflow.md) and the [wiki maintenance page](source_material/game-wiki/development.html) for the corresponding human-readable workflow.
+
+## Active software project-management profile
+
+This directory is the game Git root, now located at `Project/` beneath the outer
+workspace harness. All game-wiki and tooling paths above remain relative to this
+directory. Preserve the workflow above in full.
+
+Use [the software management guide](management/README.md) and
+[profile](management/profile.json) for scoped task selection, dependencies, context,
+real verification evidence and explicit review mode. Start with
+`python3 tools/manage_project.py status`; maintain the selected slice record alongside
+its code/docs/wiki. Proposed backlog entries do not authorize new scope. A completed
+record is not a replacement for the semantic consistency gate or milestone acceptance.
+
+The user requested a software adaptation of the outer generic harness. Its fixed crew,
+manufacturing specialties, mandatory dispatched IA and three-turn new-product preflight
+are not required for this game profile. One developer may perform these responsibilities
+with honest self-review. Spawn specialists only if explicitly requested by the user or
+applicable instructions; independent review claims require real receipts. Preserve
+accepted design/evidence as history and ask about material new ambiguities.
+
+The versioned overlay in `management/harness/` keeps the outer root instructions and
+entry point consistent. Reinstall/check it with
+`python3 tools/configure_project_harness.py --root ..` and the same command with
+`--check` when that outer harness is present. Standalone clones need no outer harness.
 </pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

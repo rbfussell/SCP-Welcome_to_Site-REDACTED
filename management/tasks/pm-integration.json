@@ -1,0 +1,450 @@
+{
+  "id": "pm-integration",
+  "title": "Integrate the software management profile without changing the game workflow",
+  "status": "done",
+  "scope": "Adapt the outer harness for the existing game. Preserve game Git/wiki/runtime structure and strict harness reference; no new gameplay and no claimed milestone completion. Initial adapter files were prepared while bootstrapping this record; no earlier harness execution or review is claimed.",
+  "acceptance": [
+    "Shared root and standalone game entry points",
+    "Non-destructive repeatable overlay installation",
+    "Real check evidence and stale-input completion guards",
+    "Preserved game wiki and documentation consistency",
+    "Existing game and strict harness remain separate"
+  ],
+  "depends_on": [],
+  "blocking_questions": [],
+  "wiki_pages": [
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/status.md"
+  ],
+  "inputs": [
+    "AGENTS.md",
+    "docs/12-development-workflow.md",
+    "docs/58-software-project-management.md",
+    "management/README.md",
+    "management/profile.json",
+    "management/task-template.json",
+    "management/harness/AGENTS.md",
+    "management/harness/README.md",
+    "management/harness/manage_game.py",
+    "tools/manage_project.py",
+    "tools/configure_project_harness.py",
+    "tools/check_management_docs.py",
+    "tools/build_game_wiki.py",
+    "tests/test_project_management.py",
+    "source_material/game-wiki/README.md",
+    "source_material/game-wiki/llms.txt",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/content/engine.md",
+    "source_material/game-wiki/content/home.md",
+    "source_material/game-wiki/content/project-management.md"
+  ],
+  "history": [
+    {
+      "at": "2026-11-11T07:06:44.947045+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "at": "2026-11-11T07:06:45.742753+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T07:07:49.802373+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-11T07:08:09.476815+00:00",
+      "action": "overlay: PASS"
+    },
+    {
+      "at": "2026-11-11T07:08:09.602933+00:00",
+      "action": "root-entry: PASS"
+    },
+    {
+      "at": "2026-11-11T07:08:47.256051+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-11T07:09:33.323842+00:00",
+      "action": "game-domain: PASS"
+    },
+    {
+      "at": "2026-11-11T07:10:04.430203+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T07:10:04.538601+00:00",
+      "action": "completed; evidence and semantic review recorded"
+    }
+  ],
+  "context": {
+    "recorded_at": "2026-11-11T07:06:44.947029+00:00",
+    "attestation": "Developer reports reading; hashes do not prove reading.",
+    "sources": [
+      {
+        "path": "source_material/game-wiki/content/status.md",
+        "notes": "Read implementation ledger: bounded runtime, M0 open, many long-term requirements remain unimplemented.",
+        "sha256": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/development.md",
+        "notes": "Read required preload, authored wiki updates, cross-links, build/check and semantic consistency gate.",
+        "sha256": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/engine.md",
+        "notes": "Read independent C# simulation/Godot architecture, time and persistence boundaries and mode limitations.",
+        "sha256": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/README.md",
+        "notes": "Read authoring/generation/evidence hash workflow and Pages publication from existing game Git root.",
+        "sha256": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "AGENTS.md",
+        "notes": "Read game repository rules, retaining wiki requirements under the adapted software profile.",
+        "sha256": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/12-development-workflow.md",
+        "notes": "Read existing Git, source, test, wiki publication and recovery workflow; game has its own Git root.",
+        "sha256": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/04-scope-and-acceptance.md",
+        "notes": "Read milestone gates and facility-first scope; manager tooling must not mark historical game milestones complete.",
+        "sha256": "7bb256b04ec17f68d170029dda3aa34c7ee8ea2c7b3b2d120a6eab4958ceded4",
+        "kind": "docs_read"
+      }
+    ]
+  },
+  "checks": {
+    "tests": {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_project_management.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:06:45.742608+00:00",
+      "log": "management/evidence/pm-integration/tests-20261111T070645222429Z.log",
+      "sha256": "4cbdee4c5efcd8a8b7868710045446a5a08e836139622b3873548ff12799957b",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "wiki-build": {
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:07:49.802235+00:00",
+      "log": "management/evidence/pm-integration/wiki-build-20261111T070659209576Z.log",
+      "sha256": "58ace232f3c2cc66a35c0652917b35b5610f0e14f84e4e4afefeba1cdb51bd67",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "overlay": {
+      "command": [
+        "python3",
+        "tools/configure_project_harness.py",
+        "--root",
+        "..",
+        "--check"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:08:09.476661+00:00",
+      "log": "management/evidence/pm-integration/overlay-20261111T070809419305Z.log",
+      "sha256": "7e74b2b9e93df7813b2d2cd29022deb6a2664206625c239ff4ef53dd9a10e853",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "root-entry": {
+      "command": [
+        "python3",
+        "../scripts/manage_game.py",
+        "status"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:08:09.602777+00:00",
+      "log": "management/evidence/pm-integration/root-entry-20261111T070809539126Z.log",
+      "sha256": "f03a59816ebff22f59dedeb9645fed0bc335f246808595b75427e81be3379032",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "wiki-check": {
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:08:47.255802+00:00",
+      "log": "management/evidence/pm-integration/wiki-check-20261111T070821690887Z.log",
+      "sha256": "7fdff16b1646adb3b5b84cfb68da0e3415268687025ad11282826eb701620678",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "game-domain": {
+      "command": [
+        "python3",
+        "tools/run_spatial_scene.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:09:33.323650+00:00",
+      "log": "management/evidence/pm-integration/game-domain-20261111T070907068525Z.log",
+      "sha256": "8095f35b2cd7f6868a21aa84e7f5f41fcb333244cab3ba6d6f2987d4c7b15803",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    },
+    "docs": {
+      "command": [
+        "python3",
+        "tools/check_management_docs.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-11T07:10:04.430043+00:00",
+      "log": "management/evidence/pm-integration/docs-20261111T071004362916Z.log",
+      "sha256": "ca1c07063aaa19651748cef9a2d3259ad8973f82c5dbe97f53a0890a1b2cbd7d",
+      "inputs": {
+        "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+        "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+        "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+        "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+        "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+        "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+        "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+        "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+        "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+        "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+        "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+        "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+        "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+        "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+        "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+        "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+        "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+        "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+        "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+        "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+        "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+      },
+      "inputs_changed_during_check": false
+    }
+  },
+  "review": {
+    "mode": "self-review",
+    "summary": "Compared software adapter and installed outer profile against the requested existing-game workflow. Verified preserved Git/layout/wiki authority, scoped evidence records, real failing/stale-input tests, standalone and wrapper use, current docs, generated cross-links, 31 strict harness tests and 21,258 existing domain assertions. This is developer self-review, not independent IA or M0 acceptance.",
+    "implementation_docs_agree": true,
+    "acceptance": [
+      {
+        "criterion": "Shared root and standalone game entry points",
+        "result": "PASS",
+        "evidence": "management/evidence/pm-integration/root-entry-20261111T070809539126Z.log; standalone CLI and wrapper covered by 13 adapter tests."
+      },
+      {
+        "criterion": "Non-destructive repeatable overlay installation",
+        "result": "PASS",
+        "evidence": "management/evidence/pm-integration/overlay-20261111T070809419305Z.log; temporary-root tests preserve original strict content and reject malformed blocks."
+      },
+      {
+        "criterion": "Real check evidence and stale-input completion guards",
+        "result": "PASS",
+        "evidence": "management/evidence/pm-integration/tests-20261111T070645222429Z.log; failures, stale inputs, modified logs, missing checks, review receipts and acceptance coverage are tested."
+      },
+      {
+        "criterion": "Preserved game wiki and documentation consistency",
+        "result": "PASS",
+        "evidence": "management/evidence/pm-integration/docs-20261111T071004362916Z.log; management/evidence/pm-integration/wiki-build-20261111T070659209576Z.log; management/evidence/pm-integration/wiki-check-20261111T070821690887Z.log; inspected generated management, development, guide and contract pages for reciprocal links and current limits."
+      },
+      {
+        "criterion": "Existing game and strict harness remain separate",
+        "result": "PASS",
+        "evidence": "management/evidence/pm-integration/game-domain-20261111T070907068525Z.log; management/evidence/pm-integration/strict-harness-regression.log; existing game Git root and .github workflow retained; original strict runtime and registry unchanged."
+      }
+    ],
+    "limitations": [
+      "Checks hash declared task inputs only; completeness and semantic claims require human/developer review.",
+      "One coordinator/CLI mutation at a time; this is not a concurrent task service.",
+      "Self-review is not independent assurance or strict-harness certification.",
+      "Only the small outer overlay is versioned in the game repository; restoring the generic outer harness still requires its separate distribution.",
+      "Proposed backlog entries are not approved scope, and existing game milestone gaps remain open."
+    ]
+  },
+  "accepted_inputs": {
+    "AGENTS.md": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+    "docs/12-development-workflow.md": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+    "docs/58-software-project-management.md": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+    "management/README.md": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+    "management/profile.json": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+    "management/task-template.json": "9c56b19133eca4fb75f933e570618f8d337a6b8d56d3979182db7ee37cac220c",
+    "management/harness/AGENTS.md": "e9d0ba8d13131dad56c0830ab082ddc9554cdb41f7d37dcd00c529dd6533e877",
+    "management/harness/README.md": "5175f64f8a01bda3ad9675c40ce73c82180a54b068be2dd84fb62ce484104adb",
+    "management/harness/manage_game.py": "2d4c2693210bf6f9824f5d09f1513b5abf6845a22d344d3cc1bdde613ef742a4",
+    "tools/manage_project.py": "79535c415605c799bf68ac694d1970434615ab7ea513f30c3527e464c0951b22",
+    "tools/configure_project_harness.py": "baafb7fe65ccf16057828c0d575862480eaa640c523352e614be815f367fa742",
+    "tools/check_management_docs.py": "52d1b3b20152a02d4649e48d571fa4b2a615fa636e55eea571f239550c5496d0",
+    "tools/build_game_wiki.py": "7c4f0b42efc3a1c8f4d50d0f829d64abcada9920efc727eb05815604ca55dca6",
+    "tests/test_project_management.py": "31537e3cb3ce532bf87acf79b98a7ffccb86d303f18bc5e04054cdf6b2a64ac0",
+    "source_material/game-wiki/README.md": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+    "source_material/game-wiki/llms.txt": "df438ec0e280a78c950d4440315a5158eed1d07556199fffd62c26acfd485dc3",
+    "source_material/game-wiki/content/development.md": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+    "source_material/game-wiki/content/status.md": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+    "source_material/game-wiki/content/engine.md": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+    "source_material/game-wiki/content/home.md": "bce2d6565b0811a92c0f3b030bd67ab5518b8d0b9285701d092a3527d3be7178",
+    "source_material/game-wiki/content/project-management.md": "33e8b4e0e8f3f784d7c70de2cde1ccfcf1a6812a7b99415568a67a4386321095"
+  }
+}

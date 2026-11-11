@@ -1,0 +1,193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/manage_project.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>manage_project.py</h1><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;Evidence-backed software slices; no spawning, fake workers, or model dependency.&quot;&quot;&quot;
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+STATES = {&#x27;proposed&#x27;, &#x27;ready&#x27;, &#x27;active&#x27;, &#x27;blocked&#x27;, &#x27;done&#x27;}
+REQUIRED_CHECKS = (&#x27;tests&#x27;, &#x27;docs&#x27;, &#x27;wiki-build&#x27;, &#x27;wiki-check&#x27;)
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def stamp():
+    return datetime.now(timezone.utc).isoformat()
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+class SoftwareProject:
+    def __init__(self, root=ROOT):
+        self.root = Path(root).resolve()
+
+    def path(self, value):
+        path = (self.root / value).resolve()
+        require(path.is_relative_to(self.root), f&#x27;Path escapes game repository: {value}&#x27;)
+        return path
+
+    def read(self, value):
+        return json.loads(self.path(value).read_text())
+
+    def task_path(self, task_id):
+        require(re.fullmatch(r&#x27;[a-z0-9]+(?:-[a-z0-9]+)*&#x27;, task_id), &#x27;Invalid task ID&#x27;)
+        return self.path(f&#x27;management/tasks/{task_id}.json&#x27;)
+
+    def task(self, task_id):
+        value = json.loads(self.task_path(task_id).read_text())
+        require(value[&#x27;id&#x27;] == task_id, &#x27;Task ID does not match filename&#x27;)
+        return value
+
+    def save(self, value, action):
+        value.setdefault(&#x27;history&#x27;, []).append({&#x27;at&#x27;: stamp(), &#x27;action&#x27;: action})
+        self.task_path(value[&#x27;id&#x27;]).write_text(json.dumps(value, indent=2) + &#x27;\n&#x27;)
+        return value
+
+    def profile(self):
+        profile = self.read(&#x27;management/profile.json&#x27;)
+        require(profile[&#x27;profile&#x27;] == &#x27;software-game&#x27; and profile[&#x27;execution&#x27;] == &#x27;single-developer&#x27;, &#x27;Wrong project profile&#x27;)
+        return profile
+
+    def tasks(self):
+        return [self.task(p.stem) for p in sorted(self.path(&#x27;management/tasks&#x27;).glob(&#x27;*.json&#x27;))]
+
+    def status(self):
+        return {&#x27;profile&#x27;: self.profile()[&#x27;profile&#x27;], &#x27;game_root&#x27;: str(self.root),
+                &#x27;tasks&#x27;: [{&#x27;id&#x27;: t[&#x27;id&#x27;], &#x27;title&#x27;: t[&#x27;title&#x27;], &#x27;status&#x27;: t[&#x27;status&#x27;]} for t in self.tasks()]}
+
+    def snapshot(self, task):
+        # Declared inputs only, not a claim to detect every possible repository change.
+        return {name: sha(self.path(name)) for name in task[&#x27;inputs&#x27;]}
+
+    def context(self, value):
+        require(value.get(&#x27;wiki_read&#x27;) and value.get(&#x27;docs_read&#x27;), &#x27;Read wiki AND project documents first&#x27;)
+        mandatory = {&#x27;source_material/game-wiki/content/status.md&#x27;, &#x27;source_material/game-wiki/content/development.md&#x27;}
+        require(mandatory &lt;= {x[&#x27;path&#x27;] for x in value[&#x27;wiki_read&#x27;]}, &#x27;Read implementation ledger and development workflow&#x27;)
+        receipts = []
+        for group in (&#x27;wiki_read&#x27;, &#x27;docs_read&#x27;):
+            for entry in value[group]:
+                require(len(entry.get(&#x27;notes&#x27;, &#x27;&#x27;).strip()) &gt;= 20, &#x27;Context needs substantive reading notes&#x27;)
+                path = self.path(entry[&#x27;path&#x27;])
+                require(path.is_file(), f&#x27;Missing context: {entry[&quot;path&quot;]}&#x27;)
+                if group == &#x27;wiki_read&#x27;:
+                    require(path.is_relative_to(self.path(&#x27;source_material/game-wiki&#x27;)), &#x27;Canon dump is not game-wiki context&#x27;)
+                receipts.append({**entry, &#x27;sha256&#x27;: sha(path), &#x27;kind&#x27;: group})
+        return {&#x27;recorded_at&#x27;: stamp(), &#x27;attestation&#x27;: &#x27;Developer reports reading; hashes do not prove reading.&#x27;, &#x27;sources&#x27;: receipts}
+
+    def start(self, task_id, context):
+        task = self.task(task_id)
+        require(task[&#x27;status&#x27;] in {&#x27;ready&#x27;, &#x27;blocked&#x27;}, &#x27;Only ready or blocked slices can start&#x27;)
+        require(not any(t[&#x27;status&#x27;] == &#x27;active&#x27; and t[&#x27;id&#x27;] != task_id for t in self.tasks()), &#x27;Finish or block the active slice first&#x27;)
+        require(not task.get(&#x27;blocking_questions&#x27;), &#x27;Resolve blocking design questions before dependent work&#x27;)
+        require(all(self.task(t)[&#x27;status&#x27;] == &#x27;done&#x27; for t in task.get(&#x27;depends_on&#x27;, [])), &#x27;Dependencies are incomplete&#x27;)
+        task.update(status=&#x27;active&#x27;, context=self.context(context), checks={}, review=None)
+        return self.save(task, &#x27;started with wiki/document context&#x27;)
+
+    def record(self, task_id, label, command):
+        task = self.task(task_id)
+        require(task[&#x27;status&#x27;] == &#x27;active&#x27;, &#x27;Checks belong to an active slice&#x27;)
+        require(re.fullmatch(r&#x27;[a-z0-9-]+&#x27;, label) and command, &#x27;Provide a check label and actual argv command&#x27;)
+        before = self.snapshot(task)
+        folder = self.path(f&#x27;management/evidence/{task_id}&#x27;)
+        folder.mkdir(parents=True, exist_ok=True)
+        log = folder / f&#x27;{label}-{datetime.now(timezone.utc).strftime(&quot;%Y%m%dT%H%M%S%fZ&quot;)}.log&#x27;
+        with log.open(&#x27;x&#x27;) as output:
+            output.write(json.dumps({&#x27;command&#x27;: command, &#x27;cwd&#x27;: &#x27;game repository&#x27;, &#x27;started&#x27;: stamp()}) + &#x27;\n&#x27;)
+            output.flush()
+            result = subprocess.run(command, cwd=self.root, stdout=output, stderr=subprocess.STDOUT, check=False)
+        after = self.snapshot(task)
+        task.setdefault(&#x27;checks&#x27;, {})[label] = {&#x27;command&#x27;: command, &#x27;exit_code&#x27;: result.returncode,
+            &#x27;result&#x27;: &#x27;PASS&#x27; if result.returncode == 0 else &#x27;FAIL&#x27;, &#x27;finished_at&#x27;: stamp(),
+            &#x27;log&#x27;: log.relative_to(self.root).as_posix(), &#x27;sha256&#x27;: sha(log),
+            &#x27;inputs&#x27;: after, &#x27;inputs_changed_during_check&#x27;: before != after}
+        self.save(task, f&#x27;{label}: {task[&quot;checks&quot;][label][&quot;result&quot;]}&#x27;)
+        return task[&#x27;checks&#x27;][label]
+
+    def verify_checks(self, task, current=False):
+        checks = task.get(&#x27;checks&#x27;, {})
+        for label in REQUIRED_CHECKS:
+            require(label in checks and checks[label][&#x27;result&#x27;] == &#x27;PASS&#x27; and checks[label][&#x27;exit_code&#x27;] == 0,
+                    f&#x27;{task[&quot;id&quot;]}: missing passing {label} check&#x27;)
+            entry = checks[label]
+            require(sha(self.path(entry[&#x27;log&#x27;])) == entry[&#x27;sha256&#x27;], f&#x27;Changed check log: {label}&#x27;)
+            require(not entry[&#x27;inputs_changed_during_check&#x27;], f&#x27;Inputs changed during {label}; rerun&#x27;)
+            if current:
+                require(entry[&#x27;inputs&#x27;] == self.snapshot(task), f&#x27;Stale {label} evidence; inputs changed&#x27;)
+        require(checks[&#x27;wiki-check&#x27;][&#x27;finished_at&#x27;] &gt;= checks[&#x27;wiki-build&#x27;][&#x27;finished_at&#x27;], &#x27;Wiki check must follow rebuild&#x27;)
+
+    def complete(self, task_id, review):
+        task = self.task(task_id)
+        require(task[&#x27;status&#x27;] == &#x27;active&#x27; and not task.get(&#x27;blocking_questions&#x27;), &#x27;Slice inactive or blocked by design questions&#x27;)
+        self.verify_checks(task, current=True)
+        require(review.get(&#x27;mode&#x27;) in {&#x27;self-review&#x27;, &#x27;independent&#x27;}, &#x27;Declare actual review mode&#x27;)
+        require(len(review.get(&#x27;summary&#x27;, &#x27;&#x27;).strip()) &gt;= 30 and review.get(&#x27;implementation_docs_agree&#x27;) is True, &#x27;Record semantic consistency review&#x27;)
+        require(isinstance(review.get(&#x27;limitations&#x27;), list), &#x27;Record remaining limitations&#x27;)
+        require(review.get(&#x27;acceptance&#x27;) and all(x.get(&#x27;result&#x27;) == &#x27;PASS&#x27; and x.get(&#x27;evidence&#x27;) for x in review[&#x27;acceptance&#x27;]), &#x27;Acceptance needs evidence&#x27;)
+        require({x[&#x27;criterion&#x27;] for x in review[&#x27;acceptance&#x27;]} == set(task[&#x27;acceptance&#x27;]), &#x27;Review every acceptance criterion&#x27;)
+        if review[&#x27;mode&#x27;] == &#x27;independent&#x27;:
+            require(review.get(&#x27;reviewer_receipt&#x27;), &#x27;Independent review needs an actual worker/human receipt&#x27;)
+        else:
+            require(not review.get(&#x27;reviewer_receipt&#x27;), &#x27;Self-review cannot claim an independent worker&#x27;)
+        task.update(status=&#x27;done&#x27;, review=review, accepted_inputs=self.snapshot(task))
+        return self.save(task, &#x27;completed; evidence and semantic review recorded&#x27;)
+
+    def check(self):
+        self.profile()
+        tasks = self.tasks()
+        require(sum(t[&#x27;status&#x27;] == &#x27;active&#x27; for t in tasks) &lt;= 1, &#x27;Multiple active slices&#x27;)
+        for task in tasks:
+            require(task[&#x27;status&#x27;] in STATES and task[&#x27;title&#x27;].strip(), &#x27;Invalid task state/title&#x27;)
+            require(task[&#x27;acceptance&#x27;] and task[&#x27;inputs&#x27;] and task[&#x27;wiki_pages&#x27;], &#x27;Task needs acceptance, inputs and affected wiki pages&#x27;)
+            self.snapshot(task)
+            for path in task[&#x27;wiki_pages&#x27;]:
+                require(self.path(path).is_file(), f&#x27;Missing affected wiki page: {path}&#x27;)
+            for dependency in task.get(&#x27;depends_on&#x27;, []):
+                require(dependency != task[&#x27;id&#x27;], &#x27;Task cannot depend on itself&#x27;)
+                self.task(dependency)
+            if task[&#x27;status&#x27;] == &#x27;done&#x27;:
+                self.verify_checks(task)  # Accepted snapshots remain historical after later development.
+                require(task.get(&#x27;review&#x27;) and task.get(&#x27;accepted_inputs&#x27;), &#x27;Done slice lacks review/snapshot&#x27;)
+        return {&#x27;result&#x27;: &#x27;PASS&#x27;, &#x27;tasks&#x27;: len(tasks), &#x27;note&#x27;: &#x27;Record integrity; not gameplay qualification or independent audit.&#x27;}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(&#x27;--root&#x27;, type=Path, default=ROOT)
+    subs = parser.add_subparsers(dest=&#x27;action&#x27;, required=True)
+    for name in (&#x27;status&#x27;, &#x27;check&#x27;): subs.add_parser(name)
+    start = subs.add_parser(&#x27;start&#x27;); start.add_argument(&#x27;id&#x27;); start.add_argument(&#x27;--context&#x27;, required=True)
+    record = subs.add_parser(&#x27;record&#x27;); record.add_argument(&#x27;id&#x27;); record.add_argument(&#x27;label&#x27;); record.add_argument(&#x27;command&#x27;, nargs=argparse.REMAINDER)
+    finish = subs.add_parser(&#x27;complete&#x27;); finish.add_argument(&#x27;id&#x27;); finish.add_argument(&#x27;--review&#x27;, required=True)
+    block = subs.add_parser(&#x27;block&#x27;); block.add_argument(&#x27;id&#x27;); block.add_argument(&#x27;--reason&#x27;, required=True)
+    args = parser.parse_args(); project = SoftwareProject(args.root)
+    if args.action == &#x27;status&#x27;: result = project.status()
+    elif args.action == &#x27;check&#x27;: result = project.check()
+    elif args.action == &#x27;start&#x27;: result = project.start(args.id, project.read(args.context))
+    elif args.action == &#x27;record&#x27;:
+        command = args.command[1:] if args.command[:1] == [&#x27;--&#x27;] else args.command
+        result = project.record(args.id, args.label, command)
+    elif args.action == &#x27;complete&#x27;: result = project.complete(args.id, project.read(args.review))
+    else:
+        task = project.task(args.id)
+        require(task[&#x27;status&#x27;] in {&#x27;active&#x27;, &#x27;ready&#x27;} and len(args.reason.strip()) &gt;= 15, &#x27;Record a specific active/ready-work blocker&#x27;)
+        task.update(status=&#x27;blocked&#x27;, blocker=args.reason)
+        result = project.save(task, args.reason)
+    print(json.dumps(result, indent=2))
+    return 1 if result.get(&#x27;result&#x27;) == &#x27;FAIL&#x27; else 0
+
+
+if __name__ == &#x27;__main__&#x27;:
+    try: sys.exit(main())
+    except (ValueError, KeyError, OSError) as error:
+        print(f&#x27;BLOCKED: {error}&#x27;, file=sys.stderr); sys.exit(1)
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

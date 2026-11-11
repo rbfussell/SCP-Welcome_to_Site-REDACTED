@@ -35,3 +35,28 @@ Before declaring the work complete:
 - Keep the change and its documentation together in the reviewed Git work. Preserve unrelated local changes. In the completion report, identify the documentation updated, verification performed, and any remaining limitation. If rebuilding or validation is blocked, report the exact gap and do not claim the wiki is current or the consistency gate passed.
 
 See the [development workflow](docs/12-development-workflow.md) and the [wiki maintenance page](source_material/game-wiki/development.html) for the corresponding human-readable workflow.
+
+## Active software project-management profile
+
+This directory is the game Git root, now located at `Project/` beneath the outer
+workspace harness. All game-wiki and tooling paths above remain relative to this
+directory. Preserve the workflow above in full.
+
+Use [the software management guide](management/README.md) and
+[profile](management/profile.json) for scoped task selection, dependencies, context,
+real verification evidence and explicit review mode. Start with
+`python3 tools/manage_project.py status`; maintain the selected slice record alongside
+its code/docs/wiki. Proposed backlog entries do not authorize new scope. A completed
+record is not a replacement for the semantic consistency gate or milestone acceptance.
+
+The user requested a software adaptation of the outer generic harness. Its fixed crew,
+manufacturing specialties, mandatory dispatched IA and three-turn new-product preflight
+are not required for this game profile. One developer may perform these responsibilities
+with honest self-review. Spawn specialists only if explicitly requested by the user or
+applicable instructions; independent review claims require real receipts. Preserve
+accepted design/evidence as history and ask about material new ambiguities.
+
+The versioned overlay in `management/harness/` keeps the outer root instructions and
+entry point consistent. Reinstall/check it with
+`python3 tools/configure_project_harness.py --root ..` and the same command with
+`--check` when that outer harness is present. Standalone clones need no outer harness.

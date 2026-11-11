@@ -46,3 +46,24 @@ For a fresh checkout, clone the public repository. The committed game assets, so
 The user subsequently made the repository public and authorized a public browsable wiki. GitHub Pages serves [the game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/) through `.github/workflows/game-wiki-pages.yml`. Pushes affecting the committed wiki or that workflow on `prototype/m0-spatial-scene` deploy automatically; the workflow can also be dispatched manually on that branch. GitHub Pages must use the Actions publishing source.
 
 Build and fully validate the wiki locally before committing. Deployment checks the committed source/evidence hashes, item-art binary hashes and required generated pages, then uploads only generated HTML, JSON, search assets, canon extracts and the agent entry point. It does not rebuild, download the bulk archive, run gameplay tests or certify canon freshness. A stale snapshot fails deployment rather than silently publishing outdated evidence. The public site preserves styling, search and per-page links; full original archive-shard links remain local-checkout features. The included single-record canon snapshots work publicly. This is a documentation website, not a downloadable game release.
+
+## Software management workspace
+
+The game now lives in `Project/` inside a portable harness workspace. `Project/`
+remains this Git repository's root, so existing game/wiki/build commands, GitHub
+Actions paths and relative documentation links remain unchanged. The outer directory
+has no initialized Git history. Do not reinitialize or flatten the game checkout.
+
+[The software management guide](../management/README.md) and
+[integration contract](58-software-project-management.md) define the active adapter:
+small tasks, dependencies/blockers, recorded wiki/document context, actual test logs,
+explicit self/independent review and the same final consistency gate. Its authoritative
+tools and records live in this repository. Outer entry points are reinstallable copies.
+The generic strict harness remains separate; no mandatory manufacturing roles or
+repeated new-product preflight are imposed on ordinary software slices. Existing
+milestone acceptance and historical evidence remain unchanged.
+
+Use `python3 tools/manage_project.py status` from this game root. Keep selected task
+records and evidence with the reviewed implementation/docs/wiki commit. Inspect logs
+for private data before publishing them to the public repository. Completion requires
+real checks and semantic review; record validation alone does not certify gameplay.

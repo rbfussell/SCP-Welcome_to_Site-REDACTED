@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/configure_project_harness.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>configure_project_harness.py</h1><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;Install/reconcile only the managed software overlay; preserve generic harness files.&quot;&quot;&quot;
+import argparse
+import json
+from pathlib import Path
+import sys
+
+GAME = Path(__file__).resolve().parents[1]
+BEGIN = &#x27;&lt;!-- BEGIN SOFTWARE-GAME PROFILE --&gt;&#x27;
+END = &#x27;&lt;!-- END SOFTWARE-GAME PROFILE --&gt;&#x27;
+
+
+def configure(root, game=GAME, check=False):
+    root, game = Path(root).resolve(), Path(game).resolve()
+    if root == game or not game.is_relative_to(root):
+        raise ValueError(&#x27;Game must remain a nested checkout under the harness root&#x27;)
+    for name in (&#x27;workflow.py&#x27;, &#x27;AGENTS.md&#x27;, &#x27;README.md&#x27;):
+        if not (root / name).is_file():
+            raise ValueError(f&#x27;Not a harness root: missing {name}&#x27;)
+    template = game / &#x27;management/harness&#x27;
+    replacements = {}
+    for name in (&#x27;AGENTS.md&#x27;, &#x27;README.md&#x27;):
+        original = (root / name).read_text()
+        if BEGIN in original or END in original:
+            if original.count(BEGIN) != 1 or original.count(END) != 1 or original.index(BEGIN) &gt; original.index(END):
+                raise ValueError(f&#x27;Malformed managed block in {name}; inspect before editing&#x27;)
+            first, remainder = original.split(BEGIN)
+            _, tail = remainder.split(END)
+            original = first + tail.lstrip(&#x27;\n&#x27;)
+        content = (template / name).read_text().replace(&#x27;Project/&#x27;, game.relative_to(root).as_posix() + &#x27;/&#x27;)
+        replacements[root / name] = f&#x27;{BEGIN}\n{content.rstrip()}\n{END}\n\n{original}&#x27;
+    replacements[root / &#x27;config/software-project.json&#x27;] = json.dumps({
+        &#x27;profile&#x27;: &#x27;software-game&#x27;, &#x27;project_path&#x27;: game.relative_to(root).as_posix(),
+        &#x27;authoritative_profile&#x27;: &#x27;management/profile.json&#x27;}, indent=2) + &#x27;\n&#x27;
+    replacements[root / &#x27;scripts/manage_game.py&#x27;] = (template / &#x27;manage_game.py&#x27;).read_text()
+    changed = [str(path.relative_to(root)) for path, text in replacements.items() if not path.is_file() or path.read_text() != text]
+    if not check:
+        for path, text in replacements.items():
+            if not path.is_file() or path.read_text() != text:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+    return {&#x27;result&#x27;: &#x27;FAIL&#x27; if check and changed else &#x27;PASS&#x27;, &#x27;changed&#x27;: changed,
+            &#x27;note&#x27;: &#x27;Only managed documentation blocks, project pointer and wrapper are installed; no strict runtime state is migrated.&#x27;}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(&#x27;--root&#x27;, type=Path, required=True)
+    parser.add_argument(&#x27;--check&#x27;, action=&#x27;store_true&#x27;)
+    args = parser.parse_args()
+    result = configure(args.root, check=args.check)
+    print(json.dumps(result, indent=2))
+    return 1 if result[&#x27;result&#x27;] == &#x27;FAIL&#x27; else 0
+
+
+if __name__ == &#x27;__main__&#x27;:
+    try: sys.exit(main())
+    except (ValueError, OSError) as error:
+        print(f&#x27;BLOCKED: {error}&#x27;, file=sys.stderr); sys.exit(1)
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

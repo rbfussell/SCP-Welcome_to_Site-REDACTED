@@ -258,7 +258,7 @@ def build_code(files):
 
 
 def build_docs():
-    paths = [ROOT / 'README.md', ROOT / 'src/SiteSimulation/README.md', ROOT / 'source_material/README.md']
+    paths = [ROOT / 'README.md', ROOT / 'src/SiteSimulation/README.md', ROOT / 'source_material/README.md', ROOT / 'management/README.md']
     paths += sorted((ROOT / 'docs').rglob('*.md')) + sorted((ROOT / 'templates').glob('*.md'))
     path_set = {p.resolve() for p in paths}
     for p in paths:
@@ -472,6 +472,7 @@ def cross_archive_research():
 NAV = [('index.html', 'Main archive'), ('items.html', 'Item catalog'), ('scp-index.html', 'SCP files'), ('engine.html', 'Engine overview'),
        ('systems.html', 'Shared systems'), ('functions.html', 'Function directory'), ('types.html', 'Types'),
        ('files.html', 'Source files'), ('documents.html', 'Design library'), ('status.html', 'Implementation ledger'),
+       ('development.html', 'Development workflow'), ('project-management.html', 'Project management'),
        ('research.html', 'Research & credits'), ('canon-index.html', 'Canon sources'), ('archive-research.html', 'Archive research')]
 
 def render():
@@ -556,6 +557,7 @@ def main():
     archive_hashes, canon_count = build_canon(PAGES, add, ARCHIVE, OUT, slug, digest, link, listing, git(ARCHIVE, 'rev-parse', 'HEAD'))
     evidence_paths = docs + sorted((OUT / 'content').glob('*.md')) + sorted((ROOT / 'game/Content').glob('*.json')) + sorted((ROOT / 'schemas').glob('*.json')) + sorted((ROOT / 'tests/SpatialChecks').glob('*.cs'))
     evidence_paths += sorted((ROOT / 'game/Assets/items').rglob('PROVENANCE.md'))
+    evidence_paths += [ROOT / p for p in ('management/profile.json', 'management/harness/AGENTS.md', 'management/harness/README.md', 'management/harness/manage_game.py', 'management/task-template.json', 'tools/manage_project.py', 'tools/configure_project_harness.py', 'tools/check_management_docs.py', 'tests/test_project_management.py')]
     evidence_paths += item_sources + [OUT / 'assets/wiki.css', ROOT / 'tools/build_game_wiki.py', ROOT / 'tests/test_wiki_items.py']
     manifest = {'built_utc': datetime.now(timezone.utc).isoformat(), 'game_revision': git(ROOT, 'rev-parse', 'HEAD'),
         'archive_revision': git(ARCHIVE, 'rev-parse', 'HEAD'), 'source_files': len(files), 'declared_members': len(members),

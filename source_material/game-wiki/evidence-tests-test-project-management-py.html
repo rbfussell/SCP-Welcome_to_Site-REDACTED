@@ -1,0 +1,166 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tests/test_project_management.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>test_project_management.py</h1><pre>&quot;&quot;&quot;Software workflow guards, portability and non-destructive harness integration.&quot;&quot;&quot;
+import copy
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / &#x27;tools&#x27;))
+from manage_project import SoftwareProject, REQUIRED_CHECKS
+from configure_project_harness import configure, BEGIN, END
+
+
+class ProjectManagementTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name) / &#x27;Project&#x27;
+        self.root.mkdir()
+        for directory in (&#x27;management/tasks&#x27;, &#x27;source_material/game-wiki/content&#x27;, &#x27;docs&#x27;):
+            (self.root / directory).mkdir(parents=True)
+        (self.root / &#x27;management/profile.json&#x27;).write_text(json.dumps({&#x27;profile&#x27;: &#x27;software-game&#x27;, &#x27;execution&#x27;: &#x27;single-developer&#x27;}))
+        self.wiki = [&#x27;source_material/game-wiki/content/status.md&#x27;, &#x27;source_material/game-wiki/content/development.md&#x27;]
+        for name in self.wiki + [&#x27;docs/design.md&#x27;, &#x27;input.txt&#x27;]:
+            (self.root / name).write_text(&#x27;Known bounded behavior, not a complete game certification.\n&#x27;)
+        self.project = SoftwareProject(self.root)
+        self.seed(&#x27;slice&#x27;)
+        self.context = {&#x27;wiki_read&#x27;: [{&#x27;path&#x27;: p, &#x27;notes&#x27;: &#x27;Read current mechanics and linked documentation boundaries.&#x27;} for p in self.wiki],
+                        &#x27;docs_read&#x27;: [{&#x27;path&#x27;: &#x27;docs/design.md&#x27;, &#x27;notes&#x27;: &#x27;Read accepted scope and current verification limits.&#x27;}]}
+        self.review = {&#x27;mode&#x27;: &#x27;self-review&#x27;, &#x27;summary&#x27;: &#x27;Compared the declared implementation with documentation and real fixture check results.&#x27;,
+                       &#x27;implementation_docs_agree&#x27;: True, &#x27;limitations&#x27;: [&#x27;Fixture commands only; not game qualification.&#x27;],
+                       &#x27;acceptance&#x27;: [{&#x27;criterion&#x27;: &#x27;observable criterion&#x27;, &#x27;result&#x27;: &#x27;PASS&#x27;, &#x27;evidence&#x27;: &#x27;Actual fixture command logs.&#x27;}]}
+
+    def seed(self, name):
+        value = {&#x27;id&#x27;: name, &#x27;title&#x27;: &#x27;Concrete bounded software slice&#x27;, &#x27;status&#x27;: &#x27;ready&#x27;, &#x27;scope&#x27;: &#x27;One fixture behavior only.&#x27;,
+                 &#x27;acceptance&#x27;: [&#x27;observable criterion&#x27;], &#x27;wiki_pages&#x27;: self.wiki, &#x27;inputs&#x27;: [&#x27;input.txt&#x27;], &#x27;depends_on&#x27;: [], &#x27;blocking_questions&#x27;: []}
+        self.project.task_path(name).write_text(json.dumps(value))
+
+    def started(self):
+        return self.project.start(&#x27;slice&#x27;, self.context)
+
+    def passing_checks(self):
+        for name in REQUIRED_CHECKS:
+            self.project.record(&#x27;slice&#x27;, name, [sys.executable, &#x27;-c&#x27;, &#x27;print(&quot;Fixture check executed&quot;)&#x27;])
+
+    def test_context_and_canon_are_not_interchangeable(self):
+        with self.assertRaisesRegex(ValueError, &#x27;wiki AND&#x27;):
+            self.project.start(&#x27;slice&#x27;, {&#x27;docs_read&#x27;: self.context[&#x27;docs_read&#x27;]})
+        bad = copy.deepcopy(self.context)
+        bad[&#x27;wiki_read&#x27;][0][&#x27;path&#x27;] = &#x27;docs/design.md&#x27;
+        with self.assertRaisesRegex(ValueError, &#x27;ledger&#x27;):
+            self.project.start(&#x27;slice&#x27;, bad)
+        bad = copy.deepcopy(self.context)
+        bad[&#x27;wiki_read&#x27;].append({&#x27;path&#x27;: &#x27;docs/design.md&#x27;, &#x27;notes&#x27;: &#x27;This is not a game-wiki page despite being a useful document.&#x27;})
+        with self.assertRaisesRegex(ValueError, &#x27;Canon dump&#x27;):
+            self.project.start(&#x27;slice&#x27;, bad)
+        self.assertEqual(self.started()[&#x27;status&#x27;], &#x27;active&#x27;)
+
+    def test_path_escape_rejected(self):
+        with self.assertRaisesRegex(ValueError, &#x27;escapes&#x27;):
+            self.project.path(&#x27;../outside&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;Invalid task&#x27;):
+            self.project.task_path(&#x27;../../unsafe&#x27;)
+
+    def test_one_active_slice_and_dependencies(self):
+        self.started(); self.seed(&#x27;other&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;active slice&#x27;):
+            self.project.start(&#x27;other&#x27;, self.context)
+
+    def test_design_blocker_prevents_start(self):
+        task = self.project.task(&#x27;slice&#x27;); task[&#x27;blocking_questions&#x27;] = [&#x27;Material design question&#x27;]
+        self.project.save(task, &#x27;fixture blocker&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;questions&#x27;):
+            self.started()
+
+    def test_missing_checks_prevent_completion(self):
+        self.started()
+        with self.assertRaisesRegex(ValueError, &#x27;missing passing tests&#x27;):
+            self.project.complete(&#x27;slice&#x27;, self.review)
+
+    def test_actual_failed_command_cannot_complete(self):
+        self.started(); self.passing_checks()
+        record = self.project.record(&#x27;slice&#x27;, &#x27;tests&#x27;, [sys.executable, &#x27;-c&#x27;, &#x27;raise SystemExit(3)&#x27;])
+        self.assertEqual(record[&#x27;exit_code&#x27;], 3)
+        with self.assertRaisesRegex(ValueError, &#x27;missing passing tests&#x27;):
+            self.project.complete(&#x27;slice&#x27;, self.review)
+
+    def test_changed_inputs_invalidate_checks(self):
+        self.started(); self.passing_checks()
+        (self.root / &#x27;input.txt&#x27;).write_text(&#x27;Changed after tests&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;Stale tests&#x27;):
+            self.project.complete(&#x27;slice&#x27;, self.review)
+
+    def test_modified_log_rejected(self):
+        self.started(); self.passing_checks()
+        entry = self.project.task(&#x27;slice&#x27;)[&#x27;checks&#x27;][&#x27;tests&#x27;]
+        self.project.path(entry[&#x27;log&#x27;]).write_text(&#x27;Rewritten evidence&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;Changed check log&#x27;):
+            self.project.complete(&#x27;slice&#x27;, self.review)
+
+    def test_wiki_check_must_follow_build(self):
+        self.started(); self.passing_checks()
+        self.project.record(&#x27;slice&#x27;, &#x27;wiki-build&#x27;, [sys.executable, &#x27;-c&#x27;, &#x27;print(&quot;Later fixture build&quot;)&#x27;])
+        with self.assertRaisesRegex(ValueError, &#x27;follow rebuild&#x27;):
+            self.project.complete(&#x27;slice&#x27;, self.review)
+
+    def test_independent_review_needs_receipt_and_acceptance_coverage(self):
+        self.started(); self.passing_checks()
+        bad = copy.deepcopy(self.review); bad[&#x27;mode&#x27;] = &#x27;independent&#x27;
+        with self.assertRaisesRegex(ValueError, &#x27;actual worker&#x27;):
+            self.project.complete(&#x27;slice&#x27;, bad)
+        bad = copy.deepcopy(self.review); bad[&#x27;acceptance&#x27;][0][&#x27;criterion&#x27;] = &#x27;Different criterion&#x27;
+        with self.assertRaisesRegex(ValueError, &#x27;every acceptance&#x27;):
+            self.project.complete(&#x27;slice&#x27;, bad)
+        bad = copy.deepcopy(self.review); bad[&#x27;reviewer_receipt&#x27;] = &#x27;fake-independent-worker&#x27;
+        with self.assertRaisesRegex(ValueError, &#x27;cannot claim&#x27;):
+            self.project.complete(&#x27;slice&#x27;, bad)
+
+    def test_complete_preserves_historical_snapshot(self):
+        self.started(); self.passing_checks()
+        self.assertEqual(self.project.complete(&#x27;slice&#x27;, self.review)[&#x27;status&#x27;], &#x27;done&#x27;)
+        (self.root / &#x27;input.txt&#x27;).write_text(&#x27;Changed in a later slice&#x27;)
+        self.assertEqual(self.project.check()[&#x27;result&#x27;], &#x27;PASS&#x27;)
+        self.assertEqual(len(list((self.root / &#x27;management/evidence/slice&#x27;).glob(&#x27;*.log&#x27;))), 4)
+
+    def test_overlay_is_repeatable_and_wrapper_uses_nested_game(self):
+        outer = self.root.parent
+        for name in (&#x27;AGENTS.md&#x27;, &#x27;README.md&#x27;, &#x27;workflow.py&#x27;):
+            (outer / name).write_text(f&#x27;Original strict harness {name}\n&#x27;)
+        shutil.copytree(ROOT / &#x27;management/harness&#x27;, self.root / &#x27;management/harness&#x27;)
+        (self.root / &#x27;tools&#x27;).mkdir()
+        shutil.copyfile(ROOT / &#x27;tools/manage_project.py&#x27;, self.root / &#x27;tools/manage_project.py&#x27;)
+        self.assertEqual(configure(outer, self.root)[&#x27;result&#x27;], &#x27;PASS&#x27;)
+        self.assertEqual(configure(outer, self.root, check=True)[&#x27;changed&#x27;], [])
+        for name in (&#x27;AGENTS.md&#x27;, &#x27;README.md&#x27;):
+            text = (outer / name).read_text()
+            self.assertEqual(text.count(BEGIN), 1); self.assertEqual(text.count(END), 1)
+            self.assertTrue(text.endswith(f&#x27;Original strict harness {name}\n&#x27;))
+        (outer / &#x27;workflow.py&#x27;).write_text(&#x27;User changes remain untouched\n&#x27;)
+        configure(outer, self.root)
+        self.assertEqual((outer / &#x27;workflow.py&#x27;).read_text(), &#x27;User changes remain untouched\n&#x27;)
+        result = subprocess.run([sys.executable, str(outer / &#x27;scripts/manage_game.py&#x27;), &#x27;status&#x27;], cwd=outer, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)[&#x27;game_root&#x27;], str(self.root))
+        result = subprocess.run([sys.executable, str(self.root / &#x27;tools/manage_project.py&#x27;), &#x27;status&#x27;], cwd=outer, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        (outer / &#x27;scripts/manage_game.py&#x27;).write_text(&#x27;Unexpected stale wrapper&#x27;)
+        self.assertEqual(configure(outer, self.root, check=True)[&#x27;result&#x27;], &#x27;FAIL&#x27;)
+
+    def test_malformed_overlay_does_not_write_partial_files(self):
+        outer = self.root.parent
+        for name in (&#x27;AGENTS.md&#x27;, &#x27;README.md&#x27;, &#x27;workflow.py&#x27;):
+            (outer / name).write_text(&#x27;Original strict content\n&#x27;)
+        shutil.copytree(ROOT / &#x27;management/harness&#x27;, self.root / &#x27;management/harness&#x27;)
+        (outer / &#x27;README.md&#x27;).write_text(BEGIN + &#x27;\nMissing ending marker&#x27;)
+        with self.assertRaisesRegex(ValueError, &#x27;Malformed&#x27;):
+            configure(outer, self.root)
+        self.assertEqual((outer / &#x27;AGENTS.md&#x27;).read_text(), &#x27;Original strict content\n&#x27;)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    unittest.main()
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

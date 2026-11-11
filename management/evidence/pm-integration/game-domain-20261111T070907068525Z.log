@@ -1,0 +1,47 @@
+{"command": ["python3", "tools/run_spatial_scene.py", "--check"], "cwd": "game repository", "started": "2026-11-11T07:09:07.068708+00:00"}
+MSBuild version 17.8.49+7806cbf7b for .NET
+  Determining projects to restore...
+  Restored /tmp/scp-spatial-szzzbpzn/tests/SpatialChecks/SpatialChecks.csproj (in 80 ms).
+  Restored /tmp/scp-spatial-szzzbpzn/src/SiteSimulation/SiteSimulation.csproj (in 70 ms).
+  SiteSimulation -> /tmp/scp-spatial-szzzbpzn/src/SiteSimulation/bin/Debug/net8.0/SiteSimulation.dll
+  SpatialChecks -> /tmp/scp-spatial-szzzbpzn/tests/SpatialChecks/bin/Debug/net8.0/SpatialChecks.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.59
+SCP650_CHECKS_PASS: 52 assertions; observation, host validation, relocation, discovery, holds and module saves.
+COMPLACENCY_CHECKS_PASS: 210 assertions; per-person flags, module placement/pose policy, host attachment and persistence.
+FIELD_PRESENTATION_CHECKS_PASS: 46 assertions; direct sight, no remote/relocation cues, deduplication and read-only rendering.
+AWARENESS_CHECKS_PASS: 39 assertions; generic contacts, settings, delivered reports, exact stops/resume/reversal and persistence.
+LOOK_CHECKS_PASS: 20 assertions; exact stop/turn, continuing time, persistence, reversal and explicit keep-facing movement.
+PATHFINDING_CHECKS_PASS: 36 assertions; hidden occupancy, approach, collision, rerouting, access changes and intent persistence.
+OPERATION_CHECKS_PASS: 54 assertions; delivery, authority, blockage, physical recovery, coverage loss and persistence.
+EVENT_LOG_CHECKS_PASS: 16 assertions; bounded history, acquired reports, categories, visibility episodes and hidden-action filtering.
+COMBAT_CHECKS_PASS: 65 assertions; local turns, AP, equipment, deterministic AI, perception, replay and atomic restores.
+OSCP_CHECKS_PASS: 29 assertions; application/device authority, phone delivery, offline acquisition/cache, holds, persistence and detached restore.
+EMPLOYMENT_CHECKS_PASS: 54 assertions; duties, actual relief, bounded overtime, orders, holds, delivery and persistence.
+INVENTORY_CHECKS_PASS: 297 assertions; physical packing, hierarchy, access, timed work, AP, equipment, fixtures and atomic persistence.
+GROUND_CHECKS_PASS: 66 assertions; world floor identity, ordered piles, blocking ancestors, clothes staging, mass, time/AP, interruption, legacy migration and atomic restore.
+INVENTORY_PACKING_CHECKS_PASS: 120 assertions.
+INVENTORY_SECURING_CHECKS_PASS: 31 assertions; child-first closures, time/AP, pause, interruptions, explicit override and persistence.
+INVENTORY_CLOSURE_CHECKS_PASS: 44 assertions; state verbs, per-fastening defaults/overrides, pocket coverage, paid work and persistence.
+ATTACHMENT_CHECKS_PASS: 105 assertions; local hex mounts, interfaces, collision, recursive loads, paid actions, restraints and persistence.
+JACKET_BADGE_CHECKS_PASS: 48 assertions; separate clip, paid attachment/transfer, cover, reader use, loaded removal and continuation.
+BADGE_DOOR_CHECKS_PASS: 67 assertions; hand-only presentation, displayed/covered badges, policies, paid AP/time, interruption and exact continuation.
+SHIRT_BADGE_CHECKS_PASS: 40 assertions; two pockets, coverage, physical clip, covered retention/access, costs and continuation.
+VISIBLE_POCKET_CHECKS_PASS: 87 assertions; complete region sets, independent closures, paid storage, rear mouths and continuation.
+COVERAGE_CHECKS_PASS: 72 assertions; geometric mouths, surfaces, paid access, nested gates, compatibility and persistence.
+BODY_FIT_CHECKS_PASS: 124 assertions; mask/contact geometry, six orientations, paid equipment, isolation and persistence.
+BODY_SYMMETRY_CHECKS_PASS: 55 assertions; mirrored masks/mouths, connected body, bounded spans, native X, paid work and continuation.
+BODY_DROP_CHECKS_PASS: 36 assertions; explicit accessible source, no hidden scan, exact pose/cost, blockers, pause, AP, commit revalidation and continuation.
+BODY_INSPECTION_CHECKS_PASS: 44 assertions; exposed own surfaces, open covers, front/back packs, no hidden contents, paid removal, AP and continuation.
+UNDERWEAR_CHECKS_PASS: 21 assertions; real base layer, coverage, loaded clothing, paid removal, mass and continuation.
+WEAR_CHECKS_PASS: 70 assertions; layers, coverage, fastening, dressing dependencies, front/back packs and persistence.
+WEAR_FIT_CHECKS_PASS: 63 assertions; directional compatibility, cumulative bulk, exclusions, region isolation, validated work and continuation.
+WORN_ORDER_CHECKS_PASS: 43 assertions; actual dressing, local primary layers, reversed cover, canonical work and atomic persistence.
+OVERLAY_CHECKS_PASS: 65 assertions; local bands, symmetric X, naked/clothed limits, exposed contacts, closures, paid AP and persistence.
+HOOK_CHECKS_PASS: 87 assertions; placement extenders, nested mounts, composed rotations, shared clearance, mass, paid AP and persistence.
+SPRITE_ART_CHECKS_PASS: 178 assertions; real sources, regions, anchors, state/facing/frame registration and independent ordered layers.
+SPATIAL_CHECKS_PASS: 21258 assertions; projection, picking, wall/door topology, movement, local hold, persistence and facing.

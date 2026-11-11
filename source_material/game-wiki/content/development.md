@@ -40,3 +40,7 @@ Keep documentation and implementation together in the reviewed Git work, preserv
 Related: [main archive](index.html), [engine overview](engine.html), [implementation ledger](status.html), [design library](documents.html), [research and provenance](research.html).
 
 [Asset organization and item bundles](asset-library.html) connect these authoring requirements to the [visual item catalog](items.html), current native definitions, source artwork and future representation-specific mask filenames.
+
+## Software project coordination
+
+[Software project management](project-management.html) records selected slices, dependencies, blockers and real check evidence while retaining this entire wiki workflow. The game remains its own Git checkout under `Project/`. One developer may record self-review; independent review must be identified honestly. The generic outer harness's strict crew/preflight and JSON wiki remain separate. See the [management guide](doc-management-readme-md.html) and [integration contract](doc-docs-58-software-project-management-md.html).
