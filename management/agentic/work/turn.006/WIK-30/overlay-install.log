@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "changed": [
+    "AGENTS.md",
+    "README.md"
+  ],
+  "note": "Only managed documentation blocks, project pointer and wrapper are installed; no strict runtime state is migrated."
+}

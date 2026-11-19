@@ -1,0 +1,261 @@
+{
+  "sequence": 13,
+  "timestamp": "2026-11-11T16:57:13.868402+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.003",
+    "agent_id": "SWE-13",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "038fcbd7976a85b7f9139532ff166a2f3510b69752b77a0524a4f29096c25f52",
+    "assigned_scope": "Correct IA-002-001 root-wrapper imports and observed MCP failed-operation acknowledgement; focused tooling/regressions only.",
+    "work_performed": "Preserved pre-fix bytes and red/adverse logs; added game tools import path and reinstalled managed wrapper; returned a structured acknowledgement after the genuine failure append through shared CLI/MCP dispatch. Added five isolated entrypoint regressions, exercised actual fresh-server MCP failure recording and rejected retries, ran 53 distinct harness/adapter tests and installed entrypoint checks. Wrote only assigned source/tests, managed wrapper and owned evidence/report.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+        "sha256": "f6967834f21e45533524cdac00db066206f53545f882647d6abd9af0efa8c668"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+        "sha256": "29e8e92ffe6f53988a6c31e118fd428de68e0ba3766dea571d5d683986932a74"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+        "sha256": "d0d99337b4199827f47426226528dd3ddf4668e27c6c0b5ffac7824b114d8402"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+        "sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+        "sha256": "7a3540ba5b95c3351a61bb8ea125ab68ca83e0ad501d297842da0988b8c9d5dd"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+        "sha256": "8fbe3a115c73fde54b1ddd29b7d5de567a04c6c7bcbded259b9d2aee38735cbb"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression.json",
+        "sha256": "f8500fc2a8905d580422a74973d511684153181f9168e5b448f92ff1950ae21e"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression.log",
+        "sha256": "b57addbf1608ff51e2dbf44ec59338e66552d145d63807bd07be8ef16649552d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+        "sha256": "3326a697719c0c589b41dbab380f13eb2db35d7815082bca07a348bc63f95ace"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+        "sha256": "7177f99cad196e0eca249a8f9892f83c27546d9a3067b25c19748e942da3af20"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+        "sha256": "e387b8e9d4088ecb1126e692f0ec5a7827fb6d815d6de76992ca97afa81b892f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+        "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+        "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+        "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+        "sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+        "sha256": "4cf1706358208817aa75551481d84e7b2df2b6d9290e46b0f69337e9ecf89d79"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+        "sha256": "882c418af00e54b784e962837ff5b22f297ddf5104d8ecb2258ccf9a9b76f926"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+        "sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+        "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+        "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+        "sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+        "sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/report.md",
+        "sha256": "df768dd98238b12a755faf134ea25728a6a75e4ae59c1474d0b85aa135865245"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/suite-results.json",
+        "sha256": "b8cc872c03ea65daf5bc5fa6b7f2d066f358abda4a04cdfc4be08231ede2429b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+        "sha256": "6b1e0f489be9fb1c86f357ef1aca1cd9ab4d04790c72373a499dae239bb4a07c"
+      }
+    ],
+    "tests": [
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (fresh real local stdio server; isolated synthetic fixture)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+            "sha256": "d0d99337b4199827f47426226528dd3ddf4668e27c6c0b5ffac7824b114d8402"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (40 tests; real fixture IPC active)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+            "sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (13 tests)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+            "sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+          }
+        ]
+      },
+      {
+        "command": "python3 scripts/manage_game.py agents readiness from outer workspace root",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+            "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+          }
+        ]
+      },
+      {
+        "command": "python3 <absolute outer scripts/manage_game.py> agents readiness from /tmp",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+            "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+          }
+        ]
+      },
+      {
+        "command": "python3 scripts/manage_game.py status from outer workspace root",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+            "sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python tools/agentic.py readiness from game root",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+            "sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/configure_project_harness.py --root .. --check",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+            "sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+          }
+        ]
+      },
+      {
+        "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK after independent QA",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/harness/manage_game.py",
+        "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+      },
+      {
+        "path": "tools/agentic.py",
+        "sha256": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214"
+      },
+      {
+        "path": "tests/test_agentic_entrypoints.py",
+        "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618"
+      },
+      {
+        "path": "tools/agentic_mcp.py",
+        "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+      },
+      {
+        "path": "management/harness/runtime/workflow.py",
+        "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/report.md",
+        "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/KRA-14/report.md",
+        "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+      }
+    ],
+    "limitations": [
+      "Owner verification only; independent QA, real WIK semantic/build/check handoff and EVC/IA/DOC acceptance remain pending. No setup/import/task acceptance is asserted.",
+      "Five focused tests overlap the 40-test suite; totals are 53 distinct tests including 13 legacy adapter tests.",
+      "Actual local MCP test uses a fresh subprocess and patched fixture root; synthetic receipts are never real worker/production review evidence. Resident host processes may retain old imports; no hot-reloaded host acknowledgement is claimed.",
+      "The initial default-sandbox MCP timeout and actual pre-fix wrapper/schema failures remain preserved; fresh real-IPC corrected runs passed with 35-second process-group watchdogs.",
+      "The copied runtime/MCP facade bytes and historical interrupted turns were not edited. No production failed mutation was replayed.",
+      "WIK must refresh actual documentation/temporal/observed-host claims and include the new regression in generator evidence metadata; parent added its declared task input.",
+      "No native gameplay, M0, art, canon, broad research/finding-resolution qualification or milestone acceptance."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "62363e322808268ada9d7e267e82ab49113b891304ee142efbe0e798a3eceef8",
+  "hash": "cd1a1acac3102a81dfd0ebdf6e96643ef3dab2febc2b80a173f13144627dd7ae"
+}

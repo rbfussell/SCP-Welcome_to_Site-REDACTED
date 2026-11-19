@@ -1,0 +1,27 @@
+[
+  {
+    "source": "management/harness/manage_game.py",
+    "copy": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+    "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+  },
+  {
+    "source": "tools/agentic.py",
+    "copy": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+    "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+  },
+  {
+    "source": "tools/agentic_mcp.py",
+    "copy": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+    "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+  },
+  {
+    "source": "management/harness/runtime/workflow.py",
+    "copy": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+    "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+  },
+  {
+    "source": "../scripts/manage_game.py",
+    "copy": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+    "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+  }
+]

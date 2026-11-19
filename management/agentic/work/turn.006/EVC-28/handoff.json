@@ -1,0 +1,176 @@
+{
+  "turn_id": "turn.006",
+  "agent_id": "EVC-28",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "16eb15895d89cefe8ef79f71236eac7d744bf941a79d30b4904cb3bdd539864d",
+  "assigned_scope": "Collect execution evidence and flag omissions before independent IA review.",
+  "work_performed": "Built and reviewed the deterministic runtime package, compared frozen selection and tickets against actual invocation records, and verified retained task log and static input hashes.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/report.md",
+      "sha256": "02773728b687d2f288e86b3eaea7faa2014eea3cbad1f2c07c86a55f714c2841"
+    },
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/inspection.json",
+      "sha256": "c2a96ea4c4e639fc4d4a36547a2ef33fab840265d0eff77344ae72f2c9f68dc6"
+    },
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/evidence-package.json",
+      "sha256": "c4155c5616bc179cf02bf359d4164ee0f8413f710f9101611564ed95a1154085"
+    },
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/dispatch.json",
+      "sha256": "57188f379f58ac2c7c66a9939653661bab1aeddf967a8328f3be55f9f56540be"
+    },
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/resolved-dispatch.json",
+      "sha256": "e5c3c58286f80e9fe0f30c0e7ac94be2b5100d85eefa4c48b73490de415692cb"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/selection-turn.006.json",
+      "sha256": "68727ff8c78cc854e271655d9a40999250edce185ab0fe4fe727419db5d0e187"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.json",
+      "sha256": "5e3462245e5a417c8f5a5041bd375c8472f6124c7d494da127a32aa449f7ebbf"
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000001.json",
+      "sha256": "668ea1eaf1e6c2b91381eb019d2e5662663061baf4c8cdee1115173232ae6b1b"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000002.json",
+      "sha256": "da963bcccf4047c3300701d2b7983467b0e9f0f894ae92ee093828f6930f62e9"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000003.json",
+      "sha256": "45436d623ebf2886c923ef1c10a709ef498acb46bc11ccc7275f6f0e404443a5"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000004.json",
+      "sha256": "a13623d1c821a20c36db07b2ecda8f84130a1474c8e0a3fb05588d6fa6f7e48f"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000005.json",
+      "sha256": "32b339fd5c760765551870cc779e945e8118f9ebed0b70827f718b52c04fb274"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000006.json",
+      "sha256": "0f7be81c1c750b94d4cd3f4774ebf21e9594fdb34980947d671982c8e665685e"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000007.json",
+      "sha256": "0b962154cc73e85c72b0476fa0af89aa1c50a4cedc52af420146939b27c94185"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000008.json",
+      "sha256": "b03dac4fdb97bffc8c9efb0833d112380a36bf7fc3404a0b6323e503f296121d"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000009.json",
+      "sha256": "237fddd71250b0c6a9d2f02ca6a4d4f45fea60c1752917c5cf38e1b4093000ec"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000010.json",
+      "sha256": "d9d62bfd85ae2b1d548bd143d3718e91a3468a840f320de3c2d8d95c974b4b59"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000011.json",
+      "sha256": "7843603d81e8aa5274c955ecbb3f3b0f2898c084f831a718b108275dec78625a"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000012.json",
+      "sha256": "ecf6810c7bea884091393c15c42ba800fcf1f7697c9d4732655ecf963daeada4"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000013.json",
+      "sha256": "6bb183968d6492e5975862956fd67c75e8eafae8790580f6b0292402922772e7"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000014.json",
+      "sha256": "03de35a73b02914ac72328d5a40fa09e9ecf897b46993ca888302656ffbab437"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000015.json",
+      "sha256": "45d78b71b01c870b7260e470de0777398e00ce3882bee2594ad54d5295ecae45"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000016.json",
+      "sha256": "a54269d10366a04f46d6bf1c179ad7717dcb5c3f33c92abfae551243d3445f06"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000017.json",
+      "sha256": "d51133ab7f4eaa532d48e144214315fab54c202f8f56ae51d862fda88168dc2c"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000018.json",
+      "sha256": "0c5bc90b496c0a54770dc0dda8556b89dca4af7fd01beb895f14b82c2f18228c"
+    },
+    {
+      "path": "management/agentic/evidence/turn.006.events/000019.json",
+      "sha256": "768e65e58458c7f2c70804e2dd206a0ad512bdff1f1ab32261bd14e76b106ccb"
+    },
+    {
+      "path": "management/agentic/work/turn.006/ENG-00/dispatch.json",
+      "sha256": "4eddd95ca6a072c1dc0687b3d88fbb5027d3e48839ef757a9d8bd02cc036a1a9"
+    },
+    {
+      "path": "management/agentic/work/turn.006/ENG-00/resolved-dispatch.json",
+      "sha256": "34439fd6e6cca50f798f3fa100caa08e60bab549a824a6375e01c4dee71ffbf2"
+    },
+    {
+      "path": "management/agentic/work/turn.006/KRA-14/dispatch.json",
+      "sha256": "a077f9dd2f593e4c559796ffd05b6a459e9bb1fd5cd6f6fb16ae5e53c1d8a7dc"
+    },
+    {
+      "path": "management/agentic/work/turn.006/KRA-14/resolved-dispatch.json",
+      "sha256": "c6063749a33870da240f86fadc80234a73c619a7ad8dcf155c4c1d7e0847fca5"
+    },
+    {
+      "path": "management/agentic/work/turn.006/SWE-13/dispatch.json",
+      "sha256": "ecb0e52906720a82884b0fecb2dcc9b17cb88a9c112823fd17146beff7b194ec"
+    },
+    {
+      "path": "management/agentic/work/turn.006/SWE-13/resolved-dispatch.json",
+      "sha256": "cbeca16b6fa274b5ef712028732626041e3583dc30e7ebc5ee2cfa0ea64292a9"
+    },
+    {
+      "path": "management/agentic/work/turn.006/WIK-30/dispatch.json",
+      "sha256": "7522f8ec4b9a2b0742de8e0d8625524b34e21929aa993af976a7d2bcdb7bf59f"
+    },
+    {
+      "path": "management/agentic/work/turn.006/WIK-30/resolved-dispatch.json",
+      "sha256": "65ffd6db478d42aa2c938fbb14e4dcb720f33b2edd2553fc741cbfbfa21ef180"
+    }
+  ],
+  "tests": [
+    {
+      "command": ".venv-harness/bin/python /tmp/scp006-phase.py collect turn.006 and read-only dispatch, log and declared input hash inspection",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.006/EVC-28/evidence-package.json",
+          "sha256": "c4155c5616bc179cf02bf359d4164ee0f8413f710f9101611564ed95a1154085"
+        },
+        {
+          "path": "management/agentic/work/turn.006/EVC-28/inspection.json",
+          "sha256": "c2a96ea4c4e639fc4d4a36547a2ef33fab840265d0eff77344ae72f2c9f68dc6"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "The package predates the EVC handoff and subsequent IA and DOC phases. Host-effective model, effort and observed usage are unavailable. Retained focused tests cover policy and installer. Resident workflow MCP reload and gameplay remain outside the current qualification."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE",
+  "collection": {
+    "package_path": "management/agentic/work/turn.006/EVC-28/evidence-package.json"
+  }
+}

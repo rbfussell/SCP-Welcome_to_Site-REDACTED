@@ -1,0 +1,5 @@
+{
+  "initial_helper_error": "Copied Markdown checker initially treated authored wiki links and managed outer README links as file-relative. Retained exact failed output; corrected only owned verification helper to use their documented generation/install contexts before final post-build check.",
+  "source_freeze": "Trimmed two extra final blank lines identified by parent before any task check. No runtime/source repair.",
+  "docs_helper_run_order": "Run after wiki rebuild so new static evidence page exists."
+}

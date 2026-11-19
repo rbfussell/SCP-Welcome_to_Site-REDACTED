@@ -1,0 +1,66 @@
+[
+  {
+    "name": "installed-wrapper-root",
+    "argv": [
+      "python3",
+      "scripts/manage_game.py",
+      "agents",
+      "readiness"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+    "log_sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+  },
+  {
+    "name": "installed-wrapper-unrelated",
+    "argv": [
+      "python3",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+      "agents",
+      "readiness"
+    ],
+    "cwd": "/tmp",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+    "log_sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+  },
+  {
+    "name": "installed-legacy-board",
+    "argv": [
+      "python3",
+      "scripts/manage_game.py",
+      "status"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+    "log_sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+  },
+  {
+    "name": "direct-agentic-cli",
+    "argv": [
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+      "tools/agentic.py",
+      "readiness"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+    "log_sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+  },
+  {
+    "name": "managed-overlay-check",
+    "argv": [
+      "python3",
+      "tools/configure_project_harness.py",
+      "--root",
+      "..",
+      "--check"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+    "log_sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+  }
+]

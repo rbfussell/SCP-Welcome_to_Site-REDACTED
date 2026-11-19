@@ -1,0 +1,64 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "DOC-10",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "a9630a71a60d92758e3a91598559e5d5a86a0cde96d67f69aa55608e5458bc88",
+  "assigned_scope": "Publish the independent reviewed process outcome last without changing reviewed game source/wiki or promoting blocked task/import acceptance.",
+  "work_performed": "Read applicable rules, actual wiki contract, Collector package, independent IA audit and blocked task completion review; rechecked referenced bytes; prepared the rejected process outcome and preserved verified correction, outstanding finding and interrupted history.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.003/DOC-10/report.md",
+      "sha256": "2fe713bec68b650f80b3ad0d39407534128fba18368e185859df7b9a89090ab6"
+    },
+    {
+      "path": "management/agentic/work/turn.003/DOC-10/verification.json",
+      "sha256": "b5ac5a461101ce6c424c5ade59f27ffb6eda3390c43ceabd985542493086432e"
+    },
+    {
+      "path": "management/agentic/work/turn.003/DOC-10/publish-input.json",
+      "sha256": "3d0d019a6cc871a600e9b12fef762d49b6385ea32ed284e98ea58be9ceedb5be"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/work/turn.003/IA-11/audit.json",
+      "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+    },
+    {
+      "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+      "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+    },
+    {
+      "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+      "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+    },
+    {
+      "path": "management/agentic/work/turn.003/EVC-28/report.md",
+      "sha256": "bb1c8e8ee92dd2a204b6838ce85982fb6b5fc11047bfba0a4b3a486b56e0be8d"
+    }
+  ],
+  "tests": [
+    {
+      "command": "DOC read-only verification of audit, blocked task review and Collector package reference assertions",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.003/DOC-10/verification.json",
+          "sha256": "b5ac5a461101ce6c424c5ade59f27ffb6eda3390c43ceabd985542493086432e"
+        }
+      ]
+    },
+    {
+      "command": "No product tests or source/wiki build run after independent IA by DOC",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "limitations": [
+    "IA-003-001 remains confirmed; task/import acceptance and production readiness remain blocked.",
+    "IA-002-001 is independently resolved in the audit; formal case settlement is deferred and publication resolutions are empty.",
+    "No post-review source/wiki repair, new worker or task completion is authorized within this rejected turn.",
+    "Worker identity authentication, resident host hot reload, gameplay/M0 and exhaustive future resolution qualification are not established."
+  ],
+  "handoff_status": "COMPLETE"
+}

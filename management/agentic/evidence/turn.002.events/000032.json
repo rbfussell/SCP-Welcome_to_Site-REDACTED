@@ -1,0 +1,11 @@
+{
+  "sequence": 32,
+  "timestamp": "2026-11-11T16:42:03.757967+00:00",
+  "kind": "FAILED",
+  "data": {
+    "agent_id": "DOC-10",
+    "reason": "Actual /root/doc_setup_rejected host worker failed before any output with usage-limit error. No DOC handoff or process publication occurred; preserve independent IA rejection and case IA-002-001, then continue in a newly authorized setup/correction turn."
+  },
+  "previous_hash": "39906a604e5fac3de6f9ad279d9e95e0e983e124805373b4b589d443cfed350b",
+  "hash": "e3368bdb454cf14efcf0ea7eac99feeda33f4c54ac99d29ef08b34c465a8ee0c"
+}

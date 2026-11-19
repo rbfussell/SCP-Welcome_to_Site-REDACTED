@@ -1,0 +1,11 @@
+{
+  "retrieved_utc": "2026-11-11",
+  "source": "https://learn.chatgpt.com/docs/extend/mcp?surface=cli",
+  "retrieval": "Official OpenAI web tool search/open/find during setup; developer docs redirected to ChatGPT Learn.",
+  "observations": [
+    "Project-scoped .codex/config.toml is supported in trusted projects.",
+    "STDIO server entries use command, optional args and cwd.",
+    "Desktop configuration needs saving and server restart; a configuration file is not a live-tool receipt."
+  ],
+  "scope": "Configuration verification only; not product or SCP canon research and not proof of host connection."
+}

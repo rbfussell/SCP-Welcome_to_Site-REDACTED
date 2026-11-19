@@ -1,0 +1,107 @@
+{
+  "entities": [
+    {
+      "entity_id": "project.import",
+      "value": {
+        "import_hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1"
+      },
+      "evidence": [
+        {
+          "path": "management/agentic/imported-project.json",
+          "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/audit.json",
+          "sha256": "55fd0be26681e157015828fed42aa69635f594ee490452779661a211ae4aec5a"
+        }
+      ]
+    },
+    {
+      "entity_id": "task.agentic-loop-setup",
+      "value": {
+        "task_id": "agentic-loop-setup",
+        "status": "ACCEPTED"
+      },
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.006/IA-11/audit.json",
+          "sha256": "55fd0be26681e157015828fed42aa69635f594ee490452779661a211ae4aec5a"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/handoff.json",
+          "sha256": "f530b6480774457dc9b25fa23aab784c7cd7ec7aaad422d4dfbb65c9de6663d8"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/software-completion-review.json",
+          "sha256": "a9ad7f0fc7b3bfbcfa03257259e70b07cacb89e83dbb4b6a7284f4c5528d3f74"
+        },
+        {
+          "path": "management/agentic/work/turn.006/DOC-10/report.md",
+          "sha256": "b4a8ed29d98bb3d63d8e7b3440533a65a48586e6215078cf5863aafe2205cfdf"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "case_id": "IA-002-001",
+      "ia_confirmed": true,
+      "evidence": [
+        {
+          "path": "management/harness/manage_game.py",
+          "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+        },
+        {
+          "path": "management/agentic/work/turn.006/SWE-13/wrapper-byte-verification.json",
+          "sha256": "06b767e325c59eab39395d6b8bc804f48e24f60c2a68361b5831838a214c10a2"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+          "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+          "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+          "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+          "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+        }
+      ]
+    },
+    {
+      "case_id": "IA-003-001",
+      "ia_confirmed": true,
+      "evidence": [
+        {
+          "path": "source_material/game-wiki/llms.txt",
+          "sha256": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e"
+        },
+        {
+          "path": "docs/58-software-project-management.md",
+          "sha256": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4"
+        },
+        {
+          "path": "source_material/game-wiki/content/agentic-loop.md",
+          "sha256": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a"
+        },
+        {
+          "path": "management/agentic/bootstrap/host-connection-observed.json",
+          "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/semantic-inspection.log",
+          "sha256": "9ee5ea835f8ff971ad348c948421d19e547bf176447f1760c2bd877801edef68"
+        },
+        {
+          "path": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+          "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1"
+        }
+      ]
+    }
+  ]
+}

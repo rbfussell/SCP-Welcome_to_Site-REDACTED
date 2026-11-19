@@ -1,0 +1,19 @@
+{
+  "turn_id": "turn.003",
+  "entities": [
+    {
+      "entity_id": "setup.agentic-loop",
+      "value": {
+        "status": "REJECTED",
+        "new_case": "IA-003-001",
+        "software_correction_verified": true,
+        "task_completion": "BLOCKED pending documentation correction"
+      },
+      "evidence": [
+        "management/agentic/work/turn.003/IA-11/audit.json",
+        "management/agentic/work/turn.003/DOC-10/report.md"
+      ]
+    }
+  ],
+  "resolutions": []
+}

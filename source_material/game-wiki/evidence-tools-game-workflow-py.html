@@ -1,0 +1,233 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/game_workflow.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>game_workflow.py</h1><pre>&quot;&quot;&quot;Game policy over the genuine copied harness. Process publications are not the game wiki.
+
+This layer cannot start host agents or authenticate receipts. Authorize before asking
+an independent host worker to run, then record the actual external receipt.
+&quot;&quot;&quot;
+import copy
+import hashlib
+import importlib.util
+from pathlib import Path
+import re
+import sys
+
+RUNTIME = Path(__file__).resolve().parents[1] / &#x27;management/harness/runtime&#x27;
+sys.path.insert(0, str(RUNTIME))
+from workflow import Workflow, require, substantive, digest, now
+from preflight import TERMINAL
+
+MANDATORY = {&#x27;ENG-00&#x27;, &#x27;EVC-28&#x27;, &#x27;IA-11&#x27;, &#x27;DOC-10&#x27;, &#x27;WIK-30&#x27;}
+IMPORT_PATH = &#x27;management/agentic/imported-project.json&#x27;
+
+
+class GameWorkflow(Workflow):
+    def __init__(self, root=None):
+        super().__init__(root or Path(__file__).resolve().parents[1])
+
+    def path(self, value):
+        value = str(value)
+        for prefix, target in {
+            &#x27;.harness&#x27;: &#x27;management/agentic/state&#x27;,
+            &#x27;evidence&#x27;: &#x27;management/agentic/evidence&#x27;,
+            &#x27;wiki&#x27;: &#x27;management/agentic/publications&#x27;,
+            &#x27;work&#x27;: &#x27;management/agentic/work&#x27;,
+            &#x27;config&#x27;: &#x27;management/harness/runtime/config&#x27;,
+            &#x27;schemas&#x27;: &#x27;management/harness/runtime/schemas&#x27;,
+        }.items():
+            if value == prefix or value.startswith(prefix + &#x27;/&#x27;):
+                value = target + value[len(prefix):]
+                break
+        return super().path(value)
+
+    def validate_agent(self, agent):
+        # Registry revisions repeat unchanged definitions. Validate each exact value once
+        # per process; changed content always has a different digest and is revalidated.
+        key = digest(agent)
+        cache = getattr(self, &#x27;_validated_game_agents&#x27;, set())
+        if key not in cache:
+            super().validate_agent(agent)
+            cache.add(key)
+            self._validated_game_agents = cache
+        return agent
+
+    def initialize(self):
+        self.path(&#x27;.harness&#x27;).mkdir(parents=True, exist_ok=True)
+        initial = super().initialize()
+        if getattr(self, &#x27;_registering_game_roles&#x27;, False):
+            return initial
+        self._registering_game_roles = True
+        try:
+            roles_path = self.path(&#x27;config/game_roles.json&#x27;)
+            require(roles_path.is_file(), &#x27;Missing versioned software/Wiki role definitions&#x27;)
+            for role in self.read(roles_path)[&#x27;agents&#x27;]:
+                if role[&#x27;agent_id&#x27;] not in {a[&#x27;agent_id&#x27;] for a in self.registry()[&#x27;agents&#x27;]}:
+                    self.register(role, reason=f&quot;Register game software profile role {role[&#x27;agent_id&#x27;]}&quot;)
+            return self.registry()
+        finally:
+            self._registering_game_roles = False
+
+    def inventory(self):
+        return {&#x27;registry&#x27;: self.registry(), &#x27;defaults&#x27;: self.defaults(),
+                &#x27;readiness&#x27;: self.readiness(), &#x27;preflight&#x27;: self.preflight_status(),
+                &#x27;host_connection&#x27;: &#x27;NOT_OBSERVED_BY_THIS_LOCAL_RUNTIME&#x27;}
+
+    def status(self, turn_id=None):
+        if turn_id:
+            return self.turn(turn_id)
+        turns = sorted(self.path(&#x27;evidence&#x27;).glob(&#x27;turn.*.json&#x27;))
+        return {&#x27;current_turn&#x27;: self.turn(turns[-1].stem) if turns else None,
+                &#x27;preflight&#x27;: self.preflight_status(), &#x27;readiness&#x27;: self.readiness()}
+
+    def plan(self, turn_id):
+        &quot;&quot;&quot;All YES initially. A draft cannot select until individual reasons/prompts are filled.&quot;&quot;&quot;
+        turn = self.turn(turn_id)
+        require(turn[&#x27;state&#x27;] == &#x27;AGENT_SELECTION&#x27;, &#x27;Planning requires the selection phase&#x27;)
+        return {a[&#x27;agent_id&#x27;]: {&#x27;selected&#x27;: True, &#x27;reason&#x27;: &#x27;&#x27;, &#x27;prompt&#x27;: &#x27;&#x27;, &#x27;dependencies&#x27;: []}
+                for a in turn[&#x27;registry&#x27;][&#x27;agents&#x27;]}
+
+    def create_import(self, value):
+        &quot;&quot;&quot;Record genuine existing decisions; review/publication must still accept this import.&quot;&quot;&quot;
+        require(not self.path(IMPORT_PATH).exists(), &#x27;Existing-project import is immutable&#x27;)
+        require(re.fullmatch(r&#x27;[a-f0-9]{7,40}&#x27;, value.get(&#x27;baseline_commit&#x27;, &#x27;&#x27;)) is not None,
+                &#x27;Import needs a real baseline commit identifier&#x27;)
+        require(substantive(value.get(&#x27;scope&#x27;), 30), &#x27;Define the imported scope and its limits&#x27;)
+        require(value.get(&#x27;historical_sources&#x27;) and value.get(&#x27;authorization_evidence&#x27;),
+                &#x27;Import requires historical sources and actual user authorization evidence&#x27;)
+        record = {&#x27;schema_version&#x27;: 1, &#x27;baseline_commit&#x27;: value[&#x27;baseline_commit&#x27;],
+                  &#x27;scope&#x27;: value[&#x27;scope&#x27;], &#x27;timestamp&#x27;: now(),
+                  &#x27;historical_sources&#x27;: self.references(value[&#x27;historical_sources&#x27;]),
+                  &#x27;authorization_evidence&#x27;: self.references(value[&#x27;authorization_evidence&#x27;]),
+                  &#x27;status&#x27;: &#x27;IMPORTED_HISTORY_NOT_NEW_QUALIFICATION&#x27;}
+        record[&#x27;hash&#x27;] = digest(record)
+        with self.locked():
+            self.create(IMPORT_PATH, record)
+        return record
+
+    def import_record(self):
+        if not self.path(IMPORT_PATH).exists():
+            return None
+        record = self.read(IMPORT_PATH)
+        require(record.get(&#x27;hash&#x27;) == digest({k: v for k, v in record.items() if k != &#x27;hash&#x27;}),
+                &#x27;Existing-project import hash mismatch&#x27;)
+        self.references(record[&#x27;historical_sources&#x27;])
+        self.references(record[&#x27;authorization_evidence&#x27;])
+        return record
+
+    def preflight_status(self):
+        status = super().preflight_status()
+        record = self.import_record()
+        accepted = bool(record and any(
+            row[&#x27;accepted&#x27;] and row[&#x27;doc&#x27;].get(&#x27;setup_ready&#x27;) and any(
+                entity[&#x27;entity_id&#x27;] == &#x27;project.import&#x27; and isinstance(entity.get(&#x27;value&#x27;), dict)
+                and entity[&#x27;value&#x27;].get(&#x27;import_hash&#x27;) == record[&#x27;hash&#x27;]
+                for entity in row[&#x27;doc&#x27;][&#x27;entities&#x27;])
+            for row in self.history()))
+        status[&#x27;imported_history_accepted&#x27;] = accepted
+        status[&#x27;import_basis&#x27;] = {&#x27;path&#x27;: IMPORT_PATH, &#x27;hash&#x27;: record[&#x27;hash&#x27;],
+                                  &#x27;status&#x27;: record[&#x27;status&#x27;]} if record else None
+        if accepted:
+            if status[&#x27;open_ia_cases&#x27;]:
+                status[&#x27;next_kind&#x27;] = &#x27;reconcile&#x27;
+            elif status[&#x27;pending_research&#x27;]:
+                status[&#x27;next_kind&#x27;] = &#x27;research&#x27;
+            elif status[&#x27;unanswered_questions&#x27;]:
+                status[&#x27;next_kind&#x27;] = &#x27;reconcile&#x27;
+            else:
+                status[&#x27;next_kind&#x27;] = &#x27;work&#x27;
+            status[&#x27;production_allowed&#x27;] = status[&#x27;next_kind&#x27;] == &#x27;work&#x27;
+        return status
+
+    def initial_prerequisites_ready(self):
+        status = self.preflight_status()
+        return status[&#x27;initial_research_complete&#x27;] or status[&#x27;imported_history_accepted&#x27;]
+
+    def readiness(self, agent_ids=None):
+        # Actual CLI execution and host workers are independent of MCP transport loading.
+        ids = set(agent_ids or [a[&#x27;agent_id&#x27;] for a in self.registry()[&#x27;agents&#x27;]])
+        known = {a[&#x27;agent_id&#x27;] for a in self.registry()[&#x27;agents&#x27;]}
+        checks = {&#x27;jsonschema&#x27;: importlib.util.find_spec(&#x27;jsonschema&#x27;) is not None,
+                  &#x27;runtime_config&#x27;: self.path(&#x27;config/agents.json&#x27;).is_file(),
+                  &#x27;requested_roles_registered&#x27;: ids &lt;= known}
+        return {&#x27;status&#x27;: &#x27;READY&#x27; if all(checks.values()) else &#x27;BLOCKED&#x27;,
+                &#x27;execution&#x27;: &#x27;CLI_WITH_EXTERNAL_HOST_WORKERS&#x27;, &#x27;checks&#x27;: checks,
+                &#x27;stdio_mcp_dependency&#x27;: importlib.util.find_spec(&#x27;mcp&#x27;) is not None,
+                &#x27;host_mcp_connection&#x27;: &#x27;NOT_OBSERVED&#x27;,
+                &#x27;limitations&#x27;: [&#x27;Host worker availability and receipt authenticity require external review.&#x27;,
+                                &#x27;A local protocol probe does not establish Codex host registration.&#x27;]}
+
+    def select(self, turn_id, selection):
+        # The parent enforces exact key coverage, unique substantive exclusions and DAGs.
+        turn = self.turn(turn_id)
+        require(MANDATORY &lt;= set(selection), &#x27;Coordinator, Collector, independent IA, Document Chief and WIK-30 required&#x27;)
+        for aid in MANDATORY:
+            require(selection[aid].get(&#x27;selected&#x27;) is True, f&#x27;{aid} is mandatory for the game agentic loop&#x27;)
+        require(&#x27;WIK-30&#x27; in {a[&#x27;agent_id&#x27;] for a in turn[&#x27;registry&#x27;][&#x27;agents&#x27;]}, &#x27;Register actual game wiki maintainer WIK-30 first&#x27;)
+        # Wiki must see every selected execution specialist before finalizing the knowledge base.
+        specialists = {a[&#x27;agent_id&#x27;] for a in turn[&#x27;registry&#x27;][&#x27;agents&#x27;]
+                       if a[&#x27;phase&#x27;] not in (&#x27;collection&#x27;, &#x27;audit&#x27;, &#x27;documentation&#x27;)
+                       and a[&#x27;agent_id&#x27;] != &#x27;WIK-30&#x27; and selection.get(a[&#x27;agent_id&#x27;], {}).get(&#x27;selected&#x27;)}
+        require(specialists &lt;= set(selection[&#x27;WIK-30&#x27;].get(&#x27;dependencies&#x27;, [])),
+                &#x27;WIK-30 must depend on every selected execution role&#x27;)
+        return super().select(turn_id, selection)
+
+    def _check_dispatch(self, turn, agent_id, prompt):
+        selected = super()._check_dispatch(turn, agent_id, prompt)
+        role = next(a for a in turn[&#x27;registry&#x27;][&#x27;agents&#x27;] if a[&#x27;agent_id&#x27;] == agent_id)
+        if role[&#x27;phase&#x27;] not in (&#x27;collection&#x27;, &#x27;audit&#x27;, &#x27;documentation&#x27;) and agent_id != &#x27;WIK-30&#x27;:
+            require(&#x27;WIK-30&#x27; not in turn[&#x27;invocations&#x27;], &#x27;Game source work is frozen once Wiki starts&#x27;)
+        return selected
+
+    def invoke(self, turn_id, agent_id, prompt, receipt, backend, authorization=None):
+        # Receipts are externally supplied evidence, not proof generated by this process.
+        # Never accept the same host worker as different registered roles in one turn.
+        turn = self.turn(turn_id)
+        require(receipt not in {v[&#x27;receipt&#x27;] for v in turn[&#x27;invocations&#x27;].values()},
+                &#x27;Each role requires a distinct actual host worker/session receipt&#x27;)
+        return super().invoke(turn_id, agent_id, prompt, receipt, backend, authorization)
+
+    def build_evidence_package(self, turn_id):
+        result = super().build_evidence_package(turn_id)
+        result[&#x27;path&#x27;] = str(self.path(result[&#x27;path&#x27;]).relative_to(self.root))
+        return result
+
+    def handoff(self, turn_id, value):
+        if value.get(&#x27;agent_id&#x27;) == &#x27;EVC-28&#x27; and value.get(&#x27;collection&#x27;, {}).get(&#x27;package_path&#x27;):
+            value = {**value, &#x27;collection&#x27;: {**value[&#x27;collection&#x27;], &#x27;package_path&#x27;:
+                str(self.path(value[&#x27;collection&#x27;][&#x27;package_path&#x27;]).relative_to(self.root))}}
+        if value.get(&#x27;agent_id&#x27;) == &#x27;WIK-30&#x27; and value.get(&#x27;handoff_status&#x27;) == &#x27;COMPLETE&#x27;:
+            wiki = value.get(&#x27;game_wiki&#x27;, {})
+            require(wiki.get(&#x27;semantic_review&#x27;) is True, &#x27;Wiki handoff needs semantic review&#x27;)
+            require(isinstance(wiki.get(&#x27;pages&#x27;), list) and wiki[&#x27;pages&#x27;], &#x27;Wiki handoff lists affected authored pages&#x27;)
+            for path in wiki[&#x27;pages&#x27;]:
+                require(self.path(path).is_relative_to(self.path(&#x27;source_material/game-wiki/content&#x27;))
+                        and self.path(path).is_file() and self.path(path).suffix == &#x27;.md&#x27;,
+                        &#x27;WIK-30 must identify existing authored game-wiki Markdown pages&#x27;)
+            refs = self.references(wiki.get(&#x27;evidence&#x27;, []))
+            require(refs, &#x27;Wiki handoff needs real build/check evidence&#x27;)
+            value = {**value, &#x27;game_wiki&#x27;: {**wiki, &#x27;evidence&#x27;: refs}}
+            tests = value.get(&#x27;tests&#x27;, [])
+            require(any(t.get(&#x27;status&#x27;) == &#x27;PASS&#x27; and &#x27;build_game_wiki.py&#x27; in t.get(&#x27;command&#x27;, &#x27;&#x27;)
+                        and &#x27;--check&#x27; not in t.get(&#x27;command&#x27;, &#x27;&#x27;) for t in tests), &#x27;Wiki rebuild PASS evidence required&#x27;)
+            require(any(t.get(&#x27;status&#x27;) == &#x27;PASS&#x27; and &#x27;build_game_wiki.py&#x27; in t.get(&#x27;command&#x27;, &#x27;&#x27;)
+                        and &#x27;--check&#x27; in t.get(&#x27;command&#x27;, &#x27;&#x27;) for t in tests), &#x27;Wiki freshness PASS evidence required&#x27;)
+        return super().handoff(turn_id, value)
+
+    def advance(self, turn_id, next_state):
+        if next_state == &#x27;HANDOFF_COLLECTION&#x27;:
+            turn = self.turn(turn_id)
+            require(&#x27;WIK-30&#x27; in turn[&#x27;handoffs&#x27;] or &#x27;WIK-30&#x27; in turn[&#x27;failures&#x27;],
+                    &#x27;Actual Wiki invocation must report before evidence collection (failures remain visible)&#x27;)
+        return super().advance(turn_id, next_state)
+
+    def publish(self, turn_id, entities, resolutions=None):
+        turn = self.turn(turn_id)
+        imports = [e for e in entities if e.get(&#x27;entity_id&#x27;) == &#x27;project.import&#x27;]
+        if imports:
+            record = self.import_record()
+            require(record and turn[&#x27;assessment&#x27;][&#x27;kind&#x27;] == &#x27;setup&#x27;, &#x27;Imported history is reviewed in setup&#x27;)
+            require(all(e.get(&#x27;value&#x27;, {}).get(&#x27;import_hash&#x27;) == record[&#x27;hash&#x27;] for e in imports),
+                    &#x27;Publication must identify the exact reviewed existing-project import&#x27;)
+            expected = self.path(IMPORT_PATH)
+            require(all(any(self.path(r[&#x27;path&#x27;] if isinstance(r, dict) else r) == expected
+                            for r in e.get(&#x27;evidence&#x27;, [])) for e in imports), &#x27;Import publication needs record evidence&#x27;)
+        return super().publish(turn_id, entities, resolutions)
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

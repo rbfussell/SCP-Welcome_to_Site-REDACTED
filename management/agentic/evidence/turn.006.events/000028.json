@@ -1,0 +1,15 @@
+{
+  "sequence": 28,
+  "timestamp": "2026-11-19T17:13:53.721518+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "DOC-10",
+    "prompt_hash": "b6ea26060b98ac870e2532fbc8cbb67b5cb651838e74c5a462af5a246b24a338",
+    "receipt": "/root/doc006",
+    "backend": "codex-collaboration",
+    "authorization_id": "8f1030d01d35414d91e87137bb623265",
+    "owned_directory": "work/turn.006/DOC-10"
+  },
+  "previous_hash": "b40efa39d818af312f1dc2ad707d292f2ba31f5d956e6121e459712e117e600e",
+  "hash": "9627734e8782aeece363651b7c767e47c11058eda9d295783f324df9d41464ee"
+}

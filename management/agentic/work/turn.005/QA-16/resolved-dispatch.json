@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "role": "QA-16",
+  "task": "agentic-loop-setup",
+  "work_class": "complex_review",
+  "selection_source": "work_class_override",
+  "reason": null,
+  "policy_sha256": "7144b3ab08d96470f5ca893185345520f081c3b1c9adc5673cc51bce63b38c6e",
+  "requested": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium"
+  },
+  "spawn_parameters": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "fork_turns": "none"
+  },
+  "dispatch_mechanism": "explicit_host_overrides",
+  "effective": {
+    "model": null,
+    "reasoning_effort": null
+  },
+  "effective_status": "NOT_EXPOSED",
+  "host_receipt": "/root/qa_policy005",
+  "host_reported": {},
+  "authentication": "External evidence assertion; not authenticated by this helper"
+}

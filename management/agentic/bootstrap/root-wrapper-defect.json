@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "scripts/manage_game.py",
+    "agents",
+    "readiness"
+  ],
+  "cwd": "outer workspace root",
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py\", line 17, in <module>\n    runpy.run_path(str(project / 'tools' / script), run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 294, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/agentic.py\", line 8, in <module>\n    from game_workflow import GameWorkflow\nModuleNotFoundError: No module named 'game_workflow'\n",
+  "observed_by": "WIK-30 and parent reproduction",
+  "status": "OPEN_REVIEW_FINDING",
+  "source_freeze": "No source repair is made after Wiki starts; IA will disposition the finding and a corrective turn will fix it.",
+  "proposed_responsible_role": "SWE-13"
+}

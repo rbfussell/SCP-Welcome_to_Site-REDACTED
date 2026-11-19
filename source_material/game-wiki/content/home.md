@@ -50,3 +50,5 @@ Use the search field to find pages by designation, system, function, or source p
 [Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.
 
 [Software project management](project-management.html) explains the active slice board, evidence, review and outer workspace/game-root boundaries. [Development consistency](development.html) remains mandatory.
+
+[Agentic development loop](agentic-loop.html): real software/game specialists, individual unused-role negations, actual wiki ownership, evidence collection and independent review. Current setup limits remain explicit.

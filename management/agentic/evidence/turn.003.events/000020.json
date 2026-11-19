@@ -1,0 +1,10 @@
+{
+  "sequence": 20,
+  "timestamp": "2026-11-11T17:11:14.163387+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "HANDOFF_COLLECTION"
+  },
+  "previous_hash": "e52332bd410c6bb105bbcd56776606603c6c660e47bf871f8299546a0eb5b729",
+  "hash": "152fee70521e9f8d904f218ae2ca1c2515c38a151aed0f1e5e30d2ae0fcda56b"
+}

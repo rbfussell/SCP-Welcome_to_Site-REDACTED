@@ -1,0 +1,10 @@
+{
+  "sequence": 33,
+  "timestamp": "2026-11-11T17:26:16.482917+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "TURN_CLOSED"
+  },
+  "previous_hash": "e789fb293a50a6d12d26209d209f44ab1057edac74847c9bd58de83f67af0db7",
+  "hash": "3d164c3d719cfd453e151bd9baac51e2d17dcec11a8db32f09d1b69cb5f73c67"
+}

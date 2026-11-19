@@ -1,0 +1,55 @@
+{
+  "turn_id": "turn.002",
+  "value": {
+    "turn_id": "turn.002",
+    "agent_id": "QA-16",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+    "assigned_scope": "Independent policy/negative-case and actual local MCP protocol verification; no game production or canonical documentation edits.",
+    "work_performed": "Added 29 isolated game-agentic regression tests; independently ran those with six client setup and 13 legacy adapter tests (48 PASS), probed real stdio MCP, preserved adverse provisional logs and final source hashes, and reported implementation defects for SWE correction.",
+    "artifacts": [
+      "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+      "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+      "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+      "management/agentic/work/turn.002/QA-16/report.md",
+      "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json"
+    ],
+    "tests": [
+      {
+        "command": "python3 -m unittest discover -s tests -p 'test_agentic*.py' -v",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/QA-16/agentic-tests.log"
+        ]
+      },
+      {
+        "command": "python3 -m unittest discover -s tests -p test_project_management.py -v",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python tools/check_agentic_mcp.py",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/QA-16/mcp-protocol.log"
+        ]
+      }
+    ],
+    "evidence": [
+      "tests/test_agentic_workflow.py",
+      "tests/test_agentic_client_setup.py",
+      "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json"
+    ],
+    "limitations": [
+      "Local stdio protocol probe is real but Codex host registration remains CONFIGURED_UNVERIFIED; host_tool_observed=false.",
+      "Fixture receipts are synthetic policy tests, never production dispatch evidence; runtime cannot authenticate arbitrary host receipt strings.",
+      "No gameplay milestone, exhaustive later research-resolution cycle, or final wiki consistency gate is certified; WIK/Collector/independent IA/DOC remain responsible."
+    ],
+    "handoff_status": "COMPLETE"
+  }
+}

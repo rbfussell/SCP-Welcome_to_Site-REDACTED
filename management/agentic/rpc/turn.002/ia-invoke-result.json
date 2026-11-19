@@ -1,0 +1,8 @@
+{
+  "agent_id": "IA-11",
+  "prompt_hash": "66be29b856eb4dbae72c2137aee89ec2288b22606d13b11a44d6c549c6733304",
+  "receipt": "/root/ia_setup_review",
+  "backend": "codex-collaboration",
+  "authorization_id": "86b4ac8a770d4acc8b5a7ef97094c04b",
+  "owned_directory": "work/turn.002/IA-11"
+}

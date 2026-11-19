@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_agentic_entrypoints.py",
+    "-v"
+  ],
+  "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "exit_code": 0,
+  "scope": "Real local stdio MCP in isolated synthetic fixture; corrected source.",
+  "log": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log"
+}

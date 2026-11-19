@@ -1,0 +1,71 @@
+{
+  "turn_id": "turn.006",
+  "agent_id": "DOC-10",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "b6ea26060b98ac870e2532fbc8cbb67b5cb651838e74c5a462af5a246b24a338",
+  "handoff_status": "COMPLETE",
+  "assigned_scope": "Prepare the ordered setup publication from the accepted independent audit and immutable historical import.",
+  "work_performed": "Verified audit evidence hashes, matched the frozen prompt and recorded dispatch, and prepared the setup binding, exact historical import and two independently verified resolutions for runtime publication.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.006/DOC-10/report.md",
+      "sha256": "b4a8ed29d98bb3d63d8e7b3440533a65a48586e6215078cf5863aafe2205cfdf"
+    },
+    {
+      "path": "management/agentic/work/turn.006/DOC-10/publication-args.json",
+      "sha256": "e5953326bccdc3d2b4c72a830e448bec09033b50f30d5dd7d08dd7ad42d6ebcf"
+    },
+    {
+      "path": "management/agentic/work/turn.006/DOC-10/dispatch.json",
+      "sha256": "073a21a641368d42debefdd61efd703ae768684449ed99fde57dd3da1446dca0"
+    },
+    {
+      "path": "management/agentic/work/turn.006/DOC-10/resolved-dispatch.json",
+      "sha256": "3dd9c9895dd6a9cb222e8949b530d2ba1e5321f95b0b1fc0a3cedb6c71feac9e"
+    }
+  ],
+  "tests": [
+    {
+      "status": "NOT_RUN",
+      "command": "Document Chief reviewed recorded evidence and prepared publication. The source and Wiki owners ran the applicable checks.",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.006/SWE-13/policy-tests.log",
+          "sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/handoff.json",
+          "sha256": "f530b6480774457dc9b25fa23aab784c7cd7ec7aaad422d4dfbb65c9de6663d8"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/work/turn.006/IA-11/audit.json",
+      "sha256": "55fd0be26681e157015828fed42aa69635f594ee490452779661a211ae4aec5a"
+    },
+    {
+      "path": "management/agentic/work/turn.006/IA-11/software-completion-review.json",
+      "sha256": "a9ad7f0fc7b3bfbcfa03257259e70b07cacb89e83dbb4b6a7284f4c5528d3f74"
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+    },
+    {
+      "path": "management/agentic/work/turn.006/WIK-30/handoff.json",
+      "sha256": "f530b6480774457dc9b25fa23aab784c7cd7ec7aaad422d4dfbb65c9de6663d8"
+    },
+    {
+      "path": "management/agentic/work/turn.006/EVC-28/evidence-package.json",
+      "sha256": "c4155c5616bc179cf02bf359d4164ee0f8413f710f9101611564ed95a1154085"
+    }
+  ],
+  "limitations": [
+    "Backend model, effort, usage and quota remain unexposed. Resident reload and a corrected resident MCP acknowledgement remain unverified.",
+    "Two excluded-role rationales refer to QA. SWE supplied the tests and IA reviewed them. Vince's Medium setting is a ceiling above the Low default.",
+    "The setup handoff does not itself close the task board or qualify gameplay. Publication and board closure are separate runtime steps."
+  ],
+  "unresolved_questions": []
+}

@@ -1,0 +1,107 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/agentic.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>agentic.py</h1><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;CLI for the genuine game harness. A recorded invocation never spawns a worker.&quot;&quot;&quot;
+import argparse
+import json
+from pathlib import Path
+import sys
+
+from game_workflow import GameWorkflow
+
+ROOT = Path(__file__).resolve().parents[1]
+OPERATIONS = (&#x27;init&#x27;, &#x27;inventory&#x27;, &#x27;status&#x27;, &#x27;begin&#x27;, &#x27;plan&#x27;, &#x27;select&#x27;, &#x27;authorize&#x27;,
+              &#x27;invoke&#x27;, &#x27;handoff&#x27;, &#x27;advance&#x27;, &#x27;collect&#x27;, &#x27;audit&#x27;, &#x27;publish&#x27;, &#x27;interrupt&#x27;,
+              &#x27;import&#x27;, &#x27;register&#x27;, &#x27;question&#x27;, &#x27;answer&#x27;, &#x27;request-research&#x27;,
+              &#x27;respond-research&#x27;, &#x27;failed&#x27;, &#x27;readiness&#x27;)
+
+
+def execute(operation, arguments=None, root=ROOT):
+    &quot;&quot;&quot;Shared dispatch table used by CLI and MCP; all mutations use the real runtime.&quot;&quot;&quot;
+    args = dict(arguments or {})
+    workflow = GameWorkflow(root)
+    if operation == &#x27;init&#x27;:
+        return workflow.initialize()
+    if operation == &#x27;inventory&#x27;:
+        return workflow.inventory()
+    if operation == &#x27;status&#x27;:
+        return workflow.status(**args)
+    if operation == &#x27;begin&#x27;:
+        return workflow.begin(args[&#x27;assessment&#x27;])
+    if operation == &#x27;plan&#x27;:
+        return workflow.plan(**args)
+    if operation == &#x27;select&#x27;:
+        return workflow.select(**args)
+    if operation == &#x27;authorize&#x27;:
+        return workflow.authorize_dispatch(**args)
+    if operation == &#x27;invoke&#x27;:
+        return workflow.invoke(**args)
+    if operation == &#x27;handoff&#x27;:
+        return workflow.handoff(args[&#x27;turn_id&#x27;], args[&#x27;value&#x27;])
+    if operation == &#x27;advance&#x27;:
+        return workflow.advance(**args)
+    if operation == &#x27;collect&#x27;:
+        return workflow.build_evidence_package(**args)
+    if operation == &#x27;audit&#x27;:
+        return workflow.audit(**args)
+    if operation == &#x27;publish&#x27;:
+        return workflow.publish(**args)
+    if operation == &#x27;interrupt&#x27;:
+        return workflow.interrupt(**args)
+    if operation == &#x27;import&#x27;:
+        return workflow.create_import(args[&#x27;value&#x27;])
+    if operation == &#x27;register&#x27;:
+        return workflow.register(**args)
+    if operation == &#x27;question&#x27;:
+        return workflow.ask_question(**args)
+    if operation == &#x27;answer&#x27;:
+        return workflow.answer_question(**args)
+    if operation == &#x27;request-research&#x27;:
+        return workflow.request_research(**args)
+    if operation == &#x27;respond-research&#x27;:
+        return workflow.respond_research(**args)
+    if operation == &#x27;failed&#x27;:
+        workflow.failed(**args)
+        # The runtime appends the failure and returns None. Acknowledge only after
+        # that succeeds so CLI and MCP share a dictionary result and keep errors.
+        return {**args, &#x27;status&#x27;: &#x27;FAILED&#x27;, &#x27;recorded&#x27;: True}
+    if operation == &#x27;readiness&#x27;:
+        return workflow.readiness(**args)
+    raise ValueError(f&#x27;Unknown harness operation: {operation}&#x27;)
+
+
+def unique_keys(pairs):
+    value = {}
+    for key, item in pairs:
+        if key in value:
+            raise ValueError(f&#x27;Duplicate JSON key: {key}&#x27;)
+        value[key] = item
+    return value
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(&#x27;--root&#x27;, type=Path, default=ROOT)
+    parser.add_argument(&#x27;operation&#x27;, choices=OPERATIONS)
+    parser.add_argument(&#x27;--input&#x27;, type=Path, help=&#x27;JSON object of named runtime arguments; exact prompts stay in files&#x27;)
+    parser.add_argument(&#x27;--output&#x27;, type=Path, help=&#x27;Save JSON result instead of printing it&#x27;)
+    args = parser.parse_args()
+    try:
+        arguments = json.loads(args.input.read_text(), object_pairs_hook=unique_keys) if args.input else {}
+        if not isinstance(arguments, dict):
+            raise ValueError(&#x27;Input must be a JSON object of named arguments&#x27;)
+        result = execute(args.operation, arguments, args.root)
+        rendered = json.dumps(result, indent=2, ensure_ascii=False) + &#x27;\n&#x27;
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            with args.output.open(&#x27;x&#x27;) as output:
+                output.write(rendered)
+        else:
+            print(rendered, end=&#x27;&#x27;)
+        return 0
+    except (ValueError, KeyError, TypeError, OSError) as error:
+        print(f&#x27;BLOCKED: {error}&#x27;, file=sys.stderr)
+        return 1
+
+
+if __name__ == &#x27;__main__&#x27;:
+    sys.exit(main())
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

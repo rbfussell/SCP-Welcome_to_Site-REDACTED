@@ -1,0 +1,122 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "SWE-13",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "038fcbd7976a85b7f9139532ff166a2f3510b69752b77a0524a4f29096c25f52",
+  "assigned_scope": "Correct IA-002-001 root-wrapper imports and observed MCP failed-operation acknowledgement; focused tooling/regressions only.",
+  "work_performed": "Preserved pre-fix bytes and red/adverse logs; added game tools import path and reinstalled managed wrapper; returned a structured acknowledgement after the genuine failure append through shared CLI/MCP dispatch. Added five isolated entrypoint regressions, exercised actual fresh-server MCP failure recording and rejected retries, ran 53 distinct harness/adapter tests and installed entrypoint checks. Wrote only assigned source/tests, managed wrapper and owned evidence/report.",
+  "artifacts": [
+    "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+    "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+    "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+    "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+    "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+    "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+    "management/agentic/work/turn.003/SWE-13/before-regression.json",
+    "management/agentic/work/turn.003/SWE-13/before-regression.log",
+    "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+    "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+    "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+    "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+    "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+    "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+    "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+    "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+    "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+    "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+    "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+    "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+    "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+    "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+    "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+    "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+    "management/agentic/work/turn.003/SWE-13/report.md",
+    "management/agentic/work/turn.003/SWE-13/suite-results.json",
+    "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json"
+  ],
+  "tests": [
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (fresh real local stdio server; isolated synthetic fixture)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log"
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (40 tests; real fixture IPC active)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/agentic-suite.log"
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (13 tests)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log"
+      ]
+    },
+    {
+      "command": "python3 scripts/manage_game.py agents readiness from outer workspace root",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log"
+      ]
+    },
+    {
+      "command": "python3 <absolute outer scripts/manage_game.py> agents readiness from /tmp",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log"
+      ]
+    },
+    {
+      "command": "python3 scripts/manage_game.py status from outer workspace root",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log"
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python tools/agentic.py readiness from game root",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log"
+      ]
+    },
+    {
+      "command": "python3 tools/configure_project_harness.py --root .. --check",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log"
+      ]
+    },
+    {
+      "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK after independent QA",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/harness/manage_game.py",
+    "tools/agentic.py",
+    "tests/test_agentic_entrypoints.py",
+    "tools/agentic_mcp.py",
+    "management/harness/runtime/workflow.py",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.002/IA-11/report.md",
+    "management/agentic/bootstrap/host-failed-response-defect.md",
+    "management/agentic/work/turn.003/KRA-14/report.md"
+  ],
+  "limitations": [
+    "Owner verification only; independent QA, real WIK semantic/build/check handoff and EVC/IA/DOC acceptance remain pending. No setup/import/task acceptance is asserted.",
+    "Five focused tests overlap the 40-test suite; totals are 53 distinct tests including 13 legacy adapter tests.",
+    "Actual local MCP test uses a fresh subprocess and patched fixture root; synthetic receipts are never real worker/production review evidence. Resident host processes may retain old imports; no hot-reloaded host acknowledgement is claimed.",
+    "The initial default-sandbox MCP timeout and actual pre-fix wrapper/schema failures remain preserved; fresh real-IPC corrected runs passed with 35-second process-group watchdogs.",
+    "The copied runtime/MCP facade bytes and historical interrupted turns were not edited. No production failed mutation was replayed.",
+    "WIK must refresh actual documentation/temporal/observed-host claims and include the new regression in generator evidence metadata; parent added its declared task input.",
+    "No native gameplay, M0, art, canon, broad research/finding-resolution qualification or milestone acceptance."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

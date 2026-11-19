@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "role": "IA-11",
+  "task": "agentic-loop-setup",
+  "work_class": "complex_review",
+  "selection_source": "role_default",
+  "reason": null,
+  "policy_sha256": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+  "allocation": {
+    "floor": "medium",
+    "default": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "ceilings": {
+      "gpt-6.2-sol": "xhigh",
+      "gpt-6.2-astra": "high"
+    }
+  },
+  "escalated": false,
+  "requested": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium"
+  },
+  "spawn_parameters": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none"
+  },
+  "dispatch_mechanism": "explicit_host_overrides",
+  "effective": {
+    "model": null,
+    "reasoning_effort": null
+  },
+  "effective_status": "NOT_EXPOSED",
+  "host_receipt": "/root/ia006",
+  "host_reported": {},
+  "authentication": "External evidence assertion; not authenticated by this helper",
+  "spawn_arguments_status": "MATCH"
+}

@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "turn_id": "turn.002",
+  "phase": "INTERNAL_AFFAIRS_REVIEW",
+  "registry_count": 23,
+  "selected_count": 8,
+  "dispatch_order_checks": [
+    {
+      "role": "ENG-00",
+      "authorization_sequence": 5,
+      "invoke_sequence": 6,
+      "receipt": "/root/coordinator_setup"
+    },
+    {
+      "role": "KRA-14",
+      "authorization_sequence": 8,
+      "invoke_sequence": 9,
+      "receipt": "/root/architecture_setup"
+    },
+    {
+      "role": "SWE-13",
+      "authorization_sequence": 11,
+      "invoke_sequence": 13,
+      "receipt": "/root/software_harness"
+    },
+    {
+      "role": "QA-16",
+      "authorization_sequence": 12,
+      "invoke_sequence": 14,
+      "receipt": "/root/qa_harness"
+    },
+    {
+      "role": "WIK-30",
+      "authorization_sequence": 17,
+      "invoke_sequence": 18,
+      "receipt": "/root/wiki_agentic_setup"
+    },
+    {
+      "role": "EVC-28",
+      "authorization_sequence": 21,
+      "invoke_sequence": 22,
+      "receipt": "/root/collector_agentic_setup"
+    },
+    {
+      "role": "IA-11",
+      "authorization_sequence": 25,
+      "invoke_sequence": 26,
+      "receipt": "/root/ia_setup_review"
+    }
+  ],
+  "collected_sequence": 22,
+  "current_hash_assertions": 219,
+  "current_reference_mismatches": [],
+  "historical_reading_attestation_differences": [
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "old": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+      "current": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "old": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+      "current": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "old": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+      "current": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "old": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+      "current": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "AGENTS.md",
+      "old": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+      "current": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "kind": "docs_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "old": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+      "current": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "kind": "docs_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    }
+  ],
+  "managed_checks": [
+    "tests",
+    "docs",
+    "wiki-build",
+    "wiki-check"
+  ],
+  "unchanged_declared_inputs": 39,
+  "git_import_comparisons": [
+    {
+      "path": "management/agentic/bootstrap/import-history/README.md",
+      "kind": "local provenance note; hashed separately"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "management/README.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "management/profile.json",
+      "matches_commit": "2a86ca5"
+    }
+  ],
+  "exact_import_hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1",
+  "prior_turn": {
+    "state": "INTERRUPTED",
+    "failures": {
+      "SWE-13": {
+        "agent_id": "SWE-13",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      },
+      "QA-16": {
+        "agent_id": "QA-16",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      }
+    }
+  },
+  "tracked_changed_paths_count": 2267,
+  "native_source_asset_canon_ci_tracked_changes": [],
+  "limitations": [
+    "This verifies actual records, hashes and dependency order; external host spawn authenticity is not cryptographically established.",
+    "No live Codex workflow tool has been observed; actual local MCP protocol results remain separate.",
+    "Focused read-only verification does not qualify gameplay or override the independently reproduced wrapper failure."
+  ]
+}

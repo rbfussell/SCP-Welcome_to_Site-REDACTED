@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "role": "EVC-28",
+  "task": "agentic-loop-setup",
+  "work_class": "evidence",
+  "selection_source": "role_default",
+  "reason": null,
+  "policy_sha256": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+  "allocation": {
+    "floor": "low",
+    "default": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "ceilings": {
+      "gpt-6.2-sol": "medium"
+    }
+  },
+  "escalated": false,
+  "requested": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low"
+  },
+  "spawn_parameters": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low",
+    "fork_turns": "none"
+  },
+  "dispatch_mechanism": "explicit_host_overrides",
+  "effective": {
+    "model": null,
+    "reasoning_effort": null
+  },
+  "effective_status": "NOT_EXPOSED",
+  "host_receipt": "/root/evc006",
+  "host_reported": {},
+  "authentication": "External evidence assertion; not authenticated by this helper",
+  "spawn_arguments_status": "MATCH"
+}

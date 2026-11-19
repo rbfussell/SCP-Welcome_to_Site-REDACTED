@@ -1,0 +1,15 @@
+{
+  "sequence": 12,
+  "timestamp": "2026-11-12T00:21:03.300667+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "SWE-13",
+    "prompt_hash": "07c88a227d6eb71037bbadcd182ccc1ac738a45fb4b9387cf906658484fcf45d",
+    "receipt": "/root/software_policy005",
+    "backend": "codex-collaboration",
+    "authorization_id": "054495d24c0547fb9069d5ca5c54913d",
+    "owned_directory": "work/turn.005/SWE-13"
+  },
+  "previous_hash": "5466f7a4e242c3bdc8af45a96f61dcbe3da9563ee0f948f7c212d0e350558ecc",
+  "hash": "239d535a17061600653fa52713c26672776347b1466d2e1268aadba7defc9c9b"
+}

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/SWE-13/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Implement role-specific GPT-6.2 Sol/Astra floor, default, ceiling in existing model policy/resolver/config installer; hard caps Sol xhigh and Astra high, justified escalation, current CLI compatibility and Light alias. Sol-first, Astra reserved for genuinely hard work. Add appropriate focused tests. Preserve requested/effective distinction. Own policy code/tests and policy README, install actual TOML if authorized. Verify existing IA-002-001 via retained wrapper evidence and byte identity. WIK owns other docs and wiki. Paper is /tmp/scp-harness-research.txt. No orchestration rewrite."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/swe006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

@@ -1,0 +1,37 @@
+{
+  "integrity": "PASS",
+  "references": 497,
+  "checks": [
+    {
+      "label": "initial-default-sandbox-entrypoints",
+      "status": "FAIL",
+      "limitation": "MCP initialization IPC timeout; four other tests passed; original log preserved."
+    },
+    {
+      "label": "approved-real-ipc-entrypoints",
+      "status": "PASS",
+      "distinct_tests": 5
+    },
+    {
+      "label": "outer-agents-root",
+      "status": "PASS"
+    },
+    {
+      "label": "outer-agents-unrelated",
+      "status": "PASS"
+    },
+    {
+      "label": "direct-cli",
+      "status": "PASS"
+    },
+    {
+      "label": "outer-legacy-board",
+      "status": "PASS"
+    },
+    {
+      "label": "wiki-freshness",
+      "status": "PASS"
+    }
+  ],
+  "semantic_consistency": "FAIL"
+}

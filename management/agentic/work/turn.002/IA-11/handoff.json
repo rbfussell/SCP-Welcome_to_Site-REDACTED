@@ -1,0 +1,210 @@
+{
+  "turn_id": "turn.002",
+  "agent_id": "IA-11",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "66be29b856eb4dbae72c2137aee89ec2288b22606d13b11a44d6c549c6733304",
+  "assigned_scope": "Independent post-Collector audit of actual scoped agentic setup, dispatch/evidence/negations, game-wiki agreement, truthful migration and verification limitations; no source repairs.",
+  "work_performed": "Reviewed actual source/prompts/events/handoffs/package/current and historical hashes; reran48 bounded tests plus docs/wiki checks; reproduced known shortcut failure twice; wrote REJECTED audit with independently verified MAJOR SWE-13 case IA-002-001. Preserved own failed initial checker attempt and current source freeze.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.002/IA-11/agentic-tests.log",
+      "sha256": "6835929fdceecdbe075d6504876f5734dc8501578c06a58ce9f36d115c4e3955"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/direct-agent-readiness.log",
+      "sha256": "8df4470906a8c760daf39c25720f2b8d315a2777848d51efa091a12336003756"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/docs-check.log",
+      "sha256": "30445683bea36d3d0cbe0a87f09d8893f981c3d3947babc9f3b8a10c2d478722"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/entrypoints.json",
+      "sha256": "6f5a613fab2647f11c6bf4a08745e8432186f5b1185075c3f7de58f210d61b16"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/independent-verification.json",
+      "sha256": "4125646aab1d4410b51561d8f09b6abd8edca4a5ea68a3453d9129b7f6b8c1c5"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/independent-verification.log",
+      "sha256": "f3a84b12a68f43d4c86c1af5d0f97003aabab4b6e3605af6e85cfdd84de87a54"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/initial-verifier-scope-error.log",
+      "sha256": "699c7a148c55292e2111b8506fc821a07b0acd2a7989bbce63c722864fe3ed23"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/legacy-tests.log",
+      "sha256": "991a774827bbba65bd42927d49ae013ac9ed7e7104846a906302627fee8b3acb"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+      "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+      "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/outer-board.log",
+      "sha256": "67e3f3622ecb2591cd9d685d3ea83d76dcc39aef239e8ad1d01e32a556d07eeb"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/report.md",
+      "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/verify_audit.py",
+      "sha256": "c0e6af55c28b22957fd84c6822e647143abd2d414c634a13c9e422366501a5fc"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/wiki-check.log",
+      "sha256": "c9f941f7b040af214700af8756a70918ccba5d3d2ea60a515323415286bf1714"
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/wiki-semantic-crosschecks.log",
+      "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/evidence-package.json",
+      "sha256": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7"
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/report.md",
+      "sha256": "8e5a3b611132fca6d56c37dd459e3aae7d496c40e554a87e030146972170db0b"
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+    }
+  ],
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_agentic*.py' -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/agentic-tests.log",
+          "sha256": "6835929fdceecdbe075d6504876f5734dc8501578c06a58ce9f36d115c4e3955"
+        }
+      ]
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_project_management.py -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/legacy-tests.log",
+          "sha256": "991a774827bbba65bd42927d49ae013ac9ed7e7104846a906302627fee8b3acb"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/check_management_docs.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/docs-check.log",
+          "sha256": "30445683bea36d3d0cbe0a87f09d8893f981c3d3947babc9f3b8a10c2d478722"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py --check",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/wiki-check.log",
+          "sha256": "c9f941f7b040af214700af8756a70918ccba5d3d2ea60a515323415286bf1714"
+        }
+      ]
+    },
+    {
+      "command": "python3 management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/wiki-semantic-crosschecks.log",
+          "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+        }
+      ]
+    },
+    {
+      "command": "IA verify_audit.py first attempt (incorrect provenance README comparison)",
+      "status": "FAIL",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/initial-verifier-scope-error.log",
+          "sha256": "699c7a148c55292e2111b8506fc821a07b0acd2a7989bbce63c722864fe3ed23"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python management/agentic/work/turn.002/IA-11/verify_audit.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/independent-verification.log",
+          "sha256": "f3a84b12a68f43d4c86c1af5d0f97003aabab4b6e3605af6e85cfdd84de87a54"
+        },
+        {
+          "path": "management/agentic/work/turn.002/IA-11/independent-verification.json",
+          "sha256": "4125646aab1d4410b51561d8f09b6abd8edca4a5ea68a3453d9129b7f6b8c1c5"
+        }
+      ]
+    },
+    {
+      "command": "python3 outer/scripts/manage_game.py agents readiness from outer root and /tmp",
+      "status": "FAIL",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/entrypoints.json",
+          "sha256": "6f5a613fab2647f11c6bf4a08745e8432186f5b1185075c3f7de58f210d61b16"
+        },
+        {
+          "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+          "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+        },
+        {
+          "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+          "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+        }
+      ]
+    },
+    {
+      "command": "direct game-root tools/agentic.py readiness and outer legacy status",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/direct-agent-readiness.log",
+          "sha256": "8df4470906a8c760daf39c25720f2b8d315a2777848d51efa091a12336003756"
+        },
+        {
+          "path": "management/agentic/work/turn.002/IA-11/outer-board.log",
+          "sha256": "67e3f3622ecb2591cd9d685d3ea83d76dcc39aef239e8ad1d01e32a556d07eeb"
+        }
+      ]
+    },
+    {
+      "command": "New wiki build/MCP subprocess/native gameplay not rerun by IA; actual WIK/QA logs inspected",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "limitations": [
+    "Recorded hashes/order do not authenticate earlier host workers or host spawn timestamps.",
+    "Codex host connection remains CONFIGURED_UNVERIFIED; actual local protocol is evidenced.",
+    "No fresh gameplay/M0 qualification or exhaustive later research/finding resolution proof.",
+    "Six historical reading hashes are preserved as history; current check inputs and hashes match.",
+    "DOC publication and next-turn correction remain pending.",
+    "Task remains active; no import/gameplay acceptance. DOC must publish rejection last, and a new authorized turn must correct and reverify IA-002-001."
+  ],
+  "handoff_status": "COMPLETE"
+}

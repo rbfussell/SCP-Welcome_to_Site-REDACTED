@@ -1,0 +1,85 @@
+[
+  {
+    "turn_id": "turn.001",
+    "state": "INTERRUPTED",
+    "failures": {
+      "SWE-13": {
+        "agent_id": "SWE-13",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      },
+      "QA-16": {
+        "agent_id": "QA-16",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      }
+    },
+    "audit": null,
+    "publication_exists": false,
+    "event_count": 18,
+    "last_event_hash": "d95bbb7c13ba2f1127f40b90d47d1c0eec411888c313d5529f8dcaf80f09a9ee"
+  },
+  {
+    "turn_id": "turn.002",
+    "state": "INTERRUPTED",
+    "failures": {
+      "DOC-10": {
+        "agent_id": "DOC-10",
+        "reason": "Actual /root/doc_setup_rejected host worker failed before any output with usage-limit error. No DOC handoff or process publication occurred; preserve independent IA rejection and case IA-002-001, then continue in a newly authorized setup/correction turn."
+      }
+    },
+    "audit": {
+      "disposition": "REJECTED",
+      "summary": "The real scoped agentic loop, individual negations, actual Wiki work and ordered evidence review are evidenced, but setup acceptance is rejected because IA independently reproduced the outer agents shortcut import failure. Preserve MAJOR SWE-13 case IA-002-001 for a new authorized correction; keep overall task and exact import acceptance incomplete. Local MCP success remains separate from unobserved live host loading.",
+      "findings": [
+        {
+          "case_id": "IA-002-001",
+          "responsible_agent": "SWE-13",
+          "severity": "MAJOR",
+          "status": "CONFIRMED",
+          "independently_verified": true,
+          "summary": "Outer agents shortcut fails with ModuleNotFoundError because the runpy wrapper does not establish the game tools import path.",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+              "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+            },
+            {
+              "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+              "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+            },
+            {
+              "path": "management/harness/manage_game.py",
+              "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+            },
+            {
+              "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-template.py.snapshot",
+              "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+            }
+          ],
+          "required_action": "In a new authorized corrective turn, fix the versioned wrapper import path, reinstall the outer managed copy, add independently executed regressions for agents dispatch from outer root and unrelated cwd while preserving legacy status and direct CLI, then refresh actual wiki/docs/build/check and complete ordered Collector/IA/DOC review. Assign this case to SWE-13; do not accept import or complete the task before verification."
+        }
+      ],
+      "reviewer_receipt": "/root/ia_setup_review",
+      "task_id": "agentic-loop-setup",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/IA-11/report.md",
+          "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+        },
+        {
+          "path": "management/agentic/work/turn.002/IA-11/independent-verification.json",
+          "sha256": "4125646aab1d4410b51561d8f09b6abd8edca4a5ea68a3453d9129b7f6b8c1c5"
+        }
+      ],
+      "limitations": [
+        "Recorded hashes/order do not authenticate earlier host workers or host spawn timestamps.",
+        "Codex host connection remains CONFIGURED_UNVERIFIED; actual local protocol is evidenced.",
+        "No fresh gameplay/M0 qualification or exhaustive later research/finding resolution proof.",
+        "Six historical reading hashes are preserved as history; current check inputs and hashes match.",
+        "DOC publication and next-turn correction remain pending."
+      ]
+    },
+    "publication_exists": false,
+    "event_count": 34,
+    "last_event_hash": "f3386288b3e88cbab8f16a80b1f08d529ad87784735e7b06013f4840772f8402"
+  }
+]

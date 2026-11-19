@@ -1,0 +1,188 @@
+test_accepted_setup_alone_does_not_fake_preflight_history (test_agentic_workflow.AgenticWorkflowTests.test_accepted_setup_alone_does_not_fake_preflight_history) ... ERROR
+test_blocked_handoff_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_blocked_handoff_cannot_be_accepted) ... ERROR
+test_changed_owned_artifact_is_detected (test_agentic_workflow.AgenticWorkflowTests.test_changed_owned_artifact_is_detected) ... ERROR
+test_default_plan_requires_accounting_for_all_registered_roles (test_agentic_workflow.AgenticWorkflowTests.test_default_plan_requires_accounting_for_all_registered_roles) ... ok
+test_dependency_handoff_must_be_complete_before_dispatch (test_agentic_workflow.AgenticWorkflowTests.test_dependency_handoff_must_be_complete_before_dispatch) ... ok
+test_dispatch_requires_authorization_exact_prompt_and_selection (test_agentic_workflow.AgenticWorkflowTests.test_dispatch_requires_authorization_exact_prompt_and_selection) ... ok
+test_each_exclusion_needs_unique_substantive_reason (test_agentic_workflow.AgenticWorkflowTests.test_each_exclusion_needs_unique_substantive_reason) ... ok
+test_handoff_rejects_wrong_prompt_and_unowned_artifact (test_agentic_workflow.AgenticWorkflowTests.test_handoff_rejects_wrong_prompt_and_unowned_artifact) ... ok
+test_initialize_creates_fresh_managed_store (test_agentic_workflow.AgenticWorkflowTests.test_initialize_creates_fresh_managed_store) ... ok
+test_interrupted_setup_cannot_unlock_work (test_agentic_workflow.AgenticWorkflowTests.test_interrupted_setup_cannot_unlock_work) ... ok
+test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected (test_agentic_workflow.AgenticWorkflowTests.test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected) ... FAIL
+test_lifecycle_cannot_skip_collector_or_audit (test_agentic_workflow.AgenticWorkflowTests.test_lifecycle_cannot_skip_collector_or_audit) ... ok
+test_managed_paths_reject_escape_and_symlink (test_agentic_workflow.AgenticWorkflowTests.test_managed_paths_reject_escape_and_symlink) ... ok
+test_missing_work_is_visible_in_collection_and_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_missing_work_is_visible_in_collection_and_cannot_be_accepted) ... ERROR
+test_omitted_and_unregistered_roles_rejected (test_agentic_workflow.AgenticWorkflowTests.test_omitted_and_unregistered_roles_rejected) ... ok
+test_publication_seals_turn_and_no_worker_runs_after_document_chief (test_agentic_workflow.AgenticWorkflowTests.test_publication_seals_turn_and_no_worker_runs_after_document_chief) ... ERROR
+test_receipt_reuse_is_rejected_for_independent_workers (test_agentic_workflow.AgenticWorkflowTests.test_receipt_reuse_is_rejected_for_independent_workers) ... ok
+test_wiki_and_core_cannot_be_negated (test_agentic_workflow.AgenticWorkflowTests.test_wiki_and_core_cannot_be_negated) ... ok
+
+======================================================================
+ERROR: test_accepted_setup_alone_does_not_fake_preflight_history (test_agentic_workflow.AgenticWorkflowTests.test_accepted_setup_alone_does_not_fake_preflight_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 271, in test_accepted_setup_alone_does_not_fake_preflight_history
+    self.close_accepted_setup()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 125, in close_accepted_setup
+    self.selected(); self.execution_complete(); self.audit_phase()
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 119, in audit_phase
+    self.collect()
+    ~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 114, in collect
+    self.handoff('EVC-28', collection={'package_path': package['path']},
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 artifacts=[package['path']])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 99, in handoff
+    return self.workflow.handoff(self.turn_id, value)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 192, in handoff
+    return super().handoff(turn_id, value)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 393, in handoff
+    self._validate_collection(turn,value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/preflight.py", line 313, in _validate_collection
+    require(any(r['path'] == path for r in handoff['artifacts']), 'Collector handoff must hash its package artifact')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: Collector handoff must hash its package artifact
+
+======================================================================
+ERROR: test_blocked_handoff_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_blocked_handoff_cannot_be_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 242, in test_blocked_handoff_cannot_be_accepted
+    self.selected(); self.execution_complete(blocked='WIK-30'); self.audit_phase()
+                                                                ~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 119, in audit_phase
+    self.collect()
+    ~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 114, in collect
+    self.handoff('EVC-28', collection={'package_path': package['path']},
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 artifacts=[package['path']])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 99, in handoff
+    return self.workflow.handoff(self.turn_id, value)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 192, in handoff
+    return super().handoff(turn_id, value)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 393, in handoff
+    self._validate_collection(turn,value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/preflight.py", line 313, in _validate_collection
+    require(any(r['path'] == path for r in handoff['artifacts']), 'Collector handoff must hash its package artifact')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: Collector handoff must hash its package artifact
+
+======================================================================
+ERROR: test_changed_owned_artifact_is_detected (test_agentic_workflow.AgenticWorkflowTests.test_changed_owned_artifact_is_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 250, in test_changed_owned_artifact_is_detected
+    package = self.collect()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 114, in collect
+    self.handoff('EVC-28', collection={'package_path': package['path']},
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 artifacts=[package['path']])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 99, in handoff
+    return self.workflow.handoff(self.turn_id, value)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 192, in handoff
+    return super().handoff(turn_id, value)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 393, in handoff
+    self._validate_collection(turn,value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/preflight.py", line 313, in _validate_collection
+    require(any(r['path'] == path for r in handoff['artifacts']), 'Collector handoff must hash its package artifact')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: Collector handoff must hash its package artifact
+
+======================================================================
+ERROR: test_missing_work_is_visible_in_collection_and_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_missing_work_is_visible_in_collection_and_cannot_be_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 234, in test_missing_work_is_visible_in_collection_and_cannot_be_accepted
+    package = self.collect()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 114, in collect
+    self.handoff('EVC-28', collection={'package_path': package['path']},
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 artifacts=[package['path']])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 99, in handoff
+    return self.workflow.handoff(self.turn_id, value)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 192, in handoff
+    return super().handoff(turn_id, value)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 393, in handoff
+    self._validate_collection(turn,value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/preflight.py", line 313, in _validate_collection
+    require(any(r['path'] == path for r in handoff['artifacts']), 'Collector handoff must hash its package artifact')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: Collector handoff must hash its package artifact
+
+======================================================================
+ERROR: test_publication_seals_turn_and_no_worker_runs_after_document_chief (test_agentic_workflow.AgenticWorkflowTests.test_publication_seals_turn_and_no_worker_runs_after_document_chief)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 262, in test_publication_seals_turn_and_no_worker_runs_after_document_chief
+    publication = self.close_accepted_setup()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 125, in close_accepted_setup
+    self.selected(); self.execution_complete(); self.audit_phase()
+                                                ~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 119, in audit_phase
+    self.collect()
+    ~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 114, in collect
+    self.handoff('EVC-28', collection={'package_path': package['path']},
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 artifacts=[package['path']])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 99, in handoff
+    return self.workflow.handoff(self.turn_id, value)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 192, in handoff
+    return super().handoff(turn_id, value)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 393, in handoff
+    self._validate_collection(turn,value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/preflight.py", line 313, in _validate_collection
+    require(any(r['path'] == path for r in handoff['artifacts']), 'Collector handoff must hash its package artifact')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: Collector handoff must hash its package artifact
+
+======================================================================
+FAIL: test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected (test_agentic_workflow.AgenticWorkflowTests.test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected)
+----------------------------------------------------------------------
+ValueError: WIK-30 must depend on every selected execution role
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 183, in test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected
+    with self.assertRaisesRegex(ValueError, 'Cyclic'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "Cyclic" does not match "WIK-30 must depend on every selected execution role"
+
+----------------------------------------------------------------------
+Ran 18 tests in 33.711s
+
+FAILED (failures=1, errors=5)

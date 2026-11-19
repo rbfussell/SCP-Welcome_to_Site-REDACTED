@@ -1,0 +1,39 @@
+{
+  "agentic_turn": "turn.006",
+  "wiki_read": [
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "notes": "Read agentic workflow, status and related evidence before planning routing update."
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "notes": "Read agentic workflow, status and related evidence before planning routing update."
+    },
+    {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "notes": "Read agentic workflow, status and related evidence before planning routing update."
+    },
+    {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "notes": "Read agentic workflow, status and related evidence before planning routing update."
+    }
+  ],
+  "docs_read": [
+    {
+      "path": "AGENTS.md",
+      "notes": "Required wiki and independent closing sequence."
+    },
+    {
+      "path": "docs/59-agentic-development-loop.md",
+      "notes": "Applicable registry, authorization and workflow contract."
+    },
+    {
+      "path": "management/README.md",
+      "notes": "Task board and check recording."
+    },
+    {
+      "path": "management/agentic/bootstrap/routing-research006.md",
+      "notes": "User-supplied paper provenance and current adaptation scope."
+    }
+  ]
+}

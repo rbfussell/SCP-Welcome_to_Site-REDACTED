@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "label": "agentic-suite",
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_agentic*.py",
+        "-v"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 27.301,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "legacy-adapter-suite",
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_project_management.py",
+        "-v"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.514,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "installed-wrapper-root",
+      "argv": [
+        "python3",
+        "scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.19,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "installed-wrapper-unrelated",
+      "argv": [
+        "python3",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/tmp",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.187,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "installed-legacy-board",
+      "argv": [
+        "python3",
+        "scripts/manage_game.py",
+        "status"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.061,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "direct-agentic-cli",
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "tools/agentic.py",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.192,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    },
+    {
+      "label": "managed-overlay-check",
+      "argv": [
+        "python3",
+        "tools/configure_project_harness.py",
+        "--root",
+        "..",
+        "--check"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_seconds": 0.046,
+      "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+    }
+  ],
+  "sources_unchanged_during_checks": true,
+  "template_installed_match": true
+}

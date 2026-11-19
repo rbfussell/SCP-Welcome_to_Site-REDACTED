@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "turn_id",
+    "manager_id",
+    "assessment",
+    "registry",
+    "required_agents",
+    "prior_findings",
+    "timestamp",
+    "preflight"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "turn_id": {
+      "type": "string",
+      "pattern": "^turn\\.[0-9]{3,}$"
+    },
+    "manager_id": {
+      "const": "ENG-00"
+    },
+    "assessment": {
+      "type": "object",
+      "required": [
+        "kind",
+        "task",
+        "requirements",
+        "research_required",
+        "research_reason",
+        "architecture_change"
+      ]
+    },
+    "registry": {
+      "type": "object"
+    },
+    "required_agents": {
+      "type": "array"
+    },
+    "prior_findings": {
+      "type": "array"
+    },
+    "timestamp": {
+      "type": "string"
+    },
+    "preflight": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "turn_id": "turn.006",
+  "agent_id": "KRA-14",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "f53b2166e19cf00e86730cb73df2762eb5e7f79c83eaa3a1e0a5a3c223f0070c",
+  "assigned_scope": "Review the Sol-first role budget and compact dispatch boundaries using scoped paper input and existing game harness evidence.",
+  "work_performed": "Reviewed the model policy and resolver, immutable dispatch and terminal review constraints, actual game wiki and board, and supplied matrix and terminal design proposals. Authored an architecture review for the implementation owner.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.006/KRA-14/report.md",
+      "sha256": "dcd714436dffea9707300572337700cd8c36da0039b07d7b5211368c8f585203"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/selection-turn.006.json",
+      "sha256": "68727ff8c78cc854e271655d9a40999250edce185ab0fe4fe727419db5d0e187"
+    },
+    {
+      "path": "management/agentic/work/turn.006/KRA-14/dispatch.json",
+      "sha256": "a077f9dd2f593e4c559796ffd05b6a459e9bb1fd5cd6f6fb16ae5e53c1d8a7dc"
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+    },
+    {
+      "path": "management/agentic/work/turn.005/KRA-14/report.md",
+      "sha256": "4e514ad85fbdc6396fbb30f30ca44025506e08a3d8052a0a0dde739cbbc444de"
+    }
+  ],
+  "tests": [
+    {
+      "command": "Implementation, configuration and final consistency checks",
+      "status": "NOT_RUN",
+      "reason": "Read-only architectural review. Execution and Wiki owners verify changes.",
+      "evidence": []
+    }
+  ],
+  "limitations": [
+    "No product edits, implementation verification, model benchmark or quota measurement.",
+    "Actual backend model, effective effort and per-worker usage are not exposed by the recorded host response.",
+    "Supplied research extraction is outside the project evidence root. Its observed SHA-256 is recorded in the report."
+  ],
+  "architecture": {
+    "unresolved_questions": [],
+    "baseline_artifacts": []
+  },
+  "handoff_status": "COMPLETE"
+}

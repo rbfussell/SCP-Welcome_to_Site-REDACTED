@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/configure_agent_models.py",
+        "--workspace",
+        "..",
+        "--check"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"CONFIGURED_UNVERIFIED\",\n  \"changed_paths\": [],\n  \"workspace\": \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]\",\n  \"role_count\": 23,\n  \"effective_status\": \"NOT_EXPOSED\",\n  \"scope\": \"Future starts; live coordinator unchanged. Active collaboration uses explicit overrides.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": false,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/tmp",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": false,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "status"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "exit_code": 0,
+      "stdout": "{\n  \"profile\": \"software-game\",\n  \"game_root\": \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project\",\n  \"tasks\": [\n    {\n      \"id\": \"agentic-loop-setup\",\n      \"title\": \"Activate the real agentic development loop and actual game-wiki agent\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"equipment-loop-qualification\",\n      \"title\": \"Qualify the existing clothing, ground, attachments and badge loop\",\n      \"status\": \"proposed\"\n    },\n    {\n      \"id\": \"facility-utilities-proof\",\n      \"title\": \"Implement the bounded existing facility-utilities proof\",\n      \"status\": \"proposed\"\n    },\n    {\n      \"id\": \"pm-integration\",\n      \"title\": \"Integrate the software management profile without changing the game workflow\",\n      \"status\": \"done\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/agentic.py",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": false,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": ""
+    }
+  ],
+  "installed_wrapper_matches_versioned": true,
+  "production_failure_replayed": false
+}

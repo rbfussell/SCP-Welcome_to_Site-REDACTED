@@ -1,0 +1,14 @@
+{
+  "kind": "setup",
+  "task": "Complete the agentic setup by correcting independently confirmed current documentation conflicts, preserving verified code and accepting the actual final loop only after consistency review.",
+  "requirements": [
+    "Correct IA-003-001 in the wiki agent entrypoint and newer superseding note without rewriting historical evidence.",
+    "Reconcile current status references with actual rejected/interrupted outcomes and neutral runtime publication pointers.",
+    "Verify unchanged IA-002-001 correction for accepted closure; preserve all current code and gameplay gates.",
+    "Account for every registered role with actual authorized workers and individual unused-role negations.",
+    "Maintain real wiki/docs, sequential final checks and ordered Collector, independent IA and Document Chief last."
+  ],
+  "research_required": false,
+  "research_reason": "Current facts are established by local source, confirmed IA findings, actual tests and host receipts; no unfamiliar external choice or new game design is introduced.",
+  "architecture_change": false
+}

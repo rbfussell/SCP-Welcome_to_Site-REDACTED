@@ -1,0 +1,17 @@
+{
+  "status": "READY",
+  "execution": "CLI_WITH_EXTERNAL_HOST_WORKERS",
+  "checks": {
+    "jsonschema": true,
+    "runtime_config": true,
+    "requested_roles_registered": true
+  },
+  "stdio_mcp_dependency": true,
+  "host_mcp_connection": "NOT_OBSERVED",
+  "limitations": [
+    "Host worker availability and receipt authenticity require external review.",
+    "A local protocol probe does not establish Codex host registration."
+  ]
+}
+
+STDERR:

@@ -1,0 +1,9 @@
+# Turn .006 coordination review
+
+The active board task binds to turn .006 and includes the GPT-6.2 configuration and dispatch criterion. This setup turn covers the Sol-first routing policy, its role difficulty ranges and caps, and the remaining wrapper and wiki corrections. The supplied paper informed shorter role briefs and use of the existing Python evidence and publication operations. The live request caps Sol at Extra High and Astra at High. Astra is reserved for genuinely hard work, and higher effort needs a task-specific reason. The November 11 allocation is historical.
+
+The frozen selection covers all 23 registered roles once. Seven roles are selected and sixteen have distinct, substantive exclusions. ENG and SWE request Sol Medium for coordination and implementation. KRA requests Sol Light for a scoped design review. WIK, EVC and DOC request Sol Light. IA requests Sol Medium for independent review. ENG and KRA authorization events precede their respective invocation records, and the exact prompt hashes and distinct returned host task names agree. Requested model and effort are recorded. Effective settings and allowance usage are unexposed.
+
+SWE owns the implementation, tests and retained wrapper check for IA-002-001. WIK owns IA-003-001 and the connected documentation after ENG, KRA and SWE handoffs. EVC inventories that evidence, IA independently reviews it, and DOC closes the process in that order. The text of two frozen exclusions mentions QA while QA-16 is excluded. SWE owns the test run and IA reviews its evidence. Turn .003's rejected audit and the .004/.005 interruptions remain history. No gameplay or prototype milestone was declared.
+
+The initial wiki freshness check passed. WIK still owes the final authored changes, rebuild, freshness check and semantic review. Source and test qualification, later receipts, import disposition and task closure remain subject to the ordered handoffs and independent review.

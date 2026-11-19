@@ -57,3 +57,10 @@ as `Project/`. Run the wiki commands above from this game root. See the
 [wiki management page](project-management.html). The outer strict harness's JSON wiki
 is not this game knowledge base. Evolving task logs stay in `management/`; guide,
 profile, overlay and adapter sources are included in the wiki's evidence hashes.
+
+
+## Actual wiki owner in the agentic loop
+
+[The agentic loop](agentic-loop.html) makes WIK-30 responsible for this actual authored knowledge base, related technical documents, generation, reciprocal-link inspection and semantic consistency after execution owners finish. WEB implements web UI changes; WIK owns content/ordinary generation. Collector → independent IA → Document Chief follow WIK. DOC publishes separate process JSON last; no agent rewrites game pages after IA within that turn. Late corrections require a new authorized turn.
+
+Static agentic runtime/config/tool/test sources join evidence hashes; evolving task/turn/receipt/log/publication records remain in `management/agentic/`, avoiding recursive hashes. See [the active contract](../../docs/59-agentic-development-loop.md). Historical interrupted/rejected turns remain explicit. A real host-exposed readiness call is externally observed; generic local readiness/configuration cannot inspect that transport or establish worker authenticity. Fresh-server fixture tests do not prove resident host hot reload. A fresh wiki does not certify process acceptance or gameplay.

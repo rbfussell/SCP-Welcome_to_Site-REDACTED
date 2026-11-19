@@ -1,0 +1,27 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "ENG-00",
+  "recorded_at": "2026-11-12T00:18:33.126234+00:00",
+  "dispatch_mechanism": "explicit_tool_overrides",
+  "request": {
+    "task_name": "coordinator_policy005",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "message": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/ENG-00/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nReview exact all-role coverage, individual NOs, source ownership, dependencies, model allocation and task acceptance. User's latest Sol/Astra policy supersedes prior all-Sol xhigh request: docs/wiki/evidence/media Sol low; coordination/Vince Sol medium; IA/Krampus Astra low; independent complex QA and engineering/implementation/design Astra medium; routine fixes Sol medium. Policy is provisional; no invented usage/cost/benchmark figures. Review only, own report/handoff; flag actionable conflicts without broad extra checks."
+  },
+  "host_response": {
+    "task_name": "/root/coordinator_policy005"
+  },
+  "effective": {
+    "model": null,
+    "reasoning_effort": null,
+    "status": "HOST_EFFECTIVE_NOT_EXPOSED"
+  },
+  "usage": {
+    "tokens": null,
+    "allowance_consumption": null,
+    "status": "NOT_EXPOSED"
+  },
+  "provenance_limit": "Parent-recorded actual tool arguments and returned receipt, externally reviewable; not backend introspection or authenticated identity."
+}

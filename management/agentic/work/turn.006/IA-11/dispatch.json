@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/IA-11/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Independently compare code, configuration, wiki and test evidence. Focus on cases IA-002-001 and IA-003-001 and adverse routing tests. Write audit.json with disposition, resolved or confirmed findings and evidence, and software-completion-review.json for exact task criteria. Do not repair or repeat passing tests."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/ia006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

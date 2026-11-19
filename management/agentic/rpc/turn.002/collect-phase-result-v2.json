@@ -1,0 +1,2972 @@
+{
+  "schema_version": 2,
+  "turn_id": "turn.002",
+  "manager_id": "ENG-00",
+  "assessment": {
+    "kind": "setup",
+    "task": "Resume the quota-interrupted agentic harness setup, fix the collector path defect, qualify actual MCP logging and complete independent review with the expanded software/game-specialist roster.",
+    "requirements": [
+      "Every registered agent defaults YES; negate each unused role with a distinct scope-specific reason.",
+      "Use actual authorized workers and owned handoffs; retain quota failures as interrupted history.",
+      "Register dedicated media/assets, web-wiki, native UI/UX, lore, research and simulation scopes.",
+      "WIK-30 maintains the actual game wiki before Collector, independent IA and Document Chief.",
+      "Preserve imported game history without inventing historical preflight success."
+    ],
+    "research_required": false,
+    "research_reason": "Continue inspected local harness implementation and pinned local dependencies; no new product/material or game-canon decision is made.",
+    "architecture_change": true
+  },
+  "registry": {
+    "schema_version": 1,
+    "revision": 19,
+    "previous_hash": "2eba7f2c463ddc787756ca5b6ee6cd5ac86dbbd7276b62a5c13e06f816a225c5",
+    "reason": "Register game software profile role SIM-34",
+    "timestamp": "2026-11-11T10:45:13.864065+00:00",
+    "agents": [
+      {
+        "agent_id": "ENG-00",
+        "name": "Project Coordinator",
+        "description": "Project Coordinator: Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Scope assessment",
+          "Agent selection and individual rationales",
+          "Exact task prompts",
+          "Dependency order",
+          "Readiness decisions",
+          "Outstanding corrective assignments"
+        ],
+        "jurisdiction": "Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces.",
+        "prohibited_actions": [
+          "Do not substitute for specialist implementation",
+          "Do not remove adverse evidence",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "coordinator",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "SHO-12",
+        "name": "Vince Offer",
+        "description": "Vince Offer: Create an engaging, truthful milestone presentation brief and request specialist media deliverables. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Milestone story",
+          "Visual script",
+          "Presentation outline",
+          "Demonstration brief",
+          "Audience framing",
+          "Media requests",
+          "Accurate disclosure of progress, failure and uncertainty"
+        ],
+        "jurisdiction": "Create an engaging, truthful milestone presentation brief and request specialist media deliverables.",
+        "prohibited_actions": [
+          "Do not fabricate achievements",
+          "Do not produce specialist art, audio, editing or CAD",
+          "Do not buy media services",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "EVC-28",
+        "name": "Evidence Collector and Organizer",
+        "description": "Evidence Collector and Organizer: independently inventory runtime evidence, invocation and handoff completeness, hashes, failures and source provenance before Internal Affairs. Collect provisional records without changing specialist conclusions or publishing canonical documentation.",
+        "use_cases": [
+          "Invocation and handoff inventory",
+          "Missing-output report",
+          "File hash verification",
+          "Test-log indexing",
+          "Source receipt indexing",
+          "Failed and blocked work preservation",
+          "Completeness package for IA"
+        ],
+        "jurisdiction": "Assemble and inspect the complete provisional evidence package after specialists and before Internal Affairs.",
+        "prohibited_actions": [
+          "Do not repair specialist outputs",
+          "Do not decide IA acceptance",
+          "Do not publish the canonical wiki",
+          "Do not discard adverse evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "collection",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "IA-11",
+        "name": "Internal Affairs",
+        "description": "Internal Affairs: Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Adversarial review",
+          "Reproducibility inspection",
+          "Source and numerical checks",
+          "Formal findings",
+          "Acceptance disposition",
+          "Next-turn corrective assignments"
+        ],
+        "jurisdiction": "Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims.",
+        "prohibited_actions": [
+          "Do not repair reviewed work",
+          "Do not delete findings",
+          "Do not review your own specialist output",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "audit",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "DOC-10",
+        "name": "Document Chief",
+        "description": "Document Chief: Commit the final turn and entity revisions to the canonical JSON wiki after independent review. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Evidence ingestion",
+          "Provenance checks",
+          "Immutable revisions",
+          "Failed turn records",
+          "Decision history",
+          "Corrective-action history",
+          "Baseline publication"
+        ],
+        "jurisdiction": "Commit the final turn and entity revisions to the canonical JSON wiki after independent review.",
+        "prohibited_actions": [
+          "Do not execute before IA",
+          "Do not rewrite history",
+          "Do not alter conclusions",
+          "Do not run another agent after publication",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "wiki"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "documentation",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "KRA-14",
+        "name": "Krampus Architectural Pre-Processor",
+        "description": "Krampus Architectural Pre-Processor: Resolve architectural ambiguity and draft precise baseline specifications without production implementation. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Readiness architecture review",
+          "One to five targeted boundary questions",
+          "README candidate",
+          "Technical description candidate",
+          "State tables",
+          "Interface schemas",
+          "Failure recovery",
+          "Single-file verification artifact requests",
+          "Independent ambiguity survey without an arbitrary question-count cap",
+          "Post-research baseline drafting"
+        ],
+        "jurisdiction": "Resolve architectural ambiguity and draft precise baseline specifications without production implementation.",
+        "prohibited_actions": [
+          "Do not write production code",
+          "Do not guess critical architecture",
+          "Do not publish canonical documentation mid-turn",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "preflight",
+          "architecture_change"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SWE-13",
+        "name": "Software Engineer",
+        "description": "Software Engineer: Implement application logic, APIs, command-line programs and automation within the assigned software boundary. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Python utilities",
+          "Application backends",
+          "Non-embedded applications",
+          "Data structures",
+          "Agent orchestration code",
+          "Build tooling",
+          "Software packaging",
+          "Automated software tests"
+        ],
+        "jurisdiction": "Implement application logic, APIs, command-line programs and automation within the assigned software boundary.",
+        "prohibited_actions": [
+          "Do not design circuits or mechanical geometry",
+          "Do not perform visual design or film editing",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "QA-16",
+        "name": "Test Engineer",
+        "description": "Test Engineer: Create independent acceptance tests for the assigned product or subsystem. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Test matrices",
+          "Integration tests",
+          "Failure injection",
+          "Regression checks",
+          "Usability acceptance",
+          "Measured test evidence"
+        ],
+        "jurisdiction": "Create independent acceptance tests for the assigned product or subsystem.",
+        "prohibited_actions": [
+          "Do not silently change acceptance limits",
+          "Do not mark unexecuted tests passed",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "testing",
+          "python"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "OPS-17",
+        "name": "Build and Delivery Engineer",
+        "description": "Build and Delivery Engineer: Implement authorized build, packaging and operational delivery procedures. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Reproducible builds",
+          "Release archives",
+          "CI",
+          "Runtime configuration",
+          "Rollback procedures",
+          "Installation verification"
+        ],
+        "jurisdiction": "Implement authorized build, packaging and operational delivery procedures.",
+        "prohibited_actions": [
+          "Do not deploy or publish without authorization",
+          "Do not change product requirements",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "git",
+          "software_tools",
+          "containers"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SEC-18",
+        "name": "Security Reviewer",
+        "description": "Security Reviewer: Review the assigned security and privacy boundaries and substantiate findings. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Threat modeling",
+          "Permission review",
+          "Secrets review",
+          "Dependency risk",
+          "Adversarial test plans"
+        ],
+        "jurisdiction": "Review the assigned security and privacy boundaries and substantiate findings.",
+        "prohibited_actions": [
+          "Do not broaden authorized testing targets",
+          "Do not substitute for IA disposition",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "research",
+          "testing"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "hardware"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "RES-09",
+        "name": "Researcher",
+        "description": "Researcher: Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "RESEARCH_REQUIRED screening",
+          "RESEARCH_NOT_REQUIRED screening",
+          "RESEARCH_BLOCKED screening",
+          "Prior art",
+          "Source comparison",
+          "Technical specifications",
+          "Creative references",
+          "Licensing and provenance research",
+          "Open-web product research",
+          "Materials and options comparison",
+          "Following-turn responses to blocked specialist requests"
+        ],
+        "jurisdiction": "Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty.",
+        "prohibited_actions": [
+          "Do not approve design decisions",
+          "Do not imply browsing occurred without source evidence",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "research"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "initial_product_research",
+          "queued_research_request",
+          "unresearched_change"
+        ],
+        "phase": "research",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "MED-07",
+        "name": "Illustration and Graphic Design Specialist",
+        "description": "Illustration and Graphic Design Specialist: Create approved two-dimensional visual assets and compositions. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Concept images",
+          "Illustrations",
+          "Brand assets",
+          "Presentation graphics",
+          "Compositing",
+          "Technical visuals from supplied geometry"
+        ],
+        "jurisdiction": "Create approved two-dimensional visual assets and compositions.",
+        "prohibited_actions": [
+          "Do not create or revise dimensioned CAD",
+          "Do not edit film or record audio",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "image_generation",
+          "image_editing"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "DEM-08",
+        "name": "Animation and Digital Demonstration Specialist",
+        "description": "Animation and Digital Demonstration Specialist: Animate approved assets and demonstrate approved mechanisms or behavior. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Motion visualization",
+          "Virtual demonstrations",
+          "Cutaways",
+          "Assembly animations",
+          "Interactive demonstrations",
+          "Educational models"
+        ],
+        "jurisdiction": "Animate approved assets and demonstrate approved mechanisms or behavior.",
+        "prohibited_actions": [
+          "Do not independently redesign CAD",
+          "Label illustrative motion and unvalidated behavior",
+          "Do not substitute for artistic asset or audio owners",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "blender",
+          "animation"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media",
+          "hardware"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "AUD-25",
+        "name": "Audio Specialist",
+        "description": "Audio Specialist: Create and edit approved speech, sound design and music assets. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Dialogue cleanup",
+          "Sound effects",
+          "Music briefs",
+          "Mixing",
+          "Loudness checks",
+          "Audio deliverables"
+        ],
+        "jurisdiction": "Create and edit approved speech, sound design and music assets.",
+        "prohibited_actions": [
+          "Do not edit video or write scripts",
+          "Do not use paid generation without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "audio",
+          "ffmpeg"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "WRI-22",
+        "name": "Writer and Story Editor",
+        "description": "Writer and Story Editor: Write assigned narrative, screenplay, dialogue or editorial copy. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "TV scripts",
+          "Story structure",
+          "Dialogue",
+          "Episode outlines",
+          "Continuity",
+          "Editorial revisions"
+        ],
+        "jurisdiction": "Write assigned narrative, screenplay, dialogue or editorial copy.",
+        "prohibited_actions": [
+          "Do not produce finished video or audio",
+          "Do not alter verified technical claims",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "writing",
+          "research"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "PRT-05",
+        "name": "Prototype Designer and Experiment Planner",
+        "description": "Prototype Designer and Experiment Planner: at each declared milestone, challenge whether a test product can be constructed from current approved artifacts. Design the best feasible subassembly, build steps and acceptance checks. Supply the plan to Prototype Builder and request corrections from discipline owners.",
+        "use_cases": [
+          "Prototype stages",
+          "Instrumentation",
+          "Experimental design",
+          "Resource estimates",
+          "Test schedules",
+          "Readiness reviews",
+          "Can we construct a test product now?",
+          "Best feasible subassembly plan",
+          "Available artifact inventory",
+          "Build attempt acceptance criteria",
+          "Evidence-backed infeasibility analysis"
+        ],
+        "jurisdiction": "Design milestone prototypes and best-feasible-subassembly attempts across software, hardware and media; plan experiments without replacing discipline owners.",
+        "prohibited_actions": [
+          "Do not claim unperformed experiments",
+          "Do not order components without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "planning",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "milestone"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "BLD-27",
+        "name": "Prototype Builder",
+        "description": "Prototype Builder: at each declared milestone, attempt the Prototype Designer plan using current approved components and assets. Construct the whole test product or best feasible subset, execute checks, and prove specific blockers when construction cannot proceed. This applies to software, hardware and media prototypes.",
+        "use_cases": [
+          "Build test products from current artifacts",
+          "Best feasible subassembly attempt",
+          "Software runnable slice",
+          "Media animatic or rough-cut attempt",
+          "Physical fit and interface checks",
+          "Evidence-backed inability to build",
+          "Request next-turn design corrections"
+        ],
+        "jurisdiction": "Execute milestone prototype attempts and report integration failures without redesigning another discipline artifacts.",
+        "prohibited_actions": [
+          "Do not silently redesign owned components",
+          "Do not claim an unattempted build succeeded",
+          "Do not purchase, fabricate or operate hardware without required authorization"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "prototype_build"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "milestone"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "WIK-30",
+        "name": "Game Wiki Maintainer",
+        "description": "Maintain the actual SCP game wiki and linked development documentation, authored sources, code evidence, navigation, reciprocal links and final wiki build/freshness checks. Preserve canon/adaptation/implementation distinctions.",
+        "use_cases": [
+          "Read affected wiki dependencies before changes",
+          "Maintain cross-links and current mechanics explanations",
+          "Rebuild and validate the real game wiki",
+          "Inspect generated pages against actual code and test evidence"
+        ],
+        "jurisdiction": "Own authored game-wiki maintenance and linked current development documentation; do not replace it with process JSON or change game behavior.",
+        "prohibited_actions": [
+          "Do not edit generated HTML by hand",
+          "Do not claim independent IA or publish process records",
+          "Do not rewrite canon or historical evidence",
+          "Do not change runtime game mechanics"
+        ],
+        "inputs": [
+          "Selected scope and exact prompt",
+          "Relevant source and actual test results"
+        ],
+        "outputs": [
+          "Updated authored game wiki and related docs",
+          "Build/check logs and structured handoff"
+        ],
+        "tools": [
+          "workflow",
+          "wiki",
+          "python",
+          "git"
+        ],
+        "handoff_requirements": [
+          "Affected pages and cross-links",
+          "Real wiki build/check evidence",
+          "Limitations and unresolved decisions"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "documentation"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "WEB-06",
+        "name": "Web Interface Developer",
+        "description": "Web Interface Developer: Implement accessible web interfaces from approved content, designs and data contracts. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Web UI",
+          "Wiki renderer",
+          "Navigation",
+          "Responsive layouts",
+          "Accessibility",
+          "Evidence views",
+          "Interactive software interfaces"
+        ],
+        "jurisdiction": "Implement accessible web interfaces from approved content, designs and data contracts.",
+        "prohibited_actions": [
+          "Do not alter canonical findings",
+          "Do not author unrelated backend or engineering work",
+          "Do not deploy without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "web",
+          "git"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "UIX-31",
+        "name": "Game UI and UX Designer",
+        "description": "Game UI and UX Designer: Design and qualify native Godot interaction flows, controls, accessibility, feedback, information hierarchy and player-facing usability. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Inventory and paperdoll interaction",
+          "OSCP and field-phone UX",
+          "Local game controls and feedback",
+          "Usability and accessibility acceptance"
+        ],
+        "jurisdiction": "Design and qualify native Godot interaction flows, controls, accessibility, feedback, information hierarchy and player-facing usability.",
+        "prohibited_actions": [
+          "Do not silently change authoritative simulation rules",
+          "Do not substitute web markup for native Godot behavior",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "AST-32",
+        "name": "Game Asset Pipeline Specialist",
+        "description": "Game Asset Pipeline Specialist: Maintain sprite/animation/data asset structure, masks, placement bindings, import settings, provenance and integration validation. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Item art and source atlas registration",
+          "Sprite state/facing/frame mappings",
+          "Mask and silhouette pipeline",
+          "Import/provenance and missing-art diagnostics"
+        ],
+        "jurisdiction": "Maintain sprite/animation/data asset structure, masks, placement bindings, import settings, provenance and integration validation.",
+        "prohibited_actions": [
+          "Do not fabricate art provenance or licensing",
+          "Do not alter source images without assigned authoring scope",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "LOR-33",
+        "name": "SCP Lore and Adaptation Specialist",
+        "description": "SCP Lore and Adaptation Specialist: Research SCP canon and cross-archive references, distinguish contradictions and propose explicit in-game adaptations for human decisions. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Canonical behavior and containment",
+          "Cross-article and tale discovery",
+          "Canon versus game adaptation documentation",
+          "Lore-facing communication and scenario consistency"
+        ],
+        "jurisdiction": "Research SCP canon and cross-archive references, distinguish contradictions and propose explicit in-game adaptations for human decisions.",
+        "prohibited_actions": [
+          "Do not modify the bulk canon archive",
+          "Do not silently resolve disputed canon or invent a user design answer",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SIM-34",
+        "name": "Game Simulation and SCP Module Engineer",
+        "description": "Game Simulation and SCP Module Engineer: Implement assigned authoritative simulation, SCP-module interfaces, time, perception, inventory, employment and persistence contracts in the game kernel. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Deterministic simulation services",
+          "SCP module interactions and edge cases",
+          "Shared world/time and persistence",
+          "Subsystem integration boundaries"
+        ],
+        "jurisdiction": "Implement assigned authoritative simulation, SCP-module interfaces, time, perception, inventory, employment and persistence contracts in the game kernel.",
+        "prohibited_actions": [
+          "Do not put authoritative gameplay logic only in presentation",
+          "Do not broaden a module into unrestricted state mutation",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      }
+    ],
+    "hash": "91d5021d5770eefbd166daf7cf1662ce7cf7d1e3e5898745a1daaeab35e04d4c"
+  },
+  "required_agents": [
+    "DOC-10",
+    "ENG-00",
+    "EVC-28",
+    "IA-11",
+    "KRA-14",
+    "WIK-30"
+  ],
+  "prior_findings": [],
+  "preflight": {
+    "setup_complete": false,
+    "question_round_complete": false,
+    "initial_research_complete": false,
+    "baseline_complete": false,
+    "questions": [],
+    "unanswered_questions": [],
+    "blocking_questions": [],
+    "research_requests": [],
+    "pending_research": [],
+    "open_ia_cases": [],
+    "next_kind": "setup",
+    "production_allowed": false,
+    "imported_history_accepted": false,
+    "import_basis": null
+  },
+  "timestamp": "2026-11-11T10:45:16.264027+00:00",
+  "state": "HANDOFF_COLLECTION",
+  "selection": {
+    "ENG-00": {
+      "selected": true,
+      "reason": "Project Coordinator must finish its owned ENG-00 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Project Coordinator for setup turn.002. Read the current harness and game integration; produce a bounded integration plan and acceptance checklist, software-relevant role decisions, a complete list of material unknowns (empty allowed with explained coverage), and ownership/dependency recommendations. Do not edit runtime or canonical docs. Write management/agentic/work/turn.002/ENG-00/report.md. Return actual work/evidence/limitations for a structured handoff. Scope is harness setup, not new gameplay or a game milestone. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Keep this recovery coordination review focused; root already installed dependencies/config and recorded actual initial workers. Confirm scope/role fit and note any genuine blocking unknown; no need to repeat unchanged long-term game design.",
+      "dependencies": []
+    },
+    "SHO-12": {
+      "selected": false,
+      "reason": "No sales or milestone presentation is requested in this harness initialization; truthful setup evidence is the deliverable."
+    },
+    "EVC-28": {
+      "selected": true,
+      "reason": "Evidence Collector and Organizer must finish its owned EVC-28 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Evidence Collector after all selected specialists and WIK-30 finish, in HANDOFF_COLLECTION phase. Independently inventory selected/excluded roles, actual authorizations/receipts/handoffs, owned artifacts, nested source refs and real logs. Invoke the real build_evidence_package method and inspect missing/changed evidence. Do not repair code/docs or decide IA acceptance. Save report and structured collection handoff under management/agentic/work/turn.002/EVC-28/. Root supplies actual current turn after authorization. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+      "dependencies": []
+    },
+    "IA-11": {
+      "selected": true,
+      "reason": "Internal Affairs must finish its owned IA-11 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Internal Affairs in INTERNAL_AFFAIRS_REVIEW after Evidence Collector. Audit actual assignments, negations for every unused role, dispatch-before-receipt sequence, genuine workers, collector completeness, file hashes, tests, MCP probe vs host connection claims, existing-project migration policy, actual game-wiki updates and documentation agreement. Run focused verification if useful; do not repair outputs. Report ACCEPTED/REJECTED/BLOCKED with concrete findings/owner/evidence and limitations. Save audit/report/handoff under management/agentic/work/turn.002/IA-11/. New findings require honest correction records, not hidden self-repair. Root supplies actual current state. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+      "dependencies": []
+    },
+    "DOC-10": {
+      "selected": true,
+      "reason": "Document Chief must finish its owned DOC-10 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Document Chief last in DOCUMENT_CHIEF phase after independent IA. Read final audit and evidence package. Publish only the accepted/rejected/blocked process outcome and entity references via actual GameWorkflow.publish, after delivering your role-owned structured handoff. Do not edit/rebuild the game wiki or source after review; WIK-30 already owns it. Confirm migration/connection limitations remain explicit, and future loop instructions require every unused registered role to be individually negated. Write final process report under management/agentic/work/turn.002/DOC-10/. No further specialist may run after you. Root supplies actual publish payload and current state. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+      "dependencies": []
+    },
+    "KRA-14": {
+      "selected": true,
+      "reason": "Krampus Architectural Pre-Processor must finish its owned KRA-14 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as architecture reviewer for setup turn.002, after ENG-00. Inspect the coordinator report and copied harness runtime. Review the plan to reuse actual authorization, all-role selection, hash-chain evidence, Collector -> independent IA -> Document Chief, with a WIK-30 game-wiki specialist before collection. An explicit existing-project migration policy may allow future work after accepted setup without falsely claiming historic question/research turns occurred. Preserve research/questions/findings gates for new needs. Identify design conflicts and minimal adapter changes; record unresolved_questions explicitly, with no frozen product baseline. Do not edit runtime/docs. Write management/agentic/work/turn.002/KRA-14/report.md. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Confirm the prior minimal architecture review against current code and quota recovery. Keep this focused; no need to re-research already read local sources.",
+      "dependencies": [
+        "ENG-00"
+      ]
+    },
+    "SWE-13": {
+      "selected": true,
+      "reason": "Software Engineer must finish its owned SWE-13 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Software Engineer for setup turn.002 after ENG-00 and KRA-14 reports. Own tools/game_workflow.py (currently minimal bootstrap path adapter), tools/agentic.py, tools/agentic_mcp.py, tools/check_agentic_mcp.py, tools/manage_project.py and a small documented patch to management/harness/runtime/workflow.py if required. Reuse the copied genuine harness engine; do not invent a new faux agent loop. Runtime stores/registry/publications must live under management/agentic/ and use registered custom WIK-30. Enforce all registered roles accounted exactly once, default YES, unique substantive per-agent exclusions, mandatory coordinator/collector/independent IA/document chief and actual wiki worker. Existing-project migration must be explicit and truthful, keep question/research/findings gates. Require genuine authorization before host spawning, log actual receipts, phases, handoffs and hashes. WIK handles real wiki before Collector; DOC publishes process records last and must not rewrite game docs after IA. Source edits may occur in assigned game paths; handoff artifacts stay role-owned. Add CLI commands backed by the real runtime (init/inventory/status/begin/plan/select/authorize/invoke/handoff/advance/collect/audit/publish/interrupt), and stdio MCP app exposing equivalent operations. Existing software slice CLI must support execution=agentic and new slice completion must require the accepted matching agentic publication and actual wiki handoff, while preserving historical self-reviewed slice records as history. MCP client probe should initialize protocol, list tools and call inventory via subprocess; never claim Codex host live registration from protocol alone. No model API or purchases. Root will install mcp/jsonschema in Project/.venv-harness. Do not own wiki/docs or tests/test_agentic_workflow.py (QA owns it); coordinate requirements with QA. Record real verification and write management/agentic/work/turn.002/SWE-13/report.md. Do not modify root outer harness runtime. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Fix the known collector alias/canonical-path comparison bug QA found; coordinate with /root/qa_harness. Root helpers/config registration already exist. Do not claim MCP host tools are available merely from configuration or a protocol client.",
+      "dependencies": [
+        "KRA-14"
+      ]
+    },
+    "QA-16": {
+      "selected": true,
+      "reason": "Test Engineer must finish its owned QA-16 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Test Engineer for setup turn.002. Own tests/test_agentic_workflow.py and management/agentic/work/turn.002/QA-16/report.md; do not modify software implementation or wiki. Read ENG-00/KRA-14 reports and the copied runtime; coordinate interface with SWE-13 through collaboration. Write meaningful temporary-root tests for exact all-role accounting, individual unique exclusions, default YES, mandatory WIK/core, unauthorized dispatch, changed prompt, fake/reused independent receipt restrictions, ordered collection/IA/document phases, blocked/missing handoffs, imported baseline not faked research history, and new software slice completion requiring real accepted agentic publication. Test actual stdio MCP probe when environment installed. Tests may use explicitly labeled fixture receipts; no fixture receipt is production evidence. Wait for engineer implementation before final full results. Return actual logs and limitations in role-owned report. No game feature production. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+      "dependencies": [
+        "KRA-14"
+      ]
+    },
+    "OPS-17": {
+      "selected": false,
+      "reason": "No game packaging, release pipeline or operational deployment changes are included; SWE owns this bounded harness CLI/MCP setup."
+    },
+    "SEC-18": {
+      "selected": false,
+      "reason": "No new game sandbox, credential handling or public service is introduced; IA reviews the local subprocess and evidence boundaries for this setup."
+    },
+    "RES-09": {
+      "selected": false,
+      "reason": "No unfamiliar product/material choice or game-canon decision is made; this setup reuses inspected local harness sources and pinned dependencies."
+    },
+    "MED-07": {
+      "selected": false,
+      "reason": "This initialization changes no sprite illustrations, textures or graphic artwork, so there is no illustration deliverable."
+    },
+    "DEM-08": {
+      "selected": false,
+      "reason": "No animation sequence or digital product demonstration is authored during the agentic workflow setup."
+    },
+    "AUD-25": {
+      "selected": false,
+      "reason": "No speech, sound effects, music or audio pipeline changes are requested by this workflow initialization."
+    },
+    "WRI-22": {
+      "selected": false,
+      "reason": "No character dialogue, narrative or canon adaptation is authored; WIK-30 owns technical game documentation."
+    },
+    "PRT-05": {
+      "selected": false,
+      "reason": "No game completion milestone is declared; this is setup qualification of workflow services, not a new product prototype plan."
+    },
+    "BLD-27": {
+      "selected": false,
+      "reason": "No product milestone or approved Designer prototype plan is declared; software and QA qualify the harness tools directly."
+    },
+    "WIK-30": {
+      "selected": true,
+      "reason": "Game Wiki Maintainer must finish its owned WIK-30 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Game Wiki Maintainer for setup turn.002 after SWE-13 and QA-16 complete. Own authored game wiki content/project-management.md, content/development.md, content/status.md, relevant home/engine links, docs/58-software-project-management.md (preserve prior implementation as superseded history), new docs/59-agentic-development-loop.md, management/README.md, management/profile.json, management/harness/AGENTS.md and README.md templates, Project/AGENTS.md, docs/12-development-workflow.md, wiki README/llms and builder metadata as needed. Read actual final implementation, reports and tests; explain new active real agentic loop, every registered agent defaults YES and each unused role needs specific negation, WIK actual wiki vs DOC process publications, source ownership and strict terminal sequence, imported baseline limits and MCP connection status. Update contradictory single-developer current claims, preserving historical accepted records. Root installer will route wrapper and stage MCP config, coordinate with root. Rebuild/check game wiki only after source/docs edits are final and no other wiki build running. Inspect generated pages and reciprocal links. Save actual build/check logs and report under management/agentic/work/turn.002/WIK-30/. Do not change game runtime or engineer files. Do not claim host-connected MCP unless actual host tool observed. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14",
+        "SWE-13",
+        "QA-16"
+      ]
+    },
+    "WEB-06": {
+      "selected": false,
+      "reason": "The recovery changes no wiki HTML/CSS/search interface; WIK-30 maintains technical content and existing generation, so no web-interface implementation is assigned."
+    },
+    "UIX-31": {
+      "selected": false,
+      "reason": "No player-facing Godot screen, control flow or interaction usability is changed during harness initialization, so native UI/UX design has no deliverable."
+    },
+    "AST-32": {
+      "selected": false,
+      "reason": "No sprite atlas, mask, art binding, import settings or asset provenance changes are made by this workflow recovery."
+    },
+    "LOR-33": {
+      "selected": false,
+      "reason": "No SCP canon claim or in-game lore adaptation is introduced in this agent-loop setup; prior game lore remains unchanged."
+    },
+    "SIM-34": {
+      "selected": false,
+      "reason": "No authoritative game kernel, SCP module, time/perception rule or save contract changes are requested by the harness recovery."
+    }
+  },
+  "invocations": {
+    "ENG-00": {
+      "agent_id": "ENG-00",
+      "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac",
+      "receipt": "/root/coordinator_setup",
+      "backend": "codex-collaboration",
+      "authorization_id": "5c00def7ade6438594a0de2be20e8ec2",
+      "owned_directory": "work/turn.002/ENG-00"
+    },
+    "KRA-14": {
+      "agent_id": "KRA-14",
+      "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a",
+      "receipt": "/root/architecture_setup",
+      "backend": "codex-collaboration",
+      "authorization_id": "e4e9afa840d3487c8878ffb687b3fa45",
+      "owned_directory": "work/turn.002/KRA-14"
+    },
+    "SWE-13": {
+      "agent_id": "SWE-13",
+      "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+      "receipt": "/root/software_harness",
+      "backend": "codex-collaboration",
+      "authorization_id": "459f875b121540929bdf7c3244cf737d",
+      "owned_directory": "work/turn.002/SWE-13"
+    },
+    "QA-16": {
+      "agent_id": "QA-16",
+      "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+      "receipt": "/root/qa_harness",
+      "backend": "codex-collaboration",
+      "authorization_id": "430451cce25c48c7aee9051eeba0491f",
+      "owned_directory": "work/turn.002/QA-16"
+    },
+    "WIK-30": {
+      "agent_id": "WIK-30",
+      "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+      "receipt": "/root/wiki_agentic_setup",
+      "backend": "codex-collaboration",
+      "authorization_id": "29f8f46fe9b04d0d9741aed990eca8a1",
+      "owned_directory": "work/turn.002/WIK-30"
+    }
+  },
+  "handoffs": {
+    "ENG-00": {
+      "turn_id": "turn.002",
+      "agent_id": "ENG-00",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac",
+      "assigned_scope": "Project Coordinator must finish its owned ENG-00 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "work_performed": "# Coordinator recovery setup review — turn.002\n\nAssigned status: **COMPLETE** for this scoped coordination review. Turn acceptance belongs to the subsequent Collector, independent IA and Document Chief sequence. No new game feature or gameplay milestone is claimed.\n\n## Current state inspected\n\nRe-read `Project/AGENTS.md`, `management/README.md`, `management/profile.json`, actual game-wiki sources `content/development.md`, `content/status.md` and `content/project-management.md`, and linked integration contract `docs/58-software-project-management.md`. The wiki authoring/build and Git/development requirements read during the previous invocation continue to apply. Inspected the current `tools/game_workflow.py`, `tools/agentic.py`, MCP configuration/probe tools, registry revision 19, both turn headers, and actual turn.002 selection event.\n\nRegistry revision 19 contains **23 roles**. Turn.001's actual final recorded phase is **INTERRUPTED**; it is not an accepted setup. Parent reports the earlier engineering/QA workers stopped with quota errors, and this recovery must retain their partial artifacts and failure evidence. Turn.002 is a setup assessment with no milestone. Its actual selection records eight working/terminal roles: ENG-00, KRA-14, SWE-13, QA-16, WIK-30, EVC-28, IA-11 and DOC-10. Every other registered role has a separate NO reason.\n\nThe current game policy adds mandatory WIK-30; its dependency check requires every selected execution role to finish before Wiki starts, and it prevents later execution specialists from starting afterward. It distinguishes imported historical project decisions from newly performed question/research rounds, requires reviewed setup publication for accepting an import, retains independent host receipts and keeps process publications outside the actual game wiki. At inspection, no `management/agentic/imported-project.json` existed: import acceptance must not be claimed merely from the presence of this policy code.\n\nThe canonical guides/profile still describe the earlier single-developer adapter. This is expected unfinished integration work, not authority to ignore the user's newer agentic instruction. WIK-30 must supersede those current-policy statements and preserve the earlier integration's self-review evidence as history.\n\n## Focused recovery plan and ownership\n\n1. **ENG-00:** establish this recovery's bounded scope, confirm the complete 23-role selection and maintain exact prompts, ownership, authorizations and actual receipts. Do not erase turn.001 or claim an earlier failed worker completed.\n2. **KRA-14:** review architectural separation of slice board, agentic process records, actual game wiki, local CLI/MCP transport and existing game kernel. Identify interface conflicts without changing gameplay.\n3. **SWE-13:** resume partial versioned harness implementation, fix the reported collection path defect, qualify initialization/readiness and CLI/MCP behavior, preserve path containment and actual dispatch/event order. Installation/configuration is already parent work; verify rather than reinstall gratuitously. Record real test/protocol logs and remaining host-loading limitations.\n4. **QA-16:** independently exercise actual positive and rejection cases. Confirm missing roles/reasons, wrong authorization or prompt, reused worker receipt, dependency violations, Wiki ordering and terminal phases cannot be misrepresented as completion. Do not repair production code silently.\n5. **WIK-30:** after selected execution roles finish, update the **actual authored game wiki** plus relevant current game/development/harness guides and profile. Rebuild/check and inspect reciprocal links and semantic agreement. It does not edit canon or replace mechanics with process JSON.\n6. **EVC-28 → IA-11 → DOC-10:** inventory final evidence and omissions; independently assess actual work/receipts/exclusions/limitations; publish the truthful accepted, rejected or blocked result last. Quota failures and unverified host connection remain visible. No later worker runs within the closed turn.\n\nThe versioned game checkout, its `.git`, existing `.github`, bulk canon exclusion and standalone game commands remain in place. The slice board continues to own scope/acceptance while the agentic turn owns invocation/evidence history; neither duplicates or overrides mechanics authority.\n\n## Software and game role fit\n\n| Role | Decision for this setup | Continuing software/game jurisdiction |\n|---|---|---|\n| ENG-00 | YES | Scope, selection, dependency ownership and readiness decisions |\n| KRA-14 | YES | Software architecture and integration boundary review |\n| SWE-13 | YES | Local harness CLI/MCP implementation and automation |\n| QA-16 | YES | Independent software acceptance and negative-case checks |\n| WIK-30 | YES | Actual game-wiki content, linked technical docs, generation and consistency |\n| EVC-28 | YES, after Wiki | Inventory actual artifacts, logs, receipts and gaps |\n| IA-11 | YES, independent after collection | Audit evidence and claims without repairing reviewed work |\n| DOC-10 | YES, last | Immutable process outcome publication after IA |\n| SHO-12 | NO | No presentation/milestone story is requested |\n| OPS-17 | NO | No game build/package/release deployment change; SWE owns this bounded setup |\n| SEC-18 | NO | No new public service or gameplay credential/sandbox feature; IA still reviews local evidence boundaries |\n| RES-09 | NO | No unfamiliar external choice is introduced; retain source-backed research for later unfamiliar dependencies/design claims |\n| MED-07 | NO | No sprite illustration or texture creation; future approved 2D art belongs here |\n| DEM-08 | NO | No authored animation or digital demonstration; future sprite motion/demonstration scope is software-relevant |\n| AUD-25 | NO | No sound/music asset or audio pipeline work |\n| WRI-22 | NO | No new narrative/dialogue/editorial copy; technical wiki work stays with WIK-30 |\n| PRT-05 | NO | No declared gameplay/product milestone prototype plan |\n| BLD-27 | NO | No declared milestone or Designer plan requiring a construction attempt |\n| WEB-06 | NO | No wiki HTML/CSS/search/web-interface change; content and routine generation remain WIK-30 |\n| UIX-31 | NO | No native Godot interaction/control/feedback/accessibility change |\n| AST-32 | NO | No atlas, alpha mask, placement binding, import or provenance change |\n| LOR-33 | NO | No new SCP lore/adaptation/canon claim; future work includes cross-archive evidence and explicit contradictions |\n| SIM-34 | NO | No kernel/module/time/perception/inventory/save behavior change |\n\nThese reasons confirm the actual selection's task fit; the runtime selection event retains the exact authoritative prompts and reasons. Do not remove registered media/web/UI/asset/lore/research/simulation roles merely because they are unused this turn. They have distinct software-game scopes and must be considered again on each future turn. Do not register mechanical/manufacturing workers merely because the portable catalog contains them.\n\n## Acceptance checklist for final review\n\n- [ ] All 23 registered roles appear exactly once; each unused role has its own task-specific negation.\n- [ ] Each selected role has exact recorded prompt, valid dependencies, owned directory, prior authorization and distinct actual host receipt.\n- [ ] Turn.001 remains interrupted with actual failure/partial evidence; no inferred successful handoff replaces it.\n- [ ] Initialization/readiness and real stdio MCP tool calls have logs; configuration/local protocol success is distinguished from the host loading the MCP.\n- [ ] The reported collector path defect is demonstrably fixed and independently checked; final hashes reflect final artifacts.\n- [ ] WIK-30 waits for working owners, updates the actual game wiki and linked current docs, rebuilds/checks and inspects generated semantics.\n- [ ] Collector → independent IA → Document Chief order holds; no later work is smuggled into the published turn.\n- [ ] Accepted import records cite actual history/authorization and are reviewed; historical research/question work is never fabricated.\n- [ ] Canon, gameplay, Git layout and open M0 status remain unchanged; setup is not a game milestone.\n- [ ] Final implementation, actual checks, current guides/profile, game wiki and review limitations agree.\n\n## Material unknowns and limits\n\n**Blocking user-design unknowns: []** within this recovery. Coverage reviewed: 23-role scope and individual exclusion, software media/assets/web/native UI/lore/research boundaries, ownership, independent workers, initialization/MCP status, history import, wiki/process separation, interruption preservation and final review order. User steering supplies the required intent. Concrete defects, quota availability and live MCP loading are observable verification issues for their owners, not permission to invent user answers or quietly pass readiness.\n\nThis invocation ran read-only file/JSON inspections and wrote only this report. It did **not** rerun the unchanged long-term game-design survey, gameplay tests, wiki build/check, MCP protocol probe, package installation or host configuration. The earlier turn.001 wiki freshness pass is historical evidence only; final WIK-30 checks must cover the actual recovery changes. Runtime/doc/test work remains with assigned owners, and this report does not assert their later results.\n",
+      "artifacts": [
+        {
+          "path": "management/agentic/work/turn.002/ENG-00/report.md",
+          "sha256": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306"
+        }
+      ],
+      "tests": [
+        {
+          "status": "NOT_RUN",
+          "command": "Planning/documentary review only; no product runtime test is claimed by this handoff.",
+          "evidence": []
+        }
+      ],
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/ENG-00/report.md",
+          "sha256": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306"
+        }
+      ],
+      "limitations": [
+        "See role-owned report for observed checks, provenance and remaining limits."
+      ],
+      "handoff_status": "COMPLETE"
+    },
+    "KRA-14": {
+      "turn_id": "turn.002",
+      "agent_id": "KRA-14",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a",
+      "assigned_scope": "Krampus Architectural Pre-Processor must finish its owned KRA-14 responsibility and disclose quota recovery limits in this actual setup turn.",
+      "work_performed": "# Architecture recovery review — turn.002 / KRA-14\n\nAssigned status: **COMPLETE** for this bounded setup architecture review. This is\nnot IA acceptance, a completed product baseline, or a gameplay milestone. This\nrole writes only this report, with no runtime or canonical-doc edits.\n\n## Inspected context and actual recovery\n\nRe-read game `AGENTS.md`, management README/profile, actual game-wiki sources\n`content/project-management.md`, `content/development.md` and `content/status.md`,\nthe turn.002 ENG-00 report, setup assessment/selection context, and current\n`tools/game_workflow.py`, `tools/agentic.py`, `tools/check_agentic_mcp.py`, role\ndefinitions and the copied runtime's relevant workflow/preflight sections. The\nlinked integration/development/wiki authoring documents and full initial\narchitecture report read during turn.001 remain relevant local sources; this\nfocused recovery does not pretend to perform a new product-research round.\n\nActual persisted phase inspection shows turn.001 **INTERRUPTED**, with 18 roles in\nits snapshot; turn.002 is **RESEARCH_AND_EXECUTION**, with 23 roles. Retain the\nearlier quota failures and partial work. No accepted setup/import may be inferred\nfrom the earlier report, source files, installed dependencies or interrupted turn.\n\nThe parent reports actual quota errors in engineering/QA workers. This report\ndoes not independently diagnose the service quota or claim those workers finished.\nNew authorized invocations and final checks must qualify the resumed files.\n\n## Architecture confirmed\n\nThe turn.001 recommendation still applies: reuse the genuine copied runtime's\nregistry, exact all-role selection, authorize-before-invocation receipts,\nhash-linked events, structured handoffs, phase order and immutable publications.\nKeep one shared API behind CLI/MCP and preserve the game's independent Git root,\nwiki, source, tests, accepted history and excluded canon archive.\n\nRetain distinct authorities: task board for bounded slice scope/acceptance;\n`management/agentic/` for execution/review history; the **actual authored game\nwiki** for mechanics/implementation/lore explanations; applicable `docs/` for\ncontracts and historical decisions. Process publication JSON never replaces the\ngame knowledge base or implies in-world character/AIC knowledge.\n\nThe current adapter already implements several of the requested boundaries:\n\n- Mandatory ENG-00, EVC-28, IA-11, DOC-10 and WIK-30; all registered roles must be\n  explicitly selected or individually negated through the inherited validator.\n- WIK-30 depends on every selected execution role, and later specialist dispatch\n  is refused once Wiki starts. Wiki has real authored-page/build/check/semantic\n  evidence requirements before collection.\n- Each role needs a distinct externally supplied host receipt. Receipts and\n  reading attestations remain externally reviewable claims, not host-authenticated\n  guarantees produced by Python.\n- Imports retain actual sources/authorization hashes and require an accepted\n  setup publication naming that exact import. Historical question/research/\n  baseline booleans remain truthful. Pending questions, research and IA cases\n  still block production readiness.\n- CLI readiness is explicitly separate from host MCP loading. The real local\n  stdio probe tests initialize/list-tools/inventory and labels live host\n  registration CONFIGURED_UNVERIFIED until a host call is observed.\n\nThe earlier two concrete architecture hazards are addressed in the inspected\nsource: `Workflow.select` now uses `self.readiness`, and inherited later research\neligibility calls `initial_prerequisites_ready`. GameWorkflow can therefore honor\nan accepted import without fabricating `initial_research_complete`. QA must still\nexercise the actual positive and rejected import/research cases.\n\n## Concrete remaining integration defect at inspection\n\nCollector package creation returns an alias path such as\n`work/turn.002/EVC-28/evidence-package.json`. The game path mapper resolves this\nunder `management/agentic/work/`. `references` records the canonical game-relative\npath, but `_validate_collection` currently compares `r['path'] == path` literally.\nThose two spellings identify the same file but fail string equality.\n\nSWE should fix this narrowly through canonical game-relative return paths or\nresolved-path comparison, retaining the owned-directory containment check and\nrecorded artifact hash. QA should run the genuine collect → handoff sequence\nthrough GameWorkflow, not only unadapted generic runtime fixtures. Do not bypass\nownership, omit the package hash or accept arbitrary unrelated evidence to make\nthe comparison pass. Parent was notified of the exact mismatch.\n\n## Software-role scope and negation\n\nThe current registry includes 23 roles. Every unused one requires its own\nsubstantive task-specific NO; all start YES for consideration. Retain registered\nroles across turns even when this setup does not need their work.\n\nThe newly explicit software/game scopes are sensible:\n\n- MED-07 creates approved sprite/texture illustration; DEM-08 covers authored\n  animation/demonstrations; AUD-25 covers sound/music; AST-32 owns atlas/mask/import/\n  placement/provenance integration. Asset authoring and integration are distinct.\n- WEB-06 owns actual HTML/CSS/search/accessibility/web interaction, while WIK-30\n  owns technical game-wiki content, source relationships and routine generation.\n- UIX-31 owns native Godot interaction, feedback and accessibility, rather than\n  treating every native game view as a website.\n- LOR-33 examines SCP canon/cross-archive contradictions and explicit adaptation\n  proposals; RES-09 researches unfamiliar external dependencies/approaches and\n  preserves source receipts. They do not silently make disputed human decisions.\n- SIM-34 owns authoritative kernel/module/time/perception/inventory/employment/\n  persistence contracts, separate from general tooling implementation.\n\nThese roles need no fictional deliverables this setup. ENG/KRA/SWE/QA/WIK and the\nterminal crew cover the current task. Vince, unused software/media/lore specialists\nand prototype roles remain individually negated. Setup is not a declared gameplay\nmilestone; ordinary milestone Designer/Builder requirements remain for later\nactual milestones.\n\n## Finalization conditions and documentation ownership\n\nCanonical docs still describe single-developer execution at inspection. Treat\nthat as incomplete integration requiring WIK-30's superseding current-policy\nupdate, preserving the old accepted self-review records as historical evidence.\nDo not let stale current-policy text justify skipping the user's agentic loop.\n\nAfter SWE and QA final handoffs, WIK must maintain the actual wiki/linked Markdown,\nrebuild/check and inspect generated semantic agreement. Then EVC inventories and\nhashes actual logs/outputs/receipts/gaps, independent IA reviews the final evidence,\nand DOC publishes the accepted/rejected/blocked process outcome last. No source\nor game-wiki repair should be hidden after review. Findings require responsible\nowner correction records; interruptions remain incomplete.\n\nAccepting imported history requires actual setup acceptance/publication, not a\nsynthetic architecture.baseline or backdated questions/research. Keep later\nquestions, queued research, findings and readiness gates operational. The game\nledger's existing open decisions and M0 limitations remain unchanged.\n\n## Explicit disposition and verification limits\n\n`unresolved_questions: []`\n\nCoverage: recovery/quota interruption, current all-role registry and negation,\nsoftware asset/media/web/native-UI/lore/research ownership, game/wiki/process\nauthority, accepted imports versus historical booleans, later research eligibility,\ncollection path containment, actual receipts and terminal phase order. No new\nuser-design answer is necessary for bounded setup. The collector mismatch is an\nimplementation defect for SWE/QA, not an invented user ambiguity.\n\n`baseline_artifacts: []`\n\nOnly actual local read-only source/JSON inspection was performed. This role did\nnot run gameplay tests, a new wiki build/check, protocol probe or acceptance, and\ndoes not reuse turn.001's freshness pass as fresh recovery verification. WIK/QA/IA\nmust record final real results after the resumed implementation. This report's\nCOMPLETE status describes its assigned review only.\n",
+      "artifacts": [
+        {
+          "path": "management/agentic/work/turn.002/KRA-14/report.md",
+          "sha256": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78"
+        }
+      ],
+      "tests": [
+        {
+          "status": "NOT_RUN",
+          "command": "Planning/documentary review only; no product runtime test is claimed by this handoff.",
+          "evidence": []
+        }
+      ],
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/KRA-14/report.md",
+          "sha256": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78"
+        }
+      ],
+      "limitations": [
+        "See role-owned report for observed checks, provenance and remaining limits."
+      ],
+      "handoff_status": "COMPLETE",
+      "architecture": {
+        "unresolved_questions": [],
+        "baseline_artifacts": []
+      }
+    },
+    "QA-16": {
+      "turn_id": "turn.002",
+      "agent_id": "QA-16",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+      "assigned_scope": "Independent policy/negative-case and actual local MCP protocol verification; no game production or canonical documentation edits.",
+      "work_performed": "Added 29 isolated game-agentic regression tests; independently ran those with six client setup and 13 legacy adapter tests (48 PASS), probed real stdio MCP, preserved adverse provisional logs and final source hashes, and reported implementation defects for SWE correction.",
+      "artifacts": [
+        {
+          "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+          "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+          "sha256": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+          "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+          "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+          "sha256": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+          "sha256": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/report.md",
+          "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+          "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+        }
+      ],
+      "tests": [
+        {
+          "command": "python3 -m unittest discover -s tests -p 'test_agentic*.py' -v",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+              "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+            }
+          ]
+        },
+        {
+          "command": "python3 -m unittest discover -s tests -p test_project_management.py -v",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+              "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python tools/check_agentic_mcp.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+              "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "path": "tests/test_agentic_workflow.py",
+          "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+        },
+        {
+          "path": "tests/test_agentic_client_setup.py",
+          "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+          "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+        }
+      ],
+      "limitations": [
+        "Local stdio protocol probe is real but Codex host registration remains CONFIGURED_UNVERIFIED; host_tool_observed=false.",
+        "Fixture receipts are synthetic policy tests, never production dispatch evidence; runtime cannot authenticate arbitrary host receipt strings.",
+        "No gameplay milestone, exhaustive later research-resolution cycle, or final wiki consistency gate is certified; WIK/Collector/independent IA/DOC remain responsible."
+      ],
+      "handoff_status": "COMPLETE"
+    },
+    "SWE-13": {
+      "turn_id": "turn.002",
+      "agent_id": "SWE-13",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+      "assigned_scope": "Implement the genuine game workflow policy, shared CLI/MCP runtime, explicit historical import and accepted agentic slice closure; preserve game/wiki/canon/history.",
+      "work_performed": "Reused copied real harness with narrow documented hooks, versioned23-role setup and actual WIK sequencing; implemented shared22operation CLI/MCP and bounded protocol probe; enforced matching independent accepted-publication slice completion. Reviewed/adopted root bootstrap helpers and recorded real verification.",
+      "artifacts": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+          "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+          "sha256": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+          "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+          "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+          "sha256": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+          "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+          "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+          "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/report.md",
+          "sha256": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a"
+        },
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/task-status.json",
+          "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+        }
+      ],
+      "tests": [
+        {
+          "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_workflow.py -v",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+              "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+              "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_client_setup.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+              "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python tools/check_agentic_mcp.py (actual local stdio outside sandbox)",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+              "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python py_compile for ten actual implementation files",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+              "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+            }
+          ]
+        },
+        {
+          "command": ".venv-harness/bin/python actual process structure inspection assertions",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+              "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "path": "tools/game_workflow.py",
+          "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+        },
+        {
+          "path": "tools/agentic.py",
+          "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+        },
+        {
+          "path": "tools/agentic_mcp.py",
+          "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+        },
+        {
+          "path": "tools/check_agentic_mcp.py",
+          "sha256": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a"
+        },
+        {
+          "path": "tools/manage_project.py",
+          "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+        },
+        {
+          "path": "tools/call_agentic_mcp.py",
+          "sha256": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec"
+        },
+        {
+          "path": "tools/configure_agentic_client.py",
+          "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162"
+        },
+        {
+          "path": "tools/install_agentic_dependencies.py",
+          "sha256": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7"
+        },
+        {
+          "path": "management/harness/runtime/workflow.py",
+          "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+        },
+        {
+          "path": "management/harness/runtime/preflight.py",
+          "sha256": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4"
+        },
+        {
+          "path": "management/harness/runtime/UPSTREAM.json",
+          "sha256": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3"
+        },
+        {
+          "path": "management/harness/runtime/config/game_roles.json",
+          "sha256": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786"
+        },
+        {
+          "path": "management/agentic/imported-project.json",
+          "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+        },
+        {
+          "path": "tests/test_agentic_workflow.py",
+          "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+        },
+        {
+          "path": "tests/test_agentic_client_setup.py",
+          "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/report.md",
+          "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+          "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+        },
+        {
+          "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+          "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+        }
+      ],
+      "limitations": [
+        "Actual Codex host MCP loading remains unobserved; successful local protocol and configured files are not live host-registration proof.",
+        "Root must submit actual handoffs; WIK final docs/build and Collector/independent IA/Document Chief publication remain pending.",
+        "No new gameplay/native renderer/canon/milestone qualification; receipt strings are externally attested and hashes are not tamper-proof."
+      ],
+      "handoff_status": "COMPLETE"
+    },
+    "WIK-30": {
+      "turn_id": "turn.002",
+      "agent_id": "WIK-30",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+      "assigned_scope": "Actual authored game-wiki and linked technical docs/profile/templates after owner freeze, final rebuild/freshness and semantic review; no game runtime edits.",
+      "work_performed": "Documented active real agentic loop and23software/game roles, individual unused-role negations, exact dispatch/source ownership and WIK-versus-DOC order; preserved historical self-review/import and interrupted quota turn; rebuilt/inspected actual wiki and recorded the newly observed outer shortcut failure for independent IA/new SWE correction.",
+      "artifacts": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+          "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+          "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+          "sha256": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+          "sha256": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+          "sha256": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+          "sha256": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+          "sha256": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+          "sha256": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+          "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+          "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+          "sha256": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/report.md",
+          "sha256": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+          "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+          "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+          "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+          "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+          "sha256": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb"
+        },
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-precheck.log",
+          "sha256": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "source_material/game-wiki/content/agentic-loop.md",
+          "sha256": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b"
+        },
+        {
+          "path": "source_material/game-wiki/content/project-management.md",
+          "sha256": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb"
+        },
+        {
+          "path": "source_material/game-wiki/content/development.md",
+          "sha256": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171"
+        },
+        {
+          "path": "source_material/game-wiki/content/status.md",
+          "sha256": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325"
+        },
+        {
+          "path": "source_material/game-wiki/content/home.md",
+          "sha256": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03"
+        },
+        {
+          "path": "source_material/game-wiki/content/engine.md",
+          "sha256": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b"
+        },
+        {
+          "path": "AGENTS.md",
+          "sha256": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f"
+        },
+        {
+          "path": "management/README.md",
+          "sha256": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283"
+        },
+        {
+          "path": "management/profile.json",
+          "sha256": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6"
+        },
+        {
+          "path": "management/harness/AGENTS.md",
+          "sha256": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db"
+        },
+        {
+          "path": "management/harness/README.md",
+          "sha256": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e"
+        },
+        {
+          "path": "docs/12-development-workflow.md",
+          "sha256": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a"
+        },
+        {
+          "path": "docs/58-software-project-management.md",
+          "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+        },
+        {
+          "path": "docs/59-agentic-development-loop.md",
+          "sha256": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319"
+        },
+        {
+          "path": "source_material/game-wiki/README.md",
+          "sha256": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a"
+        },
+        {
+          "path": "source_material/game-wiki/llms.txt",
+          "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+        },
+        {
+          "path": "tools/build_game_wiki.py",
+          "sha256": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c"
+        }
+      ],
+      "game_wiki": {
+        "pages": [
+          "source_material/game-wiki/content/agentic-loop.md",
+          "source_material/game-wiki/content/project-management.md",
+          "source_material/game-wiki/content/development.md",
+          "source_material/game-wiki/content/status.md",
+          "source_material/game-wiki/content/home.md",
+          "source_material/game-wiki/content/engine.md"
+        ],
+        "semantic_review": true,
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+            "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+            "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+            "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+          }
+        ]
+      },
+      "tests": [
+        {
+          "command": "python3 -m unittest discover -s tests -p test_agentic*.py -v",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+              "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+            }
+          ]
+        },
+        {
+          "command": "python3 tools/check_management_docs.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+              "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+            }
+          ]
+        },
+        {
+          "command": "python3 tools/build_game_wiki.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+              "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+            }
+          ]
+        },
+        {
+          "command": "python3 tools/build_game_wiki.py --check",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+              "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+            }
+          ]
+        },
+        {
+          "command": "python3 management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+              "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+            }
+          ]
+        },
+        {
+          "command": "python3 management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+              "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+            }
+          ]
+        },
+        {
+          "command": "python3 tools/configure_project_harness.py --root .. --check",
+          "status": "PASS",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+              "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+            }
+          ]
+        },
+        {
+          "command": "python3 ../scripts/manage_game.py agents readiness",
+          "status": "FAIL",
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+              "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Known observed outer scripts/manage_game.py agents shortcut ModuleNotFoundError game_workflow; source freeze preserved and SWE-13 correction/regression required in a new turn. This is not setup/task acceptance.",
+        "Local stdio protocol/configuration are verified but no live host workflow tool call observed; host connection CONFIGURED_UNVERIFIED.",
+        "Collector, independent IA, DOC publication and import acceptance remain pending at this handoff; no gameplay/M0 qualification or invented historical questions/research."
+      ],
+      "handoff_status": "COMPLETE"
+    }
+  },
+  "failures": {},
+  "events": [
+    {
+      "sequence": 1,
+      "timestamp": "2026-11-11T10:45:16.270953+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "INITIAL_REVIEW"
+      },
+      "previous_hash": "15d1885734e3eca1eec7c5063c57b304efb7faeed3b4d1b48eadc86ac9c38b66",
+      "hash": "91d3b58f03e3259ac4e8e77171dd849a8b3d2a43d020ed299e7c24c446b367b3"
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-11-11T10:45:16.272917+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "AGENT_SELECTION"
+      },
+      "previous_hash": "91d3b58f03e3259ac4e8e77171dd849a8b3d2a43d020ed299e7c24c446b367b3",
+      "hash": "daa1a56e4401ece8711679cb63a56e838906dbe7958b449d9bc4a94f1a211074"
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-11-11T10:45:16.289896+00:00",
+      "kind": "SELECTION",
+      "data": {
+        "ENG-00": {
+          "selected": true,
+          "reason": "Project Coordinator must finish its owned ENG-00 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Project Coordinator for setup turn.002. Read the current harness and game integration; produce a bounded integration plan and acceptance checklist, software-relevant role decisions, a complete list of material unknowns (empty allowed with explained coverage), and ownership/dependency recommendations. Do not edit runtime or canonical docs. Write management/agentic/work/turn.002/ENG-00/report.md. Return actual work/evidence/limitations for a structured handoff. Scope is harness setup, not new gameplay or a game milestone. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Keep this recovery coordination review focused; root already installed dependencies/config and recorded actual initial workers. Confirm scope/role fit and note any genuine blocking unknown; no need to repeat unchanged long-term game design.",
+          "dependencies": []
+        },
+        "SHO-12": {
+          "selected": false,
+          "reason": "No sales or milestone presentation is requested in this harness initialization; truthful setup evidence is the deliverable."
+        },
+        "EVC-28": {
+          "selected": true,
+          "reason": "Evidence Collector and Organizer must finish its owned EVC-28 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Evidence Collector after all selected specialists and WIK-30 finish, in HANDOFF_COLLECTION phase. Independently inventory selected/excluded roles, actual authorizations/receipts/handoffs, owned artifacts, nested source refs and real logs. Invoke the real build_evidence_package method and inspect missing/changed evidence. Do not repair code/docs or decide IA acceptance. Save report and structured collection handoff under management/agentic/work/turn.002/EVC-28/. Root supplies actual current turn after authorization. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+          "dependencies": []
+        },
+        "IA-11": {
+          "selected": true,
+          "reason": "Internal Affairs must finish its owned IA-11 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Internal Affairs in INTERNAL_AFFAIRS_REVIEW after Evidence Collector. Audit actual assignments, negations for every unused role, dispatch-before-receipt sequence, genuine workers, collector completeness, file hashes, tests, MCP probe vs host connection claims, existing-project migration policy, actual game-wiki updates and documentation agreement. Run focused verification if useful; do not repair outputs. Report ACCEPTED/REJECTED/BLOCKED with concrete findings/owner/evidence and limitations. Save audit/report/handoff under management/agentic/work/turn.002/IA-11/. New findings require honest correction records, not hidden self-repair. Root supplies actual current state. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+          "dependencies": []
+        },
+        "DOC-10": {
+          "selected": true,
+          "reason": "Document Chief must finish its owned DOC-10 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Document Chief last in DOCUMENT_CHIEF phase after independent IA. Read final audit and evidence package. Publish only the accepted/rejected/blocked process outcome and entity references via actual GameWorkflow.publish, after delivering your role-owned structured handoff. Do not edit/rebuild the game wiki or source after review; WIK-30 already owns it. Confirm migration/connection limitations remain explicit, and future loop instructions require every unused registered role to be individually negated. Write final process report under management/agentic/work/turn.002/DOC-10/. No further specialist may run after you. Root supplies actual publish payload and current state. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+          "dependencies": []
+        },
+        "KRA-14": {
+          "selected": true,
+          "reason": "Krampus Architectural Pre-Processor must finish its owned KRA-14 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as architecture reviewer for setup turn.002, after ENG-00. Inspect the coordinator report and copied harness runtime. Review the plan to reuse actual authorization, all-role selection, hash-chain evidence, Collector -> independent IA -> Document Chief, with a WIK-30 game-wiki specialist before collection. An explicit existing-project migration policy may allow future work after accepted setup without falsely claiming historic question/research turns occurred. Preserve research/questions/findings gates for new needs. Identify design conflicts and minimal adapter changes; record unresolved_questions explicitly, with no frozen product baseline. Do not edit runtime/docs. Write management/agentic/work/turn.002/KRA-14/report.md. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Confirm the prior minimal architecture review against current code and quota recovery. Keep this focused; no need to re-research already read local sources.",
+          "dependencies": [
+            "ENG-00"
+          ]
+        },
+        "SWE-13": {
+          "selected": true,
+          "reason": "Software Engineer must finish its owned SWE-13 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Software Engineer for setup turn.002 after ENG-00 and KRA-14 reports. Own tools/game_workflow.py (currently minimal bootstrap path adapter), tools/agentic.py, tools/agentic_mcp.py, tools/check_agentic_mcp.py, tools/manage_project.py and a small documented patch to management/harness/runtime/workflow.py if required. Reuse the copied genuine harness engine; do not invent a new faux agent loop. Runtime stores/registry/publications must live under management/agentic/ and use registered custom WIK-30. Enforce all registered roles accounted exactly once, default YES, unique substantive per-agent exclusions, mandatory coordinator/collector/independent IA/document chief and actual wiki worker. Existing-project migration must be explicit and truthful, keep question/research/findings gates. Require genuine authorization before host spawning, log actual receipts, phases, handoffs and hashes. WIK handles real wiki before Collector; DOC publishes process records last and must not rewrite game docs after IA. Source edits may occur in assigned game paths; handoff artifacts stay role-owned. Add CLI commands backed by the real runtime (init/inventory/status/begin/plan/select/authorize/invoke/handoff/advance/collect/audit/publish/interrupt), and stdio MCP app exposing equivalent operations. Existing software slice CLI must support execution=agentic and new slice completion must require the accepted matching agentic publication and actual wiki handoff, while preserving historical self-reviewed slice records as history. MCP client probe should initialize protocol, list tools and call inventory via subprocess; never claim Codex host live registration from protocol alone. No model API or purchases. Root will install mcp/jsonschema in Project/.venv-harness. Do not own wiki/docs or tests/test_agentic_workflow.py (QA owns it); coordinate requirements with QA. Record real verification and write management/agentic/work/turn.002/SWE-13/report.md. Do not modify root outer harness runtime. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. Fix the known collector alias/canonical-path comparison bug QA found; coordinate with /root/qa_harness. Root helpers/config registration already exist. Do not claim MCP host tools are available merely from configuration or a protocol client.",
+          "dependencies": [
+            "KRA-14"
+          ]
+        },
+        "QA-16": {
+          "selected": true,
+          "reason": "Test Engineer must finish its owned QA-16 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Test Engineer for setup turn.002. Own tests/test_agentic_workflow.py and management/agentic/work/turn.002/QA-16/report.md; do not modify software implementation or wiki. Read ENG-00/KRA-14 reports and the copied runtime; coordinate interface with SWE-13 through collaboration. Write meaningful temporary-root tests for exact all-role accounting, individual unique exclusions, default YES, mandatory WIK/core, unauthorized dispatch, changed prompt, fake/reused independent receipt restrictions, ordered collection/IA/document phases, blocked/missing handoffs, imported baseline not faked research history, and new software slice completion requiring real accepted agentic publication. Test actual stdio MCP probe when environment installed. Tests may use explicitly labeled fixture receipts; no fixture receipt is production evidence. Wait for engineer implementation before final full results. Return actual logs and limitations in role-owned report. No game feature production. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+          "dependencies": [
+            "KRA-14"
+          ]
+        },
+        "OPS-17": {
+          "selected": false,
+          "reason": "No game packaging, release pipeline or operational deployment changes are included; SWE owns this bounded harness CLI/MCP setup."
+        },
+        "SEC-18": {
+          "selected": false,
+          "reason": "No new game sandbox, credential handling or public service is introduced; IA reviews the local subprocess and evidence boundaries for this setup."
+        },
+        "RES-09": {
+          "selected": false,
+          "reason": "No unfamiliar product/material choice or game-canon decision is made; this setup reuses inspected local harness sources and pinned dependencies."
+        },
+        "MED-07": {
+          "selected": false,
+          "reason": "This initialization changes no sprite illustrations, textures or graphic artwork, so there is no illustration deliverable."
+        },
+        "DEM-08": {
+          "selected": false,
+          "reason": "No animation sequence or digital product demonstration is authored during the agentic workflow setup."
+        },
+        "AUD-25": {
+          "selected": false,
+          "reason": "No speech, sound effects, music or audio pipeline changes are requested by this workflow initialization."
+        },
+        "WRI-22": {
+          "selected": false,
+          "reason": "No character dialogue, narrative or canon adaptation is authored; WIK-30 owns technical game documentation."
+        },
+        "PRT-05": {
+          "selected": false,
+          "reason": "No game completion milestone is declared; this is setup qualification of workflow services, not a new product prototype plan."
+        },
+        "BLD-27": {
+          "selected": false,
+          "reason": "No product milestone or approved Designer prototype plan is declared; software and QA qualify the harness tools directly."
+        },
+        "WIK-30": {
+          "selected": true,
+          "reason": "Game Wiki Maintainer must finish its owned WIK-30 responsibility and disclose quota recovery limits in this actual setup turn.",
+          "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Game Wiki Maintainer for setup turn.002 after SWE-13 and QA-16 complete. Own authored game wiki content/project-management.md, content/development.md, content/status.md, relevant home/engine links, docs/58-software-project-management.md (preserve prior implementation as superseded history), new docs/59-agentic-development-loop.md, management/README.md, management/profile.json, management/harness/AGENTS.md and README.md templates, Project/AGENTS.md, docs/12-development-workflow.md, wiki README/llms and builder metadata as needed. Read actual final implementation, reports and tests; explain new active real agentic loop, every registered agent defaults YES and each unused role needs specific negation, WIK actual wiki vs DOC process publications, source ownership and strict terminal sequence, imported baseline limits and MCP connection status. Update contradictory single-developer current claims, preserving historical accepted records. Root installer will route wrapper and stage MCP config, coordinate with root. Rebuild/check game wiki only after source/docs edits are final and no other wiki build running. Inspect generated pages and reciprocal links. Save actual build/check logs and report under management/agentic/work/turn.002/WIK-30/. Do not change game runtime or engineer files. Do not claim host-connected MCP unless actual host tool observed. Recovery instructions: the earlier engineering/QA host workers stopped with actual quota errors; turn.001 is recorded INTERRUPTED, not accepted. Resume existing partial files and inspect actual current state. Latest human steering requires media/assets, web-wiki, native UI/UX, lore and research roles to have clear software scopes. There are now 23 registered roles; every unused one must be individually negated. Setup is not a gameplay milestone. ",
+          "dependencies": [
+            "ENG-00",
+            "KRA-14",
+            "SWE-13",
+            "QA-16"
+          ]
+        },
+        "WEB-06": {
+          "selected": false,
+          "reason": "The recovery changes no wiki HTML/CSS/search interface; WIK-30 maintains technical content and existing generation, so no web-interface implementation is assigned."
+        },
+        "UIX-31": {
+          "selected": false,
+          "reason": "No player-facing Godot screen, control flow or interaction usability is changed during harness initialization, so native UI/UX design has no deliverable."
+        },
+        "AST-32": {
+          "selected": false,
+          "reason": "No sprite atlas, mask, art binding, import settings or asset provenance changes are made by this workflow recovery."
+        },
+        "LOR-33": {
+          "selected": false,
+          "reason": "No SCP canon claim or in-game lore adaptation is introduced in this agent-loop setup; prior game lore remains unchanged."
+        },
+        "SIM-34": {
+          "selected": false,
+          "reason": "No authoritative game kernel, SCP module, time/perception rule or save contract changes are requested by the harness recovery."
+        }
+      },
+      "previous_hash": "daa1a56e4401ece8711679cb63a56e838906dbe7958b449d9bc4a94f1a211074",
+      "hash": "00330cb79eed8beb4aa46b825149528a560c028d6579f803e5e1f6a29de2e9f6"
+    },
+    {
+      "sequence": 4,
+      "timestamp": "2026-11-11T10:45:16.292835+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "RESEARCH_AND_EXECUTION"
+      },
+      "previous_hash": "00330cb79eed8beb4aa46b825149528a560c028d6579f803e5e1f6a29de2e9f6",
+      "hash": "6c866ed81834103528d88add90ff3cb9a2f5fdfd260fc81e6f031a57efb233a8"
+    },
+    {
+      "sequence": 5,
+      "timestamp": "2026-11-11T10:45:16.305091+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "ENG-00",
+        "authorization_id": "5c00def7ade6438594a0de2be20e8ec2",
+        "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac"
+      },
+      "previous_hash": "6c866ed81834103528d88add90ff3cb9a2f5fdfd260fc81e6f031a57efb233a8",
+      "hash": "653152516fadaed62526361c3f76111ddfa655856f8692dcb98c1e202e14bd14"
+    },
+    {
+      "sequence": 6,
+      "timestamp": "2026-11-11T10:45:46.639011+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "ENG-00",
+        "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac",
+        "receipt": "/root/coordinator_setup",
+        "backend": "codex-collaboration",
+        "authorization_id": "5c00def7ade6438594a0de2be20e8ec2",
+        "owned_directory": "work/turn.002/ENG-00"
+      },
+      "previous_hash": "653152516fadaed62526361c3f76111ddfa655856f8692dcb98c1e202e14bd14",
+      "hash": "02a088e54ad94fe33f29c040456c97236c282ab83f2ec7281884018dcabe3454"
+    },
+    {
+      "sequence": 7,
+      "timestamp": "2026-11-11T10:47:09.039725+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.002",
+        "agent_id": "ENG-00",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac",
+        "assigned_scope": "Project Coordinator must finish its owned ENG-00 responsibility and disclose quota recovery limits in this actual setup turn.",
+        "work_performed": "# Coordinator recovery setup review — turn.002\n\nAssigned status: **COMPLETE** for this scoped coordination review. Turn acceptance belongs to the subsequent Collector, independent IA and Document Chief sequence. No new game feature or gameplay milestone is claimed.\n\n## Current state inspected\n\nRe-read `Project/AGENTS.md`, `management/README.md`, `management/profile.json`, actual game-wiki sources `content/development.md`, `content/status.md` and `content/project-management.md`, and linked integration contract `docs/58-software-project-management.md`. The wiki authoring/build and Git/development requirements read during the previous invocation continue to apply. Inspected the current `tools/game_workflow.py`, `tools/agentic.py`, MCP configuration/probe tools, registry revision 19, both turn headers, and actual turn.002 selection event.\n\nRegistry revision 19 contains **23 roles**. Turn.001's actual final recorded phase is **INTERRUPTED**; it is not an accepted setup. Parent reports the earlier engineering/QA workers stopped with quota errors, and this recovery must retain their partial artifacts and failure evidence. Turn.002 is a setup assessment with no milestone. Its actual selection records eight working/terminal roles: ENG-00, KRA-14, SWE-13, QA-16, WIK-30, EVC-28, IA-11 and DOC-10. Every other registered role has a separate NO reason.\n\nThe current game policy adds mandatory WIK-30; its dependency check requires every selected execution role to finish before Wiki starts, and it prevents later execution specialists from starting afterward. It distinguishes imported historical project decisions from newly performed question/research rounds, requires reviewed setup publication for accepting an import, retains independent host receipts and keeps process publications outside the actual game wiki. At inspection, no `management/agentic/imported-project.json` existed: import acceptance must not be claimed merely from the presence of this policy code.\n\nThe canonical guides/profile still describe the earlier single-developer adapter. This is expected unfinished integration work, not authority to ignore the user's newer agentic instruction. WIK-30 must supersede those current-policy statements and preserve the earlier integration's self-review evidence as history.\n\n## Focused recovery plan and ownership\n\n1. **ENG-00:** establish this recovery's bounded scope, confirm the complete 23-role selection and maintain exact prompts, ownership, authorizations and actual receipts. Do not erase turn.001 or claim an earlier failed worker completed.\n2. **KRA-14:** review architectural separation of slice board, agentic process records, actual game wiki, local CLI/MCP transport and existing game kernel. Identify interface conflicts without changing gameplay.\n3. **SWE-13:** resume partial versioned harness implementation, fix the reported collection path defect, qualify initialization/readiness and CLI/MCP behavior, preserve path containment and actual dispatch/event order. Installation/configuration is already parent work; verify rather than reinstall gratuitously. Record real test/protocol logs and remaining host-loading limitations.\n4. **QA-16:** independently exercise actual positive and rejection cases. Confirm missing roles/reasons, wrong authorization or prompt, reused worker receipt, dependency violations, Wiki ordering and terminal phases cannot be misrepresented as completion. Do not repair production code silently.\n5. **WIK-30:** after selected execution roles finish, update the **actual authored game wiki** plus relevant current game/development/harness guides and profile. Rebuild/check and inspect reciprocal links and semantic agreement. It does not edit canon or replace mechanics with process JSON.\n6. **EVC-28 → IA-11 → DOC-10:** inventory final evidence and omissions; independently assess actual work/receipts/exclusions/limitations; publish the truthful accepted, rejected or blocked result last. Quota failures and unverified host connection remain visible. No later worker runs within the closed turn.\n\nThe versioned game checkout, its `.git`, existing `.github`, bulk canon exclusion and standalone game commands remain in place. The slice board continues to own scope/acceptance while the agentic turn owns invocation/evidence history; neither duplicates or overrides mechanics authority.\n\n## Software and game role fit\n\n| Role | Decision for this setup | Continuing software/game jurisdiction |\n|---|---|---|\n| ENG-00 | YES | Scope, selection, dependency ownership and readiness decisions |\n| KRA-14 | YES | Software architecture and integration boundary review |\n| SWE-13 | YES | Local harness CLI/MCP implementation and automation |\n| QA-16 | YES | Independent software acceptance and negative-case checks |\n| WIK-30 | YES | Actual game-wiki content, linked technical docs, generation and consistency |\n| EVC-28 | YES, after Wiki | Inventory actual artifacts, logs, receipts and gaps |\n| IA-11 | YES, independent after collection | Audit evidence and claims without repairing reviewed work |\n| DOC-10 | YES, last | Immutable process outcome publication after IA |\n| SHO-12 | NO | No presentation/milestone story is requested |\n| OPS-17 | NO | No game build/package/release deployment change; SWE owns this bounded setup |\n| SEC-18 | NO | No new public service or gameplay credential/sandbox feature; IA still reviews local evidence boundaries |\n| RES-09 | NO | No unfamiliar external choice is introduced; retain source-backed research for later unfamiliar dependencies/design claims |\n| MED-07 | NO | No sprite illustration or texture creation; future approved 2D art belongs here |\n| DEM-08 | NO | No authored animation or digital demonstration; future sprite motion/demonstration scope is software-relevant |\n| AUD-25 | NO | No sound/music asset or audio pipeline work |\n| WRI-22 | NO | No new narrative/dialogue/editorial copy; technical wiki work stays with WIK-30 |\n| PRT-05 | NO | No declared gameplay/product milestone prototype plan |\n| BLD-27 | NO | No declared milestone or Designer plan requiring a construction attempt |\n| WEB-06 | NO | No wiki HTML/CSS/search/web-interface change; content and routine generation remain WIK-30 |\n| UIX-31 | NO | No native Godot interaction/control/feedback/accessibility change |\n| AST-32 | NO | No atlas, alpha mask, placement binding, import or provenance change |\n| LOR-33 | NO | No new SCP lore/adaptation/canon claim; future work includes cross-archive evidence and explicit contradictions |\n| SIM-34 | NO | No kernel/module/time/perception/inventory/save behavior change |\n\nThese reasons confirm the actual selection's task fit; the runtime selection event retains the exact authoritative prompts and reasons. Do not remove registered media/web/UI/asset/lore/research/simulation roles merely because they are unused this turn. They have distinct software-game scopes and must be considered again on each future turn. Do not register mechanical/manufacturing workers merely because the portable catalog contains them.\n\n## Acceptance checklist for final review\n\n- [ ] All 23 registered roles appear exactly once; each unused role has its own task-specific negation.\n- [ ] Each selected role has exact recorded prompt, valid dependencies, owned directory, prior authorization and distinct actual host receipt.\n- [ ] Turn.001 remains interrupted with actual failure/partial evidence; no inferred successful handoff replaces it.\n- [ ] Initialization/readiness and real stdio MCP tool calls have logs; configuration/local protocol success is distinguished from the host loading the MCP.\n- [ ] The reported collector path defect is demonstrably fixed and independently checked; final hashes reflect final artifacts.\n- [ ] WIK-30 waits for working owners, updates the actual game wiki and linked current docs, rebuilds/checks and inspects generated semantics.\n- [ ] Collector → independent IA → Document Chief order holds; no later work is smuggled into the published turn.\n- [ ] Accepted import records cite actual history/authorization and are reviewed; historical research/question work is never fabricated.\n- [ ] Canon, gameplay, Git layout and open M0 status remain unchanged; setup is not a game milestone.\n- [ ] Final implementation, actual checks, current guides/profile, game wiki and review limitations agree.\n\n## Material unknowns and limits\n\n**Blocking user-design unknowns: []** within this recovery. Coverage reviewed: 23-role scope and individual exclusion, software media/assets/web/native UI/lore/research boundaries, ownership, independent workers, initialization/MCP status, history import, wiki/process separation, interruption preservation and final review order. User steering supplies the required intent. Concrete defects, quota availability and live MCP loading are observable verification issues for their owners, not permission to invent user answers or quietly pass readiness.\n\nThis invocation ran read-only file/JSON inspections and wrote only this report. It did **not** rerun the unchanged long-term game-design survey, gameplay tests, wiki build/check, MCP protocol probe, package installation or host configuration. The earlier turn.001 wiki freshness pass is historical evidence only; final WIK-30 checks must cover the actual recovery changes. Runtime/doc/test work remains with assigned owners, and this report does not assert their later results.\n",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.002/ENG-00/report.md",
+            "sha256": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306"
+          }
+        ],
+        "tests": [
+          {
+            "status": "NOT_RUN",
+            "command": "Planning/documentary review only; no product runtime test is claimed by this handoff.",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/ENG-00/report.md",
+            "sha256": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306"
+          }
+        ],
+        "limitations": [
+          "See role-owned report for observed checks, provenance and remaining limits."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "02a088e54ad94fe33f29c040456c97236c282ab83f2ec7281884018dcabe3454",
+      "hash": "a4a5f0e64c03470cc693080dbd56be33eaa0f6dfde23d77ff812e24848b42d4e"
+    },
+    {
+      "sequence": 8,
+      "timestamp": "2026-11-11T10:47:09.092253+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "KRA-14",
+        "authorization_id": "e4e9afa840d3487c8878ffb687b3fa45",
+        "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a"
+      },
+      "previous_hash": "a4a5f0e64c03470cc693080dbd56be33eaa0f6dfde23d77ff812e24848b42d4e",
+      "hash": "330973b930ccd19a68b94a5aa5c38dede4ef4f1f85b351a4d59baf9f35fb1ca6"
+    },
+    {
+      "sequence": 9,
+      "timestamp": "2026-11-11T10:47:23.534938+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "KRA-14",
+        "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a",
+        "receipt": "/root/architecture_setup",
+        "backend": "codex-collaboration",
+        "authorization_id": "e4e9afa840d3487c8878ffb687b3fa45",
+        "owned_directory": "work/turn.002/KRA-14"
+      },
+      "previous_hash": "330973b930ccd19a68b94a5aa5c38dede4ef4f1f85b351a4d59baf9f35fb1ca6",
+      "hash": "7ceb085a0942d45bf9387cbae5bfd4110224fdd43fdfa4c2c08ebd5f2fe7ff1c"
+    },
+    {
+      "sequence": 10,
+      "timestamp": "2026-11-11T10:48:33.644882+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.002",
+        "agent_id": "KRA-14",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a",
+        "assigned_scope": "Krampus Architectural Pre-Processor must finish its owned KRA-14 responsibility and disclose quota recovery limits in this actual setup turn.",
+        "work_performed": "# Architecture recovery review — turn.002 / KRA-14\n\nAssigned status: **COMPLETE** for this bounded setup architecture review. This is\nnot IA acceptance, a completed product baseline, or a gameplay milestone. This\nrole writes only this report, with no runtime or canonical-doc edits.\n\n## Inspected context and actual recovery\n\nRe-read game `AGENTS.md`, management README/profile, actual game-wiki sources\n`content/project-management.md`, `content/development.md` and `content/status.md`,\nthe turn.002 ENG-00 report, setup assessment/selection context, and current\n`tools/game_workflow.py`, `tools/agentic.py`, `tools/check_agentic_mcp.py`, role\ndefinitions and the copied runtime's relevant workflow/preflight sections. The\nlinked integration/development/wiki authoring documents and full initial\narchitecture report read during turn.001 remain relevant local sources; this\nfocused recovery does not pretend to perform a new product-research round.\n\nActual persisted phase inspection shows turn.001 **INTERRUPTED**, with 18 roles in\nits snapshot; turn.002 is **RESEARCH_AND_EXECUTION**, with 23 roles. Retain the\nearlier quota failures and partial work. No accepted setup/import may be inferred\nfrom the earlier report, source files, installed dependencies or interrupted turn.\n\nThe parent reports actual quota errors in engineering/QA workers. This report\ndoes not independently diagnose the service quota or claim those workers finished.\nNew authorized invocations and final checks must qualify the resumed files.\n\n## Architecture confirmed\n\nThe turn.001 recommendation still applies: reuse the genuine copied runtime's\nregistry, exact all-role selection, authorize-before-invocation receipts,\nhash-linked events, structured handoffs, phase order and immutable publications.\nKeep one shared API behind CLI/MCP and preserve the game's independent Git root,\nwiki, source, tests, accepted history and excluded canon archive.\n\nRetain distinct authorities: task board for bounded slice scope/acceptance;\n`management/agentic/` for execution/review history; the **actual authored game\nwiki** for mechanics/implementation/lore explanations; applicable `docs/` for\ncontracts and historical decisions. Process publication JSON never replaces the\ngame knowledge base or implies in-world character/AIC knowledge.\n\nThe current adapter already implements several of the requested boundaries:\n\n- Mandatory ENG-00, EVC-28, IA-11, DOC-10 and WIK-30; all registered roles must be\n  explicitly selected or individually negated through the inherited validator.\n- WIK-30 depends on every selected execution role, and later specialist dispatch\n  is refused once Wiki starts. Wiki has real authored-page/build/check/semantic\n  evidence requirements before collection.\n- Each role needs a distinct externally supplied host receipt. Receipts and\n  reading attestations remain externally reviewable claims, not host-authenticated\n  guarantees produced by Python.\n- Imports retain actual sources/authorization hashes and require an accepted\n  setup publication naming that exact import. Historical question/research/\n  baseline booleans remain truthful. Pending questions, research and IA cases\n  still block production readiness.\n- CLI readiness is explicitly separate from host MCP loading. The real local\n  stdio probe tests initialize/list-tools/inventory and labels live host\n  registration CONFIGURED_UNVERIFIED until a host call is observed.\n\nThe earlier two concrete architecture hazards are addressed in the inspected\nsource: `Workflow.select` now uses `self.readiness`, and inherited later research\neligibility calls `initial_prerequisites_ready`. GameWorkflow can therefore honor\nan accepted import without fabricating `initial_research_complete`. QA must still\nexercise the actual positive and rejected import/research cases.\n\n## Concrete remaining integration defect at inspection\n\nCollector package creation returns an alias path such as\n`work/turn.002/EVC-28/evidence-package.json`. The game path mapper resolves this\nunder `management/agentic/work/`. `references` records the canonical game-relative\npath, but `_validate_collection` currently compares `r['path'] == path` literally.\nThose two spellings identify the same file but fail string equality.\n\nSWE should fix this narrowly through canonical game-relative return paths or\nresolved-path comparison, retaining the owned-directory containment check and\nrecorded artifact hash. QA should run the genuine collect → handoff sequence\nthrough GameWorkflow, not only unadapted generic runtime fixtures. Do not bypass\nownership, omit the package hash or accept arbitrary unrelated evidence to make\nthe comparison pass. Parent was notified of the exact mismatch.\n\n## Software-role scope and negation\n\nThe current registry includes 23 roles. Every unused one requires its own\nsubstantive task-specific NO; all start YES for consideration. Retain registered\nroles across turns even when this setup does not need their work.\n\nThe newly explicit software/game scopes are sensible:\n\n- MED-07 creates approved sprite/texture illustration; DEM-08 covers authored\n  animation/demonstrations; AUD-25 covers sound/music; AST-32 owns atlas/mask/import/\n  placement/provenance integration. Asset authoring and integration are distinct.\n- WEB-06 owns actual HTML/CSS/search/accessibility/web interaction, while WIK-30\n  owns technical game-wiki content, source relationships and routine generation.\n- UIX-31 owns native Godot interaction, feedback and accessibility, rather than\n  treating every native game view as a website.\n- LOR-33 examines SCP canon/cross-archive contradictions and explicit adaptation\n  proposals; RES-09 researches unfamiliar external dependencies/approaches and\n  preserves source receipts. They do not silently make disputed human decisions.\n- SIM-34 owns authoritative kernel/module/time/perception/inventory/employment/\n  persistence contracts, separate from general tooling implementation.\n\nThese roles need no fictional deliverables this setup. ENG/KRA/SWE/QA/WIK and the\nterminal crew cover the current task. Vince, unused software/media/lore specialists\nand prototype roles remain individually negated. Setup is not a declared gameplay\nmilestone; ordinary milestone Designer/Builder requirements remain for later\nactual milestones.\n\n## Finalization conditions and documentation ownership\n\nCanonical docs still describe single-developer execution at inspection. Treat\nthat as incomplete integration requiring WIK-30's superseding current-policy\nupdate, preserving the old accepted self-review records as historical evidence.\nDo not let stale current-policy text justify skipping the user's agentic loop.\n\nAfter SWE and QA final handoffs, WIK must maintain the actual wiki/linked Markdown,\nrebuild/check and inspect generated semantic agreement. Then EVC inventories and\nhashes actual logs/outputs/receipts/gaps, independent IA reviews the final evidence,\nand DOC publishes the accepted/rejected/blocked process outcome last. No source\nor game-wiki repair should be hidden after review. Findings require responsible\nowner correction records; interruptions remain incomplete.\n\nAccepting imported history requires actual setup acceptance/publication, not a\nsynthetic architecture.baseline or backdated questions/research. Keep later\nquestions, queued research, findings and readiness gates operational. The game\nledger's existing open decisions and M0 limitations remain unchanged.\n\n## Explicit disposition and verification limits\n\n`unresolved_questions: []`\n\nCoverage: recovery/quota interruption, current all-role registry and negation,\nsoftware asset/media/web/native-UI/lore/research ownership, game/wiki/process\nauthority, accepted imports versus historical booleans, later research eligibility,\ncollection path containment, actual receipts and terminal phase order. No new\nuser-design answer is necessary for bounded setup. The collector mismatch is an\nimplementation defect for SWE/QA, not an invented user ambiguity.\n\n`baseline_artifacts: []`\n\nOnly actual local read-only source/JSON inspection was performed. This role did\nnot run gameplay tests, a new wiki build/check, protocol probe or acceptance, and\ndoes not reuse turn.001's freshness pass as fresh recovery verification. WIK/QA/IA\nmust record final real results after the resumed implementation. This report's\nCOMPLETE status describes its assigned review only.\n",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.002/KRA-14/report.md",
+            "sha256": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78"
+          }
+        ],
+        "tests": [
+          {
+            "status": "NOT_RUN",
+            "command": "Planning/documentary review only; no product runtime test is claimed by this handoff.",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/KRA-14/report.md",
+            "sha256": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78"
+          }
+        ],
+        "limitations": [
+          "See role-owned report for observed checks, provenance and remaining limits."
+        ],
+        "handoff_status": "COMPLETE",
+        "architecture": {
+          "unresolved_questions": [],
+          "baseline_artifacts": []
+        }
+      },
+      "previous_hash": "7ceb085a0942d45bf9387cbae5bfd4110224fdd43fdfa4c2c08ebd5f2fe7ff1c",
+      "hash": "e7946b6d0bfdf19bffd66892d2a41cc44c4134ed0d6183fb303e3e47f9503dcb"
+    },
+    {
+      "sequence": 11,
+      "timestamp": "2026-11-11T10:48:33.700280+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "SWE-13",
+        "authorization_id": "459f875b121540929bdf7c3244cf737d",
+        "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680"
+      },
+      "previous_hash": "e7946b6d0bfdf19bffd66892d2a41cc44c4134ed0d6183fb303e3e47f9503dcb",
+      "hash": "f3e56d5a0084cadd87226a7ed662df3c992deda69037a311e30cdd34303f2c7b"
+    },
+    {
+      "sequence": 12,
+      "timestamp": "2026-11-11T10:48:33.758946+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "QA-16",
+        "authorization_id": "430451cce25c48c7aee9051eeba0491f",
+        "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f"
+      },
+      "previous_hash": "f3e56d5a0084cadd87226a7ed662df3c992deda69037a311e30cdd34303f2c7b",
+      "hash": "d1acc4f803e5d878b4d57f20a27cb7cd877ebda2a60b2980f085ded0d88eb79f"
+    },
+    {
+      "sequence": 13,
+      "timestamp": "2026-11-11T10:48:54.105149+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "SWE-13",
+        "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+        "receipt": "/root/software_harness",
+        "backend": "codex-collaboration",
+        "authorization_id": "459f875b121540929bdf7c3244cf737d",
+        "owned_directory": "work/turn.002/SWE-13"
+      },
+      "previous_hash": "d1acc4f803e5d878b4d57f20a27cb7cd877ebda2a60b2980f085ded0d88eb79f",
+      "hash": "85fe337d5baca2fe4b7320a820f03be1147b79ad245542ad279de623712c0839"
+    },
+    {
+      "sequence": 14,
+      "timestamp": "2026-11-11T10:49:09.343748+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "QA-16",
+        "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+        "receipt": "/root/qa_harness",
+        "backend": "codex-collaboration",
+        "authorization_id": "430451cce25c48c7aee9051eeba0491f",
+        "owned_directory": "work/turn.002/QA-16"
+      },
+      "previous_hash": "85fe337d5baca2fe4b7320a820f03be1147b79ad245542ad279de623712c0839",
+      "hash": "8dbdcfe72d9d9594e02f6c8b16bca381d8ccfca01278b59b2350492e1a522a1b"
+    },
+    {
+      "sequence": 15,
+      "timestamp": "2026-11-11T10:55:25.208022+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.002",
+        "agent_id": "QA-16",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+        "assigned_scope": "Independent policy/negative-case and actual local MCP protocol verification; no game production or canonical documentation edits.",
+        "work_performed": "Added 29 isolated game-agentic regression tests; independently ran those with six client setup and 13 legacy adapter tests (48 PASS), probed real stdio MCP, preserved adverse provisional logs and final source hashes, and reported implementation defects for SWE correction.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+            "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+            "sha256": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+            "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+            "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+            "sha256": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+            "sha256": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/report.md",
+            "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+            "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+          }
+        ],
+        "tests": [
+          {
+            "command": "python3 -m unittest discover -s tests -p 'test_agentic*.py' -v",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+                "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+              }
+            ]
+          },
+          {
+            "command": "python3 -m unittest discover -s tests -p test_project_management.py -v",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+                "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python tools/check_agentic_mcp.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+                "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+              }
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "path": "tests/test_agentic_workflow.py",
+            "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+          },
+          {
+            "path": "tests/test_agentic_client_setup.py",
+            "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+            "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+          }
+        ],
+        "limitations": [
+          "Local stdio protocol probe is real but Codex host registration remains CONFIGURED_UNVERIFIED; host_tool_observed=false.",
+          "Fixture receipts are synthetic policy tests, never production dispatch evidence; runtime cannot authenticate arbitrary host receipt strings.",
+          "No gameplay milestone, exhaustive later research-resolution cycle, or final wiki consistency gate is certified; WIK/Collector/independent IA/DOC remain responsible."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "8dbdcfe72d9d9594e02f6c8b16bca381d8ccfca01278b59b2350492e1a522a1b",
+      "hash": "825309ab1ce9a209464ca70ab1e8110ab2bd0e1d8fc456fa2fb0a70d37c5862c"
+    },
+    {
+      "sequence": 16,
+      "timestamp": "2026-11-11T10:57:17.392750+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.002",
+        "agent_id": "SWE-13",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+        "assigned_scope": "Implement the genuine game workflow policy, shared CLI/MCP runtime, explicit historical import and accepted agentic slice closure; preserve game/wiki/canon/history.",
+        "work_performed": "Reused copied real harness with narrow documented hooks, versioned23-role setup and actual WIK sequencing; implemented shared22operation CLI/MCP and bounded protocol probe; enforced matching independent accepted-publication slice completion. Reviewed/adopted root bootstrap helpers and recorded real verification.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+            "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+            "sha256": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+            "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+            "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+            "sha256": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+            "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+            "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+            "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/report.md",
+            "sha256": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a"
+          },
+          {
+            "path": "management/agentic/work/turn.002/SWE-13/task-status.json",
+            "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+          }
+        ],
+        "tests": [
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_workflow.py -v",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+                "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+                "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_client_setup.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+                "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python tools/check_agentic_mcp.py (actual local stdio outside sandbox)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+                "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python py_compile for ten actual implementation files",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+                "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python actual process structure inspection assertions",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+                "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+              }
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "path": "tools/game_workflow.py",
+            "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+          },
+          {
+            "path": "tools/agentic.py",
+            "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+          },
+          {
+            "path": "tools/agentic_mcp.py",
+            "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+          },
+          {
+            "path": "tools/check_agentic_mcp.py",
+            "sha256": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a"
+          },
+          {
+            "path": "tools/manage_project.py",
+            "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+          },
+          {
+            "path": "tools/call_agentic_mcp.py",
+            "sha256": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec"
+          },
+          {
+            "path": "tools/configure_agentic_client.py",
+            "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162"
+          },
+          {
+            "path": "tools/install_agentic_dependencies.py",
+            "sha256": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7"
+          },
+          {
+            "path": "management/harness/runtime/workflow.py",
+            "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+          },
+          {
+            "path": "management/harness/runtime/preflight.py",
+            "sha256": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4"
+          },
+          {
+            "path": "management/harness/runtime/UPSTREAM.json",
+            "sha256": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3"
+          },
+          {
+            "path": "management/harness/runtime/config/game_roles.json",
+            "sha256": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786"
+          },
+          {
+            "path": "management/agentic/imported-project.json",
+            "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+          },
+          {
+            "path": "tests/test_agentic_workflow.py",
+            "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+          },
+          {
+            "path": "tests/test_agentic_client_setup.py",
+            "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/report.md",
+            "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+            "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+          },
+          {
+            "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+            "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+          }
+        ],
+        "limitations": [
+          "Actual Codex host MCP loading remains unobserved; successful local protocol and configured files are not live host-registration proof.",
+          "Root must submit actual handoffs; WIK final docs/build and Collector/independent IA/Document Chief publication remain pending.",
+          "No new gameplay/native renderer/canon/milestone qualification; receipt strings are externally attested and hashes are not tamper-proof."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "825309ab1ce9a209464ca70ab1e8110ab2bd0e1d8fc456fa2fb0a70d37c5862c",
+      "hash": "942e1d02dae5967c10250896112b19b91a3e9b3d22b9b4aae9d75529f5a2d662"
+    },
+    {
+      "sequence": 17,
+      "timestamp": "2026-11-11T10:57:18.710738+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "WIK-30",
+        "authorization_id": "29f8f46fe9b04d0d9741aed990eca8a1",
+        "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4"
+      },
+      "previous_hash": "942e1d02dae5967c10250896112b19b91a3e9b3d22b9b4aae9d75529f5a2d662",
+      "hash": "49e3879ef8c71290fd25e5ee039ea6dd1d8daef88bb98fd3a53f9a794444d10b"
+    },
+    {
+      "sequence": 18,
+      "timestamp": "2026-11-11T10:57:53.385383+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "WIK-30",
+        "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+        "receipt": "/root/wiki_agentic_setup",
+        "backend": "codex-collaboration",
+        "authorization_id": "29f8f46fe9b04d0d9741aed990eca8a1",
+        "owned_directory": "work/turn.002/WIK-30"
+      },
+      "previous_hash": "49e3879ef8c71290fd25e5ee039ea6dd1d8daef88bb98fd3a53f9a794444d10b",
+      "hash": "ad0c8d01872fcb7356808618124908b1b8820800b1d154216289a940968034a3"
+    },
+    {
+      "sequence": 19,
+      "timestamp": "2026-11-11T11:10:05.412144+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.002",
+        "agent_id": "WIK-30",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+        "assigned_scope": "Actual authored game-wiki and linked technical docs/profile/templates after owner freeze, final rebuild/freshness and semantic review; no game runtime edits.",
+        "work_performed": "Documented active real agentic loop and23software/game roles, individual unused-role negations, exact dispatch/source ownership and WIK-versus-DOC order; preserved historical self-review/import and interrupted quota turn; rebuilt/inspected actual wiki and recorded the newly observed outer shortcut failure for independent IA/new SWE correction.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+            "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+            "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+            "sha256": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+            "sha256": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+            "sha256": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+            "sha256": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+            "sha256": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+            "sha256": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+            "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+            "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+            "sha256": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/report.md",
+            "sha256": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+            "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+            "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+            "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+            "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+            "sha256": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb"
+          },
+          {
+            "path": "management/agentic/work/turn.002/WIK-30/wiki-precheck.log",
+            "sha256": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "source_material/game-wiki/content/agentic-loop.md",
+            "sha256": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b"
+          },
+          {
+            "path": "source_material/game-wiki/content/project-management.md",
+            "sha256": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb"
+          },
+          {
+            "path": "source_material/game-wiki/content/development.md",
+            "sha256": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171"
+          },
+          {
+            "path": "source_material/game-wiki/content/status.md",
+            "sha256": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325"
+          },
+          {
+            "path": "source_material/game-wiki/content/home.md",
+            "sha256": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03"
+          },
+          {
+            "path": "source_material/game-wiki/content/engine.md",
+            "sha256": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b"
+          },
+          {
+            "path": "AGENTS.md",
+            "sha256": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f"
+          },
+          {
+            "path": "management/README.md",
+            "sha256": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283"
+          },
+          {
+            "path": "management/profile.json",
+            "sha256": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6"
+          },
+          {
+            "path": "management/harness/AGENTS.md",
+            "sha256": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db"
+          },
+          {
+            "path": "management/harness/README.md",
+            "sha256": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e"
+          },
+          {
+            "path": "docs/12-development-workflow.md",
+            "sha256": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+          },
+          {
+            "path": "docs/59-agentic-development-loop.md",
+            "sha256": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319"
+          },
+          {
+            "path": "source_material/game-wiki/README.md",
+            "sha256": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a"
+          },
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+          },
+          {
+            "path": "tools/build_game_wiki.py",
+            "sha256": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c"
+          }
+        ],
+        "game_wiki": {
+          "pages": [
+            "source_material/game-wiki/content/agentic-loop.md",
+            "source_material/game-wiki/content/project-management.md",
+            "source_material/game-wiki/content/development.md",
+            "source_material/game-wiki/content/status.md",
+            "source_material/game-wiki/content/home.md",
+            "source_material/game-wiki/content/engine.md"
+          ],
+          "semantic_review": true,
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+              "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+            },
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+              "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+            },
+            {
+              "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+              "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+            }
+          ]
+        },
+        "tests": [
+          {
+            "command": "python3 -m unittest discover -s tests -p test_agentic*.py -v",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+                "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check_management_docs.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+                "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/build_game_wiki.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+                "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/build_game_wiki.py --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+                "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+              }
+            ]
+          },
+          {
+            "command": "python3 management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+                "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+              }
+            ]
+          },
+          {
+            "command": "python3 management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+                "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/configure_project_harness.py --root .. --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+                "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+              }
+            ]
+          },
+          {
+            "command": "python3 ../scripts/manage_game.py agents readiness",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+                "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+              }
+            ]
+          }
+        ],
+        "limitations": [
+          "Known observed outer scripts/manage_game.py agents shortcut ModuleNotFoundError game_workflow; source freeze preserved and SWE-13 correction/regression required in a new turn. This is not setup/task acceptance.",
+          "Local stdio protocol/configuration are verified but no live host workflow tool call observed; host connection CONFIGURED_UNVERIFIED.",
+          "Collector, independent IA, DOC publication and import acceptance remain pending at this handoff; no gameplay/M0 qualification or invented historical questions/research."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "ad0c8d01872fcb7356808618124908b1b8820800b1d154216289a940968034a3",
+      "hash": "bcb2055e9852830e9d149efd0a2c8eb7483f049076ddb4f08ab91b99fa2ad7db"
+    },
+    {
+      "sequence": 20,
+      "timestamp": "2026-11-11T11:10:06.695894+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "HANDOFF_COLLECTION"
+      },
+      "previous_hash": "bcb2055e9852830e9d149efd0a2c8eb7483f049076ddb4f08ab91b99fa2ad7db",
+      "hash": "4300f852f59f402e290e8c0b8cda282b0f9c777ee4fe3b207d3f4e147572b0db"
+    }
+  ],
+  "audit": null,
+  "dispatches": {
+    "ENG-00": {
+      "agent_id": "ENG-00",
+      "authorization_id": "5c00def7ade6438594a0de2be20e8ec2",
+      "prompt_hash": "0907bba7bcd440aee345e9a1bc07b89088498e86e6ad0508fd92aa6a9a4143ac"
+    },
+    "KRA-14": {
+      "agent_id": "KRA-14",
+      "authorization_id": "e4e9afa840d3487c8878ffb687b3fa45",
+      "prompt_hash": "0785de32aea147ba5bfa8dabb8e927158c158e0dcc0933a6c5270bc968bdee3a"
+    },
+    "SWE-13": {
+      "agent_id": "SWE-13",
+      "authorization_id": "459f875b121540929bdf7c3244cf737d",
+      "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680"
+    },
+    "QA-16": {
+      "agent_id": "QA-16",
+      "authorization_id": "430451cce25c48c7aee9051eeba0491f",
+      "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f"
+    },
+    "WIK-30": {
+      "agent_id": "WIK-30",
+      "authorization_id": "29f8f46fe9b04d0d9741aed990eca8a1",
+      "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4"
+    }
+  }
+}

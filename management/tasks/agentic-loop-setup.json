@@ -1,0 +1,784 @@
+{
+  "id": "agentic-loop-setup",
+  "title": "Activate the real agentic development loop and actual game-wiki agent",
+  "status": "done",
+  "scope": "User-required agent selection with per-role negations, real authorized workers, actual Wiki maintainer, Collector/IA/DOC loop and MCP initialization/logging. Existing game mechanics and milestone gates stay unchanged. This is migration of existing project workflow, not fictional completion of historical preflight. Latest user steering adds provisional Sol/Astra Light/Medium allocation, actual workspace configuration and explicit dispatch provenance without invented backend settings or usage measurements.",
+  "acceptance": [
+    "Every unused registered role has a distinct substantive negation",
+    "Selected workers have real prior dispatch authorization and actual receipts",
+    "Actual game-wiki maintainer updates and validates the connected game documentation",
+    "Collector, independent IA and Document Chief execute in order",
+    "Bundled workflow MCP initializes and logs through actual protocol tools",
+    "Imported existing-project readiness preserves historical preflight truth and current gates",
+    "New software slice completion requires accepted matching agentic evidence",
+    "Game Git history, source layout and wiki consistency remain intact",
+    "GPT-6.2 role defaults and difficulty ranges drive explicit host requests and installed configuration, with justified escalation and truthful requested versus effective provenance"
+  ],
+  "depends_on": [],
+  "blocking_questions": [],
+  "agentic_turn": "turn.006",
+  "wiki_pages": [
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/engine.md",
+    "source_material/game-wiki/content/home.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/status.md"
+  ],
+  "inputs": [
+    ".gitignore",
+    "AGENTS.md",
+    "docs/12-development-workflow.md",
+    "docs/58-software-project-management.md",
+    "docs/59-agentic-development-loop.md",
+    "management/README.md",
+    "management/harness/AGENTS.md",
+    "management/harness/README.md",
+    "management/harness/manage_game.py",
+    "management/harness/requirements.txt",
+    "management/harness/runtime/UPSTREAM.json",
+    "management/harness/runtime/config/agent_catalog.json",
+    "management/harness/runtime/config/agents.json",
+    "management/harness/runtime/config/game_roles.json",
+    "management/harness/runtime/preflight.py",
+    "management/harness/runtime/schemas/agent.schema.json",
+    "management/harness/runtime/schemas/turn.schema.json",
+    "management/harness/runtime/workflow.py",
+    "management/model-policy/README.md",
+    "management/model-policy/policy.json",
+    "management/profile.json",
+    "source_material/game-wiki/README.md",
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/engine.md",
+    "source_material/game-wiki/content/home.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/llms.txt",
+    "tests/test_agent_model_policy.py",
+    "tests/test_agentic_client_setup.py",
+    "tests/test_agentic_entrypoints.py",
+    "tests/test_agentic_workflow.py",
+    "tools/agent_model_policy.py",
+    "tools/agentic.py",
+    "tools/agentic_mcp.py",
+    "tools/build_game_wiki.py",
+    "tools/call_agentic_mcp.py",
+    "tools/check_agentic_mcp.py",
+    "tools/configure_agent_models.py",
+    "tools/configure_agentic_client.py",
+    "tools/configure_project_harness.py",
+    "tools/game_workflow.py",
+    "tools/install_agentic_dependencies.py",
+    "tools/manage_project.py"
+  ],
+  "history": [
+    {
+      "at": "2026-11-11T10:29:49.172214+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "action": "Recovery rebound to real turn.002 after quota-interrupted turn.001; no prior agentic acceptance claimed."
+    },
+    {
+      "at": "2026-11-11T11:04:03.350090+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T11:05:12.717264+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T11:06:05.289730+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-11T11:06:47.850047+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-11T16:45:15.663617+00:00",
+      "action": "blocked for independently verified wrapper correction and observed response-contract defect after interrupted turn.002"
+    },
+    {
+      "at": "2026-11-11T16:45:15.664817+00:00",
+      "action": "bound new actual setup/correction turn.003; no task acceptance yet"
+    },
+    {
+      "at": "2026-11-11T16:45:15.691503+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "at": "2026-11-11T16:53:30.218064+00:00",
+      "action": "declared focused entrypoint/MCP regression source for correction003 before final checks"
+    },
+    {
+      "at": "2026-11-11T17:05:58.093447+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T17:05:58.251358+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T17:06:44.621034+00:00",
+      "action": "wiki-build: FAIL"
+    },
+    {
+      "at": "2026-11-11T17:08:20.575163+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T17:08:20.729372+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T17:09:06.727182+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-11T17:09:31.561136+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-11T17:27:32.284225+00:00",
+      "action": "blocked by independently confirmed IA-003-001 current documentation conflicts after rejected003 publication"
+    },
+    {
+      "at": "2026-11-11T17:27:32.285413+00:00",
+      "action": "bound actual final documentation setup turn.004; no acceptance claimed"
+    },
+    {
+      "at": "2026-11-11T17:27:32.308134+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "at": "2026-11-12T00:18:33.126234+00:00",
+      "action": "Preserved interrupted004 and rebound new actual setup005 for revised Sol/Astra policy plus prior documentation corrections; no acceptance claimed."
+    },
+    {
+      "at": "2026-11-12T00:18:33.302631+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "at": "2026-11-12T00:23:14.683434+00:00",
+      "action": "Declared five new model policy/resolver/configuration/test sources before final checks; runtime effective settings remain unexposed."
+    },
+    {
+      "action": "Rebound to turn.006 after the interrupted quota-limited pass and user request for GPT-6.2 difficulty-based routing."
+    },
+    {
+      "at": "2026-11-19T16:59:27.256515+00:00",
+      "action": "Recorded turn.006 wiki and document context against current inputs"
+    },
+    {
+      "at": "2026-11-19T17:06:20.506801+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-19T17:06:20.684671+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-19T17:07:24.119865+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-19T17:07:51.648488+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-19T17:15:01.892581+00:00",
+      "action": "completed; evidence and semantic review recorded"
+    }
+  ],
+  "context": {
+    "recorded_at": "2026-11-19T16:59:27.256500+00:00",
+    "attestation": "Developer reports reading; hashes do not prove reading.",
+    "sources": [
+      {
+        "path": "source_material/game-wiki/content/status.md",
+        "notes": "Read agentic workflow, status and related evidence before planning routing update.",
+        "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/development.md",
+        "notes": "Read agentic workflow, status and related evidence before planning routing update.",
+        "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/project-management.md",
+        "notes": "Read agentic workflow, status and related evidence before planning routing update.",
+        "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/agentic-loop.md",
+        "notes": "Read agentic workflow, status and related evidence before planning routing update.",
+        "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "AGENTS.md",
+        "notes": "Required wiki and independent closing sequence.",
+        "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/59-agentic-development-loop.md",
+        "notes": "Applicable registry, authorization and workflow contract.",
+        "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/README.md",
+        "notes": "Task board and check recording.",
+        "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/bootstrap/routing-research006.md",
+        "notes": "User-supplied paper provenance and current adaptation scope.",
+        "sha256": "6f56fe532af267e95ed42e505b972cf647e003d462bd695a0e0dbbc6d357e0e8",
+        "kind": "docs_read"
+      }
+    ]
+  },
+  "checks": {
+    "tests": {
+      "command": [
+        "python3",
+        "management/agentic/work/turn.006/SWE-13/verify-policy-evidence.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-19T17:06:20.506648+00:00",
+      "log": "management/evidence/agentic-loop-setup/tests-20261119T170620461645Z.log",
+      "sha256": "9626467bed344ecc7f4760ccc4ec166c549ef974234cc7eb77fa1c06346303f1",
+      "inputs": {
+        ".gitignore": "df9bdcb03c8303df6f1c3c783a49020c0aa82a339305757595975aed03c1564b",
+        "AGENTS.md": "5b2731ea5aac4129564bab286037454c7b1328616c878b75ccb988f84a4c65ab",
+        "docs/12-development-workflow.md": "12ccfba404384c763aa1f0db5f65ae71d1c8f4527be952249f1f4534e3087791",
+        "docs/58-software-project-management.md": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4",
+        "docs/59-agentic-development-loop.md": "7f9088348119b6b41ac86894e647d1756ab84b758879b310e36e105788c639ab",
+        "management/README.md": "f39cbc6b945f7f1031f09a044f5b338c8f6ba990d504725b58c6c92d65452c93",
+        "management/harness/AGENTS.md": "9d52f8b415812a5619bad1a7e0558c96e0f4596f654c6b5c7af835cc152c8394",
+        "management/harness/README.md": "98dbf9f6ac488d579d44b9eec68e0e25b37b527f5e665a21ebf05b76ef46f80e",
+        "management/harness/manage_game.py": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+        "management/harness/requirements.txt": "a0fcb659fcf87fb0a6378e0b9f32542b3ec536cb6273ef6e8e78ceffe9242a1e",
+        "management/harness/runtime/UPSTREAM.json": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+        "management/harness/runtime/config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+        "management/harness/runtime/config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+        "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+        "management/harness/runtime/preflight.py": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+        "management/harness/runtime/schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+        "management/harness/runtime/schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e",
+        "management/harness/runtime/workflow.py": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+        "management/model-policy/README.md": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1",
+        "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+        "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+        "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+        "source_material/game-wiki/content/agentic-loop.md": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a",
+        "source_material/game-wiki/content/development.md": "3f63e3f9eabaa4a2604264a7ce5d447eabcc9123f50c8a0e00d208b9969a4e9a",
+        "source_material/game-wiki/content/engine.md": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+        "source_material/game-wiki/content/home.md": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+        "source_material/game-wiki/content/project-management.md": "02c7df5b99821a049b4f8e504ab699bfe4a6b8a3f7a1c94c5bac2cc792cabafc",
+        "source_material/game-wiki/content/status.md": "20050e8840a0f2025d8c53051b94f86e5309e21385a754931a49bfdb9379bbcb",
+        "source_material/game-wiki/llms.txt": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e",
+        "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896",
+        "tests/test_agentic_client_setup.py": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+        "tests/test_agentic_entrypoints.py": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+        "tests/test_agentic_workflow.py": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+        "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+        "tools/agentic.py": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+        "tools/agentic_mcp.py": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+        "tools/build_game_wiki.py": "84ed1791fd719d73c74e3daa73dcaa8f94699482a80ec804815a7d5096ac3398",
+        "tools/call_agentic_mcp.py": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+        "tools/check_agentic_mcp.py": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+        "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+        "tools/configure_agentic_client.py": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+        "tools/configure_project_harness.py": "823b6799a0cc932d61f32f37aef581c263fa7a5b26cb3b8ef4e0383210fd163a",
+        "tools/game_workflow.py": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+        "tools/install_agentic_dependencies.py": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+        "tools/manage_project.py": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+      },
+      "inputs_changed_during_check": false
+    },
+    "docs": {
+      "command": [
+        "python3",
+        "tools/check_management_docs.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-19T17:06:20.684508+00:00",
+      "log": "management/evidence/agentic-loop-setup/docs-20261119T170620584100Z.log",
+      "sha256": "0783ec4cb72d5e0d4dc8d3e5397112630cf8fe6637843e787189a83f2f37e3c8",
+      "inputs": {
+        ".gitignore": "df9bdcb03c8303df6f1c3c783a49020c0aa82a339305757595975aed03c1564b",
+        "AGENTS.md": "5b2731ea5aac4129564bab286037454c7b1328616c878b75ccb988f84a4c65ab",
+        "docs/12-development-workflow.md": "12ccfba404384c763aa1f0db5f65ae71d1c8f4527be952249f1f4534e3087791",
+        "docs/58-software-project-management.md": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4",
+        "docs/59-agentic-development-loop.md": "7f9088348119b6b41ac86894e647d1756ab84b758879b310e36e105788c639ab",
+        "management/README.md": "f39cbc6b945f7f1031f09a044f5b338c8f6ba990d504725b58c6c92d65452c93",
+        "management/harness/AGENTS.md": "9d52f8b415812a5619bad1a7e0558c96e0f4596f654c6b5c7af835cc152c8394",
+        "management/harness/README.md": "98dbf9f6ac488d579d44b9eec68e0e25b37b527f5e665a21ebf05b76ef46f80e",
+        "management/harness/manage_game.py": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+        "management/harness/requirements.txt": "a0fcb659fcf87fb0a6378e0b9f32542b3ec536cb6273ef6e8e78ceffe9242a1e",
+        "management/harness/runtime/UPSTREAM.json": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+        "management/harness/runtime/config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+        "management/harness/runtime/config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+        "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+        "management/harness/runtime/preflight.py": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+        "management/harness/runtime/schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+        "management/harness/runtime/schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e",
+        "management/harness/runtime/workflow.py": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+        "management/model-policy/README.md": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1",
+        "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+        "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+        "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+        "source_material/game-wiki/content/agentic-loop.md": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a",
+        "source_material/game-wiki/content/development.md": "3f63e3f9eabaa4a2604264a7ce5d447eabcc9123f50c8a0e00d208b9969a4e9a",
+        "source_material/game-wiki/content/engine.md": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+        "source_material/game-wiki/content/home.md": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+        "source_material/game-wiki/content/project-management.md": "02c7df5b99821a049b4f8e504ab699bfe4a6b8a3f7a1c94c5bac2cc792cabafc",
+        "source_material/game-wiki/content/status.md": "20050e8840a0f2025d8c53051b94f86e5309e21385a754931a49bfdb9379bbcb",
+        "source_material/game-wiki/llms.txt": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e",
+        "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896",
+        "tests/test_agentic_client_setup.py": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+        "tests/test_agentic_entrypoints.py": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+        "tests/test_agentic_workflow.py": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+        "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+        "tools/agentic.py": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+        "tools/agentic_mcp.py": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+        "tools/build_game_wiki.py": "84ed1791fd719d73c74e3daa73dcaa8f94699482a80ec804815a7d5096ac3398",
+        "tools/call_agentic_mcp.py": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+        "tools/check_agentic_mcp.py": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+        "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+        "tools/configure_agentic_client.py": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+        "tools/configure_project_harness.py": "823b6799a0cc932d61f32f37aef581c263fa7a5b26cb3b8ef4e0383210fd163a",
+        "tools/game_workflow.py": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+        "tools/install_agentic_dependencies.py": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+        "tools/manage_project.py": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+      },
+      "inputs_changed_during_check": false
+    },
+    "wiki-build": {
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-19T17:07:24.119710+00:00",
+      "log": "management/evidence/agentic-loop-setup/wiki-build-20261119T170620761597Z.log",
+      "sha256": "74c75222f6f0b96bc2aa756738da3e9e7f18549fcac0457b678a1ca175b967dc",
+      "inputs": {
+        ".gitignore": "df9bdcb03c8303df6f1c3c783a49020c0aa82a339305757595975aed03c1564b",
+        "AGENTS.md": "5b2731ea5aac4129564bab286037454c7b1328616c878b75ccb988f84a4c65ab",
+        "docs/12-development-workflow.md": "12ccfba404384c763aa1f0db5f65ae71d1c8f4527be952249f1f4534e3087791",
+        "docs/58-software-project-management.md": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4",
+        "docs/59-agentic-development-loop.md": "7f9088348119b6b41ac86894e647d1756ab84b758879b310e36e105788c639ab",
+        "management/README.md": "f39cbc6b945f7f1031f09a044f5b338c8f6ba990d504725b58c6c92d65452c93",
+        "management/harness/AGENTS.md": "9d52f8b415812a5619bad1a7e0558c96e0f4596f654c6b5c7af835cc152c8394",
+        "management/harness/README.md": "98dbf9f6ac488d579d44b9eec68e0e25b37b527f5e665a21ebf05b76ef46f80e",
+        "management/harness/manage_game.py": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+        "management/harness/requirements.txt": "a0fcb659fcf87fb0a6378e0b9f32542b3ec536cb6273ef6e8e78ceffe9242a1e",
+        "management/harness/runtime/UPSTREAM.json": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+        "management/harness/runtime/config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+        "management/harness/runtime/config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+        "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+        "management/harness/runtime/preflight.py": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+        "management/harness/runtime/schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+        "management/harness/runtime/schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e",
+        "management/harness/runtime/workflow.py": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+        "management/model-policy/README.md": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1",
+        "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+        "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+        "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+        "source_material/game-wiki/content/agentic-loop.md": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a",
+        "source_material/game-wiki/content/development.md": "3f63e3f9eabaa4a2604264a7ce5d447eabcc9123f50c8a0e00d208b9969a4e9a",
+        "source_material/game-wiki/content/engine.md": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+        "source_material/game-wiki/content/home.md": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+        "source_material/game-wiki/content/project-management.md": "02c7df5b99821a049b4f8e504ab699bfe4a6b8a3f7a1c94c5bac2cc792cabafc",
+        "source_material/game-wiki/content/status.md": "20050e8840a0f2025d8c53051b94f86e5309e21385a754931a49bfdb9379bbcb",
+        "source_material/game-wiki/llms.txt": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e",
+        "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896",
+        "tests/test_agentic_client_setup.py": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+        "tests/test_agentic_entrypoints.py": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+        "tests/test_agentic_workflow.py": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+        "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+        "tools/agentic.py": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+        "tools/agentic_mcp.py": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+        "tools/build_game_wiki.py": "84ed1791fd719d73c74e3daa73dcaa8f94699482a80ec804815a7d5096ac3398",
+        "tools/call_agentic_mcp.py": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+        "tools/check_agentic_mcp.py": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+        "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+        "tools/configure_agentic_client.py": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+        "tools/configure_project_harness.py": "823b6799a0cc932d61f32f37aef581c263fa7a5b26cb3b8ef4e0383210fd163a",
+        "tools/game_workflow.py": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+        "tools/install_agentic_dependencies.py": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+        "tools/manage_project.py": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+      },
+      "inputs_changed_during_check": false
+    },
+    "wiki-check": {
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "result": "PASS",
+      "finished_at": "2026-11-19T17:07:51.648300+00:00",
+      "log": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+      "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1",
+      "inputs": {
+        ".gitignore": "df9bdcb03c8303df6f1c3c783a49020c0aa82a339305757595975aed03c1564b",
+        "AGENTS.md": "5b2731ea5aac4129564bab286037454c7b1328616c878b75ccb988f84a4c65ab",
+        "docs/12-development-workflow.md": "12ccfba404384c763aa1f0db5f65ae71d1c8f4527be952249f1f4534e3087791",
+        "docs/58-software-project-management.md": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4",
+        "docs/59-agentic-development-loop.md": "7f9088348119b6b41ac86894e647d1756ab84b758879b310e36e105788c639ab",
+        "management/README.md": "f39cbc6b945f7f1031f09a044f5b338c8f6ba990d504725b58c6c92d65452c93",
+        "management/harness/AGENTS.md": "9d52f8b415812a5619bad1a7e0558c96e0f4596f654c6b5c7af835cc152c8394",
+        "management/harness/README.md": "98dbf9f6ac488d579d44b9eec68e0e25b37b527f5e665a21ebf05b76ef46f80e",
+        "management/harness/manage_game.py": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+        "management/harness/requirements.txt": "a0fcb659fcf87fb0a6378e0b9f32542b3ec536cb6273ef6e8e78ceffe9242a1e",
+        "management/harness/runtime/UPSTREAM.json": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+        "management/harness/runtime/config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+        "management/harness/runtime/config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+        "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+        "management/harness/runtime/preflight.py": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+        "management/harness/runtime/schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+        "management/harness/runtime/schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e",
+        "management/harness/runtime/workflow.py": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+        "management/model-policy/README.md": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1",
+        "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+        "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+        "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+        "source_material/game-wiki/content/agentic-loop.md": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a",
+        "source_material/game-wiki/content/development.md": "3f63e3f9eabaa4a2604264a7ce5d447eabcc9123f50c8a0e00d208b9969a4e9a",
+        "source_material/game-wiki/content/engine.md": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+        "source_material/game-wiki/content/home.md": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+        "source_material/game-wiki/content/project-management.md": "02c7df5b99821a049b4f8e504ab699bfe4a6b8a3f7a1c94c5bac2cc792cabafc",
+        "source_material/game-wiki/content/status.md": "20050e8840a0f2025d8c53051b94f86e5309e21385a754931a49bfdb9379bbcb",
+        "source_material/game-wiki/llms.txt": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e",
+        "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896",
+        "tests/test_agentic_client_setup.py": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+        "tests/test_agentic_entrypoints.py": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+        "tests/test_agentic_workflow.py": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+        "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+        "tools/agentic.py": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+        "tools/agentic_mcp.py": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+        "tools/build_game_wiki.py": "84ed1791fd719d73c74e3daa73dcaa8f94699482a80ec804815a7d5096ac3398",
+        "tools/call_agentic_mcp.py": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+        "tools/check_agentic_mcp.py": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+        "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+        "tools/configure_agentic_client.py": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+        "tools/configure_project_harness.py": "823b6799a0cc932d61f32f37aef581c263fa7a5b26cb3b8ef4e0383210fd163a",
+        "tools/game_workflow.py": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+        "tools/install_agentic_dependencies.py": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+        "tools/manage_project.py": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+      },
+      "inputs_changed_during_check": false
+    }
+  },
+  "review": {
+    "task_id": "agentic-loop-setup",
+    "turn_id": "turn.006",
+    "mode": "independent",
+    "reviewer_receipt": "/root/ia006",
+    "disposition": "ACCEPTED",
+    "implementation_docs_agree": true,
+    "summary": "Independent acceptance review for the software setup slice. The matching ordered DOC publication, including the import binding and two independently verified case resolutions, is a prerequisite for using this review to close the task.",
+    "acceptance": [
+      {
+        "criterion": "Every unused registered role has a distinct substantive negation",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/selection-turn.006.json",
+            "sha256": "68727ff8c78cc854e271655d9a40999250edce185ab0fe4fe727419db5d0e187"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          }
+        ],
+        "notes": "All 23 frozen roles are considered. Each of the sixteen exclusions gives a distinct reason tied to the bounded setup."
+      },
+      {
+        "criterion": "Selected workers have real prior dispatch authorization and actual receipts",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/dispatch.json",
+            "sha256": "f94184385c135c8256a133ddda8f32378c8dee8713c970d98c5ec3688a74de93"
+          },
+          {
+            "path": "management/agentic/work/turn.006/EVC-28/inspection.json",
+            "sha256": "c2a96ea4c4e639fc4d4a36547a2ef33fab840265d0eff77344ae72f2c9f68dc6"
+          }
+        ],
+        "notes": "Six prepublication dispatches match exact prompts, prior authorization tickets, role ownership and genuine retained receipts. The matching accepted publication must add the terminal DOC authorization, receipt and handoff."
+      },
+      {
+        "criterion": "Actual game-wiki maintainer updates and validates the connected game documentation",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4"
+          },
+          {
+            "path": "source_material/game-wiki/content/agentic-loop.md",
+            "sha256": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/work/turn.006/WIK-30/semantic-inspection.log",
+            "sha256": "9ee5ea835f8ff971ad348c948421d19e547bf176447f1760c2bd877801edef68"
+          },
+          {
+            "path": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+            "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1"
+          },
+          {
+            "path": "management/agentic/work/turn.006/WIK-30/handoff.json",
+            "sha256": "f530b6480774457dc9b25fa23aab784c7cd7ec7aaad422d4dfbb65c9de6663d8"
+          },
+          {
+            "path": "management/evidence/agentic-loop-setup/wiki-build-20261119T170620761597Z.log",
+            "sha256": "74c75222f6f0b96bc2aa756738da3e9e7f18549fcac0457b678a1ca175b967dc"
+          }
+        ],
+        "notes": "The actual WIK owner corrected both guidance targets and maintained and checked the authored and generated connected game wiki."
+      },
+      {
+        "criterion": "Collector, independent IA and Document Chief execute in order",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          },
+          {
+            "path": "management/agentic/work/turn.006/EVC-28/evidence-package.json",
+            "sha256": "c4155c5616bc179cf02bf359d4164ee0f8413f710f9101611564ed95a1154085"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/audit.json",
+            "sha256": "55fd0be26681e157015828fed42aa69635f594ee490452779661a211ae4aec5a"
+          },
+          {
+            "path": "tools/manage_project.py",
+            "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+          },
+          {
+            "path": "management/harness/runtime/workflow.py",
+            "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+          }
+        ],
+        "notes": "Collector completed before independent IA. The terminal DOC step is deliberately pending at review time. The task completion command can consume this review only after the matching publication and DOC handoff have occurred in order."
+      },
+      {
+        "criterion": "Bundled workflow MCP initializes and logs through actual protocol tools",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/bootstrap/mcp-initialize-verified.json",
+            "sha256": "9359839c0dc53f80ce477d8baa47eadbeaeff02c131ba860eb3c3ca3a2e7e2d5"
+          },
+          {
+            "path": "management/agentic/bootstrap/mcp-inventory-unrestricted.json",
+            "sha256": "0153f0725cb6423d9b874a6dd42307165dcf937ade60252a59d3966bb8055388"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+            "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+          }
+        ],
+        "notes": "Real local initialization and inventory, an actual host readiness call and an isolated fresh stdio failure-acknowledgement test supply the protocol evidence."
+      },
+      {
+        "criterion": "Imported existing-project readiness preserves historical preflight truth and current gates",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/imported-project.json",
+            "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+          },
+          {
+            "path": "management/agentic/evidence/turn.006.json",
+            "sha256": "5e3462245e5a417c8f5a5041bd375c8472f6124c7d494da127a32aa449f7ebbf"
+          },
+          {
+            "path": "tools/game_workflow.py",
+            "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          }
+        ],
+        "notes": "Verified exact immutable import digest and historical references. Accepted setup publication and current gates control readiness while historical preflight flags retain their original values."
+      },
+      {
+        "criterion": "New software slice completion requires accepted matching agentic evidence",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "tools/manage_project.py",
+            "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+          },
+          {
+            "path": "tools/game_workflow.py",
+            "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          }
+        ],
+        "notes": "The completion gate verifies matching accepted publication, task binding, Wiki handoff, matching independent IA receipt, task handoffs and current check/evidence hashes."
+      },
+      {
+        "criterion": "Game Git history, source layout and wiki consistency remain intact",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": ".github/workflows/game-wiki-pages.yml",
+            "sha256": "df0f6778faa393607d48bc11f766b16740b50cf50c28408860acdd73b2c0339a"
+          },
+          {
+            "path": "docs/04-scope-and-acceptance.md",
+            "sha256": "7bb256b04ec17f68d170029dda3aa34c7ee8ea2c7b3b2d120a6eab4958ceded4"
+          },
+          {
+            "path": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+            "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1"
+          },
+          {
+            "path": "management/agentic/work/turn.006/WIK-30/semantic-inspection.log",
+            "sha256": "9ee5ea835f8ff971ad348c948421d19e547bf176447f1760c2bd877801edef68"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/report.md",
+            "sha256": "71ffa39fd1896ede9792b811f59c93795b1d3828eeee05e8bb4d9333f855964c"
+          }
+        ],
+        "notes": "The game repository retains HEAD at 2a86ca5, with gameplay/layout/asset/canon paths and CI workflow preserved. Current Wiki build, freshness and semantic evidence agree."
+      },
+      {
+        "criterion": "GPT-6.2 role defaults and difficulty ranges drive explicit host requests and installed configuration, with justified escalation and truthful requested versus effective provenance",
+        "result": "PASS",
+        "evidence": [
+          {
+            "path": "management/model-policy/policy.json",
+            "sha256": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51"
+          },
+          {
+            "path": "tools/agent_model_policy.py",
+            "sha256": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81"
+          },
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/policy-tests.log",
+            "sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e"
+          },
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/install-check.json",
+            "sha256": "0a329f0f31a5f9a11231a8b3d9d08c2df1e916286ea0a39a52dafe4baa55fcfa"
+          },
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/host-role-configuration-observation.json",
+            "sha256": "f50d61d4d2d8ebee0742f5659cc0a71197d28473c1b904b496fae945a2e405a9"
+          },
+          {
+            "path": "management/agentic/work/turn.006/IA-11/verification.json",
+            "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+          }
+        ],
+        "notes": "The installed defaults for all roles and six dispatch requests match the policy. Focused retained tests cover hard and role caps, escalations, malformed or mismatched requests and honest effective metadata."
+      }
+    ],
+    "limitations": [
+      "Hashes and recorded tickets check consistency. The runtime cannot independently authenticate every external worker or reveal model execution, effective effort, usage or quota.",
+      "The real host readiness observation dates to November 11. Fresh stdio failure-acknowledgement tests used isolated synthetic records and establish neither resident reload nor a corrected host-exposed failed reply.",
+      "The nine current policy tests were reviewed from their retained transcript. Broader harness suites are historical; gameplay and M0 were outside this setup assignment.",
+      "Two exclusion explanations mention QA despite no QA-16 invocation. SWE supplied actual tests and IA reviewed them. Vince defaults to Sol Low with a Medium ceiling.",
+      "This review snapshot ends before DOC dispatch and publication. Board completion remains gated on the actual matching accepted publication."
+    ]
+  },
+  "execution": "agentic",
+  "agentic_acceptance": {
+    "turn_id": "turn.006",
+    "publication": "management/agentic/publications/turn.006.json",
+    "sha256": "95e00c88545883c746ce9c5626108c319818b890360d7a6cb1c19670a537858d",
+    "wiki_prompt_hash": "463817a78bf363d751bd085fe5075207725589aa1380efece7d7cb58402356a4",
+    "ia_receipt": "/root/ia006"
+  },
+  "accepted_inputs": {
+    ".gitignore": "df9bdcb03c8303df6f1c3c783a49020c0aa82a339305757595975aed03c1564b",
+    "AGENTS.md": "5b2731ea5aac4129564bab286037454c7b1328616c878b75ccb988f84a4c65ab",
+    "docs/12-development-workflow.md": "12ccfba404384c763aa1f0db5f65ae71d1c8f4527be952249f1f4534e3087791",
+    "docs/58-software-project-management.md": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4",
+    "docs/59-agentic-development-loop.md": "7f9088348119b6b41ac86894e647d1756ab84b758879b310e36e105788c639ab",
+    "management/README.md": "f39cbc6b945f7f1031f09a044f5b338c8f6ba990d504725b58c6c92d65452c93",
+    "management/harness/AGENTS.md": "9d52f8b415812a5619bad1a7e0558c96e0f4596f654c6b5c7af835cc152c8394",
+    "management/harness/README.md": "98dbf9f6ac488d579d44b9eec68e0e25b37b527f5e665a21ebf05b76ef46f80e",
+    "management/harness/manage_game.py": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+    "management/harness/requirements.txt": "a0fcb659fcf87fb0a6378e0b9f32542b3ec536cb6273ef6e8e78ceffe9242a1e",
+    "management/harness/runtime/UPSTREAM.json": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+    "management/harness/runtime/config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+    "management/harness/runtime/config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+    "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+    "management/harness/runtime/preflight.py": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+    "management/harness/runtime/schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+    "management/harness/runtime/schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e",
+    "management/harness/runtime/workflow.py": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+    "management/model-policy/README.md": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1",
+    "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+    "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+    "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+    "source_material/game-wiki/content/agentic-loop.md": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a",
+    "source_material/game-wiki/content/development.md": "3f63e3f9eabaa4a2604264a7ce5d447eabcc9123f50c8a0e00d208b9969a4e9a",
+    "source_material/game-wiki/content/engine.md": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+    "source_material/game-wiki/content/home.md": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+    "source_material/game-wiki/content/project-management.md": "02c7df5b99821a049b4f8e504ab699bfe4a6b8a3f7a1c94c5bac2cc792cabafc",
+    "source_material/game-wiki/content/status.md": "20050e8840a0f2025d8c53051b94f86e5309e21385a754931a49bfdb9379bbcb",
+    "source_material/game-wiki/llms.txt": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e",
+    "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896",
+    "tests/test_agentic_client_setup.py": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+    "tests/test_agentic_entrypoints.py": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+    "tests/test_agentic_workflow.py": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+    "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+    "tools/agentic.py": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+    "tools/agentic_mcp.py": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+    "tools/build_game_wiki.py": "84ed1791fd719d73c74e3daa73dcaa8f94699482a80ec804815a7d5096ac3398",
+    "tools/call_agentic_mcp.py": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+    "tools/check_agentic_mcp.py": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+    "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+    "tools/configure_agentic_client.py": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+    "tools/configure_project_harness.py": "823b6799a0cc932d61f32f37aef581c263fa7a5b26cb3b8ef4e0383210fd163a",
+    "tools/game_workflow.py": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+    "tools/install_agentic_dependencies.py": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+    "tools/manage_project.py": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+  }
+}

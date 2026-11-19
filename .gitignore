@@ -28,3 +28,7 @@ Thumbs.db
 /source_material/scp-api/
 
 # Keep generated diagnostic reference assets: they are reviewed design fixtures.
+
+# Agent harness environment and local lock (records remain versioned)
+/.venv-harness/
+/management/agentic/state/workflow.lock

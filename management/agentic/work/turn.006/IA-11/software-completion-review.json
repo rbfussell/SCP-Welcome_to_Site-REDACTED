@@ -1,0 +1,241 @@
+{
+  "task_id": "agentic-loop-setup",
+  "turn_id": "turn.006",
+  "mode": "independent",
+  "reviewer_receipt": "/root/ia006",
+  "disposition": "ACCEPTED",
+  "implementation_docs_agree": true,
+  "summary": "Independent acceptance review for the software setup slice. The matching ordered DOC publication, including the import binding and two independently verified case resolutions, is a prerequisite for using this review to close the task.",
+  "acceptance": [
+    {
+      "criterion": "Every unused registered role has a distinct substantive negation",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/selection-turn.006.json",
+          "sha256": "68727ff8c78cc854e271655d9a40999250edce185ab0fe4fe727419db5d0e187"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        }
+      ],
+      "notes": "All 23 frozen roles are considered. Each of the sixteen exclusions gives a distinct reason tied to the bounded setup."
+    },
+    {
+      "criterion": "Selected workers have real prior dispatch authorization and actual receipts",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/dispatch.json",
+          "sha256": "f94184385c135c8256a133ddda8f32378c8dee8713c970d98c5ec3688a74de93"
+        },
+        {
+          "path": "management/agentic/work/turn.006/EVC-28/inspection.json",
+          "sha256": "c2a96ea4c4e639fc4d4a36547a2ef33fab840265d0eff77344ae72f2c9f68dc6"
+        }
+      ],
+      "notes": "Six prepublication dispatches match exact prompts, prior authorization tickets, role ownership and genuine retained receipts. The matching accepted publication must add the terminal DOC authorization, receipt and handoff."
+    },
+    {
+      "criterion": "Actual game-wiki maintainer updates and validates the connected game documentation",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "source_material/game-wiki/llms.txt",
+          "sha256": "1b0c39396fe6bb36b3c8e84475f664bea6361242f36b367daed5ce6d1b931e7e"
+        },
+        {
+          "path": "docs/58-software-project-management.md",
+          "sha256": "aa58ec8d3de1b49ace27c828275c263755d1cf9078b163362ddbfad0c0ea7ea4"
+        },
+        {
+          "path": "source_material/game-wiki/content/agentic-loop.md",
+          "sha256": "daabd5f93d690c5f89d3e9464535d51bc7f5883dfb7fb41f68b7304068b0156a"
+        },
+        {
+          "path": "management/agentic/bootstrap/host-connection-observed.json",
+          "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/semantic-inspection.log",
+          "sha256": "9ee5ea835f8ff971ad348c948421d19e547bf176447f1760c2bd877801edef68"
+        },
+        {
+          "path": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+          "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/handoff.json",
+          "sha256": "f530b6480774457dc9b25fa23aab784c7cd7ec7aaad422d4dfbb65c9de6663d8"
+        },
+        {
+          "path": "management/evidence/agentic-loop-setup/wiki-build-20261119T170620761597Z.log",
+          "sha256": "74c75222f6f0b96bc2aa756738da3e9e7f18549fcac0457b678a1ca175b967dc"
+        }
+      ],
+      "notes": "The actual WIK owner corrected both guidance targets and maintained and checked the authored and generated connected game wiki."
+    },
+    {
+      "criterion": "Collector, independent IA and Document Chief execute in order",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        },
+        {
+          "path": "management/agentic/work/turn.006/EVC-28/evidence-package.json",
+          "sha256": "c4155c5616bc179cf02bf359d4164ee0f8413f710f9101611564ed95a1154085"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/audit.json",
+          "sha256": "55fd0be26681e157015828fed42aa69635f594ee490452779661a211ae4aec5a"
+        },
+        {
+          "path": "tools/manage_project.py",
+          "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+        },
+        {
+          "path": "management/harness/runtime/workflow.py",
+          "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+        }
+      ],
+      "notes": "Collector completed before independent IA. The terminal DOC step is deliberately pending at review time. The task completion command can consume this review only after the matching publication and DOC handoff have occurred in order."
+    },
+    {
+      "criterion": "Bundled workflow MCP initializes and logs through actual protocol tools",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/bootstrap/mcp-initialize-verified.json",
+          "sha256": "9359839c0dc53f80ce477d8baa47eadbeaeff02c131ba860eb3c3ca3a2e7e2d5"
+        },
+        {
+          "path": "management/agentic/bootstrap/mcp-inventory-unrestricted.json",
+          "sha256": "0153f0725cb6423d9b874a6dd42307165dcf937ade60252a59d3966bb8055388"
+        },
+        {
+          "path": "management/agentic/bootstrap/host-connection-observed.json",
+          "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+          "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+        }
+      ],
+      "notes": "Real local initialization and inventory, an actual host readiness call and an isolated fresh stdio failure-acknowledgement test supply the protocol evidence."
+    },
+    {
+      "criterion": "Imported existing-project readiness preserves historical preflight truth and current gates",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/imported-project.json",
+          "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+        },
+        {
+          "path": "management/agentic/evidence/turn.006.json",
+          "sha256": "5e3462245e5a417c8f5a5041bd375c8472f6124c7d494da127a32aa449f7ebbf"
+        },
+        {
+          "path": "tools/game_workflow.py",
+          "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        }
+      ],
+      "notes": "Verified exact immutable import digest and historical references. Accepted setup publication and current gates control readiness while historical preflight flags retain their original values."
+    },
+    {
+      "criterion": "New software slice completion requires accepted matching agentic evidence",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "tools/manage_project.py",
+          "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+        },
+        {
+          "path": "tools/game_workflow.py",
+          "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        }
+      ],
+      "notes": "The completion gate verifies matching accepted publication, task binding, Wiki handoff, matching independent IA receipt, task handoffs and current check/evidence hashes."
+    },
+    {
+      "criterion": "Game Git history, source layout and wiki consistency remain intact",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": ".github/workflows/game-wiki-pages.yml",
+          "sha256": "df0f6778faa393607d48bc11f766b16740b50cf50c28408860acdd73b2c0339a"
+        },
+        {
+          "path": "docs/04-scope-and-acceptance.md",
+          "sha256": "7bb256b04ec17f68d170029dda3aa34c7ee8ea2c7b3b2d120a6eab4958ceded4"
+        },
+        {
+          "path": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+          "sha256": "1d6073730ee4fc939cd0c90cadf31b53c783754e7302c6c922233c1496b9e0d1"
+        },
+        {
+          "path": "management/agentic/work/turn.006/WIK-30/semantic-inspection.log",
+          "sha256": "9ee5ea835f8ff971ad348c948421d19e547bf176447f1760c2bd877801edef68"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/report.md",
+          "sha256": "71ffa39fd1896ede9792b811f59c93795b1d3828eeee05e8bb4d9333f855964c"
+        }
+      ],
+      "notes": "The game repository retains HEAD at 2a86ca5, with gameplay/layout/asset/canon paths and CI workflow preserved. Current Wiki build, freshness and semantic evidence agree."
+    },
+    {
+      "criterion": "GPT-6.2 role defaults and difficulty ranges drive explicit host requests and installed configuration, with justified escalation and truthful requested versus effective provenance",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/model-policy/policy.json",
+          "sha256": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51"
+        },
+        {
+          "path": "tools/agent_model_policy.py",
+          "sha256": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81"
+        },
+        {
+          "path": "management/agentic/work/turn.006/SWE-13/policy-tests.log",
+          "sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e"
+        },
+        {
+          "path": "management/agentic/work/turn.006/SWE-13/install-check.json",
+          "sha256": "0a329f0f31a5f9a11231a8b3d9d08c2df1e916286ea0a39a52dafe4baa55fcfa"
+        },
+        {
+          "path": "management/agentic/work/turn.006/SWE-13/host-role-configuration-observation.json",
+          "sha256": "f50d61d4d2d8ebee0742f5659cc0a71197d28473c1b904b496fae945a2e405a9"
+        },
+        {
+          "path": "management/agentic/work/turn.006/IA-11/verification.json",
+          "sha256": "0b9a714aa0c80f310d9c1491236451cbfa30ab2d8986beecead36cf16ae97d1a"
+        }
+      ],
+      "notes": "The installed defaults for all roles and six dispatch requests match the policy. Focused retained tests cover hard and role caps, escalations, malformed or mismatched requests and honest effective metadata."
+    }
+  ],
+  "limitations": [
+    "Hashes and recorded tickets check consistency. The runtime cannot independently authenticate every external worker or reveal model execution, effective effort, usage or quota.",
+    "The real host readiness observation dates to November 11. Fresh stdio failure-acknowledgement tests used isolated synthetic records and establish neither resident reload nor a corrected host-exposed failed reply.",
+    "The nine current policy tests were reviewed from their retained transcript. Broader harness suites are historical; gameplay and M0 were outside this setup assignment.",
+    "Two exclusion explanations mention QA despite no QA-16 invocation. SWE supplied actual tests and IA reviewed them. Vince defaults to Sol Low with a Medium ceiling.",
+    "This review snapshot ends before DOC dispatch and publication. Board completion remains gated on the actual matching accepted publication."
+  ]
+}

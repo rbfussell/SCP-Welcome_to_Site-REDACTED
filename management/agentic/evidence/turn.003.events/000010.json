@@ -1,0 +1,79 @@
+{
+  "sequence": 10,
+  "timestamp": "2026-11-11T16:50:13.739086+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.003",
+    "agent_id": "KRA-14",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf",
+    "assigned_scope": "Review only wrapper import integration, shared failed-response contract and host-observation boundaries for the bounded correction.",
+    "work_performed": "Read relevant actual wiki, management, prior IA and current source evidence; specified compatibility and acknowledgement constraints and independent verification boundaries. Wrote only owned architecture report and raw handoff.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.003/KRA-14/report.md",
+        "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 tools/build_game_wiki.py --check (read-only pre-correction freshness; not final semantic gate)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/KRA-14/report.md",
+            "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+          }
+        ]
+      },
+      {
+        "command": "Production wrapper regressions, shared acknowledgement regression and real stdio MCP failure fixture NOT_RUN by KRA; assigned to SWE-13 and independent QA-16, with final wiki gates owned by WIK-30.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.003/ENG-00/report.md",
+        "sha256": "16a254f39e74b8d0dac2edaa0da35f9c29ef2c574d270b1c3d0964f7c6c0f54f"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/report.md",
+        "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+        "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+        "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+      }
+    ],
+    "limitations": [
+      "Architecture handoff is not implementation, independent terminal acceptance, import acceptance or task closure.",
+      "Current docs contain known temporal drift for interrupted turn.002 and newly observed host connection; WIK owns reconciliation after source/QA completion.",
+      "Host observation is parent-transcribed evidence of that successful transport call; runtime cannot authenticate worker receipts or infer every later transport state.",
+      "No fresh gameplay/M0, canon, assets or exhaustive later research/finding-cycle qualification."
+    ],
+    "architecture": {
+      "unresolved_questions": [],
+      "baseline_artifacts": []
+    },
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "863a3d0093cd19ff968631e22be400670edac35174f9e2e083cb5ede8d22b295",
+  "hash": "d96f53091e29b292b78c6df95edda994f3220307638a3fa314fd137845fdce14"
+}

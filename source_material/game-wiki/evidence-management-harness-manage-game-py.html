@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>management/harness/manage_game.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>manage_game.py</h1><pre>#!/usr/bin/env python3
+&quot;&quot;&quot;Forward to the versioned game management adapter selected by this workspace.&quot;&quot;&quot;
+import json
+from pathlib import Path
+import runpy
+import sys
+
+root = Path(__file__).resolve().parents[1]
+config = json.loads((root / &#x27;config/software-project.json&#x27;).read_text())
+project = (root / config[&#x27;project_path&#x27;]).resolve()
+if config[&#x27;profile&#x27;] != &#x27;software-game&#x27; or not project.is_relative_to(root):
+    raise ValueError(&#x27;Invalid software project pointer&#x27;)
+script = &#x27;manage_project.py&#x27;
+if sys.argv[1:2] == [&#x27;agents&#x27;]:
+    sys.argv.pop(1)
+    script = &#x27;agentic.py&#x27;
+tools = project / &#x27;tools&#x27;
+# run_path does not add the target script&#x27;s directory for sibling imports.
+sys.path.insert(0, str(tools))
+runpy.run_path(str(tools / script), run_name=&#x27;__main__&#x27;)
+</pre></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a></footer></main></div></body></html>

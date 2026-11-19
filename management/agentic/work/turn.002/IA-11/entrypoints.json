@@ -1,0 +1,48 @@
+[
+  {
+    "case": "outer-agents-root",
+    "argv": [
+      "python3",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+      "agents",
+      "readiness"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+    "exit": 1,
+    "log": "management/agentic/work/turn.002/IA-11/outer-agents-root.log"
+  },
+  {
+    "case": "outer-agents-unrelated",
+    "argv": [
+      "python3",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+      "agents",
+      "readiness"
+    ],
+    "cwd": "/tmp",
+    "exit": 1,
+    "log": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log"
+  },
+  {
+    "case": "direct-agent-readiness",
+    "argv": [
+      ".venv-harness/bin/python",
+      "tools/agentic.py",
+      "readiness"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit": 0,
+    "log": "management/agentic/work/turn.002/IA-11/direct-agent-readiness.log"
+  },
+  {
+    "case": "outer-board",
+    "argv": [
+      "python3",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+      "status"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+    "exit": 0,
+    "log": "management/agentic/work/turn.002/IA-11/outer-board.log"
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "source": "Outer portable project harness copied into this workspace by the user",
+  "version": "2.1.0",
+  "source_hashes_before_game_adapter_patches": {
+    "workflow.py": "2d86e752d3a20db6d796456cb9d03e6f695a13c2b7f72259ed6bdc008e826276",
+    "preflight.py": "081cdacf1a88a05a6d92603f58bd3e26da5be12c32eae200f77633785145d879",
+    "config/agents.json": "4bb42e3107ecd325a3abb7b3dfcad55d088c94f1229622bcf623f14599b72088",
+    "config/agent_catalog.json": "11a00f6a8cdb0ad97d090df135ff168077597959cf7b886dd4885d70cf48bfce",
+    "schemas/agent.schema.json": "a09bfbce25dd2d687fd58345582e48010bd9c028e14e5317bc896231aedc9bc2",
+    "schemas/turn.schema.json": "36288c290c05e4aff40a80935dc8d61e5fc12daaa5d3ae492a601cdc8a883c5e"
+  },
+  "scope": "Reusable actual workflow engine and schema/config sources. Local patches must be documented; this is not a claim of vendor release integrity after adaptation.",
+  "local_patches": [
+    {
+      "file": "workflow.py",
+      "change": "Work selection calls the overridable self.readiness hook instead of importing the outer readiness module; invocation checks distinct host receipts for every role under the workflow lock."
+    },
+    {
+      "file": "preflight.py",
+      "change": "initial_prerequisites_ready hook defaults to original initial research gate; GameWorkflow explicitly recognizes IA-accepted existing-project imports without falsifying historical research fields."
+    },
+    {
+      "file": "config/game_roles.json",
+      "change": "Versioned software/game registry seed including custom WIK-30 and scoped asset/web/native UI/lore/simulation roles; fresh initialization reuses genuine register revisions."
+    }
+  ]
+}

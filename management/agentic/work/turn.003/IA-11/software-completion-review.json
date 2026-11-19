@@ -1,0 +1,130 @@
+{
+  "task_id": "agentic-loop-setup",
+  "turn_id": "turn.003",
+  "mode": "independent",
+  "reviewer_receipt": "/root/ia_correction",
+  "disposition": "BLOCKED",
+  "implementation_docs_agree": false,
+  "summary": "Task completion is blocked: current agent guidance and the superseding historical-guide pointer still claim the fixed wrapper defect and unobserved host loading. The original software defect is independently corrected, but WIK IA-003-001 and a rejected terminal outcome prevent import/task acceptance.",
+  "acceptance": [
+    {
+      "criterion": "Every unused registered role has a distinct substantive negation",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/selection-turn.003.json",
+          "sha256": "0a79125adc9d917838082e0854d3ebea9af558f253692403ee43cffd82fbb0be"
+        }
+      ],
+      "notes": "All 23 frozen roles covered, with 15 substantive distinct task-specific exclusions."
+    },
+    {
+      "criterion": "Selected workers have real prior dispatch authorization and actual receipts",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.003/IA-11/verification.json",
+          "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+        }
+      ],
+      "notes": "Recorded prior tickets, exact saved prompts, dependencies and distinct actual receipt assertions agree; external identity limits remain."
+    },
+    {
+      "criterion": "Actual game-wiki maintainer updates and validates the connected game documentation",
+      "result": "FAIL",
+      "evidence": [
+        {
+          "path": "source_material/game-wiki/llms.txt",
+          "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+        },
+        {
+          "path": "docs/58-software-project-management.md",
+          "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+        }
+      ],
+      "notes": "Actual authored maintenance/build/check occurred, but these current statements still contradict verified behavior and transport observation."
+    },
+    {
+      "criterion": "Collector, independent IA and Document Chief execute in order",
+      "result": "BLOCKED",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.003/IA-11/verification.json",
+          "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+        }
+      ],
+      "notes": "Collector and independent IA ran in order; Document Chief is intentionally pending and must publish rejection last."
+    },
+    {
+      "criterion": "Bundled workflow MCP initializes and logs through actual protocol tools",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+          "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+          "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+        }
+      ],
+      "notes": "Actual local protocol and fresh failure-acknowledgement fixture verified; separate actual host-exposed readiness call succeeded."
+    },
+    {
+      "criterion": "Imported existing-project readiness preserves historical preflight truth and current gates",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/imported-project.json",
+          "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+        },
+        {
+          "path": "management/agentic/work/turn.003/IA-11/verification.json",
+          "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+        }
+      ],
+      "notes": "Import snapshots and exact hash match, historical preflight flags remain truthful and imported acceptance/production remain false."
+    },
+    {
+      "criterion": "New software slice completion requires accepted matching agentic evidence",
+      "result": "PASS",
+      "evidence": [
+        {
+          "path": "tools/manage_project.py",
+          "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+        },
+        {
+          "path": "tools/game_workflow.py",
+          "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+        },
+        {
+          "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+          "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+        }
+      ],
+      "notes": "Inspected matching publication/task/Wiki/independent-IA completion guards and current independent regression evidence."
+    },
+    {
+      "criterion": "Game Git history, source layout and wiki consistency remain intact",
+      "result": "FAIL",
+      "evidence": [
+        {
+          "path": "source_material/game-wiki/llms.txt",
+          "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+        },
+        {
+          "path": "docs/58-software-project-management.md",
+          "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+        }
+      ],
+      "notes": "Game source/layout/Git are preserved; required current wiki/document agreement fails."
+    }
+  ],
+  "limitations": [
+    "Current llms.txt:31 and docs58:69 contradict corrected implementation and observed host transport; WIK IA-003-001 blocks acceptance.",
+    "Record/order/hash checks and partial live tree do not authenticate all worker identities or exact spawn times.",
+    "Fresh real-MCP fixture is synthetic and does not prove resident host hot reload or a corrected host-exposed failed reply.",
+    "Initial default-sandbox MCP timeout and incidental read-only helper error are retained; approved identical isolated rerun passed.",
+    "No new gameplay/M0, canon/assets or exhaustive future research/finding-resolution qualification; DOC publication remains pending."
+  ]
+}

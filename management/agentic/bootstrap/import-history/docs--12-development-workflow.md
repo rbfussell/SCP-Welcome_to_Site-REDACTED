@@ -1,0 +1,69 @@
+# Development and version control
+
+Git was initialized locally on `main` on October 22, 2026. The first commit captures the existing design baseline, authoring template, diagnostic generator and reviewed sample assets before the OSCP/engine design pass. Local Git remains the source history. On November 4, 2026, the user authorized creating a private GitHub remote and uploading the project history and wiki.
+
+## Source policy
+
+- Commit design, engine/kernel source, content definitions, schema versions, tests, source assets, Godot scenes/resources and intentional reference fixtures.
+- Exclude imported/editor caches, compiled outputs, personal tool/account configuration, credentials, local saves and logs through [.gitignore](../.gitignore).
+- Keep the bulk `source_material/scp-api/` reference checkout in its own history, excluded from the parent game repository. Track the [lookup guide](../source_material/README.md), source revision references and authored adaptation decisions instead of duplicating the archive.
+- Keep reviewed diagnostic PNGs and their manifest alongside the generator. Changes should be explainable from generator inputs/environment; regenerate intentionally rather than committing cache churn.
+- Godot .NET presentation and the independent C# simulation direction are selected in [ADR-0005](adr/0005-retain-godot-after-falltergeist-review.md). Pin exact engine/SDK/import versions through M0 qualification; integration and performance still need evidence. Do not replace the engine/runtime silently during a content change.
+- Use small commits with a concrete behavior or design decision. Check the diff and relevant requirements before committing. Do not rewrite accepted decision history; supersede an accepted ADR when changing direction.
+
+## Local workflow
+
+The repository-wide [agent rules](../AGENTS.md) require reading the relevant [game wiki](../source_material/game-wiki/index.html) pages before planning or changing a system. This is the authored game knowledge base, separate from the bulk SCP canon archive. Follow its links to affected dependencies, source evidence, SCP adaptations and applicable design/acceptance documents before editing.
+
+Every addition or change includes updates to the affected wiki sources and other applicable Markdown documents. Give distinct new concepts their own pages, link them from their overview and all materially related pages, and link back to the relevant systems, SCPs, canon sources and implementation evidence. Keep planned mechanics, implemented behavior and canon claims distinct. See the [wiki development and consistency workflow](../source_material/game-wiki/development.html) and [build guide](../source_material/game-wiki/README.md).
+
+Before completion, rebuild the wiki and run `python3 tools/build_game_wiki.py --check`, perform the checks appropriate to the change, and review the final implementation, wiki and other documentation for agreement. Link/hash validation is necessary but does not replace checking the accuracy of their descriptions. Keep documentation maintenance with the change; do not leave a stale wiki for a later pass.
+
+```bash
+git status --short --branch
+git diff
+git add -- <reviewed-paths>
+git diff --cached
+git commit -m "Describe the concrete change"
+```
+
+Use a feature branch for nontrivial implementation. The initial design baseline remains on `main`; current prototype development uses `prototype/m0-spatial-scene`. The GitHub remote, now public at the user’s request, is [rbfussell/SCP-Welcome_to_Site-REDACTED](https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED). The remote name normalizes punctuation unsupported by GitHub; the game title is unchanged. CI and the longer-term branching/merge policy remain undecided.
+
+Documentation checks validate local links, code fences, unique requirement IDs and references. They do not certify gameplay. Prototype gates require the actual runtime evidence in [scope and acceptance](04-scope-and-acceptance.md).
+
+The [spatial prototype guide](15-spatial-prototype.md) records the first runnable Godot/.NET versions, the temporary-copy launcher required by this Linux workspace path, controls and actual spatial/visual checks. This implementation starts on `prototype/m0-spatial-scene`; the larger M0 gate is still open.
+
+The [terminal design review](reviews/terminal-design-checks.md) records this pass's browser/documentation evidence and its implementation limits. Temporary preview wrappers and screenshots are ignored inspection output.
+
+## Remote backup and recovery
+
+The public `origin` remote uses `https://github.com/rbfussell/SCP-Welcome_to_Site-REDACTED.git`. Publish reviewed commits with `git push origin --all` and tags with `git push origin --tags`; pushes preserve both the baseline and prototype histories. The GitHub default branch should be the current `prototype/m0-spatial-scene` branch. A remote contains committed files only: uncommitted edits and ignored saves, caches, builds and local account configuration are not backed up.
+
+For a fresh checkout, clone the public repository. The committed game assets, source, design documentation, wiki tooling and generated wiki travel together. Restore the separately maintained canon checkout using the [archive recovery guide](../source_material/README.md#restoring-the-reference-checkout) before rebuilding the wiki. Generated wiki pages remain readable without that bulk archive. See the [wiki build guide](../source_material/game-wiki/README.md) for required tooling and freshness checks.
+
+## Public wiki publishing
+
+The user subsequently made the repository public and authorized a public browsable wiki. GitHub Pages serves [the game wiki](https://rbfussell.github.io/SCP-Welcome_to_Site-REDACTED/) through `.github/workflows/game-wiki-pages.yml`. Pushes affecting the committed wiki or that workflow on `prototype/m0-spatial-scene` deploy automatically; the workflow can also be dispatched manually on that branch. GitHub Pages must use the Actions publishing source.
+
+Build and fully validate the wiki locally before committing. Deployment checks the committed source/evidence hashes, item-art binary hashes and required generated pages, then uploads only generated HTML, JSON, search assets, canon extracts and the agent entry point. It does not rebuild, download the bulk archive, run gameplay tests or certify canon freshness. A stale snapshot fails deployment rather than silently publishing outdated evidence. The public site preserves styling, search and per-page links; full original archive-shard links remain local-checkout features. The included single-record canon snapshots work publicly. This is a documentation website, not a downloadable game release.
+
+## Software management workspace
+
+The game now lives in `Project/` inside a portable harness workspace. `Project/`
+remains this Git repository's root, so existing game/wiki/build commands, GitHub
+Actions paths and relative documentation links remain unchanged. The outer directory
+has no initialized Git history. Do not reinitialize or flatten the game checkout.
+
+[The software management guide](../management/README.md) and
+[integration contract](58-software-project-management.md) define the active adapter:
+small tasks, dependencies/blockers, recorded wiki/document context, actual test logs,
+explicit self/independent review and the same final consistency gate. Its authoritative
+tools and records live in this repository. Outer entry points are reinstallable copies.
+The generic strict harness remains separate; no mandatory manufacturing roles or
+repeated new-product preflight are imposed on ordinary software slices. Existing
+milestone acceptance and historical evidence remain unchanged.
+
+Use `python3 tools/manage_project.py status` from this game root. Keep selected task
+records and evidence with the reviewed implementation/docs/wiki commit. Inspect logs
+for private data before publishing them to the public repository. Completion requires
+real checks and semantic review; record validation alone does not certify gameplay.

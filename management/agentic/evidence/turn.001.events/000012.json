@@ -1,0 +1,12 @@
+{
+  "sequence": 12,
+  "timestamp": "2026-11-11T10:25:35.597176+00:00",
+  "kind": "DISPATCH_AUTHORIZED",
+  "data": {
+    "agent_id": "QA-16",
+    "authorization_id": "18d0829b79ca4069843dce847fe86509",
+    "prompt_hash": "8e859c23054642d7b02c084fa38af4b0eca465eeabbd24a54944134266994843"
+  },
+  "previous_hash": "2ec90437ddc91e81b443ffef86f3c0bd1a75b854ea83ef075b17b3880deffed3",
+  "hash": "4fcc7cb9575a6b76ec15350e011fd057a42d8e4583af646812f4e3147d0b125a"
+}

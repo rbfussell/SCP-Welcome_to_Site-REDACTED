@@ -1,0 +1,2 @@
+{"command": ["python3", "tools/build_game_wiki.py", "--check"], "cwd": "game repository", "started": "2026-11-11T11:06:23.407473+00:00"}
+Wiki validation passed: 2247 HTML pages; all local links and anchors; 141 C# files; source/evidence hashes current.

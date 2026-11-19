@@ -1,0 +1,267 @@
+{
+  "id": "agentic-loop-setup",
+  "title": "Activate the real agentic development loop and actual game-wiki agent",
+  "status": "active",
+  "scope": "User-required agent selection with per-role negations, real authorized workers, actual Wiki maintainer, Collector/IA/DOC loop and MCP initialization/logging. Existing game mechanics and milestone gates stay unchanged. This is migration of existing project workflow, not fictional completion of historical preflight.",
+  "acceptance": [
+    "Every unused registered role has a distinct substantive negation",
+    "Selected workers have real prior dispatch authorization and actual receipts",
+    "Actual game-wiki maintainer updates and validates the connected game documentation",
+    "Collector, independent IA and Document Chief execute in order",
+    "Bundled workflow MCP initializes and logs through actual protocol tools",
+    "Imported existing-project readiness preserves historical preflight truth and current gates",
+    "New software slice completion requires accepted matching agentic evidence",
+    "Game Git history, source layout and wiki consistency remain intact"
+  ],
+  "depends_on": [],
+  "blocking_questions": [],
+  "agentic_turn": "turn.004",
+  "wiki_pages": [
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/engine.md",
+    "source_material/game-wiki/content/home.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/status.md"
+  ],
+  "inputs": [
+    ".gitignore",
+    "AGENTS.md",
+    "docs/12-development-workflow.md",
+    "docs/58-software-project-management.md",
+    "docs/59-agentic-development-loop.md",
+    "management/README.md",
+    "management/harness/AGENTS.md",
+    "management/harness/README.md",
+    "management/harness/manage_game.py",
+    "management/harness/requirements.txt",
+    "management/harness/runtime/UPSTREAM.json",
+    "management/harness/runtime/config/agent_catalog.json",
+    "management/harness/runtime/config/agents.json",
+    "management/harness/runtime/config/game_roles.json",
+    "management/harness/runtime/preflight.py",
+    "management/harness/runtime/schemas/agent.schema.json",
+    "management/harness/runtime/schemas/turn.schema.json",
+    "management/harness/runtime/workflow.py",
+    "management/profile.json",
+    "source_material/game-wiki/README.md",
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/engine.md",
+    "source_material/game-wiki/content/home.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/llms.txt",
+    "tests/test_agentic_client_setup.py",
+    "tests/test_agentic_entrypoints.py",
+    "tests/test_agentic_workflow.py",
+    "tools/agentic.py",
+    "tools/agentic_mcp.py",
+    "tools/build_game_wiki.py",
+    "tools/call_agentic_mcp.py",
+    "tools/check_agentic_mcp.py",
+    "tools/configure_agentic_client.py",
+    "tools/configure_project_harness.py",
+    "tools/game_workflow.py",
+    "tools/install_agentic_dependencies.py",
+    "tools/manage_project.py"
+  ],
+  "history": [
+    {
+      "at": "2026-11-11T10:29:49.172214+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "action": "Recovery rebound to real turn.002 after quota-interrupted turn.001; no prior agentic acceptance claimed."
+    },
+    {
+      "at": "2026-11-11T11:04:03.350090+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T11:05:12.717264+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T11:06:05.289730+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-11T11:06:47.850047+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-11T16:45:15.663617+00:00",
+      "action": "blocked for independently verified wrapper correction and observed response-contract defect after interrupted turn.002"
+    },
+    {
+      "at": "2026-11-11T16:45:15.664817+00:00",
+      "action": "bound new actual setup/correction turn.003; no task acceptance yet"
+    },
+    {
+      "at": "2026-11-11T16:45:15.691503+00:00",
+      "action": "started with wiki/document context"
+    },
+    {
+      "at": "2026-11-11T16:53:30.218064+00:00",
+      "action": "declared focused entrypoint/MCP regression source for correction003 before final checks"
+    },
+    {
+      "at": "2026-11-11T17:05:58.093447+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T17:05:58.251358+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T17:06:44.621034+00:00",
+      "action": "wiki-build: FAIL"
+    },
+    {
+      "at": "2026-11-11T17:08:20.575163+00:00",
+      "action": "tests: PASS"
+    },
+    {
+      "at": "2026-11-11T17:08:20.729372+00:00",
+      "action": "docs: PASS"
+    },
+    {
+      "at": "2026-11-11T17:09:06.727182+00:00",
+      "action": "wiki-build: PASS"
+    },
+    {
+      "at": "2026-11-11T17:09:31.561136+00:00",
+      "action": "wiki-check: PASS"
+    },
+    {
+      "at": "2026-11-11T17:27:32.284225+00:00",
+      "action": "blocked by independently confirmed IA-003-001 current documentation conflicts after rejected003 publication"
+    },
+    {
+      "at": "2026-11-11T17:27:32.285413+00:00",
+      "action": "bound actual final documentation setup turn.004; no acceptance claimed"
+    },
+    {
+      "at": "2026-11-11T17:27:32.308134+00:00",
+      "action": "started with wiki/document context"
+    }
+  ],
+  "context": {
+    "recorded_at": "2026-11-11T17:27:32.308110+00:00",
+    "attestation": "Developer reports reading; hashes do not prove reading.",
+    "sources": [
+      {
+        "path": "source_material/game-wiki/content/status.md",
+        "notes": "Read implementation ledger: bounded runtime, M0 open, many long-term requirements remain unimplemented.",
+        "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/development.md",
+        "notes": "Read required preload, authored wiki updates, cross-links, build/check and semantic consistency gate.",
+        "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/engine.md",
+        "notes": "Read independent C# simulation/Godot architecture, time and persistence boundaries and mode limitations.",
+        "sha256": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/README.md",
+        "notes": "Read authoring/generation/evidence hash workflow and Pages publication from existing game Git root.",
+        "sha256": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/agentic-loop.md",
+        "notes": "Read actual implemented loop, separate Wiki/process authorities, source freeze, current known wrapper defect and historical imported-readiness limits before correction.",
+        "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/content/project-management.md",
+        "notes": "Read task/agentic separation, stable check inputs and independent closure contract.",
+        "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "source_material/game-wiki/llms.txt",
+        "notes": "Read full agent entrypoint; obsolete current wrapper/host clauses confirmed by independent IA-003-001; use actual source and observed receipts until corrected.",
+        "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+        "kind": "wiki_read"
+      },
+      {
+        "path": "AGENTS.md",
+        "notes": "Read game repository rules, retaining wiki requirements under the adapted software profile.",
+        "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/12-development-workflow.md",
+        "notes": "Read existing Git, source, test, wiki publication and recovery workflow; game has its own Git root.",
+        "sha256": "62ed542107f733a97d17d1f6c67c21e5114edd4f8ba58652cda67a29a6f840b1",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/04-scope-and-acceptance.md",
+        "notes": "Read milestone gates and facility-first scope; manager tooling must not mark historical game milestones complete.",
+        "sha256": "7bb256b04ec17f68d170029dda3aa34c7ee8ea2c7b3b2d120a6eab4958ceded4",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/work/turn.001/KRA-14/report.md",
+        "notes": "Read actual independent architecture setup report: no user-design blocker, preserve later research eligibility and mapped readiness hooks.",
+        "sha256": "76c697389afdb0ed9414b9310812b26422c64fde73dc5280fa1a12aea0c71df4",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/59-agentic-development-loop.md",
+        "notes": "Read active 23-role scope and real dispatch/terminal review constraints.",
+        "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "notes": "Read actual REJECTED independent audit and confirmed SWE-13 IA-002-001.",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "notes": "Actual parent host-exposed readiness call succeeded; generic local NOT_OBSERVED field does not know external transport.",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "notes": "Actual host failure event mutation succeeded but response schema rejected None; bounded correction required.",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b",
+        "kind": "docs_read"
+      },
+      {
+        "path": "docs/58-software-project-management.md",
+        "notes": "Read historical body and newer current-reference note; repair obsolete final current limitation claim without rewriting accepted history.",
+        "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/audit.json",
+        "notes": "Read actual REJECTED audit with confirmed WIK IA-003-001 and independently verified old SWE correction; formal case resolutions deferred to accepted followup.",
+        "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929",
+        "kind": "docs_read"
+      },
+      {
+        "path": "management/agentic/publications/turn.003.json",
+        "notes": "Verified actual canonical publication path/hash and closed rejected outcome, with no import/task acceptance or case resolutions.",
+        "sha256": "3cc5b40e58e1341791b5e7a12edb34ec64f5e370219ec33f6f6a0054c16d5c0a",
+        "kind": "docs_read"
+      }
+    ]
+  },
+  "checks": {},
+  "review": null,
+  "execution": "agentic"
+}

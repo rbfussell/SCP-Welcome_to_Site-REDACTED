@@ -1,0 +1,2663 @@
+{
+  "integrity": "PASS",
+  "current_reference_comparisons": 497,
+  "references": [
+    {
+      "origin": "collector-index",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/evidence/turn.003.events/000005.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/evidence/turn.003.events/000006.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/selection-turn.003.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.002/IA-11/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/ENG-00/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/KRA-14/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/source-before.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/suite-results.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/before-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/changed-authored-files.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/final-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/helper-limits.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/docs.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/recorded-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/tests.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-docs-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-docs-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-tests-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-tests-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-result.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-install.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/reading-notes.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/report.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/run_recorded_checks.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/supplemental-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-precheck.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "collector-index",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.artifacts",
+      "path": "management/agentic/work/turn.003/ENG-00/report.md",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/selection-turn.003.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/evidence/turn.003.events/000005.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/evidence/turn.003.events/000006.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/report.md",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.evidence",
+      "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+      "matches": true
+    },
+    {
+      "origin": "ENG-00.tests",
+      "path": "management/agentic/work/turn.003/ENG-00/report.md",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.artifacts",
+      "path": "management/agentic/work/turn.003/KRA-14/report.md",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/work/turn.003/ENG-00/report.md",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/report.md",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "KRA-14.tests",
+      "path": "management/agentic/work/turn.003/KRA-14/report.md",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-regression.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/report.md",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/suite-results.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.artifacts",
+      "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/report.md",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.evidence",
+      "path": "management/agentic/work/turn.003/KRA-14/report.md",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "SWE-13.tests",
+      "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/report.md",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/source-before.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.artifacts",
+      "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+      "matches": true
+    },
+    {
+      "origin": "QA-16.tests",
+      "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/before-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/changed-authored-files.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/final-source-hashes.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/helper-limits.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/docs.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/recorded-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/tests.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-docs-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-docs-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-tests-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-tests-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-result.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-stderr.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-install.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/reading-notes.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/report.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/run_recorded_checks.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/supplemental-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.artifacts",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-precheck.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/report.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "WIK-30.tests",
+      "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/collect-input.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/host-agents-observation.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/report.md",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.artifacts",
+      "path": "management/agentic/work/turn.003/EVC-28/verify_collection.py",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.evidence",
+      "path": "management/agentic/imported-project.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "EVC-28.tests",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tools/configure_project_harness.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tests/test_agentic_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tests/test_agentic_client_setup.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "tests/test_project_management.py",
+      "matches": true
+    },
+    {
+      "origin": "QA-final-source",
+      "path": "../scripts/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "task-tests",
+      "path": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": ".gitignore",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/requirements.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/config/agent_catalog.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/config/agents.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/config/game_roles.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/preflight.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/schemas/agent.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/schemas/turn.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/engine.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/home.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tests/test_agentic_client_setup.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tests/test_agentic_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/call_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/check_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/configure_agentic_client.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/configure_project_harness.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/install_agentic_dependencies.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-tests",
+      "path": "tools/manage_project.py",
+      "matches": true
+    },
+    {
+      "origin": "task-docs",
+      "path": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": ".gitignore",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/requirements.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/config/agent_catalog.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/config/agents.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/config/game_roles.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/preflight.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/schemas/agent.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/schemas/turn.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/engine.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/home.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tests/test_agentic_client_setup.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tests/test_agentic_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/call_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/check_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/configure_agentic_client.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/configure_project_harness.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/install_agentic_dependencies.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-docs",
+      "path": "tools/manage_project.py",
+      "matches": true
+    },
+    {
+      "origin": "task-wiki-build",
+      "path": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": ".gitignore",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/requirements.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/config/agent_catalog.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/config/agents.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/config/game_roles.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/preflight.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/schemas/agent.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/schemas/turn.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/engine.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/home.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tests/test_agentic_client_setup.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tests/test_agentic_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/call_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/check_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/configure_agentic_client.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/configure_project_harness.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/install_agentic_dependencies.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-build",
+      "path": "tools/manage_project.py",
+      "matches": true
+    },
+    {
+      "origin": "task-wiki-check",
+      "path": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": ".gitignore",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "docs/12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "docs/58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "docs/59-agentic-development-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/AGENTS.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/manage_game.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/requirements.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/config/agent_catalog.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/config/agents.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/config/game_roles.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/preflight.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/schemas/agent.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/schemas/turn.schema.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/harness/runtime/workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "management/profile.json",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/README.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/development.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/engine.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/home.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/content/status.md",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "source_material/game-wiki/llms.txt",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tests/test_agentic_client_setup.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tests/test_agentic_entrypoints.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tests/test_agentic_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/agentic.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/build_game_wiki.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/call_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/check_agentic_mcp.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/configure_agentic_client.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/configure_project_harness.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/game_workflow.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/install_agentic_dependencies.py",
+      "matches": true
+    },
+    {
+      "origin": "task-input-wiki-check",
+      "path": "tools/manage_project.py",
+      "matches": true
+    },
+    {
+      "origin": "immutable-import",
+      "path": "management/agentic/bootstrap/import-history/README.md",
+      "matches": true
+    },
+    {
+      "origin": "immutable-import",
+      "path": "management/agentic/bootstrap/import-history/docs--12-development-workflow.md",
+      "matches": true
+    },
+    {
+      "origin": "immutable-import",
+      "path": "management/agentic/bootstrap/import-history/docs--58-software-project-management.md",
+      "matches": true
+    },
+    {
+      "origin": "immutable-import",
+      "path": "management/agentic/bootstrap/import-history/management--README.md",
+      "matches": true
+    },
+    {
+      "origin": "immutable-import",
+      "path": "management/agentic/bootstrap/import-history/management--profile.json",
+      "matches": true
+    },
+    {
+      "origin": "import-authorization",
+      "path": "management/agentic/bootstrap/user-authorization.md",
+      "matches": true
+    }
+  ],
+  "registry_revision": 19,
+  "role_count": 23,
+  "selected_count": 8,
+  "excluded": {
+    "SHO-12": "This correction produces no milestone presentation or sales narrative; the truthful deliverable is operational harness evidence.",
+    "OPS-17": "No game package, release deployment or build service changes in this bounded wrapper/response repair; SWE owns local installation.",
+    "SEC-18": "This correction adds no credentials, public listener or game permission surface; existing path boundaries remain checked by QA and IA.",
+    "RES-09": "The two local Python contract defects are understood from inspected source and observed failures; no unfamiliar external choice or canon research is needed.",
+    "MED-07": "No sprite, texture, icon or source illustration is created when repairing Python dispatch and acknowledgement.",
+    "DEM-08": "No animation sequence or authored product demonstration is part of these two integration corrections.",
+    "AUD-25": "The recovery changes neither audio assets nor an audio pipeline, so sound authoring has no assigned output.",
+    "WRI-22": "No story, character dialogue or narrative continuity changes are requested; WIK owns technical descriptions.",
+    "PRT-05": "This is a setup repair rather than a declared gameplay/product completion milestone needing a prototype design.",
+    "BLD-27": "There is no declared milestone or approved prototype plan to construct; appropriate software tests qualify these small fixes.",
+    "WEB-06": "Wiki rendering, CSS, search and web navigation behavior remain unchanged; WIK performs authored updates and routine generation.",
+    "UIX-31": "No native Godot screen, interaction flow or player-facing control changes with the root-command and MCP fixes.",
+    "AST-32": "The corrections touch no atlas, mask, sprite binding, asset import or media provenance record.",
+    "LOR-33": "No SCP canon interpretation or game-lore adaptation changes in the tooling repair; existing lore decisions remain intact.",
+    "SIM-34": "No authoritative kernel, SCP behavior, perception, inventory, time or save mechanics change in this harness recovery."
+  },
+  "chronology": [
+    {
+      "agent_id": "ENG-00",
+      "authorization_sequence": 5,
+      "invocation_sequence": 6,
+      "receipt": "/root/coordinator_correction"
+    },
+    {
+      "agent_id": "KRA-14",
+      "authorization_sequence": 8,
+      "invocation_sequence": 9,
+      "receipt": "/root/architecture_correction"
+    },
+    {
+      "agent_id": "SWE-13",
+      "authorization_sequence": 11,
+      "invocation_sequence": 12,
+      "receipt": "/root/software_correction"
+    },
+    {
+      "agent_id": "QA-16",
+      "authorization_sequence": 14,
+      "invocation_sequence": 15,
+      "receipt": "/root/qa_correction"
+    },
+    {
+      "agent_id": "WIK-30",
+      "authorization_sequence": 17,
+      "invocation_sequence": 18,
+      "receipt": "/root/wiki_correction"
+    },
+    {
+      "agent_id": "EVC-28",
+      "authorization_sequence": 21,
+      "invocation_sequence": 22,
+      "receipt": "/root/collector_correction"
+    },
+    {
+      "agent_id": "IA-11",
+      "authorization_sequence": 25,
+      "invocation_sequence": 26,
+      "receipt": "/root/ia_correction"
+    }
+  ],
+  "current_task_input_count": 40,
+  "collected_head_matches": true,
+  "immutable_git_snapshots": [
+    "docs/12-development-workflow.md",
+    "docs/58-software-project-management.md",
+    "management/README.md",
+    "management/profile.json"
+  ],
+  "preflight": {
+    "setup_complete": false,
+    "question_round_complete": false,
+    "initial_research_complete": false,
+    "baseline_complete": false,
+    "questions": [],
+    "unanswered_questions": [],
+    "blocking_questions": [],
+    "research_requests": [],
+    "pending_research": [],
+    "open_ia_cases": [
+      {
+        "case_id": "IA-002-001",
+        "responsible_agent": "SWE-13",
+        "severity": "MAJOR",
+        "status": "CONFIRMED",
+        "independently_verified": true,
+        "summary": "Outer agents shortcut fails with ModuleNotFoundError because the runpy wrapper does not establish the game tools import path.",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+            "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+            "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+          },
+          {
+            "path": "management/harness/manage_game.py",
+            "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+          },
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-template.py.snapshot",
+            "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+          }
+        ],
+        "required_action": "In a new authorized corrective turn, fix the versioned wrapper import path, reinstall the outer managed copy, add independently executed regressions for agents dispatch from outer root and unrelated cwd while preserving legacy status and direct CLI, then refresh actual wiki/docs/build/check and complete ordered Collector/IA/DOC review. Assign this case to SWE-13; do not accept import or complete the task before verification."
+      }
+    ],
+    "next_kind": "setup",
+    "production_allowed": false,
+    "imported_history_accepted": false,
+    "import_basis": {
+      "path": "management/agentic/imported-project.json",
+      "hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1",
+      "status": "IMPORTED_HISTORY_NOT_NEW_QUALIFICATION"
+    }
+  },
+  "source_inputs_stable_during_IA": true,
+  "checks": [
+    {
+      "label": "initial-default-sandbox-entrypoints",
+      "status": "FAIL",
+      "limitation": "MCP initialization IPC timeout; four other tests passed; original log preserved."
+    },
+    {
+      "label": "approved-real-ipc-entrypoints",
+      "status": "PASS",
+      "distinct_tests": 5
+    },
+    {
+      "label": "outer-agents-root",
+      "status": "PASS"
+    },
+    {
+      "label": "outer-agents-unrelated",
+      "status": "PASS"
+    },
+    {
+      "label": "direct-cli",
+      "status": "PASS"
+    },
+    {
+      "label": "outer-legacy-board",
+      "status": "PASS"
+    },
+    {
+      "label": "wiki-freshness",
+      "status": "PASS"
+    }
+  ],
+  "semantic_consistency": "FAIL",
+  "semantic_conflicts": [
+    {
+      "path": "source_material/game-wiki/llms.txt",
+      "line": 31,
+      "text": "Active development coordination: project-management.html and development.html; game root is now Project/ under the outer harness. Use python3 tools/manage_project.py status from the game root. The actual agentic loop is documented at agentic-loop.html and docs/59-agentic-development-loop.md. Every registered role defaults YES; each unused role needs an individual task-specific negation. Real selected host workers require authorization-before-spawn and actual distinct receipts. Execution owners -> WIK-30 actual game-wiki maintenance -> EVC-28 -> independent IA-11 -> DOC-10 process publication last. No agent runs afterward within that turn; late defects need a new authorized correction turn. The process JSON store does not replace this knowledge base. Imported history never invents past question/research rounds. Direct game-root CLI/local MCP work; current outer agents shortcut has an import-path defect. Configuration/local protocol success is not proof of live host connection (CONFIGURED_UNVERIFIED).",
+      "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "line": 69,
+      "text": "[The active agentic contract](59-agentic-development-loop.md), [management guide](../management/README.md) and [game-wiki loop page](../source_material/game-wiki/agentic-loop.html) now require every registered role to be considered, individual unused-role negations, actual authorized host workers, WIK-30 for the real game wiki, Collector \u2192 independent IA \u2192 Document Chief and matching accepted-publication slice closure. Historical self-review records are not rewritten as independent review. The CLI's original task/evidence mechanism remains alongside that loop. Current setup limitations, including the outer agents-shortcut import defect and unobserved live host MCP loading, are recorded in the active contract.",
+      "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+    }
+  ],
+  "limits": [
+    "Record checks do not authenticate host receipt strings or exact spawn timestamps.",
+    "Fresh MCP subprocess fixture is synthetic; resident host hot reload was not tested."
+  ]
+}

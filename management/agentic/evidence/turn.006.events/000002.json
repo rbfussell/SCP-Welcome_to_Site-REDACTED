@@ -1,0 +1,10 @@
+{
+  "sequence": 2,
+  "timestamp": "2026-11-19T16:56:05.086230+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "AGENT_SELECTION"
+  },
+  "previous_hash": "719049ef567bd8192184b901ade86c5bf1d9b830947405975dc685f367723ee7",
+  "hash": "bf8aefc3c4ef62bc3981bcf9ce2d6678dd1df412230208b1f0d859fbb1002461"
+}

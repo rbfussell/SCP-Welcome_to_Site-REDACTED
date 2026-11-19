@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/manage_project.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>manage_project.py</h1><pre>#!/usr/bin/env python3
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>tools/manage_project.py | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Evidence</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><h1>manage_project.py</h1><pre>#!/usr/bin/env python3
 &quot;&quot;&quot;Evidence-backed software slices; no spawning, fake workers, or model dependency.&quot;&quot;&quot;
 import argparse
 from datetime import datetime, timezone
@@ -55,7 +55,7 @@ class SoftwareProject:
 
     def profile(self):
         profile = self.read(&#x27;management/profile.json&#x27;)
-        require(profile[&#x27;profile&#x27;] == &#x27;software-game&#x27; and profile[&#x27;execution&#x27;] == &#x27;single-developer&#x27;, &#x27;Wrong project profile&#x27;)
+        require(profile[&#x27;profile&#x27;] == &#x27;software-game&#x27; and profile[&#x27;execution&#x27;] in {&#x27;single-developer&#x27;, &#x27;agentic&#x27;}, &#x27;Wrong project profile&#x27;)
         return profile
 
     def tasks(self):
@@ -90,7 +90,15 @@ class SoftwareProject:
         require(not any(t[&#x27;status&#x27;] == &#x27;active&#x27; and t[&#x27;id&#x27;] != task_id for t in self.tasks()), &#x27;Finish or block the active slice first&#x27;)
         require(not task.get(&#x27;blocking_questions&#x27;), &#x27;Resolve blocking design questions before dependent work&#x27;)
         require(all(self.task(t)[&#x27;status&#x27;] == &#x27;done&#x27; for t in task.get(&#x27;depends_on&#x27;, [])), &#x27;Dependencies are incomplete&#x27;)
-        task.update(status=&#x27;active&#x27;, context=self.context(context), checks={}, review=None)
+        execution = self.profile()[&#x27;execution&#x27;]
+        if execution == &#x27;agentic&#x27;:
+            turn_id = task.get(&#x27;agentic_turn&#x27;) or context.get(&#x27;agentic_turn&#x27;)
+            require(turn_id, &#x27;Agentic slice must bind its actual turn before starting&#x27;)
+            from game_workflow import GameWorkflow
+            turn = GameWorkflow(self.root).turn(turn_id)
+            require(turn[&#x27;state&#x27;] not in {&#x27;TURN_CLOSED&#x27;, &#x27;INTERRUPTED&#x27;}, &#x27;Bind an active genuine agentic turn&#x27;)
+            task[&#x27;agentic_turn&#x27;] = turn_id
+        task.update(status=&#x27;active&#x27;, execution=execution, context=self.context(context), checks={}, review=None)
         return self.save(task, &#x27;started with wiki/document context&#x27;)
 
     def record(self, task_id, label, command):
@@ -125,6 +133,33 @@ class SoftwareProject:
                 require(entry[&#x27;inputs&#x27;] == self.snapshot(task), f&#x27;Stale {label} evidence; inputs changed&#x27;)
         require(checks[&#x27;wiki-check&#x27;][&#x27;finished_at&#x27;] &gt;= checks[&#x27;wiki-build&#x27;][&#x27;finished_at&#x27;], &#x27;Wiki check must follow rebuild&#x27;)
 
+    def agentic_acceptance(self, task, review):
+        from game_workflow import GameWorkflow
+        workflow = GameWorkflow(self.root)
+        turn_id = task.get(&#x27;agentic_turn&#x27;)
+        require(turn_id, &#x27;Agentic completion needs the matching turn&#x27;)
+        turn = workflow.turn(turn_id)
+        require(turn[&#x27;state&#x27;] == &#x27;TURN_CLOSED&#x27;, &#x27;Publish the matching reviewed agentic turn before slice completion&#x27;)
+        path = workflow.path(f&#x27;wiki/{turn_id}.json&#x27;)
+        publication = workflow.read(path)
+        require(publication[&#x27;audit&#x27;][&#x27;disposition&#x27;] == &#x27;ACCEPTED&#x27;, &#x27;Agentic publication was not accepted by independent IA&#x27;)
+        task_entity = next((e for e in publication[&#x27;entities&#x27;] if e[&#x27;entity_id&#x27;] == f&#x27;task.{task[&quot;id&quot;]}&#x27;), None)
+        require(task_entity and task_entity.get(&#x27;value&#x27;, {}).get(&#x27;task_id&#x27;) == task[&#x27;id&#x27;],
+                &#x27;Accepted publication does not bind this software slice&#x27;)
+        wiki = turn[&#x27;handoffs&#x27;].get(&#x27;WIK-30&#x27;, {})
+        require(wiki.get(&#x27;handoff_status&#x27;) == &#x27;COMPLETE&#x27; and wiki.get(&#x27;task_id&#x27;) == task[&#x27;id&#x27;]
+                and wiki.get(&#x27;game_wiki&#x27;, {}).get(&#x27;semantic_review&#x27;) is True,
+                &#x27;Matching actual game-wiki handoff required&#x27;)
+        require(all(h.get(&#x27;task_id&#x27;) == task[&#x27;id&#x27;] for h in turn[&#x27;handoffs&#x27;].values()),
+                &#x27;Selected handoffs must belong to the matching software slice&#x27;)
+        ia = turn[&#x27;invocations&#x27;].get(&#x27;IA-11&#x27;, {})
+        require(review.get(&#x27;mode&#x27;) == &#x27;independent&#x27; and review.get(&#x27;reviewer_receipt&#x27;) == ia.get(&#x27;receipt&#x27;),
+                &#x27;Review must identify the actual independent IA worker for this turn&#x27;)
+        workflow.references(workflow.evidence_inventory(turn))
+        return {&#x27;turn_id&#x27;: turn_id, &#x27;publication&#x27;: str(path.relative_to(self.root)),
+                &#x27;sha256&#x27;: sha(path), &#x27;wiki_prompt_hash&#x27;: wiki[&#x27;prompt_hash&#x27;],
+                &#x27;ia_receipt&#x27;: ia[&#x27;receipt&#x27;]}
+
     def complete(self, task_id, review):
         task = self.task(task_id)
         require(task[&#x27;status&#x27;] == &#x27;active&#x27; and not task.get(&#x27;blocking_questions&#x27;), &#x27;Slice inactive or blocked by design questions&#x27;)
@@ -138,6 +173,9 @@ class SoftwareProject:
             require(review.get(&#x27;reviewer_receipt&#x27;), &#x27;Independent review needs an actual worker/human receipt&#x27;)
         else:
             require(not review.get(&#x27;reviewer_receipt&#x27;), &#x27;Self-review cannot claim an independent worker&#x27;)
+        execution = &#x27;agentic&#x27; if self.profile()[&#x27;execution&#x27;] == &#x27;agentic&#x27; else task.get(&#x27;execution&#x27;, &#x27;single-developer&#x27;)
+        if execution == &#x27;agentic&#x27;:
+            task[&#x27;agentic_acceptance&#x27;] = self.agentic_acceptance(task, review)
         task.update(status=&#x27;done&#x27;, review=review, accepted_inputs=self.snapshot(task))
         return self.save(task, &#x27;completed; evidence and semantic review recorded&#x27;)
 
@@ -157,6 +195,10 @@ class SoftwareProject:
             if task[&#x27;status&#x27;] == &#x27;done&#x27;:
                 self.verify_checks(task)  # Accepted snapshots remain historical after later development.
                 require(task.get(&#x27;review&#x27;) and task.get(&#x27;accepted_inputs&#x27;), &#x27;Done slice lacks review/snapshot&#x27;)
+                if task.get(&#x27;execution&#x27;) == &#x27;agentic&#x27;:
+                    accepted = task.get(&#x27;agentic_acceptance&#x27;, {})
+                    require(accepted.get(&#x27;publication&#x27;) and sha(self.path(accepted[&#x27;publication&#x27;])) == accepted.get(&#x27;sha256&#x27;),
+                            &#x27;Agentic acceptance publication changed or missing&#x27;)
         return {&#x27;result&#x27;: &#x27;PASS&#x27;, &#x27;tasks&#x27;: len(tasks), &#x27;note&#x27;: &#x27;Record integrity; not gameplay qualification or independent audit.&#x27;}
 
 

@@ -1,0 +1,33 @@
+{
+  "status": "CONFIGURED_UNVERIFIED",
+  "changed_paths": [
+    ".codex/config.toml",
+    ".codex/agents/scp-wik-30.toml",
+    ".codex/agents/scp-evc-28.toml",
+    ".codex/agents/scp-doc-10.toml",
+    ".codex/agents/scp-wri-22.toml",
+    ".codex/agents/scp-med-07.toml",
+    ".codex/agents/scp-dem-08.toml",
+    ".codex/agents/scp-aud-25.toml",
+    ".codex/agents/scp-ast-32.toml",
+    ".codex/agents/scp-eng-00.toml",
+    ".codex/agents/scp-sho-12.toml",
+    ".codex/agents/scp-ia-11.toml",
+    ".codex/agents/scp-kra-14.toml",
+    ".codex/agents/scp-res-09.toml",
+    ".codex/agents/scp-lor-33.toml",
+    ".codex/agents/scp-qa-16.toml",
+    ".codex/agents/scp-sec-18.toml",
+    ".codex/agents/scp-swe-13.toml",
+    ".codex/agents/scp-web-06.toml",
+    ".codex/agents/scp-ops-17.toml",
+    ".codex/agents/scp-sim-34.toml",
+    ".codex/agents/scp-uix-31.toml",
+    ".codex/agents/scp-prt-05.toml",
+    ".codex/agents/scp-bld-27.toml"
+  ],
+  "workspace": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+  "role_count": 23,
+  "effective_status": "NOT_EXPOSED",
+  "scope": "Future starts; live coordinator unchanged. Active collaboration uses explicit overrides."
+}

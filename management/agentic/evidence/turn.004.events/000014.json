@@ -1,0 +1,11 @@
+{
+  "sequence": 14,
+  "timestamp": "2026-11-12T00:11:05.786957+00:00",
+  "kind": "INTERRUPTION",
+  "data": {
+    "reason": "Genuine SWE-13 usage-limit failure left turn.004 incomplete. Preserve real ENG/KRA handoffs and failure; new human steering adds explicit GPT-6.1 Sol model/effort policy, requiring a newly scoped authorized setup turn before remaining source/docs review.",
+    "completion": "INCOMPLETE"
+  },
+  "previous_hash": "18a96737c20914b8cf0684630723a3af122a3d0a8c932aea6f90823fd4c102f9",
+  "hash": "704ca0ab70e84c65e992916e7c02b8c82d4f664291f99b577c0bbfdf40370905"
+}

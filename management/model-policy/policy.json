@@ -1,0 +1,259 @@
+{
+  "schema_version": 2,
+  "status": "provisional allocation; no measured quality or quota claim",
+  "coordinator": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium"
+  },
+  "supported_models": {
+    "gpt-6.2-sol": [
+      "low",
+      "medium",
+      "high",
+      "xhigh"
+    ],
+    "gpt-6.2-astra": [
+      "low",
+      "medium",
+      "high"
+    ]
+  },
+  "work_classes": {
+    "documentation": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "routine_media": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "routine_assets": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "coordination": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "routine_fixes": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "administration": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "presentation": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "independent_analysis": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "complex_review": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "software_implementation": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "engineering": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "design": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "prototype": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium"
+    },
+    "evidence": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low"
+    },
+    "difficult_work": {
+      "model": "gpt-6.2-astra",
+      "reasoning_effort": "medium"
+    }
+  },
+  "roles": {
+    "WIK-30": {
+      "default_work_class": "documentation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high"
+      }
+    },
+    "EVC-28": {
+      "default_work_class": "evidence",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "medium"
+      }
+    },
+    "DOC-10": {
+      "default_work_class": "documentation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "medium"
+      }
+    },
+    "WRI-22": {
+      "default_work_class": "documentation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high"
+      }
+    },
+    "MED-07": {
+      "default_work_class": "routine_media",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "medium"
+      }
+    },
+    "DEM-08": {
+      "default_work_class": "routine_media",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high"
+      }
+    },
+    "AUD-25": {
+      "default_work_class": "routine_media",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "medium"
+      }
+    },
+    "AST-32": {
+      "default_work_class": "routine_assets",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high"
+      }
+    },
+    "ENG-00": {
+      "default_work_class": "coordination",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high"
+      }
+    },
+    "SHO-12": {
+      "default_work_class": "presentation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "medium"
+      }
+    },
+    "IA-11": {
+      "default_work_class": "complex_review",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "KRA-14": {
+      "default_work_class": "independent_analysis",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "RES-09": {
+      "default_work_class": "independent_analysis",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high",
+        "gpt-6.2-astra": "medium"
+      }
+    },
+    "LOR-33": {
+      "default_work_class": "independent_analysis",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high",
+        "gpt-6.2-astra": "medium"
+      }
+    },
+    "QA-16": {
+      "default_work_class": "complex_review",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "SEC-18": {
+      "default_work_class": "complex_review",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "SWE-13": {
+      "default_work_class": "software_implementation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "WEB-06": {
+      "default_work_class": "software_implementation",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high",
+        "gpt-6.2-astra": "medium"
+      }
+    },
+    "OPS-17": {
+      "default_work_class": "engineering",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "SIM-34": {
+      "default_work_class": "engineering",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "UIX-31": {
+      "default_work_class": "design",
+      "floor": "low",
+      "ceilings": {
+        "gpt-6.2-sol": "high",
+        "gpt-6.2-astra": "medium"
+      }
+    },
+    "PRT-05": {
+      "default_work_class": "prototype",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    },
+    "BLD-27": {
+      "default_work_class": "prototype",
+      "floor": "medium",
+      "ceilings": {
+        "gpt-6.2-sol": "xhigh",
+        "gpt-6.2-astra": "high"
+      }
+    }
+  }
+}

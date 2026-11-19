@@ -1,0 +1,110 @@
+{
+  "sequence": 12,
+  "timestamp": "2026-11-11T17:31:03.689644+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.004",
+    "agent_id": "ENG-00",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "3e492420f3036602f19ff43e00275c3145768235dbf3574d57d5792f1575789d",
+    "assigned_scope": "Review exact all-role selection and bound documentation-only correction, preserving both prior cases, actual rejected/interrupted history, source qualification and host limits.",
+    "work_performed": "Read actual game wiki, contracts, task, prior independent audit/publication and relevant implementation; verified 23-role coverage, seven matching exact prompts, individual negations and ENG recorded authorization/invocation; identified stale current and temporal guidance for WIK. Wrote only owned report and raw handoff.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.004/ENG-00/report.md",
+        "sha256": "4e9fe97e77c2a62d7a6c47a471a34dd70918a9961feddfc35d6d6509f2d58e36"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 ../scripts/manage_game.py status",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.004/ENG-00/report.md",
+            "sha256": "4e9fe97e77c2a62d7a6c47a471a34dd70918a9961feddfc35d6d6509f2d58e36"
+          }
+        ]
+      },
+      {
+        "command": "Read-only JSON comparison of frozen registry/selection, duplicate keys, individual exclusions, mandatory roles, prompt files and corrective assignments",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.004/ENG-00/report.md",
+            "sha256": "4e9fe97e77c2a62d7a6c47a471a34dd70918a9961feddfc35d6d6509f2d58e36"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/build_game_wiki.py --check (pre-correction structural freshness only)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.004/ENG-00/report.md",
+            "sha256": "4e9fe97e77c2a62d7a6c47a471a34dd70918a9961feddfc35d6d6509f2d58e36"
+          }
+        ]
+      },
+      {
+        "command": "Implementation regressions and final task tests/docs/wiki-build/wiki-check and semantic review are assigned to SWE/WIK/independent IA; NOT_RUN by ENG",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/selection-turn.004.json",
+        "sha256": "9a6c9e2314a077feedeea2d98fe166d23b4345848fb440745a06941d3de3c0ca"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.json",
+        "sha256": "644a0d828e4141bb178e38dd15c4df61350ad0e03b3be07945fefef64a39b942"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000005.json",
+        "sha256": "2cc6831cf63e76c4d5e9b1554b3823a51968a61f25a47689e96d5949268090c8"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000008.json",
+        "sha256": "ae731a947ff35f97e2e46f1c83ebd7db24822062cde1b844a67623feb3ac6673"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/audit.json",
+        "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/publications/turn.003.json",
+        "sha256": "3cc5b40e58e1341791b5e7a12edb34ec64f5e370219ec33f6f6a0054c16d5c0a"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+        "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+      }
+    ],
+    "limitations": [
+      "Coordination review only; no setup/import/case/task or gameplay acceptance, source edits or production failure replay.",
+      "Both cases remain for accepted terminal settlement; prior independent verification of IA-002-001 does not erase the rejected publication or confirmed IA-003-001.",
+      "Pre-correction wiki freshness is structural; final semantic agreement and all required checks remain WIK/IA duties.",
+      "Recorded authorization/order and hashes do not authenticate external workers or receipt strings; local NOT_OBSERVED cannot inspect observed host transport.",
+      "Fresh synthetic real-MCP fixtures do not establish resident host hot reload or a corrected resident-host failure reply.",
+      "Interrupted/rejected history, adverse logs, historical preflight truth, exact import acceptance gate and open gameplay/M0 gates remain preserved."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "9ee61e0e2c707edf4b0cbf6d4e60075e91a7ca5140ae8ccb5104955e88b13aa5",
+  "hash": "35aa63ef67e3a44078e9876612830a25a892b86102e0bb0377a41263c892a7fb"
+}

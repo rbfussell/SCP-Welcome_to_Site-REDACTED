@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agentic software-development loop | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: docs/59-agentic-development-loop.md.</aside><h1 id="agentic-software-development-loop">Agentic software-development loop</h1>
+<p>Status: implemented tooling and active policy following the user's November 11, 2026 request. This supersedes the single-developer execution default in <a href="doc-docs-58-software-project-management-md.html">the earlier integration</a>. The game remains its own Git repository in <code>Project/</code>; no gameplay or milestone gate is changed. Setup/recovery acceptance is a process outcome recorded by independent IA and Document Chief, not inferred from these documents.</p>
+<h2 id="authorities-and-source-ownership">Authorities and source ownership</h2>
+<ul>
+<li><a href="doc-management-readme-md.html">Management tasks</a> own bounded scope, dependencies, acceptance, context reading and command evidence.</li>
+<li><code>management/agentic/</code> owns append-only registry revisions, exact role selection, dispatch authorizations, actual external receipts, handoffs, interruption, evidence packages, findings and immutable process publications.</li>
+<li><a href="agentic-loop.html">The actual game wiki</a> owns connected explanations of mechanics, adopted SCP lore, implementation and limits. It is not the harness's JSON process publication store.</li>
+<li>Applicable <code>docs/</code>, ADRs, source/data/assets and tests retain their existing authority. The excluded bulk canon archive remains an independent reference. Process knowledge is never automatically character, OSCP or AIC knowledge.</li>
+</ul>
+<p>Source changes belong to explicitly assigned paths; role-owned handoff artifacts and logs belong to <code>management/agentic/work/&lt;turn&gt;/&lt;role&gt;/</code>. Cross-role implementation changes require an explicit owner handoff. The runtime records workflow but cannot authenticate a host worker, force correct source ownership or replace human review.</p>
+<h2 id="every-registered-role-is-considered-every-turn">Every registered role is considered every turn</h2>
+<p>The versioned seed <code>management/harness/runtime/config/game_roles.json</code> registers 23 roles. A turn freezes its actual registry; do not assume future registry revisions have exactly 23. Start every registered role at YES. Selection must account for <strong>every frozen registered role exactly once</strong>. Each NO requires its own substantive, unique, task-specific reason, including Vince and every unused software/media role. Omission, blanket exclusion, duplicate keys and deleting unused roles are not negation. Register newly needed specialties before selection.</p>
+<p>Mandatory roles are ENG-00, WIK-30, EVC-28, independent IA-11 and DOC-10. A registered role does not mean it runs every turn. Other roles are selected for the actual scope. Every selected role needs an individual rationale, exact prompt, dependency list, owned directory, prior authorization and distinct actual host receipt. Runtime receipt strings are externally reviewable assertions, not authenticated host identities.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Software/game responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENG-00 — Coordinator</td>
+<td>Scope, acceptance, role decisions, exact assignments and interfaces</td>
+</tr>
+<tr>
+<td>KRA-14 — Architecture</td>
+<td>Architecture boundaries, ambiguity and provisional contracts</td>
+</tr>
+<tr>
+<td>SWE-13 — Software</td>
+<td>Application, automation, tooling and local APIs</td>
+</tr>
+<tr>
+<td>SIM-34 — Simulation/modules</td>
+<td>Authoritative kernel, SCP capabilities, time, perception, inventory and saves</td>
+</tr>
+<tr>
+<td>QA-16 — Test engineer</td>
+<td>Independent appropriate positive/negative acceptance checks</td>
+</tr>
+<tr>
+<td>OPS-17 — Build/delivery</td>
+<td>Builds, packaging and authorized deployment procedures</td>
+</tr>
+<tr>
+<td>SEC-18 — Security</td>
+<td>Assigned permissions, data, sandbox and privacy boundaries</td>
+</tr>
+<tr>
+<td>RES-09 — Researcher</td>
+<td>Source-backed unfamiliar technical choices, alternatives and uncertainty</td>
+</tr>
+<tr>
+<td>LOR-33 — SCP lore/adaptation</td>
+<td>Canon and cross-article evidence, contradictions and explicit adaptations</td>
+</tr>
+<tr>
+<td>UIX-31 — Native UI/UX</td>
+<td>Godot controls, information, feedback, accessibility and interaction flows</td>
+</tr>
+<tr>
+<td>WEB-06 — Web interface</td>
+<td>Wiki/web renderer, navigation, search, layout and accessibility implementation</td>
+</tr>
+<tr>
+<td>MED-07 — Illustration</td>
+<td>Approved sprite/texture/icon and other 2D source artwork</td>
+</tr>
+<tr>
+<td>AST-32 — Asset pipeline</td>
+<td>Sprite states, atlases, masks, bindings, imports and provenance integration</td>
+</tr>
+<tr>
+<td>DEM-08 — Animation/demonstration</td>
+<td>Approved sprite motion and truthful runnable demonstrations</td>
+</tr>
+<tr>
+<td>AUD-25 — Audio</td>
+<td>Approved speech, sound and music assets</td>
+</tr>
+<tr>
+<td>WRI-22 — Narrative/editorial</td>
+<td>Assigned dialogue, narrative and story continuity</td>
+</tr>
+<tr>
+<td>PRT-05 — Prototype designer</td>
+<td>Concrete available-artifact plan and checks at a declared milestone</td>
+</tr>
+<tr>
+<td>BLD-27 — Prototype builder</td>
+<td>Attempt that exact approved milestone plan and record actual blockers/results</td>
+</tr>
+<tr>
+<td>SHO-12 — Vince Offer</td>
+<td>Truthful milestone presentation; requests specialist media without inventing success</td>
+</tr>
+<tr>
+<td>WIK-30 — Game wiki maintainer</td>
+<td>Actual authored game wiki, related technical docs, generation and semantic consistency</td>
+</tr>
+<tr>
+<td>EVC-28 — Evidence collector</td>
+<td>Inventory selected work, nested references, hashes, gaps and actual logs</td>
+</tr>
+<tr>
+<td>IA-11 — Internal Affairs</td>
+<td>Independent audit of assignments, order, exclusions, evidence and claims</td>
+</tr>
+<tr>
+<td>DOC-10 — Document Chief</td>
+<td>Publish the reviewed process outcome last; no post-IA game/wiki rewriting</td>
+</tr>
+</tbody>
+</table>
+<p>Lore and research can collaborate: RES owns queued unfamiliar external-choice research; LOR owns SCP evidence/adaptation analysis. MED authors art; AST integrates approved assets. WEB implements web presentation; UIX designs native gameplay interfaces; WIK explains and verifies the actual game knowledge base. Select overlapping specialties only with distinct owned scopes and handoffs.</p>
+<h2 id="ordered-execution">Ordered execution</h2>
+<ol>
+<li>Read game agent rules, board, implementation ledger and specific relevant wiki/source/design evidence. Check freshness; define a small task and assessment. Record actual questions or an explicit scoped empty list. A setup task is not a gameplay milestone.</li>
+<li>Initialize/read the genuine registry and readiness, draft all-YES selection, then record every selected role and every individual NO. Freeze exact prompts/dependencies before dispatch.</li>
+<li><strong>Authorize before spawning</strong> each independent host worker. Record its actual host receipt after spawning with the exact approved prompt. The local CLI/MCP neither spawns workers nor creates authentic host receipts. Never backdate or fabricate an invocation; a failed or unavailable worker is BLOCKED/FAILED, not a successful handoff.</li>
+<li>Working owners implement and qualify their assigned scope, then submit structured handoffs with real tests, artifacts, limitations and status. Requests for unfamiliar research stop the requesting worker for the remainder of that turn; a later Researcher invocation returns sources for acceptance before the waiting work resumes. Questions, research and confirmed findings survive interruptions.</li>
+<li><strong>WIK-30 follows every selected execution owner.</strong> It updates actual authored game-wiki Markdown plus affected technical documentation, builds/checks the wiki, inspects pages and reciprocal links, and reviews semantic agreement with implementation and actual tests. It supplies existing authored page paths, real build/check evidence and <code>semantic_review=true</code>. Specialist dispatch stops once Wiki begins. Do not hide a discovered late defect with an unreviewed source repair; carry corrections through a new authorized turn.</li>
+<li><strong>EVC-28 → independent IA-11 → DOC-10</strong>, in that order. Collector inventories the complete package and omissions without repairing it. IA audits genuine dispatch/evidence/order and records findings without silently fixing reviewed work. DOC publishes accepted, rejected or blocked process outcomes last. No agent runs after DOC in that turn. Rejected work cannot be promoted by documentation prose.</li>
+<li>Complete the software task only with its matching accepted immutable turn publication, matching task entity, all selected task handoffs, actual Wiki handoff, independent IA receipt, actual tests/docs/wiki checks and final semantic review. Review the Git diff and preserve unrelated work. CLI commands do not commit, push or deploy.</li>
+</ol>
+<p>Declared completion milestones require Designer and Builder; an ordinary tooling setup is not such a milestone. A build plan alone is not a completed runnable product. The inherited strict fresh-project setup/questions/research gates remain available for new projects; this game's explicit import is described below.</p>
+<h2 id="model-allocation-and-evidence">Model allocation and evidence</h2>
+<p>The <a href="evidence-management-model-policy-readme-md.html">workspace policy</a> sets Sol Low or Medium defaults for all 23 roles, with a floor and per-model ceilings for each role. The resolver enforces Sol through xhigh and Astra through high, subject to role limits. It accepts Light as low. Every Astra request and effort above a role’s default requires a concrete task-specific rationale. Independent review judges whether the escalation fits the task.</p>
+<p>Use a compact self-contained role brief that states scope, owned paths, prerequisites, evidence pointers and acceptance checks. Keep it byte-for-byte identical across authorization and the actual host message. Retain the policy resolution separately from actual dispatch arguments and receipt. For explicit overrides, use the default agent type with the resolved model, reasoning effort and <code>fork_turns: none</code>. The observed named profiles have fixed defaults. Record unknown effective settings as <code>NOT_EXPOSED</code> when the host provides insufficient metadata.</p>
+<p>Let deterministic tools prepare hashes, test checks and evidence inventories. Keep complete artifacts, logs and missing or changed evidence inspectable. EVC remains a distinct worker, and independent IA and DOC still review and publish in sequence. The installer and read-only drift check qualify workspace configuration. The observed collaboration role metadata shows that configuration surfaced in the tool. Backend execution, token use and quota or price impact require direct observation.</p>
+<h2 id="existing-history-and-quota-recovery">Existing history and quota recovery</h2>
+<p><code>management/agentic/imported-project.json</code> pins immutable copies of accepted commit <code>2a86ca5</code> documents and actual user authorization. It imports existing design/process history only. An import file alone does not unlock production: accepted setup publication must explicitly publish <code>project.import</code> with that exact hash and record evidence. Historical question-review, initial-research and baseline booleans remain truthful; no artificial historical worker rounds are invented. New unanswered questions, pending research and confirmed IA findings still block production.</p>
+<p>Turn.001 stopped with actual quota failures and is recorded INTERRUPTED. Its partial outputs and adverse logs remain evidence, not accepted setup. Turn.002 is also INTERRUPTED: independent IA rejected setup with confirmed MAJOR SWE-13 case IA-002-001, and DOC then hit an actual usage limit before producing a handoff/publication. The subsequent real host failure call recorded the event but returned an MCP dictionary-schema error; read-back confirmed the append. Do not replay that production mutation.</p>
+<p>Turn.003 independently verified the wrapper and fresh-process acknowledgement corrections. Its published setup outcome was REJECTED because current guidance still contradicted those corrections and the observed host connection (IA-003-001). Turns .004 and .005 were interrupted and produced no accepted setup publication. Consult the immutable runtime publications for terminal disposition. M0 remains open.</p>
+<h2 id="local-tools-initialization-and-connection-limits">Local tools, initialization and connection limits</h2>
+<p>The copied genuine portable engine is versioned under <code>management/harness/runtime/</code>, with original hashes and scoped patches in <code>UPSTREAM.json</code>. <code>tools/game_workflow.py</code> maps its state into the game and adds real-Wiki/import/selection policy. <code>tools/agentic.py</code> and stdio <code>tools/agentic_mcp.py</code> share 22 operations, including init, inventory, status, plan/select, authorize/invoke, handoff, collection, audit, publication, interruption, questions and research. Local pinned dependencies are <code>mcp==1.30.0</code> and <code>jsonschema==4.26.0</code>; no model API, account purchase or network listener is needed.</p>
+<p>From the game root:</p>
+<pre><code class="language-sh">python3 tools/install_agentic_dependencies.py
+.venv-harness/bin/python tools/agentic.py init
+.venv-harness/bin/python tools/agentic.py inventory
+.venv-harness/bin/python tools/agentic.py status
+.venv-harness/bin/python tools/check_agentic_mcp.py
+python3 tools/configure_agentic_client.py --workspace ..
+</code></pre>
+<p>Initialization is idempotent; it records actual registry revisions rather than fabricating worker runs. Mutations take exact named arguments from <code>--input path.json</code>; retain exact prompts/arguments and actual outputs. Read <code>tools/agentic_mcp.py</code> descriptions and the runtime schema instead of guessing dispatch parameters. <code>tools/call_agentic_mcp.py</code> can perform genuine local stdio tool calls before the host reloads; it does not establish a live desktop connection.</p>
+<p>The actual local stdio probe initialized protocol 2025-11-25, listed 22 tools and called inventory for 23 roles. Setup also recorded real initialization/logging/handoff calls through that protocol. A real Codex-exposed <code>workflow_readiness</code> call succeeded at 2026-11-11 16:42:06 UTC; <code>management/agentic/bootstrap/host-connection-observed.json</code> retains that external observation. Earlier reports of CONFIGURED_UNVERIFIED remain historical. The local runtime always returns generic <code>host_mcp_connection: NOT_OBSERVED</code> because it cannot inspect its external transport; client configuration checks also do not inspect host loading. Those fields cannot negate the observed host call or authenticate every worker. Local READY covers CLI prerequisites and can coexist with <code>stdio_mcp_dependency: false</code>; actual MCP execution requires the pinned harness interpreter.</p>
+<p>The <a href="evidence-management-harness-manage-game-py.html">installed-wrapper template</a> now establishes the validated game tools import path before <code>runpy</code> dispatch. The <a href="evidence-tools-agentic-py.html">shared dispatcher</a>, <a href="evidence-tools-game-workflow-py.html">local readiness policy</a> and <a href="evidence-tests-test-agentic-entrypoints-py.html">entrypoint/real-MCP regressions</a> provide the corresponding implementation and verification sources. From this game root, <code>python3 ../scripts/manage_game.py agents readiness</code> and legacy <code>status</code> work; the wrapper is also qualified from the outer root and unrelated cwd. Shared <code>tools/agentic.py</code> failed dispatch returns a dictionary with original arguments, <code>status: FAILED</code> and <code>recorded: true</code> only after the genuine runtime append succeeds. Invalid, duplicate and sealed-turn operations remain errors without an extra FAILED event. Fresh real-MCP fixture checks verify that acknowledgement using explicitly synthetic records, without replaying the production mutation. They do not demonstrate resident host hot reload or a corrected host-exposed failure reply.</p>
+<h2 id="verification-and-honest-limits">Verification and honest limits</h2>
+<p>Turn.003 independent QA recorded 40 agentic/client/entrypoint tests plus 13 historical-adapter tests (53 distinct total); the five new entrypoint regressions are included in the 40, not added again. Earlier 48-test reports and the initial real local MCP probe remain historical. They exercise all-role accounting/negation, authorization, exact prompts, distinct receipts, dependencies, Wiki/terminal ordering, interrupted work, truthful import and matching accepted-publication completion. Fixtures label synthetic receipts explicitly; they are never production dispatch evidence. Evidence hashes detect ordinary changes, not deliberate rewrite or correct test meaning. Reading receipts attest reading, not cognition.</p>
+<p>Turn.006 retained nine focused policy and installer tests and a read-only evidence verifier for the task gate. Wider harness and native gameplay results are historical.</p>
+<p>The setup does not exhaustively qualify later research-resolution/IA-resolution combinations, native gameplay, art or canon changes. WIK supplies fresh wiki evidence separately. Consult the selected turn's owned reports and immutable publication for actual outcome; no process guide by itself means acceptance. See <a href="doc-management-readme-md.html">the management guide</a>, <a href="agentic-loop.html">wiki loop page</a>, <a href="development.html">wiki maintenance</a> and <a href="doc-docs-12-development-workflow-md.html">Git workflow</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · docs/59-agentic-development-loop.md</footer></main></div></body></html>

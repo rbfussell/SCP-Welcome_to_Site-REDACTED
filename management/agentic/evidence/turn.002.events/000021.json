@@ -1,0 +1,12 @@
+{
+  "sequence": 21,
+  "timestamp": "2026-11-11T11:10:08.035977+00:00",
+  "kind": "DISPATCH_AUTHORIZED",
+  "data": {
+    "agent_id": "EVC-28",
+    "authorization_id": "3ab49618e69c460e8df2cab924c3f425",
+    "prompt_hash": "30cac0f21ec83ff592ff435a686369194ac6d660614bc010d27a0e275e9523d6"
+  },
+  "previous_hash": "4300f852f59f402e290e8c0b8cda282b0f9c777ee4fe3b207d3f4e147572b0db",
+  "hash": "c238e32a0ec28115d9129f21cd19f26241684e537f8a862dff57b7dd088dc6c1"
+}

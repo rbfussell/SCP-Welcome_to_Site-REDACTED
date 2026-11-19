@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/WIK-30/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Update connected authored wiki/docs and overlay (IA-003-001: llms and docs58 current note, stale pending003 references). Explain new routing including compact role briefs, deterministic evidence and no quota estimates. Preserve adverse history incl interrupted005. Run docs, wiki build then check, inspect linking and semantics. Use recorded test evidence. Supply game_wiki handoff with authored pages, semantic_review and both real build/check test entries."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/wik006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

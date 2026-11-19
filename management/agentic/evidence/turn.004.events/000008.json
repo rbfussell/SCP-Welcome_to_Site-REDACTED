@@ -1,0 +1,15 @@
+{
+  "sequence": 8,
+  "timestamp": "2026-11-11T17:27:56.699407+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "ENG-00",
+    "prompt_hash": "3e492420f3036602f19ff43e00275c3145768235dbf3574d57d5792f1575789d",
+    "receipt": "/root/coordinator_documentation",
+    "backend": "codex-collaboration",
+    "authorization_id": "ac93d809ab1949129c51f0c2b970ce01",
+    "owned_directory": "work/turn.004/ENG-00"
+  },
+  "previous_hash": "f89817990d3f0db8bb4a484f8de99880141a2ceb017f98a93937ff5dea0c6409",
+  "hash": "0208b07f75fd26c8c3a49d024ccc3e75396a7b40ddc326cb885a4e8fa98488df"
+}

@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": true,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "agents",
+        "readiness"
+      ],
+      "cwd": "/tmp",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": true,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+        "status"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+      "exit_code": 0,
+      "stdout": "{\n  \"profile\": \"software-game\",\n  \"game_root\": \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project\",\n  \"tasks\": [\n    {\n      \"id\": \"agentic-loop-setup\",\n      \"title\": \"Activate the real agentic development loop and actual game-wiki agent\",\n      \"status\": \"active\"\n    },\n    {\n      \"id\": \"equipment-loop-qualification\",\n      \"title\": \"Qualify the existing clothing, ground, attachments and badge loop\",\n      \"status\": \"proposed\"\n    },\n    {\n      \"id\": \"facility-utilities-proof\",\n      \"title\": \"Implement the bounded existing facility-utilities proof\",\n      \"status\": \"proposed\"\n    },\n    {\n      \"id\": \"pm-integration\",\n      \"title\": \"Integrate the software management profile without changing the game workflow\",\n      \"status\": \"done\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/agentic.py",
+        "readiness"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": true,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/configure_agent_models.py",
+        "--workspace",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+        "--check"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"CONFIGURED_UNVERIFIED\",\n  \"changed_paths\": [],\n  \"workspace\": \"/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]\",\n  \"role_count\": 23,\n  \"effective_status\": \"NOT_EXPOSED\",\n  \"scope\": \"Future starts; live coordinator unchanged. Active collaboration uses explicit overrides.\"\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/agent_model_policy.py",
+        "--role",
+        "QA-16",
+        "--task",
+        "agentic-loop-setup"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 0,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"role\": \"QA-16\",\n  \"task\": \"agentic-loop-setup\",\n  \"work_class\": \"complex_review\",\n  \"selection_source\": \"role_default\",\n  \"reason\": null,\n  \"policy_sha256\": \"7144b3ab08d96470f5ca893185345520f081c3b1c9adc5673cc51bce63b38c6e\",\n  \"requested\": {\n    \"model\": \"gpt-6-astra\",\n    \"reasoning_effort\": \"medium\"\n  },\n  \"spawn_parameters\": {\n    \"model\": \"gpt-6-astra\",\n    \"reasoning_effort\": \"medium\",\n    \"fork_turns\": \"none\"\n  },\n  \"dispatch_mechanism\": \"explicit_host_overrides\",\n  \"effective\": {\n    \"model\": null,\n    \"reasoning_effort\": null\n  },\n  \"effective_status\": \"NOT_EXPOSED\"\n}\n",
+      "stderr": "",
+      "expected_exit_code": 0
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/agent_model_policy.py",
+        "--role",
+        "QA-16",
+        "--task",
+        "agentic-loop-setup",
+        "--effort",
+        "max"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "BLOCKED: Escalation requires substantive reason naming this task\n",
+      "expected_exit_code": 1
+    },
+    {
+      "argv": [
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+        "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/agent_model_policy.py",
+        "--role",
+        "QA-16",
+        "--task",
+        "agentic-loop-setup",
+        "--receipt",
+        "SYNTHETIC_QA_NEGATIVE_ONLY",
+        "--observed",
+        "/tmp/tmpg6bauy3k/synthetic-observed.json"
+      ],
+      "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+      "exit_code": 2,
+      "stdout": "{\n  \"schema_version\": 1,\n  \"role\": \"QA-16\",\n  \"task\": \"agentic-loop-setup\",\n  \"work_class\": \"complex_review\",\n  \"selection_source\": \"role_default\",\n  \"reason\": null,\n  \"policy_sha256\": \"7144b3ab08d96470f5ca893185345520f081c3b1c9adc5673cc51bce63b38c6e\",\n  \"requested\": {\n    \"model\": \"gpt-6-astra\",\n    \"reasoning_effort\": \"medium\"\n  },\n  \"spawn_parameters\": {\n    \"model\": \"gpt-6-astra\",\n    \"reasoning_effort\": \"medium\",\n    \"fork_turns\": \"none\"\n  },\n  \"dispatch_mechanism\": \"explicit_host_overrides\",\n  \"effective\": {\n    \"model\": \"gpt-6.1-sol\",\n    \"reasoning_effort\": null\n  },\n  \"effective_status\": \"MISMATCH\",\n  \"host_receipt\": \"SYNTHETIC_QA_NEGATIVE_ONLY\",\n  \"host_reported\": {\n    \"model\": \"gpt-6.1-sol\"\n  },\n  \"authentication\": \"External evidence assertion; not authenticated by this helper\"\n}\n",
+      "stderr": "",
+      "expected_exit_code": 2
+    }
+  ]
+}

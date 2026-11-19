@@ -1,34 +1,18 @@
-# Active software-game workflow
+# Active software-game agentic workflow
 
-This workspace contains an existing game in `Project/`, with its own Git repository.
-The user requested adapting this harness for software development while preserving
-that game's development/wiki process. **This section overrides the generic harness
-rules below for work on this game and its development tools.**
+This workspace contains the existing game in `Project/`, with its own Git repository. The user's later explicit request activates a real agentic loop, superseding the earlier single-developer default. **This section overrides generic new-product/manufacturing assumptions below for this game's scope; it preserves the real all-role selection and independent terminal review loop.**
 
-- Read `Project/AGENTS.md`, `Project/management/README.md`, the task board, relevant
-  game-wiki pages and linked source/design documents before planning changes.
-  The user's earlier root-relative wiki/tool paths now resolve from `Project/`.
-- Use `python3 scripts/manage_game.py status` at this outer root, or
-  `python3 tools/manage_project.py status` from `Project/`. The same records drive both.
-- Work in small acceptance-defined software slices. Keep scope, dependencies,
-  design questions, reading notes, real command logs and review limitations in
-  `Project/management/`. Update the game wiki and other applicable Markdown
-  alongside implementation; run the existing game checks and final consistency gate.
-- One developer may perform coordination, implementation, evidence collection,
-  self-review and documentation. Declare self-review honestly. Separate agents,
-  fixed crews, manufacturing roles, Vince, Designer/Builder dispatch and independent
-  IA are **not mandatory** in this profile. Delegate only when explicitly requested
-  by the user or applicable instructions. Never invent independent reviews.
-- Import existing decisions/evidence as history; do not restart the accepted game's
-  setup/questions/research as three artificial turns. Ask about material ambiguity
-  and research relevant new decisions as needed; do not fabricate answers.
-- Keep `Project/.git`, `.github`, wiki tooling, source and canon archive in place.
-  Run game commands from `Project/`; inspect and preserve unrelated changes.
-- The generic strict workflow below and `scripts/select_agents.py` remain available
-  for an explicitly chosen strict project. Their mandatory dispatch/preflight
-  sequence is not a completion claim made by this software adapter.
-- No MCP installation, paid accounts, hardware tools or infrastructure services are
-  required for the adapter. Its Python CLI uses the standard library.
+- Read `Project/AGENTS.md`, `Project/management/README.md`, task board and relevant actual game-wiki/source/design evidence before planning or editing. All game/wiki commands run from `Project/`.
+- From `Project/`, use `python3 ../scripts/manage_game.py status` for the board; game-root `.venv-harness/bin/python tools/agentic.py` is the authoritative agentic CLI. The installed outer `agents` shortcut resolves the game tools import path before dispatch; independent regressions cover outer-root/unrelated-cwd execution and legacy board/direct-CLI compatibility. CLI/MCP share the genuine versioned runtime and records in `Project/management/agentic/`.
+- Every frozen registered role defaults YES; account for every role exactly once. Every unused role, including Vince/media/web/UI/lore/research, needs its own substantive unique task-specific NO. Register needed software specialists before selection; do not import irrelevant manufacturing roles by default.
+- Mandatory ENG-00, WIK-30, EVC-28, independent IA-11 and DOC-10 run through actual distinct host workers. Record exact prompts, dependencies, owned paths, prior dispatch authorization and genuine post-spawn receipts. The runtime neither spawns workers nor authenticates receipt strings. Never invent independence.
+- Source owners finish before WIK-30. WIK maintains the **actual game wiki**, connected Markdown, real build/check and semantic agreement. No new execution specialist starts after Wiki. Then EVC-28 inventories evidence/gaps → independent IA-11 audits → DOC-10 publishes process outcomes last. No agent runs afterward within that turn; late corrections need a new authorized turn.
+- DOC's process JSON never replaces or rewrites the actual game wiki after IA. New software slices require the matching accepted process publication, task/all-role handoffs, real Wiki handoff, independent IA receipt and existing check/consistency gates.
+- Preserve accepted existing decisions as scoped historical import, not invented question/research/baseline rounds. Import needs real setup acceptance naming its exact hash. New ambiguity, queued research and confirmed findings still block production; a requesting specialist stops until later accepted research. Preserve quota-interrupted/failed turns and actual adverse logs.
+- PRT-05/BLD-27 perform actual plan/attempt when a completion milestone is declared. This tooling setup is not a gameplay milestone. Preserve open game gates and current canon/adaptation/implementation distinctions.
+- Keep `Project/.git`, `.github`, source/assets, canon archive and mandatory wiki workflow in place. Preserve unrelated work. No purchases/model API are required. Local stdio MCP is verified and an actual Codex-exposed readiness call succeeded on November 11, 2026, recorded in `Project/management/agentic/bootstrap/host-connection-observed.json`. Local generic `NOT_OBSERVED` cannot inspect external transport or override that receipt. Fresh-process failure-acknowledgement tests do not establish resident host hot reload or authenticate all worker receipts.
 
-The versioned overlay sources and reinstall command are in
-`Project/management/harness/` and `Project/tools/configure_project_harness.py`.
+See `Project/docs/59-agentic-development-loop.md` for scoped roles and sequence. Versioned overlay sources and reinstall command live in `Project/management/harness/` and `Project/tools/configure_project_harness.py`.
+
+
+Turns .001 and .002 remain INTERRUPTED; turn.002 retains independent REJECTED IA-002-001 and the actual DOC usage-limit failure, without DOC publication or accepted import. Turn.003 corrects the wrapper and shared CLI/MCP acknowledgement after a genuine failure append. Turn.003 independently verified the wrapper and fresh-process acknowledgement corrections. Its published setup outcome was REJECTED because current guidance still contradicted those corrections and the observed host connection (IA-003-001). Turns .004 and .005 were interrupted and produced no accepted setup publication. Preserve original adverse logs. See `Project/management/model-policy/README.md` for Sol-first dispatch, exact compact briefs and configuration evidence limits.

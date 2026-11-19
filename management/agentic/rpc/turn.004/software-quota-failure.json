@@ -1,0 +1,14 @@
+{
+  "arguments": {
+    "turn_id": "turn.004",
+    "agent_id": "SWE-13",
+    "reason": "Actual /root/software_documentation worker failed with host usage-limit error before completing its owned source-verification handoff. Prior ENG/KRA handoffs are preserved; user now explicitly requests GPT-6.1 Sol and effort tiers for new dispatches."
+  },
+  "actual_result": {
+    "turn_id": "turn.004",
+    "agent_id": "SWE-13",
+    "reason": "Actual /root/software_documentation worker failed with host usage-limit error before completing its owned source-verification handoff. Prior ENG/KRA handoffs are preserved; user now explicitly requests GPT-6.1 Sol and effort tiers for new dispatches.",
+    "status": "FAILED",
+    "recorded": true
+  }
+}

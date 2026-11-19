@@ -1,0 +1,75 @@
+{
+  "snapshot_head": "bda2ce83d8d1bca6162023d0271962cb8212fba2fe5c894a76cc6a1f94c2d16d",
+  "event_count": 23,
+  "selections": 23,
+  "exclusions": 16,
+  "dispatches": {
+    "ENG-00": {
+      "authorization_event": 5,
+      "invocation_event": 7,
+      "receipt": "/root/eng006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "medium"
+      }
+    },
+    "KRA-14": {
+      "authorization_event": 6,
+      "invocation_event": 8,
+      "receipt": "/root/kra006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "low"
+      }
+    },
+    "SWE-13": {
+      "authorization_event": 11,
+      "invocation_event": 12,
+      "receipt": "/root/swe006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "medium"
+      }
+    },
+    "WIK-30": {
+      "authorization_event": 14,
+      "invocation_event": 15,
+      "receipt": "/root/wik006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "low"
+      }
+    },
+    "EVC-28": {
+      "authorization_event": 18,
+      "invocation_event": 19,
+      "receipt": "/root/evc006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "low"
+      }
+    },
+    "IA-11": {
+      "authorization_event": 22,
+      "invocation_event": 23,
+      "receipt": "/root/ia006",
+      "requested": {
+        "model": "gpt-6.2-sol",
+        "reasoning_effort": "medium"
+      }
+    }
+  },
+  "collector_references_verified": 79,
+  "static_input_hashes_per_gate": 45,
+  "gate_log_paths": {
+    "tests": "management/evidence/agentic-loop-setup/tests-20261119T170620461645Z.log",
+    "docs": "management/evidence/agentic-loop-setup/docs-20261119T170620584100Z.log",
+    "wiki-build": "management/evidence/agentic-loop-setup/wiki-build-20261119T170620761597Z.log",
+    "wiki-check": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log"
+  },
+  "focused_test_count": 9,
+  "installed_role_defaults_verified": 23,
+  "wrapper_sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+  "import_hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1",
+  "document_chief_pending": true
+}

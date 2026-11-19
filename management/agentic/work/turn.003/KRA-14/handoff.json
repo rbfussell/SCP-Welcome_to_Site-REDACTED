@@ -1,0 +1,45 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "KRA-14",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf",
+  "assigned_scope": "Review only wrapper import integration, shared failed-response contract and host-observation boundaries for the bounded correction.",
+  "work_performed": "Read relevant actual wiki, management, prior IA and current source evidence; specified compatibility and acknowledgement constraints and independent verification boundaries. Wrote only owned architecture report and raw handoff.",
+  "artifacts": [
+    "management/agentic/work/turn.003/KRA-14/report.md"
+  ],
+  "tests": [
+    {
+      "command": "python3 tools/build_game_wiki.py --check (read-only pre-correction freshness; not final semantic gate)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/KRA-14/report.md"
+      ]
+    },
+    {
+      "command": "Production wrapper regressions, shared acknowledgement regression and real stdio MCP failure fixture NOT_RUN by KRA; assigned to SWE-13 and independent QA-16, with final wiki gates owned by WIK-30.",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/agentic/work/turn.003/ENG-00/report.md",
+    "management/agentic/work/turn.002/IA-11/report.md",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+    "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/bootstrap/host-failed-response-defect.md"
+  ],
+  "limitations": [
+    "Architecture handoff is not implementation, independent terminal acceptance, import acceptance or task closure.",
+    "Current docs contain known temporal drift for interrupted turn.002 and newly observed host connection; WIK owns reconciliation after source/QA completion.",
+    "Host observation is parent-transcribed evidence of that successful transport call; runtime cannot authenticate worker receipts or infer every later transport state.",
+    "No fresh gameplay/M0, canon, assets or exhaustive later research/finding-cycle qualification."
+  ],
+  "architecture": {
+    "unresolved_questions": [],
+    "baseline_artifacts": []
+  },
+  "handoff_status": "COMPLETE"
+}

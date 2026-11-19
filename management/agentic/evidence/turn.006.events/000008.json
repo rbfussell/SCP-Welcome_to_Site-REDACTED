@@ -1,0 +1,15 @@
+{
+  "sequence": 8,
+  "timestamp": "2026-11-19T16:57:05.151405+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "KRA-14",
+    "prompt_hash": "f53b2166e19cf00e86730cb73df2762eb5e7f79c83eaa3a1e0a5a3c223f0070c",
+    "receipt": "/root/kra006",
+    "backend": "codex-collaboration",
+    "authorization_id": "4b7ec794e6f44e28ba5b575ff9aa8d19",
+    "owned_directory": "work/turn.006/KRA-14"
+  },
+  "previous_hash": "369bcfae22097bd990b7b58b4c06f86f0220a905cf938c535114930d5bb267f4",
+  "hash": "c11b1e75594219128a635a6309a2629953200951e32761f1c65b519c66fbe9d4"
+}

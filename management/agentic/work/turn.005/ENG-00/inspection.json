@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "scope": "Selection and assignment checks only; no product test or process acceptance",
+  "frozen_registry_revision": 19,
+  "roles": 23,
+  "selected": [
+    "DOC-10",
+    "ENG-00",
+    "EVC-28",
+    "IA-11",
+    "KRA-14",
+    "QA-16",
+    "SWE-13",
+    "WIK-30"
+  ],
+  "excluded": {
+    "AST-32": "No atlas, mask, artwork binding, import or asset provenance is modified; the role merely gains its future budget profile.",
+    "AUD-25": "No speech, music, audio files or sound pipeline change is part of this harness allocation task.",
+    "BLD-27": "There is no approved milestone construction plan to execute; installer and tests are bounded software setup work owned by SWE/QA.",
+    "DEM-08": "No animation or runnable product demonstration is introduced by the policy/configuration setup; ordinary checks provide required evidence.",
+    "LOR-33": "No canon claims or SCP game adaptations change when applying real agent dispatch/configuration settings.",
+    "MED-07": "No sprites, illustrations or textures are authored while configuring role model budgets; its future routine-media default is data only.",
+    "OPS-17": "No release packaging or deployment pipeline changes; the scoped workspace model installer is SWE-owned and normal reviewed Git transport remains coordination.",
+    "PRT-05": "This harness initialization/configuration is not a declared gameplay completion milestone or a new prototype design assignment.",
+    "RES-09": "Human supplied exact allocation and official configuration guidance has already been checked; no unfamiliar model comparison conclusion or new SCP research is adopted.",
+    "SEC-18": "No new credentials, network listener or security boundary is introduced; installer preservation and dispatch-claim validation are covered by independent QA/IA.",
+    "SHO-12": "No milestone presentation or audience demonstration is requested for model allocation and existing setup corrections; Vince remains registered with Sol Medium policy.",
+    "SIM-34": "Authoritative gameplay time, perception, inventory, modules and persistence remain untouched by this development tooling task.",
+    "UIX-31": "No Godot controls, player feedback or native interface changes are included in development-role model selection.",
+    "WEB-06": "Wiki renderer/search/layout behavior is unchanged; WIK owns authored policy explanations, links and ordinary generation/evidence metadata.",
+    "WRI-22": "No narrative or dialogue work is requested; WIK owns technical prose and WRI only receives a future documentation-class default."
+  },
+  "requested_allocation": {
+    "ENG-00": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "medium"
+    },
+    "KRA-14": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "low"
+    },
+    "SWE-13": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium"
+    },
+    "QA-16": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "medium"
+    },
+    "WIK-30": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low"
+    },
+    "EVC-28": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low"
+    },
+    "IA-11": {
+      "model": "gpt-6-astra",
+      "reasoning_effort": "low"
+    },
+    "DOC-10": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low"
+    }
+  },
+  "effective_host_settings": "NOT_EXPOSED",
+  "eng_prompt_hash": "16d6740026399326457918779c0b49a26e464f012ec963211545d363bc67c174",
+  "eng_prior_authorization_event": "management/agentic/evidence/turn.005.events/000005.json",
+  "questions": [],
+  "limitations": [
+    "Later actual invocation receipts/order and terminal outcomes are not yet reviewed by ENG.",
+    "Future installer/resolver/policy source and independent QA remain pending."
+  ]
+}

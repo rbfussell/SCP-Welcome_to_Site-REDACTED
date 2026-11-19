@@ -1,0 +1,38 @@
+[
+  {
+    "name": "agentic-suite",
+    "argv": [
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_agentic*.py",
+      "-v"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+    "log_sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+  },
+  {
+    "name": "legacy-adapter-suite",
+    "argv": [
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_project_management.py",
+      "-v"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit_code": 0,
+    "log": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+    "log_sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "ENG-00",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "69481a7b32b26f287efa72d5195e24ca3075e5a53a529f365880a2c286044332",
+  "assigned_scope": "Review frozen all-role selection and bound wrapper/MCP acknowledgement corrections while preserving history and gameplay gates.",
+  "work_performed": "Read actual game/wiki/contracts and prior IA/source evidence; checked 23-role coverage, exact prompts, dependencies and recorded ENG authorization/invocation; scoped owner acceptance and identified WIK temporal updates. Wrote only owned report and raw handoff.",
+  "artifacts": [
+    "management/agentic/work/turn.003/ENG-00/report.md"
+  ],
+  "tests": [
+    {
+      "command": "python3 tools/build_game_wiki.py --check (pre-correction freshness only)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/ENG-00/report.md"
+      ]
+    },
+    {
+      "command": "Production regression suites, real MCP failure fixture and final wiki rebuild/check NOT_RUN by ENG; assigned to SWE-13, QA-16 and WIK-30.",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/agentic/selection-turn.003.json",
+    "management/agentic/evidence/turn.003.events/000005.json",
+    "management/agentic/evidence/turn.003.events/000006.json",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.002/IA-11/report.md",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/bootstrap/host-failed-response-defect.md",
+    "management/agentic/bootstrap/root-wrapper-defect.json"
+  ],
+  "limitations": [
+    "This is a coordination handoff, not setup/import/task acceptance or source correction.",
+    "WIK turn.003 must refresh temporal/host claims and perform final semantic/build/check evidence after SWE and independent QA.",
+    "Host receipts and recorded order require external review; hashes/runtime do not authenticate identity or prevent deliberate rewriting.",
+    "Interrupted turn.001/turn.002, rejected IA-002-001, adverse logs and absent prior DOC publication/import acceptance remain preserved.",
+    "No fresh gameplay/M0, native rendering, canon, asset or exhaustive research/finding-cycle qualification."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

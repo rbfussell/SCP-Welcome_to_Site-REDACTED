@@ -1,0 +1,24 @@
+PASS package_has_no_missing_invocations
+PASS package_has_no_missing_handoffs
+PASS package_has_no_failed_invocations
+PASS package_has_no_integrity_errors
+PASS package_matches_current_index
+PASS collected_head_matches
+PASS selection_hash_matches
+PASS registry_exactly_accounted_once
+PASS all_exclusions_unique_substantive
+PASS mandatory_roles_selected
+PASS distinct_recorded_receipts
+PASS dispatch_prompts_tickets_order
+PASS all_current_handoffs_match_task_and_ownership
+PASS no_execution_dispatch_after_wiki
+PASS no_current_or_immutable_reference_issues
+PASS task_final_checks_pass
+PASS prior_turns_remain_interrupted_without_doc_or_publication
+PASS import_self_hash_matches
+Runtime indexed references: 118
+Nested/reference checks: 1032 {'PASS': 994, 'CHANGED': 38}
+Historical source/context differences retained: 38
+Current/immutable hash issues: 0
+Semantic prose conflicts recorded for independent IA: 2
+Supplemental files inventoried: 221

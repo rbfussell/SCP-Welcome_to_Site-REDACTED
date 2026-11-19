@@ -1,0 +1,97 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "QA-16",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "9e07b40932b3ea2e338f93cebe2a5f2fcd8ed6649ca2f3115409ebdb41f9dab6",
+  "assigned_scope": "Independent correction verification for installed wrapper, legacy/direct entrypoints and real MCP failed acknowledgement; owned evidence only.",
+  "work_performed": "Read applicable game/wiki/contracts and actual prior adverse evidence; independently ran 40 harness tests including the fresh real stdio MCP synthetic fixture, 13 adapter tests and five installed entrypoint/overlay checks. Inspected source changes and final fingerprints. All checks passed; no source/wiki/task repair or production failure replay.",
+  "artifacts": [
+    "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+    "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+    "management/agentic/work/turn.003/QA-16/inspection.json",
+    "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+    "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+    "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+    "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+    "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+    "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+    "management/agentic/work/turn.003/QA-16/report.md",
+    "management/agentic/work/turn.003/QA-16/source-after.json",
+    "management/agentic/work/turn.003/QA-16/source-before.json",
+    "management/agentic/work/turn.003/QA-16/verification-results.json"
+  ],
+  "tests": [
+    {
+      "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/agentic-suite.log"
+      ]
+    },
+    {
+      "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log"
+      ]
+    },
+    {
+      "command": "python3 scripts/manage_game.py agents readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log"
+      ]
+    },
+    {
+      "command": "python3 /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py agents readiness (cwd /tmp)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log"
+      ]
+    },
+    {
+      "command": "python3 scripts/manage_game.py status (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/installed-legacy-board.log"
+      ]
+    },
+    {
+      "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python tools/agentic.py readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log"
+      ]
+    },
+    {
+      "command": "python3 tools/configure_project_harness.py --root .. --check (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/QA-16/managed-overlay-check.log"
+      ]
+    },
+    {
+      "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK-30 after QA",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/bootstrap/host-failed-response-defect.md",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+    "management/agentic/work/turn.003/QA-16/source-after.json",
+    "management/agentic/work/turn.003/QA-16/inspection.json"
+  ],
+  "limitations": [
+    "Independent test evidence only; no setup/import/task acceptance. WIK final documentation/build/check/semantic work and EVC/IA/DOC remain pending.",
+    "The five new tests are within the 40-test harness suite; totals are 53 distinct tests with 13 adapter tests.",
+    "Real MCP coverage uses a fresh isolated synthetic fixture with non-production receipts; no resident host hot reload or corrected host-exposed failed acknowledgement is claimed.",
+    "System Python wrapper readiness does not require MCP dependency; .venv-harness is required for actual MCP execution. Local generic NOT_OBSERVED does not inspect external host connection.",
+    "Prior interrupted/rejected turns, failed schema response, quota interruption and owner adverse logs are unchanged.",
+    "No native gameplay/M0, art/canon or exhaustive research/finding resolution qualification."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

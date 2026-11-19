@@ -1,0 +1,87 @@
+{
+  "sequence": 9,
+  "timestamp": "2026-11-12T00:20:00.265122+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.005",
+    "agent_id": "ENG-00",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "16d6740026399326457918779c0b49a26e464f012ec963211545d363bc67c174",
+    "assigned_scope": "Review all-role selection, individual exclusions, ownership/dependencies, latest requested model allocation and bounded task acceptance; report only.",
+    "work_performed": "Read applicable actual game/wiki/management/source/history evidence; checked frozen 23-role selection, selected requested allocation, dependencies and exact ENG authorization hash. Flagged task binding/static-input gates; confirmed parent corrected binding/ninth acceptance criterion. Wrote owned review and inspection only.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.005/ENG-00/report.md",
+        "sha256": "61be3dd0803deb434375a7f97946e516eb45471cf6c88a3f70f8fa5f9ea9d515"
+      },
+      {
+        "path": "management/agentic/work/turn.005/ENG-00/inspection.json",
+        "sha256": "cd3297fd501a06510cc39871aed6d88ad5bd2a322f29ab36b20b60ac7c9d157f"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/selection-turn.005.json",
+        "sha256": "8c74434d92bb36a9d363f999daf3d914606279c0c0ee4284592ad7b6f835d63e"
+      },
+      {
+        "path": "management/agentic/evidence/turn.005.events/000005.json",
+        "sha256": "9022983902682ae343421aade109b04b9f50e763ffe87728be04bf07fd604aca"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000014.json",
+        "sha256": "85e83b58e002119c43b8b83067310b688e88962110ab1451368498889f2458ce"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000015.json",
+        "sha256": "c78b73d822c0ee6823bebb209adc48564e6e1b5fea1152b08d360b32ec0da2c0"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/bootstrap/user-model-policy-revision005.md",
+        "sha256": "b7d1a598eb80e46babf4ec8ccacfff3c3b9c57bee1635eb125d9cad03793be6a"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 ../scripts/manage_game.py status",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.005/ENG-00/report.md",
+            "sha256": "61be3dd0803deb434375a7f97946e516eb45471cf6c88a3f70f8fa5f9ea9d515"
+          }
+        ]
+      },
+      {
+        "command": "Focused read-only Python assertions: duplicate-key rejection, frozen registry equality, 8 selected/15 unique NOs, mandatory/dependency order, allocation and ENG prompt/auth hash",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.005/ENG-00/inspection.json",
+            "sha256": "cd3297fd501a06510cc39871aed6d88ad5bd2a322f29ab36b20b60ac7c9d157f"
+          }
+        ]
+      },
+      {
+        "command": "Implementation/QA regression suites and final docs/wiki build/check; assigned to SWE-13, QA-16 and WIK-30",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "Coordination review only; no task/import acceptance or policy implementation certification.",
+      "All later dispatch receipts/order, source qualification, real Wiki semantic/build/check handoff and terminal outcomes require EVC/independent IA/DOC.",
+      "Requested model/effort are distinct from effective backend settings, which collaboration host does not expose. No measured model quality, token/cost/quota savings claimed.",
+      "New static input declarations remain a parent gate after SWE supplies exact paths.",
+      "Historical failures/rejected records preserved; resident host hot reload unverified; no gameplay/M0 acceptance."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "2b4d4e113799003f44bc6ef53c370d6cfbec09833800ce2b814bd660dc64bd82",
+  "hash": "1c30c35b05cf074cb333d7165756af7a6e185724b320230672be4b0613fb7d01"
+}

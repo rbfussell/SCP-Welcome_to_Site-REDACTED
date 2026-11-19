@@ -1,0 +1,61 @@
+{
+  "status": "COMPLETE_INVENTORY_NOT_ACCEPTANCE",
+  "phase": "HANDOFF_COLLECTION",
+  "registry_count": 23,
+  "selected": 8,
+  "excluded": 15,
+  "runtime_indexed_references": 71,
+  "reference_status_counts": {
+    "PASS": 769,
+    "CHANGED": 6
+  },
+  "supplemental_observed_files": 159,
+  "missing_or_changed_references": [
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "sha256": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+      "actual_sha256": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/0"
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "sha256": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+      "actual_sha256": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/1"
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "sha256": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+      "actual_sha256": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/2"
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "sha256": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+      "actual_sha256": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/3"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+      "actual_sha256": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/4"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "sha256": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+      "actual_sha256": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "status": "CHANGED",
+      "origin": "management/tasks/agentic-loop-setup.json/context/sources/5"
+    }
+  ],
+  "historical_reading_context_differences": 6,
+  "current_reference_integrity_issues": [],
+  "package_head_matches": true,
+  "post_wiki_execution_invocations": []
+}

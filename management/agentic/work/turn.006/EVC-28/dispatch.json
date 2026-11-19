@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/EVC-28/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Run existing deterministic evidence collection, note gaps, check dispatch and static hashes; pass concise inventory to IA. No prose duplication."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/evc006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

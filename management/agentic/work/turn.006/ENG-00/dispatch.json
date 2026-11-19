@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "medium",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/ENG-00/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Review scope and role routing against user request and selection. Compact report only."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/eng006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

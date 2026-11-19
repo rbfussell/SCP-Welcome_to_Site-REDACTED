@@ -1,0 +1,125 @@
+{
+  "selection_count": 23,
+  "selected": [
+    "ENG-00",
+    "EVC-28",
+    "IA-11",
+    "DOC-10",
+    "KRA-14",
+    "SWE-13",
+    "WIK-30"
+  ],
+  "distinct_exclusions": 16,
+  "dispatches": {
+    "ENG-00": {
+      "authorized": 5,
+      "invoked": 7,
+      "handed_off": 10,
+      "receipt": "/root/eng006",
+      "prompt_matches": true,
+      "ticket_matches": true,
+      "route_matches": true,
+      "receipt_matches": true,
+      "effective_status": "NOT_EXPOSED"
+    },
+    "KRA-14": {
+      "authorized": 6,
+      "invoked": 8,
+      "handed_off": 9,
+      "receipt": "/root/kra006",
+      "prompt_matches": true,
+      "ticket_matches": true,
+      "route_matches": true,
+      "receipt_matches": true,
+      "effective_status": "NOT_EXPOSED"
+    },
+    "SWE-13": {
+      "authorized": 11,
+      "invoked": 12,
+      "handed_off": 13,
+      "receipt": "/root/swe006",
+      "prompt_matches": true,
+      "ticket_matches": true,
+      "route_matches": true,
+      "receipt_matches": true,
+      "effective_status": "NOT_EXPOSED"
+    },
+    "WIK-30": {
+      "authorized": 14,
+      "invoked": 15,
+      "handed_off": 16,
+      "receipt": "/root/wik006",
+      "prompt_matches": true,
+      "ticket_matches": true,
+      "route_matches": true,
+      "receipt_matches": true,
+      "effective_status": "NOT_EXPOSED"
+    },
+    "EVC-28": {
+      "authorized": 18,
+      "invoked": 19,
+      "handed_off": null,
+      "receipt": "/root/evc006",
+      "prompt_matches": true,
+      "ticket_matches": true,
+      "route_matches": true,
+      "receipt_matches": true,
+      "effective_status": "NOT_EXPOSED"
+    }
+  },
+  "checks": {
+    "tests": {
+      "result": "PASS",
+      "command": [
+        "python3",
+        "management/agentic/work/turn.006/SWE-13/verify-policy-evidence.py"
+      ],
+      "log": "management/evidence/agentic-loop-setup/tests-20261119T170620461645Z.log",
+      "log_matches": true,
+      "inputs": 45,
+      "input_set_matches": true,
+      "drift": [],
+      "inputs_changed_during_check": false
+    },
+    "docs": {
+      "result": "PASS",
+      "command": [
+        "python3",
+        "tools/check_management_docs.py"
+      ],
+      "log": "management/evidence/agentic-loop-setup/docs-20261119T170620584100Z.log",
+      "log_matches": true,
+      "inputs": 45,
+      "input_set_matches": true,
+      "drift": [],
+      "inputs_changed_during_check": false
+    },
+    "wiki-build": {
+      "result": "PASS",
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py"
+      ],
+      "log": "management/evidence/agentic-loop-setup/wiki-build-20261119T170620761597Z.log",
+      "log_matches": true,
+      "inputs": 45,
+      "input_set_matches": true,
+      "drift": [],
+      "inputs_changed_during_check": false
+    },
+    "wiki-check": {
+      "result": "PASS",
+      "command": [
+        "python3",
+        "tools/build_game_wiki.py",
+        "--check"
+      ],
+      "log": "management/evidence/agentic-loop-setup/wiki-check-20261119T170724199587Z.log",
+      "log_matches": true,
+      "inputs": 45,
+      "input_set_matches": true,
+      "drift": [],
+      "inputs_changed_during_check": false
+    }
+  }
+}

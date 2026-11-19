@@ -1,0 +1,132 @@
+{
+  "status": "CONFIGURED_UNVERIFIED",
+  "host_effective_status": "NOT_EXPOSED",
+  "sha256": {
+    ".codex/config.toml": "7046630fa2686e97dc4c9e4d5e1daeb641aaa9a4e08cbfeddd753ee6c2e575da",
+    ".codex/agents/scp-ast-32.toml": "7ea8be55607c799683efac09763ec396b04c0c14b48aebafcb53545a49d7bd76",
+    ".codex/agents/scp-aud-25.toml": "df62eb3e9046aeaf1c79c11cce35b8de974062065470b77423247364e94b0c73",
+    ".codex/agents/scp-bld-27.toml": "41ad9d98b055764199c759880dc7b701f40270a30f66a2092dffbb6b03744420",
+    ".codex/agents/scp-dem-08.toml": "1ef601c1461a20a340dd8b10ff9e9b7484e9b3a93abf1a2f3c933e94329cecfa",
+    ".codex/agents/scp-doc-10.toml": "2e1db67f36a8f15552d2bcd39dd3cf6eaf7708b1b44bb192b0380fa564a12093",
+    ".codex/agents/scp-eng-00.toml": "bf7b8666acc0f4780735244fb9864fa682a6427cd9faaec1565bd165ed98acbd",
+    ".codex/agents/scp-evc-28.toml": "2de80f5ef0cad03c9dbac6f660839a619b42eece59db011c2abe69833be6886a",
+    ".codex/agents/scp-ia-11.toml": "b6fef44488a893393e21dde3d85582e178e14fb1d1d2ddb5a90f819618c403a3",
+    ".codex/agents/scp-kra-14.toml": "ce4f54232dc97591ca0173517e86e845e8d063a46e33cb515eb0d322c2322f4b",
+    ".codex/agents/scp-lor-33.toml": "d6bebec1bebf3f2f0e7ec0b04f7bd2ac1b770570f57771acebaf09bfa50980e0",
+    ".codex/agents/scp-med-07.toml": "0f664af8ef7e9a172ab0e4bccb6ce9ef8db5f71e8cabf9923d99ceb33217525d",
+    ".codex/agents/scp-ops-17.toml": "6acae49569e3f575ecc0cc3c920a2bb4597b20cdcdcf00d9237e1de3f788a9a8",
+    ".codex/agents/scp-prt-05.toml": "2c567a536043bac5e39d226fd50d5c2ebc12b3883fe604e1981b0aa5127b0cfe",
+    ".codex/agents/scp-qa-16.toml": "77c900eb04b390d44c3619fc5d817911178c928121cb5b804ddba137719bb2b5",
+    ".codex/agents/scp-res-09.toml": "b25484bcc19c82bc824b354c1e572e3cceb1dff884e77243fd679a0eb0eb8516",
+    ".codex/agents/scp-sec-18.toml": "1862ab796184f0a2c6ba4957975a95a9d491fe34ea7dd228e766daf89d10b5e0",
+    ".codex/agents/scp-sho-12.toml": "1e5aa127bc2eb03c6b0cf6b1e838dc4887fdb922649c976ecf2cf9b666cca376",
+    ".codex/agents/scp-sim-34.toml": "956443a48ec65e098b4d09617cf5cb7baa9053122e2eb47309c33d3fa6b1a88d",
+    ".codex/agents/scp-swe-13.toml": "050b9f8e1db44dbddac1bd8e48d407045facbdc27317c4e4b90feaef26870373",
+    ".codex/agents/scp-uix-31.toml": "6490ff2acf4f3f8606186ff63a5aaccbcf512c9e0e5581229ce4e0699a6c007e",
+    ".codex/agents/scp-web-06.toml": "6954178cced3979c785445e0542d7c670ffb40f2d3621c90ca899a8456f18fc7",
+    ".codex/agents/scp-wik-30.toml": "a785333d0cb53c703419f7bfeaaadf0c49ea7e11319200f6bbbbf5f71fa8ee78",
+    ".codex/agents/scp-wri-22.toml": "ddd1087cdf1e06056ac985c9c83b53698b35aa93eec3eb5d134b70d11a121001"
+  },
+  "coordinator": {
+    "model": "gpt-6.2-sol",
+    "model_reasoning_effort": "medium"
+  },
+  "generic_subagent": {
+    "default_subagent_model": "gpt-6.2-sol",
+    "default_subagent_reasoning_effort": "medium"
+  },
+  "role_defaults": {
+    "scp-ast-32": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-aud-25": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-bld-27": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-dem-08": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-doc-10": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-eng-00": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-evc-28": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-ia-11": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-kra-14": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-lor-33": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-med-07": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-ops-17": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-prt-05": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-qa-16": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-res-09": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-sec-18": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-sho-12": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-sim-34": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-swe-13": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-uix-31": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-web-06": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "medium"
+    },
+    "scp-wik-30": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    },
+    "scp-wri-22": {
+      "model": "gpt-6.2-sol",
+      "model_reasoning_effort": "low"
+    }
+  }
+}

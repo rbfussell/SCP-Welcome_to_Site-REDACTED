@@ -36,27 +36,18 @@ Before declaring the work complete:
 
 See the [development workflow](docs/12-development-workflow.md) and the [wiki maintenance page](source_material/game-wiki/development.html) for the corresponding human-readable workflow.
 
-## Active software project-management profile
+## Active agentic software-development profile
 
-This directory is the game Git root, now located at `Project/` beneath the outer
-workspace harness. All game-wiki and tooling paths above remain relative to this
-directory. Preserve the workflow above in full.
+This is the game Git root, nested at `Project/` under the outer workspace. All wiki and tooling paths above remain relative here. Preserve the required game-wiki workflow in full.
 
-Use [the software management guide](management/README.md) and
-[profile](management/profile.json) for scoped task selection, dependencies, context,
-real verification evidence and explicit review mode. Start with
-`python3 tools/manage_project.py status`; maintain the selected slice record alongside
-its code/docs/wiki. Proposed backlog entries do not authorize new scope. A completed
-record is not a replacement for the semantic consistency gate or milestone acceptance.
+The user's later explicit request supersedes the earlier single-developer default. Read [the management guide](management/README.md), [active profile](management/profile.json), [agentic contract](docs/59-agentic-development-loop.md) and actual registry/task status. `python3 tools/manage_project.py status` or `python3 ../scripts/manage_game.py status` reads the board from this game root; `.venv-harness/bin/python tools/agentic.py inventory` and `status` read the genuine agentic runtime. The installed outer `agents` shortcut now establishes the game tools import path; independent turn.003 regressions cover dispatch from the outer root and unrelated cwd, with board/direct-CLI compatibility.
 
-The user requested a software adaptation of the outer generic harness. Its fixed crew,
-manufacturing specialties, mandatory dispatched IA and three-turn new-product preflight
-are not required for this game profile. One developer may perform these responsibilities
-with honest self-review. Spawn specialists only if explicitly requested by the user or
-applicable instructions; independent review claims require real receipts. Preserve
-accepted design/evidence as history and ask about material new ambiguities.
+Every frozen registered role defaults YES; account for each exactly once. Each unused role needs its own substantive unique task-specific negation. Register relevant specialists before selection. ENG-00, WIK-30, EVC-28, independent IA-11 and DOC-10 are mandatory actual distinct host workers. Record exact prompts, dependencies and owned paths; authorize before host spawning, then record actual external receipts. Never fabricate independence, dispatch or tests.
 
-The versioned overlay in `management/harness/` keeps the outer root instructions and
-entry point consistent. Reinstall/check it with
-`python3 tools/configure_project_harness.py --root ..` and the same command with
-`--check` when that outer harness is present. Standalone clones need no outer harness.
+Selected execution owners finish before WIK-30 maintains the actual game wiki and linked technical docs, performs real rebuild/check and semantic consistency review. No new execution specialist starts once Wiki begins. Then EVC-28 collects evidence/gaps → independent IA-11 audits → DOC-10 publishes process outcomes last. No agent runs after DOC in the same turn. DOC's JSON records do not replace this wiki or permit post-IA source/wiki rewriting. Late defects require a new authorized correction turn.
+
+New slice closure needs matching accepted immutable agentic publication, task/all-role handoffs, real Wiki semantic handoff, independent IA receipt and required tests/docs/wiki checks. Imported accepted design/evidence remains history; real setup acceptance must name its exact import. Do not invent historical question/research rounds. Material new ambiguity, pending research and confirmed findings remain gates. Research requests stop the requesting specialist until later accepted results. Preserve interrupted quota turns and adverse evidence.
+
+Software media/assets, web-wiki, native UI/UX, lore, research and simulation each have scoped registered owners. Manufacturing roles are not imported automatically. Declared milestones require Designer/Builder plan and actual attempt; setup is not a gameplay milestone. Keep game `.git`, `.github`, source/assets and canon archive in place; preserve unrelated work.
+
+Versioned overlay/runtime sources live in `management/harness/`. Reinstall/check managed outer documentation using `python3 tools/configure_project_harness.py --root ..` and `--check`. Local stdio MCP initialization/logging is real and verified. An actual Codex-exposed `workflow_readiness` call succeeded on November 11, 2026; its external observation is retained in `management/agentic/bootstrap/host-connection-observed.json`. Local readiness still returns generic `NOT_OBSERVED` because it cannot inspect external transport. Fresh-process MCP tests verify the corrected failure acknowledgement, without asserting a resident host hot reload. Turns .001/.002 remain INTERRUPTED, with turn.002's rejected IA and failed DOC preserved; turn.003 published a rejected setup outcome (IA-003-001), and turns .004/.005 were interrupted. Python validates records and hashes, not host authenticity or an OS sandbox.

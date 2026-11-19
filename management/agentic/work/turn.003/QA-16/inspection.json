@@ -1,0 +1,120 @@
+{
+  "source_inspection": [
+    {
+      "path": "management/harness/manage_game.py",
+      "unchanged_from_preserved_pre_fix": false,
+      "diff": "--- preserved-before/management/harness/manage_game.py\n+++ management/harness/manage_game.py\n@@ -14,4 +14,7 @@\n if sys.argv[1:2] == ['agents']:\n     sys.argv.pop(1)\n     script = 'agentic.py'\n-runpy.run_path(str(project / 'tools' / script), run_name='__main__')\n+tools = project / 'tools'\n+# run_path does not add the target script's directory for sibling imports.\n+sys.path.insert(0, str(tools))\n+runpy.run_path(str(tools / script), run_name='__main__')\n"
+    },
+    {
+      "path": "tools/agentic.py",
+      "unchanged_from_preserved_pre_fix": false,
+      "diff": "--- preserved-before/tools/agentic.py\n+++ tools/agentic.py\n@@ -59,7 +59,10 @@\n     if operation == 'respond-research':\n         return workflow.respond_research(**args)\n     if operation == 'failed':\n-        return workflow.failed(**args)\n+        workflow.failed(**args)\n+        # The runtime appends the failure and returns None. Acknowledge only after\n+        # that succeeds so CLI and MCP share a dictionary result and keep errors.\n+        return {**args, 'status': 'FAILED', 'recorded': True}\n     if operation == 'readiness':\n         return workflow.readiness(**args)\n     raise ValueError(f'Unknown harness operation: {operation}')\n"
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "unchanged_from_preserved_pre_fix": true,
+      "diff": ""
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "unchanged_from_preserved_pre_fix": true,
+      "diff": ""
+    }
+  ],
+  "SWE_final_hash_comparison": [
+    {
+      "path": "management/harness/manage_game.py",
+      "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+      "matches_SWE_final_hash": true
+    },
+    {
+      "path": "tools/agentic.py",
+      "sha256": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214",
+      "matches_SWE_final_hash": true
+    },
+    {
+      "path": "tests/test_agentic_entrypoints.py",
+      "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618",
+      "matches_SWE_final_hash": true
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "matches_SWE_final_hash": true
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "matches_SWE_final_hash": true
+    },
+    {
+      "path": "../scripts/manage_game.py",
+      "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+      "matches_SWE_final_hash": true
+    }
+  ],
+  "mcp_summary": {
+    "scope": "SYNTHETIC_FIXTURE_ONLY_REAL_LOCAL_STDIO_PROTOCOL",
+    "protocol_version": "2025-11-25",
+    "production_receipts": false,
+    "calls": [
+      {
+        "label": "invalid-agent",
+        "isError": true,
+        "structuredContent": null,
+        "FAILED_event_count": 0,
+        "text": [
+          "Error executing tool workflow_failed: No pending invocation"
+        ]
+      },
+      {
+        "label": "invalid-reason",
+        "isError": true,
+        "structuredContent": null,
+        "FAILED_event_count": 0,
+        "text": [
+          "Error executing tool workflow_failed: Failure reason required"
+        ]
+      },
+      {
+        "label": "recorded-failure",
+        "isError": false,
+        "structuredContent": {
+          "agent_id": "ENG-00",
+          "reason": "Synthetic fixture failure; no real worker failed or was dispatched.",
+          "recorded": true,
+          "status": "FAILED",
+          "turn_id": "turn.001"
+        },
+        "FAILED_event_count": 1,
+        "text": [
+          "{\n  \"turn_id\": \"turn.001\",\n  \"agent_id\": \"ENG-00\",\n  \"reason\": \"Synthetic fixture failure; no real worker failed or was dispatched.\",\n  \"status\": \"FAILED\",\n  \"recorded\": true\n}"
+        ]
+      },
+      {
+        "label": "duplicate-rejected",
+        "isError": true,
+        "structuredContent": null,
+        "FAILED_event_count": 1,
+        "text": [
+          "Error executing tool workflow_failed: No pending invocation"
+        ]
+      },
+      {
+        "label": "sealed-rejected",
+        "isError": true,
+        "structuredContent": null,
+        "FAILED_event_count": 1,
+        "text": [
+          "Error executing tool workflow_failed: Turn is sealed"
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Fresh local MCP subprocess only; resident host MCP hot reload and corrected host-exposed failed acknowledgement not exercised.",
+    "WIK-owned temporal/connection docs and new-test generator metadata are pending.",
+    "No native gameplay or setup/import/task acceptance asserted."
+  ],
+  "incidental_inspection_note": "One read of verification-results.json while the runner was still active returned file-not-found. The runner subsequently completed and the results were read; this was not a test failure."
+}

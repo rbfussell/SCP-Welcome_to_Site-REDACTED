@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "changed": [],
+  "note": "Only managed documentation blocks, project pointer and wrapper are installed; no strict runtime state is migrated."
+}
+
+STDERR:

@@ -1,0 +1,76 @@
+{
+  "result": "PASS",
+  "recorded_at": "2026-11-11T10:53:16.235116+00:00",
+  "scope": "LOCAL_STDIO_CLIENT_PROTOCOL",
+  "host_registration": "CONFIGURED_UNVERIFIED",
+  "host_tool_observed": false,
+  "protocol_version": "2025-11-25",
+  "tools": [
+    "workflow_init",
+    "workflow_inventory",
+    "workflow_status",
+    "workflow_begin",
+    "workflow_plan",
+    "workflow_select",
+    "workflow_authorize",
+    "workflow_invoke",
+    "workflow_handoff",
+    "workflow_advance",
+    "workflow_collect",
+    "workflow_audit",
+    "workflow_publish",
+    "workflow_interrupt",
+    "workflow_import",
+    "workflow_register",
+    "workflow_question",
+    "workflow_answer",
+    "workflow_request_research",
+    "workflow_respond_research",
+    "workflow_failed",
+    "workflow_readiness"
+  ],
+  "roles": [
+    "ENG-00",
+    "SHO-12",
+    "EVC-28",
+    "IA-11",
+    "DOC-10",
+    "KRA-14",
+    "SWE-13",
+    "QA-16",
+    "OPS-17",
+    "SEC-18",
+    "RES-09",
+    "MED-07",
+    "DEM-08",
+    "AUD-25",
+    "WRI-22",
+    "PRT-05",
+    "BLD-27",
+    "WIK-30",
+    "WEB-06",
+    "UIX-31",
+    "AST-32",
+    "LOR-33",
+    "SIM-34"
+  ],
+  "inventory_readiness": {
+    "status": "READY",
+    "execution": "CLI_WITH_EXTERNAL_HOST_WORKERS",
+    "checks": {
+      "jsonschema": true,
+      "runtime_config": true,
+      "requested_roles_registered": true
+    },
+    "stdio_mcp_dependency": true,
+    "host_mcp_connection": "NOT_OBSERVED",
+    "limitations": [
+      "Host worker availability and receipt authenticity require external review.",
+      "A local protocol probe does not establish Codex host registration."
+    ]
+  },
+  "limitations": [
+    "The probe starts its own server subprocess.",
+    "A live Codex host tool call is still required after MCP reload."
+  ]
+}

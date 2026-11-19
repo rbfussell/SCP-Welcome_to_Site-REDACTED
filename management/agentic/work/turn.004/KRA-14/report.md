@@ -1,0 +1,20 @@
+# KRA-14 architecture/documentation review — turn.004
+
+COMPLETE for the bounded review. No implementation, wiki, task, runtime state or baseline was changed; this report does not accept setup, import, cases or task completion.
+
+Read the game rules, management board/guide, active contract, actual authored wiki ledger and agentic/project-management/development pages, wiki entrypoint/build guide, superseded docs58, managed overlay sources, current wrapper/shared dispatcher/readiness code, host observations, and the turn.003 independent IA audit, DOC report and immutable publication. Source fingerprints and actual read-only observations are in `inspection.json`.
+
+**Current source facts.** The wrapper adds its validated game tools directory before `runpy`; shared failed dispatch acknowledges only after the genuine append. Turn.003 independent IA verified the original SWE correction and fresh isolated protocol behavior. That code correction remains a verified implementation fact even though turn.003 was rejected overall. No new implementation repair or production failure replay is justified by IA-003-001. SWE owns the current unchanged-wrapper confirmation.
+
+**Required current guidance correction.** `llms.txt:31` and docs58's newer superseding paragraph still describe the wrapper defect and live host loading as current limitations. Replace those clauses using established corrected-source facts and the actual November 11 host observations. Preserve docs58's explicitly historical adapter body and all original adverse reports/logs. The observed host call proves that connection at that time; local generic `NOT_OBSERVED` cannot inspect external transport. Neither fact authenticates every worker. Fresh-server synthetic fixtures do not prove resident host hot reload or a corrected resident-host failure reply.
+
+**Temporal agreement.** Turn.003 has an actual REJECTED IA/DOC publication, not merely pending terminal review. Its entities include only rejected setup status; its resolutions are empty and engineering completion is false. Current pending-at-WIK wording occurs in the active guide/contract, game AGENTS, managed README, and authored wiki agentic-loop/project-management/development/status pages. WIK should reconcile that connected current guidance with the observed rejected outcome and point neutrally to runtime publications for the current/later turn. Historical WIK handoff/report snapshots keep their original pending statements. Do not prewrite acceptance for turn.004 or convert a verified old code correction into formal case settlement by prose.
+
+**Acceptance boundary.** Actual CLI readiness is READY while setup/import acceptance and production permission remain false, with IA-002-001 and IA-003-001 still open in preflight. These are separate facts, not a contradiction. Only the required matching independent audit and accepted final publication can settle cases/import/task gates. Exact historical import remains history; do not invent earlier question/research/baseline rounds. Interrupted .001/.002, rejected .003 and original failures stay intact. This setup is not a gameplay milestone; M0 and existing canon/adaptation/implementation limits stay as recorded.
+
+WIK follows completed execution owners, owns authored corrections, managed-template reconciliation, final sequential tests/docs/build/check and semantic inspection, then hands off before EVC → independent IA → DOC last. No source owner begins after WIK, and a late defect requires a new authorized turn. A successful freshness/hash check cannot cure contradictory guidance.
+
+Actual read-only pre-edit wiki freshness check PASS: 2,251 HTML pages, valid local links/anchors, 141 C# files and current source/evidence hashes. This is not final semantic acceptance. No product regression suite, implementation change, final build or final gate was performed by KRA.
+
+unresolved_questions: [] — the confirmed local documentation conflict introduces no new product/architecture choice or unfamiliar research need.
+baseline_artifacts: [] — no baseline was drafted or frozen.

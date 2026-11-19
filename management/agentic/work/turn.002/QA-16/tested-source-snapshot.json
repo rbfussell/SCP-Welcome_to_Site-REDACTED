@@ -1,0 +1,42 @@
+[
+  {
+    "path": "tests/test_agentic_workflow.py",
+    "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+  },
+  {
+    "path": "tests/test_agentic_client_setup.py",
+    "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+  },
+  {
+    "path": "tools/game_workflow.py",
+    "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+  },
+  {
+    "path": "tools/manage_project.py",
+    "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+  },
+  {
+    "path": "tools/agentic.py",
+    "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+  },
+  {
+    "path": "tools/agentic_mcp.py",
+    "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+  },
+  {
+    "path": "tools/check_agentic_mcp.py",
+    "sha256": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a"
+  },
+  {
+    "path": "management/harness/runtime/workflow.py",
+    "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+  },
+  {
+    "path": "management/harness/runtime/preflight.py",
+    "sha256": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4"
+  },
+  {
+    "path": "management/harness/runtime/config/game_roles.json",
+    "sha256": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786"
+  }
+]

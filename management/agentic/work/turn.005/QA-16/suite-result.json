@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "exit_code": 0,
+  "elapsed_seconds": 29.953064918518066,
+  "status": "PASS",
+  "changed_inputs": [],
+  "log_sha256": "944ea45bafa3240b44d2d9722e35abcc47804f036bacec468f7dde76c5243a2a",
+  "manifest_sha256": "7fe0b2aafc86051d842304854eebc811a6293e5818e2a72afd2fa84777bed022",
+  "real_local_mcp": true,
+  "effective_model": "NOT_EXPOSED",
+  "effective_effort": "NOT_EXPOSED",
+  "usage_allowance": "UNAVAILABLE"
+}

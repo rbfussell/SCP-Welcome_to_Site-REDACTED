@@ -1,0 +1,42 @@
+{
+  "label": "installed-legacy-board",
+  "argv": [
+    "python3",
+    "scripts/manage_game.py",
+    "status"
+  ],
+  "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+  "returncode": 0,
+  "timed_out": false,
+  "duration_seconds": 0.061,
+  "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+}
+STDOUT:
+{
+  "profile": "software-game",
+  "game_root": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "tasks": [
+    {
+      "id": "agentic-loop-setup",
+      "title": "Activate the real agentic development loop and actual game-wiki agent",
+      "status": "active"
+    },
+    {
+      "id": "equipment-loop-qualification",
+      "title": "Qualify the existing clothing, ground, attachments and badge loop",
+      "status": "proposed"
+    },
+    {
+      "id": "facility-utilities-proof",
+      "title": "Implement the bounded existing facility-utilities proof",
+      "status": "proposed"
+    },
+    {
+      "id": "pm-integration",
+      "title": "Integrate the software management profile without changing the game workflow",
+      "status": "done"
+    }
+  ]
+}
+
+STDERR:

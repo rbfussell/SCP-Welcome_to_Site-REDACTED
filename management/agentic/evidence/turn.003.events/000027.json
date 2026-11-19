@@ -1,0 +1,224 @@
+{
+  "sequence": 27,
+  "timestamp": "2026-11-11T17:23:54.492676+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.003",
+    "agent_id": "IA-11",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "2f4cbb4ddd4d0004bcbc026553dea8d9605bb439eaf6835b02387219daa2177b",
+    "assigned_scope": "Independent terminal audit of actual records, current evidence, wrapper/MCP behavior, wiki semantics, import gates and all task acceptance criteria; no repairs.",
+    "work_performed": "Independently verified 497 current reference assertions, 23-role selection, exact prompts/tickets/recorded chronology, task input/log stability, historical import snapshots and preserved interruptions; ran five focused regressions with real local IPC, installed entrypoints and wiki freshness; observed host readiness directly; confirmed WIK IA-003-001, resolved original SWE IA-002-001 independently and prepared honest blocked completion review.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.003/IA-11/audit.json",
+        "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+        "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+        "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-tests.log",
+        "sha256": "bf86979065ac00c9681fce34dcd2107d78ac86f280ea1ac2b443ee0c3fad6f91"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+        "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/initial-verification-adverse.log",
+        "sha256": "59913a94c29b4c013d66cdeaa0eb0260862ca622c46b3a5d7490375ab16205bc"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/inspection-notes.json",
+        "sha256": "d1e75c5041f238b1f299e0ae4be0c373cafb99d71b3ff5194bb8ef5bb3f923c6"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+        "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+        "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+        "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+        "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+        "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/verification.json",
+        "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/verification.log",
+        "sha256": "13c4771b76c32d89f4e6eff228c41074ee7a173b0c1f13244503cfde8af2b4ff"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/verify_audit.py",
+        "sha256": "b496b7ce175532c32a2c125fa62d417e478717342b569d94e43f52e56b3f9ccf"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/wiki-freshness.log",
+        "sha256": "a3d838a966a4e63f7fd8c46d162e2357ed699fce981aecc5540d1a53b7e4e2b4"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+        "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+        "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+        "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+      },
+      {
+        "path": "source_material/game-wiki/llms.txt",
+        "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+      },
+      {
+        "path": "docs/58-software-project-management.md",
+        "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+      },
+      {
+        "path": "management/agentic/imported-project.json",
+        "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+      }
+    ],
+    "tests": [
+      {
+        "command": "Independent read-only verify_audit.py: 497 current hashes, exact prompts/selection/tickets/recorded order, 40 task inputs/check logs, actual event chains and imported commit snapshots",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.log",
+            "sha256": "13c4771b76c32d89f4e6eff228c41074ee7a173b0c1f13244503cfde8af2b4ff"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.json",
+            "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (initial default sandbox)",
+        "status": "FAIL",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-tests.log",
+            "sha256": "bf86979065ac00c9681fce34dcd2107d78ac86f280ea1ac2b443ee0c3fad6f91"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/initial-verification-adverse.log",
+            "sha256": "59913a94c29b4c013d66cdeaa0eb0260862ca622c46b3a5d7490375ab16205bc"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (approved isolated real local subprocess IPC; five tests)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+            "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+            "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+          }
+        ]
+      },
+      {
+        "command": "Actual installed root and /tmp agents readiness; legacy board and direct CLI",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+            "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+            "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/build_game_wiki.py --check",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/wiki-freshness.log",
+            "sha256": "a3d838a966a4e63f7fd8c46d162e2357ed699fce981aecc5540d1a53b7e4e2b4"
+          }
+        ]
+      },
+      {
+        "command": "Actual Codex host-exposed workflow_readiness read-only call at 17:19:47 UTC",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+            "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+          }
+        ]
+      },
+      {
+        "command": "Independent semantic comparison of current llms.txt:31/docs58:69 with source, current checks and observed host readiness",
+        "status": "FAIL",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.json",
+            "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/audit.json",
+            "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+          }
+        ]
+      },
+      {
+        "command": "No new build/gameplay/production failure mutation, publication or task completion was performed by IA.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "Current llms.txt:31 and docs58:69 contradict corrected implementation and observed host transport; WIK IA-003-001 blocks acceptance.",
+      "Record/order/hash checks and partial live tree do not authenticate all worker identities or exact spawn times.",
+      "Fresh real-MCP fixture is synthetic and does not prove resident host hot reload or a corrected host-exposed failed reply.",
+      "Initial default-sandbox MCP timeout and incidental read-only helper error are retained; approved identical isolated rerun passed.",
+      "No new gameplay/M0, canon/assets or exhaustive future research/finding-resolution qualification; DOC publication remains pending."
+    ],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "ad0a7c58f8a165701f826fb6aaffdfa5f17f0ff17307e58a2211b4ba6bd5d1e6",
+  "hash": "3a6c037675e519c73ab30d8c1906708e4395471b0129adbc1503724986ac6261"
+}

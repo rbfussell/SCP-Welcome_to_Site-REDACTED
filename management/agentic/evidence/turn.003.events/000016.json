@@ -1,0 +1,182 @@
+{
+  "sequence": 16,
+  "timestamp": "2026-11-11T17:00:23.010818+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.003",
+    "agent_id": "QA-16",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "9e07b40932b3ea2e338f93cebe2a5f2fcd8ed6649ca2f3115409ebdb41f9dab6",
+    "assigned_scope": "Independent correction verification for installed wrapper, legacy/direct entrypoints and real MCP failed acknowledgement; owned evidence only.",
+    "work_performed": "Read applicable game/wiki/contracts and actual prior adverse evidence; independently ran 40 harness tests including the fresh real stdio MCP synthetic fixture, 13 adapter tests and five installed entrypoint/overlay checks. Inspected source changes and final fingerprints. All checks passed; no source/wiki/task repair or production failure replay.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+        "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+        "sha256": "ed8257c07e70ec0abbeebd8e1b033b92b4a7bdb1f4d88ad7164e52ca829eb3bb"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+        "sha256": "a79579fa396ab13aff95696ee251502c960405f999d48e7f9bfdc51ffde246ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+        "sha256": "732c0337c548f74127c8864b14bca4dfd13ab84cef7d9af5311d5e98228ece94"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+        "sha256": "2832da2885c4a9ebcd4421d3558ff395b8439c5b060a6c69fe0280b9d7b055ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+        "sha256": "e37bb4851afa3ec3683371eaa3fcc60fd02f3bb23efc710f8cbaadda48cddbda"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+        "sha256": "193a8801f35cd3023ba5684a2ed24d202d3d4e83adfacfb5d3c2013fc01490b4"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+        "sha256": "07a166249dcaea4ef025e520df88e37fd9ed153616cc184d29c31538b4f3787a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+        "sha256": "d0256de0f11b168cdee9be21ce1f679ea3244665b6c48f4b12a0b5dab2fe7513"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/report.md",
+        "sha256": "4bdece02b013c1262a0dcb1019520b595ae8dcfb066c8a0d979379ae03c39afd"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-before.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+        "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+      }
+    ],
+    "tests": [
+      {
+        "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+            "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+          }
+        ]
+      },
+      {
+        "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+            "sha256": "193a8801f35cd3023ba5684a2ed24d202d3d4e83adfacfb5d3c2013fc01490b4"
+          }
+        ]
+      },
+      {
+        "command": "python3 scripts/manage_game.py agents readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+            "sha256": "2832da2885c4a9ebcd4421d3558ff395b8439c5b060a6c69fe0280b9d7b055ec"
+          }
+        ]
+      },
+      {
+        "command": "python3 /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py agents readiness (cwd /tmp)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+            "sha256": "e37bb4851afa3ec3683371eaa3fcc60fd02f3bb23efc710f8cbaadda48cddbda"
+          }
+        ]
+      },
+      {
+        "command": "python3 scripts/manage_game.py status (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+            "sha256": "732c0337c548f74127c8864b14bca4dfd13ab84cef7d9af5311d5e98228ece94"
+          }
+        ]
+      },
+      {
+        "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python tools/agentic.py readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+            "sha256": "ed8257c07e70ec0abbeebd8e1b033b92b4a7bdb1f4d88ad7164e52ca829eb3bb"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/configure_project_harness.py --root .. --check (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+            "sha256": "07a166249dcaea4ef025e520df88e37fd9ed153616cc184d29c31538b4f3787a"
+          }
+        ]
+      },
+      {
+        "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK-30 after QA",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+        "sha256": "6b1e0f489be9fb1c86f357ef1aca1cd9ab4d04790c72373a499dae239bb4a07c"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+        "sha256": "a79579fa396ab13aff95696ee251502c960405f999d48e7f9bfdc51ffde246ec"
+      }
+    ],
+    "limitations": [
+      "Independent test evidence only; no setup/import/task acceptance. WIK final documentation/build/check/semantic work and EVC/IA/DOC remain pending.",
+      "The five new tests are within the 40-test harness suite; totals are 53 distinct tests with 13 adapter tests.",
+      "Real MCP coverage uses a fresh isolated synthetic fixture with non-production receipts; no resident host hot reload or corrected host-exposed failed acknowledgement is claimed.",
+      "System Python wrapper readiness does not require MCP dependency; .venv-harness is required for actual MCP execution. Local generic NOT_OBSERVED does not inspect external host connection.",
+      "Prior interrupted/rejected turns, failed schema response, quota interruption and owner adverse logs are unchanged.",
+      "No native gameplay/M0, art/canon or exhaustive research/finding resolution qualification."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "3c1e9a7a4a8f1376446990a673a191416195dc43b158dd0be6729ab2f02dae6c",
+  "hash": "b69ffb12128b3925edfc65b7afbebd37841aa42b224570951613ecc938ad8ade"
+}

@@ -1,7 +1,6 @@
 # Software project management integration
 
-Status: implemented development-tooling profile. Game mechanics and acceptance
-milestone status remain unchanged. The existing game checkout now resides under
+Status: historical lightweight adapter, accepted in commit `2a86ca5`. Its single-developer default is superseded by [the active agentic loop](59-agentic-development-loop.md) at the user's later request. The text below preserves the original adapter scope and limits; it is not current permission to skip real role selection or independent review. Game mechanics and acceptance milestone status remain unchanged. The existing game checkout now resides under
 `Project/` inside a portable project harness workspace.
 
 ## Selected workflow
@@ -63,3 +62,8 @@ remain separate. This tooling change does not itself requalify gameplay or close
 Acceptance: both root/game CLI entry points share one board; original generic files
 remain available; the game is independently runnable/versioned; completed slices have
 real evidence and honest review; wiki and development docs agree with the profile.
+
+
+## Superseding workflow
+
+[The active agentic contract](59-agentic-development-loop.md), [management guide](../management/README.md) and [game-wiki loop page](../source_material/game-wiki/agentic-loop.html) now require every registered role to be considered, individual unused-role negations, actual authorized host workers, WIK-30 for the real game wiki, Collector → independent IA → Document Chief and matching accepted-publication slice closure. Historical self-review records are not rewritten as independent review. The CLI's original task/evidence mechanism remains alongside that loop. The installed outer agents shortcut resolves the game tools import path, and a Codex-exposed readiness call was observed on November 11, 2026. The active contract distinguishes that observation from configuration checks and fresh-process testing.

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/DOC-10/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Prepare minimal publication entities/resolutions from independent audit and owned raw handoff. On accepted audit include exact project.import hash from import record and task.agentic-loop-setup entity, resolve only independently verified cases. Parent records handoff and executes deterministic publication."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/doc006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

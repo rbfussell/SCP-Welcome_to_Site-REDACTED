@@ -1,0 +1,12 @@
+{
+  "sequence": 11,
+  "timestamp": "2026-11-12T00:20:31.366125+00:00",
+  "kind": "DISPATCH_AUTHORIZED",
+  "data": {
+    "agent_id": "SWE-13",
+    "authorization_id": "054495d24c0547fb9069d5ca5c54913d",
+    "prompt_hash": "07c88a227d6eb71037bbadcd182ccc1ac738a45fb4b9387cf906658484fcf45d"
+  },
+  "previous_hash": "5bd3c9534e88f8c344eb3b371a550287acb9373fd7f4b6ede8bbc91592c77507",
+  "hash": "5466f7a4e242c3bdc8af45a96f61dcbe3da9563ee0f948f7c212d0e350558ecc"
+}

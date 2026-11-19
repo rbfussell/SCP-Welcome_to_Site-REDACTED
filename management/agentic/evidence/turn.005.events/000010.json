@@ -1,0 +1,101 @@
+{
+  "sequence": 10,
+  "timestamp": "2026-11-12T00:20:28.536156+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.005",
+    "agent_id": "KRA-14",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "058c3dfaf2fb06353a569480da3d4d682610416d687835fb3eac166d80530d38",
+    "assigned_scope": "Bounded pre-SWE model-policy architecture, preservation, dispatch provenance and observation guidance; owned report only.",
+    "work_performed": "Read applicable rules, actual wiki, management guide/board, existing MCP installer, prior independent IA and turn004 interruption; authored minimal architecture recommendations.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.005/KRA-14/report.md",
+        "sha256": "4e514ad85fbdc6396fbb30f30ca44025506e08a3d8052a0a0dde739cbbc444de"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c"
+      },
+      {
+        "path": "management/README.md",
+        "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad"
+      },
+      {
+        "path": "docs/59-agentic-development-loop.md",
+        "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9"
+      },
+      {
+        "path": "source_material/game-wiki/llms.txt",
+        "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+      },
+      {
+        "path": "source_material/game-wiki/content/agentic-loop.md",
+        "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+      },
+      {
+        "path": "source_material/game-wiki/content/development.md",
+        "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d"
+      },
+      {
+        "path": "source_material/game-wiki/content/project-management.md",
+        "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7"
+      },
+      {
+        "path": "source_material/game-wiki/content/status.md",
+        "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08"
+      },
+      {
+        "path": "tools/configure_agentic_client.py",
+        "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/work/turn.004/KRA-14/report.md",
+        "sha256": "8f4f22addfd8eb42ae21a623edaa25553de319162d51e02827d025b793dd60e2"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000015.json",
+        "sha256": "c78b73d822c0ee6823bebb209adc48564e6e1b5fea1152b08d360b32ec0da2c0"
+      },
+      {
+        "path": "management/agentic/work/turn.005/KRA-14/handoff-initial.json",
+        "sha256": "1df5b0c73ccdd1771fe1663237d8b585a7229e103862e85190e798656e13763c"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 ../scripts/manage_game.py status",
+        "status": "NOT_RUN",
+        "result": "agentic-loop-setup active; other proposed tasks remain proposed.",
+        "reason": "Not submitted as a qualified test: command was actually observed successful in tool output, but no raw command log was retained as a file. No rerun performed; previous unsupported PASS preserved in handoff-initial.json.",
+        "evidence": []
+      },
+      {
+        "command": "Implementation/configuration regressions and final wiki gates",
+        "status": "NOT_RUN",
+        "reason": "Pre-implementation architecture review; SWE/QA/WIK own actual checks.",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "No implementation acceptance or measured model benchmark/quota savings.",
+      "Effective host model and effort NOT_EXPOSED; requested Astra low does not establish effective configuration.",
+      "No resident host hot reload verification; final independent IA/DOC required.",
+      "Board status observation is not claimed as qualified PASS because no raw command log file was retained; initial handoff validation rejection is preserved."
+    ],
+    "architecture": {
+      "unresolved_questions": [],
+      "baseline_artifacts": []
+    },
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "1c30c35b05cf074cb333d7165756af7a6e185724b320230672be4b0613fb7d01",
+  "hash": "5bd3c9534e88f8c344eb3b371a550287acb9373fd7f4b6ede8bbc91592c77507"
+}

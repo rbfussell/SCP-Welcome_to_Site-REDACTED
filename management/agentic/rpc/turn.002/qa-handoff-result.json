@@ -1,0 +1,94 @@
+{
+  "turn_id": "turn.002",
+  "agent_id": "QA-16",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "d48e5a9661c1b4858c8505e7797cd2d607baae29eefd2557ec8b49e015fc700f",
+  "assigned_scope": "Independent policy/negative-case and actual local MCP protocol verification; no game production or canonical documentation edits.",
+  "work_performed": "Added 29 isolated game-agentic regression tests; independently ran those with six client setup and 13 legacy adapter tests (48 PASS), probed real stdio MCP, preserved adverse provisional logs and final source hashes, and reported implementation defects for SWE correction.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+      "sha256": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+      "sha256": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+      "sha256": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/report.md",
+      "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+    }
+  ],
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_agentic*.py' -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+          "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+        }
+      ]
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_project_management.py -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+          "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python tools/check_agentic_mcp.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+          "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+    }
+  ],
+  "limitations": [
+    "Local stdio protocol probe is real but Codex host registration remains CONFIGURED_UNVERIFIED; host_tool_observed=false.",
+    "Fixture receipts are synthetic policy tests, never production dispatch evidence; runtime cannot authenticate arbitrary host receipt strings.",
+    "No gameplay milestone, exhaustive later research-resolution cycle, or final wiki consistency gate is certified; WIK/Collector/independent IA/DOC remain responsible."
+  ],
+  "handoff_status": "COMPLETE"
+}

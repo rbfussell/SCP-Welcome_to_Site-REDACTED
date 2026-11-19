@@ -1,0 +1,39 @@
+{
+  "read": [
+    "AGENTS.md",
+    "management/README.md",
+    "docs/12-development-workflow.md",
+    "docs/59-agentic-development-loop.md",
+    "source_material/game-wiki/README.md",
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/status.md",
+    "source_material/game-wiki/content/engine.md",
+    "management/profile.json",
+    "management/harness/AGENTS.md",
+    "management/harness/README.md",
+    "management/harness/manage_game.py",
+    "tools/agentic.py",
+    "tools/agentic_mcp.py",
+    "tools/game_workflow.py",
+    "tools/configure_project_harness.py",
+    "tools/check_management_docs.py",
+    "tests/test_agentic_entrypoints.py",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.003/ENG-00/report.md",
+    "management/agentic/work/turn.003/KRA-14/report.md",
+    "management/agentic/work/turn.003/SWE-13/report.md",
+    "management/agentic/work/turn.003/QA-16/report.md",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/bootstrap/host-failed-response-defect.md"
+  ],
+  "initial_board_command": {
+    "command": "python3 scripts/manage_game.py status",
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "exit_code": 2,
+    "stderr": "python3: can't open file '/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/scripts/manage_game.py': [Errno 2] No such file or directory",
+    "meaning": "Incidental wrong relative command, distinct from fixed agents import defect. Corrected game-root command python3 ../scripts/manage_game.py status passed."
+  },
+  "initial_freshness": "Precheck reported two stale evidence hashes: wrapper template and tools/agentic.py. Final rebuild/check required after WIK documentation edits. Initial shell result reflects display cat; checker failure output retained."
+}

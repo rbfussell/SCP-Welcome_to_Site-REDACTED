@@ -1,0 +1,124 @@
+{
+  "ENG-00": {
+    "selected": true,
+    "reason": "Coordinator must bound the final documentation correction, account for every role and retain actual rejected/interrupted history.",
+    "prompt": "Act as ENG-00 for turn.004 and task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki pages/llms.txt, management contract and turn.003 IA audit. Review the documentation-only correction scope and exact all-role selection, retaining both prior cases until accepted closure. Write only concise owned report and raw handoff in management/agentic/work/turn.004/ENG-00/. Preserve actual rejected/interrupted history, source qualification and host limits. Do not implement source or claim acceptance. Parent records your handoff.",
+    "dependencies": []
+  },
+  "SHO-12": {
+    "selected": false,
+    "reason": "The followup needs no milestone presentation or sales narrative; its output is corrected documentation and verified process evidence."
+  },
+  "EVC-28": {
+    "selected": true,
+    "reason": "Collector must inventory this final actual loop, current evidence and remaining semantic gaps without repairing outputs.",
+    "prompt": "Act as EVC-28 for turn.004 and task agentic-loop-setup after WIK. Read applicable AGENTS.md and actual wiki contract. Build the genuine runtime evidence package and verify all registered roles/negations, real authorizations/receipts, current owned artifacts, nested final checks and current documentation claims. Distinguish preserved historical snapshots from current corruption. Write concise report, logs and raw collection handoff in management/agentic/work/turn.004/EVC-28/. Do not repair outputs or decide acceptance. Parent records your handoff.",
+    "dependencies": [
+      "WIK-30"
+    ]
+  },
+  "IA-11": {
+    "selected": true,
+    "reason": "Independent review must verify both prior cases and every task criterion before accepting the finished documentation/code agreement.",
+    "prompt": "Act as independent IA-11 for turn.004 and task agentic-loop-setup after collection. Read applicable AGENTS.md, actual wiki/agent entrypoint, collected evidence and prior cases IA-002-001 and IA-003-001. Verify both corrections, active/superseded current references, generated pages, unchanged qualified code, real dispatch/negations and task acceptance. Use focused checks as needed; real MCP IPC needs the harness Python and approved out-of-sandbox execution. Do not repair outputs. Write concise report, raw audit/handoff and honest independent software review covering every exact acceptance criterion in management/agentic/work/turn.004/IA-11/. Case resolutions need independent evidence. Completion remains conditional on genuine matching DOC publication. Parent records handoff/audit.",
+    "dependencies": [
+      "EVC-28"
+    ]
+  },
+  "DOC-10": {
+    "selected": true,
+    "reason": "Final publisher must seal only the independent outcome and close the task after actual accepted matching publication.",
+    "prompt": "Act as DOC-10 last for turn.004 and task agentic-loop-setup after independent IA. Read applicable AGENTS.md, final audit/review and evidence package. Write concise owned report and raw handoff in management/agentic/work/turn.004/DOC-10/, then record it and publish the actual reviewed outcome using the genuine runtime. If accepted, publish exact historical import/task entities and independently verified case resolutions, and complete the software task using the actual IA review only after publication/check gates pass. Preserve history and limitations. No game source/wiki edits, rebuilds or later workers. Parent supplies concrete payload.",
+    "dependencies": [
+      "IA-11"
+    ]
+  },
+  "KRA-14": {
+    "selected": true,
+    "reason": "Architecture must review truthful current versus historical status and existing-project acceptance boundaries for this repeated setup.",
+    "prompt": "Act as KRA-14 for turn.004 and task agentic-loop-setup. Read applicable AGENTS.md, related actual game wiki, active contract and turn.003 IA audit. Independently review the bounded documentation corrections and truthful separation of current source facts, historical evidence and runtime acceptance. Write concise owned report and raw handoff in management/agentic/work/turn.004/KRA-14/, with explicit unresolved_questions and baseline_artifacts. No source edits, new baseline or acceptance claim. Parent records your handoff.",
+    "dependencies": []
+  },
+  "SWE-13": {
+    "selected": true,
+    "reason": "Software must confirm its unchanged IA-002-001 correction for accepted closure because prior rejected publication deliberately deferred formal resolutions.",
+    "prompt": "Act as SWE-13 for turn.004 and task agentic-loop-setup. Read applicable AGENTS.md, related actual wiki and prior IA-002-001/turn.003 correction evidence. Confirm the existing wrapper fix remains unchanged and qualified for accepted case closure, using actual source hashes and installed root/unrelated-cwd commands. Write only concise owned report, actual logs and raw handoff in management/agentic/work/turn.004/SWE-13/. No implementation edits or production failure replay; the only planned changes this turn belong to WIK documentation. Preserve prior tests and host limitations. Parent records your handoff.",
+    "dependencies": [],
+    "corrective_cases": [
+      "IA-002-001"
+    ]
+  },
+  "QA-16": {
+    "selected": false,
+    "reason": "This turn changes documentation only; unchanged implementation already has independent 53-test QA, while WIK runs final gates and IA independently inspects semantic corrections."
+  },
+  "OPS-17": {
+    "selected": false,
+    "reason": "No game build package or release service changes in this documentation repair; normal reviewed Git transport remains the coordinator's task."
+  },
+  "SEC-18": {
+    "selected": false,
+    "reason": "No credentials, network listener or permission model changes; existing local evidence trust limits remain explicit."
+  },
+  "RES-09": {
+    "selected": false,
+    "reason": "The stale statements have known local source/receipt answers; no unfamiliar dependency choice or SCP research is necessary."
+  },
+  "MED-07": {
+    "selected": false,
+    "reason": "No new illustration, sprite, icon or texture belongs to this current-status text correction."
+  },
+  "DEM-08": {
+    "selected": false,
+    "reason": "The documentation repair includes neither animation work nor an authored product demonstration."
+  },
+  "AUD-25": {
+    "selected": false,
+    "reason": "There is no speech, sound or music asset/pipeline change in this final consistency pass."
+  },
+  "WRI-22": {
+    "selected": false,
+    "reason": "No game narrative or dialogue changes; WIK owns the technical status prose and related references."
+  },
+  "PRT-05": {
+    "selected": false,
+    "reason": "This final setup repair is not a declared gameplay completion milestone requiring a prototype plan."
+  },
+  "BLD-27": {
+    "selected": false,
+    "reason": "No milestone construction plan is introduced or awaiting execution; source commands and documentation are already available."
+  },
+  "WIK-30": {
+    "selected": true,
+    "reason": "Wiki owner must correct confirmed IA-003-001 in llms/current notes, reconcile related guides and prove final semantic consistency.",
+    "prompt": "Act as WIK-30 for turn.004 and task agentic-loop-setup after execution owners finish. Read applicable AGENTS.md, actual wiki including llms.txt, active/superseded guides and IA-003-001. Correct obsolete current wrapper/host claims in llms.txt and the newer docs58 note, and reconcile active pending-status references with actual runtime outcomes. Use neutral outcome pointers rather than pre-accepting this turn. Preserve historical evidence and current source/host limits. Update materially related authored wiki/Markdown and managed templates; no runtime changes or new links without existing targets. Send static edits for parent read before final handoff. Run sequential task tests/docs/wiki-build/wiki-check, inspect agent entrypoint, generated guide and all affected semantics. Write concise owned report and raw game_wiki handoff in management/agentic/work/turn.004/WIK-30/. Parent records it.",
+    "dependencies": [
+      "ENG-00",
+      "KRA-14",
+      "SWE-13"
+    ],
+    "corrective_cases": [
+      "IA-003-001"
+    ]
+  },
+  "WEB-06": {
+    "selected": false,
+    "reason": "The existing wiki renderer/search/layout remain unchanged; WIK owns source prose and ordinary generation."
+  },
+  "UIX-31": {
+    "selected": false,
+    "reason": "No native Godot user interface or player interaction is altered by the agent-entrypoint status correction."
+  },
+  "AST-32": {
+    "selected": false,
+    "reason": "No atlas, mask, art binding, asset import or provenance change is part of this documentation-only work."
+  },
+  "LOR-33": {
+    "selected": false,
+    "reason": "The two stale development-status claims concern no SCP canon or in-game lore adaptation."
+  },
+  "SIM-34": {
+    "selected": false,
+    "reason": "Authoritative simulation, SCP rules, time, inventory and persistence are unchanged throughout this documentation pass."
+  }
+}

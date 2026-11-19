@@ -1,0 +1,27 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "SWE-13",
+  "recorded_at": "2026-11-12T00:21:03.476134+00:00",
+  "dispatch_mechanism": "explicit_tool_overrides",
+  "request": {
+    "task_name": "software_policy005",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "message": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/SWE-13/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nImplement bounded real model allocation: versioned policy for all 23 roles with work-class overrides; resolver producing explicit spawn parameters and provenance that distinguishes requested settings from host-reported effective settings (missing is NOT_EXPOSED, not a match; mismatches/unsupported never silently inherit). Defaults: Sol low docs/WIK/EVC/DOC/WRI/routine media/assets; Sol medium ENG/Vince/routine fixes/admin; Astra low IA/Krampus/routine independent analysis; Astra medium QA complex review and software/engineering/design/prototype work. User can call low Light; no high/xhigh/max default, escalation needs substantive task-specific reason. Installable real workspace .codex/config.toml defaults Sol medium and .codex/agents/*.toml with role model/effort; preserve unrelated config/MCP/custom role files, target safety and idempotency. Use separate installer if simplest. Active host dispatch uses explicit overrides, not a claimed named-role-file selection. Provide CLI resolution/provenance helper usable by parent. Do not require resident-server reload or falsely authenticate settings. Add meaningful allocation/config/provenance tests (no prose snapshot tests). Own tools/policy/profile/test code paths and source-specific README only; WIK owns other current docs/wiki and generator evidence metadata. Verify prior IA-002-001 wrapper fix with actual current evidence; do not replay production failure. Update task static inputs for new files by informing parent before final gates. Read KRA/ENG owned reports first. Implement then hand off before QA/WIK. New .codex install may require escalated command; preserve user-authorized scope. Do not modify game runtime/assets/canon, copied upstream unnecessarily, task acceptance or terminal records."
+  },
+  "host_response": {
+    "task_name": "/root/software_policy005"
+  },
+  "effective": {
+    "model": null,
+    "reasoning_effort": null,
+    "status": "HOST_EFFECTIVE_NOT_EXPOSED"
+  },
+  "usage": {
+    "tokens": null,
+    "allowance_consumption": null,
+    "status": "NOT_EXPOSED"
+  },
+  "provenance_limit": "Actual parent tool-call request/response record, not backend introspection or authenticated identity."
+}

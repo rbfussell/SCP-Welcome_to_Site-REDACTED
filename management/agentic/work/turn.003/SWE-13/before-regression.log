@@ -1,0 +1,134 @@
+
+STDERR:
+test_cli_failure_acknowledges_append_and_rejects_duplicate (test_agentic_entrypoints.AgenticEntrypointTests.test_cli_failure_acknowledges_append_and_rejects_duplicate) ... FAIL
+test_real_mcp_failure_ack_and_rejections_preserve_single_event (test_agentic_entrypoints.AgenticEntrypointTests.test_real_mcp_failure_ack_and_rejections_preserve_single_event) ... ERROR
+test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) ... 
+  test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) (cwd=PosixPath('/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h')) ... FAIL
+  test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) (cwd=PosixPath('/tmp/scp-agentic-unrelated-FIXTURE-qra6cg06')) ... FAIL
+test_wrapper_legacy_board_and_direct_cli_remain_usable (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_legacy_board_and_direct_cli_remain_usable) ... ok
+test_wrapper_rejects_project_pointer_escape (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_rejects_project_pointer_escape) ... ok
+
+======================================================================
+ERROR: test_real_mcp_failure_ack_and_rejections_preserve_single_event (test_agentic_entrypoints.AgenticEntrypointTests.test_real_mcp_failure_ack_and_rejections_preserve_single_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 119, in receive
+    return self.receive_nowait()
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 114, in receive_nowait
+    raise WouldBlock
+anyio._core._exceptions.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib64/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 129, in mcp_failure_sequence
+    async with ClientSession(read, write) as session:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/shared/session.py", line 238, in __aexit__
+    return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/_backends/_asyncio.py", line 875, in __aexit__
+    raise exc_val
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 130, in mcp_failure_sequence
+    initialized = await session.initialize()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/client/session.py", line 183, in initialize
+    result = await self.send_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<16 lines>...
+    )
+    ^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/shared/session.py", line 292, in send_request
+    response_or_error = await response_stream_reader.receive()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 131, in receive
+    await receive_event.wait()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/_backends/_asyncio.py", line 2009, in wait
+    await self._event.wait()
+  File "/usr/lib64/python3.14/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 152, in test_real_mcp_failure_ack_and_rejections_preserve_single_event
+    transcript = asyncio.run(asyncio.wait_for(self.mcp_failure_sequence(arguments), timeout=30))
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 205, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 128, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.14/asyncio/tasks.py", line 487, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib64/python3.14/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+======================================================================
+FAIL: test_cli_failure_acknowledges_append_and_rejects_duplicate (test_agentic_entrypoints.AgenticEntrypointTests.test_cli_failure_acknowledges_append_and_rejects_duplicate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 108, in test_cli_failure_acknowledges_append_and_rejects_duplicate
+    self.assert_failure_ack(result, arguments)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 95, in assert_failure_ack
+    self.assertEqual(result, {**arguments, 'status': 'FAILED', 'recorded': True})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != {'turn_id': 'turn.001', 'agent_id': 'ENG-[118 chars]True}
+
+======================================================================
+FAIL: test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) (cwd=PosixPath('/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 53, in test_wrapper_agents_from_workspace_and_unrelated_cwd
+    result = self.run_json([self.wrapper, 'agents', 'readiness'], cwd)
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 46, in run_json
+    self.assertEqual(result.returncode, 0, result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h/scripts/manage_game.py", line 17, in <module>
+    runpy.run_path(str(project / 'tools' / script), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h/Project/tools/agentic.py", line 8, in <module>
+    from game_workflow import GameWorkflow
+ModuleNotFoundError: No module named 'game_workflow'
+
+
+======================================================================
+FAIL: test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) (cwd=PosixPath('/tmp/scp-agentic-unrelated-FIXTURE-qra6cg06'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 53, in test_wrapper_agents_from_workspace_and_unrelated_cwd
+    result = self.run_json([self.wrapper, 'agents', 'readiness'], cwd)
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 46, in run_json
+    self.assertEqual(result.returncode, 0, result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h/scripts/manage_game.py", line 17, in <module>
+    runpy.run_path(str(project / 'tools' / script), run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/tmp/scp-agentic-entrypoint-FIXTURE-mnxtih6h/Project/tools/agentic.py", line 8, in <module>
+    from game_workflow import GameWorkflow
+ModuleNotFoundError: No module named 'game_workflow'
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 35.001s
+
+FAILED (failures=3, errors=1)

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "low",
+    "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/KRA-14/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Review Sol-first budget/default/escalation design and compact dispatch boundaries. Read /tmp/scp-harness-research.txt matrix and terminal sections as research input. Review only. Include architecture.unresolved_questions and baseline_artifacts arrays."
+  },
+  "fork_turns": "none",
+  "host_response": {
+    "task_name": "/root/kra006"
+  },
+  "effective_model": null,
+  "effective_effort": null,
+  "usage": null
+}

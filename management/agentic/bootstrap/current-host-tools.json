@@ -1,0 +1,6 @@
+{
+  "observed_in_parent_tool_inventory": false,
+  "scope": "scp-game-harness MCP workflow tools",
+  "observation": "Parent searched available tool metadata; no bundled workflow_* tools were present at setup start. A local protocol test and config file do not change this observation. Re-evaluate after a host MCP reload.",
+  "note": "This does not limit real authorized collaboration workers or CLI-backed workflow logging."
+}

@@ -1,0 +1,15 @@
+[
+  "AGENTS.md",
+  "management/README.md",
+  "management/profile.json",
+  "management/harness/AGENTS.md",
+  "management/harness/README.md",
+  "docs/12-development-workflow.md",
+  "docs/59-agentic-development-loop.md",
+  "source_material/game-wiki/README.md",
+  "source_material/game-wiki/content/agentic-loop.md",
+  "source_material/game-wiki/content/project-management.md",
+  "source_material/game-wiki/content/development.md",
+  "source_material/game-wiki/content/status.md",
+  "tools/build_game_wiki.py"
+]

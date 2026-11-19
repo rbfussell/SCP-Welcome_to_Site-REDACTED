@@ -1,0 +1,28 @@
+{
+  "status": "OBSERVED_CURRENT_PROSE_CONFLICT_FOR_IA",
+  "path": "source_material/game-wiki/llms.txt",
+  "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+  "observations": [
+    {
+      "line": 31,
+      "text": "Active development coordination: project-management.html and development.html; game root is now Project/ under the outer harness. Use python3 tools/manage_project.py status from the game root. The actual agentic loop is documented at agentic-loop.html and docs/59-agentic-development-loop.md. Every registered role defaults YES; each unused role needs an individual task-specific negation. Real selected host workers require authorization-before-spawn and actual distinct receipts. Execution owners -> WIK-30 actual game-wiki maintenance -> EVC-28 -> independent IA-11 -> DOC-10 process publication last. No agent runs afterward within that turn; late defects need a new authorized correction turn. The process JSON store does not replace this knowledge base. Imported history never invents past question/research rounds. Direct game-root CLI/local MCP work; current outer agents shortcut has an import-path defect. Configuration/local protocol success is not proof of live host connection (CONFIGURED_UNVERIFIED)."
+    }
+  ],
+  "additional_current_pointer_conflict": {
+    "path": "docs/58-software-project-management.md",
+    "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+    "observations": [
+      {
+        "line": 69,
+        "text": "[The active agentic contract](59-agentic-development-loop.md), [management guide](../management/README.md) and [game-wiki loop page](../source_material/game-wiki/agentic-loop.html) now require every registered role to be considered, individual unused-role negations, actual authorized host workers, WIK-30 for the real game wiki, Collector → independent IA → Document Chief and matching accepted-publication slice closure. Historical self-review records are not rewritten as independent review. The CLI's original task/evidence mechanism remains alongside that loop. Current setup limitations, including the outer agents-shortcut import defect and unobserved live host MCP loading, are recorded in the active contract."
+      }
+    ]
+  },
+  "conflicting_evidence": [
+    "management/agentic/work/turn.003/QA-16/report.md",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "source_material/game-wiki/content/agentic-loop.md",
+    "management/harness/manage_game.py"
+  ],
+  "meaning": "The active agent reading entry point and the newer superseding paragraph of docs58 still assert current wrapper import defect and unobserved host connection, contradicting corrected source, independent QA and the real observed host call. The docs58 sentence is a current pointer rather than preserved adapter history. No repair, severity or acceptance decision by Collector."
+}

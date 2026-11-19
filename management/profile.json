@@ -1,15 +1,67 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "profile": "software-game",
-  "execution": "single-developer",
+  "execution": "agentic",
   "project": "SCP: Welcome to Site-[REDACTED]",
   "coordination": "management/tasks/*.json",
   "mechanics_authority": "source_material/game-wiki/content/",
   "requirements": "docs/04-scope-and-acceptance.md",
-  "baseline": {"commit": "cac3555185c32650bc93864517bf35b33e143f37", "status": "imported history; not newly qualified; M0 remains open"},
-  "responsibilities": ["scope and dependencies", "implementation", "verification and evidence", "consistency review", "wiki and development documentation"],
-  "optional_specialists": ["software", "QA", "game design and canon research", "sprite art", "audio", "independent review"],
-  "delegation": "Only when explicitly requested by the user or applicable instructions; never fabricate worker receipts.",
-  "required_checks": ["tests", "docs", "wiki-build", "wiki-check"],
-  "strict_harness": "Available separately through scripts/select_agents.py; not the active game workflow."
+  "baseline": {
+    "commit": "cac3555185c32650bc93864517bf35b33e143f37",
+    "status": "imported history; not newly qualified; M0 remains open"
+  },
+  "responsibilities": [
+    "scope and dependencies",
+    "assigned implementation",
+    "independent verification",
+    "actual wiki consistency",
+    "evidence collection",
+    "independent IA",
+    "process publication"
+  ],
+  "optional_specialists": [
+    "software and simulation",
+    "QA",
+    "architecture",
+    "native UI/UX",
+    "web interface",
+    "sprite illustration",
+    "asset pipeline",
+    "animation",
+    "audio",
+    "lore and adaptation",
+    "technical research",
+    "security",
+    "build/delivery",
+    "narrative",
+    "milestone designer/builder/presenter"
+  ],
+  "delegation": "User explicitly authorized the agentic loop. Obtain actual authorization before spawning each distinct real host worker; record exact prompt and genuine receipt afterward.",
+  "required_checks": [
+    "tests",
+    "docs",
+    "wiki-build",
+    "wiki-check"
+  ],
+  "strict_harness": "Reuse genuine copied engine with explicit existing-project import and actual-Wiki policy; original outer fresh-product mode remains separate.",
+  "agentic_runtime": "tools/game_workflow.py over management/harness/runtime/",
+  "agentic_records": "management/agentic/",
+  "mandatory_roles": [
+    "ENG-00",
+    "WIK-30",
+    "EVC-28",
+    "IA-11",
+    "DOC-10"
+  ],
+  "role_selection": "Every frozen registered role defaults YES and is accounted exactly once; each NO has an individual substantive unique task-specific negation.",
+  "execution_order": [
+    "selected execution owners",
+    "WIK-30 actual game wiki",
+    "EVC-28 collection",
+    "independent IA-11",
+    "DOC-10 process publication last"
+  ],
+  "host_mcp_connection": "OBSERVED: actual Codex-exposed workflow_readiness succeeded 2026-11-11 16:42:06 UTC; bootstrap/host-connection-observed.json. Generic local NOT_OBSERVED does not inspect external transport. Fresh-server failure-ack tests do not prove resident host hot reload or worker authenticity.",
+  "historical_adapter": "Accepted single-developer records remain historical; new work requires matching accepted agentic publication.",
+  "registered_role_definitions": "management/harness/runtime/config/game_roles.json"
 }

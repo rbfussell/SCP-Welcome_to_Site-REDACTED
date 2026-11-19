@@ -1,0 +1,8 @@
+{
+  "agent_id": "EVC-28",
+  "prompt_hash": "30cac0f21ec83ff592ff435a686369194ac6d660614bc010d27a0e275e9523d6",
+  "receipt": "/root/collector_agentic_setup",
+  "backend": "codex-collaboration",
+  "authorization_id": "3ab49618e69c460e8df2cab924c3f425",
+  "owned_directory": "work/turn.002/EVC-28"
+}

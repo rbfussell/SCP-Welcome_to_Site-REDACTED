@@ -1,0 +1,149 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"ENG-00\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"SHO-12\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"EVC-28\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"IA-11\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"DOC-10\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"KRA-14\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"SWE-13\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"QA-16\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"OPS-17\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"SEC-18\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"RES-09\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"MED-07\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"DEM-08\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"AUD-25\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"WRI-22\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"PRT-05\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"BLD-27\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"WIK-30\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"WEB-06\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"UIX-31\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"AST-32\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"LOR-33\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  },\n  \"SIM-34\": {\n    \"selected\": true,\n    \"reason\": \"\",\n    \"prompt\": \"\",\n    \"dependencies\": []\n  }\n}"
+    }
+  ],
+  "structuredContent": {
+    "ENG-00": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "SHO-12": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "EVC-28": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "IA-11": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "DOC-10": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "KRA-14": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "SWE-13": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "QA-16": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "OPS-17": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "SEC-18": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "RES-09": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "MED-07": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "DEM-08": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "AUD-25": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "WRI-22": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "PRT-05": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "BLD-27": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "WIK-30": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "WEB-06": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "UIX-31": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "AST-32": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "LOR-33": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    },
+    "SIM-34": {
+      "selected": true,
+      "reason": "",
+      "prompt": "",
+      "dependencies": []
+    }
+  },
+  "isError": false
+}

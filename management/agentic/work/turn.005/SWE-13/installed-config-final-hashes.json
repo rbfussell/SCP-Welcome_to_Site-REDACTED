@@ -1,0 +1,98 @@
+[
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/config.toml",
+    "sha256": "4a03b2c1743b432a531908d8093226b7c461fd11e825e0bb339e01b2b6238884"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-ast-32.toml",
+    "sha256": "27aca68db614099966fc0b5dc133f3cce87be9266343dda0268b5f1832a6f8b6"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-aud-25.toml",
+    "sha256": "fae097e6bf2f52b31c9f2df5a202644d77d03aadcd52e9d9543421fe842e121a"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-bld-27.toml",
+    "sha256": "20f7df8fb81ac57873b20207d102c0406359c60fe0b35148e40a4078024d1d52"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-dem-08.toml",
+    "sha256": "b5a34feae39fa6a9a8ee773ef97446b46fd458dbabdb4d52bf99759ae6622c58"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-doc-10.toml",
+    "sha256": "db3d9a90f90b7764234f684a522e05076e58fc040352a055563486f2fa170eb5"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-eng-00.toml",
+    "sha256": "f028e2c1eec5ac5567c892a767b13edb6713e7c3f932dad99c386a8f887b9045"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-evc-28.toml",
+    "sha256": "74ed9dd6957b61c53a0af4834450df97c72024e8349f21cec07b8cee6687f1bc"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-ia-11.toml",
+    "sha256": "9bc83bb0e13e41b35ca003988668f0987d7be6389c98cd85ab722f7160d258ce"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-kra-14.toml",
+    "sha256": "403d57e68421677cf957491fb59959d8fb1c72feea52b6dac78787e88e314505"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-lor-33.toml",
+    "sha256": "5e83f0853252e09a97dd76b14e8875111734995b23b1633f115b14d1ff4076e8"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-med-07.toml",
+    "sha256": "7d0cf49bdf222312fb2405cacc7530bee209c43214eeac860689a1206b98b672"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-ops-17.toml",
+    "sha256": "c5a79ba42b2c001baf130d63aa7827b80cc2efcd9456dd280390110809a95dce"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-prt-05.toml",
+    "sha256": "8afe9414a1126c103a4cefb9fc072176ec1354f9deba2408823c2d8d977b27a3"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-qa-16.toml",
+    "sha256": "566a5179ed25c173b8d46674bbaceb1932cb3f7d358552e61ba1e320828340f3"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-res-09.toml",
+    "sha256": "884d716121ffb170ba4d71fc5193984805907c199a7a71b28b9529fb852af2a8"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-sec-18.toml",
+    "sha256": "47b7c5c7e6ea8b4971e6aae9f22c03aea07d44da8f0c9b9805cb3e75fdf104ed"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-sho-12.toml",
+    "sha256": "d21feae9f5900f967291cc770a75a1ac898f32ae99f8cd527e2f83176e853851"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-sim-34.toml",
+    "sha256": "2e8a931b3c142e1ceebd0b8796ef20397ff69ddefb34154f490eb15675deb065"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-swe-13.toml",
+    "sha256": "1c2f5b353c86b9d4c8a18e3dac0db3244ba784eea7ca55200f5810766a603d7e"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-uix-31.toml",
+    "sha256": "b36a7062f5f78505c7faf7560b13fa9f0dcf069c0e2ef79c4dff27acff77b1cc"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-web-06.toml",
+    "sha256": "49cede3989dddba548cbbc4bbdac6dce8e39d5d57edc80ed9cd4479dfb23d9e0"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-wik-30.toml",
+    "sha256": "53d75990dd7bdbea90af2942c2260653eadc457df1ea6c96399104ad95f60bf6"
+  },
+  {
+    "path": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/.codex/agents/scp-wri-22.toml",
+    "sha256": "e46254b54acab57d448f9aa9a6ada7cf0941c461fd81ef528f1c436f50150e29"
+  }
+]

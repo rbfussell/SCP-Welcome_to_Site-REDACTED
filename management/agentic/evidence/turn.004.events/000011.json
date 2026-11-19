@@ -1,0 +1,93 @@
+{
+  "sequence": 11,
+  "timestamp": "2026-11-11T17:30:55.245445+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.004",
+    "agent_id": "KRA-14",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "221199b8ffcd184a0f7004b37c3b2ffb968a08e848de36a8cebddd4873f3bf63",
+    "assigned_scope": "Independently review bounded documentation corrections and the separation of current source facts, historical evidence and runtime acceptance; no source edits, baseline or acceptance claim.",
+    "work_performed": "Read applicable rules, actual wiki and connected guidance, existing implementation and host observations, independent turn.003 IA/DOC and immutable publication. Identified current correction and temporal wording scope, preserved historical and acceptance boundaries, and wrote only owned review artifacts.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.004/KRA-14/report.md",
+        "sha256": "8f4f22addfd8eb42ae21a623edaa25553de319162d51e02827d025b793dd60e2"
+      },
+      {
+        "path": "management/agentic/work/turn.004/KRA-14/inspection.json",
+        "sha256": "8e2f39b9f950c3fcdadcf57391ab15b1e653cbae4173c84f9da05915222c4733"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 tools/build_game_wiki.py --check (read-only pre-documentation freshness)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.004/KRA-14/inspection.json",
+            "sha256": "8e2f39b9f950c3fcdadcf57391ab15b1e653cbae4173c84f9da05915222c4733"
+          }
+        ]
+      },
+      {
+        "command": "python3 ../scripts/manage_game.py status; .venv-harness/bin/python tools/agentic.py status (separate read-only calls)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.004/KRA-14/inspection.json",
+            "sha256": "8e2f39b9f950c3fcdadcf57391ab15b1e653cbae4173c84f9da05915222c4733"
+          },
+          {
+            "path": "management/agentic/work/turn.004/KRA-14/report.md",
+            "sha256": "8f4f22addfd8eb42ae21a623edaa25553de319162d51e02827d025b793dd60e2"
+          }
+        ]
+      },
+      {
+        "command": "No product regressions, implementation mutation or final build/semantic gate run by KRA; unchanged-wrapper confirmation belongs to SWE and final documentation gates to WIK.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.003/IA-11/audit.json",
+        "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/work/turn.003/DOC-10/report.md",
+        "sha256": "2fe713bec68b650f80b3ad0d39407534128fba18368e185859df7b9a89090ab6"
+      },
+      {
+        "path": "management/agentic/publications/turn.003.json",
+        "sha256": "3cc5b40e58e1341791b5e7a12edb34ec64f5e370219ec33f6f6a0054c16d5c0a"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+        "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+      }
+    ],
+    "limitations": [
+      "Review is pre-WIK; known IA-003-001 and connected current temporal drift remain for WIK correction and final semantic review.",
+      "Current READY is a local prerequisite result; cases/import/setup/task and production remain unsettled until matching accepted terminal publication.",
+      "Host observations are time-scoped transport evidence and do not authenticate all workers; synthetic fresh-server checks do not prove resident host hot reload or its patched failure reply.",
+      "No gameplay/M0, canon/assets, deployment or exhaustive future research/finding-resolution qualification."
+    ],
+    "architecture": {
+      "unresolved_questions": [],
+      "baseline_artifacts": []
+    },
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "78215c52d946eb180ad7ae9e2061c52a94e0446104e37a359c7cef7a2088b203",
+  "hash": "9ee61e0e2c707edf4b0cbf6d4e60075e91a7ca5140ae8ccb5104955e88b13aa5"
+}

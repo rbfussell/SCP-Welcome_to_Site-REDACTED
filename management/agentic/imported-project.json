@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "2a86ca5",
+  "scope": "Import the accepted existing game design and historical software adapter evidence only; no newly conducted question survey, research, game qualification or milestone acceptance is claimed.",
+  "timestamp": "2026-11-11T10:50:36.727058+00:00",
+  "historical_sources": [
+    {
+      "path": "management/agentic/bootstrap/import-history/README.md",
+      "sha256": "1c0f632ae0cbfc0f30bd732555546d49a2f5f4b47210ea7af2889fb92ec76c15"
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/docs--12-development-workflow.md",
+      "sha256": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6"
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/docs--58-software-project-management.md",
+      "sha256": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e"
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/management--README.md",
+      "sha256": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f"
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/management--profile.json",
+      "sha256": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51"
+    }
+  ],
+  "authorization_evidence": [
+    {
+      "path": "management/agentic/bootstrap/user-authorization.md",
+      "sha256": "a2f196b3a540cb98cf99438fbc2274676bf575f11e349281ee33926abd6111c9"
+    }
+  ],
+  "status": "IMPORTED_HISTORY_NOT_NEW_QUALIFICATION",
+  "hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1"
+}

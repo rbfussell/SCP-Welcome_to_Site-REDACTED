@@ -1,0 +1,183 @@
+{
+  "turn_id": "turn.003",
+  "agent_id": "WIK-30",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "e6e04d6f81103c2dff01bd74074e73bbfe7db0653f11e8ddab1b7b008aeddd43",
+  "assigned_scope": "Actual authored Wiki, affected technical guides/managed templates/profile and static evidence metadata after all execution owners; real task-recorded tests/docs/build/check and semantic/link review.",
+  "work_performed": "Updated four authored pages and linked technical/managed documentation for the two independently tested corrections, observed host connection, preserved interrupted/rejected history and current limits. Added regression static evidence and real source links, reinstalled overlay, ran final sequential recorded checks and inspected generated article links/semantics. Preserved initial failed build and owned helper/path errors; no runtime repair.",
+  "artifacts": [
+    "management/agentic/work/turn.003/WIK-30/before-source-hashes.json",
+    "management/agentic/work/turn.003/WIK-30/changed-authored-files.json",
+    "management/agentic/work/turn.003/WIK-30/docs.log",
+    "management/agentic/work/turn.003/WIK-30/final-source-hashes.json",
+    "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+    "management/agentic/work/turn.003/WIK-30/full-documents.log",
+    "management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+    "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+    "management/agentic/work/turn.003/WIK-30/helper-limits.json",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/docs.log",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-result.json",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-result.json",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-result.json",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/recorded-check-results.json",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/tests.log",
+    "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+    "management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+    "management/agentic/work/turn.003/WIK-30/managed-docs-result.json",
+    "management/agentic/work/turn.003/WIK-30/managed-docs-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/managed-tests-result.json",
+    "management/agentic/work/turn.003/WIK-30/managed-tests-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/managed-wiki-build-result.json",
+    "management/agentic/work/turn.003/WIK-30/managed-wiki-build-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/managed-wiki-check-result.json",
+    "management/agentic/work/turn.003/WIK-30/managed-wiki-check-stderr.log",
+    "management/agentic/work/turn.003/WIK-30/overlay-check.log",
+    "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+    "management/agentic/work/turn.003/WIK-30/overlay-install.log",
+    "management/agentic/work/turn.003/WIK-30/reading-notes.json",
+    "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+    "management/agentic/work/turn.003/WIK-30/report.md",
+    "management/agentic/work/turn.003/WIK-30/run_recorded_checks.py",
+    "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+    "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+    "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+    "management/agentic/work/turn.003/WIK-30/supplemental-check-results.json",
+    "management/agentic/work/turn.003/WIK-30/tests.log",
+    "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+    "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+    "management/agentic/work/turn.003/WIK-30/wiki-precheck.log"
+  ],
+  "evidence": [
+    "AGENTS.md",
+    "management/README.md",
+    "management/profile.json",
+    "management/harness/AGENTS.md",
+    "management/harness/README.md",
+    "docs/12-development-workflow.md",
+    "docs/59-agentic-development-loop.md",
+    "source_material/game-wiki/README.md",
+    "source_material/game-wiki/content/agentic-loop.md",
+    "source_material/game-wiki/content/project-management.md",
+    "source_material/game-wiki/content/development.md",
+    "source_material/game-wiki/content/status.md",
+    "tools/build_game_wiki.py",
+    "management/harness/manage_game.py",
+    "tools/agentic.py",
+    "tools/game_workflow.py",
+    "tools/agentic_mcp.py",
+    "tests/test_agentic_entrypoints.py",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/bootstrap/host-failed-response-defect.md",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.003/QA-16/report.md",
+    "management/agentic/work/turn.003/QA-16/source-after.json"
+  ],
+  "game_wiki": {
+    "pages": [
+      "source_material/game-wiki/content/agentic-loop.md",
+      "source_material/game-wiki/content/project-management.md",
+      "source_material/game-wiki/content/development.md",
+      "source_material/game-wiki/content/status.md",
+      "source_material/game-wiki/content/home.md",
+      "source_material/game-wiki/content/engine.md"
+    ],
+    "semantic_review": true,
+    "evidence": [
+      "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+      "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+      "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+      "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+      "management/agentic/work/turn.003/WIK-30/semantic-review.md"
+    ]
+  },
+  "tests": [
+    {
+      "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_*.py -v",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/tests.log",
+        "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log"
+      ]
+    },
+    {
+      "command": "python3 tools/check_management_docs.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/docs.log",
+        "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log"
+      ]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+        "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log"
+      ]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py --check",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+        "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log"
+      ]
+    },
+    {
+      "command": "python3 management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/full-documents.log"
+      ]
+    },
+    {
+      "command": "python3 management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+        "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+        "management/agentic/work/turn.003/WIK-30/semantic-review.md"
+      ]
+    },
+    {
+      "command": "python3 tools/configure_project_harness.py --root .. --check",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/overlay-final-check.log"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/git-diff-check.log"
+      ]
+    },
+    {
+      "command": "Initial recorded python3 tools/build_game_wiki.py before four source-link targets were generated; corrected documentation and later final build/check PASS",
+      "status": "FAIL",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log"
+      ]
+    },
+    {
+      "command": "Initial owned full-document helper before generation/install path contexts were corrected in the helper",
+      "status": "FAIL",
+      "evidence": [
+        "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log"
+      ]
+    }
+  ],
+  "limitations": [
+    "WIK assigned scope complete only; EVC, independent IA, DOC publication and task/import acceptance remain pending. IA-002-001 is not resolved by documentation prose.",
+    "Actual fresh local MCP fixture is isolated and synthetic. Observed earlier host readiness proves that connection at that time, not worker authenticity or resident host hot reload/corrected host-exposed failure acknowledgement.",
+    "Original interrupted .001/.002 history, REJECTED prior audit, DOC quota failure, schema response error and adverse logs remain preserved; no earlier acceptance was invented.",
+    "First recorded build failed due to four missing evidence-page targets; corrected only source links and reran final gates after changed documentation. Original task logs remain; initial helper/path errors are retained separately.",
+    "Final 58 tests include independent QA's 53 covered types plus five wiki catalog checks. Initial/final repeated runs are not additional distinct tests. No fresh native gameplay/M0, art/canon or exhaustive later research/finding-resolution qualification."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

@@ -1,0 +1,9 @@
+# Turn.006 evidence collection
+
+The runtime package covers ENG-00, KRA-14, SWE-13 and WIK-30, with 79 distinct hashed references and no reported missing execution invocations, handoffs, failures or integrity issues. Its snapshot ends at event 19, the Collector invocation. The supplemental inspection records all five invocation receipts through collection, alongside prior matching authorization tickets and exact prompt hashes. The 23 selections include seven selected roles and 16 unique exclusions. Events 9, 10 and 13 record execution handoffs before WIK-30's event 15 invocation. Wiki handoff event 16 precedes collection phase event 17 and dispatch events 18–19. Independent IA and DOC are pending at this snapshot.
+
+All four task checks report PASS. Four log hashes and all 45 declared static input hashes per check matched current bytes. The tests gate verified the retained nine-test SWE transcript. The other gates ran the documentation checker and Wiki build and freshness commands. The WIK semantic log and report record inspection of reciprocal links and both guidance targets from IA-003-001. Broader harness tests and gameplay qualification are outside the current test evidence.
+
+Effective routing and usage are unexposed for the five observed explicit dispatches. Retained requested arguments and host receipts agree with the frozen selection and invocation records. The host-visible fixed defaults are reported separately from these invocations. Resident workflow MCP reload and backend model, effort, token and quota measurements remain unverified. The runtime records supplied receipts, and IA has the event files and retained dispatch records for independent examination.
+
+At collection, the frozen setup assessment identifies import basis `cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1`. The pending audit and publication determine corrective case disposition and import acceptance.

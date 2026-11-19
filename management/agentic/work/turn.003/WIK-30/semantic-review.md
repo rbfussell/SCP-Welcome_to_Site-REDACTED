@@ -1,0 +1,13 @@
+# WIK-30 semantic review — turn.003
+
+The corrected wrapper resolves and validates the project pointer, removes the agents selector, prepends the resolved game tools directory and dispatches through runpy. Current wiki and technical guide descriptions match those bytes and QA's independent installed-root/unrelated-cwd plus board/direct-CLI results. This is development tooling, with no simulation, character-knowledge, canon or M0 change.
+
+Shared CLI/MCP failed dispatch first calls the unchanged runtime. Only a successful append returns the dictionary with original arguments, FAILED and recorded=true. The unchanged runtime validates sealed turns, pending invocation and substantive reason; errors remain errors. The five focused regression sources and actual fresh stdio fixture transcript exercise one recorded event and invalid/duplicate/sealed calls. Their synthetic receipts are explicitly isolated, never independent production worker evidence. The resident host's patched failure response has not been exercised; hot reload is unverified.
+
+The external host readiness receipt records a successful Codex-exposed call at 2026-11-11 16:42:06 UTC. The generic local NOT_OBSERVED field does not inspect transport, and READY can coexist with an absent MCP dependency under system Python. New descriptions keep those facts separate, preserving prior CONFIGURED_UNVERIFIED reports as historical evidence. They do not authenticate every worker.
+
+Original .001/.002 reports, rejected audit IA-002-001, DOC quota failure and failed-response evidence were not rewritten. Both turns remain interrupted, without accepted import or DOC publication. Turn.003 terminal review/acceptance remains the later IA/DOC runtime outcome; this Wiki handoff does not pre-accept it. The game ledger's native implementation and open gameplay limits remain unchanged.
+
+The initial wiki freshness check found two expected stale implementation hashes. The first final rebuild failed because four newly authored source-page links lacked generated targets. Adding the four real source Markdown links to docs59 made those targets discoverable by the existing generator; no generator behavior/runtime source repair was needed. Original task logs and copied initial-recorded evidence are retained. Final task checks were rerun after that documentation byte change so all declared input snapshots agree. The owned full-document helper's earlier path-context error is separately retained and corrected in that helper only.
+
+Final generated page/link/manifest inspection and the final recorded logs supply the associated evidence; a hash/link check alone is not semantic acceptance.

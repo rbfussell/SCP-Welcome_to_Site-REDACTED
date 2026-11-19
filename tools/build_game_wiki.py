@@ -472,7 +472,7 @@ def cross_archive_research():
 NAV = [('index.html', 'Main archive'), ('items.html', 'Item catalog'), ('scp-index.html', 'SCP files'), ('engine.html', 'Engine overview'),
        ('systems.html', 'Shared systems'), ('functions.html', 'Function directory'), ('types.html', 'Types'),
        ('files.html', 'Source files'), ('documents.html', 'Design library'), ('status.html', 'Implementation ledger'),
-       ('development.html', 'Development workflow'), ('project-management.html', 'Project management'),
+       ('development.html', 'Development workflow'), ('project-management.html', 'Project management'), ('agentic-loop.html', 'Agentic loop'),
        ('research.html', 'Research & credits'), ('canon-index.html', 'Canon sources'), ('archive-research.html', 'Archive research')]
 
 def render():
@@ -558,6 +558,12 @@ def main():
     evidence_paths = docs + sorted((OUT / 'content').glob('*.md')) + sorted((ROOT / 'game/Content').glob('*.json')) + sorted((ROOT / 'schemas').glob('*.json')) + sorted((ROOT / 'tests/SpatialChecks').glob('*.cs'))
     evidence_paths += sorted((ROOT / 'game/Assets/items').rglob('PROVENANCE.md'))
     evidence_paths += [ROOT / p for p in ('management/profile.json', 'management/harness/AGENTS.md', 'management/harness/README.md', 'management/harness/manage_game.py', 'management/task-template.json', 'tools/manage_project.py', 'tools/configure_project_harness.py', 'tools/check_management_docs.py', 'tests/test_project_management.py')]
+    # Hash static agentic sources, never evolving process events/logs/publications.
+    evidence_paths += [ROOT / p for p in ('AGENTS.md', 'source_material/game-wiki/README.md', 'source_material/game-wiki/llms.txt', 'management/harness/requirements.txt', 'management/harness/runtime/UPSTREAM.json', 'tools/game_workflow.py', 'tools/agentic.py', 'tools/agentic_mcp.py', 'tools/check_agentic_mcp.py', 'tools/call_agentic_mcp.py', 'tools/configure_agentic_client.py', 'tools/install_agentic_dependencies.py', 'tests/test_agentic_workflow.py', 'tests/test_agentic_client_setup.py', 'tests/test_agentic_entrypoints.py')]
+    evidence_paths += [ROOT / p for p in ('management/model-policy/README.md', 'management/model-policy/policy.json', 'tools/agent_model_policy.py', 'tools/configure_agent_models.py', 'tests/test_agent_model_policy.py')]
+    evidence_paths += sorted((ROOT / 'management/harness/runtime').glob('*.py'))
+    evidence_paths += sorted((ROOT / 'management/harness/runtime/config').glob('*.json'))
+    evidence_paths += sorted((ROOT / 'management/harness/runtime/schemas').glob('*.json'))
     evidence_paths += item_sources + [OUT / 'assets/wiki.css', ROOT / 'tools/build_game_wiki.py', ROOT / 'tests/test_wiki_items.py']
     manifest = {'built_utc': datetime.now(timezone.utc).isoformat(), 'game_revision': git(ROOT, 'rev-parse', 'HEAD'),
         'archive_revision': git(ARCHIVE, 'rev-parse', 'HEAD'), 'source_files': len(files), 'declared_members': len(members),

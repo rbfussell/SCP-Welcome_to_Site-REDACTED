@@ -1,0 +1,12 @@
+{
+  "sequence": 14,
+  "timestamp": "2026-11-19T17:04:40.768746+00:00",
+  "kind": "DISPATCH_AUTHORIZED",
+  "data": {
+    "agent_id": "WIK-30",
+    "authorization_id": "a2a66ccf09b14455b446c6257a8a2ad7",
+    "prompt_hash": "463817a78bf363d751bd085fe5075207725589aa1380efece7d7cb58402356a4"
+  },
+  "previous_hash": "ca245d9330c197f347e77e247bb3f6cae1c5dd6545105a853b785705ebc48304",
+  "hash": "2cd5963b44eac3bcd730b12accccef1538031c440e3429f3b7861d8343264c85"
+}

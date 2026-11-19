@@ -1,0 +1,27 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "KRA-14",
+  "recorded_at": "2026-11-12T00:18:33.126234+00:00",
+  "dispatch_mechanism": "explicit_tool_overrides",
+  "request": {
+    "task_name": "architecture_policy005",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "low",
+    "fork_turns": "none",
+    "message": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/KRA-14/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nReview bounded architecture for real model-policy implementation before SWE. Recommend minimal policy JSON, resolver/dispatch provenance, actual workspace .codex custom-agent/default config installer preserving unrelated MCP/custom settings and unknown effective host metadata. Do not overengineer runtime dispatch changes or hot reload. Existing collaboration spawn supports explicit model/reasoning_effort/fork_turns:none, but not selecting a custom-agent file; record explicit overrides honestly. Parent cannot change its in-flight model through available tools; coordinator defaults are for future starts. Cover per-task work-class overrides, escalation justification and representative observation without repeating passing tests. Own report/handoff only; no source editing. Record explicit scoped empty questions if no material ambiguity."
+  },
+  "host_response": {
+    "task_name": "/root/architecture_policy005"
+  },
+  "effective": {
+    "model": null,
+    "reasoning_effort": null,
+    "status": "HOST_EFFECTIVE_NOT_EXPOSED"
+  },
+  "usage": {
+    "tokens": null,
+    "allowance_consumption": null,
+    "status": "NOT_EXPOSED"
+  },
+  "provenance_limit": "Parent-recorded actual tool arguments and returned receipt, externally reviewable; not backend introspection or authenticated identity."
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/agentic/work/turn.003/IA-11/verify_audit.py", line 134, in <module>
+    assert all(row['exit_code']==0 for row in results)
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

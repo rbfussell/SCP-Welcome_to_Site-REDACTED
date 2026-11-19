@@ -1,0 +1,10 @@
+{
+  "sequence": 15,
+  "timestamp": "2026-11-12T00:11:05.790611+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "INTERRUPTED"
+  },
+  "previous_hash": "704ca0ab70e84c65e992916e7c02b8c82d4f664291f99b577c0bbfdf40370905",
+  "hash": "1a1013b60a8914cbdcef40090d58eb7f5e1a80fe52e5f4e81c122d93f4cca899"
+}

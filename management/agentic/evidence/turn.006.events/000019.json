@@ -1,0 +1,15 @@
+{
+  "sequence": 19,
+  "timestamp": "2026-11-19T17:08:27.895454+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "EVC-28",
+    "prompt_hash": "16eb15895d89cefe8ef79f71236eac7d744bf941a79d30b4904cb3bdd539864d",
+    "receipt": "/root/evc006",
+    "backend": "codex-collaboration",
+    "authorization_id": "0b5fc9697d0648c8bbf3757ad8b458fa",
+    "owned_directory": "work/turn.006/EVC-28"
+  },
+  "previous_hash": "c23c8b338ee979ce6daf94342953d3899ce828a6d8cd1594cd724efd0a24d92a",
+  "hash": "dd4fd3beb48ed674f1cd3e9cb479b0f5672d23bc7d0ecbc08946ba67f3d09bd9"
+}

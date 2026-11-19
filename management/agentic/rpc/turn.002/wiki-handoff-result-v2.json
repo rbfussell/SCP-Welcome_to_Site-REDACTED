@@ -1,0 +1,265 @@
+{
+  "turn_id": "turn.002",
+  "agent_id": "WIK-30",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+  "assigned_scope": "Actual authored game-wiki and linked technical docs/profile/templates after owner freeze, final rebuild/freshness and semantic review; no game runtime edits.",
+  "work_performed": "Documented active real agentic loop and23software/game roles, individual unused-role negations, exact dispatch/source ownership and WIK-versus-DOC order; preserved historical self-review/import and interrupted quota turn; rebuilt/inspected actual wiki and recorded the newly observed outer shortcut failure for independent IA/new SWE correction.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+      "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+      "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+      "sha256": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+      "sha256": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+      "sha256": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+      "sha256": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+      "sha256": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+      "sha256": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+      "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+      "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+      "sha256": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/report.md",
+      "sha256": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+      "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+      "sha256": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb"
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-precheck.log",
+      "sha256": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "sha256": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b"
+    },
+    {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "sha256": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb"
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "sha256": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171"
+    },
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "sha256": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325"
+    },
+    {
+      "path": "source_material/game-wiki/content/home.md",
+      "sha256": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03"
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "sha256": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f"
+    },
+    {
+      "path": "management/README.md",
+      "sha256": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283"
+    },
+    {
+      "path": "management/profile.json",
+      "sha256": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6"
+    },
+    {
+      "path": "management/harness/AGENTS.md",
+      "sha256": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db"
+    },
+    {
+      "path": "management/harness/README.md",
+      "sha256": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "sha256": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a"
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+    },
+    {
+      "path": "docs/59-agentic-development-loop.md",
+      "sha256": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319"
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "sha256": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a"
+    },
+    {
+      "path": "source_material/game-wiki/llms.txt",
+      "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+    },
+    {
+      "path": "tools/build_game_wiki.py",
+      "sha256": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c"
+    }
+  ],
+  "game_wiki": {
+    "pages": [
+      "source_material/game-wiki/content/agentic-loop.md",
+      "source_material/game-wiki/content/project-management.md",
+      "source_material/game-wiki/content/development.md",
+      "source_material/game-wiki/content/status.md",
+      "source_material/game-wiki/content/home.md",
+      "source_material/game-wiki/content/engine.md"
+    ],
+    "semantic_review": true,
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+        "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+      },
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+        "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+      },
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+        "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+      }
+    ]
+  },
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -p test_agentic*.py -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+          "sha256": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/check_management_docs.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+          "sha256": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+          "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py --check",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+          "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+        }
+      ]
+    },
+    {
+      "command": "python3 management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+          "sha256": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de"
+        }
+      ]
+    },
+    {
+      "command": "python3 management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+          "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+        }
+      ]
+    },
+    {
+      "command": "python3 tools/configure_project_harness.py --root .. --check",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+          "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+        }
+      ]
+    },
+    {
+      "command": "python3 ../scripts/manage_game.py agents readiness",
+      "status": "FAIL",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+          "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Known observed outer scripts/manage_game.py agents shortcut ModuleNotFoundError game_workflow; source freeze preserved and SWE-13 correction/regression required in a new turn. This is not setup/task acceptance.",
+    "Local stdio protocol/configuration are verified but no live host workflow tool call observed; host connection CONFIGURED_UNVERIFIED.",
+    "Collector, independent IA, DOC publication and import acceptance remain pending at this handoff; no gameplay/M0 qualification or invented historical questions/research."
+  ],
+  "handoff_status": "COMPLETE"
+}

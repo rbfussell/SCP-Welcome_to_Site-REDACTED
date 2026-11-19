@@ -1,0 +1,25 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "QA-16",
+  "dispatch_mechanism": "explicit_tool_overrides",
+  "request": {
+    "task_name": "qa_policy005",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "fork_turns": "none",
+    "message": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/QA-16/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nIndependently verify new policy/resolver/installer behavior and prior wrapper correction, inspect actual requested-vs-effective honesty, all-role coverage, preservation/idempotency and negative cases; use meaningful tests once after final code. Own test evidence/report/handoff, no implementation repair. .venv-harness Python is required for real MCP regressions; default sandbox IPC hangs, so use require_escalated for bounded real MCP tests and retain actual logs. Existing full discovery58 tests is baseline before new policy tests. Avoid repeated passing tests for model comparison. Report exposed usage/allowance as unavailable when missing. Do not run wiki build concurrently; WIK owns final task check records. If no source defect, hand off and freeze source."
+  },
+  "host_response": {
+    "task_name": "/root/qa_policy005"
+  },
+  "effective": {
+    "model": null,
+    "reasoning_effort": null,
+    "status": "HOST_EFFECTIVE_NOT_EXPOSED"
+  },
+  "usage": {
+    "tokens": null,
+    "allowance_consumption": null,
+    "status": "NOT_EXPOSED"
+  }
+}

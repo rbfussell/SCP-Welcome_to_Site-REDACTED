@@ -1,0 +1,94 @@
+{
+  "turn_id": "turn.002",
+  "value": {
+    "turn_id": "turn.002",
+    "agent_id": "SWE-13",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+    "assigned_scope": "Implement the genuine game workflow policy, shared CLI/MCP runtime, explicit historical import and accepted agentic slice closure; preserve game/wiki/canon/history.",
+    "work_performed": "Reused copied real harness with narrow documented hooks, versioned23-role setup and actual WIK sequencing; implemented shared22operation CLI/MCP and bounded protocol probe; enforced matching independent accepted-publication slice completion. Reviewed/adopted root bootstrap helpers and recorded real verification.",
+    "artifacts": [
+      "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+      "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+      "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+      "management/agentic/work/turn.002/SWE-13/compile.log",
+      "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+      "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+      "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+      "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+      "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+      "management/agentic/work/turn.002/SWE-13/report.md",
+      "management/agentic/work/turn.002/SWE-13/task-status.json"
+    ],
+    "tests": [
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_workflow.py -v",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_client_setup.py",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/client-setup-tests.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python tools/check_agentic_mcp.py (actual local stdio outside sandbox)",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/mcp-probe.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python py_compile for ten actual implementation files",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/compile.log"
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python actual process structure inspection assertions",
+        "status": "PASS",
+        "evidence": [
+          "management/agentic/work/turn.002/SWE-13/final-structure-check.log"
+        ]
+      }
+    ],
+    "evidence": [
+      "tools/game_workflow.py",
+      "tools/agentic.py",
+      "tools/agentic_mcp.py",
+      "tools/check_agentic_mcp.py",
+      "tools/manage_project.py",
+      "tools/call_agentic_mcp.py",
+      "tools/configure_agentic_client.py",
+      "tools/install_agentic_dependencies.py",
+      "management/harness/runtime/workflow.py",
+      "management/harness/runtime/preflight.py",
+      "management/harness/runtime/UPSTREAM.json",
+      "management/harness/runtime/config/game_roles.json",
+      "management/agentic/imported-project.json",
+      "tests/test_agentic_workflow.py",
+      "tests/test_agentic_client_setup.py",
+      "management/agentic/work/turn.002/QA-16/report.md",
+      "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "management/agentic/work/turn.002/QA-16/agentic-tests.log"
+    ],
+    "limitations": [
+      "Actual Codex host MCP loading remains unobserved; successful local protocol and configured files are not live host-registration proof.",
+      "Root must submit actual handoffs; WIK final docs/build and Collector/independent IA/Document Chief publication remain pending.",
+      "No new gameplay/native renderer/canon/milestone qualification; receipt strings are externally attested and hashes are not tamper-proof."
+    ],
+    "handoff_status": "COMPLETE"
+  }
+}

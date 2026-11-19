@@ -1,0 +1,10 @@
+{
+  "sequence": 29,
+  "timestamp": "2026-11-11T11:23:41.875894+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "DOCUMENT_CHIEF"
+  },
+  "previous_hash": "a8747d828bd822fd7727c7155044abd06388970f87a45e643a30f4d4f4a28fb0",
+  "hash": "f8364ada8c47146470b2c54b2b03c2274cbfaf2a24ed0ab79bc0bbe5bcf51521"
+}

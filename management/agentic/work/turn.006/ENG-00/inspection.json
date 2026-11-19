@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "board": {
+    "profile": "software-game",
+    "game_root": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "tasks": [
+      {
+        "id": "agentic-loop-setup",
+        "title": "Activate the real agentic development loop and actual game-wiki agent",
+        "status": "active"
+      },
+      {
+        "id": "equipment-loop-qualification",
+        "title": "Qualify the existing clothing, ground, attachments and badge loop",
+        "status": "proposed"
+      },
+      {
+        "id": "facility-utilities-proof",
+        "title": "Implement the bounded existing facility-utilities proof",
+        "status": "proposed"
+      },
+      {
+        "id": "pm-integration",
+        "title": "Integrate the software management profile without changing the game workflow",
+        "status": "done"
+      }
+    ]
+  },
+  "task_binding_at_review": "turn.006",
+  "latest_acceptance_at_review": "GPT-6.2 role defaults and difficulty ranges drive explicit host requests and installed configuration, with justified escalation and truthful requested versus effective provenance",
+  "frozen_registry_roles": 23,
+  "distinct_exclusions": 16,
+  "selected_requests": {
+    "ENG-00": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "dependencies": []
+    },
+    "KRA-14": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "dependencies": []
+    },
+    "SWE-13": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14"
+      ]
+    },
+    "WIK-30": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14",
+        "SWE-13"
+      ]
+    },
+    "EVC-28": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "dependencies": [
+        "WIK-30"
+      ]
+    },
+    "IA-11": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "dependencies": [
+        "EVC-28"
+      ]
+    },
+    "DOC-10": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "dependencies": [
+        "IA-11"
+      ]
+    }
+  },
+  "observed_at_review": {
+    "ENG-00": {
+      "prompt_sha256": "32463ceada1415cb5ae687e27103c9b50d58c6bc09a7cde354cc354160604aa6",
+      "receipt": "/root/eng006",
+      "authorization_sequence": 5,
+      "invocation_sequence": 7
+    },
+    "KRA-14": {
+      "prompt_sha256": "f53b2166e19cf00e86730cb73df2762eb5e7f79c83eaa3a1e0a5a3c223f0070c",
+      "receipt": "/root/kra006",
+      "authorization_sequence": 6,
+      "invocation_sequence": 8
+    }
+  },
+  "wiki_preflight_check": {
+    "command": "python3 tools/build_game_wiki.py --check",
+    "exit_code": 0,
+    "stdout": "Wiki validation passed: 2251 HTML pages; all local links and anchors; 141 C# files; source/evidence hashes current."
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "SWE-13",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "07c88a227d6eb71037bbadcd182ccc1ac738a45fb4b9387cf906658484fcf45d",
+  "assigned_scope": "Bounded allocation policy/resolver/workspace installer/tests and prior wrapper qualification.",
+  "work_performed": "Implemented five static files, installed real workspace defaults and profiles, ran seven focused tests and actual wrapper/configuration verification; preserved historical records.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/dispatch.json",
+      "sha256": "2216cfdb9dfd25933746f3e61cb993826d3cda72cc46ac2332e61a212d2af018"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/install-final-check.json",
+      "sha256": "0a329f0f31a5f9a11231a8b3d9d08c2df1e916286ea0a39a52dafe4baa55fcfa"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/install-final.json",
+      "sha256": "8e003a759bf1e046411e6d67ff5fa4beac8bdf8331f559e3b8716aeb6355155b"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/install.json",
+      "sha256": "ec64e33713a808d639e4bf2f90f44ce4f89808a31810d78f47b748e4d710633b"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/installed-config-final-hashes.json",
+      "sha256": "408a3383180d5b68663c2652fd3ecf479f436ff248f0271f82477a4405454060"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/installed-config-hashes.json",
+      "sha256": "820c8c5ad627396529f14ccea1f005f0ef6497d9591d59f2530ce817da85dd57"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/policy-tests-final.log",
+      "sha256": "4145e1390473727ddab24e250f0ce07dc95300288b5f294edd6bb53bcd7838e1"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/policy-tests.log",
+      "sha256": "e7afe50b602a22a20fe0b4ca953557cc961e58474d1e728a8aa3625029f76fd7"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/report.md",
+      "sha256": "13f37a788a457a357d57a2799b27a37e0119344a885fc75115378f3a08b5457d"
+    },
+    {
+      "path": "management/agentic/work/turn.005/SWE-13/verification.json",
+      "sha256": "6f52c2d80e30aa0204c634d5ee5e661e2d22e888897a714a7fefeec7daedcaea"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/work/turn.003/IA-11/report.md",
+      "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+    },
+    {
+      "path": "tools/agent_model_policy.py",
+      "sha256": "0068fb057e8eae83d06ce5c7160e98749fe469def6998eab65479f246bb3caca"
+    },
+    {
+      "path": "tools/configure_agent_models.py",
+      "sha256": "81186ff8e94118f3f559f8b923403cef739ec1cc017ffcc47d8aa51daa24268b"
+    },
+    {
+      "path": "management/model-policy/policy.json",
+      "sha256": "7144b3ab08d96470f5ca893185345520f081c3b1c9adc5673cc51bce63b38c6e"
+    },
+    {
+      "path": "management/model-policy/README.md",
+      "sha256": "f71352335f354f368f436e4a416bbaba8043594e3afa7079daa6e0aaff2b3f0c"
+    },
+    {
+      "path": "tests/test_agent_model_policy.py",
+      "sha256": "67680dab0f534d3e7bf3244ed248f4063741b3c0cc35e22317224ead0a4d1ba6"
+    }
+  ],
+  "tests": [
+    {
+      "command": "python3 -m unittest discover -s tests -p test_agent_model_policy.py -v",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.005/SWE-13/policy-tests-final.log"
+      ]
+    },
+    {
+      "command": "Actual outer/unrelated installed wrapper, legacy board, direct CLI and config check",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.005/SWE-13/verification.json",
+        "management/agentic/work/turn.005/SWE-13/install-final-check.json"
+      ]
+    },
+    {
+      "command": "Full runtime/MCP suite and final docs/wiki checks assigned to QA/WIK",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "limitations": [
+    "Effective host settings and usage NOT_EXPOSED; no authentication or quota/quality measurement.",
+    "Resident hot reload unverified; independent QA/WIK/IA/DOC gates pending.",
+    "Installer assumes single owner, no concurrent filesystem mutation."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

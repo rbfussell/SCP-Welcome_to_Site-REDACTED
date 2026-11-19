@@ -1,0 +1,155 @@
+{
+  "sequence": 3,
+  "timestamp": "2026-11-19T16:56:35.045024+00:00",
+  "kind": "SELECTION",
+  "data": {
+    "ENG-00": {
+      "selected": true,
+      "reason": "Actual coordination owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/ENG-00/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Review scope and role routing against user request and selection. Compact report only.",
+      "dependencies": [],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "work_class": "coordination"
+    },
+    "SHO-12": {
+      "selected": false,
+      "reason": "No milestone presentation or audience demonstration is requested for model allocation and existing setup corrections; Vince remains registered with Sol Medium policy."
+    },
+    "EVC-28": {
+      "selected": true,
+      "reason": "Actual evidence owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/EVC-28/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Run existing deterministic evidence collection, note gaps, check dispatch and static hashes; pass concise inventory to IA. No prose duplication.",
+      "dependencies": [
+        "WIK-30"
+      ],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "work_class": "evidence"
+    },
+    "IA-11": {
+      "selected": true,
+      "reason": "Actual independent_analysis owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/IA-11/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Independently compare code, configuration, wiki and test evidence. Focus on cases IA-002-001 and IA-003-001 and adverse routing tests. Write audit.json with disposition, resolved or confirmed findings and evidence, and software-completion-review.json for exact task criteria. Do not repair or repeat passing tests.",
+      "dependencies": [
+        "EVC-28"
+      ],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "work_class": "independent_analysis"
+    },
+    "DOC-10": {
+      "selected": true,
+      "reason": "Actual documentation owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/DOC-10/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Prepare minimal publication entities/resolutions from independent audit and owned raw handoff. On accepted audit include exact project.import hash from import record and task.agentic-loop-setup entity, resolve only independently verified cases. Parent records handoff and executes deterministic publication.",
+      "dependencies": [
+        "IA-11"
+      ],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "work_class": "documentation"
+    },
+    "KRA-14": {
+      "selected": true,
+      "reason": "Actual independent_analysis owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/KRA-14/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Review Sol-first budget/default/escalation design and compact dispatch boundaries. Read /tmp/scp-harness-research.txt matrix and terminal sections as research input. Review only. Include architecture.unresolved_questions and baseline_artifacts arrays.",
+      "dependencies": [],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "work_class": "independent_analysis"
+    },
+    "SWE-13": {
+      "selected": true,
+      "reason": "Actual software_implementation owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/SWE-13/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Implement role-specific GPT-6.2 Sol/Astra floor, default, ceiling in existing model policy/resolver/config installer; hard caps Sol xhigh and Astra high, justified escalation, current CLI compatibility and Light alias. Sol-first, Astra reserved for genuinely hard work. Add appropriate focused tests. Preserve requested/effective distinction. Own policy code/tests and policy README, install actual TOML if authorized. Verify existing IA-002-001 via retained wrapper evidence and byte identity. WIK owns other docs and wiki. Paper is /tmp/scp-harness-research.txt. No orchestration rewrite.",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14"
+      ],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "medium",
+      "work_class": "software_implementation",
+      "corrective_cases": [
+        "IA-002-001"
+      ]
+    },
+    "QA-16": {
+      "selected": false,
+      "reason": "Independent IA checks targeted test evidence for bounded routing changes and unchanged wrapper regressions; no separate QA test authoring or second suite run is needed."
+    },
+    "OPS-17": {
+      "selected": false,
+      "reason": "No release packaging or deployment pipeline changes; the scoped workspace model installer is SWE-owned and normal reviewed Git transport remains coordination."
+    },
+    "SEC-18": {
+      "selected": false,
+      "reason": "No new credentials, network listener or security boundary is introduced; installer preservation and dispatch-claim validation are covered by independent QA/IA."
+    },
+    "RES-09": {
+      "selected": false,
+      "reason": "Human supplied exact allocation and official configuration guidance has already been checked; no unfamiliar model comparison conclusion or new SCP research is adopted."
+    },
+    "MED-07": {
+      "selected": false,
+      "reason": "No sprites, illustrations or textures are authored while configuring role model budgets; its future routine-media default is data only."
+    },
+    "DEM-08": {
+      "selected": false,
+      "reason": "No animation or runnable product demonstration is introduced by the policy/configuration setup; ordinary checks provide required evidence."
+    },
+    "AUD-25": {
+      "selected": false,
+      "reason": "No speech, music, audio files or sound pipeline change is part of this harness allocation task."
+    },
+    "WRI-22": {
+      "selected": false,
+      "reason": "No narrative or dialogue work is requested; WIK owns technical prose and WRI only receives a future documentation-class default."
+    },
+    "PRT-05": {
+      "selected": false,
+      "reason": "This harness initialization/configuration is not a declared gameplay completion milestone or a new prototype design assignment."
+    },
+    "BLD-27": {
+      "selected": false,
+      "reason": "There is no approved milestone construction plan to execute; installer and tests are bounded software setup work owned by SWE/QA."
+    },
+    "WIK-30": {
+      "selected": true,
+      "reason": "Actual documentation owner required for bounded setup, requested allocation and ordered verified closure.",
+      "prompt": "Work in Project for turn.006, task agentic-loop-setup. Read applicable AGENTS, relevant game wiki and source. Preserve historical evidence and unrelated edits. Write owned report and raw handoff.json under management/agentic/work/turn.006/WIK-30/. Use exact frozen prompt SHA256, actual hashes, owned artifacts and external evidence references. No further delegation. Update connected authored wiki/docs and overlay (IA-003-001: llms and docs58 current note, stale pending003 references). Explain new routing including compact role briefs, deterministic evidence and no quota estimates. Preserve adverse history incl interrupted005. Run docs, wiki build then check, inspect linking and semantics. Use recorded test evidence. Supply game_wiki handoff with authored pages, semantic_review and both real build/check test entries.",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14",
+        "SWE-13"
+      ],
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "low",
+      "work_class": "documentation",
+      "corrective_cases": [
+        "IA-003-001"
+      ]
+    },
+    "WEB-06": {
+      "selected": false,
+      "reason": "Wiki renderer/search/layout behavior is unchanged; WIK owns authored policy explanations, links and ordinary generation/evidence metadata."
+    },
+    "UIX-31": {
+      "selected": false,
+      "reason": "No Godot controls, player feedback or native interface changes are included in development-role model selection."
+    },
+    "AST-32": {
+      "selected": false,
+      "reason": "No atlas, mask, artwork binding, import or asset provenance is modified; the role merely gains its future budget profile."
+    },
+    "LOR-33": {
+      "selected": false,
+      "reason": "No canon claims or SCP game adaptations change when applying real agent dispatch/configuration settings."
+    },
+    "SIM-34": {
+      "selected": false,
+      "reason": "Authoritative gameplay time, perception, inventory, modules and persistence remain untouched by this development tooling task."
+    }
+  },
+  "previous_hash": "bf8aefc3c4ef62bc3981bcf9ce2d6678dd1df412230208b1f0d859fbb1002461",
+  "hash": "dfbf72f1323c494002fe7bfd85c8120de5f50064dd8beae9042fc167433937cb"
+}

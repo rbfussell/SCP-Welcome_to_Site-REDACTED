@@ -1,0 +1,16 @@
+[
+  {
+    "source": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/manage_game.py",
+    "snapshot": "management/agentic/work/turn.002/EVC-28/broken-wrapper-template.py.snapshot",
+    "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+    "snapshot_sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+    "purpose": "Immutable adverse source-byte evidence; no source repair performed."
+  },
+  {
+    "source": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py",
+    "snapshot": "management/agentic/work/turn.002/EVC-28/broken-wrapper-installed.py.snapshot",
+    "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+    "snapshot_sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+    "purpose": "Immutable adverse source-byte evidence; no source repair performed."
+  }
+]

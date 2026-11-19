@@ -1,0 +1,36 @@
+[
+  {
+    "label": "full-documents",
+    "argv": [
+      "python3",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/agentic/work/turn.003/WIK-30/full_document_checks.py"
+    ],
+    "returncode": 0,
+    "stdout": "DOCUMENT_CHECKS_PASS: 112 documents, local links/fences, 104 unique acceptance IDs\n",
+    "stderr": ""
+  },
+  {
+    "label": "overlay-final-check",
+    "argv": [
+      "python3",
+      "tools/configure_project_harness.py",
+      "--root",
+      "..",
+      "--check"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"result\": \"PASS\",\n  \"changed\": [],\n  \"note\": \"Only managed documentation blocks, project pointer and wrapper are installed; no strict runtime state is migrated.\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "label": "git-diff-check",
+    "argv": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

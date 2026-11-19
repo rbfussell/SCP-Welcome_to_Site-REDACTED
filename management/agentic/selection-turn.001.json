@@ -1,0 +1,99 @@
+{
+  "ENG-00": {
+    "selected": true,
+    "reason": "Project Coordinator is required to deliver its separately owned ENG-00 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Project Coordinator for setup turn.001. Read the current harness and game integration; produce a bounded integration plan and acceptance checklist, software-relevant role decisions, a complete list of material unknowns (empty allowed with explained coverage), and ownership/dependency recommendations. Do not edit runtime or canonical docs. Write management/agentic/work/turn.001/ENG-00/report.md. Return actual work/evidence/limitations for a structured handoff. Scope is harness setup, not new gameplay or a game milestone.",
+    "dependencies": []
+  },
+  "SHO-12": {
+    "selected": false,
+    "reason": "No sales or milestone presentation is requested in this harness initialization; truthful setup evidence is the deliverable."
+  },
+  "EVC-28": {
+    "selected": true,
+    "reason": "Evidence Collector and Organizer is required to deliver its separately owned EVC-28 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Evidence Collector after all selected specialists and WIK-30 finish, in HANDOFF_COLLECTION phase. Independently inventory selected/excluded roles, actual authorizations/receipts/handoffs, owned artifacts, nested source refs and real logs. Invoke the real build_evidence_package method and inspect missing/changed evidence. Do not repair code/docs or decide IA acceptance. Save report and structured collection handoff under management/agentic/work/turn.001/EVC-28/. Root supplies actual current turn after authorization.",
+    "dependencies": []
+  },
+  "IA-11": {
+    "selected": true,
+    "reason": "Internal Affairs is required to deliver its separately owned IA-11 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Internal Affairs in INTERNAL_AFFAIRS_REVIEW after Evidence Collector. Audit actual assignments, negations for every unused role, dispatch-before-receipt sequence, genuine workers, collector completeness, file hashes, tests, MCP probe vs host connection claims, existing-project migration policy, actual game-wiki updates and documentation agreement. Run focused verification if useful; do not repair outputs. Report ACCEPTED/REJECTED/BLOCKED with concrete findings/owner/evidence and limitations. Save audit/report/handoff under management/agentic/work/turn.001/IA-11/. New findings require honest correction records, not hidden self-repair. Root supplies actual current state.",
+    "dependencies": []
+  },
+  "DOC-10": {
+    "selected": true,
+    "reason": "Document Chief is required to deliver its separately owned DOC-10 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Document Chief last in DOCUMENT_CHIEF phase after independent IA. Read final audit and evidence package. Publish only the accepted/rejected/blocked process outcome and entity references via actual GameWorkflow.publish, after delivering your role-owned structured handoff. Do not edit/rebuild the game wiki or source after review; WIK-30 already owns it. Confirm migration/connection limitations remain explicit, and future loop instructions require every unused registered role to be individually negated. Write final process report under management/agentic/work/turn.001/DOC-10/. No further specialist may run after you. Root supplies actual publish payload and current state.",
+    "dependencies": []
+  },
+  "KRA-14": {
+    "selected": true,
+    "reason": "Krampus Architectural Pre-Processor is required to deliver its separately owned KRA-14 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as architecture reviewer for setup turn.001, after ENG-00. Inspect the coordinator report and copied harness runtime. Review the plan to reuse actual authorization, all-role selection, hash-chain evidence, Collector -> independent IA -> Document Chief, with a WIK-30 game-wiki specialist before collection. An explicit existing-project migration policy may allow future work after accepted setup without falsely claiming historic question/research turns occurred. Preserve research/questions/findings gates for new needs. Identify design conflicts and minimal adapter changes; record unresolved_questions explicitly, with no frozen product baseline. Do not edit runtime/docs. Write management/agentic/work/turn.001/KRA-14/report.md.",
+    "dependencies": [
+      "ENG-00"
+    ]
+  },
+  "SWE-13": {
+    "selected": true,
+    "reason": "Software Engineer is required to deliver its separately owned SWE-13 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Software Engineer for setup turn.001 after ENG-00 and KRA-14 reports. Own tools/game_workflow.py (currently minimal bootstrap path adapter), tools/agentic.py, tools/agentic_mcp.py, tools/check_agentic_mcp.py, tools/manage_project.py and a small documented patch to management/harness/runtime/workflow.py if required. Reuse the copied genuine harness engine; do not invent a new faux agent loop. Runtime stores/registry/publications must live under management/agentic/ and use registered custom WIK-30. Enforce all registered roles accounted exactly once, default YES, unique substantive per-agent exclusions, mandatory coordinator/collector/independent IA/document chief and actual wiki worker. Existing-project migration must be explicit and truthful, keep question/research/findings gates. Require genuine authorization before host spawning, log actual receipts, phases, handoffs and hashes. WIK handles real wiki before Collector; DOC publishes process records last and must not rewrite game docs after IA. Source edits may occur in assigned game paths; handoff artifacts stay role-owned. Add CLI commands backed by the real runtime (init/inventory/status/begin/plan/select/authorize/invoke/handoff/advance/collect/audit/publish/interrupt), and stdio MCP app exposing equivalent operations. Existing software slice CLI must support execution=agentic and new slice completion must require the accepted matching agentic publication and actual wiki handoff, while preserving historical self-reviewed slice records as history. MCP client probe should initialize protocol, list tools and call inventory via subprocess; never claim Codex host live registration from protocol alone. No model API or purchases. Root will install mcp/jsonschema in Project/.venv-harness. Do not own wiki/docs or tests/test_agentic_workflow.py (QA owns it); coordinate requirements with QA. Record real verification and write management/agentic/work/turn.001/SWE-13/report.md. Do not modify root outer harness runtime.",
+    "dependencies": [
+      "KRA-14"
+    ]
+  },
+  "QA-16": {
+    "selected": true,
+    "reason": "Test Engineer is required to deliver its separately owned QA-16 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as independent Test Engineer for setup turn.001. Own tests/test_agentic_workflow.py and management/agentic/work/turn.001/QA-16/report.md; do not modify software implementation or wiki. Read ENG-00/KRA-14 reports and the copied runtime; coordinate interface with SWE-13 through collaboration. Write meaningful temporary-root tests for exact all-role accounting, individual unique exclusions, default YES, mandatory WIK/core, unauthorized dispatch, changed prompt, fake/reused independent receipt restrictions, ordered collection/IA/document phases, blocked/missing handoffs, imported baseline not faked research history, and new software slice completion requiring real accepted agentic publication. Test actual stdio MCP probe when environment installed. Tests may use explicitly labeled fixture receipts; no fixture receipt is production evidence. Wait for engineer implementation before final full results. Return actual logs and limitations in role-owned report. No game feature production.",
+    "dependencies": [
+      "KRA-14"
+    ]
+  },
+  "OPS-17": {
+    "selected": false,
+    "reason": "No game packaging, release pipeline or operational deployment changes are included; SWE owns this bounded harness CLI/MCP setup."
+  },
+  "SEC-18": {
+    "selected": false,
+    "reason": "No new game sandbox, credential handling or public service is introduced; IA reviews the local subprocess and evidence boundaries for this setup."
+  },
+  "RES-09": {
+    "selected": false,
+    "reason": "No unfamiliar product/material choice or game-canon decision is made; this setup reuses inspected local harness sources and pinned dependencies."
+  },
+  "MED-07": {
+    "selected": false,
+    "reason": "This initialization changes no sprite illustrations, textures or graphic artwork, so there is no illustration deliverable."
+  },
+  "DEM-08": {
+    "selected": false,
+    "reason": "No animation sequence or digital product demonstration is authored during the agentic workflow setup."
+  },
+  "AUD-25": {
+    "selected": false,
+    "reason": "No speech, sound effects, music or audio pipeline changes are requested by this workflow initialization."
+  },
+  "WRI-22": {
+    "selected": false,
+    "reason": "No character dialogue, narrative or canon adaptation is authored; WIK-30 owns technical game documentation."
+  },
+  "PRT-05": {
+    "selected": false,
+    "reason": "No game completion milestone is declared; this is setup qualification of workflow services, not a new product prototype plan."
+  },
+  "BLD-27": {
+    "selected": false,
+    "reason": "No product milestone or approved Designer prototype plan is declared; software and QA qualify the harness tools directly."
+  },
+  "WIK-30": {
+    "selected": true,
+    "reason": "Game Wiki Maintainer is required to deliver its separately owned WIK-30 responsibility in the user-requested agentic setup.",
+    "prompt": "User explicitly requested the real agentic loop with individual negation of every unused registered agent and a maintainer for the actual game wiki. Read Project/AGENTS.md relative to outer root, management/README.md, relevant game-wiki content/development.md, content/status.md and content/project-management.md plus linked source/design evidence before work. Latest user instruction supersedes the earlier single-developer profile. Preserve unrelated changes, canon archive, game Git root and historical evidence. Do not invent invocations, test results or independent reviews. Act as Game Wiki Maintainer for setup turn.001 after SWE-13 and QA-16 complete. Own authored game wiki content/project-management.md, content/development.md, content/status.md, relevant home/engine links, docs/58-software-project-management.md (preserve prior implementation as superseded history), new docs/59-agentic-development-loop.md, management/README.md, management/profile.json, management/harness/AGENTS.md and README.md templates, Project/AGENTS.md, docs/12-development-workflow.md, wiki README/llms and builder metadata as needed. Read actual final implementation, reports and tests; explain new active real agentic loop, every registered agent defaults YES and each unused role needs specific negation, WIK actual wiki vs DOC process publications, source ownership and strict terminal sequence, imported baseline limits and MCP connection status. Update contradictory single-developer current claims, preserving historical accepted records. Root installer will route wrapper and stage MCP config, coordinate with root. Rebuild/check game wiki only after source/docs edits are final and no other wiki build running. Inspect generated pages and reciprocal links. Save actual build/check logs and report under management/agentic/work/turn.001/WIK-30/. Do not change game runtime or engineer files. Do not claim host-connected MCP unless actual host tool observed.",
+    "dependencies": [
+      "SWE-13",
+      "QA-16"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "sequence": 13,
+  "timestamp": "2026-11-12T00:11:01.102194+00:00",
+  "kind": "FAILED",
+  "data": {
+    "agent_id": "SWE-13",
+    "reason": "Actual /root/software_documentation worker failed with host usage-limit error before completing its owned source-verification handoff. Prior ENG/KRA handoffs are preserved; user now explicitly requests GPT-6.1 Sol and effort tiers for new dispatches."
+  },
+  "previous_hash": "35aa63ef67e3a44078e9876612830a25a892b86102e0bb0377a41263c892a7fb",
+  "hash": "18a96737c20914b8cf0684630723a3af122a3d0a8c932aea6f90823fd4c102f9"
+}

@@ -1,0 +1,76 @@
+test_cli_failure_acknowledges_append_and_rejects_duplicate (test_agentic_entrypoints.AgenticEntrypointTests.test_cli_failure_acknowledges_append_and_rejects_duplicate) ... ok
+test_real_mcp_failure_ack_and_rejections_preserve_single_event (test_agentic_entrypoints.AgenticEntrypointTests.test_real_mcp_failure_ack_and_rejections_preserve_single_event) ... ERROR
+test_wrapper_agents_from_workspace_and_unrelated_cwd (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_agents_from_workspace_and_unrelated_cwd) ... ok
+test_wrapper_legacy_board_and_direct_cli_remain_usable (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_legacy_board_and_direct_cli_remain_usable) ... ok
+test_wrapper_rejects_project_pointer_escape (test_agentic_entrypoints.AgenticEntrypointTests.test_wrapper_rejects_project_pointer_escape) ... ok
+
+======================================================================
+ERROR: test_real_mcp_failure_ack_and_rejections_preserve_single_event (test_agentic_entrypoints.AgenticEntrypointTests.test_real_mcp_failure_ack_and_rejections_preserve_single_event)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 119, in receive
+    return self.receive_nowait()
+           ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 114, in receive_nowait
+    raise WouldBlock
+anyio._core._exceptions.WouldBlock
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib64/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 129, in mcp_failure_sequence
+    async with ClientSession(read, write) as session:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/shared/session.py", line 238, in __aexit__
+    return await self._task_group.__aexit__(exc_type, exc_val, exc_tb)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/_backends/_asyncio.py", line 875, in __aexit__
+    raise exc_val
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 130, in mcp_failure_sequence
+    initialized = await session.initialize()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/client/session.py", line 183, in initialize
+    result = await self.send_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<16 lines>...
+    )
+    ^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/mcp/shared/session.py", line 292, in send_request
+    response_or_error = await response_stream_reader.receive()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/streams/memory.py", line 131, in receive
+    await receive_event.wait()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/lib64/python3.14/site-packages/anyio/_backends/_asyncio.py", line 2009, in wait
+    await self._event.wait()
+  File "/usr/lib64/python3.14/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_entrypoints.py", line 152, in test_real_mcp_failure_ack_and_rejections_preserve_single_event
+    transcript = asyncio.run(asyncio.wait_for(self.mcp_failure_sequence(arguments), timeout=30))
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 205, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 128, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.14/asyncio/tasks.py", line 487, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib64/python3.14/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+----------------------------------------------------------------------
+Ran 5 tests in 35.302s
+
+FAILED (errors=1)

@@ -1,0 +1,9 @@
+Reciprocal link and rejected case: development.html
+Reciprocal link and rejected case: project-management.html
+Reciprocal link and rejected case: status.html
+Current wrapper and observed readiness wording verified in both IA-003-001 targets
+Policy evidence hash verified: management/model-policy/README.md
+Policy evidence hash verified: management/model-policy/policy.json
+Policy evidence hash verified: tools/agent_model_policy.py
+Policy evidence hash verified: tools/configure_agent_models.py
+Policy evidence hash verified: tests/test_agent_model_policy.py

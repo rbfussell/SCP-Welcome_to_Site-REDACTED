@@ -1,0 +1,18 @@
+test_actual_failed_command_cannot_complete (test_project_management.ProjectManagementTests.test_actual_failed_command_cannot_complete) ... ok
+test_changed_inputs_invalidate_checks (test_project_management.ProjectManagementTests.test_changed_inputs_invalidate_checks) ... ok
+test_complete_preserves_historical_snapshot (test_project_management.ProjectManagementTests.test_complete_preserves_historical_snapshot) ... ok
+test_context_and_canon_are_not_interchangeable (test_project_management.ProjectManagementTests.test_context_and_canon_are_not_interchangeable) ... ok
+test_design_blocker_prevents_start (test_project_management.ProjectManagementTests.test_design_blocker_prevents_start) ... ok
+test_independent_review_needs_receipt_and_acceptance_coverage (test_project_management.ProjectManagementTests.test_independent_review_needs_receipt_and_acceptance_coverage) ... ok
+test_malformed_overlay_does_not_write_partial_files (test_project_management.ProjectManagementTests.test_malformed_overlay_does_not_write_partial_files) ... ok
+test_missing_checks_prevent_completion (test_project_management.ProjectManagementTests.test_missing_checks_prevent_completion) ... ok
+test_modified_log_rejected (test_project_management.ProjectManagementTests.test_modified_log_rejected) ... ok
+test_one_active_slice_and_dependencies (test_project_management.ProjectManagementTests.test_one_active_slice_and_dependencies) ... ok
+test_overlay_is_repeatable_and_wrapper_uses_nested_game (test_project_management.ProjectManagementTests.test_overlay_is_repeatable_and_wrapper_uses_nested_game) ... ok
+test_path_escape_rejected (test_project_management.ProjectManagementTests.test_path_escape_rejected) ... ok
+test_wiki_check_must_follow_build (test_project_management.ProjectManagementTests.test_wiki_check_must_follow_build) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.432s
+
+OK

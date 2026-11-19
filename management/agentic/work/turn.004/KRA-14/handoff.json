@@ -1,0 +1,53 @@
+{
+  "turn_id": "turn.004",
+  "agent_id": "KRA-14",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "221199b8ffcd184a0f7004b37c3b2ffb968a08e848de36a8cebddd4873f3bf63",
+  "assigned_scope": "Independently review bounded documentation corrections and the separation of current source facts, historical evidence and runtime acceptance; no source edits, baseline or acceptance claim.",
+  "work_performed": "Read applicable rules, actual wiki and connected guidance, existing implementation and host observations, independent turn.003 IA/DOC and immutable publication. Identified current correction and temporal wording scope, preserved historical and acceptance boundaries, and wrote only owned review artifacts.",
+  "artifacts": [
+    "management/agentic/work/turn.004/KRA-14/report.md",
+    "management/agentic/work/turn.004/KRA-14/inspection.json"
+  ],
+  "tests": [
+    {
+      "command": "python3 tools/build_game_wiki.py --check (read-only pre-documentation freshness)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.004/KRA-14/inspection.json"
+      ]
+    },
+    {
+      "command": "python3 ../scripts/manage_game.py status; .venv-harness/bin/python tools/agentic.py status (separate read-only calls)",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.004/KRA-14/inspection.json",
+        "management/agentic/work/turn.004/KRA-14/report.md"
+      ]
+    },
+    {
+      "command": "No product regressions, implementation mutation or final build/semantic gate run by KRA; unchanged-wrapper confirmation belongs to SWE and final documentation gates to WIK.",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/agentic/work/turn.003/IA-11/audit.json",
+    "management/agentic/work/turn.003/IA-11/report.md",
+    "management/agentic/work/turn.003/DOC-10/report.md",
+    "management/agentic/publications/turn.003.json",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/work/turn.003/IA-11/host-readiness-observed.json"
+  ],
+  "limitations": [
+    "Review is pre-WIK; known IA-003-001 and connected current temporal drift remain for WIK correction and final semantic review.",
+    "Current READY is a local prerequisite result; cases/import/setup/task and production remain unsettled until matching accepted terminal publication.",
+    "Host observations are time-scoped transport evidence and do not authenticate all workers; synthetic fresh-server checks do not prove resident host hot reload or its patched failure reply.",
+    "No gameplay/M0, canon/assets, deployment or exhaustive future research/finding-resolution qualification."
+  ],
+  "architecture": {
+    "unresolved_questions": [],
+    "baseline_artifacts": []
+  },
+  "handoff_status": "COMPLETE"
+}

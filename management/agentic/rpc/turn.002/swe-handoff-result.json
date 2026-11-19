@@ -1,0 +1,196 @@
+{
+  "turn_id": "turn.002",
+  "agent_id": "SWE-13",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "258533d2d5d59fc99e0fcbddc2c89a33564a99301cbf8248de63b6cc0a7c5680",
+  "assigned_scope": "Implement the genuine game workflow policy, shared CLI/MCP runtime, explicit historical import and accepted agentic slice closure; preserve game/wiki/canon/history.",
+  "work_performed": "Reused copied real harness with narrow documented hooks, versioned23-role setup and actual WIK sequencing; implemented shared22operation CLI/MCP and bounded protocol probe; enforced matching independent accepted-publication slice completion. Reviewed/adopted root bootstrap helpers and recorded real verification.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+      "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+      "sha256": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+      "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+      "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+      "sha256": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+      "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+      "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+      "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/report.md",
+      "sha256": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a"
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/task-status.json",
+      "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+    }
+  ],
+  "tests": [
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_workflow.py -v",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+          "sha256": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+          "sha256": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_client_setup.py",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+          "sha256": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python tools/check_agentic_mcp.py (actual local stdio outside sandbox)",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+          "sha256": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python py_compile for ten actual implementation files",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+          "sha256": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558"
+        }
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python actual process structure inspection assertions",
+      "status": "PASS",
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+          "sha256": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "tools/game_workflow.py",
+      "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+    },
+    {
+      "path": "tools/agentic.py",
+      "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+    },
+    {
+      "path": "tools/check_agentic_mcp.py",
+      "sha256": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a"
+    },
+    {
+      "path": "tools/manage_project.py",
+      "sha256": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad"
+    },
+    {
+      "path": "tools/call_agentic_mcp.py",
+      "sha256": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec"
+    },
+    {
+      "path": "tools/configure_agentic_client.py",
+      "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162"
+    },
+    {
+      "path": "tools/install_agentic_dependencies.py",
+      "sha256": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7"
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+    },
+    {
+      "path": "management/harness/runtime/preflight.py",
+      "sha256": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4"
+    },
+    {
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "sha256": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3"
+    },
+    {
+      "path": "management/harness/runtime/config/game_roles.json",
+      "sha256": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786"
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+    },
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "sha256": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c"
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "sha256": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/report.md",
+      "sha256": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "sha256": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e"
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+    }
+  ],
+  "limitations": [
+    "Actual Codex host MCP loading remains unobserved; successful local protocol and configured files are not live host-registration proof.",
+    "Root must submit actual handoffs; WIK final docs/build and Collector/independent IA/Document Chief publication remain pending.",
+    "No new gameplay/native renderer/canon/milestone qualification; receipt strings are externally attested and hashes are not tamper-proof."
+  ],
+  "handoff_status": "COMPLETE"
+}

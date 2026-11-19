@@ -1,0 +1,8 @@
+{
+  "status": "CONFIGURED_UNVERIFIED",
+  "changed": true,
+  "path": ".codex/config.toml",
+  "server": "scp-game-harness",
+  "host_tool_observed": false,
+  "note": "Configuration is not a live app connection. Verify in the host after its MCP reload."
+}

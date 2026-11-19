@@ -1,0 +1,167 @@
+{
+  "sequence": 13,
+  "timestamp": "2026-11-19T17:04:40.717248+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.006",
+    "agent_id": "SWE-13",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "173e6979f9df5f96ae96cd8e82b6e9a243703eb14df2d76afd1cf61657ae59e0",
+    "assigned_scope": "GPT-6.2 role model allocation, resolver, real config installer, focused tests and wrapper qualification for IA-002-001.",
+    "work_performed": "Implemented Sol-first role allocation and verified focused behavior, installed the authorized workspace profiles, and compared current wrapper bytes to retained independent qualification.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/codex-version.log",
+        "sha256": "a3e33822db72626788572a7540a771ae604406f058f91aaf002f50c5efb0c69d"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/dispatch.json",
+        "sha256": "ecb0e52906720a82884b0fecb2dcc9b17cb88a9c112823fd17146beff7b194ec"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/host-role-configuration-observation.json",
+        "sha256": "f50d61d4d2d8ebee0742f5659cc0a71197d28473c1b904b496fae945a2e405a9"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/install-check.json",
+        "sha256": "0a329f0f31a5f9a11231a8b3d9d08c2df1e916286ea0a39a52dafe4baa55fcfa"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/install.json",
+        "sha256": "ec64e33713a808d639e4bf2f90f44ce4f89808a31810d78f47b748e4d710633b"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/installed-defaults.json",
+        "sha256": "17f0dc8872ef9357a113b7d8b8bae56ed775f6f7e8a90397ee1ade28174cb715"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/policy-test-evidence.json",
+        "sha256": "25450a2e0446f968f562a812a2532c9aee014b297023c4f46cc6887d8fdc6454"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/policy-tests.log",
+        "sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/report.md",
+        "sha256": "6c0af1d1f6db5017c0ae74bfa37428da753f7ce02055722ead7da89d6785d8e7"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/resolved-dispatch.json",
+        "sha256": "cbeca16b6fa274b5ef712028732626041e3583dc30e7ebc5ee2cfa0ea64292a9"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/verify-policy-evidence.py",
+        "sha256": "fd212e3b78211f1ffb0287e433d619a6695f965e2531704e80bb22e71a3905a7"
+      },
+      {
+        "path": "management/agentic/work/turn.006/SWE-13/wrapper-byte-verification.json",
+        "sha256": "06b767e325c59eab39395d6b8bc804f48e24f60c2a68361b5831838a214c10a2"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/model-policy/policy.json",
+        "sha256": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51"
+      },
+      {
+        "path": "management/model-policy/README.md",
+        "sha256": "040678d534e7ad68f5f7a72d31abd3d5c119d02f6f4062cf8ba338c9e28d8cf1"
+      },
+      {
+        "path": "tools/agent_model_policy.py",
+        "sha256": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81"
+      },
+      {
+        "path": "tools/configure_agent_models.py",
+        "sha256": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34"
+      },
+      {
+        "path": "tests/test_agent_model_policy.py",
+        "sha256": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896"
+      },
+      {
+        "path": "management/harness/runtime/config/game_roles.json",
+        "sha256": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786"
+      },
+      {
+        "path": "management/harness/manage_game.py",
+        "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/audit.json",
+        "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+        "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+        "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+        "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+        "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 -m unittest discover -s tests -p test_agent_model_policy.py -v",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/policy-tests.log",
+            "sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e"
+          },
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/policy-test-evidence.json",
+            "sha256": "25450a2e0446f968f562a812a2532c9aee014b297023c4f46cc6887d8fdc6454"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/configure_agent_models.py --workspace .. --check",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/install-check.json",
+            "sha256": "0a329f0f31a5f9a11231a8b3d9d08c2df1e916286ea0a39a52dafe4baa55fcfa"
+          }
+        ]
+      },
+      {
+        "command": "cmp management/harness/manage_game.py ../scripts/manage_game.py",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/SWE-13/wrapper-byte-verification.json",
+            "sha256": "06b767e325c59eab39395d6b8bc804f48e24f60c2a68361b5831838a214c10a2"
+          }
+        ]
+      },
+      {
+        "command": "Full runtime suite retained as historical QA evidence. WIK owns current documentation and wiki gates.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "Host tool metadata confirms configured named defaults. Effective backend settings and usage remain NOT_EXPOSED.",
+      "Spawn argument validation compares supplied records. It does not authenticate host receipts.",
+      "Independent IA and DOC own terminal acceptance and case settlement."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "b9688b8eb58e880cd46905aca2791b8dbd6e556228f17e98509eae89b563d0d6",
+  "hash": "ca245d9330c197f347e77e247bb3f6cae1c5dd6545105a853b785705ebc48304"
+}

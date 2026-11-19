@@ -1,0 +1,12 @@
+test_conflicts_and_symlinks_fail_before_writes (test_agent_model_policy.ModelPolicyTests.test_conflicts_and_symlinks_fail_before_writes) ... ok
+test_expected_allocation (test_agent_model_policy.ModelPolicyTests.test_expected_allocation) ... ok
+test_install_preserve_repeat_check (test_agent_model_policy.ModelPolicyTests.test_install_preserve_repeat_check) ... ok
+test_missing_partial_matching_mismatch_provenance (test_agent_model_policy.ModelPolicyTests.test_missing_partial_matching_mismatch_provenance) ... ok
+test_override_alias_escalation_and_rejections (test_agent_model_policy.ModelPolicyTests.test_override_alias_escalation_and_rejections) ... ok
+test_policy_rejects_coverage_bad_models_and_elevated_defaults (test_agent_model_policy.ModelPolicyTests.test_policy_rejects_coverage_bad_models_and_elevated_defaults) ... ok
+test_registry_defaults_and_explicit_spawn (test_agent_model_policy.ModelPolicyTests.test_registry_defaults_and_explicit_spawn) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.052s
+
+OK

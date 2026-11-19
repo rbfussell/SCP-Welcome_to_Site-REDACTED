@@ -1,0 +1,31 @@
+{
+  "observed": {
+    "current_time": "2026-11-11 17:19:47 UTC"
+  },
+  "surface": "Codex host-exposed mcp__scp_game_harness__workflow_readiness",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": true,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}"
+      }
+    ],
+    "structuredContent": {
+      "status": "READY",
+      "execution": "CLI_WITH_EXTERNAL_HOST_WORKERS",
+      "checks": {
+        "jsonschema": true,
+        "runtime_config": true,
+        "requested_roles_registered": true
+      },
+      "stdio_mcp_dependency": true,
+      "host_mcp_connection": "NOT_OBSERVED",
+      "limitations": [
+        "Host worker availability and receipt authenticity require external review.",
+        "A local protocol probe does not establish Codex host registration."
+      ]
+    },
+    "isError": false
+  },
+  "meaning": "Read-only independent IA host-exposed call succeeded during audit; local NOT_OBSERVED cannot inspect external transport. This does not test resident patched failed acknowledgement or authenticate worker receipts."
+}

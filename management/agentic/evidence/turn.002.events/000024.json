@@ -1,0 +1,10 @@
+{
+  "sequence": 24,
+  "timestamp": "2026-11-11T11:17:49.584477+00:00",
+  "kind": "PHASE",
+  "data": {
+    "state": "INTERNAL_AFFAIRS_REVIEW"
+  },
+  "previous_hash": "e510bd230c3ef7f1f635554a1864a7175ff26768a5b5370ac30fef336bb19ffc",
+  "hash": "e81b0195782b9f76c1589cce26023be89f8c7af604082bd22f7a1065e5720d9a"
+}

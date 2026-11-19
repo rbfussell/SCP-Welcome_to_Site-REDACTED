@@ -1,0 +1,164 @@
+{
+  "sequence": 23,
+  "timestamp": "2026-11-11T17:16:44.464022+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.003",
+    "agent_id": "EVC-28",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "8f1c2c3919cb67b89460c91fbe1105e11e04c0df8073424988e229df97fd4893",
+    "assigned_scope": "Evidence collection after WIK: genuine runtime package, full frozen-role accounting, dispatch/order/ownership, current and nested hashes, historical/adverse records and explicit gaps without source repair or acceptance.",
+    "work_performed": "Built the real runtime package of 118 indexed references; verified all 23 decisions, six recorded distinct authorized receipts, five completed owned handoffs, final task/wiki/QA source/log hashes, 1,032 references and 221 supplemental files. Preserved 38 historical source/context comparisons and prior interruptions/adverse records. Recorded two stale current prose conflicts for independent IA without repair or disposition.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/collect-input.json",
+        "sha256": "1c08607b784d780e6aa21cd0a697f977e081c9230d3f92726cfd0d1883fa03fb"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+        "sha256": "dff0c834276688cfe5d34132080bbed8af5f742b8435eea49fe5b0e6d837b8fa"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+        "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/host-agents-observation.json",
+        "sha256": "61d88660549417cac896f5ddc8392411df9178ea478c22a97f0bb9d6b9d3db39"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+        "sha256": "ad6970e0f097e107b9eec6934c9254a4863b154d8b0a2f467e40ed2ca608814f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/report.md",
+        "sha256": "bb1c8e8ee92dd2a204b6838ce85982fb6b5fc11047bfba0a4b3a486b56e0be8d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+        "sha256": "8b15b6cdfbabfa98a5be915597ba65696796c599629bd218129466b728976912"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+        "sha256": "32ae5d3785c83ba874ed538fa07737a918320395f97632c61a8daf13f623f431"
+      },
+      {
+        "path": "management/agentic/work/turn.003/EVC-28/verify_collection.py",
+        "sha256": "c5f4da31a0d430eaf0e68238043b01b6141d3438064466165891433e0ff81247"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "source_material/game-wiki/llms.txt",
+        "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+      },
+      {
+        "path": "docs/58-software-project-management.md",
+        "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+        "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+        "sha256": "d0256de0f11b168cdee9be21ce1f679ea3244665b6c48f4b12a0b5dab2fe7513"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+        "sha256": "dbdaf451790865849a650f376233aa7eff4a0cd1a41b061b6eb7f44b072a41de"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+        "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+        "sha256": "0844430a0f5e07389430d2a6c595e0e062f6163a33ee73f0ed6068e6f1b9f129"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/imported-project.json",
+        "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+      }
+    ],
+    "tests": [
+      {
+        "command": ".venv-harness/bin/python tools/agentic.py collect --input management/agentic/work/turn.003/EVC-28/collect-input.json --output management/agentic/work/turn.003/EVC-28/collect-result.json",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+            "sha256": "dff0c834276688cfe5d34132080bbed8af5f742b8435eea49fe5b0e6d837b8fa"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+            "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python management/agentic/work/turn.003/EVC-28/verify_collection.py (read-only integrity, dependency, exact prompt, ownership and historical classification checks)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+            "sha256": "32ae5d3785c83ba874ed538fa07737a918320395f97632c61a8daf13f623f431"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+            "sha256": "ad6970e0f097e107b9eec6934c9254a4863b154d8b0a2f467e40ed2ca608814f"
+          }
+        ]
+      },
+      {
+        "command": "Compare current agent entry point and docs58 superseding pointer with corrected source, QA and observed host connection",
+        "status": "FAIL",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+            "sha256": "8b15b6cdfbabfa98a5be915597ba65696796c599629bd218129466b728976912"
+          },
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+          }
+        ]
+      },
+      {
+        "command": "Collector did not rerun native gameplay or production fixture mutations; inspected actual specialist/check logs instead.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "Current prose remains contradictory at llms.txt:31 and docs/58-software-project-management.md:69. Exact stale claims are preserved for independent IA and WIK corrective ownership; clean hashes do not establish semantic acceptance.",
+      "Receipt/order records and partial live host tree do not authenticate all host identities or exact spawn timestamps. Distinct earlier turn.003 ENG/KRA/SWE/QA receipts remain externally reviewable assertions.",
+      "Thirty-eight expected historical reading/pre-edit/live-source differences remain explicit; immutable records and before snapshots match. No current indexed/nested/immutable hash issue was found.",
+      "Turn.001/.002 interruptions, .002 REJECTED IA-002-001, actual DOC quota/schema failure, absent publication and adverse test/Wiki/helper logs remain. Current IA case resolution, import acceptance and task closure are pending.",
+      "Host-exposed readiness observation proves that connection at its recorded time. Fresh real-MCP acknowledgement fixtures are synthetic and do not prove resident host hot reload or a corrected host-exposed failed reply.",
+      "No source/wiki/task repair, acceptance decision, native gameplay/M0, art/canon or exhaustive future research/finding-resolution qualification was performed."
+    ],
+    "collection": {
+      "package_path": "management/agentic/work/turn.003/EVC-28/evidence-package.json"
+    },
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "6ff23ccfe3b4d3b57cc286dc1d6a2cb5f1b848e1893f7a3c70aaf208d9f87163",
+  "hash": "0982844aaca2748a727aab62ed750a4f4f620f85b86412d31b34afb7e01dc90e"
+}

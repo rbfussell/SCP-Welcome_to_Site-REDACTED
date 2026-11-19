@@ -1,0 +1,187 @@
+{
+  "sequence": 23,
+  "timestamp": "2026-11-11T11:17:45.700286+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.002",
+    "agent_id": "EVC-28",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "30cac0f21ec83ff592ff435a686369194ac6d660614bc010d27a0e275e9523d6",
+    "assigned_scope": "Independent evidence collection after all selected execution owners and WIK-30; inventory actual dispatch, ownership, nested sources, logs, hashes, differences and gaps without repair or acceptance.",
+    "work_performed": "Invoked genuine GameWorkflow collection through direct game CLI; verified 71 indexed references, all 23 role decisions, six recorded authorized distinct workers, five execution handoffs and owned artifacts. Traversed supplemental nested import/source/check/log evidence, retained six historical reading-context differences and initial verifier failure, inventoried interruption/adverse RPC records, and preserved exact broken-wrapper source bytes. No source/wiki/task changes or IA acceptance.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-installed.py.snapshot",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-snapshot.json",
+        "sha256": "ba9c805aae5bfa71d1bf313ac06d3088273a6ecd7f1947ec633c53a4fa5646cf"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-template.py.snapshot",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/collect-input.json",
+        "sha256": "aadefa08fca1bfee2d5600e586ee1abfa0131ebb4426fab3c75a4ffb4bd088c1"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/collect-result.json",
+        "sha256": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/evidence-package.json",
+        "sha256": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/host-agents-observation.json",
+        "sha256": "027e2d4be5ab1b80b85ffe6ab00b6ddaa6805a9b8087b163b9bea952d49394c7"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/initial-inventory.json",
+        "sha256": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/initial-verification.log",
+        "sha256": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/inventory.json",
+        "sha256": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/report.md",
+        "sha256": "8e5a3b611132fca6d56c37dd459e3aae7d496c40e554a87e030146972170db0b"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/verification.log",
+        "sha256": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1"
+      },
+      {
+        "path": "management/agentic/work/turn.002/EVC-28/verify_collection.py",
+        "sha256": "3be0bb7d8a2c8ac4058f56246c97b54d209f76405d61b73bbebd5951ae13e88c"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+        "sha256": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a"
+      },
+      {
+        "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+        "sha256": "1faec542c884a980a3f72032f745f327ad1130c8337f5784e3f3e45cac65973f"
+      },
+      {
+        "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+        "sha256": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2"
+      },
+      {
+        "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+        "sha256": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179"
+      },
+      {
+        "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+        "sha256": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250"
+      },
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+        "sha256": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650"
+      },
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+        "sha256": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f"
+      },
+      {
+        "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+        "sha256": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147"
+      },
+      {
+        "path": "management/agentic/evidence/turn.001.events/000015.json",
+        "sha256": "52e5cd2d2e3cd27d551e43e7af9b79419e4e43dfb98bc1b07bf048271e1893c2"
+      },
+      {
+        "path": "management/agentic/evidence/turn.001.events/000016.json",
+        "sha256": "1b19117833fe33ba3428bd94667550185cf56bb017c2e601116a92bdc89c3bfc"
+      },
+      {
+        "path": "management/agentic/evidence/turn.001.events/000017.json",
+        "sha256": "82b879421c6f0522b7fb13b48ac8f1405ff8fa5daa10aca00be4680ecfca10ec"
+      },
+      {
+        "path": "management/agentic/rpc/turn.002/wiki-handoff.log",
+        "sha256": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439"
+      },
+      {
+        "path": "management/agentic/rpc/turn.002/collect-phase.log",
+        "sha256": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439"
+      },
+      {
+        "path": "management/agentic/imported-project.json",
+        "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+      }
+    ],
+    "tests": [
+      {
+        "command": ".venv-harness/bin/python tools/agentic.py collect --input management/agentic/work/turn.002/EVC-28/collect-input.json --output management/agentic/work/turn.002/EVC-28/collect-result.json",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/collect-result.json",
+            "sha256": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d"
+          },
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/evidence-package.json",
+            "sha256": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python management/agentic/work/turn.002/EVC-28/verify_collection.py (initial broad historical/current hash assertion)",
+        "status": "FAIL",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/initial-verification.log",
+            "sha256": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc"
+          },
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/initial-inventory.json",
+            "sha256": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38"
+          }
+        ]
+      },
+      {
+        "command": ".venv-harness/bin/python management/agentic/work/turn.002/EVC-28/verify_collection.py (final classification retains six historical context differences; validates all current references/order/ownership)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/verification.log",
+            "sha256": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1"
+          },
+          {
+            "path": "management/agentic/work/turn.002/EVC-28/inventory.json",
+            "sha256": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e"
+          }
+        ]
+      },
+      {
+        "command": "Collector did not rerun gameplay or author new production tests; specialist actual logs were inventoried.",
+        "status": "NOT_RUN",
+        "evidence": []
+      }
+    ],
+    "limitations": [
+      "Known real functional failure remains: outer agents wrapper raises ModuleNotFoundError game_workflow. Turn.002 has no recorded invocation failures, which does not erase this functional FAIL. Exact template/installed bytes are preserved in owned snapshots; IA dispositions and SWE correction belong to a new authorized turn.",
+      "Six changed historical 10:29:49 task reading-context hashes are retained, not rewritten. Current package, QA source snapshot and final WIK check inputs match; interpretation remains independently reviewable.",
+      "Live Codex host workflow tool call is not observed: CONFIGURED_UNVERIFIED. Current host inventory corroborates QA/WIK/EVC/root; prior ENG/KRA/SWE recorded receipts remain externally reviewable assertions and cannot be authenticated by Python.",
+      "Turn.001 remains INTERRUPTED with parent-recorded SWE/QA quota failures; no raw quota-service response is attached. Failed first WIK RPC attempts and corrected v2 records are retained.",
+      "Independent IA, DOC publication, exact import acceptance and task closure remain pending. No gameplay/M0 qualification, source/wiki/task repair, commit, deployment or process acceptance is claimed."
+    ],
+    "collection": {
+      "package_path": "management/agentic/work/turn.002/EVC-28/evidence-package.json"
+    },
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "b382665e4267f989200909f817fdea3c65a6ec2729787a9cd83210d8bd45e393",
+  "hash": "e510bd230c3ef7f1f635554a1864a7175ff26768a5b5370ac30fef336bb19ffc"
+}

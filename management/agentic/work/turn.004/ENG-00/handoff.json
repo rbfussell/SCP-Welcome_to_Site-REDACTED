@@ -1,0 +1,55 @@
+{
+  "turn_id": "turn.004",
+  "agent_id": "ENG-00",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "3e492420f3036602f19ff43e00275c3145768235dbf3574d57d5792f1575789d",
+  "assigned_scope": "Review exact all-role selection and bound documentation-only correction, preserving both prior cases, actual rejected/interrupted history, source qualification and host limits.",
+  "work_performed": "Read actual game wiki, contracts, task, prior independent audit/publication and relevant implementation; verified 23-role coverage, seven matching exact prompts, individual negations and ENG recorded authorization/invocation; identified stale current and temporal guidance for WIK. Wrote only owned report and raw handoff.",
+  "artifacts": [
+    "management/agentic/work/turn.004/ENG-00/report.md"
+  ],
+  "tests": [
+    {
+      "command": "python3 ../scripts/manage_game.py status",
+      "status": "PASS",
+      "evidence": ["management/agentic/work/turn.004/ENG-00/report.md"]
+    },
+    {
+      "command": "Read-only JSON comparison of frozen registry/selection, duplicate keys, individual exclusions, mandatory roles, prompt files and corrective assignments",
+      "status": "PASS",
+      "evidence": ["management/agentic/work/turn.004/ENG-00/report.md"]
+    },
+    {
+      "command": "python3 tools/build_game_wiki.py --check (pre-correction structural freshness only)",
+      "status": "PASS",
+      "evidence": ["management/agentic/work/turn.004/ENG-00/report.md"]
+    },
+    {
+      "command": "Implementation regressions and final task tests/docs/wiki-build/wiki-check and semantic review are assigned to SWE/WIK/independent IA; NOT_RUN by ENG",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    "management/agentic/selection-turn.004.json",
+    "management/agentic/evidence/turn.004.json",
+    "management/agentic/evidence/turn.004.events/000005.json",
+    "management/agentic/evidence/turn.004.events/000008.json",
+    "management/agentic/work/turn.002/IA-11/audit.json",
+    "management/agentic/work/turn.003/IA-11/audit.json",
+    "management/agentic/work/turn.003/IA-11/report.md",
+    "management/agentic/publications/turn.003.json",
+    "management/agentic/bootstrap/host-connection-observed.json",
+    "management/agentic/work/turn.003/IA-11/host-readiness-observed.json"
+  ],
+  "limitations": [
+    "Coordination review only; no setup/import/case/task or gameplay acceptance, source edits or production failure replay.",
+    "Both cases remain for accepted terminal settlement; prior independent verification of IA-002-001 does not erase the rejected publication or confirmed IA-003-001.",
+    "Pre-correction wiki freshness is structural; final semantic agreement and all required checks remain WIK/IA duties.",
+    "Recorded authorization/order and hashes do not authenticate external workers or receipt strings; local NOT_OBSERVED cannot inspect observed host transport.",
+    "Fresh synthetic real-MCP fixtures do not establish resident host hot reload or a corrected resident-host failure reply.",
+    "Interrupted/rejected history, adverse logs, historical preflight truth, exact import acceptance gate and open gameplay/M0 gates remain preserved."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

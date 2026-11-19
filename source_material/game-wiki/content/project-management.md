@@ -1,44 +1,25 @@
 # Software project management
 
-**Implemented tooling, not an in-world system.** The game is in `Project/` under a
-portable harness workspace. It retains its Git repository, engine layout, assets,
-canon checkout and GitHub Pages workflow. A standalone game clone remains supported.
+**Implemented tooling, not an in-world system.** The game is in `Project/` under a portable harness workspace and keeps its own Git, engine, assets, canon exclusion and GitHub workflow. The later user request activates [the real agentic development loop](agentic-loop.html), replacing the earlier single-developer execution default while preserving its historical records.
 
-The active `software-game` profile tracks bounded slices, dependencies, blocking
-questions, wiki/document reading notes, actual command logs, accepted input hashes
-and explicit self/independent review. One developer can perform the responsibilities;
-there is no mandatory manufacturing crew or artificial restart of accepted design.
-Optional specialists require explicit delegation. This is not a claim of independent
-Internal Affairs or completion of the separate generic harness's strict preflight.
+The task board tracks bounded slices, dependencies, blocking questions, wiki/document reading notes, actual command logs, declared input hashes and acceptance. The agentic runtime separately records frozen all-role selections, individual negations, actual authorizations/host receipts, handoffs, evidence collection, independent IA and immutable process outcomes. Every registered role defaults YES and each unused role needs an individual task-specific NO. The actual game wiki remains mechanics/documentation authority.
 
 ## Connected authorities
 
-- [Implementation ledger](status.html): what the game currently proves and leaves open.
-- [Development and wiki consistency](development.html): required reading, maintenance,
-  cross-links, generated-page inspection and final semantic consistency gate.
-- [Development and version control](doc-docs-12-development-workflow-md.html): Git,
-  checks, existing remote and public documentation publishing.
-- [Integration contract](doc-docs-58-software-project-management-md.html): adapter
-  behavior, portability and verification boundaries.
-- [Management guide](doc-management-readme-md.html): commands and source-of-truth map.
-- [Engine](engine.html): shared simulation remains authoritative for game behavior.
-
-The board does not replace mechanics pages, canon provenance, ADRs or scope gates.
-Existing results imported from `cac3555` are historical; M0 remains open. Proposed
-backlog work is not implemented behavior or approval to expand scope. No management
-record becomes knowledge available to characters, OSCP or an AIC.
+- [Implementation ledger](status.html): what the native game currently proves and leaves open.
+- [Development consistency](development.html): required reading, maintenance and semantic gate.
+- [Agentic loop](agentic-loop.html): actual workers, role scopes, ordered review and truthful limits.
+- [Development/Git guide](doc-docs-12-development-workflow-md.html): history, publishing and recovery.
+- [Active loop contract](doc-docs-59-agentic-development-loop-md.html) and [management guide](doc-management-readme-md.html): commands and source ownership.
+- [Earlier integration](doc-docs-58-software-project-management-md.html): historical adapter behavior, superseded execution default.
+- [Engine](engine.html): authoritative runtime mechanics remain unchanged.
 
 ## Evidence and limits
 
-Completion needs passing tests/docs/wiki-build/wiki-check command records, unchanged
-**declared** source inputs, intact logs, a wiki check after rebuilding, acceptance
-coverage and explicit semantic review. Reading notes and review are attestations;
-hashes do not prove that someone read a page or that a command tests the right thing.
-Self-review does not imply independent review. The CLI is a single-coordinator local
-tool, not a concurrent service or authenticated chain of custody.
+New slice closure needs real tests/docs/wiki-build/wiki-check records, unchanged declared inputs, intact logs, post-build freshness check, explicit acceptance/semantic review and its matching accepted agentic publication with genuine Wiki and independent IA handoffs. WIK-30 maintains actual authored pages after execution owners; Collector → independent IA → Document Chief follow. Process JSON does not replace the real wiki, and no worker runs after DOC within that turn.
 
-The authoritative tools/profile/overlay live in the game Git repository. The outer
-entry point is reinstallable from those templates. The outer harness's original
-strict workflow and JSON publication store remain separate; they do not replace this
-game wiki. Evolving task/log records are retained in `management/` rather than copied
-into generated mechanics pages. This prevents circular evidence hashes.
+The game baseline `cac3555` and adapter migration `2a86ca5` results remain historical. Immutable imported history only enables readiness after actual setup acceptance naming its exact hash; it does not fabricate past surveys/research or close M0. Proposed backlog work remains unapproved/unimplemented. Questions, queued research and findings remain gates.
+
+Local CLI/MCP use the genuine copied runtime; initialization/list-tools/inventory and logging were actually exercised. A real Codex-exposed readiness call is now externally observed; local generic `NOT_OBSERVED` and configuration checks do not inspect that transport or authenticate all workers. The corrected installed wrapper qualifies outer-root/unrelated-cwd dispatch and legacy board/direct-CLI compatibility. Shared failed dispatch acknowledges the one genuine append with a dictionary, retaining validation errors. Fresh real-MCP fixture tests are isolated and synthetic; resident host hot reload is unverified. See [the loop page](agentic-loop.html) for implementation and test evidence.
+
+Turns .001/.002 remain INTERRUPTED. Turn.002 retains independent REJECTED IA-002-001, actual DOC quota failure and the recorded-failure/schema-response error, with no DOC publication or accepted import. Turn.003 independently verified the wrapper and fresh-process acknowledgement corrections. Its published setup outcome was REJECTED because current guidance still contradicted those corrections and the observed host connection (IA-003-001). Turns .004 and .005 were interrupted and produced no accepted setup publication. The [agentic loop](agentic-loop.html) also describes compact assignments and Sol-first routing evidence. Runtime hashes are not an OS sandbox or authenticated chain of custody. Evolving process/log records stay in `management/` to avoid circular wiki evidence hashes.

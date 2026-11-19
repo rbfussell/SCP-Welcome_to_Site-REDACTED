@@ -1,0 +1,130 @@
+{
+  "ENG-00": {
+    "selected": true,
+    "reason": "Coordinator must scope this actual recovery, account for every frozen role and preserve the prior rejected audit and quota interruptions.",
+    "prompt": "Act as ENG-00 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, management/README.md, docs/59-agentic-development-loop.md, the relevant actual game-wiki pages and prior IA evidence before work. Review the frozen all-role selection and bounded corrections: IA-002-001 wrapper imports and the observed MCP failed-response schema error. Write only your concise owned report and raw structured handoff under management/agentic/work/turn.003/ENG-00/. Preserve interrupted history, host connection evidence and open gameplay gates. Do not implement source or claim acceptance. Parent records the handoff.",
+    "dependencies": []
+  },
+  "SHO-12": {
+    "selected": false,
+    "reason": "This correction produces no milestone presentation or sales narrative; the truthful deliverable is operational harness evidence."
+  },
+  "EVC-28": {
+    "selected": true,
+    "reason": "Evidence collector must inventory this recovery's genuine workers, negations, outputs and current logs before independent audit.",
+    "prompt": "Act as EVC-28 for turn.003 and task agentic-loop-setup after WIK-30. Read applicable AGENTS.md and actual wiki/management contracts. Build the genuine runtime evidence package, inspect this turn's actual authorizations, distinct receipts, every registered role and individual negation, owned outputs, current hashes and nested test/wiki evidence. Preserve interrupted history and adverse logs; distinguish historical source changes from current integrity errors. Write concise owned report, verification logs and raw handoff with collection.package_path under management/agentic/work/turn.003/EVC-28/. Do not repair source, wiki or task records, decide acceptance, or broaden into unrelated gameplay. Parent records the handoff.",
+    "dependencies": [
+      "WIK-30"
+    ]
+  },
+  "IA-11": {
+    "selected": true,
+    "reason": "Independent Internal Affairs must verify corrections, exact acceptance and remaining evidence limitations before publication.",
+    "prompt": "Act as independent IA-11 for turn.003 and task agentic-loop-setup after genuine collection. Read applicable AGENTS.md, actual wiki/contracts, prior IA-002-001 and the collected evidence. Independently verify wrapper correction, MCP acknowledgement, actual dispatch chronology/negations, current hashes, wiki semantics, imported-history gates and all task acceptance criteria. Do not repair outputs. Write concise report, raw audit, raw handoff and an independent software completion review under management/agentic/work/turn.003/IA-11/. Resolve IA-002-001 only with independent fresh evidence; preserve host/runtime trust limits and open gameplay gates. Parent records handoff and audit before DOC publishes last.",
+    "dependencies": [
+      "EVC-28"
+    ]
+  },
+  "DOC-10": {
+    "selected": true,
+    "reason": "Document Chief must publish the actual reviewed outcome last and close the matching software task only if its gates pass.",
+    "prompt": "Act as DOC-10 last for turn.003 and task agentic-loop-setup after independent IA. Read applicable AGENTS.md, actual wiki contract, final audit and evidence package. Write your concise owned report and raw handoff under management/agentic/work/turn.003/DOC-10/. Record that handoff, then use the genuine runtime to publish only the reviewed outcome, exact import/task entities and independently verified case resolutions. If accepted and all actual task checks agree, complete the software task using the actual IA completion review. Preserve interrupted history and explicit limits. Do not edit/rebuild game source/wiki after review or run another worker. Parent supplies final payload and actual state.",
+    "dependencies": [
+      "IA-11"
+    ]
+  },
+  "KRA-14": {
+    "selected": true,
+    "reason": "Architecture must review the setup corrections and host-versus-local response boundaries required by this non-production recovery turn.",
+    "prompt": "Act as KRA-14 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs/59-agentic-development-loop.md and prior IA evidence. Independently inspect the bounded wrapper import fix plan and MCP failed-response contract; distinguish the actual newly observed host call from generic local readiness fields. Write only a concise architecture report and raw structured handoff in management/agentic/work/turn.003/KRA-14/. Record unresolved_questions and baseline_artifacts explicitly; do not invent a new baseline, implement source, or claim task acceptance. Parent records the handoff.",
+    "dependencies": [
+      "ENG-00"
+    ]
+  },
+  "SWE-13": {
+    "selected": true,
+    "reason": "Software owns verified IA-002-001 wrapper correction and the newly observed MCP failure acknowledgement defect, with meaningful regressions.",
+    "prompt": "Act as SWE-13 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs59, prior IA-002-001 and bootstrap/host-failed-response-defect.md before edits. Fix the versioned root wrapper import path, reinstall its managed copy, and correct the MCP failed-operation acknowledgement contract. Own only necessary Python tooling and focused regression tests. Qualify outer agents dispatch from root and unrelated cwd, legacy board, direct CLI, and real MCP failure recording in an isolated clearly labelled fixture. Preserve adverse evidence and actual interruption history. Write a concise owned report and raw handoff under management/agentic/work/turn.003/SWE-13/. Leave actual wiki/docs to WIK after independent QA; do not claim acceptance. Parent records the handoff.",
+    "dependencies": [
+      "KRA-14"
+    ],
+    "corrective_cases": [
+      "IA-002-001"
+    ]
+  },
+  "QA-16": {
+    "selected": true,
+    "reason": "Independent tests must qualify both actual integration corrections before Wiki freezes source for terminal review.",
+    "prompt": "Act as QA-16 for turn.003 and task agentic-loop-setup after SWE-13 finishes. Read applicable AGENTS.md, related actual game-wiki pages, prior IA-002-001 and the observed MCP response defect. Independently verify the corrected installed root shortcut from outer root and unrelated cwd, legacy board, direct CLI and real MCP failed-operation acknowledgement using an isolated labelled fixture. Run appropriate harness/adapter tests and inspect final source hashes; preserve failures and state limits. Write only concise report, real logs and raw handoff under management/agentic/work/turn.003/QA-16/. Do not repair source/wiki or claim acceptance. Parent records the handoff.",
+    "dependencies": [
+      "SWE-13"
+    ]
+  },
+  "OPS-17": {
+    "selected": false,
+    "reason": "No game package, release deployment or build service changes in this bounded wrapper/response repair; SWE owns local installation."
+  },
+  "SEC-18": {
+    "selected": false,
+    "reason": "This correction adds no credentials, public listener or game permission surface; existing path boundaries remain checked by QA and IA."
+  },
+  "RES-09": {
+    "selected": false,
+    "reason": "The two local Python contract defects are understood from inspected source and observed failures; no unfamiliar external choice or canon research is needed."
+  },
+  "MED-07": {
+    "selected": false,
+    "reason": "No sprite, texture, icon or source illustration is created when repairing Python dispatch and acknowledgement."
+  },
+  "DEM-08": {
+    "selected": false,
+    "reason": "No animation sequence or authored product demonstration is part of these two integration corrections."
+  },
+  "AUD-25": {
+    "selected": false,
+    "reason": "The recovery changes neither audio assets nor an audio pipeline, so sound authoring has no assigned output."
+  },
+  "WRI-22": {
+    "selected": false,
+    "reason": "No story, character dialogue or narrative continuity changes are requested; WIK owns technical descriptions."
+  },
+  "PRT-05": {
+    "selected": false,
+    "reason": "This is a setup repair rather than a declared gameplay/product completion milestone needing a prototype design."
+  },
+  "BLD-27": {
+    "selected": false,
+    "reason": "There is no declared milestone or approved prototype plan to construct; appropriate software tests qualify these small fixes."
+  },
+  "WIK-30": {
+    "selected": true,
+    "reason": "Actual game Wiki owner must synchronize changed tooling, host observation, interrupted history, guides and fresh generated evidence.",
+    "prompt": "Act as WIK-30 for turn.003 and task agentic-loop-setup after all selected execution owners finish. Read applicable AGENTS.md, relevant actual game-wiki pages and linked source/docs. Update actual authored wiki, affected Markdown, managed overlay templates/profile and necessary generator metadata for the two bounded corrections, actual host connection observation, interrupted001/002 history and current limits. Preserve history and avoid pre-accepting terminal outcomes. Reinstall managed overlay; run appropriate tests/docs and both real wiki commands sequentially through the task board, inspect reciprocal links and semantic agreement. Write concise report and raw structured handoff with game_wiki evidence under management/agentic/work/turn.003/WIK-30/. No runtime source repair after your phase. Parent records the handoff.",
+    "dependencies": [
+      "ENG-00",
+      "KRA-14",
+      "SWE-13",
+      "QA-16"
+    ]
+  },
+  "WEB-06": {
+    "selected": false,
+    "reason": "Wiki rendering, CSS, search and web navigation behavior remain unchanged; WIK performs authored updates and routine generation."
+  },
+  "UIX-31": {
+    "selected": false,
+    "reason": "No native Godot screen, interaction flow or player-facing control changes with the root-command and MCP fixes."
+  },
+  "AST-32": {
+    "selected": false,
+    "reason": "The corrections touch no atlas, mask, sprite binding, asset import or media provenance record."
+  },
+  "LOR-33": {
+    "selected": false,
+    "reason": "No SCP canon interpretation or game-lore adaptation changes in the tooling repair; existing lore decisions remain intact."
+  },
+  "SIM-34": {
+    "selected": false,
+    "reason": "No authoritative kernel, SCP behavior, perception, inventory, time or save mechanics change in this harness recovery."
+  }
+}

@@ -71,3 +71,5 @@ November 4 follow-up: [worn backpack/harness presentation](worn-backpack.html) a
 [Real jacket badge clip](jacket-badge-clip.html) now combines four usable pockets with exterior mounting, badge-free source art and the existing reader checks.
 
 [Software project management](project-management.html) coordinates changes around this engine through the existing wiki/test/Git gates. It does not participate in runtime simulation, OSCP knowledge or save state.
+
+[The agentic development loop](agentic-loop.html) coordinates implementation owners, real Wiki maintenance and independent process review without changing simulation authority, actor knowledge, time or save state.

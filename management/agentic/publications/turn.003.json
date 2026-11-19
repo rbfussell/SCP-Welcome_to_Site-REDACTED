@@ -1,0 +1,3460 @@
+{
+  "schema_version": 1,
+  "turn_id": "turn.003",
+  "timestamp": "2026-11-11T17:26:16.475377+00:00",
+  "setup_ready": false,
+  "assessment": {
+    "kind": "setup",
+    "task": "Finish quota-interrupted agentic setup by correcting IA-002-001 root shortcut, correcting the observed MCP failure-response contract, verifying newly observed host connection and completing the genuine independent loop.",
+    "requirements": [
+      "Account for all 23 registered roles with individual substantive negations for unused roles.",
+      "Fix the wrapper import path and preserve direct CLI and legacy board from outer root and unrelated working directories.",
+      "Return a successful structured MCP acknowledgement when a failure event is actually recorded; preserve observed earlier schema error.",
+      "Maintain actual game wiki and linked docs, fresh checks, Collector, independent IA and Document Chief last.",
+      "Preserve interrupted turns, exact imported history and uncompleted gameplay gates."
+    ],
+    "research_required": false,
+    "research_reason": "Bounded corrections to inspected local Python wrapper and response contract using existing pinned runtime; no unfamiliar external product or canon choice is introduced.",
+    "architecture_change": false
+  },
+  "registry": {
+    "schema_version": 1,
+    "revision": 19,
+    "previous_hash": "2eba7f2c463ddc787756ca5b6ee6cd5ac86dbbd7276b62a5c13e06f816a225c5",
+    "reason": "Register game software profile role SIM-34",
+    "timestamp": "2026-11-11T10:45:13.864065+00:00",
+    "agents": [
+      {
+        "agent_id": "ENG-00",
+        "name": "Project Coordinator",
+        "description": "Project Coordinator: Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Scope assessment",
+          "Agent selection and individual rationales",
+          "Exact task prompts",
+          "Dependency order",
+          "Readiness decisions",
+          "Outstanding corrective assignments"
+        ],
+        "jurisdiction": "Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces.",
+        "prohibited_actions": [
+          "Do not substitute for specialist implementation",
+          "Do not remove adverse evidence",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "coordinator",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "SHO-12",
+        "name": "Vince Offer",
+        "description": "Vince Offer: Create an engaging, truthful milestone presentation brief and request specialist media deliverables. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Milestone story",
+          "Visual script",
+          "Presentation outline",
+          "Demonstration brief",
+          "Audience framing",
+          "Media requests",
+          "Accurate disclosure of progress, failure and uncertainty"
+        ],
+        "jurisdiction": "Create an engaging, truthful milestone presentation brief and request specialist media deliverables.",
+        "prohibited_actions": [
+          "Do not fabricate achievements",
+          "Do not produce specialist art, audio, editing or CAD",
+          "Do not buy media services",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "EVC-28",
+        "name": "Evidence Collector and Organizer",
+        "description": "Evidence Collector and Organizer: independently inventory runtime evidence, invocation and handoff completeness, hashes, failures and source provenance before Internal Affairs. Collect provisional records without changing specialist conclusions or publishing canonical documentation.",
+        "use_cases": [
+          "Invocation and handoff inventory",
+          "Missing-output report",
+          "File hash verification",
+          "Test-log indexing",
+          "Source receipt indexing",
+          "Failed and blocked work preservation",
+          "Completeness package for IA"
+        ],
+        "jurisdiction": "Assemble and inspect the complete provisional evidence package after specialists and before Internal Affairs.",
+        "prohibited_actions": [
+          "Do not repair specialist outputs",
+          "Do not decide IA acceptance",
+          "Do not publish the canonical wiki",
+          "Do not discard adverse evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "collection",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "IA-11",
+        "name": "Internal Affairs",
+        "description": "Internal Affairs: Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Adversarial review",
+          "Reproducibility inspection",
+          "Source and numerical checks",
+          "Formal findings",
+          "Acceptance disposition",
+          "Next-turn corrective assignments"
+        ],
+        "jurisdiction": "Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims.",
+        "prohibited_actions": [
+          "Do not repair reviewed work",
+          "Do not delete findings",
+          "Do not review your own specialist output",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "audit",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "DOC-10",
+        "name": "Document Chief",
+        "description": "Document Chief: Commit the final turn and entity revisions to the canonical JSON wiki after independent review. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Evidence ingestion",
+          "Provenance checks",
+          "Immutable revisions",
+          "Failed turn records",
+          "Decision history",
+          "Corrective-action history",
+          "Baseline publication"
+        ],
+        "jurisdiction": "Commit the final turn and entity revisions to the canonical JSON wiki after independent review.",
+        "prohibited_actions": [
+          "Do not execute before IA",
+          "Do not rewrite history",
+          "Do not alter conclusions",
+          "Do not run another agent after publication",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "wiki"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": true,
+        "required_when": [],
+        "phase": "documentation",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "KRA-14",
+        "name": "Krampus Architectural Pre-Processor",
+        "description": "Krampus Architectural Pre-Processor: Resolve architectural ambiguity and draft precise baseline specifications without production implementation. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Readiness architecture review",
+          "One to five targeted boundary questions",
+          "README candidate",
+          "Technical description candidate",
+          "State tables",
+          "Interface schemas",
+          "Failure recovery",
+          "Single-file verification artifact requests",
+          "Independent ambiguity survey without an arbitrary question-count cap",
+          "Post-research baseline drafting"
+        ],
+        "jurisdiction": "Resolve architectural ambiguity and draft precise baseline specifications without production implementation.",
+        "prohibited_actions": [
+          "Do not write production code",
+          "Do not guess critical architecture",
+          "Do not publish canonical documentation mid-turn",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "workflow",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "preflight",
+          "architecture_change"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SWE-13",
+        "name": "Software Engineer",
+        "description": "Software Engineer: Implement application logic, APIs, command-line programs and automation within the assigned software boundary. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Python utilities",
+          "Application backends",
+          "Non-embedded applications",
+          "Data structures",
+          "Agent orchestration code",
+          "Build tooling",
+          "Software packaging",
+          "Automated software tests"
+        ],
+        "jurisdiction": "Implement application logic, APIs, command-line programs and automation within the assigned software boundary.",
+        "prohibited_actions": [
+          "Do not design circuits or mechanical geometry",
+          "Do not perform visual design or film editing",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "QA-16",
+        "name": "Test Engineer",
+        "description": "Test Engineer: Create independent acceptance tests for the assigned product or subsystem. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Test matrices",
+          "Integration tests",
+          "Failure injection",
+          "Regression checks",
+          "Usability acceptance",
+          "Measured test evidence"
+        ],
+        "jurisdiction": "Create independent acceptance tests for the assigned product or subsystem.",
+        "prohibited_actions": [
+          "Do not silently change acceptance limits",
+          "Do not mark unexecuted tests passed",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "testing",
+          "python"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "OPS-17",
+        "name": "Build and Delivery Engineer",
+        "description": "Build and Delivery Engineer: Implement authorized build, packaging and operational delivery procedures. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Reproducible builds",
+          "Release archives",
+          "CI",
+          "Runtime configuration",
+          "Rollback procedures",
+          "Installation verification"
+        ],
+        "jurisdiction": "Implement authorized build, packaging and operational delivery procedures.",
+        "prohibited_actions": [
+          "Do not deploy or publish without authorization",
+          "Do not change product requirements",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "git",
+          "software_tools",
+          "containers"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SEC-18",
+        "name": "Security Reviewer",
+        "description": "Security Reviewer: Review the assigned security and privacy boundaries and substantiate findings. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Threat modeling",
+          "Permission review",
+          "Secrets review",
+          "Dependency risk",
+          "Adversarial test plans"
+        ],
+        "jurisdiction": "Review the assigned security and privacy boundaries and substantiate findings.",
+        "prohibited_actions": [
+          "Do not broaden authorized testing targets",
+          "Do not substitute for IA disposition",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "research",
+          "testing"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "hardware"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "RES-09",
+        "name": "Researcher",
+        "description": "Researcher: Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "RESEARCH_REQUIRED screening",
+          "RESEARCH_NOT_REQUIRED screening",
+          "RESEARCH_BLOCKED screening",
+          "Prior art",
+          "Source comparison",
+          "Technical specifications",
+          "Creative references",
+          "Licensing and provenance research",
+          "Open-web product research",
+          "Materials and options comparison",
+          "Following-turn responses to blocked specialist requests"
+        ],
+        "jurisdiction": "Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty.",
+        "prohibited_actions": [
+          "Do not approve design decisions",
+          "Do not imply browsing occurred without source evidence",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "research"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "initial_product_research",
+          "queued_research_request",
+          "unresearched_change"
+        ],
+        "phase": "research",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "MED-07",
+        "name": "Illustration and Graphic Design Specialist",
+        "description": "Illustration and Graphic Design Specialist: Create approved two-dimensional visual assets and compositions. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Concept images",
+          "Illustrations",
+          "Brand assets",
+          "Presentation graphics",
+          "Compositing",
+          "Technical visuals from supplied geometry"
+        ],
+        "jurisdiction": "Create approved two-dimensional visual assets and compositions.",
+        "prohibited_actions": [
+          "Do not create or revise dimensioned CAD",
+          "Do not edit film or record audio",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "image_generation",
+          "image_editing"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "DEM-08",
+        "name": "Animation and Digital Demonstration Specialist",
+        "description": "Animation and Digital Demonstration Specialist: Animate approved assets and demonstrate approved mechanisms or behavior. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Motion visualization",
+          "Virtual demonstrations",
+          "Cutaways",
+          "Assembly animations",
+          "Interactive demonstrations",
+          "Educational models"
+        ],
+        "jurisdiction": "Animate approved assets and demonstrate approved mechanisms or behavior.",
+        "prohibited_actions": [
+          "Do not independently redesign CAD",
+          "Label illustrative motion and unvalidated behavior",
+          "Do not substitute for artistic asset or audio owners",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "blender",
+          "animation"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media",
+          "hardware"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "AUD-25",
+        "name": "Audio Specialist",
+        "description": "Audio Specialist: Create and edit approved speech, sound design and music assets. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Dialogue cleanup",
+          "Sound effects",
+          "Music briefs",
+          "Mixing",
+          "Loudness checks",
+          "Audio deliverables"
+        ],
+        "jurisdiction": "Create and edit approved speech, sound design and music assets.",
+        "prohibited_actions": [
+          "Do not edit video or write scripts",
+          "Do not use paid generation without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "audio",
+          "ffmpeg"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "WRI-22",
+        "name": "Writer and Story Editor",
+        "description": "Writer and Story Editor: Write assigned narrative, screenplay, dialogue or editorial copy. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "TV scripts",
+          "Story structure",
+          "Dialogue",
+          "Episode outlines",
+          "Continuity",
+          "Editorial revisions"
+        ],
+        "jurisdiction": "Write assigned narrative, screenplay, dialogue or editorial copy.",
+        "prohibited_actions": [
+          "Do not produce finished video or audio",
+          "Do not alter verified technical claims",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "writing",
+          "research"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "PRT-05",
+        "name": "Prototype Designer and Experiment Planner",
+        "description": "Prototype Designer and Experiment Planner: at each declared milestone, challenge whether a test product can be constructed from current approved artifacts. Design the best feasible subassembly, build steps and acceptance checks. Supply the plan to Prototype Builder and request corrections from discipline owners.",
+        "use_cases": [
+          "Prototype stages",
+          "Instrumentation",
+          "Experimental design",
+          "Resource estimates",
+          "Test schedules",
+          "Readiness reviews",
+          "Can we construct a test product now?",
+          "Best feasible subassembly plan",
+          "Available artifact inventory",
+          "Build attempt acceptance criteria",
+          "Evidence-backed infeasibility analysis"
+        ],
+        "jurisdiction": "Design milestone prototypes and best-feasible-subassembly attempts across software, hardware and media; plan experiments without replacing discipline owners.",
+        "prohibited_actions": [
+          "Do not claim unperformed experiments",
+          "Do not order components without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "planning",
+          "read_evidence"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "milestone"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "BLD-27",
+        "name": "Prototype Builder",
+        "description": "Prototype Builder: at each declared milestone, attempt the Prototype Designer plan using current approved components and assets. Construct the whole test product or best feasible subset, execute checks, and prove specific blockers when construction cannot proceed. This applies to software, hardware and media prototypes.",
+        "use_cases": [
+          "Build test products from current artifacts",
+          "Best feasible subassembly attempt",
+          "Software runnable slice",
+          "Media animatic or rough-cut attempt",
+          "Physical fit and interface checks",
+          "Evidence-backed inability to build",
+          "Request next-turn design corrections"
+        ],
+        "jurisdiction": "Execute milestone prototype attempts and report integration failures without redesigning another discipline artifacts.",
+        "prohibited_actions": [
+          "Do not silently redesign owned components",
+          "Do not claim an unattempted build succeeded",
+          "Do not purchase, fabricate or operate hardware without required authorization"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "prototype_build"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [
+          "milestone"
+        ],
+        "phase": "specialist",
+        "domains": [
+          "general"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "WIK-30",
+        "name": "Game Wiki Maintainer",
+        "description": "Maintain the actual SCP game wiki and linked development documentation, authored sources, code evidence, navigation, reciprocal links and final wiki build/freshness checks. Preserve canon/adaptation/implementation distinctions.",
+        "use_cases": [
+          "Read affected wiki dependencies before changes",
+          "Maintain cross-links and current mechanics explanations",
+          "Rebuild and validate the real game wiki",
+          "Inspect generated pages against actual code and test evidence"
+        ],
+        "jurisdiction": "Own authored game-wiki maintenance and linked current development documentation; do not replace it with process JSON or change game behavior.",
+        "prohibited_actions": [
+          "Do not edit generated HTML by hand",
+          "Do not claim independent IA or publish process records",
+          "Do not rewrite canon or historical evidence",
+          "Do not change runtime game mechanics"
+        ],
+        "inputs": [
+          "Selected scope and exact prompt",
+          "Relevant source and actual test results"
+        ],
+        "outputs": [
+          "Updated authored game wiki and related docs",
+          "Build/check logs and structured handoff"
+        ],
+        "tools": [
+          "workflow",
+          "wiki",
+          "python",
+          "git"
+        ],
+        "handoff_requirements": [
+          "Affected pages and cross-links",
+          "Real wiki build/check evidence",
+          "Limitations and unresolved decisions"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "documentation"
+        ],
+        "mandatory_run": true
+      },
+      {
+        "agent_id": "WEB-06",
+        "name": "Web Interface Developer",
+        "description": "Web Interface Developer: Implement accessible web interfaces from approved content, designs and data contracts. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+        "use_cases": [
+          "Web UI",
+          "Wiki renderer",
+          "Navigation",
+          "Responsive layouts",
+          "Accessibility",
+          "Evidence views",
+          "Interactive software interfaces"
+        ],
+        "jurisdiction": "Implement accessible web interfaces from approved content, designs and data contracts.",
+        "prohibited_actions": [
+          "Do not alter canonical findings",
+          "Do not author unrelated backend or engineering work",
+          "Do not deploy without authorization",
+          "Do not change another role's owned artifacts",
+          "Do not represent assumptions or generated media as verified evidence"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "web",
+          "git"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "media"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "UIX-31",
+        "name": "Game UI and UX Designer",
+        "description": "Game UI and UX Designer: Design and qualify native Godot interaction flows, controls, accessibility, feedback, information hierarchy and player-facing usability. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Inventory and paperdoll interaction",
+          "OSCP and field-phone UX",
+          "Local game controls and feedback",
+          "Usability and accessibility acceptance"
+        ],
+        "jurisdiction": "Design and qualify native Godot interaction flows, controls, accessibility, feedback, information hierarchy and player-facing usability.",
+        "prohibited_actions": [
+          "Do not silently change authoritative simulation rules",
+          "Do not substitute web markup for native Godot behavior",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "AST-32",
+        "name": "Game Asset Pipeline Specialist",
+        "description": "Game Asset Pipeline Specialist: Maintain sprite/animation/data asset structure, masks, placement bindings, import settings, provenance and integration validation. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Item art and source atlas registration",
+          "Sprite state/facing/frame mappings",
+          "Mask and silhouette pipeline",
+          "Import/provenance and missing-art diagnostics"
+        ],
+        "jurisdiction": "Maintain sprite/animation/data asset structure, masks, placement bindings, import settings, provenance and integration validation.",
+        "prohibited_actions": [
+          "Do not fabricate art provenance or licensing",
+          "Do not alter source images without assigned authoring scope",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "LOR-33",
+        "name": "SCP Lore and Adaptation Specialist",
+        "description": "SCP Lore and Adaptation Specialist: Research SCP canon and cross-archive references, distinguish contradictions and propose explicit in-game adaptations for human decisions. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Canonical behavior and containment",
+          "Cross-article and tale discovery",
+          "Canon versus game adaptation documentation",
+          "Lore-facing communication and scenario consistency"
+        ],
+        "jurisdiction": "Research SCP canon and cross-archive references, distinguish contradictions and propose explicit in-game adaptations for human decisions.",
+        "prohibited_actions": [
+          "Do not modify the bulk canon archive",
+          "Do not silently resolve disputed canon or invent a user design answer",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      },
+      {
+        "agent_id": "SIM-34",
+        "name": "Game Simulation and SCP Module Engineer",
+        "description": "Game Simulation and SCP Module Engineer: Implement assigned authoritative simulation, SCP-module interfaces, time, perception, inventory, employment and persistence contracts in the game kernel. Produce only assigned domain deliverables with real evidence and explicit handoffs.",
+        "use_cases": [
+          "Deterministic simulation services",
+          "SCP module interactions and edge cases",
+          "Shared world/time and persistence",
+          "Subsystem integration boundaries"
+        ],
+        "jurisdiction": "Implement assigned authoritative simulation, SCP-module interfaces, time, perception, inventory, employment and persistence contracts in the game kernel.",
+        "prohibited_actions": [
+          "Do not put authoritative gameplay logic only in presentation",
+          "Do not broaden a module into unrestricted state mutation",
+          "Preserve unrelated work and recorded evidence",
+          "Do not claim independent review of your own changes"
+        ],
+        "inputs": [
+          "Recorded assignment and exact prompt",
+          "Requirements, sources and prior findings",
+          "Approved upstream handoffs"
+        ],
+        "outputs": [
+          "Structured handoff",
+          "Owned artifacts with evidence references"
+        ],
+        "tools": [
+          "python",
+          "git",
+          "software_tools"
+        ],
+        "handoff_requirements": [
+          "Assigned scope",
+          "Work performed",
+          "Artifact hashes",
+          "Actual test evidence or NOT_RUN reason",
+          "Limitations and status"
+        ],
+        "registration_revision": 1,
+        "mandatory": false,
+        "required_when": [],
+        "phase": "specialist",
+        "domains": [
+          "software",
+          "game"
+        ],
+        "mandatory_run": false
+      }
+    ],
+    "hash": "91d5021d5770eefbd166daf7cf1662ce7cf7d1e3e5898745a1daaeab35e04d4c"
+  },
+  "selection": {
+    "ENG-00": {
+      "selected": true,
+      "reason": "Coordinator must scope this actual recovery, account for every frozen role and preserve the prior rejected audit and quota interruptions.",
+      "prompt": "Act as ENG-00 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, management/README.md, docs/59-agentic-development-loop.md, the relevant actual game-wiki pages and prior IA evidence before work. Review the frozen all-role selection and bounded corrections: IA-002-001 wrapper imports and the observed MCP failed-response schema error. Write only your concise owned report and raw structured handoff under management/agentic/work/turn.003/ENG-00/. Preserve interrupted history, host connection evidence and open gameplay gates. Do not implement source or claim acceptance. Parent records the handoff.",
+      "dependencies": []
+    },
+    "SHO-12": {
+      "selected": false,
+      "reason": "This correction produces no milestone presentation or sales narrative; the truthful deliverable is operational harness evidence."
+    },
+    "EVC-28": {
+      "selected": true,
+      "reason": "Evidence collector must inventory this recovery's genuine workers, negations, outputs and current logs before independent audit.",
+      "prompt": "Act as EVC-28 for turn.003 and task agentic-loop-setup after WIK-30. Read applicable AGENTS.md and actual wiki/management contracts. Build the genuine runtime evidence package, inspect this turn's actual authorizations, distinct receipts, every registered role and individual negation, owned outputs, current hashes and nested test/wiki evidence. Preserve interrupted history and adverse logs; distinguish historical source changes from current integrity errors. Write concise owned report, verification logs and raw handoff with collection.package_path under management/agentic/work/turn.003/EVC-28/. Do not repair source, wiki or task records, decide acceptance, or broaden into unrelated gameplay. Parent records the handoff.",
+      "dependencies": [
+        "WIK-30"
+      ]
+    },
+    "IA-11": {
+      "selected": true,
+      "reason": "Independent Internal Affairs must verify corrections, exact acceptance and remaining evidence limitations before publication.",
+      "prompt": "Act as independent IA-11 for turn.003 and task agentic-loop-setup after genuine collection. Read applicable AGENTS.md, actual wiki/contracts, prior IA-002-001 and the collected evidence. Independently verify wrapper correction, MCP acknowledgement, actual dispatch chronology/negations, current hashes, wiki semantics, imported-history gates and all task acceptance criteria. Do not repair outputs. Write concise report, raw audit, raw handoff and an independent software completion review under management/agentic/work/turn.003/IA-11/. Resolve IA-002-001 only with independent fresh evidence; preserve host/runtime trust limits and open gameplay gates. Parent records handoff and audit before DOC publishes last.",
+      "dependencies": [
+        "EVC-28"
+      ]
+    },
+    "DOC-10": {
+      "selected": true,
+      "reason": "Document Chief must publish the actual reviewed outcome last and close the matching software task only if its gates pass.",
+      "prompt": "Act as DOC-10 last for turn.003 and task agentic-loop-setup after independent IA. Read applicable AGENTS.md, actual wiki contract, final audit and evidence package. Write your concise owned report and raw handoff under management/agentic/work/turn.003/DOC-10/. Record that handoff, then use the genuine runtime to publish only the reviewed outcome, exact import/task entities and independently verified case resolutions. If accepted and all actual task checks agree, complete the software task using the actual IA completion review. Preserve interrupted history and explicit limits. Do not edit/rebuild game source/wiki after review or run another worker. Parent supplies final payload and actual state.",
+      "dependencies": [
+        "IA-11"
+      ]
+    },
+    "KRA-14": {
+      "selected": true,
+      "reason": "Architecture must review the setup corrections and host-versus-local response boundaries required by this non-production recovery turn.",
+      "prompt": "Act as KRA-14 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs/59-agentic-development-loop.md and prior IA evidence. Independently inspect the bounded wrapper import fix plan and MCP failed-response contract; distinguish the actual newly observed host call from generic local readiness fields. Write only a concise architecture report and raw structured handoff in management/agentic/work/turn.003/KRA-14/. Record unresolved_questions and baseline_artifacts explicitly; do not invent a new baseline, implement source, or claim task acceptance. Parent records the handoff.",
+      "dependencies": [
+        "ENG-00"
+      ]
+    },
+    "SWE-13": {
+      "selected": true,
+      "reason": "Software owns verified IA-002-001 wrapper correction and the newly observed MCP failure acknowledgement defect, with meaningful regressions.",
+      "prompt": "Act as SWE-13 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs59, prior IA-002-001 and bootstrap/host-failed-response-defect.md before edits. Fix the versioned root wrapper import path, reinstall its managed copy, and correct the MCP failed-operation acknowledgement contract. Own only necessary Python tooling and focused regression tests. Qualify outer agents dispatch from root and unrelated cwd, legacy board, direct CLI, and real MCP failure recording in an isolated clearly labelled fixture. Preserve adverse evidence and actual interruption history. Write a concise owned report and raw handoff under management/agentic/work/turn.003/SWE-13/. Leave actual wiki/docs to WIK after independent QA; do not claim acceptance. Parent records the handoff.",
+      "dependencies": [
+        "KRA-14"
+      ],
+      "corrective_cases": [
+        "IA-002-001"
+      ]
+    },
+    "QA-16": {
+      "selected": true,
+      "reason": "Independent tests must qualify both actual integration corrections before Wiki freezes source for terminal review.",
+      "prompt": "Act as QA-16 for turn.003 and task agentic-loop-setup after SWE-13 finishes. Read applicable AGENTS.md, related actual game-wiki pages, prior IA-002-001 and the observed MCP response defect. Independently verify the corrected installed root shortcut from outer root and unrelated cwd, legacy board, direct CLI and real MCP failed-operation acknowledgement using an isolated labelled fixture. Run appropriate harness/adapter tests and inspect final source hashes; preserve failures and state limits. Write only concise report, real logs and raw handoff under management/agentic/work/turn.003/QA-16/. Do not repair source/wiki or claim acceptance. Parent records the handoff.",
+      "dependencies": [
+        "SWE-13"
+      ]
+    },
+    "OPS-17": {
+      "selected": false,
+      "reason": "No game package, release deployment or build service changes in this bounded wrapper/response repair; SWE owns local installation."
+    },
+    "SEC-18": {
+      "selected": false,
+      "reason": "This correction adds no credentials, public listener or game permission surface; existing path boundaries remain checked by QA and IA."
+    },
+    "RES-09": {
+      "selected": false,
+      "reason": "The two local Python contract defects are understood from inspected source and observed failures; no unfamiliar external choice or canon research is needed."
+    },
+    "MED-07": {
+      "selected": false,
+      "reason": "No sprite, texture, icon or source illustration is created when repairing Python dispatch and acknowledgement."
+    },
+    "DEM-08": {
+      "selected": false,
+      "reason": "No animation sequence or authored product demonstration is part of these two integration corrections."
+    },
+    "AUD-25": {
+      "selected": false,
+      "reason": "The recovery changes neither audio assets nor an audio pipeline, so sound authoring has no assigned output."
+    },
+    "WRI-22": {
+      "selected": false,
+      "reason": "No story, character dialogue or narrative continuity changes are requested; WIK owns technical descriptions."
+    },
+    "PRT-05": {
+      "selected": false,
+      "reason": "This is a setup repair rather than a declared gameplay/product completion milestone needing a prototype design."
+    },
+    "BLD-27": {
+      "selected": false,
+      "reason": "There is no declared milestone or approved prototype plan to construct; appropriate software tests qualify these small fixes."
+    },
+    "WIK-30": {
+      "selected": true,
+      "reason": "Actual game Wiki owner must synchronize changed tooling, host observation, interrupted history, guides and fresh generated evidence.",
+      "prompt": "Act as WIK-30 for turn.003 and task agentic-loop-setup after all selected execution owners finish. Read applicable AGENTS.md, relevant actual game-wiki pages and linked source/docs. Update actual authored wiki, affected Markdown, managed overlay templates/profile and necessary generator metadata for the two bounded corrections, actual host connection observation, interrupted001/002 history and current limits. Preserve history and avoid pre-accepting terminal outcomes. Reinstall managed overlay; run appropriate tests/docs and both real wiki commands sequentially through the task board, inspect reciprocal links and semantic agreement. Write concise report and raw structured handoff with game_wiki evidence under management/agentic/work/turn.003/WIK-30/. No runtime source repair after your phase. Parent records the handoff.",
+      "dependencies": [
+        "ENG-00",
+        "KRA-14",
+        "SWE-13",
+        "QA-16"
+      ]
+    },
+    "WEB-06": {
+      "selected": false,
+      "reason": "Wiki rendering, CSS, search and web navigation behavior remain unchanged; WIK performs authored updates and routine generation."
+    },
+    "UIX-31": {
+      "selected": false,
+      "reason": "No native Godot screen, interaction flow or player-facing control changes with the root-command and MCP fixes."
+    },
+    "AST-32": {
+      "selected": false,
+      "reason": "The corrections touch no atlas, mask, sprite binding, asset import or media provenance record."
+    },
+    "LOR-33": {
+      "selected": false,
+      "reason": "No SCP canon interpretation or game-lore adaptation changes in the tooling repair; existing lore decisions remain intact."
+    },
+    "SIM-34": {
+      "selected": false,
+      "reason": "No authoritative kernel, SCP behavior, perception, inventory, time or save mechanics change in this harness recovery."
+    }
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "timestamp": "2026-11-11T16:43:09.454522+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "INITIAL_REVIEW"
+      },
+      "previous_hash": "1809627f8de5e94eb5ae71ae54dcc3748c4c052d5ad21b5454fe4c1373e3b4db",
+      "hash": "491169f2542e8a3fc1a274951199e1274da8629ca70c62b58838fcac8d6650e6"
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-11-11T16:43:09.456386+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "AGENT_SELECTION"
+      },
+      "previous_hash": "491169f2542e8a3fc1a274951199e1274da8629ca70c62b58838fcac8d6650e6",
+      "hash": "60014ffb0af0dae41c8ecea569c7450d0c0eacdd17365c258f75531947152e70"
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-11-11T16:44:40.896162+00:00",
+      "kind": "SELECTION",
+      "data": {
+        "ENG-00": {
+          "selected": true,
+          "reason": "Coordinator must scope this actual recovery, account for every frozen role and preserve the prior rejected audit and quota interruptions.",
+          "prompt": "Act as ENG-00 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, management/README.md, docs/59-agentic-development-loop.md, the relevant actual game-wiki pages and prior IA evidence before work. Review the frozen all-role selection and bounded corrections: IA-002-001 wrapper imports and the observed MCP failed-response schema error. Write only your concise owned report and raw structured handoff under management/agentic/work/turn.003/ENG-00/. Preserve interrupted history, host connection evidence and open gameplay gates. Do not implement source or claim acceptance. Parent records the handoff.",
+          "dependencies": []
+        },
+        "SHO-12": {
+          "selected": false,
+          "reason": "This correction produces no milestone presentation or sales narrative; the truthful deliverable is operational harness evidence."
+        },
+        "EVC-28": {
+          "selected": true,
+          "reason": "Evidence collector must inventory this recovery's genuine workers, negations, outputs and current logs before independent audit.",
+          "prompt": "Act as EVC-28 for turn.003 and task agentic-loop-setup after WIK-30. Read applicable AGENTS.md and actual wiki/management contracts. Build the genuine runtime evidence package, inspect this turn's actual authorizations, distinct receipts, every registered role and individual negation, owned outputs, current hashes and nested test/wiki evidence. Preserve interrupted history and adverse logs; distinguish historical source changes from current integrity errors. Write concise owned report, verification logs and raw handoff with collection.package_path under management/agentic/work/turn.003/EVC-28/. Do not repair source, wiki or task records, decide acceptance, or broaden into unrelated gameplay. Parent records the handoff.",
+          "dependencies": [
+            "WIK-30"
+          ]
+        },
+        "IA-11": {
+          "selected": true,
+          "reason": "Independent Internal Affairs must verify corrections, exact acceptance and remaining evidence limitations before publication.",
+          "prompt": "Act as independent IA-11 for turn.003 and task agentic-loop-setup after genuine collection. Read applicable AGENTS.md, actual wiki/contracts, prior IA-002-001 and the collected evidence. Independently verify wrapper correction, MCP acknowledgement, actual dispatch chronology/negations, current hashes, wiki semantics, imported-history gates and all task acceptance criteria. Do not repair outputs. Write concise report, raw audit, raw handoff and an independent software completion review under management/agentic/work/turn.003/IA-11/. Resolve IA-002-001 only with independent fresh evidence; preserve host/runtime trust limits and open gameplay gates. Parent records handoff and audit before DOC publishes last.",
+          "dependencies": [
+            "EVC-28"
+          ]
+        },
+        "DOC-10": {
+          "selected": true,
+          "reason": "Document Chief must publish the actual reviewed outcome last and close the matching software task only if its gates pass.",
+          "prompt": "Act as DOC-10 last for turn.003 and task agentic-loop-setup after independent IA. Read applicable AGENTS.md, actual wiki contract, final audit and evidence package. Write your concise owned report and raw handoff under management/agentic/work/turn.003/DOC-10/. Record that handoff, then use the genuine runtime to publish only the reviewed outcome, exact import/task entities and independently verified case resolutions. If accepted and all actual task checks agree, complete the software task using the actual IA completion review. Preserve interrupted history and explicit limits. Do not edit/rebuild game source/wiki after review or run another worker. Parent supplies final payload and actual state.",
+          "dependencies": [
+            "IA-11"
+          ]
+        },
+        "KRA-14": {
+          "selected": true,
+          "reason": "Architecture must review the setup corrections and host-versus-local response boundaries required by this non-production recovery turn.",
+          "prompt": "Act as KRA-14 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs/59-agentic-development-loop.md and prior IA evidence. Independently inspect the bounded wrapper import fix plan and MCP failed-response contract; distinguish the actual newly observed host call from generic local readiness fields. Write only a concise architecture report and raw structured handoff in management/agentic/work/turn.003/KRA-14/. Record unresolved_questions and baseline_artifacts explicitly; do not invent a new baseline, implement source, or claim task acceptance. Parent records the handoff.",
+          "dependencies": [
+            "ENG-00"
+          ]
+        },
+        "SWE-13": {
+          "selected": true,
+          "reason": "Software owns verified IA-002-001 wrapper correction and the newly observed MCP failure acknowledgement defect, with meaningful regressions.",
+          "prompt": "Act as SWE-13 for turn.003 and task agentic-loop-setup. Read applicable AGENTS.md, relevant actual game-wiki pages, docs59, prior IA-002-001 and bootstrap/host-failed-response-defect.md before edits. Fix the versioned root wrapper import path, reinstall its managed copy, and correct the MCP failed-operation acknowledgement contract. Own only necessary Python tooling and focused regression tests. Qualify outer agents dispatch from root and unrelated cwd, legacy board, direct CLI, and real MCP failure recording in an isolated clearly labelled fixture. Preserve adverse evidence and actual interruption history. Write a concise owned report and raw handoff under management/agentic/work/turn.003/SWE-13/. Leave actual wiki/docs to WIK after independent QA; do not claim acceptance. Parent records the handoff.",
+          "dependencies": [
+            "KRA-14"
+          ],
+          "corrective_cases": [
+            "IA-002-001"
+          ]
+        },
+        "QA-16": {
+          "selected": true,
+          "reason": "Independent tests must qualify both actual integration corrections before Wiki freezes source for terminal review.",
+          "prompt": "Act as QA-16 for turn.003 and task agentic-loop-setup after SWE-13 finishes. Read applicable AGENTS.md, related actual game-wiki pages, prior IA-002-001 and the observed MCP response defect. Independently verify the corrected installed root shortcut from outer root and unrelated cwd, legacy board, direct CLI and real MCP failed-operation acknowledgement using an isolated labelled fixture. Run appropriate harness/adapter tests and inspect final source hashes; preserve failures and state limits. Write only concise report, real logs and raw handoff under management/agentic/work/turn.003/QA-16/. Do not repair source/wiki or claim acceptance. Parent records the handoff.",
+          "dependencies": [
+            "SWE-13"
+          ]
+        },
+        "OPS-17": {
+          "selected": false,
+          "reason": "No game package, release deployment or build service changes in this bounded wrapper/response repair; SWE owns local installation."
+        },
+        "SEC-18": {
+          "selected": false,
+          "reason": "This correction adds no credentials, public listener or game permission surface; existing path boundaries remain checked by QA and IA."
+        },
+        "RES-09": {
+          "selected": false,
+          "reason": "The two local Python contract defects are understood from inspected source and observed failures; no unfamiliar external choice or canon research is needed."
+        },
+        "MED-07": {
+          "selected": false,
+          "reason": "No sprite, texture, icon or source illustration is created when repairing Python dispatch and acknowledgement."
+        },
+        "DEM-08": {
+          "selected": false,
+          "reason": "No animation sequence or authored product demonstration is part of these two integration corrections."
+        },
+        "AUD-25": {
+          "selected": false,
+          "reason": "The recovery changes neither audio assets nor an audio pipeline, so sound authoring has no assigned output."
+        },
+        "WRI-22": {
+          "selected": false,
+          "reason": "No story, character dialogue or narrative continuity changes are requested; WIK owns technical descriptions."
+        },
+        "PRT-05": {
+          "selected": false,
+          "reason": "This is a setup repair rather than a declared gameplay/product completion milestone needing a prototype design."
+        },
+        "BLD-27": {
+          "selected": false,
+          "reason": "There is no declared milestone or approved prototype plan to construct; appropriate software tests qualify these small fixes."
+        },
+        "WIK-30": {
+          "selected": true,
+          "reason": "Actual game Wiki owner must synchronize changed tooling, host observation, interrupted history, guides and fresh generated evidence.",
+          "prompt": "Act as WIK-30 for turn.003 and task agentic-loop-setup after all selected execution owners finish. Read applicable AGENTS.md, relevant actual game-wiki pages and linked source/docs. Update actual authored wiki, affected Markdown, managed overlay templates/profile and necessary generator metadata for the two bounded corrections, actual host connection observation, interrupted001/002 history and current limits. Preserve history and avoid pre-accepting terminal outcomes. Reinstall managed overlay; run appropriate tests/docs and both real wiki commands sequentially through the task board, inspect reciprocal links and semantic agreement. Write concise report and raw structured handoff with game_wiki evidence under management/agentic/work/turn.003/WIK-30/. No runtime source repair after your phase. Parent records the handoff.",
+          "dependencies": [
+            "ENG-00",
+            "KRA-14",
+            "SWE-13",
+            "QA-16"
+          ]
+        },
+        "WEB-06": {
+          "selected": false,
+          "reason": "Wiki rendering, CSS, search and web navigation behavior remain unchanged; WIK performs authored updates and routine generation."
+        },
+        "UIX-31": {
+          "selected": false,
+          "reason": "No native Godot screen, interaction flow or player-facing control changes with the root-command and MCP fixes."
+        },
+        "AST-32": {
+          "selected": false,
+          "reason": "The corrections touch no atlas, mask, sprite binding, asset import or media provenance record."
+        },
+        "LOR-33": {
+          "selected": false,
+          "reason": "No SCP canon interpretation or game-lore adaptation changes in the tooling repair; existing lore decisions remain intact."
+        },
+        "SIM-34": {
+          "selected": false,
+          "reason": "No authoritative kernel, SCP behavior, perception, inventory, time or save mechanics change in this harness recovery."
+        }
+      },
+      "previous_hash": "60014ffb0af0dae41c8ecea569c7450d0c0eacdd17365c258f75531947152e70",
+      "hash": "c310deac91216a50851c6e94a1a4a29ef6805a325697b3511170efa5066cd450"
+    },
+    {
+      "sequence": 4,
+      "timestamp": "2026-11-11T16:44:40.899926+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "RESEARCH_AND_EXECUTION"
+      },
+      "previous_hash": "c310deac91216a50851c6e94a1a4a29ef6805a325697b3511170efa5066cd450",
+      "hash": "0ed505cb2b756117ae7108818203134620a462182f0fafa25c378d796560ff37"
+    },
+    {
+      "sequence": 5,
+      "timestamp": "2026-11-11T16:44:44.007648+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "ENG-00",
+        "authorization_id": "0598896cd75b494aa2e81b7155d2eb44",
+        "prompt_hash": "69481a7b32b26f287efa72d5195e24ca3075e5a53a529f365880a2c286044332"
+      },
+      "previous_hash": "0ed505cb2b756117ae7108818203134620a462182f0fafa25c378d796560ff37",
+      "hash": "09e8820ff722490896e2f357312708a036fb31ccc323dec88ac0457df8e8030c"
+    },
+    {
+      "sequence": 6,
+      "timestamp": "2026-11-11T16:45:15.448862+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "ENG-00",
+        "prompt_hash": "69481a7b32b26f287efa72d5195e24ca3075e5a53a529f365880a2c286044332",
+        "receipt": "/root/coordinator_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "0598896cd75b494aa2e81b7155d2eb44",
+        "owned_directory": "work/turn.003/ENG-00"
+      },
+      "previous_hash": "09e8820ff722490896e2f357312708a036fb31ccc323dec88ac0457df8e8030c",
+      "hash": "57e4249afd1476fce0964ace0467ff6269d3017824b54cf811e4b30023800dae"
+    },
+    {
+      "sequence": 7,
+      "timestamp": "2026-11-11T16:47:45.456108+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "ENG-00",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "69481a7b32b26f287efa72d5195e24ca3075e5a53a529f365880a2c286044332",
+        "assigned_scope": "Review frozen all-role selection and bound wrapper/MCP acknowledgement corrections while preserving history and gameplay gates.",
+        "work_performed": "Read actual game/wiki/contracts and prior IA/source evidence; checked 23-role coverage, exact prompts, dependencies and recorded ENG authorization/invocation; scoped owner acceptance and identified WIK temporal updates. Wrote only owned report and raw handoff.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/ENG-00/report.md",
+            "sha256": "16a254f39e74b8d0dac2edaa0da35f9c29ef2c574d270b1c3d0964f7c6c0f54f"
+          }
+        ],
+        "tests": [
+          {
+            "command": "python3 tools/build_game_wiki.py --check (pre-correction freshness only)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/ENG-00/report.md",
+                "sha256": "16a254f39e74b8d0dac2edaa0da35f9c29ef2c574d270b1c3d0964f7c6c0f54f"
+              }
+            ]
+          },
+          {
+            "command": "Production regression suites, real MCP failure fixture and final wiki rebuild/check NOT_RUN by ENG; assigned to SWE-13, QA-16 and WIK-30.",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/selection-turn.003.json",
+            "sha256": "0a79125adc9d917838082e0854d3ebea9af558f253692403ee43cffd82fbb0be"
+          },
+          {
+            "path": "management/agentic/evidence/turn.003.events/000005.json",
+            "sha256": "cb69864842e2de77c44ac3875dd97a7e166a2add810156e50712e380da40b711"
+          },
+          {
+            "path": "management/agentic/evidence/turn.003.events/000006.json",
+            "sha256": "bee11fa486c399daabcec74540525c801589fb04e02aea446e8cafb3ef7f2f0e"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/report.md",
+            "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          },
+          {
+            "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+            "sha256": "1faec542c884a980a3f72032f745f327ad1130c8337f5784e3f3e45cac65973f"
+          }
+        ],
+        "limitations": [
+          "This is a coordination handoff, not setup/import/task acceptance or source correction.",
+          "WIK turn.003 must refresh temporal/host claims and perform final semantic/build/check evidence after SWE and independent QA.",
+          "Host receipts and recorded order require external review; hashes/runtime do not authenticate identity or prevent deliberate rewriting.",
+          "Interrupted turn.001/turn.002, rejected IA-002-001, adverse logs and absent prior DOC publication/import acceptance remain preserved.",
+          "No fresh gameplay/M0, native rendering, canon, asset or exhaustive research/finding-cycle qualification."
+        ],
+        "unresolved_questions": [],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "57e4249afd1476fce0964ace0467ff6269d3017824b54cf811e4b30023800dae",
+      "hash": "9b6ebb27c15fd37af61078bdd01695af2997f09a13135f84a72e354ac81154e4"
+    },
+    {
+      "sequence": 8,
+      "timestamp": "2026-11-11T16:47:48.070728+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "KRA-14",
+        "authorization_id": "9f067d481f95475d8bfa47ede92849e5",
+        "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf"
+      },
+      "previous_hash": "9b6ebb27c15fd37af61078bdd01695af2997f09a13135f84a72e354ac81154e4",
+      "hash": "155b5aafce86574337b6acb23692245335e5e60c332a97af6af07febe753d0b2"
+    },
+    {
+      "sequence": 9,
+      "timestamp": "2026-11-11T16:48:03.431136+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "KRA-14",
+        "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf",
+        "receipt": "/root/architecture_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "9f067d481f95475d8bfa47ede92849e5",
+        "owned_directory": "work/turn.003/KRA-14"
+      },
+      "previous_hash": "155b5aafce86574337b6acb23692245335e5e60c332a97af6af07febe753d0b2",
+      "hash": "863a3d0093cd19ff968631e22be400670edac35174f9e2e083cb5ede8d22b295"
+    },
+    {
+      "sequence": 10,
+      "timestamp": "2026-11-11T16:50:13.739086+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "KRA-14",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf",
+        "assigned_scope": "Review only wrapper import integration, shared failed-response contract and host-observation boundaries for the bounded correction.",
+        "work_performed": "Read relevant actual wiki, management, prior IA and current source evidence; specified compatibility and acknowledgement constraints and independent verification boundaries. Wrote only owned architecture report and raw handoff.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/KRA-14/report.md",
+            "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+          }
+        ],
+        "tests": [
+          {
+            "command": "python3 tools/build_game_wiki.py --check (read-only pre-correction freshness; not final semantic gate)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/KRA-14/report.md",
+                "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+              }
+            ]
+          },
+          {
+            "command": "Production wrapper regressions, shared acknowledgement regression and real stdio MCP failure fixture NOT_RUN by KRA; assigned to SWE-13 and independent QA-16, with final wiki gates owned by WIK-30.",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/ENG-00/report.md",
+            "sha256": "16a254f39e74b8d0dac2edaa0da35f9c29ef2c574d270b1c3d0964f7c6c0f54f"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/report.md",
+            "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+            "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+            "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          }
+        ],
+        "limitations": [
+          "Architecture handoff is not implementation, independent terminal acceptance, import acceptance or task closure.",
+          "Current docs contain known temporal drift for interrupted turn.002 and newly observed host connection; WIK owns reconciliation after source/QA completion.",
+          "Host observation is parent-transcribed evidence of that successful transport call; runtime cannot authenticate worker receipts or infer every later transport state.",
+          "No fresh gameplay/M0, canon, assets or exhaustive later research/finding-cycle qualification."
+        ],
+        "architecture": {
+          "unresolved_questions": [],
+          "baseline_artifacts": []
+        },
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "863a3d0093cd19ff968631e22be400670edac35174f9e2e083cb5ede8d22b295",
+      "hash": "d96f53091e29b292b78c6df95edda994f3220307638a3fa314fd137845fdce14"
+    },
+    {
+      "sequence": 11,
+      "timestamp": "2026-11-11T16:50:17.431001+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "SWE-13",
+        "authorization_id": "ea139e466cb14f5bb36dbb45cd5e0c20",
+        "prompt_hash": "038fcbd7976a85b7f9139532ff166a2f3510b69752b77a0524a4f29096c25f52"
+      },
+      "previous_hash": "d96f53091e29b292b78c6df95edda994f3220307638a3fa314fd137845fdce14",
+      "hash": "988859e00613284e88eaf49214117d4a3312e51610eb88075a9d00b7e3a8eef0"
+    },
+    {
+      "sequence": 12,
+      "timestamp": "2026-11-11T16:50:32.763587+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "SWE-13",
+        "prompt_hash": "038fcbd7976a85b7f9139532ff166a2f3510b69752b77a0524a4f29096c25f52",
+        "receipt": "/root/software_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "ea139e466cb14f5bb36dbb45cd5e0c20",
+        "owned_directory": "work/turn.003/SWE-13"
+      },
+      "previous_hash": "988859e00613284e88eaf49214117d4a3312e51610eb88075a9d00b7e3a8eef0",
+      "hash": "62363e322808268ada9d7e267e82ab49113b891304ee142efbe0e798a3eceef8"
+    },
+    {
+      "sequence": 13,
+      "timestamp": "2026-11-11T16:57:13.868402+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "SWE-13",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "038fcbd7976a85b7f9139532ff166a2f3510b69752b77a0524a4f29096c25f52",
+        "assigned_scope": "Correct IA-002-001 root-wrapper imports and observed MCP failed-operation acknowledgement; focused tooling/regressions only.",
+        "work_performed": "Preserved pre-fix bytes and red/adverse logs; added game tools import path and reinstalled managed wrapper; returned a structured acknowledgement after the genuine failure append through shared CLI/MCP dispatch. Added five isolated entrypoint regressions, exercised actual fresh-server MCP failure recording and rejected retries, ran 53 distinct harness/adapter tests and installed entrypoint checks. Wrote only assigned source/tests, managed wrapper and owned evidence/report.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+            "sha256": "f6967834f21e45533524cdac00db066206f53545f882647d6abd9af0efa8c668"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+            "sha256": "29e8e92ffe6f53988a6c31e118fd428de68e0ba3766dea571d5d683986932a74"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+            "sha256": "d0d99337b4199827f47426226528dd3ddf4668e27c6c0b5ffac7824b114d8402"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+            "sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+            "sha256": "7a3540ba5b95c3351a61bb8ea125ab68ca83e0ad501d297842da0988b8c9d5dd"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+            "sha256": "8fbe3a115c73fde54b1ddd29b7d5de567a04c6c7bcbded259b9d2aee38735cbb"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-regression.json",
+            "sha256": "f8500fc2a8905d580422a74973d511684153181f9168e5b448f92ff1950ae21e"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-regression.log",
+            "sha256": "b57addbf1608ff51e2dbf44ec59338e66552d145d63807bd07be8ef16649552d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+            "sha256": "3326a697719c0c589b41dbab380f13eb2db35d7815082bca07a348bc63f95ace"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+            "sha256": "7177f99cad196e0eca249a8f9892f83c27546d9a3067b25c19748e942da3af20"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+            "sha256": "e387b8e9d4088ecb1126e692f0ec5a7827fb6d815d6de76992ca97afa81b892f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+            "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+            "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+            "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+            "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+            "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+            "sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+            "sha256": "4cf1706358208817aa75551481d84e7b2df2b6d9290e46b0f69337e9ecf89d79"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+            "sha256": "882c418af00e54b784e962837ff5b22f297ddf5104d8ecb2258ccf9a9b76f926"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+            "sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+            "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+            "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+            "sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+            "sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/report.md",
+            "sha256": "df768dd98238b12a755faf134ea25728a6a75e4ae59c1474d0b85aa135865245"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/suite-results.json",
+            "sha256": "b8cc872c03ea65daf5bc5fa6b7f2d066f358abda4a04cdfc4be08231ede2429b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+            "sha256": "6b1e0f489be9fb1c86f357ef1aca1cd9ab4d04790c72373a499dae239bb4a07c"
+          }
+        ],
+        "tests": [
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (fresh real local stdio server; isolated synthetic fixture)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+                "sha256": "d0d99337b4199827f47426226528dd3ddf4668e27c6c0b5ffac7824b114d8402"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (40 tests; real fixture IPC active)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+                "sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (13 tests)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+                "sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+              }
+            ]
+          },
+          {
+            "command": "python3 scripts/manage_game.py agents readiness from outer workspace root",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+                "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+              }
+            ]
+          },
+          {
+            "command": "python3 <absolute outer scripts/manage_game.py> agents readiness from /tmp",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+                "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+              }
+            ]
+          },
+          {
+            "command": "python3 scripts/manage_game.py status from outer workspace root",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+                "sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python tools/agentic.py readiness from game root",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+                "sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/configure_project_harness.py --root .. --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+                "sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+              }
+            ]
+          },
+          {
+            "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK after independent QA",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/harness/manage_game.py",
+            "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+          },
+          {
+            "path": "tools/agentic.py",
+            "sha256": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214"
+          },
+          {
+            "path": "tests/test_agentic_entrypoints.py",
+            "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618"
+          },
+          {
+            "path": "tools/agentic_mcp.py",
+            "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+          },
+          {
+            "path": "management/harness/runtime/workflow.py",
+            "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/report.md",
+            "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/KRA-14/report.md",
+            "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+          }
+        ],
+        "limitations": [
+          "Owner verification only; independent QA, real WIK semantic/build/check handoff and EVC/IA/DOC acceptance remain pending. No setup/import/task acceptance is asserted.",
+          "Five focused tests overlap the 40-test suite; totals are 53 distinct tests including 13 legacy adapter tests.",
+          "Actual local MCP test uses a fresh subprocess and patched fixture root; synthetic receipts are never real worker/production review evidence. Resident host processes may retain old imports; no hot-reloaded host acknowledgement is claimed.",
+          "The initial default-sandbox MCP timeout and actual pre-fix wrapper/schema failures remain preserved; fresh real-IPC corrected runs passed with 35-second process-group watchdogs.",
+          "The copied runtime/MCP facade bytes and historical interrupted turns were not edited. No production failed mutation was replayed.",
+          "WIK must refresh actual documentation/temporal/observed-host claims and include the new regression in generator evidence metadata; parent added its declared task input.",
+          "No native gameplay, M0, art, canon, broad research/finding-resolution qualification or milestone acceptance."
+        ],
+        "unresolved_questions": [],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "62363e322808268ada9d7e267e82ab49113b891304ee142efbe0e798a3eceef8",
+      "hash": "cd1a1acac3102a81dfd0ebdf6e96643ef3dab2febc2b80a173f13144627dd7ae"
+    },
+    {
+      "sequence": 14,
+      "timestamp": "2026-11-11T16:57:17.304848+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "QA-16",
+        "authorization_id": "acbe9559cab64cbfa3c9ebb87efb9394",
+        "prompt_hash": "9e07b40932b3ea2e338f93cebe2a5f2fcd8ed6649ca2f3115409ebdb41f9dab6"
+      },
+      "previous_hash": "cd1a1acac3102a81dfd0ebdf6e96643ef3dab2febc2b80a173f13144627dd7ae",
+      "hash": "3e4dee109d21e9dc0688aa64689dfd9321c153e5a0384fcccc2e898783ef142b"
+    },
+    {
+      "sequence": 15,
+      "timestamp": "2026-11-11T16:57:31.553283+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "QA-16",
+        "prompt_hash": "9e07b40932b3ea2e338f93cebe2a5f2fcd8ed6649ca2f3115409ebdb41f9dab6",
+        "receipt": "/root/qa_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "acbe9559cab64cbfa3c9ebb87efb9394",
+        "owned_directory": "work/turn.003/QA-16"
+      },
+      "previous_hash": "3e4dee109d21e9dc0688aa64689dfd9321c153e5a0384fcccc2e898783ef142b",
+      "hash": "3c1e9a7a4a8f1376446990a673a191416195dc43b158dd0be6729ab2f02dae6c"
+    },
+    {
+      "sequence": 16,
+      "timestamp": "2026-11-11T17:00:23.010818+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "QA-16",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "9e07b40932b3ea2e338f93cebe2a5f2fcd8ed6649ca2f3115409ebdb41f9dab6",
+        "assigned_scope": "Independent correction verification for installed wrapper, legacy/direct entrypoints and real MCP failed acknowledgement; owned evidence only.",
+        "work_performed": "Read applicable game/wiki/contracts and actual prior adverse evidence; independently ran 40 harness tests including the fresh real stdio MCP synthetic fixture, 13 adapter tests and five installed entrypoint/overlay checks. Inspected source changes and final fingerprints. All checks passed; no source/wiki/task repair or production failure replay.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+            "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+            "sha256": "ed8257c07e70ec0abbeebd8e1b033b92b4a7bdb1f4d88ad7164e52ca829eb3bb"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+            "sha256": "a79579fa396ab13aff95696ee251502c960405f999d48e7f9bfdc51ffde246ec"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+            "sha256": "732c0337c548f74127c8864b14bca4dfd13ab84cef7d9af5311d5e98228ece94"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+            "sha256": "2832da2885c4a9ebcd4421d3558ff395b8439c5b060a6c69fe0280b9d7b055ec"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+            "sha256": "e37bb4851afa3ec3683371eaa3fcc60fd02f3bb23efc710f8cbaadda48cddbda"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+            "sha256": "193a8801f35cd3023ba5684a2ed24d202d3d4e83adfacfb5d3c2013fc01490b4"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+            "sha256": "07a166249dcaea4ef025e520df88e37fd9ed153616cc184d29c31538b4f3787a"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+            "sha256": "d0256de0f11b168cdee9be21ce1f679ea3244665b6c48f4b12a0b5dab2fe7513"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/report.md",
+            "sha256": "4bdece02b013c1262a0dcb1019520b595ae8dcfb066c8a0d979379ae03c39afd"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+            "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/source-before.json",
+            "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+            "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+          }
+        ],
+        "tests": [
+          {
+            "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_agentic*.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+                "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+              }
+            ]
+          },
+          {
+            "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_project_management.py -v (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+                "sha256": "193a8801f35cd3023ba5684a2ed24d202d3d4e83adfacfb5d3c2013fc01490b4"
+              }
+            ]
+          },
+          {
+            "command": "python3 scripts/manage_game.py agents readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+                "sha256": "2832da2885c4a9ebcd4421d3558ff395b8439c5b060a6c69fe0280b9d7b055ec"
+              }
+            ]
+          },
+          {
+            "command": "python3 /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/scripts/manage_game.py agents readiness (cwd /tmp)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+                "sha256": "e37bb4851afa3ec3683371eaa3fcc60fd02f3bb23efc710f8cbaadda48cddbda"
+              }
+            ]
+          },
+          {
+            "command": "python3 scripts/manage_game.py status (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED])",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+                "sha256": "732c0337c548f74127c8864b14bca4dfd13ab84cef7d9af5311d5e98228ece94"
+              }
+            ]
+          },
+          {
+            "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python tools/agentic.py readiness (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+                "sha256": "ed8257c07e70ec0abbeebd8e1b033b92b4a7bdb1f4d88ad7164e52ca829eb3bb"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/configure_project_harness.py --root .. --check (cwd /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+                "sha256": "07a166249dcaea4ef025e520df88e37fd9ed153616cc184d29c31538b4f3787a"
+              }
+            ]
+          },
+          {
+            "command": "Final actual wiki/docs rebuild/check and semantic review assigned to WIK-30 after QA",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+            "sha256": "6b1e0f489be9fb1c86f357ef1aca1cd9ab4d04790c72373a499dae239bb4a07c"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+            "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+            "sha256": "a79579fa396ab13aff95696ee251502c960405f999d48e7f9bfdc51ffde246ec"
+          }
+        ],
+        "limitations": [
+          "Independent test evidence only; no setup/import/task acceptance. WIK final documentation/build/check/semantic work and EVC/IA/DOC remain pending.",
+          "The five new tests are within the 40-test harness suite; totals are 53 distinct tests with 13 adapter tests.",
+          "Real MCP coverage uses a fresh isolated synthetic fixture with non-production receipts; no resident host hot reload or corrected host-exposed failed acknowledgement is claimed.",
+          "System Python wrapper readiness does not require MCP dependency; .venv-harness is required for actual MCP execution. Local generic NOT_OBSERVED does not inspect external host connection.",
+          "Prior interrupted/rejected turns, failed schema response, quota interruption and owner adverse logs are unchanged.",
+          "No native gameplay/M0, art/canon or exhaustive research/finding resolution qualification."
+        ],
+        "unresolved_questions": [],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "3c1e9a7a4a8f1376446990a673a191416195dc43b158dd0be6729ab2f02dae6c",
+      "hash": "b69ffb12128b3925edfc65b7afbebd37841aa42b224570951613ecc938ad8ade"
+    },
+    {
+      "sequence": 17,
+      "timestamp": "2026-11-11T17:00:25.597027+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "WIK-30",
+        "authorization_id": "5ec6a3fad9dc42b38552004ab38f9cbf",
+        "prompt_hash": "e6e04d6f81103c2dff01bd74074e73bbfe7db0653f11e8ddab1b7b008aeddd43"
+      },
+      "previous_hash": "b69ffb12128b3925edfc65b7afbebd37841aa42b224570951613ecc938ad8ade",
+      "hash": "d9a59926911df92ac4c7000a8fe685b954502ee657023198e3113bb785fb469a"
+    },
+    {
+      "sequence": 18,
+      "timestamp": "2026-11-11T17:00:57.270577+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "WIK-30",
+        "prompt_hash": "e6e04d6f81103c2dff01bd74074e73bbfe7db0653f11e8ddab1b7b008aeddd43",
+        "receipt": "/root/wiki_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "5ec6a3fad9dc42b38552004ab38f9cbf",
+        "owned_directory": "work/turn.003/WIK-30"
+      },
+      "previous_hash": "d9a59926911df92ac4c7000a8fe685b954502ee657023198e3113bb785fb469a",
+      "hash": "7707df115bfb8e7e1a314e9163ebdb284fd48874874552af1b834c623865155d"
+    },
+    {
+      "sequence": 19,
+      "timestamp": "2026-11-11T17:11:11.725279+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "WIK-30",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "e6e04d6f81103c2dff01bd74074e73bbfe7db0653f11e8ddab1b7b008aeddd43",
+        "assigned_scope": "Actual authored Wiki, affected technical guides/managed templates/profile and static evidence metadata after all execution owners; real task-recorded tests/docs/build/check and semantic/link review.",
+        "work_performed": "Updated four authored pages and linked technical/managed documentation for the two independently tested corrections, observed host connection, preserved interrupted/rejected history and current limits. Added regression static evidence and real source links, reinstalled overlay, ran final sequential recorded checks and inspected generated article links/semantics. Preserved initial failed build and owned helper/path errors; no runtime repair.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/before-source-hashes.json",
+            "sha256": "80f10bac7a87424e473a6bd29184d13594cece6a656c779700fac3680eb80269"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/changed-authored-files.json",
+            "sha256": "10c3d90d08188582fc4773b6c152c4ac13b0f1bdd1fca6bdc222a6681a54cc9d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+            "sha256": "81dc426a7b1b8e018f93054d137b6567660b043a6b2b1281c8d3321e2493a08c"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/final-source-hashes.json",
+            "sha256": "b986204ea9630991bd41b43efb4ee0df2a54d68e962d135fe0633d379f14d6d5"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+            "sha256": "d2b0d9ab8ea2ea7915534a6597a78a37e08fe0c0f1e12ba46a4c569561df9960"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+            "sha256": "17ddef05a52da2c7b07f1598c12b531d0ee579391b5bcca4b1bd819927d3e09d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+            "sha256": "98db0539d7cf92ec35e33d3c80d4c670c49094acccddb317215311445332db2b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/helper-limits.json",
+            "sha256": "a6846f0cdb24770318c06f606ddf9355bbd0245d6e6607f9b8b228cede0e51e5"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/docs.log",
+            "sha256": "7815d6f6d7b781057355cec7306f643e7a150c2c78aab94ed3551ac4f22aa73d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-result.json",
+            "sha256": "4425ec4762d3ef3b87a7b6254d66d5866465065fadc058edaee8cf97d94e1a1c"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-result.json",
+            "sha256": "b4885fbb4c86cfb6df0a64ce451cefd6b6da1378d143fc69c7e358ff4eaba2fa"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-result.json",
+            "sha256": "0861758eb11a099888dbe7b65b8e105d550add61531e2856694180253deb391d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/recorded-check-results.json",
+            "sha256": "4cdf6396d5b6b41caf760c0946e8fafaebdb897652f329fdea14b26aa0c763a2"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/tests.log",
+            "sha256": "1d23ef4cfe4871ff11655d952d78c6cc36c5f7327efcc844fbd9a133d4d1f78e"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+            "sha256": "0844430a0f5e07389430d2a6c595e0e062f6163a33ee73f0ed6068e6f1b9f129"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+            "sha256": "6d948ec175829ab616073c285f188d356d62ded20d6ea919191a304b6de96ef0"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-docs-result.json",
+            "sha256": "24f3d66a1f5a31b53243258bc63a301fa7ac9ae97ce45f91e641e92c7af13a66"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-docs-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-tests-result.json",
+            "sha256": "8be5758451457cb2aec83b845c17160ad76f2c11614dd5f08e8a26ac74484ec3"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-tests-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-result.json",
+            "sha256": "73d6c402e60de264a3e02592f5aad317e48be448f035facdc79c1c0d01da7bf4"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-result.json",
+            "sha256": "8779420b2542fbe7cf5b619065116fc379302126ceead1cb6071154f22d1b3ef"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-stderr.log",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/overlay-check.log",
+            "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+            "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/overlay-install.log",
+            "sha256": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/reading-notes.json",
+            "sha256": "c7d52ae63b2ff32fe52a96d8d908c59544a2eb60981fb89f6afc716e3991dce1"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+            "sha256": "dbdaf451790865849a650f376233aa7eff4a0cd1a41b061b6eb7f44b072a41de"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/report.md",
+            "sha256": "ec1c11067a4ed749043a56d42dae0379b63c100fa87385092dad2e771fc4e9ec"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/run_recorded_checks.py",
+            "sha256": "398905988fa078eaca24c98d8ab21daffdf9844a9ef1f3b4f9555ae8942834d1"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+            "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+            "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+            "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/supplemental-check-results.json",
+            "sha256": "5dc668c416ac7d678c1194fff954c4866656a9a334f58fd3cd180cbf9a10be47"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+            "sha256": "4a4bb7fdec58ee4cd971da772c42fc2ea538f37d9b9738a6131399be38e267b1"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+            "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+            "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/wiki-precheck.log",
+            "sha256": "f98db25d20b542c5a6302ab934bdbc1731bf98f3a9b9d0aa0c884f801425220b"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "AGENTS.md",
+            "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c"
+          },
+          {
+            "path": "management/README.md",
+            "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad"
+          },
+          {
+            "path": "management/profile.json",
+            "sha256": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e"
+          },
+          {
+            "path": "management/harness/AGENTS.md",
+            "sha256": "1fafe6613e9a839c4174eae1923c21932e3a77d2e2af3bd650dcb9cc1e855789"
+          },
+          {
+            "path": "management/harness/README.md",
+            "sha256": "4e79e5e287357099be4f7b2cb023eb808d76f020a363430bc98bbff88da46a9f"
+          },
+          {
+            "path": "docs/12-development-workflow.md",
+            "sha256": "62ed542107f733a97d17d1f6c67c21e5114edd4f8ba58652cda67a29a6f840b1"
+          },
+          {
+            "path": "docs/59-agentic-development-loop.md",
+            "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9"
+          },
+          {
+            "path": "source_material/game-wiki/README.md",
+            "sha256": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413"
+          },
+          {
+            "path": "source_material/game-wiki/content/agentic-loop.md",
+            "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+          },
+          {
+            "path": "source_material/game-wiki/content/project-management.md",
+            "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7"
+          },
+          {
+            "path": "source_material/game-wiki/content/development.md",
+            "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d"
+          },
+          {
+            "path": "source_material/game-wiki/content/status.md",
+            "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08"
+          },
+          {
+            "path": "tools/build_game_wiki.py",
+            "sha256": "feffc1dcd0db7cde496b4c66d2a9badf7079b89235d66030866dff49c92fc1f6"
+          },
+          {
+            "path": "management/harness/manage_game.py",
+            "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+          },
+          {
+            "path": "tools/agentic.py",
+            "sha256": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214"
+          },
+          {
+            "path": "tools/game_workflow.py",
+            "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+          },
+          {
+            "path": "tools/agentic_mcp.py",
+            "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+          },
+          {
+            "path": "tests/test_agentic_entrypoints.py",
+            "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/report.md",
+            "sha256": "4bdece02b013c1262a0dcb1019520b595ae8dcfb066c8a0d979379ae03c39afd"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+            "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+          }
+        ],
+        "game_wiki": {
+          "pages": [
+            "source_material/game-wiki/content/agentic-loop.md",
+            "source_material/game-wiki/content/project-management.md",
+            "source_material/game-wiki/content/development.md",
+            "source_material/game-wiki/content/status.md",
+            "source_material/game-wiki/content/home.md",
+            "source_material/game-wiki/content/engine.md"
+          ],
+          "semantic_review": true,
+          "evidence": [
+            {
+              "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+              "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+            },
+            {
+              "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+              "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+            },
+            {
+              "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+              "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+            },
+            {
+              "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+              "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+            },
+            {
+              "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+              "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+            }
+          ]
+        },
+        "tests": [
+          {
+            "command": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python -m unittest discover -s tests -p test_*.py -v",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+                "sha256": "4a4bb7fdec58ee4cd971da772c42fc2ea538f37d9b9738a6131399be38e267b1"
+              },
+              {
+                "path": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+                "sha256": "4a4bb7fdec58ee4cd971da772c42fc2ea538f37d9b9738a6131399be38e267b1"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/check_management_docs.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+                "sha256": "81dc426a7b1b8e018f93054d137b6567660b043a6b2b1281c8d3321e2493a08c"
+              },
+              {
+                "path": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+                "sha256": "81dc426a7b1b8e018f93054d137b6567660b043a6b2b1281c8d3321e2493a08c"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/build_game_wiki.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+                "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+              },
+              {
+                "path": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+                "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/build_game_wiki.py --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+                "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+              },
+              {
+                "path": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+                "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+              }
+            ]
+          },
+          {
+            "command": "python3 management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+                "sha256": "17ddef05a52da2c7b07f1598c12b531d0ee579391b5bcca4b1bd819927d3e09d"
+              }
+            ]
+          },
+          {
+            "command": "python3 management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+                "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+              },
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+                "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+              },
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+                "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/configure_project_harness.py --root .. --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+                "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+              }
+            ]
+          },
+          {
+            "command": "git diff --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              }
+            ]
+          },
+          {
+            "command": "Initial recorded python3 tools/build_game_wiki.py before four source-link targets were generated; corrected documentation and later final build/check PASS",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+                "sha256": "0844430a0f5e07389430d2a6c595e0e062f6163a33ee73f0ed6068e6f1b9f129"
+              }
+            ]
+          },
+          {
+            "command": "Initial owned full-document helper before generation/install path contexts were corrected in the helper",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+                "sha256": "d2b0d9ab8ea2ea7915534a6597a78a37e08fe0c0f1e12ba46a4c569561df9960"
+              }
+            ]
+          }
+        ],
+        "limitations": [
+          "WIK assigned scope complete only; EVC, independent IA, DOC publication and task/import acceptance remain pending. IA-002-001 is not resolved by documentation prose.",
+          "Actual fresh local MCP fixture is isolated and synthetic. Observed earlier host readiness proves that connection at that time, not worker authenticity or resident host hot reload/corrected host-exposed failure acknowledgement.",
+          "Original interrupted .001/.002 history, REJECTED prior audit, DOC quota failure, schema response error and adverse logs remain preserved; no earlier acceptance was invented.",
+          "First recorded build failed due to four missing evidence-page targets; corrected only source links and reran final gates after changed documentation. Original task logs remain; initial helper/path errors are retained separately.",
+          "Final 58 tests include independent QA's 53 covered types plus five wiki catalog checks. Initial/final repeated runs are not additional distinct tests. No fresh native gameplay/M0, art/canon or exhaustive later research/finding-resolution qualification."
+        ],
+        "unresolved_questions": [],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "7707df115bfb8e7e1a314e9163ebdb284fd48874874552af1b834c623865155d",
+      "hash": "e52332bd410c6bb105bbcd56776606603c6c660e47bf871f8299546a0eb5b729"
+    },
+    {
+      "sequence": 20,
+      "timestamp": "2026-11-11T17:11:14.163387+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "HANDOFF_COLLECTION"
+      },
+      "previous_hash": "e52332bd410c6bb105bbcd56776606603c6c660e47bf871f8299546a0eb5b729",
+      "hash": "152fee70521e9f8d904f218ae2ca1c2515c38a151aed0f1e5e30d2ae0fcda56b"
+    },
+    {
+      "sequence": 21,
+      "timestamp": "2026-11-11T17:11:16.879090+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "EVC-28",
+        "authorization_id": "5477814ed4a0475e81ce625032e1c279",
+        "prompt_hash": "8f1c2c3919cb67b89460c91fbe1105e11e04c0df8073424988e229df97fd4893"
+      },
+      "previous_hash": "152fee70521e9f8d904f218ae2ca1c2515c38a151aed0f1e5e30d2ae0fcda56b",
+      "hash": "ac0d08557bd9050e50ad9beafc26c88d7571d108f03ab4fdd49c9505357fd06f"
+    },
+    {
+      "sequence": 22,
+      "timestamp": "2026-11-11T17:11:29.912839+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "EVC-28",
+        "prompt_hash": "8f1c2c3919cb67b89460c91fbe1105e11e04c0df8073424988e229df97fd4893",
+        "receipt": "/root/collector_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "5477814ed4a0475e81ce625032e1c279",
+        "owned_directory": "work/turn.003/EVC-28"
+      },
+      "previous_hash": "ac0d08557bd9050e50ad9beafc26c88d7571d108f03ab4fdd49c9505357fd06f",
+      "hash": "6ff23ccfe3b4d3b57cc286dc1d6a2cb5f1b848e1893f7a3c70aaf208d9f87163"
+    },
+    {
+      "sequence": 23,
+      "timestamp": "2026-11-11T17:16:44.464022+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "EVC-28",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "8f1c2c3919cb67b89460c91fbe1105e11e04c0df8073424988e229df97fd4893",
+        "assigned_scope": "Evidence collection after WIK: genuine runtime package, full frozen-role accounting, dispatch/order/ownership, current and nested hashes, historical/adverse records and explicit gaps without source repair or acceptance.",
+        "work_performed": "Built the real runtime package of 118 indexed references; verified all 23 decisions, six recorded distinct authorized receipts, five completed owned handoffs, final task/wiki/QA source/log hashes, 1,032 references and 221 supplemental files. Preserved 38 historical source/context comparisons and prior interruptions/adverse records. Recorded two stale current prose conflicts for independent IA without repair or disposition.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/collect-input.json",
+            "sha256": "1c08607b784d780e6aa21cd0a697f977e081c9230d3f92726cfd0d1883fa03fb"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+            "sha256": "dff0c834276688cfe5d34132080bbed8af5f742b8435eea49fe5b0e6d837b8fa"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+            "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/host-agents-observation.json",
+            "sha256": "61d88660549417cac896f5ddc8392411df9178ea478c22a97f0bb9d6b9d3db39"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+            "sha256": "ad6970e0f097e107b9eec6934c9254a4863b154d8b0a2f467e40ed2ca608814f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/report.md",
+            "sha256": "bb1c8e8ee92dd2a204b6838ce85982fb6b5fc11047bfba0a4b3a486b56e0be8d"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+            "sha256": "8b15b6cdfbabfa98a5be915597ba65696796c599629bd218129466b728976912"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+            "sha256": "32ae5d3785c83ba874ed538fa07737a918320395f97632c61a8daf13f623f431"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/verify_collection.py",
+            "sha256": "c5f4da31a0d430eaf0e68238043b01b6141d3438064466165891433e0ff81247"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-connection-observed.json",
+            "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+          },
+          {
+            "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+            "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+            "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+            "sha256": "d0256de0f11b168cdee9be21ce1f679ea3244665b6c48f4b12a0b5dab2fe7513"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+            "sha256": "dbdaf451790865849a650f376233aa7eff4a0cd1a41b061b6eb7f44b072a41de"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+            "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+            "sha256": "0844430a0f5e07389430d2a6c595e0e062f6163a33ee73f0ed6068e6f1b9f129"
+          },
+          {
+            "path": "management/agentic/work/turn.002/IA-11/audit.json",
+            "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+          },
+          {
+            "path": "management/agentic/imported-project.json",
+            "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+          }
+        ],
+        "tests": [
+          {
+            "command": ".venv-harness/bin/python tools/agentic.py collect --input management/agentic/work/turn.003/EVC-28/collect-input.json --output management/agentic/work/turn.003/EVC-28/collect-result.json",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/EVC-28/collect-result.json",
+                "sha256": "dff0c834276688cfe5d34132080bbed8af5f742b8435eea49fe5b0e6d837b8fa"
+              },
+              {
+                "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+                "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python management/agentic/work/turn.003/EVC-28/verify_collection.py (read-only integrity, dependency, exact prompt, ownership and historical classification checks)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/EVC-28/verification.log",
+                "sha256": "32ae5d3785c83ba874ed538fa07737a918320395f97632c61a8daf13f623f431"
+              },
+              {
+                "path": "management/agentic/work/turn.003/EVC-28/inventory.json",
+                "sha256": "ad6970e0f097e107b9eec6934c9254a4863b154d8b0a2f467e40ed2ca608814f"
+              }
+            ]
+          },
+          {
+            "command": "Compare current agent entry point and docs58 superseding pointer with corrected source, QA and observed host connection",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/EVC-28/semantic-observation.json",
+                "sha256": "8b15b6cdfbabfa98a5be915597ba65696796c599629bd218129466b728976912"
+              },
+              {
+                "path": "source_material/game-wiki/llms.txt",
+                "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+              },
+              {
+                "path": "docs/58-software-project-management.md",
+                "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+              }
+            ]
+          },
+          {
+            "command": "Collector did not rerun native gameplay or production fixture mutations; inspected actual specialist/check logs instead.",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "limitations": [
+          "Current prose remains contradictory at llms.txt:31 and docs/58-software-project-management.md:69. Exact stale claims are preserved for independent IA and WIK corrective ownership; clean hashes do not establish semantic acceptance.",
+          "Receipt/order records and partial live host tree do not authenticate all host identities or exact spawn timestamps. Distinct earlier turn.003 ENG/KRA/SWE/QA receipts remain externally reviewable assertions.",
+          "Thirty-eight expected historical reading/pre-edit/live-source differences remain explicit; immutable records and before snapshots match. No current indexed/nested/immutable hash issue was found.",
+          "Turn.001/.002 interruptions, .002 REJECTED IA-002-001, actual DOC quota/schema failure, absent publication and adverse test/Wiki/helper logs remain. Current IA case resolution, import acceptance and task closure are pending.",
+          "Host-exposed readiness observation proves that connection at its recorded time. Fresh real-MCP acknowledgement fixtures are synthetic and do not prove resident host hot reload or a corrected host-exposed failed reply.",
+          "No source/wiki/task repair, acceptance decision, native gameplay/M0, art/canon or exhaustive future research/finding-resolution qualification was performed."
+        ],
+        "collection": {
+          "package_path": "management/agentic/work/turn.003/EVC-28/evidence-package.json"
+        },
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "6ff23ccfe3b4d3b57cc286dc1d6a2cb5f1b848e1893f7a3c70aaf208d9f87163",
+      "hash": "0982844aaca2748a727aab62ed750a4f4f620f85b86412d31b34afb7e01dc90e"
+    },
+    {
+      "sequence": 24,
+      "timestamp": "2026-11-11T17:16:47.096395+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "INTERNAL_AFFAIRS_REVIEW"
+      },
+      "previous_hash": "0982844aaca2748a727aab62ed750a4f4f620f85b86412d31b34afb7e01dc90e",
+      "hash": "7960ceab6dbc010dcd71f994d2fd97b985af22bcc881bcf59360ab16b7891274"
+    },
+    {
+      "sequence": 25,
+      "timestamp": "2026-11-11T17:16:49.872859+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "IA-11",
+        "authorization_id": "6536926389de408ab7b1bb78a703e16b",
+        "prompt_hash": "2f4cbb4ddd4d0004bcbc026553dea8d9605bb439eaf6835b02387219daa2177b"
+      },
+      "previous_hash": "7960ceab6dbc010dcd71f994d2fd97b985af22bcc881bcf59360ab16b7891274",
+      "hash": "f5f6d03dfee7e9385b8398d056fb3ec5ab3eb829507d9fcaf39d25fe859a26cc"
+    },
+    {
+      "sequence": 26,
+      "timestamp": "2026-11-11T17:17:04.307337+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "IA-11",
+        "prompt_hash": "2f4cbb4ddd4d0004bcbc026553dea8d9605bb439eaf6835b02387219daa2177b",
+        "receipt": "/root/ia_correction",
+        "backend": "codex-collaboration",
+        "authorization_id": "6536926389de408ab7b1bb78a703e16b",
+        "owned_directory": "work/turn.003/IA-11"
+      },
+      "previous_hash": "f5f6d03dfee7e9385b8398d056fb3ec5ab3eb829507d9fcaf39d25fe859a26cc",
+      "hash": "ad0a7c58f8a165701f826fb6aaffdfa5f17f0ff17307e58a2211b4ba6bd5d1e6"
+    },
+    {
+      "sequence": 27,
+      "timestamp": "2026-11-11T17:23:54.492676+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "IA-11",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "2f4cbb4ddd4d0004bcbc026553dea8d9605bb439eaf6835b02387219daa2177b",
+        "assigned_scope": "Independent terminal audit of actual records, current evidence, wrapper/MCP behavior, wiki semantics, import gates and all task acceptance criteria; no repairs.",
+        "work_performed": "Independently verified 497 current reference assertions, 23-role selection, exact prompts/tickets/recorded chronology, task input/log stability, historical import snapshots and preserved interruptions; ran five focused regressions with real local IPC, installed entrypoints and wiki freshness; observed host readiness directly; confirmed WIK IA-003-001, resolved original SWE IA-002-001 independently and prepared honest blocked completion review.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/audit.json",
+            "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+            "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+            "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-tests.log",
+            "sha256": "bf86979065ac00c9681fce34dcd2107d78ac86f280ea1ac2b443ee0c3fad6f91"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+            "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/initial-verification-adverse.log",
+            "sha256": "59913a94c29b4c013d66cdeaa0eb0260862ca622c46b3a5d7490375ab16205bc"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/inspection-notes.json",
+            "sha256": "d1e75c5041f238b1f299e0ae4be0c373cafb99d71b3ff5194bb8ef5bb3f923c6"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+            "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+            "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/report.md",
+            "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+            "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.json",
+            "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.log",
+            "sha256": "13c4771b76c32d89f4e6eff228c41074ee7a173b0c1f13244503cfde8af2b4ff"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verify_audit.py",
+            "sha256": "b496b7ce175532c32a2c125fa62d417e478717342b569d94e43f52e56b3f9ccf"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/wiki-freshness.log",
+            "sha256": "a3d838a966a4e63f7fd8c46d162e2357ed699fce981aecc5540d1a53b7e4e2b4"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+            "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+          },
+          {
+            "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+            "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+          },
+          {
+            "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+            "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+          },
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+          },
+          {
+            "path": "management/agentic/imported-project.json",
+            "sha256": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388"
+          }
+        ],
+        "tests": [
+          {
+            "command": "Independent read-only verify_audit.py: 497 current hashes, exact prompts/selection/tickets/recorded order, 40 task inputs/check logs, actual event chains and imported commit snapshots",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/verification.log",
+                "sha256": "13c4771b76c32d89f4e6eff228c41074ee7a173b0c1f13244503cfde8af2b4ff"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/verification.json",
+                "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (initial default sandbox)",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-tests.log",
+                "sha256": "bf86979065ac00c9681fce34dcd2107d78ac86f280ea1ac2b443ee0c3fad6f91"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/initial-verification-adverse.log",
+                "sha256": "59913a94c29b4c013d66cdeaa0eb0260862ca622c46b3a5d7490375ab16205bc"
+              }
+            ]
+          },
+          {
+            "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_agentic_entrypoints.py -v (approved isolated real local subprocess IPC; five tests)",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+                "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/mcp-fixture-transcript.json",
+                "sha256": "a550d9945786c6ffb2ec7149771155177c1cc952e1bc974695124203cf87c945"
+              }
+            ]
+          },
+          {
+            "command": "Actual installed root and /tmp agents readiness; legacy board and direct CLI",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+                "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+                "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+                "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+                "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+              }
+            ]
+          },
+          {
+            "command": "python3 tools/build_game_wiki.py --check",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/wiki-freshness.log",
+                "sha256": "a3d838a966a4e63f7fd8c46d162e2357ed699fce981aecc5540d1a53b7e4e2b4"
+              }
+            ]
+          },
+          {
+            "command": "Actual Codex host-exposed workflow_readiness read-only call at 17:19:47 UTC",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+                "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+              }
+            ]
+          },
+          {
+            "command": "Independent semantic comparison of current llms.txt:31/docs58:69 with source, current checks and observed host readiness",
+            "status": "FAIL",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/IA-11/verification.json",
+                "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/audit.json",
+                "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+              }
+            ]
+          },
+          {
+            "command": "No new build/gameplay/production failure mutation, publication or task completion was performed by IA.",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "limitations": [
+          "Current llms.txt:31 and docs58:69 contradict corrected implementation and observed host transport; WIK IA-003-001 blocks acceptance.",
+          "Record/order/hash checks and partial live tree do not authenticate all worker identities or exact spawn times.",
+          "Fresh real-MCP fixture is synthetic and does not prove resident host hot reload or a corrected host-exposed failed reply.",
+          "Initial default-sandbox MCP timeout and incidental read-only helper error are retained; approved identical isolated rerun passed.",
+          "No new gameplay/M0, canon/assets or exhaustive future research/finding-resolution qualification; DOC publication remains pending."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "ad0a7c58f8a165701f826fb6aaffdfa5f17f0ff17307e58a2211b4ba6bd5d1e6",
+      "hash": "3a6c037675e519c73ab30d8c1906708e4395471b0129adbc1503724986ac6261"
+    },
+    {
+      "sequence": 28,
+      "timestamp": "2026-11-11T17:23:57.156035+00:00",
+      "kind": "AUDIT",
+      "data": {
+        "disposition": "REJECTED",
+        "summary": "Reject setup acceptance because two current WIK-owned guidance statements still contradict the corrected wrapper and observed host connection. Independently verify the old SWE wrapper defect as resolved, but keep task/import/production acceptance incomplete and publish the actual rejected process outcome last.",
+        "reviewer_receipt": "/root/ia_correction",
+        "task_id": "agentic-loop-setup",
+        "findings": [
+          {
+            "case_id": "IA-003-001",
+            "responsible_agent": "WIK-30",
+            "severity": "MAJOR",
+            "status": "CONFIRMED",
+            "independently_verified": true,
+            "summary": "Current llms agent guidance and docs58 superseding workflow still assert the fixed wrapper import defect and unobserved live host connection, breaking the final semantic consistency gate.",
+            "evidence": [
+              {
+                "path": "source_material/game-wiki/llms.txt",
+                "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+              },
+              {
+                "path": "docs/58-software-project-management.md",
+                "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+              },
+              {
+                "path": "source_material/game-wiki/content/agentic-loop.md",
+                "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/verification.json",
+                "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+                "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+              }
+            ],
+            "required_action": "In a new authorized correction turn, WIK updates llms.txt:31 and docs/58-software-project-management.md:69 to agree with verified current behavior and host observation while preserving historical evidence and trust limits; inspect connected pages, rebuild/check and repeat ordered Collector/independent IA/DOC review. Do not repair frozen turn.003 source/wiki or complete the task/import now."
+          },
+          {
+            "case_id": "IA-002-001",
+            "responsible_agent": "SWE-13",
+            "severity": "MAJOR",
+            "status": "RESOLVED",
+            "independently_verified": true,
+            "summary": "Original wrapper implementation defect is corrected: installed/template bytes match and independent fresh root/unrelated-cwd, legacy/direct and focused regression checks pass. Overall documentation/task acceptance remains rejected separately.",
+            "evidence": [
+              {
+                "path": "management/harness/manage_game.py",
+                "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+                "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+                "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+                "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+                "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+              },
+              {
+                "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+                "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+              },
+              {
+                "path": "management/agentic/work/turn.003/SWE-13/handoff.json",
+                "sha256": "c41cb035d2aad54b3034c0c0dcb83829513c63eb998f590d5606af0598c21c5d"
+              }
+            ],
+            "required_action": "Preserve the independently verified wrapper correction and its historical failing logs. No further wrapper source repair is needed for this original defect; canonical settlement may wait for a later accepted publication. This resolution does not accept WIK semantics, import or software task completion."
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/report.md",
+            "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.json",
+            "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+            "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+          }
+        ],
+        "limitations": [
+          "Current llms.txt:31 and docs58:69 contradict corrected implementation and observed host transport; WIK IA-003-001 blocks acceptance.",
+          "Record/order/hash checks and partial live tree do not authenticate all worker identities or exact spawn times.",
+          "Fresh real-MCP fixture is synthetic and does not prove resident host hot reload or a corrected host-exposed failed reply.",
+          "Initial default-sandbox MCP timeout and incidental read-only helper error are retained; approved identical isolated rerun passed.",
+          "No new gameplay/M0, canon/assets or exhaustive future research/finding-resolution qualification; DOC publication remains pending."
+        ]
+      },
+      "previous_hash": "3a6c037675e519c73ab30d8c1906708e4395471b0129adbc1503724986ac6261",
+      "hash": "cf5491a9bc7aac25e5368f1ee1875e979d79e8df39f377b0341a975722610c56"
+    },
+    {
+      "sequence": 29,
+      "timestamp": "2026-11-11T17:23:59.924396+00:00",
+      "kind": "PHASE",
+      "data": {
+        "state": "DOCUMENT_CHIEF"
+      },
+      "previous_hash": "cf5491a9bc7aac25e5368f1ee1875e979d79e8df39f377b0341a975722610c56",
+      "hash": "a18131a93e379aff88704cf962dcdfdcaf697c389422a58ea4056991291c6c6d"
+    },
+    {
+      "sequence": 30,
+      "timestamp": "2026-11-11T17:24:02.559850+00:00",
+      "kind": "DISPATCH_AUTHORIZED",
+      "data": {
+        "agent_id": "DOC-10",
+        "authorization_id": "ecc3240ec2d246d890eba55148504a58",
+        "prompt_hash": "a9630a71a60d92758e3a91598559e5d5a86a0cde96d67f69aa55608e5458bc88"
+      },
+      "previous_hash": "a18131a93e379aff88704cf962dcdfdcaf697c389422a58ea4056991291c6c6d",
+      "hash": "94f380823819c208a383aa5908e490c233adafc41831d3f1d8b55fa417cd69c2"
+    },
+    {
+      "sequence": 31,
+      "timestamp": "2026-11-11T17:24:17.299920+00:00",
+      "kind": "INVOKED",
+      "data": {
+        "agent_id": "DOC-10",
+        "prompt_hash": "a9630a71a60d92758e3a91598559e5d5a86a0cde96d67f69aa55608e5458bc88",
+        "receipt": "/root/doc_correction_rejected",
+        "backend": "codex-collaboration",
+        "authorization_id": "ecc3240ec2d246d890eba55148504a58",
+        "owned_directory": "work/turn.003/DOC-10"
+      },
+      "previous_hash": "94f380823819c208a383aa5908e490c233adafc41831d3f1d8b55fa417cd69c2",
+      "hash": "5de05388e56084274773223970942d8a9c9b51dcfc7cce6a700bcd894f7e112a"
+    },
+    {
+      "sequence": 32,
+      "timestamp": "2026-11-11T17:26:05.037178+00:00",
+      "kind": "HANDOFF",
+      "data": {
+        "turn_id": "turn.003",
+        "agent_id": "DOC-10",
+        "task_id": "agentic-loop-setup",
+        "prompt_hash": "a9630a71a60d92758e3a91598559e5d5a86a0cde96d67f69aa55608e5458bc88",
+        "assigned_scope": "Publish the independent reviewed process outcome last without changing reviewed game source/wiki or promoting blocked task/import acceptance.",
+        "work_performed": "Read applicable rules, actual wiki contract, Collector package, independent IA audit and blocked task completion review; rechecked referenced bytes; prepared the rejected process outcome and preserved verified correction, outstanding finding and interrupted history.",
+        "artifacts": [
+          {
+            "path": "management/agentic/work/turn.003/DOC-10/report.md",
+            "sha256": "2fe713bec68b650f80b3ad0d39407534128fba18368e185859df7b9a89090ab6"
+          },
+          {
+            "path": "management/agentic/work/turn.003/DOC-10/verification.json",
+            "sha256": "b5ac5a461101ce6c424c5ade59f27ffb6eda3390c43ceabd985542493086432e"
+          },
+          {
+            "path": "management/agentic/work/turn.003/DOC-10/publish-input.json",
+            "sha256": "3d0d019a6cc871a600e9b12fef762d49b6385ea32ed284e98ea58be9ceedb5be"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.003/IA-11/audit.json",
+            "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+            "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+            "sha256": "141b9e4dda1d498b3c91b90b8a741872a219ff98bd06c4875f106ab8fd7e6105"
+          },
+          {
+            "path": "management/agentic/work/turn.003/EVC-28/report.md",
+            "sha256": "bb1c8e8ee92dd2a204b6838ce85982fb6b5fc11047bfba0a4b3a486b56e0be8d"
+          }
+        ],
+        "tests": [
+          {
+            "command": "DOC read-only verification of audit, blocked task review and Collector package reference assertions",
+            "status": "PASS",
+            "evidence": [
+              {
+                "path": "management/agentic/work/turn.003/DOC-10/verification.json",
+                "sha256": "b5ac5a461101ce6c424c5ade59f27ffb6eda3390c43ceabd985542493086432e"
+              }
+            ]
+          },
+          {
+            "command": "No product tests or source/wiki build run after independent IA by DOC",
+            "status": "NOT_RUN",
+            "evidence": []
+          }
+        ],
+        "limitations": [
+          "IA-003-001 remains confirmed; task/import acceptance and production readiness remain blocked.",
+          "IA-002-001 is independently resolved in the audit; formal case settlement is deferred and publication resolutions are empty.",
+          "No post-review source/wiki repair, new worker or task completion is authorized within this rejected turn.",
+          "Worker identity authentication, resident host hot reload, gameplay/M0 and exhaustive future resolution qualification are not established."
+        ],
+        "handoff_status": "COMPLETE"
+      },
+      "previous_hash": "5de05388e56084274773223970942d8a9c9b51dcfc7cce6a700bcd894f7e112a",
+      "hash": "e789fb293a50a6d12d26209d209f44ab1057edac74847c9bd58de83f67af0db7"
+    }
+  ],
+  "audit": {
+    "disposition": "REJECTED",
+    "summary": "Reject setup acceptance because two current WIK-owned guidance statements still contradict the corrected wrapper and observed host connection. Independently verify the old SWE wrapper defect as resolved, but keep task/import/production acceptance incomplete and publish the actual rejected process outcome last.",
+    "reviewer_receipt": "/root/ia_correction",
+    "task_id": "agentic-loop-setup",
+    "findings": [
+      {
+        "case_id": "IA-003-001",
+        "responsible_agent": "WIK-30",
+        "severity": "MAJOR",
+        "status": "CONFIRMED",
+        "independently_verified": true,
+        "summary": "Current llms agent guidance and docs58 superseding workflow still assert the fixed wrapper import defect and unobserved live host connection, breaking the final semantic consistency gate.",
+        "evidence": [
+          {
+            "path": "source_material/game-wiki/llms.txt",
+            "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+          },
+          {
+            "path": "docs/58-software-project-management.md",
+            "sha256": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903"
+          },
+          {
+            "path": "source_material/game-wiki/content/agentic-loop.md",
+            "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/verification.json",
+            "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/host-readiness-observed.json",
+            "sha256": "0526e500ee2bc15d9671ce3ad18a20d07fb65974b6af6ff7e43ef774cce0bea8"
+          }
+        ],
+        "required_action": "In a new authorized correction turn, WIK updates llms.txt:31 and docs/58-software-project-management.md:69 to agree with verified current behavior and host observation while preserving historical evidence and trust limits; inspect connected pages, rebuild/check and repeat ordered Collector/independent IA/DOC review. Do not repair frozen turn.003 source/wiki or complete the task/import now."
+      },
+      {
+        "case_id": "IA-002-001",
+        "responsible_agent": "SWE-13",
+        "severity": "MAJOR",
+        "status": "RESOLVED",
+        "independently_verified": true,
+        "summary": "Original wrapper implementation defect is corrected: installed/template bytes match and independent fresh root/unrelated-cwd, legacy/direct and focused regression checks pass. Overall documentation/task acceptance remains rejected separately.",
+        "evidence": [
+          {
+            "path": "management/harness/manage_game.py",
+            "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-root.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-agents-unrelated.log",
+            "sha256": "e4c4be3b1d73bac8e365c0cc7f479c38799254f391484fa49c59e25f386a0cee"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/outer-legacy-board.log",
+            "sha256": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/direct-cli.log",
+            "sha256": "d16088abe0a4e700aa374504938e1c6c21cc646fa3681ea5a9f3597049ef7043"
+          },
+          {
+            "path": "management/agentic/work/turn.003/IA-11/focused-entrypoint-real-ipc.log",
+            "sha256": "ea2191f935c1a86da8c58f3832b30a40c93146d58d7713f9f77480fb859e2242"
+          },
+          {
+            "path": "management/agentic/work/turn.003/SWE-13/handoff.json",
+            "sha256": "c41cb035d2aad54b3034c0c0dcb83829513c63eb998f590d5606af0598c21c5d"
+          }
+        ],
+        "required_action": "Preserve the independently verified wrapper correction and its historical failing logs. No further wrapper source repair is needed for this original defect; canonical settlement may wait for a later accepted publication. This resolution does not accept WIK semantics, import or software task completion."
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/work/turn.003/IA-11/report.md",
+        "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/verification.json",
+        "sha256": "a22cf670ce0cca75799fb1322381f0bf28fc6c4e07164d287d24e072d5e9c011"
+      },
+      {
+        "path": "management/agentic/work/turn.003/IA-11/software-completion-review.json",
+        "sha256": "81f62e3bce2b1712ccd77127bd5e9120e8928757ec456a1057a74e9fdd4e8a91"
+      }
+    ],
+    "limitations": [
+      "Current llms.txt:31 and docs58:69 contradict corrected implementation and observed host transport; WIK IA-003-001 blocks acceptance.",
+      "Record/order/hash checks and partial live tree do not authenticate all worker identities or exact spawn times.",
+      "Fresh real-MCP fixture is synthetic and does not prove resident host hot reload or a corrected host-exposed failed reply.",
+      "Initial default-sandbox MCP timeout and incidental read-only helper error are retained; approved identical isolated rerun passed.",
+      "No new gameplay/M0, canon/assets or exhaustive future research/finding-resolution qualification; DOC publication remains pending."
+    ]
+  },
+  "entities": [
+    {
+      "entity_id": "setup.agentic-loop",
+      "value": {
+        "status": "REJECTED",
+        "new_case": "IA-003-001",
+        "software_correction_verified": true,
+        "task_completion": "BLOCKED pending documentation correction"
+      },
+      "evidence": [
+        {
+          "path": "management/agentic/work/turn.003/IA-11/audit.json",
+          "sha256": "13608fcd9fd1eef88a70ad8d1e24bfc40f0a350f2338a106b265d8bd841cd929"
+        },
+        {
+          "path": "management/agentic/work/turn.003/DOC-10/report.md",
+          "sha256": "2fe713bec68b650f80b3ad0d39407534128fba18368e185859df7b9a89090ab6"
+        }
+      ]
+    }
+  ],
+  "resolutions": [],
+  "engineering_complete": false,
+  "audit_complete": true,
+  "documentation_complete": true,
+  "previous_wiki_hash": null,
+  "hash": "adb8a957ff6d3236ab6013493144f80c5c1c6a0a318ffb97a3dd1a593c3aba9d"
+}

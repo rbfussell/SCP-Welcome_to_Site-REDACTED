@@ -1,0 +1,92 @@
+[
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "AGENTS.md",
+      "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/AGENTS.md",
+    "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "management/README.md",
+      "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/management/README.md",
+    "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "docs/59-agentic-development-loop.md",
+      "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/docs/59-agentic-development-loop.md",
+    "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "source_material/game-wiki/llms.txt",
+      "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/source_material/game-wiki/llms.txt",
+    "sha256": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/source_material/game-wiki/content/agentic-loop.md",
+    "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "source_material/game-wiki/content/development.md",
+      "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/source_material/game-wiki/content/development.md",
+    "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/source_material/game-wiki/content/project-management.md",
+    "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "source_material/game-wiki/content/status.md",
+      "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/source_material/game-wiki/content/status.md",
+    "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  },
+  {
+    "role": "KRA-14",
+    "original": {
+      "path": "tools/configure_agentic_client.py",
+      "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162"
+    },
+    "snapshot": "management/agentic/bootstrap/before-model005/tools/configure_agentic_client.py",
+    "sha256": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+    "purpose": "Exact preimplementation reading evidence; final source intentionally changes under assigned owners."
+  }
+]

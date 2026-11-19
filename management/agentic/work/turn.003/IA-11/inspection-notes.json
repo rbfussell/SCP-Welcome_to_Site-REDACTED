@@ -1,0 +1,13 @@
+{
+  "initial_exploratory_inspection_error": {
+    "command": "Read JSON shapes for evidence turn, event25, Collector package, QA source-after and wiki manifest; summary comprehension assumed every top-level value was a dictionary.",
+    "error": "AttributeError: list object has no attribute items",
+    "scope": "Read-only exploratory command before the owned verifier; no product or process mutation. Actual error was returned by exec_command; later code uses QA list shape correctly."
+  },
+  "initial_execution": "Initial verifier completed its integrity/record checks and actual wrapper/wiki subprocesses, then asserted because default-sandbox MCP initialization timed out. Original test log and initial-verification-adverse.log are preserved. Approved real IPC rerun passed unchanged tests.",
+  "live_host_observation": {
+    "tool": "collaboration.list_agents",
+    "transcription": "Root and this IA running; turn.003 Collector completed; historical turn.002 QA completion also present. Earlier turn.003 ENG/KRA/SWE/QA/WIK are not all retained.",
+    "limitation": "Partial observation corroborates only visible workers; no authentication of earlier receipts or exact spawn timestamps."
+  }
+}

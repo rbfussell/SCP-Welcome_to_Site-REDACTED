@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "python3",
+    "../scripts/manage_game.py",
+    "agents",
+    "readiness"
+  ],
+  "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "exit_code": 1,
+  "log": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log"
+}

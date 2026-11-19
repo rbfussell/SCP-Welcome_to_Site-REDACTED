@@ -1,0 +1,133 @@
+{
+  "turn_id": "turn.002",
+  "value": {
+    "turn_id": "turn.002",
+    "value": {
+      "turn_id": "turn.002",
+      "agent_id": "WIK-30",
+      "task_id": "agentic-loop-setup",
+      "prompt_hash": "936a59ce2574f0750fd7ff85c681305eb75a8ab1609ead480e9948da2b0df1f4",
+      "assigned_scope": "Actual authored game-wiki and linked technical docs/profile/templates after owner freeze, final rebuild/freshness and semantic review; no game runtime edits.",
+      "work_performed": "Documented active real agentic loop and23software/game roles, individual unused-role negations, exact dispatch/source ownership and WIK-versus-DOC order; preserved historical self-review/import and interrupted quota turn; rebuilt/inspected actual wiki and recorded the newly observed outer shortcut failure for independent IA/new SWE correction.",
+      "artifacts": [
+        "management/agentic/work/turn.002/WIK-30/docs.log",
+        "management/agentic/work/turn.002/WIK-30/full-documents.log",
+        "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+        "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+        "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+        "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+        "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+        "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+        "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+        "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+        "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+        "management/agentic/work/turn.002/WIK-30/report.md",
+        "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+        "management/agentic/work/turn.002/WIK-30/tests.log",
+        "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+        "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+        "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+        "management/agentic/work/turn.002/WIK-30/wiki-precheck.log"
+      ],
+      "evidence": [
+        "source_material/game-wiki/content/agentic-loop.md",
+        "source_material/game-wiki/content/project-management.md",
+        "source_material/game-wiki/content/development.md",
+        "source_material/game-wiki/content/status.md",
+        "source_material/game-wiki/content/home.md",
+        "source_material/game-wiki/content/engine.md",
+        "AGENTS.md",
+        "management/README.md",
+        "management/profile.json",
+        "management/harness/AGENTS.md",
+        "management/harness/README.md",
+        "docs/12-development-workflow.md",
+        "docs/58-software-project-management.md",
+        "docs/59-agentic-development-loop.md",
+        "source_material/game-wiki/README.md",
+        "source_material/game-wiki/llms.txt",
+        "tools/build_game_wiki.py"
+      ],
+      "game_wiki": {
+        "pages": [
+          "source_material/game-wiki/content/agentic-loop.md",
+          "source_material/game-wiki/content/project-management.md",
+          "source_material/game-wiki/content/development.md",
+          "source_material/game-wiki/content/status.md",
+          "source_material/game-wiki/content/home.md",
+          "source_material/game-wiki/content/engine.md"
+        ],
+        "semantic_review": true,
+        "evidence": [
+          "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+          "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+          "management/agentic/work/turn.002/WIK-30/semantic-inspection.log"
+        ]
+      },
+      "tests": [
+        {
+          "command": "python3 -m unittest discover -s tests -p test_agentic*.py -v",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/tests.log"
+          ]
+        },
+        {
+          "command": "python3 tools/check_management_docs.py",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/docs.log"
+          ]
+        },
+        {
+          "command": "python3 tools/build_game_wiki.py",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/wiki-build.log"
+          ]
+        },
+        {
+          "command": "python3 tools/build_game_wiki.py --check",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/wiki-check.log"
+          ]
+        },
+        {
+          "command": "python3 management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/full-documents.log"
+          ]
+        },
+        {
+          "command": "python3 management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/semantic-inspection.log"
+          ]
+        },
+        {
+          "command": "python3 tools/configure_project_harness.py --root .. --check",
+          "status": "PASS",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/overlay-check.log"
+          ]
+        },
+        {
+          "command": "python3 ../scripts/manage_game.py agents readiness",
+          "status": "FAIL",
+          "evidence": [
+            "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log"
+          ]
+        }
+      ],
+      "limitations": [
+        "Known observed outer scripts/manage_game.py agents shortcut ModuleNotFoundError game_workflow; source freeze preserved and SWE-13 correction/regression required in a new turn. This is not setup/task acceptance.",
+        "Local stdio protocol/configuration are verified but no live host workflow tool call observed; host connection CONFIGURED_UNVERIFIED.",
+        "Collector, independent IA, DOC publication and import acceptance remain pending at this handoff; no gameplay/M0 qualification or invented historical questions/research."
+      ],
+      "handoff_status": "COMPLETE"
+    }
+  }
+}

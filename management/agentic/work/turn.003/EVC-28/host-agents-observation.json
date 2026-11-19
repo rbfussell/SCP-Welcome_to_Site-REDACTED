@@ -1,0 +1,30 @@
+{
+  "observed_by": "/root/collector_correction",
+  "recorded_at": "2026-11-11T17:16:05.887039+00:00",
+  "tool": "collaboration.list_agents",
+  "actual_result": {
+    "agents": [
+      {
+        "agent_name": "/root",
+        "agent_status": "running"
+      },
+      {
+        "agent_name": "/root/collector_correction",
+        "agent_status": "running"
+      },
+      {
+        "agent_name": "/root/qa_harness",
+        "agent_status": {
+          "completed": "QA complete: **48 tests passed**, plus the real local MCP protocol probe covering 22 tools and 23 roles.\n\nReport and structured handoff are in `Project/management/agentic/work/turn.002/QA-16/`. Final source hashes and earlier failure logs are preserved.\n\nDesktop MCP loading remains unverified; no gameplay or final wiki acceptance is claimed."
+        }
+      },
+      {
+        "agent_name": "/root/wiki_correction",
+        "agent_status": {
+          "completed": "WIK-30 COMPLETE. Raw handoff is ready: [handoff.json](/home/robf/mounts/E/dev/SCP:Welcome%20to%20Site-[REDACTED]/Project/management/agentic/work/turn.003/WIK-30/handoff.json).\n\nFinal checks PASS: 58 tests, docs, wiki build/check (2,251 pages), semantic links, overlay and diff checks. Original failures remain preserved. Setup acceptance remains for IA/DOC."
+        }
+      }
+    ]
+  },
+  "limits": "This partial live host tree corroborates this collector and WIK worker. Earlier ENG/KRA/SWE/QA turn.003 receipts are recorded distinct assertions and may no longer be in this live tree; this observation cannot authenticate all identities or reconstruct spawn timestamps. Historical turn.002 QA completion is preserved as historical, not a current transport conclusion."
+}

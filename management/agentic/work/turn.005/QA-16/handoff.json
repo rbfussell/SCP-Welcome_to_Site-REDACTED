@@ -1,0 +1,121 @@
+{
+  "turn_id": "turn.005",
+  "agent_id": "QA-16",
+  "task_id": "agentic-loop-setup",
+  "prompt_hash": "0daeaa83cf0b0517b54bf3304e50644773e6bfd5bd1933ade807303babb7b461",
+  "assigned_scope": "Independent tooling verification and evidence; no implementation repairs or runtime transitions.",
+  "work_performed": "Inspected actual policy/source/history; ran one final 65-test suite with real MCP IPC, installed interface/negative CLI checks and all-role selection checks; supplied immutable-input evidence reuse verifier.",
+  "artifacts": [
+    {
+      "path": "management/agentic/work/turn.005/QA-16/dispatch.json",
+      "sha256": "877752c0b72fa6bf90e052d6b50c936a82bc129790f277deb2a0c726849b56cf"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/full-suite.log",
+      "sha256": "944ea45bafa3240b44d2d9722e35abcc47804f036bacec468f7dde76c5243a2a"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/interfaces.json",
+      "sha256": "cbd36455c90fe427e27fc84fca8166bff9e2d3cbc7009f996ef87ab8310c2a92"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/report.md",
+      "sha256": "a8270f21af277e7f527d93bcc0c71e8c3e830e4ea143d85803b578e095838568"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/resolved-dispatch.json",
+      "sha256": "482d005bf1823260cea31de102b453191c123512ade7be3ce5d2621d1f120298"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/run_suite.py",
+      "sha256": "a559702265114a62919cacdae44b7c949d34c6ee65e9953bbc4c279500e36439"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/suite-result.json",
+      "sha256": "2307be660c90bcdb1c80023994342b6227d82efd043374c8b1378f2e27d3ef75"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/tested-inputs.json",
+      "sha256": "7fe0b2aafc86051d842304854eebc811a6293e5818e2a72afd2fa84777bed022"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/verify_interfaces.py",
+      "sha256": "f45b11b97ce094492a0d84d7d443b45a5c841309e776b65893c4f517c79edf96"
+    },
+    {
+      "path": "management/agentic/work/turn.005/QA-16/verify_test_evidence.py",
+      "sha256": "19b1b5366c8f0fd75f0856f83890120ce7c09cb468c96c8ab1eb5a1963bc221a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "management/agentic/selection-turn.005.json",
+      "sha256": "8c74434d92bb36a9d363f999daf3d914606279c0c0ee4284592ad7b6f835d63e"
+    },
+    {
+      "path": "management/agentic/work/turn.003/IA-11/report.md",
+      "sha256": "7a4e56be54a59cbcfb5f020917d017b6453710012370c72a6c0830774e4f7866"
+    },
+    {
+      "path": "management/agentic/rpc/turn.004/software-quota-failure.json",
+      "sha256": "d9dfe125daa69ff9cf30af50c405b637255299faeb890052dc7820a1fa84e3ac"
+    },
+    {
+      "path": "tools/agent_model_policy.py",
+      "sha256": "0068fb057e8eae83d06ce5c7160e98749fe469def6998eab65479f246bb3caca"
+    },
+    {
+      "path": "tools/configure_agent_models.py",
+      "sha256": "81186ff8e94118f3f559f8b923403cef739ec1cc017ffcc47d8aa51daa24268b"
+    },
+    {
+      "path": "management/model-policy/policy.json",
+      "sha256": "7144b3ab08d96470f5ca893185345520f081c3b1c9adc5673cc51bce63b38c6e"
+    },
+    {
+      "path": "tests/test_agent_model_policy.py",
+      "sha256": "67680dab0f534d3e7bf3244ed248f4063741b3c0cc35e22317224ead0a4d1ba6"
+    },
+    {
+      "path": "tests/test_agentic_entrypoints.py",
+      "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618"
+    }
+  ],
+  "tests": [
+    {
+      "command": ".venv-harness/bin/python -m unittest discover -s tests -p test_*.py -v",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.005/QA-16/full-suite.log",
+        "management/agentic/work/turn.005/QA-16/suite-result.json"
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python management/agentic/work/turn.005/QA-16/verify_interfaces.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.005/QA-16/interfaces.json"
+      ]
+    },
+    {
+      "command": ".venv-harness/bin/python management/agentic/work/turn.005/QA-16/verify_test_evidence.py",
+      "status": "PASS",
+      "evidence": [
+        "management/agentic/work/turn.005/QA-16/tested-inputs.json"
+      ]
+    },
+    {
+      "command": "Final wiki build/check assigned to WIK",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ],
+  "limitations": [
+    "Host effective settings NOT_EXPOSED; usage/allowance UNAVAILABLE; no model benchmark or quota claim.",
+    "Resident host hot reload unverified; real MCP tests use fresh isolated processes.",
+    "WIK semantic correction and terminal acceptance pending; no gameplay/M0 qualification.",
+    "Evidence hashes are consistency checks, not host authentication."
+  ],
+  "unresolved_questions": [],
+  "handoff_status": "COMPLETE"
+}

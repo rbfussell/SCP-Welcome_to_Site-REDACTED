@@ -1,0 +1,11 @@
+{
+  "sequence": 33,
+  "timestamp": "2026-11-11T16:42:06.371226+00:00",
+  "kind": "INTERRUPTION",
+  "data": {
+    "reason": "Final Document Chief worker hit actual host usage limit after independent IA rejected setup for IA-002-001. No canonical publication or import/task acceptance; preserve all seven completed handoffs, actual failure and confirmed correction for the next setup turn.",
+    "completion": "INCOMPLETE"
+  },
+  "previous_hash": "e3368bdb454cf14efcf0ea7eac99feeda33f4c54ac99d29ef08b34c465a8ee0c",
+  "hash": "549ff006c02eb9882fd74b2e49272932f23fa0552cbfb625381cc33c65aea9d7"
+}

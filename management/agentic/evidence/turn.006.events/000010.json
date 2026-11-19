@@ -1,0 +1,100 @@
+{
+  "sequence": 10,
+  "timestamp": "2026-11-19T16:58:44.049870+00:00",
+  "kind": "HANDOFF",
+  "data": {
+    "turn_id": "turn.006",
+    "agent_id": "ENG-00",
+    "task_id": "agentic-loop-setup",
+    "prompt_hash": "32463ceada1415cb5ae687e27103c9b50d58c6bc09a7cde354cc354160604aa6",
+    "assigned_scope": "Review bounded setup scope, all-role selection, requested host routing and ordered ownership.",
+    "work_performed": "Read the game rules, connected wiki and relevant source and history. Checked board binding, frozen registry and unique exclusions, dependencies, corrective case assignments, requested route and first two dispatch records. Recorded initial wiki freshness and ownership clarification.",
+    "artifacts": [
+      {
+        "path": "management/agentic/work/turn.006/ENG-00/report.md",
+        "sha256": "5ebdf18fd18ac00ea0db03dbad46db3c24eabb9269bd33da9809d881b1cd0774"
+      },
+      {
+        "path": "management/agentic/work/turn.006/ENG-00/inspection.json",
+        "sha256": "67fe2ef6e46cdc805d1539e5fa2303bdc547b5e3183c23b9808187197b26066f"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "management/agentic/bootstrap/routing-research006.md",
+        "sha256": "6f56fe532af267e95ed42e505b972cf647e003d462bd695a0e0dbbc6d357e0e8"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.json",
+        "sha256": "5e3462245e5a417c8f5a5041bd375c8472f6124c7d494da127a32aa449f7ebbf"
+      },
+      {
+        "path": "management/agentic/selection-turn.006.json",
+        "sha256": "68727ff8c78cc854e271655d9a40999250edce185ab0fe4fe727419db5d0e187"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.events/000003.json",
+        "sha256": "45436d623ebf2886c923ef1c10a709ef498acb46bc11ccc7275f6f0e404443a5"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.events/000005.json",
+        "sha256": "32b339fd5c760765551870cc779e945e8118f9ebed0b70827f718b52c04fb274"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.events/000006.json",
+        "sha256": "0f7be81c1c750b94d4cd3f4774ebf21e9594fdb34980947d671982c8e665685e"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.events/000007.json",
+        "sha256": "0b962154cc73e85c72b0476fa0af89aa1c50a4cedc52af420146939b27c94185"
+      },
+      {
+        "path": "management/agentic/evidence/turn.006.events/000008.json",
+        "sha256": "b03dac4fdb97bffc8c9efb0833d112380a36bf7fc3404a0b6323e503f296121d"
+      },
+      {
+        "path": "management/agentic/evidence/turn.003.events/000028.json",
+        "sha256": "f654a3f5f030a7ac177df3be33b682bebbca5064c4257280c55a0678295237ee"
+      },
+      {
+        "path": "management/agentic/evidence/turn.004.events/000014.json",
+        "sha256": "85e83b58e002119c43b8b83067310b688e88962110ab1451368498889f2458ce"
+      },
+      {
+        "path": "management/agentic/evidence/turn.005.events/000017.json",
+        "sha256": "d7f56eadf69749f8447190a628020b312b32cc7758a6db82a3d6a52a45c268dd"
+      }
+    ],
+    "tests": [
+      {
+        "command": "python3 ../scripts/manage_game.py status and read-only assertions against the task, registry, selection and dispatch records",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/ENG-00/inspection.json",
+            "sha256": "67fe2ef6e46cdc805d1539e5fa2303bdc547b5e3183c23b9808187197b26066f"
+          }
+        ]
+      },
+      {
+        "command": "python3 tools/build_game_wiki.py --check (initial freshness)",
+        "status": "PASS",
+        "evidence": [
+          {
+            "path": "management/agentic/work/turn.006/ENG-00/inspection.json",
+            "sha256": "67fe2ef6e46cdc805d1539e5fa2303bdc547b5e3183c23b9808187197b26066f"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Initial freshness confirms the generated wiki matches its inputs. WIK must verify corrected documentation and final semantics.",
+      "The later dispatch sequence, final source qualification and correction resolution remain for EVC, independent IA and DOC.",
+      "The host task response exposes neither effective model/effort nor usage, so no measured savings are claimed."
+    ],
+    "unresolved_questions": [],
+    "handoff_status": "COMPLETE"
+  },
+  "previous_hash": "209794ae5f5c7faa888cde7abbcf82d378fc46c147317e5173ff56d50a825049",
+  "hash": "4ac15af8b9c5060c680ed00fa4ed2ac30485afbe0214f798935656221b0c85b3"
+}

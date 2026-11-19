@@ -1,0 +1,11 @@
+{
+  "sequence": 15,
+  "timestamp": "2026-11-11T10:44:17.240408+00:00",
+  "kind": "FAILED",
+  "data": {
+    "agent_id": "SWE-13",
+    "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+  },
+  "previous_hash": "0bfd8d810b68632a612c1debb541c91bfd57364b561eab3a96cbe85643b61f75",
+  "hash": "257cf2b8220c3c1549dc373c277c89ca29ea777058e417b19caf0a55a00be250"
+}

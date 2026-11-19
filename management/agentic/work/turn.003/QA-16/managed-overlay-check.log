@@ -1,0 +1,23 @@
+{
+  "label": "managed-overlay-check",
+  "argv": [
+    "python3",
+    "tools/configure_project_harness.py",
+    "--root",
+    "..",
+    "--check"
+  ],
+  "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+  "returncode": 0,
+  "timed_out": false,
+  "duration_seconds": 0.046,
+  "scope": "QA independent corrected-source verification; fresh MCP fixture is synthetic only"
+}
+STDOUT:
+{
+  "result": "PASS",
+  "changed": [],
+  "note": "Only managed documentation blocks, project pointer and wrapper are installed; no strict runtime state is migrated."
+}
+
+STDERR:

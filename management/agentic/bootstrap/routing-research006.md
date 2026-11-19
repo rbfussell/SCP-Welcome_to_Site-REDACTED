@@ -1,0 +1,3 @@
+# Game harness routing evidence
+
+User-supplied source: Multi-Agent Engineering Harness Optimization.pdf (SHA-256: b923d206935433cfd5c514d2a6efc9fc733479e4681f2fafb54f933c4b593f1f). The allocation matrix and closing sequence informed this game-specific adaptation. Use short, scoped assignments, Sol for regular work, higher tiers when scope or observed failures warrant them, and existing Python evidence and publication operations. Independent review remains mandatory. The paper’s API pricing estimates and cross-provider comparisons were not used to estimate Codex allowance. No manufacturing roles or external providers were added.

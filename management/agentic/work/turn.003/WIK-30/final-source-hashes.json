@@ -1,0 +1,15 @@
+{
+  "AGENTS.md": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c",
+  "management/README.md": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad",
+  "management/profile.json": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e",
+  "management/harness/AGENTS.md": "1fafe6613e9a839c4174eae1923c21932e3a77d2e2af3bd650dcb9cc1e855789",
+  "management/harness/README.md": "4e79e5e287357099be4f7b2cb023eb808d76f020a363430bc98bbff88da46a9f",
+  "docs/12-development-workflow.md": "62ed542107f733a97d17d1f6c67c21e5114edd4f8ba58652cda67a29a6f840b1",
+  "docs/59-agentic-development-loop.md": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9",
+  "source_material/game-wiki/README.md": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413",
+  "source_material/game-wiki/content/agentic-loop.md": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095",
+  "source_material/game-wiki/content/project-management.md": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7",
+  "source_material/game-wiki/content/development.md": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d",
+  "source_material/game-wiki/content/status.md": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08",
+  "tools/build_game_wiki.py": "feffc1dcd0db7cde496b4c66d2a9badf7079b89235d66030866dff49c92fc1f6"
+}

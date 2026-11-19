@@ -1,0 +1,15 @@
+{
+  "sequence": 14,
+  "timestamp": "2026-11-11T10:26:03.048413+00:00",
+  "kind": "INVOKED",
+  "data": {
+    "agent_id": "QA-16",
+    "prompt_hash": "8e859c23054642d7b02c084fa38af4b0eca465eeabbd24a54944134266994843",
+    "receipt": "/root/qa_harness",
+    "backend": "codex-collaboration",
+    "authorization_id": "18d0829b79ca4069843dce847fe86509",
+    "owned_directory": "work/turn.001/QA-16"
+  },
+  "previous_hash": "5bdd390a880d2b4ba7e93b1bc32fcb578f9521b58f578fb1a03b273498b6ad0c",
+  "hash": "0bfd8d810b68632a612c1debb541c91bfd57364b561eab3a96cbe85643b61f75"
+}

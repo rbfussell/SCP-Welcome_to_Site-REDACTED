@@ -1,0 +1,11 @@
+{
+  "sequence": 16,
+  "timestamp": "2026-11-19T16:55:52.615490+00:00",
+  "kind": "FAILED",
+  "data": {
+    "agent_id": "QA-16",
+    "reason": "Host reported a usage-limit failure after QA generated its report and test transcript, before the handoff was accepted. Preserve the 65-test evidence as historical."
+  },
+  "previous_hash": "95165d810564e670a481f2f6d29b5931cb20c3b6fc12872b14e693e05af80733",
+  "hash": "c767c9c8d35c633555f12195e8f88ac99635415e832d69e56857f3b3d5a2b01f"
+}

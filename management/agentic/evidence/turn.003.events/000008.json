@@ -1,0 +1,12 @@
+{
+  "sequence": 8,
+  "timestamp": "2026-11-11T16:47:48.070728+00:00",
+  "kind": "DISPATCH_AUTHORIZED",
+  "data": {
+    "agent_id": "KRA-14",
+    "authorization_id": "9f067d481f95475d8bfa47ede92849e5",
+    "prompt_hash": "e29359a3e6329afa860511697dd660bb0a0622b042aadda081956b30a39936cf"
+  },
+  "previous_hash": "9b6ebb27c15fd37af61078bdd01695af2997f09a13135f84a72e354ac81154e4",
+  "hash": "155b5aafce86574337b6acb23692245335e5e60c332a97af6af07febe753d0b2"
+}

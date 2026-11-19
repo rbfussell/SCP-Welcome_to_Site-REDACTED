@@ -1,0 +1,8 @@
+{
+  "status": "CONFIGURED_UNVERIFIED",
+  "changed_paths": [],
+  "workspace": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]",
+  "role_count": 23,
+  "effective_status": "NOT_EXPOSED",
+  "scope": "Future starts; live coordinator unchanged. Active collaboration uses explicit overrides."
+}

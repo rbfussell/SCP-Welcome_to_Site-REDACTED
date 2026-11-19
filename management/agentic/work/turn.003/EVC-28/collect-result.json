@@ -1,0 +1,493 @@
+{
+  "path": "management/agentic/work/turn.003/EVC-28/evidence-package.json",
+  "package": {
+    "turn_id": "turn.003",
+    "collected_head_hash": "6ff23ccfe3b4d3b57cc286dc1d6a2cb5f1b848e1893f7a3c70aaf208d9f87163",
+    "reviewed_agents": [
+      "ENG-00",
+      "KRA-14",
+      "QA-16",
+      "SWE-13",
+      "WIK-30"
+    ],
+    "missing_invocations": [],
+    "missing_handoffs": [],
+    "failed_invocations": {},
+    "artifact_inventory": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "5298982be4b12b10a06e4bcf08d6adc07c074ccb09b1430df27f8dc79f45426c"
+      },
+      {
+        "path": "docs/12-development-workflow.md",
+        "sha256": "62ed542107f733a97d17d1f6c67c21e5114edd4f8ba58652cda67a29a6f840b1"
+      },
+      {
+        "path": "docs/59-agentic-development-loop.md",
+        "sha256": "268d8cf371ad572051c5cf02fc3953dc7be9b02d4e2a767609d96e71015974c9"
+      },
+      {
+        "path": "management/README.md",
+        "sha256": "bb63f00e463b81d717d194c753fea827cc84d77f66f7395e1dbcea1082d492ad"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-connection-observed.json",
+        "sha256": "a176564c8201e9475723a5983e9ffa5f1be5f14363b80b4dbaa735f57ec8df29"
+      },
+      {
+        "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+        "sha256": "185e3a4ca8cd51e62f36c33f736a96817ddef7424b304d01e0f0c17a987ea02b"
+      },
+      {
+        "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+        "sha256": "1faec542c884a980a3f72032f745f327ad1130c8337f5784e3f3e45cac65973f"
+      },
+      {
+        "path": "management/agentic/evidence/turn.003.events/000005.json",
+        "sha256": "cb69864842e2de77c44ac3875dd97a7e166a2add810156e50712e380da40b711"
+      },
+      {
+        "path": "management/agentic/evidence/turn.003.events/000006.json",
+        "sha256": "bee11fa486c399daabcec74540525c801589fb04e02aea446e8cafb3ef7f2f0e"
+      },
+      {
+        "path": "management/agentic/selection-turn.003.json",
+        "sha256": "0a79125adc9d917838082e0854d3ebea9af558f253692403ee43cffd82fbb0be"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/audit.json",
+        "sha256": "9bcb234b4ea5454e6b12338f79df71c674e05cb88d3bf8e0aafe421eeb3b77ad"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/outer-agents-root.log",
+        "sha256": "c9687e4be0189f085edc63d8703bccc5485fd33f6e525ddba2c5d7c8385e1dd2"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/outer-agents-unrelated.log",
+        "sha256": "203bad9be202185b18cdedd9171e2dccde94392c40fbbc0711c3a1f1f9d307ea"
+      },
+      {
+        "path": "management/agentic/work/turn.002/IA-11/report.md",
+        "sha256": "b4627ef610bea3f7987928c155d29cf3ebc43acd9282e4b526a9fe81c1ad9960"
+      },
+      {
+        "path": "management/agentic/work/turn.003/ENG-00/report.md",
+        "sha256": "16a254f39e74b8d0dac2edaa0da35f9c29ef2c574d270b1c3d0964f7c6c0f54f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/KRA-14/report.md",
+        "sha256": "636b7c4cf9c7b974e986d585fc723f59ea51dc1a6603cd246d58005a12f69791"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/agentic-suite.log",
+        "sha256": "77595e1b98ab9181ea7f41fdb0414e5acc85da1900b9f898310b41b1efdd33ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/direct-agentic-cli.log",
+        "sha256": "ed8257c07e70ec0abbeebd8e1b033b92b4a7bdb1f4d88ad7164e52ca829eb3bb"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/inspection.json",
+        "sha256": "a79579fa396ab13aff95696ee251502c960405f999d48e7f9bfdc51ffde246ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-legacy-board.log",
+        "sha256": "732c0337c548f74127c8864b14bca4dfd13ab84cef7d9af5311d5e98228ece94"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-root.log",
+        "sha256": "2832da2885c4a9ebcd4421d3558ff395b8439c5b060a6c69fe0280b9d7b055ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/installed-wrapper-unrelated.log",
+        "sha256": "e37bb4851afa3ec3683371eaa3fcc60fd02f3bb23efc710f8cbaadda48cddbda"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/legacy-adapter-suite.log",
+        "sha256": "193a8801f35cd3023ba5684a2ed24d202d3d4e83adfacfb5d3c2013fc01490b4"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/managed-overlay-check.log",
+        "sha256": "07a166249dcaea4ef025e520df88e37fd9ed153616cc184d29c31538b4f3787a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/mcp-fixture-transcript.json",
+        "sha256": "d0256de0f11b168cdee9be21ce1f679ea3244665b6c48f4b12a0b5dab2fe7513"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/report.md",
+        "sha256": "4bdece02b013c1262a0dcb1019520b595ae8dcfb066c8a0d979379ae03c39afd"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-after.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/source-before.json",
+        "sha256": "c3f0fa12bdd621dbb2fd8e2097626dda61e49c1ae01059a3f8a0744117414db9"
+      },
+      {
+        "path": "management/agentic/work/turn.003/QA-16/verification-results.json",
+        "sha256": "1c9ecaba0702b5f8a691ff64c769f4535f8029d859e7381ca86b8b4e4b45f40f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-mcp-fixture-transcript.json",
+        "sha256": "f6967834f21e45533524cdac00db066206f53545f882647d6abd9af0efa8c668"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.json",
+        "sha256": "29e8e92ffe6f53988a6c31e118fd428de68e0ba3766dea571d5d683986932a74"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/after-regression-real-ipc.log",
+        "sha256": "d0d99337b4199827f47426226528dd3ddf4668e27c6c0b5ffac7824b114d8402"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/agentic-suite.log",
+        "sha256": "8f95e7ae2b132df7c036effb069657c5ea0c9cbdede532969180e681e5e439d0"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.json",
+        "sha256": "7a3540ba5b95c3351a61bb8ea125ab68ca83e0ad501d297842da0988b8c9d5dd"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression-real-ipc.log",
+        "sha256": "8fbe3a115c73fde54b1ddd29b7d5de567a04c6c7bcbded259b9d2aee38735cbb"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression.json",
+        "sha256": "f8500fc2a8905d580422a74973d511684153181f9168e5b448f92ff1950ae21e"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-regression.log",
+        "sha256": "b57addbf1608ff51e2dbf44ec59338e66552d145d63807bd07be8ef16649552d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-source-manifest.json",
+        "sha256": "3326a697719c0c589b41dbab380f13eb2db35d7815082bca07a348bc63f95ace"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.json",
+        "sha256": "7177f99cad196e0eca249a8f9892f83c27546d9a3067b25c19748e942da3af20"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before-wrapper-root.log",
+        "sha256": "e387b8e9d4088ecb1126e692f0ec5a7827fb6d815d6de76992ca97afa81b892f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/manage_game.py",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/management/harness/runtime/workflow.py",
+        "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/outer-scripts/manage_game.py",
+        "sha256": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic.py",
+        "sha256": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/before/tools/agentic_mcp.py",
+        "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/direct-agentic-cli.log",
+        "sha256": "f00aa25a58dbbf843c90d118388ba0839fcfd286049c841551dea06234281fca"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/historical-state-readback.json",
+        "sha256": "4cf1706358208817aa75551481d84e7b2df2b6d9290e46b0f69337e9ecf89d79"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-entrypoints.json",
+        "sha256": "882c418af00e54b784e962837ff5b22f297ddf5104d8ecb2258ccf9a9b76f926"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-legacy-board.log",
+        "sha256": "fdc5c42a0b6181df831d2431f0712b2e7f8b7a8e112a305410df50d6751e0f17"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-root.log",
+        "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/installed-wrapper-unrelated.log",
+        "sha256": "6828c04f7bbed2a95f3413bc0cb028a55c5be398002c1ddcc36444c4ee4b3c23"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/legacy-adapter-suite.log",
+        "sha256": "e383fc8cd353fb3803ade192b19ab804dcce17e4f6ca95aec42f946cd79772e5"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/managed-overlay-check.log",
+        "sha256": "e7b6b62bcd47a45d88ce3eb25b24172da67a4219ce763c8cb425f3a2253dfd12"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/report.md",
+        "sha256": "df768dd98238b12a755faf134ea25728a6a75e4ae59c1474d0b85aa135865245"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/suite-results.json",
+        "sha256": "b8cc872c03ea65daf5bc5fa6b7f2d066f358abda4a04cdfc4be08231ede2429b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/SWE-13/tested-source-hashes.json",
+        "sha256": "6b1e0f489be9fb1c86f357ef1aca1cd9ab4d04790c72373a499dae239bb4a07c"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/before-source-hashes.json",
+        "sha256": "80f10bac7a87424e473a6bd29184d13594cece6a656c779700fac3680eb80269"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/changed-authored-files.json",
+        "sha256": "10c3d90d08188582fc4773b6c152c4ac13b0f1bdd1fca6bdc222a6681a54cc9d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/docs.log",
+        "sha256": "81dc426a7b1b8e018f93054d137b6567660b043a6b2b1281c8d3321e2493a08c"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/final-source-hashes.json",
+        "sha256": "b986204ea9630991bd41b43efb4ee0df2a54d68e962d135fe0633d379f14d6d5"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/full-documents-initial-helper-error.log",
+        "sha256": "d2b0d9ab8ea2ea7915534a6597a78a37e08fe0c0f1e12ba46a4c569561df9960"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/full-documents.log",
+        "sha256": "17ddef05a52da2c7b07f1598c12b531d0ee579391b5bcca4b1bd819927d3e09d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/full_document_checks.py",
+        "sha256": "98db0539d7cf92ec35e33d3c80d4c670c49094acccddb317215311445332db2b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/git-diff-check.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/helper-limits.json",
+        "sha256": "a6846f0cdb24770318c06f606ddf9355bbd0245d6e6607f9b8b228cede0e51e5"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/docs.log",
+        "sha256": "7815d6f6d7b781057355cec7306f643e7a150c2c78aab94ed3551ac4f22aa73d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-result.json",
+        "sha256": "4425ec4762d3ef3b87a7b6254d66d5866465065fadc058edaee8cf97d94e1a1c"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-docs-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-result.json",
+        "sha256": "b4885fbb4c86cfb6df0a64ce451cefd6b6da1378d143fc69c7e358ff4eaba2fa"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-tests-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-result.json",
+        "sha256": "0861758eb11a099888dbe7b65b8e105d550add61531e2856694180253deb391d"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/managed-wiki-build-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/recorded-check-results.json",
+        "sha256": "4cdf6396d5b6b41caf760c0946e8fafaebdb897652f329fdea14b26aa0c763a2"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/tests.log",
+        "sha256": "1d23ef4cfe4871ff11655d952d78c6cc36c5f7327efcc844fbd9a133d4d1f78e"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/initial-recorded/wiki-build.log",
+        "sha256": "0844430a0f5e07389430d2a6c595e0e062f6163a33ee73f0ed6068e6f1b9f129"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/inspect_wiki.py",
+        "sha256": "6d948ec175829ab616073c285f188d356d62ded20d6ea919191a304b6de96ef0"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-docs-result.json",
+        "sha256": "24f3d66a1f5a31b53243258bc63a301fa7ac9ae97ce45f91e641e92c7af13a66"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-docs-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-tests-result.json",
+        "sha256": "8be5758451457cb2aec83b845c17160ad76f2c11614dd5f08e8a26ac74484ec3"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-tests-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-result.json",
+        "sha256": "73d6c402e60de264a3e02592f5aad317e48be448f035facdc79c1c0d01da7bf4"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-build-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-result.json",
+        "sha256": "8779420b2542fbe7cf5b619065116fc379302126ceead1cb6071154f22d1b3ef"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/managed-wiki-check-stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/overlay-check.log",
+        "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/overlay-final-check.log",
+        "sha256": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/overlay-install.log",
+        "sha256": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/reading-notes.json",
+        "sha256": "c7d52ae63b2ff32fe52a96d8d908c59544a2eb60981fb89f6afc716e3991dce1"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/recorded-check-results.json",
+        "sha256": "dbdaf451790865849a650f376233aa7eff4a0cd1a41b061b6eb7f44b072a41de"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/report.md",
+        "sha256": "ec1c11067a4ed749043a56d42dae0379b63c100fa87385092dad2e771fc4e9ec"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/run_recorded_checks.py",
+        "sha256": "398905988fa078eaca24c98d8ab21daffdf9844a9ef1f3b4f9555ae8942834d1"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.json",
+        "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/semantic-inspection.log",
+        "sha256": "fc8b73846e7f5c3fe98ad0bd9b0d8c2b887354eeca2104ebf9a31fb34c67358f"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/semantic-review.md",
+        "sha256": "9c97b2c94215bf68c8675bfa0aab494e4ec53a02bd3117cc1e6a3e90d86f822b"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/supplemental-check-results.json",
+        "sha256": "5dc668c416ac7d678c1194fff954c4866656a9a334f58fd3cd180cbf9a10be47"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/tests.log",
+        "sha256": "4a4bb7fdec58ee4cd971da772c42fc2ea538f37d9b9738a6131399be38e267b1"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/wiki-build.log",
+        "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/wiki-check.log",
+        "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+      },
+      {
+        "path": "management/agentic/work/turn.003/WIK-30/wiki-precheck.log",
+        "sha256": "f98db25d20b542c5a6302ab934bdbc1731bf98f3a9b9d0aa0c884f801425220b"
+      },
+      {
+        "path": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+        "sha256": "81dc426a7b1b8e018f93054d137b6567660b043a6b2b1281c8d3321e2493a08c"
+      },
+      {
+        "path": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+        "sha256": "4a4bb7fdec58ee4cd971da772c42fc2ea538f37d9b9738a6131399be38e267b1"
+      },
+      {
+        "path": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+        "sha256": "b70a2ff6dc59b57e6edfdfa0b5c9387f97dd9243478341324e3801372093efdf"
+      },
+      {
+        "path": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+        "sha256": "c7a683522455089686f6ac0326c77608f27608bf6ea6982e9c108b7b7a07bcc4"
+      },
+      {
+        "path": "management/harness/AGENTS.md",
+        "sha256": "1fafe6613e9a839c4174eae1923c21932e3a77d2e2af3bd650dcb9cc1e855789"
+      },
+      {
+        "path": "management/harness/README.md",
+        "sha256": "4e79e5e287357099be4f7b2cb023eb808d76f020a363430bc98bbff88da46a9f"
+      },
+      {
+        "path": "management/harness/manage_game.py",
+        "sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16"
+      },
+      {
+        "path": "management/harness/runtime/workflow.py",
+        "sha256": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f"
+      },
+      {
+        "path": "management/profile.json",
+        "sha256": "29da495c0170e80709280c548827011e687caba64ec0a071d7d9a483b4937b6e"
+      },
+      {
+        "path": "source_material/game-wiki/README.md",
+        "sha256": "502746f6a619479a1c5d001b4b459a64924503e4e40dceeda16b7cb83a19b413"
+      },
+      {
+        "path": "source_material/game-wiki/content/agentic-loop.md",
+        "sha256": "49026a9f1ec4a307d502e574d7c5b67c1bbce95f728fc64cd46d8785440f5095"
+      },
+      {
+        "path": "source_material/game-wiki/content/development.md",
+        "sha256": "fde8c718e9f7fdfc5dd8bf31f6560d6450005e31e97cbbebc9e1f92bc54e081d"
+      },
+      {
+        "path": "source_material/game-wiki/content/project-management.md",
+        "sha256": "55e1876522962b9e8aecb87638ff72d399243035ee4541f1348ddfb89b4c18f7"
+      },
+      {
+        "path": "source_material/game-wiki/content/status.md",
+        "sha256": "5ceb91bc7ae6863f8bbdacfb9680a37e11a84213e0cb464b0344ad48f6172b08"
+      },
+      {
+        "path": "tests/test_agentic_entrypoints.py",
+        "sha256": "29195033517cb3569d62f64dd23be67ac4e733dcfbfc7155394a398c2eb79618"
+      },
+      {
+        "path": "tools/agentic.py",
+        "sha256": "3abcfbacd72a9343a03f836ca39f022df72558b001309610cfa51cec74cf4214"
+      },
+      {
+        "path": "tools/agentic_mcp.py",
+        "sha256": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d"
+      },
+      {
+        "path": "tools/build_game_wiki.py",
+        "sha256": "feffc1dcd0db7cde496b4c66d2a9badf7079b89235d66030866dff49c92fc1f6"
+      },
+      {
+        "path": "tools/game_workflow.py",
+        "sha256": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78"
+      }
+    ],
+    "integrity_issues": [],
+    "selection_hash": "d9fa0fc99348b1399af2362d5f4bdd653c13075a5d9e416b8b637704a4506733"
+  }
+}

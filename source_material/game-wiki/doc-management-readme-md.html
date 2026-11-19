@@ -1,8 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Software project management | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: management/README.md.</aside><h1 id="software-project-management">Software project management</h1>
-<p>This is the active management profile for the existing SCP game. The outer portable
-harness supplies the workspace entry point; the game remains its own checkout in
-<code>Project/</code>. Nothing moves the engine, assets, canon archive or GitHub workflow again.</p>
-<h2 id="authority-and-records">Authority and records</h2>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agentic software project management | Site-[REDACTED] archive</title><link rel="stylesheet" href="assets/wiki.css"><script src="search-index.js" defer></script><script src="assets/wiki.js" defer></script></head><body><a class="skip" href="#content">Skip to content</a><header><div class="masthead"><a href="index.html" class="brand">SCP FOUNDATION<span>Welcome to Site-[REDACTED]</span></a><span class="archive-label">GAME DEVELOPMENT ARCHIVE</span></div><div class="redline"><span>Secure. Contain. Protect.</span><span>Internal reference • source-backed edition</span></div></header><div class="layout"><aside class="sidebar"><label for="wiki-search">Search the archive</label><input id="wiki-search" type="search" placeholder="SCP, function, system…" autocomplete="off"><div id="search-info" role="status" aria-live="polite"></div><nav aria-label="Archive navigation"><a href="index.html">Main archive</a><a href="items.html">Item catalog</a><a href="scp-index.html">SCP files</a><a href="engine.html">Engine overview</a><a href="systems.html">Shared systems</a><a href="functions.html">Function directory</a><a href="types.html">Types</a><a href="files.html">Source files</a><a href="documents.html">Design library</a><a href="status.html">Implementation ledger</a><a href="development.html">Development workflow</a><a href="project-management.html">Project management</a><a href="agentic-loop.html">Agentic loop</a><a href="research.html">Research & credits</a><a href="canon-index.html">Canon sources</a><a href="archive-research.html">Archive research</a></nav><p class="side-note">Game adaptation and engineering evidence.<br>Not player knowledge.</p></aside><main id="content"><div class="breadcrumb"><a href="index.html">Site archive</a> / Design document</div><section id="search-results" hidden><h1>Search results</h1><div id="results"></div></section><article id="article"><aside class="notice">Project document snapshot. Read historical status and version statements in context; see the <a href="status.html">current implementation ledger</a>. Source: management/README.md.</aside><h1 id="agentic-software-project-management">Agentic software project management</h1>
+<p>The active software-game workflow uses <strong>real selected host agents</strong>, with individual negation of every unused registered role. This replaces the single-developer execution default accepted in commit <code>2a86ca5</code>; those historical self-reviewed records are preserved. The game remains its own Git checkout in <code>Project/</code>, with its existing source, canon exclusion, wiki and GitHub workflow.</p>
+<h2 id="authorities">Authorities</h2>
 <table>
 <thead>
 <tr>
@@ -12,109 +10,70 @@ harness supplies the workspace entry point; the game remains its own checkout in
 </thead>
 <tbody>
 <tr>
-<td>Work selection, scope, dependencies, blockers, acceptance and evidence</td>
+<td>Bounded scope, dependencies, blockers, acceptance, reading and command checks</td>
 <td><code>management/tasks/*.json</code></td>
 </tr>
 <tr>
-<td>Current mechanics and implementation limits</td>
+<td>Actual registry/selection, dispatch receipts, handoffs, evidence, IA and publication</td>
+<td><code>management/agentic/</code></td>
+</tr>
+<tr>
+<td>Current mechanics, lore adaptations and implementation limits</td>
 <td><a href="index.html">Game wiki</a>, starting at <a href="status.html">the ledger</a></td>
 </tr>
 <tr>
-<td>Requirements, scope and milestone gates</td>
+<td>Requirements and game milestone gates</td>
 <td><a href="doc-docs-04-scope-and-acceptance-md.html">Scope and acceptance</a></td>
 </tr>
 <tr>
-<td>Design contracts, ADRs and historical reviews</td>
+<td>Contracts, ADRs and historical reviews</td>
 <td><a href="doc-docs-12-development-workflow-md.html">Development documents</a> and <code>docs/</code></td>
 </tr>
 <tr>
-<td>Source, assets, saves and tests</td>
-<td>Existing game directories; no competing management copy</td>
-</tr>
-<tr>
-<td>Change history and published game wiki</td>
-<td>Existing <code>Project/.git</code> and <code>.github/workflows/game-wiki-pages.yml</code></td>
+<td>Actual implementation, assets and history</td>
+<td>Existing game directories, <code>.git</code> and <code>.github/</code></td>
 </tr>
 </tbody>
 </table>
-<p>The imported baseline is commit <code>cac3555</code>. Its earlier checks remain historical;
-importing it does not pass M0, M1 or any new qualification gate. Proposed tasks are
-candidates, not silently approved features. This board need not reproduce every
-paragraph of the long-term scope document. Add the next selected slice explicitly.</p>
-<p>The generic harness's <code>wiki/</code> JSON publication store is an optional strict-workflow
-process record. It does not replace, override or regenerate the game knowledge base.
-This adapter does not initialize that store or pretend to have completed strict
-preflight, a dispatched crew or independent Internal Affairs.</p>
-<h2 id="a-slice">A slice</h2>
+<p>The harness process publication JSON is not the game's actual wiki. WIK-30 maintains the real authored knowledge base before collection; DOC-10 publishes process outcomes last. No process record grants knowledge to the player, NPCs, OSCP or AIC.</p>
+<h2 id="a-turn-and-slice">A turn and slice</h2>
+<p>Read <a href="evidence-agents-md.html">game rules</a>, relevant wiki/dependency/source/design evidence and <a href="doc-docs-59-agentic-development-loop-md.html">the agentic contract</a> before planning. Use small acceptance-defined tasks; proposed backlog entries do not authorize new scope. Keep context JSON with actual <code>wiki_read</code>/<code>docs_read</code> notes. Declare all changed static input files; exclude evolving task/process/log records and generated wiki outputs to avoid self-reference.</p>
 <ol>
-<li>Read <a href="evidence-agents-md.html">game agent rules</a>, relevant wiki pages and linked design/source
-   evidence. Check wiki freshness. Write a small task JSON from <a href="evidence-management-task-template-json.html">the template</a>,
-   marking it <code>ready</code> only when selected. Specify measurable acceptance criteria,
-   affected wiki pages, dependency IDs, blocking questions and <strong>all changed input files</strong>.</li>
-<li>Create context JSON listing <code>wiki_read</code> and <code>docs_read</code>, each with <code>path</code> and real
-   reading <code>notes</code>. Include the implementation ledger and development page. Start the
-   slice. Reading receipts are developer attestations with hashes, not proof of cognition.</li>
-<li>Implement, ask focused questions when design is ambiguous, and preserve unrelated
-   work. Update the wiki's authored sources and affected Markdown alongside the change.
-   Use actual research when needed; existing accepted decisions do not require a new
-   three-turn startup sequence. Block dependent work when an answer is required.</li>
-<li>Record appropriate real tests and documentation checks, then rebuild/check the wiki.
-   Logs go to versioned <code>management/evidence/&lt;slice&gt;/</code>; inspect them for credentials or
-   personal data before committing. Check commands use argv, without a shell.</li>
-<li>Compare behavior, requirements, actual results, wiki and other documentation. Inspect
-   generated pages and reciprocal links. Complete with a review JSON declaring its
-   actual mode, every acceptance criterion's evidence, and remaining limitations.</li>
-<li>Review the Git diff. Commit the slice, records, docs and wiki together. Push reviewed
-   work using the existing remote policy. No management command commits or deploys.</li>
+<li>Read registry/readiness and begin a scoped assessment. Every frozen registered role defaults YES; each unused role needs a distinct substantive task-specific NO. There are currently 23 software/game roles, including dedicated media, asset-pipeline, web-wiki, native UI/UX, lore and research scopes.</li>
+<li>Record exact prompts, dependencies, ownership and selection. ENG-00, WIK-30, EVC-28, independent IA-11 and DOC-10 are mandatory. Before each host spawn obtain actual dispatch authorization; afterward record the genuine host receipt. Recording an invocation does not start or authenticate a worker. Distinct role receipts and independent review must be real.</li>
+<li>Working specialists produce only their assigned scope. Ask material design questions; queue unfamiliar research and stop the requesting worker until a later accepted research response. Preserve interruption/failure and outstanding findings.</li>
+<li>After every selected execution owner, WIK-30 updates actual authored wiki and affected Markdown, rebuilds/checks, inspects reciprocal links and records semantic agreement. No new execution specialist starts once Wiki begins.</li>
+<li>EVC-28 inventories evidence and gaps, independent IA-11 audits, then DOC-10 publishes accepted/rejected/blocked outcomes last. No agent runs after DOC in that turn. Discovered late corrections require a new authorized turn rather than an invisible repair.</li>
+<li>A new slice closes only against the matching accepted immutable publication, its task entity/all-role handoffs, real Wiki semantic handoff and independent IA receipt, alongside passing tests/docs/wiki-build/wiki-check records and stable declared inputs. Commit reviewed implementation, records and documentation together; commands do not commit/deploy.</li>
 </ol>
-<p>From the <strong>game root</strong> (<code>Project/</code>):</p>
+<p>Milestone declarations select PRT-05 Designer and BLD-27 Builder for an actual plan/attempt; this setup is not a gameplay milestone. <a href="doc-docs-59-agentic-development-loop-md.html">The full role table and ordered loop</a> define software scopes and honest limits.</p>
+<p>Use the <a href="evidence-management-model-policy-readme-md.html">model allocation</a> to resolve and retain each requested preset before authorization. A compact role brief can carry scope, ownership, dependencies, evidence pointers and acceptance checks in the exact authorized prompt. Keep deterministic checks and evidence assembly in tools, under the selected worker’s review. Record observed usage only when the host supplies it.</p>
+<h2 id="commands-from-the-game-root">Commands from the game root</h2>
 <pre><code class="language-sh">python3 tools/manage_project.py status
-python3 tools/manage_project.py start SLICE-ID --context management/contexts/SLICE-ID.json
-python3 tools/manage_project.py record SLICE-ID tests -- python3 tools/run_spatial_scene.py --check
+python3 tools/install_agentic_dependencies.py
+.venv-harness/bin/python tools/agentic.py init
+.venv-harness/bin/python tools/agentic.py inventory
+.venv-harness/bin/python tools/agentic.py status
+.venv-harness/bin/python tools/agentic.py plan --input management/agentic/prompts/plan.json
+</code></pre>
+<p>The last command needs an actual JSON file containing <code>turn_id</code> for a selection-phase turn; it is a pattern, not an existing setup artifact. Use <code>--input</code> for exact named arguments and <code>--output</code> for a new actual result file. CLI and <code>workflow_*</code> stdio MCP operations share the genuine runtime, not a simulated agent loop. <code>tools/call_agentic_mcp.py</code> supports actual local protocol calls before host tool loading; preserve their inputs/results as evidence.</p>
+<pre><code class="language-sh">python3 tools/manage_project.py start SLICE-ID --context management/contexts/SLICE-ID.json
+python3 tools/manage_project.py record SLICE-ID tests -- .venv-harness/bin/python -m unittest discover -s tests -p 'test_*.py'
 python3 tools/manage_project.py record SLICE-ID docs -- python3 tools/check_management_docs.py
 python3 tools/manage_project.py record SLICE-ID wiki-build -- python3 tools/build_game_wiki.py
 python3 tools/manage_project.py record SLICE-ID wiki-check -- python3 tools/build_game_wiki.py --check
 python3 tools/manage_project.py complete SLICE-ID --review management/reviews/SLICE-ID.json
 python3 tools/manage_project.py check
 </code></pre>
-<p>Choose tests appropriate to the slice; the example domain test is not sufficient for
-changed rendered behavior. The management-document check covers this integration's
-links/records only, and is not a universal game-document checker. <code>block SLICE-ID
---reason "specific blocker"</code> releases the single active slot. Resolve its question
-record, then <code>start</code> with updated context to resume; earlier logs remain on disk.</p>
-<p><code>proposed → ready → active → done</code> is the usual lifecycle. <code>active/ready → blocked</code>
-records unavailable work. Edit proposed task scope/selection deliberately; do not
-mark it done by hand. Completion needs four passing labels (<code>tests</code>, <code>docs</code>,
-<code>wiki-build</code>, <code>wiki-check</code>), unchanged declared inputs since those checks, intact
-logs, a post-build wiki check and explicit semantic review. Exit zero reports the
-command's result, not the truth of every assertion one could make about the game.
-All changed source/data/docs, new files and management tooling must be in <code>inputs</code>;
-exclude the task's own evolving record, logs and generated wiki outputs to avoid
-self-reference. Completed snapshots are historical: later slices may change their
-inputs without invalidating the recorded past result. Hashes are not tamper-proof.</p>
-<p>One developer performs coordination, implementation, evidence collection, self-review
-and documentation by default. Optional QA, canon/design, art, audio or independent
-review workers are selected only when explicitly requested by the user or applicable
-instructions. Declare actual receipts for independent review; never manufacture them.
-No manufacturing roles, sales presenter, model API, MCP installation or paid account
-is required. Self-review is useful but does not claim independent assurance. The CLI
-is for one coordinator at a time; it is not a concurrent distributed task service.</p>
-<h2 id="outer-root-installation-and-recovery">Outer-root installation and recovery</h2>
-<p>The outer root has an empty protected <code>.git</code> mount, not the game's Git history.
-Authoritative tools, profile, overlay templates and task/evidence records therefore
-live <strong>inside the game repository</strong>. The installed outer files are convenience copies.</p>
-<pre><code class="language-sh"># From the outer workspace root; safe to repeat, preserves unmanaged text.
-python3 Project/tools/configure_project_harness.py --root .
-python3 Project/tools/configure_project_harness.py --root . --check
-python3 scripts/manage_game.py status
-python3 scripts/manage_game.py check
+<p>Select tests appropriate to the changed subsystem; these harness tests do not test native gameplay. Required labels are actual <code>tests</code>, <code>docs</code>, <code>wiki-build</code>, <code>wiki-check</code>; argv executes without a shell. Complete only after the matching turn's accepted publication. <code>block SLICE-ID --reason "specific blocker"</code> releases the single active slot; resume with updated context after resolving its record. <code>proposed → ready → active → done</code> and blocked work remain explicit. Checks and one coordinator write at a time avoid competing record updates. Inspect all logs for secrets before public commits.</p>
+<h2 id="initialization-imported-history-and-recovery">Initialization, imported history and recovery</h2>
+<p>The historical adapter's accepted game baseline was <code>cac3555</code>; the scoped migration snapshots come from <code>2a86ca5</code>. Imported sources and actual authorization are immutable under <code>management/agentic/bootstrap/import-history/</code> and <code>imported-project.json</code>. Only a real accepted setup publication naming the exact import unlocks existing-project readiness; it never invents historical question/research/baseline rounds. New questions, pending research and IA findings still block production. M0 remains open.</p>
+<p>Turns .001 and .002 are INTERRUPTED, not accepted. Turn.002 retains its independent REJECTED audit and confirmed SWE-13 case IA-002-001, followed by the actual DOC usage-limit failure; no DOC handoff/publication or accepted import exists for that turn. Its host failure event was recorded despite an MCP response-schema error. Preserve these records and adverse logs. Turn.003 independently verified the wrapper and fresh-process acknowledgement corrections. Its published setup outcome was REJECTED because current guidance still contradicted those corrections and the observed host connection (IA-003-001). Turns .004 and .005 were interrupted and produced no accepted setup publication. A specialist report, this guide or a protocol PASS cannot substitute for that outcome. The inherited fresh-product preflight remains available separately.</p>
+<p>Pinned local MCP/jsonschema dependencies are installed in <code>.venv-harness</code>. The actual local probe passed initialization/list-tools/inventory (22 tools, 23 roles). A real Codex-exposed <code>workflow_readiness</code> call succeeded at 2026-11-11 16:42:06 UTC; <code>management/agentic/bootstrap/host-connection-observed.json</code> retains that external observation. The runtime's generic <code>host_mcp_connection: NOT_OBSERVED</code> checks no external transport and does not contradict the receipt. Configuration checks also cover configuration only. No model API or purchase is required; Python cannot authenticate all worker receipts or provide an OS sandbox/tamper-proof chain of custody.</p>
+<p>The installed outer wrapper now prepends its validated game tools path before dispatch. Independent QA passed agents readiness from the outer root and unrelated cwd, plus legacy board/direct-CLI checks. Shared <code>failed</code> dispatch now returns <code>{status: FAILED, recorded: true, ...arguments}</code> only after the runtime append succeeds. Invalid, duplicate and sealed-turn calls stay errors. Five new regressions include a fresh real stdio MCP process with explicitly synthetic, isolated records; 40 agentic tests plus 13 adapter tests passed. This does not demonstrate resident host hot reload or a corrected host-exposed failure reply. Use <code>.venv-harness/bin/python</code> for MCP-dependent tests; the system-Python shortcut can report READY with <code>stdio_mcp_dependency: false</code>.</p>
+<pre><code class="language-sh">.venv-harness/bin/python tools/check_agentic_mcp.py
+python3 tools/configure_agentic_client.py --workspace .. --check
+python3 tools/configure_project_harness.py --root ..
+python3 tools/configure_project_harness.py --root .. --check
 </code></pre>
-<p>The installer adds marked blocks to the root <code>AGENTS.md</code>/<code>README.md</code>, a small
-<code>config/software-project.json</code> pointer and <code>scripts/manage_game.py</code> wrapper. Other
-harness files and strict runtime are left intact. Reinstall after changing overlay
-templates. A standalone game clone uses <code>tools/manage_project.py</code> directly and needs
-no outer harness. Recreating the outer generic harness still requires the original
-harness distribution; this repository versions the overlay, not that full release.</p>
-<p>See <a href="doc-docs-58-software-project-management-md.html">the integration contract</a>,
-<a href="project-management.html">the game-wiki explanation</a>,
-and <a href="evidence-management-profile-json.html">profile</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · management/README.md</footer></main></div></body></html>
+<p>Authoritative runtime/config/profile/overlay and records live inside the game Git repository. Outer managed docs and <code>scripts/manage_game.py</code> are convenience copies; reinstall after template changes. Preserve outer generic files and unrelated configuration. Standalone clones use game-root tools, installing the pinned environment for agentic operations. See <a href="doc-docs-58-software-project-management-md.html">historical integration</a>, <a href="doc-docs-59-agentic-development-loop-md.html">active loop</a>, <a href="project-management.html">game-wiki management</a> and <a href="evidence-management-profile-json.html">profile</a>.</p></article><footer>Generated from local project sources. <a href="research.html">Evidence, credits &amp; refresh</a> · management/README.md</footer></main></div></body></html>

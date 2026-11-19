@@ -31,7 +31,7 @@ def configure(root, game=GAME, check=False):
         replacements[root / name] = f'{BEGIN}\n{content.rstrip()}\n{END}\n\n{original}'
     replacements[root / 'config/software-project.json'] = json.dumps({
         'profile': 'software-game', 'project_path': game.relative_to(root).as_posix(),
-        'authoritative_profile': 'management/profile.json'}, indent=2) + '\n'
+        'authoritative_profile': 'management/profile.json', 'agentic_entry': 'tools/agentic.py'}, indent=2) + '\n'
     replacements[root / 'scripts/manage_game.py'] = (template / 'manage_game.py').read_text()
     changed = [str(path.relative_to(root)) for path, text in replacements.items() if not path.is_file() or path.read_text() != text]
     if not check:

@@ -1,0 +1,273 @@
+test_accepted_setup_alone_does_not_fake_preflight_history (test_agentic_workflow.AgenticWorkflowTests.test_accepted_setup_alone_does_not_fake_preflight_history) ... ERROR
+test_blocked_handoff_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_blocked_handoff_cannot_be_accepted) ... ERROR
+test_changed_owned_artifact_is_detected (test_agentic_workflow.AgenticWorkflowTests.test_changed_owned_artifact_is_detected) ... ERROR
+test_default_plan_requires_accounting_for_all_registered_roles (test_agentic_workflow.AgenticWorkflowTests.test_default_plan_requires_accounting_for_all_registered_roles) ... ok
+test_dependency_handoff_must_be_complete_before_dispatch (test_agentic_workflow.AgenticWorkflowTests.test_dependency_handoff_must_be_complete_before_dispatch) ... ERROR
+test_dispatch_requires_authorization_exact_prompt_and_selection (test_agentic_workflow.AgenticWorkflowTests.test_dispatch_requires_authorization_exact_prompt_and_selection) ... ERROR
+test_each_exclusion_needs_unique_substantive_reason (test_agentic_workflow.AgenticWorkflowTests.test_each_exclusion_needs_unique_substantive_reason) ... FAIL
+test_handoff_rejects_wrong_prompt_and_unowned_artifact (test_agentic_workflow.AgenticWorkflowTests.test_handoff_rejects_wrong_prompt_and_unowned_artifact) ... ERROR
+test_initialize_creates_fresh_managed_store (test_agentic_workflow.AgenticWorkflowTests.test_initialize_creates_fresh_managed_store) ... ok
+test_interrupted_setup_cannot_unlock_work (test_agentic_workflow.AgenticWorkflowTests.test_interrupted_setup_cannot_unlock_work) ... ERROR
+test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected (test_agentic_workflow.AgenticWorkflowTests.test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected) ... FAIL
+test_lifecycle_cannot_skip_collector_or_audit (test_agentic_workflow.AgenticWorkflowTests.test_lifecycle_cannot_skip_collector_or_audit) ... ERROR
+test_managed_paths_reject_escape_and_symlink (test_agentic_workflow.AgenticWorkflowTests.test_managed_paths_reject_escape_and_symlink) ... ok
+test_missing_work_is_visible_in_collection_and_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_missing_work_is_visible_in_collection_and_cannot_be_accepted) ... ERROR
+test_omitted_and_unregistered_roles_rejected (test_agentic_workflow.AgenticWorkflowTests.test_omitted_and_unregistered_roles_rejected) ... FAIL
+test_publication_seals_turn_and_no_worker_runs_after_document_chief (test_agentic_workflow.AgenticWorkflowTests.test_publication_seals_turn_and_no_worker_runs_after_document_chief) ... ERROR
+test_receipt_reuse_is_rejected_for_independent_workers (test_agentic_workflow.AgenticWorkflowTests.test_receipt_reuse_is_rejected_for_independent_workers) ... ERROR
+test_wiki_and_core_cannot_be_negated (test_agentic_workflow.AgenticWorkflowTests.test_wiki_and_core_cannot_be_negated) ... ok
+
+======================================================================
+ERROR: test_accepted_setup_alone_does_not_fake_preflight_history (test_agentic_workflow.AgenticWorkflowTests.test_accepted_setup_alone_does_not_fake_preflight_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 252, in test_accepted_setup_alone_does_not_fake_preflight_history
+    self.close_accepted_setup()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 110, in close_accepted_setup
+    self.selected(); self.execution_complete(); self.audit_phase()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_blocked_handoff_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_blocked_handoff_cannot_be_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 223, in test_blocked_handoff_cannot_be_accepted
+    self.selected(); self.execution_complete(blocked='WIK-30'); self.audit_phase()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_changed_owned_artifact_is_detected (test_agentic_workflow.AgenticWorkflowTests.test_changed_owned_artifact_is_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 228, in test_changed_owned_artifact_is_detected
+    self.selected(); self.execution_complete()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_dependency_handoff_must_be_complete_before_dispatch (test_agentic_workflow.AgenticWorkflowTests.test_dependency_handoff_must_be_complete_before_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 186, in test_dependency_handoff_must_be_complete_before_dispatch
+    self.workflow.select(self.turn_id, self.selection)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_dispatch_requires_authorization_exact_prompt_and_selection (test_agentic_workflow.AgenticWorkflowTests.test_dispatch_requires_authorization_exact_prompt_and_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 172, in test_dispatch_requires_authorization_exact_prompt_and_selection
+    self.selected()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_handoff_rejects_wrong_prompt_and_unowned_artifact (test_agentic_workflow.AgenticWorkflowTests.test_handoff_rejects_wrong_prompt_and_unowned_artifact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 235, in test_handoff_rejects_wrong_prompt_and_unowned_artifact
+    self.selected(); self.invoke('ENG-00')
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_interrupted_setup_cannot_unlock_work (test_agentic_workflow.AgenticWorkflowTests.test_interrupted_setup_cannot_unlock_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 259, in test_interrupted_setup_cannot_unlock_work
+    self.selected(); self.workflow.interrupt(self.turn_id, 'Fixture interrupted before any accepted publication.')
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_lifecycle_cannot_skip_collector_or_audit (test_agentic_workflow.AgenticWorkflowTests.test_lifecycle_cannot_skip_collector_or_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 202, in test_lifecycle_cannot_skip_collector_or_audit
+    self.selected()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_missing_work_is_visible_in_collection_and_cannot_be_accepted (test_agentic_workflow.AgenticWorkflowTests.test_missing_work_is_visible_in_collection_and_cannot_be_accepted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 214, in test_missing_work_is_visible_in_collection_and_cannot_be_accepted
+    self.selected(); self.execution_complete(missing='WIK-30')
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_publication_seals_turn_and_no_worker_runs_after_document_chief (test_agentic_workflow.AgenticWorkflowTests.test_publication_seals_turn_and_no_worker_runs_after_document_chief)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 243, in test_publication_seals_turn_and_no_worker_runs_after_document_chief
+    publication = self.close_accepted_setup()
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 110, in close_accepted_setup
+    self.selected(); self.execution_complete(); self.audit_phase()
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+ERROR: test_receipt_reuse_is_rejected_for_independent_workers (test_agentic_workflow.AgenticWorkflowTests.test_receipt_reuse_is_rejected_for_independent_workers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 194, in test_receipt_reuse_is_rejected_for_independent_workers
+    self.selected(); self.invoke('ENG-00', receipt='fixture-worker-already-used')
+    ~~~~~~~~~~~~~^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 65, in selected
+    return self.workflow.select(self.turn_id, self.selection)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tools/game_workflow.py", line 157, in select
+    require(specialists <= set(selection['WIK-30'].get('dependencies', [])),
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            'WIK-30 must depend on every selected execution role')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/harness/runtime/workflow.py", line 44, in require
+    raise ValueError(message)
+ValueError: WIK-30 must depend on every selected execution role
+
+======================================================================
+FAIL: test_each_exclusion_needs_unique_substantive_reason (test_agentic_workflow.AgenticWorkflowTests.test_each_exclusion_needs_unique_substantive_reason)
+----------------------------------------------------------------------
+ValueError: WIK-30 must depend on every selected execution role
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 147, in test_each_exclusion_needs_unique_substantive_reason
+    with self.assertRaisesRegex(ValueError, 'own task-specific'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "own task-specific" does not match "WIK-30 must depend on every selected execution role"
+
+======================================================================
+FAIL: test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected (test_agentic_workflow.AgenticWorkflowTests.test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected)
+----------------------------------------------------------------------
+ValueError: ENG-00 is mandatory for the game agentic loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 164, in test_invalid_boolean_empty_prompt_and_cyclic_dependencies_rejected
+    with self.assertRaisesRegex(ValueError, message):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "boolean" does not match "ENG-00 is mandatory for the game agentic loop"
+
+======================================================================
+FAIL: test_omitted_and_unregistered_roles_rejected (test_agentic_workflow.AgenticWorkflowTests.test_omitted_and_unregistered_roles_rejected)
+----------------------------------------------------------------------
+ValueError: WIK-30 must depend on every selected execution role
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/tests/test_agentic_workflow.py", line 137, in test_omitted_and_unregistered_roles_rejected
+    with self.assertRaisesRegex(ValueError, 'every registered'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "every registered" does not match "WIK-30 must depend on every selected execution role"
+
+----------------------------------------------------------------------
+Ran 18 tests in 32.887s
+
+FAILED (failures=3, errors=11)

@@ -1,0 +1,7 @@
+{
+  "sandbox_probe": "The default sandboxed local stdio client did not complete and was interrupted with exit130.",
+  "verified_probe": "Actual local stdio inventory call with require_escalated execution completed successfully; JSON and stderr log are retained.",
+  "config": "Workspace Codex MCP entry installed; no authentication or API model key required.",
+  "host_status": "No workflow_* tools observed in this parent session; host reload is a separate action.",
+  "distinction": "The bundled app is used through real local MCP sessions for verification and lifecycle logging; this does not prove the parent host reloaded its tool list."
+}

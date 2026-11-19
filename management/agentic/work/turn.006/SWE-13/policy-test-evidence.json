@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_agent_model_policy.py",
+    "-v"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "test_count": 9,
+  "log_sha256": "414dd11b25243e09ac75387a77e38721c504f07060c65ae42eed610d3fedbd1e",
+  "input_hashes": {
+    "management/model-policy/policy.json": "f0380ff832d32020f08b30aa02ecb39176011125db9bfe9f407d84d42eefdd51",
+    "management/harness/runtime/config/game_roles.json": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+    "tools/agent_model_policy.py": "706391c7345ee008ce022ce761dcf8b9b1e77f22d38560b177c466c7286a1a81",
+    "tools/configure_agent_models.py": "113e0fdaa4aab15a4701458fb4bea6dc8ebe1c8fee8511e6ee03d7fdb9892d34",
+    "tests/test_agent_model_policy.py": "88697076a98e74db5638e7627c9dc4e7017522ba6ec1d33011054fb041136896"
+  }
+}

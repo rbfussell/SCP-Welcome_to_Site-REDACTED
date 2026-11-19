@@ -1,0 +1,22 @@
+{
+  "source": "Actual collaboration.list_agents tool result observed by EVC-28 during this invocation",
+  "agents": [
+    {
+      "agent_name": "/root",
+      "agent_status": "running"
+    },
+    {
+      "agent_name": "/root/collector_agentic_setup",
+      "agent_status": "running"
+    },
+    {
+      "agent_name": "/root/qa_harness",
+      "agent_status": "completed"
+    },
+    {
+      "agent_name": "/root/wiki_agentic_setup",
+      "agent_status": "completed"
+    }
+  ],
+  "limits": "Status-only transcription of the actual host inventory, not authentication of absent historical workers. ENG/KRA/SWE are absent from this current list; their recorded receipts remain external-review assertions."
+}

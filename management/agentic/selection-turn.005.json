@@ -1,0 +1,156 @@
+{
+  "ENG-00": {
+    "selected": true,
+    "reason": "Actual coordination owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/ENG-00/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nReview exact all-role coverage, individual NOs, source ownership, dependencies, model allocation and task acceptance. User's latest Sol/Astra policy supersedes prior all-Sol xhigh request: docs/wiki/evidence/media Sol low; coordination/Vince Sol medium; IA/Krampus Astra low; independent complex QA and engineering/implementation/design Astra medium; routine fixes Sol medium. Policy is provisional; no invented usage/cost/benchmark figures. Review only, own report/handoff; flag actionable conflicts without broad extra checks.",
+    "dependencies": [],
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "work_class": "coordination"
+  },
+  "SHO-12": {
+    "selected": false,
+    "reason": "No milestone presentation or audience demonstration is requested for model allocation and existing setup corrections; Vince remains registered with Sol Medium policy."
+  },
+  "EVC-28": {
+    "selected": true,
+    "reason": "Actual evidence owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/EVC-28/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nAfter WIK, inventory genuine selected invocations/auth/order/handoffs, artifact and nested evidence hashes, static/task check inputs, failures/history and model dispatch request provenance. Build genuine evidence package via workflow_collect (parent will advance phase before spawn). Do not repair source or accept work. Distinguish historical hash snapshots from current source claims; verify immutable historical evidence and note current sources changed intentionally. Capture missing outputs/settings/usage honestly. Own inventory/report/RAW collection handoff; parent records. Compare user latest allocation to real explicit spawn record, not self-reported backend model. No repeated test suite.",
+    "dependencies": [
+      "WIK-30"
+    ],
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "work_class": "evidence"
+  },
+  "IA-11": {
+    "selected": true,
+    "reason": "Actual independent_analysis owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/IA-11/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nIndependently audit final bounded setup/task using actual source, current docs/wiki incl FULL llms.txt and docs58 note, true checks, all-role NOs, actual auth/spawn receipt order and requested/effective model provenance. Do not repair reviewed work or repeat passing full tests absent concern. Independently resolve or retain IA-002-001 and IA-003-001 with exact-case evidence. Review new policy/config/resolver/negative cases and actual installed configuration vs explicit requested host overrides; effective backend model/effort/allowance unknown must remain unknown. Accept only if semantic docs/source/tests agree and all task criteria satisfied, preserving historical failures and resident host reload limit. Own report, RAW handoff, audit.json matching schema and software-completion-review.json covering EVERY exact task acceptance criterion; parent records handoff/audit, then DOC last. Your task review is usable only after matching actual accepted DOC publication. If reject, publish actionable owner-specific cases rather than repair. Consult prior turn003 audit/review schema.",
+    "dependencies": [
+      "EVC-28"
+    ],
+    "model": "gpt-6-astra",
+    "reasoning_effort": "low",
+    "work_class": "independent_analysis"
+  },
+  "DOC-10": {
+    "selected": true,
+    "reason": "Actual documentation owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/DOC-10/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nRun last after actual independent IA audit. Preserve disposition, failures, cases and limitations. Publish process outcome via workflow_publish only after owned RAW handoff is recorded by parent (send readiness and wait). If IA ACCEPTED and verified task gates, publish exact project.import hash cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1 with imported-project.json evidence plus task.agentic-loop-setup entity {task_id:agentic-loop-setup}; only resolve confirmed cases independently resolved by this IA with matching owner COMPLETE and evidence. If rejected, no import/task acceptance/resolutions. Never edit source/wiki after IA or claim gameplay/M0 acceptance. Actual process publication path management/agentic/publications/turn.005.json, not a game wiki path. Own report/handoff then actual final publication; no later agent runs in this turn.",
+    "dependencies": [
+      "IA-11"
+    ],
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "work_class": "documentation"
+  },
+  "KRA-14": {
+    "selected": true,
+    "reason": "Actual independent_analysis owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/KRA-14/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nReview bounded architecture for real model-policy implementation before SWE. Recommend minimal policy JSON, resolver/dispatch provenance, actual workspace .codex custom-agent/default config installer preserving unrelated MCP/custom settings and unknown effective host metadata. Do not overengineer runtime dispatch changes or hot reload. Existing collaboration spawn supports explicit model/reasoning_effort/fork_turns:none, but not selecting a custom-agent file; record explicit overrides honestly. Parent cannot change its in-flight model through available tools; coordinator defaults are for future starts. Cover per-task work-class overrides, escalation justification and representative observation without repeating passing tests. Own report/handoff only; no source editing. Record explicit scoped empty questions if no material ambiguity.",
+    "dependencies": [],
+    "model": "gpt-6-astra",
+    "reasoning_effort": "low",
+    "work_class": "independent_analysis"
+  },
+  "SWE-13": {
+    "selected": true,
+    "reason": "Actual software_implementation owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/SWE-13/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nImplement bounded real model allocation: versioned policy for all 23 roles with work-class overrides; resolver producing explicit spawn parameters and provenance that distinguishes requested settings from host-reported effective settings (missing is NOT_EXPOSED, not a match; mismatches/unsupported never silently inherit). Defaults: Sol low docs/WIK/EVC/DOC/WRI/routine media/assets; Sol medium ENG/Vince/routine fixes/admin; Astra low IA/Krampus/routine independent analysis; Astra medium QA complex review and software/engineering/design/prototype work. User can call low Light; no high/xhigh/max default, escalation needs substantive task-specific reason. Installable real workspace .codex/config.toml defaults Sol medium and .codex/agents/*.toml with role model/effort; preserve unrelated config/MCP/custom role files, target safety and idempotency. Use separate installer if simplest. Active host dispatch uses explicit overrides, not a claimed named-role-file selection. Provide CLI resolution/provenance helper usable by parent. Do not require resident-server reload or falsely authenticate settings. Add meaningful allocation/config/provenance tests (no prose snapshot tests). Own tools/policy/profile/test code paths and source-specific README only; WIK owns other current docs/wiki and generator evidence metadata. Verify prior IA-002-001 wrapper fix with actual current evidence; do not replay production failure. Update task static inputs for new files by informing parent before final gates. Read KRA/ENG owned reports first. Implement then hand off before QA/WIK. New .codex install may require escalated command; preserve user-authorized scope. Do not modify game runtime/assets/canon, copied upstream unnecessarily, task acceptance or terminal records.",
+    "dependencies": [
+      "ENG-00",
+      "KRA-14"
+    ],
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "work_class": "software_implementation",
+    "corrective_cases": [
+      "IA-002-001"
+    ]
+  },
+  "QA-16": {
+    "selected": true,
+    "reason": "Actual complex_review owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/QA-16/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nIndependently verify new policy/resolver/installer behavior and prior wrapper correction, inspect actual requested-vs-effective honesty, all-role coverage, preservation/idempotency and negative cases; use meaningful tests once after final code. Own test evidence/report/handoff, no implementation repair. .venv-harness Python is required for real MCP regressions; default sandbox IPC hangs, so use require_escalated for bounded real MCP tests and retain actual logs. Existing full discovery58 tests is baseline before new policy tests. Avoid repeated passing tests for model comparison. Report exposed usage/allowance as unavailable when missing. Do not run wiki build concurrently; WIK owns final task check records. If no source defect, hand off and freeze source.",
+    "dependencies": [
+      "SWE-13"
+    ],
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "work_class": "complex_review"
+  },
+  "OPS-17": {
+    "selected": false,
+    "reason": "No release packaging or deployment pipeline changes; the scoped workspace model installer is SWE-owned and normal reviewed Git transport remains coordination."
+  },
+  "SEC-18": {
+    "selected": false,
+    "reason": "No new credentials, network listener or security boundary is introduced; installer preservation and dispatch-claim validation are covered by independent QA/IA."
+  },
+  "RES-09": {
+    "selected": false,
+    "reason": "Human supplied exact allocation and official configuration guidance has already been checked; no unfamiliar model comparison conclusion or new SCP research is adopted."
+  },
+  "MED-07": {
+    "selected": false,
+    "reason": "No sprites, illustrations or textures are authored while configuring role model budgets; its future routine-media default is data only."
+  },
+  "DEM-08": {
+    "selected": false,
+    "reason": "No animation or runnable product demonstration is introduced by the policy/configuration setup; ordinary checks provide required evidence."
+  },
+  "AUD-25": {
+    "selected": false,
+    "reason": "No speech, music, audio files or sound pipeline change is part of this harness allocation task."
+  },
+  "WRI-22": {
+    "selected": false,
+    "reason": "No narrative or dialogue work is requested; WIK owns technical prose and WRI only receives a future documentation-class default."
+  },
+  "PRT-05": {
+    "selected": false,
+    "reason": "This harness initialization/configuration is not a declared gameplay completion milestone or a new prototype design assignment."
+  },
+  "BLD-27": {
+    "selected": false,
+    "reason": "There is no approved milestone construction plan to execute; installer and tests are bounded software setup work owned by SWE/QA."
+  },
+  "WIK-30": {
+    "selected": true,
+    "reason": "Actual documentation owner required for bounded setup, requested allocation and ordered verified closure.",
+    "prompt": "Game root: /home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project. Act only in this assigned role for turn.005, task agentic-loop-setup. Read applicable AGENTS.md, actual game-wiki llms.txt/agentic-loop/development/project-management/status, related source/docs59/management guides and real turn.003 IA report plus turn.004 interruption. Preserve all historical failed/rejected evidence and unrelated game work. Do not spawn agents or change runtime phases. Write a concise owned report and RAW handoff.json in management/agentic/work/turn.005/WIK-30/; parent records the handoff. All-role selection/exact prompts live in management/agentic/selection-turn.005.json. Handoff requires turn_id, agent_id, task_id, prompt_hash (SHA256 of exact selection prompt), assigned_scope, work_performed, artifacts/evidence with sha256, actual tests PASS/FAIL/NOT_RUN, limitations and handoff_status. Claim only actual results. Requested model/effort and host-confirmed effective settings remain distinct; current collaboration host exposes no effective backend model/effort. Light is user-facing label; tool/config value is low. Do not claim quota savings or model benchmarks not measured. No High/Extra High/Max defaults. No gameplay milestone or new canon/game rule. Existing wrapper/failure-ack fixes are source-qualified; resident host hot reload remains unverified. Final setup/import/task acceptance requires actual independent IA and DOC publication. No post-WIK source repair. \nAfter all execution owners, maintain actual authored wiki and linked technical docs. Correct confirmed IA-003-001: obsolete CURRENT wrapper/host assertions in full llms.txt and newer docs58 note. Reconcile stale turn003-pending clauses across AGENTS, management README/harness README/templates, docs12/docs59, wiki agentic-loop/project-management/development/status; preserve original historical bodies/adverse evidence. Describe real closed REJECTED003 and INTERRUPTED001/002/004, use neutral runtime-outcome pointers for later acceptance, no preaccept005. Explain new provisional model policy, Light display vs low parameter, actual config installer/explicit spawn overrides, provenance, unexposed effective model/usage and future coordinator default vs live session. Add a dedicated discoverable model-allocation wiki page if justified with reciprocal related links. Update tools/build_game_wiki.py evidence metadata for all new static code/policy/tests and links generating source pages as appropriate. Install managed outer docs/wrapper from versioned template preserving generic sections. Send parent a ready-for-semantic-read message BEFORE final handoff and wait for parent response; parent must read full changed active sources. Then run sequential final task tests/docs/wiki-build/wiki-check, inspect affected generated pages/links and semantic agreement. Do not change implementation code or historical reports. Own authored technical docs/wiki, generator evidence metadata, final check records and owned report/RAW game_wiki handoff.",
+    "dependencies": [
+      "ENG-00",
+      "KRA-14",
+      "SWE-13",
+      "QA-16"
+    ],
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "work_class": "documentation",
+    "corrective_cases": [
+      "IA-003-001"
+    ]
+  },
+  "WEB-06": {
+    "selected": false,
+    "reason": "Wiki renderer/search/layout behavior is unchanged; WIK owns authored policy explanations, links and ordinary generation/evidence metadata."
+  },
+  "UIX-31": {
+    "selected": false,
+    "reason": "No Godot controls, player feedback or native interface changes are included in development-role model selection."
+  },
+  "AST-32": {
+    "selected": false,
+    "reason": "No atlas, mask, artwork binding, import or asset provenance is modified; the role merely gains its future budget profile."
+  },
+  "LOR-33": {
+    "selected": false,
+    "reason": "No canon claims or SCP game adaptations change when applying real agent dispatch/configuration settings."
+  },
+  "SIM-34": {
+    "selected": false,
+    "reason": "Authoritative gameplay time, perception, inventory, modules and persistence remain untouched by this development tooling task."
+  }
+}

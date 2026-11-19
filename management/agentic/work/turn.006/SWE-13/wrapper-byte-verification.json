@@ -1,0 +1,20 @@
+{
+  "case": "IA-002-001",
+  "argv": [
+    "cmp",
+    "management/harness/manage_game.py",
+    "../scripts/manage_game.py"
+  ],
+  "cwd": ".",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "exit_meaning": "The installed and versioned wrappers compare byte-identical.",
+  "current_versioned_sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+  "current_installed_sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+  "independent_turn003_qualified_sha256": "f2d9c4b2cf4aee6c167ed0f9417d0869ed380dce1cfc3c6dd50c9036bc204a16",
+  "qualification_sha_matches": true,
+  "retained_audit": "management/agentic/work/turn.003/IA-11/audit.json",
+  "retained_qa_snapshot": "management/agentic/work/turn.003/QA-16/source-after.json",
+  "limit": "Retained independent behavior logs were consulted. This command freshly compares bytes only. Case settlement belongs to independent IA and publication."
+}

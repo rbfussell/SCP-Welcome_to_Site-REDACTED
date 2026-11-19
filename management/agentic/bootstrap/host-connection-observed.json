@@ -1,0 +1,31 @@
+{
+  "observed_at": {
+    "current_time": "2026-11-11 16:42:06 UTC"
+  },
+  "surface": "Codex host-exposed mcp__scp_game_harness__workflow_readiness",
+  "actual_tool_result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\n  \"status\": \"READY\",\n  \"execution\": \"CLI_WITH_EXTERNAL_HOST_WORKERS\",\n  \"checks\": {\n    \"jsonschema\": true,\n    \"runtime_config\": true,\n    \"requested_roles_registered\": true\n  },\n  \"stdio_mcp_dependency\": true,\n  \"host_mcp_connection\": \"NOT_OBSERVED\",\n  \"limitations\": [\n    \"Host worker availability and receipt authenticity require external review.\",\n    \"A local protocol probe does not establish Codex host registration.\"\n  ]\n}"
+      }
+    ],
+    "structuredContent": {
+      "status": "READY",
+      "execution": "CLI_WITH_EXTERNAL_HOST_WORKERS",
+      "checks": {
+        "jsonschema": true,
+        "runtime_config": true,
+        "requested_roles_registered": true
+      },
+      "stdio_mcp_dependency": true,
+      "host_mcp_connection": "NOT_OBSERVED",
+      "limitations": [
+        "Host worker availability and receipt authenticity require external review.",
+        "A local protocol probe does not establish Codex host registration."
+      ]
+    },
+    "isError": false
+  },
+  "meaning": "A real host tool call succeeded. The runtime's generic NOT_OBSERVED field is a local-runtime limitation; this external receipt proves this host connection at this time, not authenticity of all worker receipts."
+}

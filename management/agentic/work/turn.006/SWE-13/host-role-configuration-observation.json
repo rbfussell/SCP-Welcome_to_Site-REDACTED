@@ -1,0 +1,9 @@
+{
+  "observed_date_utc": "2026-11-19",
+  "observer": "/root/swe006",
+  "surface": "Live Codex collaboration.spawn_agent tool definition in this chat",
+  "observed_before_install": "23 named scp-* roles, with previous-generation model defaults",
+  "observed_after_install": "23 named scp-* roles, all GPT-6.2 Sol, at each corresponding configured Low or Medium effort; named roles declare their model and effort fixed",
+  "evidence_kind": "Firsthand transcription of tool metadata seen following successful installation",
+  "scope": "Available host role declarations. No named-role invocation, backend effective metadata, usage or workflow MCP server reload observed by SWE-13."
+}

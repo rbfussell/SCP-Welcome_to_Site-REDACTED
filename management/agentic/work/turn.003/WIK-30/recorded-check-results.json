@@ -1,0 +1,86 @@
+[
+  {
+    "label": "tests",
+    "argv": [
+      "python3",
+      "tools/manage_project.py",
+      "record",
+      "agentic-loop-setup",
+      "tests",
+      "--",
+      "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/.venv-harness/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "returncode": 0,
+    "duration_seconds": 28.111,
+    "recorded_status": "PASS",
+    "log": "management/evidence/agentic-loop-setup/tests-20261111T170752533811Z.log",
+    "pass": true
+  },
+  {
+    "label": "docs",
+    "argv": [
+      "python3",
+      "tools/manage_project.py",
+      "record",
+      "agentic-loop-setup",
+      "docs",
+      "--",
+      "python3",
+      "tools/check_management_docs.py"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "returncode": 0,
+    "duration_seconds": 0.154,
+    "recorded_status": "PASS",
+    "log": "management/evidence/agentic-loop-setup/docs-20261111T170820644163Z.log",
+    "pass": true
+  },
+  {
+    "label": "wiki-build",
+    "argv": [
+      "python3",
+      "tools/manage_project.py",
+      "record",
+      "agentic-loop-setup",
+      "wiki-build",
+      "--",
+      "python3",
+      "tools/build_game_wiki.py"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "returncode": 0,
+    "duration_seconds": 45.998,
+    "recorded_status": "PASS",
+    "log": "management/evidence/agentic-loop-setup/wiki-build-20261111T170820801563Z.log",
+    "pass": true
+  },
+  {
+    "label": "wiki-check",
+    "argv": [
+      "python3",
+      "tools/manage_project.py",
+      "record",
+      "agentic-loop-setup",
+      "wiki-check",
+      "--",
+      "python3",
+      "tools/build_game_wiki.py",
+      "--check"
+    ],
+    "cwd": "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project",
+    "returncode": 0,
+    "duration_seconds": 24.834,
+    "recorded_status": "PASS",
+    "log": "management/evidence/agentic-loop-setup/wiki-check-20261111T170906799003Z.log",
+    "pass": true
+  }
+]

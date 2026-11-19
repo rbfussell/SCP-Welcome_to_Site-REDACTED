@@ -55,7 +55,7 @@ class SoftwareProject:
 
     def profile(self):
         profile = self.read('management/profile.json')
-        require(profile['profile'] == 'software-game' and profile['execution'] == 'single-developer', 'Wrong project profile')
+        require(profile['profile'] == 'software-game' and profile['execution'] in {'single-developer', 'agentic'}, 'Wrong project profile')
         return profile
 
     def tasks(self):
@@ -90,7 +90,15 @@ class SoftwareProject:
         require(not any(t['status'] == 'active' and t['id'] != task_id for t in self.tasks()), 'Finish or block the active slice first')
         require(not task.get('blocking_questions'), 'Resolve blocking design questions before dependent work')
         require(all(self.task(t)['status'] == 'done' for t in task.get('depends_on', [])), 'Dependencies are incomplete')
-        task.update(status='active', context=self.context(context), checks={}, review=None)
+        execution = self.profile()['execution']
+        if execution == 'agentic':
+            turn_id = task.get('agentic_turn') or context.get('agentic_turn')
+            require(turn_id, 'Agentic slice must bind its actual turn before starting')
+            from game_workflow import GameWorkflow
+            turn = GameWorkflow(self.root).turn(turn_id)
+            require(turn['state'] not in {'TURN_CLOSED', 'INTERRUPTED'}, 'Bind an active genuine agentic turn')
+            task['agentic_turn'] = turn_id
+        task.update(status='active', execution=execution, context=self.context(context), checks={}, review=None)
         return self.save(task, 'started with wiki/document context')
 
     def record(self, task_id, label, command):
@@ -125,6 +133,33 @@ class SoftwareProject:
                 require(entry['inputs'] == self.snapshot(task), f'Stale {label} evidence; inputs changed')
         require(checks['wiki-check']['finished_at'] >= checks['wiki-build']['finished_at'], 'Wiki check must follow rebuild')
 
+    def agentic_acceptance(self, task, review):
+        from game_workflow import GameWorkflow
+        workflow = GameWorkflow(self.root)
+        turn_id = task.get('agentic_turn')
+        require(turn_id, 'Agentic completion needs the matching turn')
+        turn = workflow.turn(turn_id)
+        require(turn['state'] == 'TURN_CLOSED', 'Publish the matching reviewed agentic turn before slice completion')
+        path = workflow.path(f'wiki/{turn_id}.json')
+        publication = workflow.read(path)
+        require(publication['audit']['disposition'] == 'ACCEPTED', 'Agentic publication was not accepted by independent IA')
+        task_entity = next((e for e in publication['entities'] if e['entity_id'] == f'task.{task["id"]}'), None)
+        require(task_entity and task_entity.get('value', {}).get('task_id') == task['id'],
+                'Accepted publication does not bind this software slice')
+        wiki = turn['handoffs'].get('WIK-30', {})
+        require(wiki.get('handoff_status') == 'COMPLETE' and wiki.get('task_id') == task['id']
+                and wiki.get('game_wiki', {}).get('semantic_review') is True,
+                'Matching actual game-wiki handoff required')
+        require(all(h.get('task_id') == task['id'] for h in turn['handoffs'].values()),
+                'Selected handoffs must belong to the matching software slice')
+        ia = turn['invocations'].get('IA-11', {})
+        require(review.get('mode') == 'independent' and review.get('reviewer_receipt') == ia.get('receipt'),
+                'Review must identify the actual independent IA worker for this turn')
+        workflow.references(workflow.evidence_inventory(turn))
+        return {'turn_id': turn_id, 'publication': str(path.relative_to(self.root)),
+                'sha256': sha(path), 'wiki_prompt_hash': wiki['prompt_hash'],
+                'ia_receipt': ia['receipt']}
+
     def complete(self, task_id, review):
         task = self.task(task_id)
         require(task['status'] == 'active' and not task.get('blocking_questions'), 'Slice inactive or blocked by design questions')
@@ -138,6 +173,9 @@ class SoftwareProject:
             require(review.get('reviewer_receipt'), 'Independent review needs an actual worker/human receipt')
         else:
             require(not review.get('reviewer_receipt'), 'Self-review cannot claim an independent worker')
+        execution = 'agentic' if self.profile()['execution'] == 'agentic' else task.get('execution', 'single-developer')
+        if execution == 'agentic':
+            task['agentic_acceptance'] = self.agentic_acceptance(task, review)
         task.update(status='done', review=review, accepted_inputs=self.snapshot(task))
         return self.save(task, 'completed; evidence and semantic review recorded')
 
@@ -157,6 +195,10 @@ class SoftwareProject:
             if task['status'] == 'done':
                 self.verify_checks(task)  # Accepted snapshots remain historical after later development.
                 require(task.get('review') and task.get('accepted_inputs'), 'Done slice lacks review/snapshot')
+                if task.get('execution') == 'agentic':
+                    accepted = task.get('agentic_acceptance', {})
+                    require(accepted.get('publication') and sha(self.path(accepted['publication'])) == accepted.get('sha256'),
+                            'Agentic acceptance publication changed or missing')
         return {'result': 'PASS', 'tasks': len(tasks), 'note': 'Record integrity; not gameplay qualification or independent audit.'}
 
 

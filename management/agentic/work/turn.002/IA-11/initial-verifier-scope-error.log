@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/robf/mounts/E/dev/SCP:Welcome to Site-[REDACTED]/Project/management/agentic/work/turn.002/IA-11/verify_audit.py", line 93, in <module>
+    assert hashlib.sha256(result.stdout).hexdigest()==item['sha256'],original
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: README.md

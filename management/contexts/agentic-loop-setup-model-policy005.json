@@ -1,0 +1,85 @@
+{
+  "wiki_read": [
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "notes": "Read implementation ledger: bounded runtime, M0 open, many long-term requirements remain unimplemented."
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "notes": "Read required preload, authored wiki updates, cross-links, build/check and semantic consistency gate."
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "notes": "Read independent C# simulation/Godot architecture, time and persistence boundaries and mode limitations."
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "notes": "Read authoring/generation/evidence hash workflow and Pages publication from existing game Git root."
+    },
+    {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "notes": "Read actual implemented loop, separate Wiki/process authorities, source freeze, current known wrapper defect and historical imported-readiness limits before correction."
+    },
+    {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "notes": "Read task/agentic separation, stable check inputs and independent closure contract."
+    },
+    {
+      "path": "source_material/game-wiki/llms.txt",
+      "notes": "Read full agent entrypoint; obsolete current wrapper/host clauses confirmed by independent IA-003-001; use actual source and observed receipts until corrected."
+    }
+  ],
+  "docs_read": [
+    {
+      "path": "AGENTS.md",
+      "notes": "Read game repository rules, retaining wiki requirements under the adapted software profile."
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "notes": "Read existing Git, source, test, wiki publication and recovery workflow; game has its own Git root."
+    },
+    {
+      "path": "docs/04-scope-and-acceptance.md",
+      "notes": "Read milestone gates and facility-first scope; manager tooling must not mark historical game milestones complete."
+    },
+    {
+      "path": "management/agentic/work/turn.001/KRA-14/report.md",
+      "notes": "Read actual independent architecture setup report: no user-design blocker, preserve later research eligibility and mapped readiness hooks."
+    },
+    {
+      "path": "docs/59-agentic-development-loop.md",
+      "notes": "Read active 23-role scope and real dispatch/terminal review constraints."
+    },
+    {
+      "path": "management/agentic/work/turn.002/IA-11/audit.json",
+      "notes": "Read actual REJECTED independent audit and confirmed SWE-13 IA-002-001."
+    },
+    {
+      "path": "management/agentic/bootstrap/host-connection-observed.json",
+      "notes": "Actual parent host-exposed readiness call succeeded; generic local NOT_OBSERVED field does not know external transport."
+    },
+    {
+      "path": "management/agentic/bootstrap/host-failed-response-defect.md",
+      "notes": "Actual host failure event mutation succeeded but response schema rejected None; bounded correction required."
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "notes": "Read historical body and newer current-reference note; repair obsolete final current limitation claim without rewriting accepted history."
+    },
+    {
+      "path": "management/agentic/work/turn.003/IA-11/audit.json",
+      "notes": "Read actual REJECTED audit with confirmed WIK IA-003-001 and independently verified old SWE correction; formal case resolutions deferred to accepted followup."
+    },
+    {
+      "path": "management/agentic/publications/turn.003.json",
+      "notes": "Verified actual canonical publication path/hash and closed rejected outcome, with no import/task acceptance or case resolutions."
+    },
+    {
+      "path": "management/agentic/bootstrap/user-model-policy-revision005.md",
+      "notes": "Latest human revision is authoritative; Light display/low parameter, Sol docs/coordinator and Astra analysis/technical Medium; measurements unknown."
+    }
+  ],
+  "initial_freshness": "Final003 wiki build/check passed2251pages, all static inputs unchanged since WIK; current semantic gaps explicitly known and will be corrected by WIK004.",
+  "outer_harness_read": "Read root AGENTS.md, README.md, templates/first-turn.md, docs/preflight.md, runtime/registry/CLI sources. Strict mandatory crew and three-stage preflight are preserved as inactive reference for this existing-game adaptation.",
+  "agentic_turn": "turn.005"
+}

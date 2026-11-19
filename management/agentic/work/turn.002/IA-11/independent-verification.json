@@ -1,0 +1,1720 @@
+{
+  "status": "PASS",
+  "turn_id": "turn.002",
+  "phase": "INTERNAL_AFFAIRS_REVIEW",
+  "registry_count": 23,
+  "selected_count": 8,
+  "excluded": {
+    "SHO-12": "No sales or milestone presentation is requested in this harness initialization; truthful setup evidence is the deliverable.",
+    "OPS-17": "No game packaging, release pipeline or operational deployment changes are included; SWE owns this bounded harness CLI/MCP setup.",
+    "SEC-18": "No new game sandbox, credential handling or public service is introduced; IA reviews the local subprocess and evidence boundaries for this setup.",
+    "RES-09": "No unfamiliar product/material choice or game-canon decision is made; this setup reuses inspected local harness sources and pinned dependencies.",
+    "MED-07": "This initialization changes no sprite illustrations, textures or graphic artwork, so there is no illustration deliverable.",
+    "DEM-08": "No animation sequence or digital product demonstration is authored during the agentic workflow setup.",
+    "AUD-25": "No speech, sound effects, music or audio pipeline changes are requested by this workflow initialization.",
+    "WRI-22": "No character dialogue, narrative or canon adaptation is authored; WIK-30 owns technical game documentation.",
+    "PRT-05": "No game completion milestone is declared; this is setup qualification of workflow services, not a new product prototype plan.",
+    "BLD-27": "No product milestone or approved Designer prototype plan is declared; software and QA qualify the harness tools directly.",
+    "WEB-06": "The recovery changes no wiki HTML/CSS/search interface; WIK-30 maintains technical content and existing generation, so no web-interface implementation is assigned.",
+    "UIX-31": "No player-facing Godot screen, control flow or interaction usability is changed during harness initialization, so native UI/UX design has no deliverable.",
+    "AST-32": "No sprite atlas, mask, art binding, import settings or asset provenance changes are made by this workflow recovery.",
+    "LOR-33": "No SCP canon claim or in-game lore adaptation is introduced in this agent-loop setup; prior game lore remains unchanged.",
+    "SIM-34": "No authoritative game kernel, SCP module, time/perception rule or save contract changes are requested by the harness recovery."
+  },
+  "dispatch_order_checks": [
+    {
+      "role": "ENG-00",
+      "authorization_sequence": 5,
+      "invoke_sequence": 6,
+      "receipt": "/root/coordinator_setup"
+    },
+    {
+      "role": "KRA-14",
+      "authorization_sequence": 8,
+      "invoke_sequence": 9,
+      "receipt": "/root/architecture_setup"
+    },
+    {
+      "role": "SWE-13",
+      "authorization_sequence": 11,
+      "invoke_sequence": 13,
+      "receipt": "/root/software_harness"
+    },
+    {
+      "role": "QA-16",
+      "authorization_sequence": 12,
+      "invoke_sequence": 14,
+      "receipt": "/root/qa_harness"
+    },
+    {
+      "role": "WIK-30",
+      "authorization_sequence": 17,
+      "invoke_sequence": 18,
+      "receipt": "/root/wiki_agentic_setup"
+    },
+    {
+      "role": "EVC-28",
+      "authorization_sequence": 21,
+      "invoke_sequence": 22,
+      "receipt": "/root/collector_agentic_setup"
+    },
+    {
+      "role": "IA-11",
+      "authorization_sequence": 25,
+      "invoke_sequence": 26,
+      "receipt": "/root/ia_setup_review"
+    }
+  ],
+  "collected_sequence": 22,
+  "current_hash_assertions": 219,
+  "current_reference_mismatches": [],
+  "reference_checks": [
+    {
+      "path": "AGENTS.md",
+      "expected": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "actual": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "origin": "collector/package/artifact_inventory/0",
+      "matches": true
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "expected": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "actual": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "origin": "collector/package/artifact_inventory/1",
+      "matches": true
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "expected": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+      "actual": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+      "origin": "collector/package/artifact_inventory/2",
+      "matches": true
+    },
+    {
+      "path": "docs/59-agentic-development-loop.md",
+      "expected": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319",
+      "actual": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319",
+      "origin": "collector/package/artifact_inventory/3",
+      "matches": true
+    },
+    {
+      "path": "management/README.md",
+      "expected": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283",
+      "actual": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283",
+      "origin": "collector/package/artifact_inventory/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "expected": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "actual": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "origin": "collector/package/artifact_inventory/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/ENG-00/report.md",
+      "expected": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "actual": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "origin": "collector/package/artifact_inventory/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/KRA-14/report.md",
+      "expected": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "actual": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "origin": "collector/package/artifact_inventory/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "expected": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "actual": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "origin": "collector/package/artifact_inventory/8",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+      "expected": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead",
+      "actual": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead",
+      "origin": "collector/package/artifact_inventory/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "expected": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "actual": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "origin": "collector/package/artifact_inventory/10",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "expected": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "actual": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "origin": "collector/package/artifact_inventory/11",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+      "expected": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21",
+      "actual": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21",
+      "origin": "collector/package/artifact_inventory/12",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+      "expected": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e",
+      "actual": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e",
+      "origin": "collector/package/artifact_inventory/13",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/report.md",
+      "expected": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "actual": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "origin": "collector/package/artifact_inventory/14",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "expected": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "actual": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "origin": "collector/package/artifact_inventory/15",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+      "expected": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "actual": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "origin": "collector/package/artifact_inventory/16",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+      "expected": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89",
+      "actual": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89",
+      "origin": "collector/package/artifact_inventory/17",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+      "expected": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "actual": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "origin": "collector/package/artifact_inventory/18",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+      "expected": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "actual": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "origin": "collector/package/artifact_inventory/19",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+      "expected": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5",
+      "actual": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5",
+      "origin": "collector/package/artifact_inventory/20",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+      "expected": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "actual": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "origin": "collector/package/artifact_inventory/21",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+      "expected": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "actual": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "origin": "collector/package/artifact_inventory/22",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+      "expected": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "actual": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "origin": "collector/package/artifact_inventory/23",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "collector/package/artifact_inventory/24",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/report.md",
+      "expected": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a",
+      "actual": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a",
+      "origin": "collector/package/artifact_inventory/25",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/task-status.json",
+      "expected": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299",
+      "actual": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299",
+      "origin": "collector/package/artifact_inventory/26",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+      "expected": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "actual": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "origin": "collector/package/artifact_inventory/27",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+      "expected": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "actual": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "origin": "collector/package/artifact_inventory/28",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+      "expected": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501",
+      "actual": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501",
+      "origin": "collector/package/artifact_inventory/29",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+      "expected": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035",
+      "actual": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035",
+      "origin": "collector/package/artifact_inventory/30",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+      "expected": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85",
+      "actual": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85",
+      "origin": "collector/package/artifact_inventory/31",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+      "expected": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db",
+      "actual": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db",
+      "origin": "collector/package/artifact_inventory/32",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+      "expected": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd",
+      "actual": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd",
+      "origin": "collector/package/artifact_inventory/33",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+      "expected": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da",
+      "actual": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da",
+      "origin": "collector/package/artifact_inventory/34",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+      "expected": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "actual": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "origin": "collector/package/artifact_inventory/35",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+      "expected": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "actual": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "origin": "collector/package/artifact_inventory/36",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+      "expected": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98",
+      "actual": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98",
+      "origin": "collector/package/artifact_inventory/37",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/report.md",
+      "expected": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17",
+      "actual": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17",
+      "origin": "collector/package/artifact_inventory/38",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "expected": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "actual": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "origin": "collector/package/artifact_inventory/39",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+      "expected": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "actual": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "origin": "collector/package/artifact_inventory/40",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "expected": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "actual": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "origin": "collector/package/artifact_inventory/41",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "expected": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "actual": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "origin": "collector/package/artifact_inventory/42",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+      "expected": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb",
+      "actual": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb",
+      "origin": "collector/package/artifact_inventory/43",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-precheck.log",
+      "expected": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c",
+      "actual": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c",
+      "origin": "collector/package/artifact_inventory/44",
+      "matches": true
+    },
+    {
+      "path": "management/harness/AGENTS.md",
+      "expected": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db",
+      "actual": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db",
+      "origin": "collector/package/artifact_inventory/45",
+      "matches": true
+    },
+    {
+      "path": "management/harness/README.md",
+      "expected": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e",
+      "actual": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e",
+      "origin": "collector/package/artifact_inventory/46",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "expected": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+      "actual": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+      "origin": "collector/package/artifact_inventory/47",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/config/game_roles.json",
+      "expected": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "actual": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "origin": "collector/package/artifact_inventory/48",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/preflight.py",
+      "expected": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "actual": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "origin": "collector/package/artifact_inventory/49",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "expected": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "actual": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "origin": "collector/package/artifact_inventory/50",
+      "matches": true
+    },
+    {
+      "path": "management/profile.json",
+      "expected": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6",
+      "actual": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6",
+      "origin": "collector/package/artifact_inventory/51",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "expected": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "actual": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "origin": "collector/package/artifact_inventory/52",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "expected": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b",
+      "actual": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b",
+      "origin": "collector/package/artifact_inventory/53",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "expected": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "actual": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "origin": "collector/package/artifact_inventory/54",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "expected": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "actual": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "origin": "collector/package/artifact_inventory/55",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/home.md",
+      "expected": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+      "actual": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+      "origin": "collector/package/artifact_inventory/56",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "expected": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb",
+      "actual": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb",
+      "origin": "collector/package/artifact_inventory/57",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "expected": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "actual": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "origin": "collector/package/artifact_inventory/58",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/llms.txt",
+      "expected": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+      "actual": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+      "origin": "collector/package/artifact_inventory/59",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "expected": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "actual": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "origin": "collector/package/artifact_inventory/60",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "expected": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "actual": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "origin": "collector/package/artifact_inventory/61",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic.py",
+      "expected": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "actual": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "origin": "collector/package/artifact_inventory/62",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "expected": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "actual": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "origin": "collector/package/artifact_inventory/63",
+      "matches": true
+    },
+    {
+      "path": "tools/build_game_wiki.py",
+      "expected": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c",
+      "actual": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c",
+      "origin": "collector/package/artifact_inventory/64",
+      "matches": true
+    },
+    {
+      "path": "tools/call_agentic_mcp.py",
+      "expected": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+      "actual": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+      "origin": "collector/package/artifact_inventory/65",
+      "matches": true
+    },
+    {
+      "path": "tools/check_agentic_mcp.py",
+      "expected": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "actual": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "origin": "collector/package/artifact_inventory/66",
+      "matches": true
+    },
+    {
+      "path": "tools/configure_agentic_client.py",
+      "expected": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+      "actual": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+      "origin": "collector/package/artifact_inventory/67",
+      "matches": true
+    },
+    {
+      "path": "tools/game_workflow.py",
+      "expected": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "actual": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "origin": "collector/package/artifact_inventory/68",
+      "matches": true
+    },
+    {
+      "path": "tools/install_agentic_dependencies.py",
+      "expected": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+      "actual": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+      "origin": "collector/package/artifact_inventory/69",
+      "matches": true
+    },
+    {
+      "path": "tools/manage_project.py",
+      "expected": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "actual": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "origin": "collector/package/artifact_inventory/70",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/ENG-00/report.md",
+      "expected": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "actual": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "origin": "current/handoffs/ENG-00/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/ENG-00/report.md",
+      "expected": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "actual": "2cc2245862dd05fb09fd4eccc985f9d40074c9447fdcc54465cdede8244f8306",
+      "origin": "current/handoffs/ENG-00/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/KRA-14/report.md",
+      "expected": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "actual": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "origin": "current/handoffs/KRA-14/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/KRA-14/report.md",
+      "expected": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "actual": "64a6d0157154d5923f4059d4859c4a5c497b8c6d81de1621b18603139ad40f78",
+      "origin": "current/handoffs/KRA-14/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "expected": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "actual": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "origin": "current/handoffs/QA-16/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/initial-fixture-failures.log",
+      "expected": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead",
+      "actual": "5e1623802ffe1faabfef4c23d589e5821b3e1108a81200a8d7062fdafdfd2ead",
+      "origin": "current/handoffs/QA-16/artifacts/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "expected": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "actual": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "origin": "current/handoffs/QA-16/artifacts/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "expected": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "actual": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "origin": "current/handoffs/QA-16/artifacts/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-collector-failures.log",
+      "expected": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21",
+      "actual": "054ea0be5b63755c968867e6e061f2fb7bea1cbf9358705a41b752b619227b21",
+      "origin": "current/handoffs/QA-16/artifacts/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/provisional-policy-pass.log",
+      "expected": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e",
+      "actual": "d774515440de015e5c1d45b1e5ab9e4d8bc779a728a5726c4b5fcbd71ab1175e",
+      "origin": "current/handoffs/QA-16/artifacts/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/report.md",
+      "expected": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "actual": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "origin": "current/handoffs/QA-16/artifacts/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "expected": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "actual": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "origin": "current/handoffs/QA-16/artifacts/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "expected": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "actual": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "origin": "current/handoffs/QA-16/tests/0/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "expected": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "actual": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "origin": "current/handoffs/QA-16/tests/1/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "expected": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "actual": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "origin": "current/handoffs/QA-16/tests/2/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "expected": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "actual": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "origin": "current/handoffs/QA-16/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "expected": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "actual": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "origin": "current/handoffs/QA-16/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "expected": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "actual": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "origin": "current/handoffs/QA-16/evidence/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+      "expected": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "actual": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "origin": "current/handoffs/SWE-13/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests.log",
+      "expected": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89",
+      "actual": "df44aaef0a4df4bea93e08cf3d2e5f4594d953438405ce1fa38b67908cc85b89",
+      "origin": "current/handoffs/SWE-13/artifacts/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+      "expected": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "actual": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "origin": "current/handoffs/SWE-13/artifacts/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+      "expected": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "actual": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "origin": "current/handoffs/SWE-13/artifacts/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-inventory.json",
+      "expected": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5",
+      "actual": "ae11bc96e63f861a0eec6ba1f8249fa68d7fcbf824f31bcc891d5bbaf041a3f5",
+      "origin": "current/handoffs/SWE-13/artifacts/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+      "expected": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "actual": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "origin": "current/handoffs/SWE-13/artifacts/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+      "expected": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "actual": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "origin": "current/handoffs/SWE-13/artifacts/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+      "expected": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "actual": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "origin": "current/handoffs/SWE-13/artifacts/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.stderr.log",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "current/handoffs/SWE-13/artifacts/8",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/report.md",
+      "expected": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a",
+      "actual": "699d82df2eaf4c29cd4d79f30e5e31af72049ad6e5da770ad6c5f345998f442a",
+      "origin": "current/handoffs/SWE-13/artifacts/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/task-status.json",
+      "expected": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299",
+      "actual": "c9bfa781731efa9646f11f766cb4f3bf691e655dc007ffe88859865e58aa4299",
+      "origin": "current/handoffs/SWE-13/artifacts/10",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/agentic-tests-final.log",
+      "expected": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "actual": "184670c3cf85cf5c54f047ef7a144dea7c0b47bee1510daa7574656e20c86c73",
+      "origin": "current/handoffs/SWE-13/tests/0/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/legacy-management-tests.log",
+      "expected": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "actual": "b3cbb9bfef5cffad24670bd1f90fcb993e103e32ad248eab9ceaf6416e699bab",
+      "origin": "current/handoffs/SWE-13/tests/1/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/client-setup-tests.log",
+      "expected": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "actual": "b95b5805bef96b568b1b2424b637003cd6f306e6312d682e4f2e4e23f635b26a",
+      "origin": "current/handoffs/SWE-13/tests/2/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/mcp-probe.log",
+      "expected": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "actual": "231a34d75d5d106a09b4362b5d12846ea117994b981314153b1fea81c53119a4",
+      "origin": "current/handoffs/SWE-13/tests/3/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/compile.log",
+      "expected": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "actual": "46837e8bbd1cb98e7397496fb52498b6b4c9c3a0b1b671268e9a719ef37c1558",
+      "origin": "current/handoffs/SWE-13/tests/4/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/SWE-13/final-structure-check.log",
+      "expected": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "actual": "577d5ff20cf6e35afef045d34bfad4b416ade78d7a67ec2e0bd5250d43cc55ba",
+      "origin": "current/handoffs/SWE-13/tests/5/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "tools/game_workflow.py",
+      "expected": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "actual": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "origin": "current/handoffs/SWE-13/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic.py",
+      "expected": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "actual": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "origin": "current/handoffs/SWE-13/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "expected": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "actual": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "origin": "current/handoffs/SWE-13/evidence/2",
+      "matches": true
+    },
+    {
+      "path": "tools/check_agentic_mcp.py",
+      "expected": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "actual": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "origin": "current/handoffs/SWE-13/evidence/3",
+      "matches": true
+    },
+    {
+      "path": "tools/manage_project.py",
+      "expected": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "actual": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "origin": "current/handoffs/SWE-13/evidence/4",
+      "matches": true
+    },
+    {
+      "path": "tools/call_agentic_mcp.py",
+      "expected": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+      "actual": "e90d8f8ef372f67a261aee7ee427f3b2dd21a851b77d5453d6c47b7796963bec",
+      "origin": "current/handoffs/SWE-13/evidence/5",
+      "matches": true
+    },
+    {
+      "path": "tools/configure_agentic_client.py",
+      "expected": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+      "actual": "a4d9650137779491800d8cb56e397b9dc7d696e146545e3b28619ca932373162",
+      "origin": "current/handoffs/SWE-13/evidence/6",
+      "matches": true
+    },
+    {
+      "path": "tools/install_agentic_dependencies.py",
+      "expected": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+      "actual": "b1e5e7c1c0be62306ad8ef7b6a9030ae3afb7990132eeaf612276380e78bfcf7",
+      "origin": "current/handoffs/SWE-13/evidence/7",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "expected": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "actual": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "origin": "current/handoffs/SWE-13/evidence/8",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/preflight.py",
+      "expected": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "actual": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "origin": "current/handoffs/SWE-13/evidence/9",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/UPSTREAM.json",
+      "expected": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+      "actual": "28a8feb8ee019e852fc9c7a9e6a9d0bdf736a1152bd3e9b05773708ef01949e3",
+      "origin": "current/handoffs/SWE-13/evidence/10",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/config/game_roles.json",
+      "expected": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "actual": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "origin": "current/handoffs/SWE-13/evidence/11",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "expected": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "actual": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "origin": "current/handoffs/SWE-13/evidence/12",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "expected": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "actual": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "origin": "current/handoffs/SWE-13/evidence/13",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "expected": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "actual": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "origin": "current/handoffs/SWE-13/evidence/14",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/report.md",
+      "expected": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "actual": "e2225d8a00946afc446fbbddfd0684c14cc68a20394b402d14c6cba5c40415f2",
+      "origin": "current/handoffs/SWE-13/evidence/15",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/tested-source-snapshot.json",
+      "expected": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "actual": "97c397d741ee3595f5cb549a1c25b5bd37b08a55d86911d5add7102a9ba7517e",
+      "origin": "current/handoffs/SWE-13/evidence/16",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "expected": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "actual": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "origin": "current/handoffs/SWE-13/evidence/17",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+      "expected": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "actual": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "origin": "current/handoffs/WIK-30/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+      "expected": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "actual": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "origin": "current/handoffs/WIK-30/artifacts/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full_document_checks.py",
+      "expected": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501",
+      "actual": "3282a4606cc92306cc49d50065a0084962dafed135d5c40831b578bc21fb2501",
+      "origin": "current/handoffs/WIK-30/artifacts/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/inspect_wiki.py",
+      "expected": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035",
+      "actual": "43360b022cf8fe4275f003c1a712a7205db5ac9609f526fab9b1fa7047b60035",
+      "origin": "current/handoffs/WIK-30/artifacts/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-checks-summary.json",
+      "expected": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85",
+      "actual": "ce18c9c94ea755f036fe03962673d7c2c3a8a1c254fff03e0e771bed5cd38d85",
+      "origin": "current/handoffs/WIK-30/artifacts/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-docs-result.json",
+      "expected": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db",
+      "actual": "74c658759d82283e65cec8f48063489e31c6518f583a0a253435ac7db68f74db",
+      "origin": "current/handoffs/WIK-30/artifacts/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-build-result.json",
+      "expected": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd",
+      "actual": "f45254b0fe6dfeeb53e79842d22004259eca186a2c21825e4c76fb32dc1b0fcd",
+      "origin": "current/handoffs/WIK-30/artifacts/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/managed-wiki-check-result.json",
+      "expected": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da",
+      "actual": "1e9b641e5dc602bb0ad1903a0cd6e0b2fb49285cc145256c7df2a3ac854e95da",
+      "origin": "current/handoffs/WIK-30/artifacts/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+      "expected": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "actual": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "origin": "current/handoffs/WIK-30/artifacts/8",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+      "expected": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "actual": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "origin": "current/handoffs/WIK-30/artifacts/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-install.log",
+      "expected": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98",
+      "actual": "f9cffa076e587c09407eece98e389e077c7a53902d67e68a43b8f42f564e3f98",
+      "origin": "current/handoffs/WIK-30/artifacts/10",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/report.md",
+      "expected": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17",
+      "actual": "82c8171edaa5298d003b438424f6a99572b97f9c163f1d23c25cf9d0d867ee17",
+      "origin": "current/handoffs/WIK-30/artifacts/11",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "expected": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "actual": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "origin": "current/handoffs/WIK-30/artifacts/12",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+      "expected": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "actual": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "origin": "current/handoffs/WIK-30/artifacts/13",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "expected": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "actual": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "origin": "current/handoffs/WIK-30/artifacts/14",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "expected": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "actual": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "origin": "current/handoffs/WIK-30/artifacts/15",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-discovery-build.log",
+      "expected": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb",
+      "actual": "01e5c3ac8997058349e6c017c87cbf770351f6d8f9b21c5c846581c28b3372bb",
+      "origin": "current/handoffs/WIK-30/artifacts/16",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-precheck.log",
+      "expected": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c",
+      "actual": "4ff87f941a04723061a37e92cec25c23e4a37cb3198367fad1f68bc8ef18c77c",
+      "origin": "current/handoffs/WIK-30/artifacts/17",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/agentic-loop.md",
+      "expected": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b",
+      "actual": "b721dda40f484a4631dfca14944824748a66bf9d8bc7dbca6362ec7267bd7f4b",
+      "origin": "current/handoffs/WIK-30/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/project-management.md",
+      "expected": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb",
+      "actual": "3f7d9d60c5e0ee9da33c12e93bf869f2ea614fe52a3819802db96ede6934bbdb",
+      "origin": "current/handoffs/WIK-30/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "expected": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "actual": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "origin": "current/handoffs/WIK-30/evidence/2",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "expected": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "actual": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "origin": "current/handoffs/WIK-30/evidence/3",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/home.md",
+      "expected": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+      "actual": "9ab100e5f7166dd0f562325d85491d8f6aadf1d2168d9481546cbda79287ae03",
+      "origin": "current/handoffs/WIK-30/evidence/4",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "expected": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "actual": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "origin": "current/handoffs/WIK-30/evidence/5",
+      "matches": true
+    },
+    {
+      "path": "AGENTS.md",
+      "expected": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "actual": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "origin": "current/handoffs/WIK-30/evidence/6",
+      "matches": true
+    },
+    {
+      "path": "management/README.md",
+      "expected": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283",
+      "actual": "56ac00a42c1bdef974954eabc51ace45cb64bcf26d037c56e4064196833df283",
+      "origin": "current/handoffs/WIK-30/evidence/7",
+      "matches": true
+    },
+    {
+      "path": "management/profile.json",
+      "expected": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6",
+      "actual": "5d51620d60733adda9565cd710e0f618e6a9dae1409797eed8158c3fb52099c6",
+      "origin": "current/handoffs/WIK-30/evidence/8",
+      "matches": true
+    },
+    {
+      "path": "management/harness/AGENTS.md",
+      "expected": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db",
+      "actual": "29c56c27338f6f6afef640b0abb8f9c5430ed1557aeebdbde57a3b710843a1db",
+      "origin": "current/handoffs/WIK-30/evidence/9",
+      "matches": true
+    },
+    {
+      "path": "management/harness/README.md",
+      "expected": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e",
+      "actual": "a5126f64d73a387ac590aa6e362adf2072a55463560725217dcb729f267e1f1e",
+      "origin": "current/handoffs/WIK-30/evidence/10",
+      "matches": true
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "expected": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "actual": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "origin": "current/handoffs/WIK-30/evidence/11",
+      "matches": true
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "expected": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+      "actual": "e7d6e23cd6f2a8019986dade39e6c9bcfaadd6bac67ea2f5d36b60f102e0f903",
+      "origin": "current/handoffs/WIK-30/evidence/12",
+      "matches": true
+    },
+    {
+      "path": "docs/59-agentic-development-loop.md",
+      "expected": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319",
+      "actual": "d64be27b6b905998b576541674e323954de391328c63f30706bb0acb21d02319",
+      "origin": "current/handoffs/WIK-30/evidence/13",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "expected": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "actual": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "origin": "current/handoffs/WIK-30/evidence/14",
+      "matches": true
+    },
+    {
+      "path": "source_material/game-wiki/llms.txt",
+      "expected": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+      "actual": "6537d2248b333f57c6c39c5ba66a4771f67b855f19e74aa5f684c537e4aa75a8",
+      "origin": "current/handoffs/WIK-30/evidence/15",
+      "matches": true
+    },
+    {
+      "path": "tools/build_game_wiki.py",
+      "expected": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c",
+      "actual": "1655254d27bdef374d644e6d058aa9707ae5cd362a5154875289f48223de5f3c",
+      "origin": "current/handoffs/WIK-30/evidence/16",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "expected": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "actual": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "origin": "current/handoffs/WIK-30/game_wiki/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "expected": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "actual": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "origin": "current/handoffs/WIK-30/game_wiki/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "expected": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "actual": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "origin": "current/handoffs/WIK-30/game_wiki/evidence/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/tests.log",
+      "expected": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "actual": "5dc6197bcb67ec4bc4dd724cc090b2b01149ee0392b7d4fee0d2e8cc3effa190",
+      "origin": "current/handoffs/WIK-30/tests/0/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/docs.log",
+      "expected": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "actual": "d9d495dd0a93f90de3ecd6fa158f51f5b8f5089c1bb28297d034cedce748c8e6",
+      "origin": "current/handoffs/WIK-30/tests/1/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "expected": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "actual": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "origin": "current/handoffs/WIK-30/tests/2/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "expected": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "actual": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "origin": "current/handoffs/WIK-30/tests/3/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/full-documents.log",
+      "expected": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "actual": "99ccef51ea4a45ec78c317d2e8c5f3713cb6078745eb2a7426a0939aa13a39de",
+      "origin": "current/handoffs/WIK-30/tests/4/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "expected": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "actual": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "origin": "current/handoffs/WIK-30/tests/5/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/overlay-check.log",
+      "expected": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "actual": "531c83e289963743da061d3ec9b54acf79b0e9d9cc963156135021f0195339d8",
+      "origin": "current/handoffs/WIK-30/tests/6/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+      "expected": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "actual": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "origin": "current/handoffs/WIK-30/tests/7/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-installed.py.snapshot",
+      "expected": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+      "actual": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+      "origin": "current/handoffs/EVC-28/artifacts/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-snapshot.json",
+      "expected": "ba9c805aae5bfa71d1bf313ac06d3088273a6ecd7f1947ec633c53a4fa5646cf",
+      "actual": "ba9c805aae5bfa71d1bf313ac06d3088273a6ecd7f1947ec633c53a4fa5646cf",
+      "origin": "current/handoffs/EVC-28/artifacts/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/broken-wrapper-template.py.snapshot",
+      "expected": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+      "actual": "6e70dcdfd821a0bf17fa68f9c6425c8afcb7e6fe208dd0e6492c33bf8ad13b3a",
+      "origin": "current/handoffs/EVC-28/artifacts/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/collect-input.json",
+      "expected": "aadefa08fca1bfee2d5600e586ee1abfa0131ebb4426fab3c75a4ffb4bd088c1",
+      "actual": "aadefa08fca1bfee2d5600e586ee1abfa0131ebb4426fab3c75a4ffb4bd088c1",
+      "origin": "current/handoffs/EVC-28/artifacts/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/collect-result.json",
+      "expected": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d",
+      "actual": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d",
+      "origin": "current/handoffs/EVC-28/artifacts/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/evidence-package.json",
+      "expected": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7",
+      "actual": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7",
+      "origin": "current/handoffs/EVC-28/artifacts/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/host-agents-observation.json",
+      "expected": "027e2d4be5ab1b80b85ffe6ab00b6ddaa6805a9b8087b163b9bea952d49394c7",
+      "actual": "027e2d4be5ab1b80b85ffe6ab00b6ddaa6805a9b8087b163b9bea952d49394c7",
+      "origin": "current/handoffs/EVC-28/artifacts/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/initial-inventory.json",
+      "expected": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38",
+      "actual": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38",
+      "origin": "current/handoffs/EVC-28/artifacts/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/initial-verification.log",
+      "expected": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc",
+      "actual": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc",
+      "origin": "current/handoffs/EVC-28/artifacts/8",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/inventory.json",
+      "expected": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e",
+      "actual": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e",
+      "origin": "current/handoffs/EVC-28/artifacts/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/report.md",
+      "expected": "8e5a3b611132fca6d56c37dd459e3aae7d496c40e554a87e030146972170db0b",
+      "actual": "8e5a3b611132fca6d56c37dd459e3aae7d496c40e554a87e030146972170db0b",
+      "origin": "current/handoffs/EVC-28/artifacts/10",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/verification.log",
+      "expected": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1",
+      "actual": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1",
+      "origin": "current/handoffs/EVC-28/artifacts/11",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/verify_collection.py",
+      "expected": "3be0bb7d8a2c8ac4058f56246c97b54d209f76405d61b73bbebd5951ae13e88c",
+      "actual": "3be0bb7d8a2c8ac4058f56246c97b54d209f76405d61b73bbebd5951ae13e88c",
+      "origin": "current/handoffs/EVC-28/artifacts/12",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/outer-shortcut-failure.log",
+      "expected": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "actual": "a3eb4153dcb9e017bc775da2522e2173ad16f4ffcf366e071123850cf0747b1a",
+      "origin": "current/handoffs/EVC-28/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/root-wrapper-defect.json",
+      "expected": "1faec542c884a980a3f72032f745f327ad1130c8337f5784e3f3e45cac65973f",
+      "actual": "1faec542c884a980a3f72032f745f327ad1130c8337f5784e3f3e45cac65973f",
+      "origin": "current/handoffs/EVC-28/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/agentic-tests.log",
+      "expected": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "actual": "9147d6046076f4e3dd7bbdc50aac3097d0222f52627aec4e64081e303348aaf2",
+      "origin": "current/handoffs/EVC-28/evidence/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/legacy-adapter-tests.log",
+      "expected": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "actual": "6c5f6197b91066ce4300abf2764c2ff1cd69b31c763d9037c8fd112cc2905179",
+      "origin": "current/handoffs/EVC-28/evidence/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/QA-16/mcp-protocol.log",
+      "expected": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "actual": "f4347a2899931f977cfef61effa4ccc2c6ac3e13251567a4af2dc275c49fb250",
+      "origin": "current/handoffs/EVC-28/evidence/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-build.log",
+      "expected": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "actual": "a7bc6732943ecab786563beea6c024b6f503d565e476a0b61b11e33d33228650",
+      "origin": "current/handoffs/EVC-28/evidence/5",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/wiki-check.log",
+      "expected": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "actual": "db153d4e64df8a729350f1027aab39e8127797e4f69ab3ef1e99e04a1d57f63f",
+      "origin": "current/handoffs/EVC-28/evidence/6",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/WIK-30/semantic-inspection.log",
+      "expected": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "actual": "a255616f775008cfd717e68ba788be14e9f30a65aa1333efadb3c1db64815147",
+      "origin": "current/handoffs/EVC-28/evidence/7",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/evidence/turn.001.events/000015.json",
+      "expected": "52e5cd2d2e3cd27d551e43e7af9b79419e4e43dfb98bc1b07bf048271e1893c2",
+      "actual": "52e5cd2d2e3cd27d551e43e7af9b79419e4e43dfb98bc1b07bf048271e1893c2",
+      "origin": "current/handoffs/EVC-28/evidence/8",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/evidence/turn.001.events/000016.json",
+      "expected": "1b19117833fe33ba3428bd94667550185cf56bb017c2e601116a92bdc89c3bfc",
+      "actual": "1b19117833fe33ba3428bd94667550185cf56bb017c2e601116a92bdc89c3bfc",
+      "origin": "current/handoffs/EVC-28/evidence/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/evidence/turn.001.events/000017.json",
+      "expected": "82b879421c6f0522b7fb13b48ac8f1405ff8fa5daa10aca00be4680ecfca10ec",
+      "actual": "82b879421c6f0522b7fb13b48ac8f1405ff8fa5daa10aca00be4680ecfca10ec",
+      "origin": "current/handoffs/EVC-28/evidence/10",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/rpc/turn.002/wiki-handoff.log",
+      "expected": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439",
+      "actual": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439",
+      "origin": "current/handoffs/EVC-28/evidence/11",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/rpc/turn.002/collect-phase.log",
+      "expected": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439",
+      "actual": "840ce4bd401b9438bfc038d9fefcf4bee4f838426e355086fdbbfd740e6f2439",
+      "origin": "current/handoffs/EVC-28/evidence/12",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/imported-project.json",
+      "expected": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "actual": "6317c7444690cc7826da08226f3166a4737c452b43e1b7e4c88daf78b7ba2388",
+      "origin": "current/handoffs/EVC-28/evidence/13",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/collect-result.json",
+      "expected": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d",
+      "actual": "35bd514e12c29d46f15f38f647d02b8957c3e150cf6b045c2b9f53507b7dfe0d",
+      "origin": "current/handoffs/EVC-28/tests/0/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/evidence-package.json",
+      "expected": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7",
+      "actual": "7cd8e9a6863c269aa296f9d46be4d9ad94460e2ad3bdcaa53393b48154ed89b7",
+      "origin": "current/handoffs/EVC-28/tests/0/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/initial-verification.log",
+      "expected": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc",
+      "actual": "7d15d9bf59e3646ebd395e506fc9ba058f440a18839bc2944f86aaa46a3a32cc",
+      "origin": "current/handoffs/EVC-28/tests/1/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/initial-inventory.json",
+      "expected": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38",
+      "actual": "c8a14dcf92b87fb75b9419f3cc47fa50dd85db8e711d0ed2e99faa3ed2c7cb38",
+      "origin": "current/handoffs/EVC-28/tests/1/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/verification.log",
+      "expected": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1",
+      "actual": "4d5c18fcd4b8b454becdf0243f3eff7907554f27d0def78359418142098ee5a1",
+      "origin": "current/handoffs/EVC-28/tests/2/evidence/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/work/turn.002/EVC-28/inventory.json",
+      "expected": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e",
+      "actual": "8f3c43d89dee479cab705432ad8eb9c54ee2daa77848ad47de0d23fef892ba4e",
+      "origin": "current/handoffs/EVC-28/tests/2/evidence/1",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_workflow.py",
+      "expected": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "actual": "38f5646eb13930bfd3496d30504834eb72295fc3144bc76dee0e910e3d19512c",
+      "origin": "QA/final-source/0",
+      "matches": true
+    },
+    {
+      "path": "tests/test_agentic_client_setup.py",
+      "expected": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "actual": "98bd93f615e8633cec49bc523ffd318e75cd93f1c83f118ef315b576f209b278",
+      "origin": "QA/final-source/1",
+      "matches": true
+    },
+    {
+      "path": "tools/game_workflow.py",
+      "expected": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "actual": "ff5a8954825792f0fc683884a30ed9bc752d2e63c542d29d686cf034bd78ba78",
+      "origin": "QA/final-source/2",
+      "matches": true
+    },
+    {
+      "path": "tools/manage_project.py",
+      "expected": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "actual": "80a5086de1b47409a70786679271377c5750169aea9070626d3b05b162d118ad",
+      "origin": "QA/final-source/3",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic.py",
+      "expected": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "actual": "ca824e0bd021aa062e94286518d4e8d6167abf1fd1cdd3b0cb9e023382172c3f",
+      "origin": "QA/final-source/4",
+      "matches": true
+    },
+    {
+      "path": "tools/agentic_mcp.py",
+      "expected": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "actual": "42f28eead25aa43b9fe6de0f6dacfb57362e93b8f9c6962ee369ea801febb86d",
+      "origin": "QA/final-source/5",
+      "matches": true
+    },
+    {
+      "path": "tools/check_agentic_mcp.py",
+      "expected": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "actual": "50e4cfe8a80daa5299ab1d9fb2e693333cca4126b487396e18c5b2853610616a",
+      "origin": "QA/final-source/6",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/workflow.py",
+      "expected": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "actual": "0d9a8124928c036c3ecc9c0acb7d566a293c3ff8c352f9066052bf60685dbb3f",
+      "origin": "QA/final-source/7",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/preflight.py",
+      "expected": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "actual": "480bb5f9153feea529b26f544581e6f03e1df37f69621e7992bbec453b02ebc4",
+      "origin": "QA/final-source/8",
+      "matches": true
+    },
+    {
+      "path": "management/harness/runtime/config/game_roles.json",
+      "expected": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "actual": "b6f34e54f8552b37117720551f9849a03ea3fdd676398a5c51341e4ae61de786",
+      "origin": "QA/final-source/9",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/README.md",
+      "expected": "1c0f632ae0cbfc0f30bd732555546d49a2f5f4b47210ea7af2889fb92ec76c15",
+      "actual": "1c0f632ae0cbfc0f30bd732555546d49a2f5f4b47210ea7af2889fb92ec76c15",
+      "origin": "import/exact-record/historical_sources/0",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/docs--12-development-workflow.md",
+      "expected": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+      "actual": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+      "origin": "import/exact-record/historical_sources/1",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/docs--58-software-project-management.md",
+      "expected": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+      "actual": "c5736952939928c8875d2f4c50d6594043b54a3c9787d0ae5ccf5c5b2d9d0e8e",
+      "origin": "import/exact-record/historical_sources/2",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/management--README.md",
+      "expected": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+      "actual": "b3f4203ce41712fef802fbc08f7de41c4857ded477ca8f1ce6facfdd48b7572f",
+      "origin": "import/exact-record/historical_sources/3",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/import-history/management--profile.json",
+      "expected": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+      "actual": "d9fbda3d66f739375050fa7639740a1d23484e37338ec5c669a644cdf7d19b51",
+      "origin": "import/exact-record/historical_sources/4",
+      "matches": true
+    },
+    {
+      "path": "management/agentic/bootstrap/user-authorization.md",
+      "expected": "a2f196b3a540cb98cf99438fbc2274676bf575f11e349281ee33926abd6111c9",
+      "actual": "a2f196b3a540cb98cf99438fbc2274676bf575f11e349281ee33926abd6111c9",
+      "origin": "import/exact-record/authorization_evidence/0",
+      "matches": true
+    }
+  ],
+  "historical_reading_attestation_differences": [
+    {
+      "path": "source_material/game-wiki/content/status.md",
+      "old": "07fe2f50c06938088b3dd9e246a465dbc5b98ee8f7019c969fba05a1e607c53c",
+      "current": "7d422f11e463d7fc99726a2d765296d0b5a5cc9fd115bd04982050b901990325",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/content/development.md",
+      "old": "20d25feb93a6fc43d6f45c01ce02b7cefda47cc7d5fd91f4573ad9f0ee6e62cd",
+      "current": "ea1bee01690904b1abd947e919a99efc7cf025295b1a1b1f5a1f44e996aa7171",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/content/engine.md",
+      "old": "0917c2bc9058e47e30ac89d98cec09a75cd35f9124e2cb28751e1c472c2ee2cf",
+      "current": "4fe2461df7a31210e17d4f5d299b0acd8e058e15fcf92a717c331c2690f60c5b",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "source_material/game-wiki/README.md",
+      "old": "32d83acb445166ea3c68005b74f1f4a8e14e784943da84f1397ddfe781e85978",
+      "current": "daaa14e2a6579f99ff5638ff64119364e106c0850d30195e77b1aa3c9df6497a",
+      "kind": "wiki_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "AGENTS.md",
+      "old": "810ba90e77cc5cc72f685bdb0f9fce2c1bf72e1ae7131f5ee0f0c8a40aed547e",
+      "current": "c9588d66648a5e955e325f309da2547315e72d869e0c7ffb0849267cad2da28f",
+      "kind": "docs_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "old": "b2ae647459fab976b1a7fcc532ee77d361008e8cc7a00ecdba2c221adddb45d6",
+      "current": "8cb53fbdc02979e08e8eb71ec41a92e50b7238499438d5721098756e1cb2617a",
+      "kind": "docs_read",
+      "recorded_at": "2026-11-11T10:29:49.172201+00:00"
+    }
+  ],
+  "managed_checks": [
+    "tests",
+    "docs",
+    "wiki-build",
+    "wiki-check"
+  ],
+  "unchanged_declared_inputs": 39,
+  "git_import_comparisons": [
+    {
+      "path": "management/agentic/bootstrap/import-history/README.md",
+      "kind": "local provenance note; hashed separately"
+    },
+    {
+      "path": "docs/12-development-workflow.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "docs/58-software-project-management.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "management/README.md",
+      "matches_commit": "2a86ca5"
+    },
+    {
+      "path": "management/profile.json",
+      "matches_commit": "2a86ca5"
+    }
+  ],
+  "exact_import_hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1",
+  "prior_turn": {
+    "state": "INTERRUPTED",
+    "failures": {
+      "SWE-13": {
+        "agent_id": "SWE-13",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      },
+      "QA-16": {
+        "agent_id": "QA-16",
+        "reason": "Actual host worker aborted due to quota before a complete handoff; saved partial files and findings remain provisional."
+      }
+    }
+  },
+  "preflight": {
+    "setup_complete": false,
+    "question_round_complete": false,
+    "initial_research_complete": false,
+    "baseline_complete": false,
+    "questions": [],
+    "unanswered_questions": [],
+    "blocking_questions": [],
+    "research_requests": [],
+    "pending_research": [],
+    "open_ia_cases": [],
+    "next_kind": "setup",
+    "production_allowed": false,
+    "imported_history_accepted": false,
+    "import_basis": {
+      "path": "management/agentic/imported-project.json",
+      "hash": "cf12434737bb7519349565abfe1d415aee97dda8cbf3fc71af22394b79b3a9b1",
+      "status": "IMPORTED_HISTORY_NOT_NEW_QUALIFICATION"
+    }
+  },
+  "tracked_changed_paths_count": 2267,
+  "native_source_asset_canon_ci_tracked_changes": [],
+  "limitations": [
+    "This verifies actual records, hashes and dependency order; external host spawn authenticity is not cryptographically established.",
+    "No live Codex workflow tool has been observed; actual local MCP protocol results remain separate.",
+    "Focused read-only verification does not qualify gameplay or override the independently reproduced wrapper failure."
+  ]
+}

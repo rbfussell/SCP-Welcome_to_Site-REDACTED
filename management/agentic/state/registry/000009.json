@@ -1,0 +1,661 @@
+{
+  "schema_version": 1,
+  "revision": 9,
+  "previous_hash": "33c575a98770e1dad000aa2bb534e7c602fae7c11cfdb46f9dbb1fb4cbc6e4d9",
+  "reason": "Register catalog role DEM-08 for this project",
+  "timestamp": "2026-11-11T10:18:37.526855+00:00",
+  "agents": [
+    {
+      "agent_id": "ENG-00",
+      "name": "Project Coordinator",
+      "description": "Project Coordinator: Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Scope assessment",
+        "Agent selection and individual rationales",
+        "Exact task prompts",
+        "Dependency order",
+        "Readiness decisions",
+        "Outstanding corrective assignments"
+      ],
+      "jurisdiction": "Interpret the request, define acceptance criteria, select registered roles, assign work and resolve interfaces.",
+      "prohibited_actions": [
+        "Do not substitute for specialist implementation",
+        "Do not remove adverse evidence",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": true,
+      "required_when": [],
+      "phase": "coordinator",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": true
+    },
+    {
+      "agent_id": "SHO-12",
+      "name": "Vince Offer",
+      "description": "Vince Offer: Create an engaging, truthful milestone presentation brief and request specialist media deliverables. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Milestone story",
+        "Visual script",
+        "Presentation outline",
+        "Demonstration brief",
+        "Audience framing",
+        "Media requests",
+        "Accurate disclosure of progress, failure and uncertainty"
+      ],
+      "jurisdiction": "Create an engaging, truthful milestone presentation brief and request specialist media deliverables.",
+      "prohibited_actions": [
+        "Do not fabricate achievements",
+        "Do not produce specialist art, audio, editing or CAD",
+        "Do not buy media services",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": true,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "EVC-28",
+      "name": "Evidence Collector and Organizer",
+      "description": "Evidence Collector and Organizer: independently inventory runtime evidence, invocation and handoff completeness, hashes, failures and source provenance before Internal Affairs. Collect provisional records without changing specialist conclusions or publishing canonical documentation.",
+      "use_cases": [
+        "Invocation and handoff inventory",
+        "Missing-output report",
+        "File hash verification",
+        "Test-log indexing",
+        "Source receipt indexing",
+        "Failed and blocked work preservation",
+        "Completeness package for IA"
+      ],
+      "jurisdiction": "Assemble and inspect the complete provisional evidence package after specialists and before Internal Affairs.",
+      "prohibited_actions": [
+        "Do not repair specialist outputs",
+        "Do not decide IA acceptance",
+        "Do not publish the canonical wiki",
+        "Do not discard adverse evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow",
+        "read_evidence"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": true,
+      "required_when": [],
+      "phase": "collection",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": true
+    },
+    {
+      "agent_id": "IA-11",
+      "name": "Internal Affairs",
+      "description": "Internal Affairs: Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Adversarial review",
+        "Reproducibility inspection",
+        "Source and numerical checks",
+        "Formal findings",
+        "Acceptance disposition",
+        "Next-turn corrective assignments"
+      ],
+      "jurisdiction": "Independently audit scope, invocation records, evidence, tests, exclusions and unsupported claims.",
+      "prohibited_actions": [
+        "Do not repair reviewed work",
+        "Do not delete findings",
+        "Do not review your own specialist output",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow",
+        "read_evidence"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": true,
+      "required_when": [],
+      "phase": "audit",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": true
+    },
+    {
+      "agent_id": "DOC-10",
+      "name": "Document Chief",
+      "description": "Document Chief: Commit the final turn and entity revisions to the canonical JSON wiki after independent review. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Evidence ingestion",
+        "Provenance checks",
+        "Immutable revisions",
+        "Failed turn records",
+        "Decision history",
+        "Corrective-action history",
+        "Baseline publication"
+      ],
+      "jurisdiction": "Commit the final turn and entity revisions to the canonical JSON wiki after independent review.",
+      "prohibited_actions": [
+        "Do not execute before IA",
+        "Do not rewrite history",
+        "Do not alter conclusions",
+        "Do not run another agent after publication",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow",
+        "wiki"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": true,
+      "required_when": [],
+      "phase": "documentation",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": true
+    },
+    {
+      "agent_id": "KRA-14",
+      "name": "Krampus Architectural Pre-Processor",
+      "description": "Krampus Architectural Pre-Processor: Resolve architectural ambiguity and draft precise baseline specifications without production implementation. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Readiness architecture review",
+        "One to five targeted boundary questions",
+        "README candidate",
+        "Technical description candidate",
+        "State tables",
+        "Interface schemas",
+        "Failure recovery",
+        "Single-file verification artifact requests",
+        "Independent ambiguity survey without an arbitrary question-count cap",
+        "Post-research baseline drafting"
+      ],
+      "jurisdiction": "Resolve architectural ambiguity and draft precise baseline specifications without production implementation.",
+      "prohibited_actions": [
+        "Do not write production code",
+        "Do not guess critical architecture",
+        "Do not publish canonical documentation mid-turn",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "workflow",
+        "read_evidence"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [
+        "preflight",
+        "architecture_change"
+      ],
+      "phase": "specialist",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "SWE-13",
+      "name": "Software Engineer",
+      "description": "Software Engineer: Implement application logic, APIs, command-line programs and automation within the assigned software boundary. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Python utilities",
+        "Application backends",
+        "Non-embedded applications",
+        "Data structures",
+        "Agent orchestration code",
+        "Build tooling",
+        "Software packaging",
+        "Automated software tests"
+      ],
+      "jurisdiction": "Implement application logic, APIs, command-line programs and automation within the assigned software boundary.",
+      "prohibited_actions": [
+        "Do not design circuits or mechanical geometry",
+        "Do not perform visual design or film editing",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "python",
+        "git",
+        "software_tools"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "software"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "QA-16",
+      "name": "Test Engineer",
+      "description": "Test Engineer: Create independent acceptance tests for the assigned product or subsystem. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Test matrices",
+        "Integration tests",
+        "Failure injection",
+        "Regression checks",
+        "Usability acceptance",
+        "Measured test evidence"
+      ],
+      "jurisdiction": "Create independent acceptance tests for the assigned product or subsystem.",
+      "prohibited_actions": [
+        "Do not silently change acceptance limits",
+        "Do not mark unexecuted tests passed",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "testing",
+        "python"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "OPS-17",
+      "name": "Build and Delivery Engineer",
+      "description": "Build and Delivery Engineer: Implement authorized build, packaging and operational delivery procedures. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Reproducible builds",
+        "Release archives",
+        "CI",
+        "Runtime configuration",
+        "Rollback procedures",
+        "Installation verification"
+      ],
+      "jurisdiction": "Implement authorized build, packaging and operational delivery procedures.",
+      "prohibited_actions": [
+        "Do not deploy or publish without authorization",
+        "Do not change product requirements",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "git",
+        "software_tools",
+        "containers"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "software"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "SEC-18",
+      "name": "Security Reviewer",
+      "description": "Security Reviewer: Review the assigned security and privacy boundaries and substantiate findings. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Threat modeling",
+        "Permission review",
+        "Secrets review",
+        "Dependency risk",
+        "Adversarial test plans"
+      ],
+      "jurisdiction": "Review the assigned security and privacy boundaries and substantiate findings.",
+      "prohibited_actions": [
+        "Do not broaden authorized testing targets",
+        "Do not substitute for IA disposition",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "research",
+        "testing"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "software",
+        "hardware"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "RES-09",
+      "name": "Researcher",
+      "description": "Researcher: Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "RESEARCH_REQUIRED screening",
+        "RESEARCH_NOT_REQUIRED screening",
+        "RESEARCH_BLOCKED screening",
+        "Prior art",
+        "Source comparison",
+        "Technical specifications",
+        "Creative references",
+        "Licensing and provenance research",
+        "Open-web product research",
+        "Materials and options comparison",
+        "Following-turn responses to blocked specialist requests"
+      ],
+      "jurisdiction": "Screen unfamiliar claims and requirements, retrieve authoritative sources and report applicability and uncertainty.",
+      "prohibited_actions": [
+        "Do not approve design decisions",
+        "Do not imply browsing occurred without source evidence",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "research"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [
+        "initial_product_research",
+        "queued_research_request",
+        "unresearched_change"
+      ],
+      "phase": "research",
+      "domains": [
+        "general"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "MED-07",
+      "name": "Illustration and Graphic Design Specialist",
+      "description": "Illustration and Graphic Design Specialist: Create approved two-dimensional visual assets and compositions. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Concept images",
+        "Illustrations",
+        "Brand assets",
+        "Presentation graphics",
+        "Compositing",
+        "Technical visuals from supplied geometry"
+      ],
+      "jurisdiction": "Create approved two-dimensional visual assets and compositions.",
+      "prohibited_actions": [
+        "Do not create or revise dimensioned CAD",
+        "Do not edit film or record audio",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "image_generation",
+        "image_editing"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "media"
+      ],
+      "mandatory_run": false
+    },
+    {
+      "agent_id": "DEM-08",
+      "name": "Animation and Digital Demonstration Specialist",
+      "description": "Animation and Digital Demonstration Specialist: Animate approved assets and demonstrate approved mechanisms or behavior. This role produces only the deliverables within this jurisdiction. It requests work from the responsible owner when another discipline is needed.",
+      "use_cases": [
+        "Motion visualization",
+        "Virtual demonstrations",
+        "Cutaways",
+        "Assembly animations",
+        "Interactive demonstrations",
+        "Educational models"
+      ],
+      "jurisdiction": "Animate approved assets and demonstrate approved mechanisms or behavior.",
+      "prohibited_actions": [
+        "Do not independently redesign CAD",
+        "Label illustrative motion and unvalidated behavior",
+        "Do not substitute for artistic asset or audio owners",
+        "Do not change another role's owned artifacts",
+        "Do not represent assumptions or generated media as verified evidence"
+      ],
+      "inputs": [
+        "Recorded assignment and exact prompt",
+        "Requirements, sources and prior findings",
+        "Approved upstream handoffs"
+      ],
+      "outputs": [
+        "Structured handoff",
+        "Owned artifacts with evidence references"
+      ],
+      "tools": [
+        "blender",
+        "animation"
+      ],
+      "handoff_requirements": [
+        "Assigned scope",
+        "Work performed",
+        "Artifact hashes",
+        "Actual test evidence or NOT_RUN reason",
+        "Limitations and status"
+      ],
+      "registration_revision": 1,
+      "mandatory": false,
+      "required_when": [],
+      "phase": "specialist",
+      "domains": [
+        "media",
+        "hardware"
+      ],
+      "mandatory_run": false
+    }
+  ],
+  "hash": "c3007cebf7ef646b57432fbe2d805db132878494c3e2c3a0db84a3aa912b7534"
+}
